@@ -43,6 +43,12 @@
 	return [[titleNode objectValue] intValue];	
 }
 
+- (BOOL) highlight {
+	NSXMLNode *titleNode = [xmlNode attributeForName:@"highlight"];
+	
+	return [[titleNode objectValue] boolValue];
+}
+
 -(NSString *) description {
 	return [NSString stringWithFormat:@"%d - %@", self.presentationId, self.title];
 }

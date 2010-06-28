@@ -30,4 +30,10 @@
 	return [NSString stringWithFormat:@"%@", self.data.title];
 }
 
+- (void) dealloc {
+	[data release];
+	[super dealloc];
+}
+
+
 @end
