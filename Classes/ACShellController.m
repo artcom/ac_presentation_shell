@@ -8,21 +8,40 @@
 
 #import "ACShellController.h"
 #import "Presentation.h"
+#import "PresentationContext.h"
 
 @implementation ACShellController
 @synthesize presentations;
 
 - (id) init {
 	self = [super init];
-	if (self != nil) {
-		self.presentations = [NSMutableArray arrayWithObjects:
-							  [Presentation presentationWithId:0],
-							  [Presentation presentationWithId:1],
-							  [Presentation presentationWithId:2], nil];
+	if (self != nil) {		
+		PresentationContext *context = [[PresentationContext alloc] init];
+		
+		self.presentations = [context allPresentations];
 	}
 	
 	return self;
 }
+
+- (void) dealloc {
+	[presentations release];
+	[super dealloc];
+}
+
+
+- (IBAction)play: (id)sender; {
+	NSLog(@"selected: %@", [self selectedPresentations]);
+}
+
+
+- (NSArray *)selectedPresentations {
+	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES"];
+	
+	return [self.presentations filteredArrayUsingPredicate:selected];
+}
+
+
 
 
 @end

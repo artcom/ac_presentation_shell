@@ -7,16 +7,20 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class PresentationData;
 
 
 @interface Presentation : NSObject {
 	BOOL selected;
 	NSInteger presentationId;
+	
+	PresentationData *data;
 }
 
 @property (assign) BOOL selected;
 @property (assign) NSInteger presentationId;
+@property (retain) PresentationData *data; 
 
-+ (Presentation *)presentationWithId: (NSInteger)aPresentationId;
+- (id) initWithData: (PresentationData *)theData;
 
 @end

@@ -7,18 +7,27 @@
 //
 
 #import "Presentation.h"
+#import "PresentationData.h"
 
 
 @implementation Presentation
 
 @synthesize selected;
 @synthesize presentationId;
+@synthesize data;
 
-+ (Presentation *)presentationWithId: (NSInteger)aPresentationId {
-	Presentation *presenation = [[Presentation alloc] init];
-	presenation.presentationId = aPresentationId;
+- (id) initWithData: (PresentationData *)theData {
+	self = [super init];
+	if (self != nil) {
+		self.selected = YES;
+		self.data = theData;
+	}
 	
-	return [presenation autorelease];
+	return self;
+}
+
+-(NSString *) description {
+	return [NSString stringWithFormat:@"%@", self.data.title];
 }
 
 @end

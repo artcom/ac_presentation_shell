@@ -10,9 +10,12 @@
 
 
 @interface ACShellController : NSObject {
-	NSMutableArray *presentations;
+	NSArray *presentations;
 }
 
-@property (retain, nonatomic) NSMutableArray *presentations;
+@property (retain, nonatomic) NSArray *presentations;
+
+- (IBAction)play: (id)sender;
+- (NSArray *)selectedPresentations;
 
 @end

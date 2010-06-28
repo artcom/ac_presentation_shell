@@ -1,0 +1,37 @@
+<presentations>
+	<presentation highlight="true" id="1">
+		<title>eins</title>
+		<file type="keynote">foo/foo.key</file>
+		<thumbnail>foo/foo.png</thumbnail>
+	</presentation>
+	<presentation highlight="true" id="2">
+		<title>zwei</title>
+		<file type="keynote">foo/foo.key</file>
+		<thumbnail>foo/foo.png</thumbnail>
+	</presentation>
+	<presentation highlight="true" id="3">
+		<title>drei</title>
+		<file type="keynote">foo/foo.key</file>
+		<thumbnail>foo/foo.png</thumbnail>
+	</presentation>
+	<presentation highlight="true" id="4">
+		<title>vier</title>
+		<file type="keynote">foo/foo.key</file>
+		<thumbnail>foo/foo.png</thumbnail>
+	</presentation>
+	<presentation highlight="true" id="5">
+		<title>fünf</title>
+		<file type="keynote">foo/foo.key</file>
+		<thumbnail>foo/foo.png</thumbnail>
+	</presentation>
+	<presentation highlight="true" id="6">
+		<title>sechs</title>
+		<file type="keynote">foo/foo.key</file>
+		<thumbnail>foo/foo.png</thumbnail>
+	</presentation>
+	<presentation highlight="true" id="7">
+		<title>sieben</title>
+		<file type="keynote">foo/foo.key</file>
+		<thumbnail>foo/foo.png</thumbnail>
+	</presentation>
+</presentations>
