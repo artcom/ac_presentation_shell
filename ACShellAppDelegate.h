@@ -7,13 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class PresentationSelectorViewController;
 
 @interface ACShellAppDelegate : NSObject <NSApplicationDelegate> {
     NSWindow *window;
 	NSView *mainView;
-	
-	PresentationSelectorViewController *presentationSelectorViewController;
 }
 
 @property (assign) IBOutlet NSWindow *window;
