@@ -7,9 +7,12 @@
 //
 
 #import "PresentationWindowController.h"
+#import "Presentation.h";
 
 
 @implementation PresentationWindowController
+
+@synthesize presentations;
 
 - (id) init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
@@ -18,7 +21,6 @@
 	}
 	return self;
 }
-
 
 -(void) awakeFromNib {
 	NSLog(@"%@", self.window);
@@ -38,6 +40,23 @@
 	@catch(NSException * exception) {
 		NSLog(@"Error.  Make sure you have a valid combination of options.");
 	}
+}
+
+-(NSInteger) numberOfItemsInGridView:(GridView *)aGridView {
+	return [self.presentations count];
+}
+
+-(CALayer *) gridView:(GridView *)aGridView layerForItemAtIndex:(NSInteger)index {
+	
+	Presentation *presentation = [self.presentations objectAtIndex:index];
+	NSImage *image = presentation.thumbnail;
+	
+	NSLog(@"getting image: %@", image);
+	CALayer *firstLayer = [CALayer layer];
+	firstLayer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+	firstLayer.contents = image;
+	
+	return firstLayer;
 }
 
 @end

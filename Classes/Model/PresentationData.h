@@ -16,7 +16,7 @@
 @property (readonly) NSInteger presentationId;
 @property (readonly) NSString *title;
 @property (readonly) BOOL highlight;
-//@property (readonly) NSString *thumbnailPath;
+@property (readonly) NSString *thumbnailPath;
 //@property (readonly) NSString *filetype;
 //@property (readonly) NSString *presentationPath;
 

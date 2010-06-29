@@ -9,19 +9,22 @@
 #import "PresentationContext.h"
 #import "PresentationData.h"
 #import "Presentation.h"
-
+#import "NSFileManager-DirectoryHelper.h"
 
 @implementation PresentationContext
+@synthesize directory;
 
 - (id)init {
 	self = [super init];
 	if (self != nil) {
 		presentations = [[NSMutableDictionary alloc] init];
-		
-		NSURL *xmlURL = [[NSBundle mainBundle] URLForResource:@"demo_library" withExtension:@"xml"];
+
+		self.directory = [[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain];
+		NSString *libraryPath = [self.directory stringByAppendingPathComponent:@"library.xml"];
+		#pragma mark TODO: check if file exists and offer option or hint for first sync.
 		
 		NSError *error = nil;
-		NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:xmlURL options:0 error:&error];
+		NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
 		NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
 
 		for (NSXMLElement *presentation in xmlPresentations) {
@@ -36,6 +39,7 @@
 }
 
 - (void) dealloc {
+	[directory release];
 	[presentations release];
 	[super dealloc];
 }
@@ -43,7 +47,7 @@
 - (NSArray *)allPresentations {
 	NSMutableArray *allPresentations = [NSMutableArray array];
 	for (PresentationData *data in [presentations allValues]) {
-		Presentation *presentation = [[[Presentation alloc] initWithData:data] autorelease];
+		Presentation *presentation = [[[Presentation alloc] initWithId: data.presentationId inContext:self] autorelease];
 		[allPresentations addObject:presentation];
 	}
 	

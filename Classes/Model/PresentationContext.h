@@ -12,7 +12,11 @@
 
 @interface PresentationContext : NSObject {
 	NSMutableDictionary *presentations;
+	
+	NSString *directory;
 }
+
+@property (copy) NSString *directory;
 
 - (NSArray *)allPresentations;
 - (PresentationData *)presentationDataWithId: (NSInteger)aId;

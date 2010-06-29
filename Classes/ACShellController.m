@@ -18,8 +18,11 @@
 	self = [super init];
 	if (self != nil) {		
 		PresentationContext *context = [[PresentationContext alloc] init];
-		
 		self.presentations = [context allPresentations];
+		[context release];
+		
+		presentationWindowController = [[PresentationWindowController alloc] init];
+
 	}
 	
 	return self;
@@ -27,12 +30,14 @@
 
 - (void) dealloc {
 	[presentations release];
+	[presentationWindowController release];
+
 	[super dealloc];
 }
 
 
-- (IBAction)play: (id)sender; {	
-	PresentationWindowController *presentationWindowController = [[PresentationWindowController alloc] init];
+- (IBAction)play: (id)sender {	
+	presentationWindowController.presentations = [self selectedPresentations];
 	[presentationWindowController showWindow:nil];
 }
 

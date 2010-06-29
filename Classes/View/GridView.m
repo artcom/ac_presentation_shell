@@ -4,20 +4,13 @@
 //
 //  Created by Robert Palmer on 29.06.10.
 //  Copyright 2010 Art+Com AG. All rights reserved.
-//
 
 #import "GridView.h"
 
 
 @implementation GridView
 
-- (id)initWithFrame:(NSRect)frame {
-    self = [super initWithFrame:frame];
-    if (self) {
-	
-	}
-    return self;
-}
+@synthesize dataSource;
 
 - (void)awakeFromNib {
 	CALayer *rootLayer=[CALayer layer];
@@ -42,18 +35,17 @@
 }
 
 - (void)arrangeSublayer {
-	CGColorRef blackColor=CGColorCreateGenericRGB(0.0, 0.0, 0.0, 1.0);
 
-	NSImage *image = [NSImage imageNamed:@"demo_image.jpg"];
+	NSInteger items = [dataSource numberOfItemsInGridView:self]; 
+	for (int i = 0; i < items; i++) {
+		CALayer *layer = [dataSource gridView:self layerForItemAtIndex:i];
+		layer.position = CGPointMake(150, 150*i);
+		
+		[self.layer addSublayer:layer];		
+	}
 	
-	CALayer *firstLayer = [CALayer layer];
-	firstLayer.backgroundColor = blackColor;
-	firstLayer.frame = CGRectMake(100, 100, image.size.width, image.size.height);
-	firstLayer.contents = image;
 
-	[self.layer addSublayer:firstLayer];
 	
-	CGColorRelease(blackColor);
 }
 
 @end

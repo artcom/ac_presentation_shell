@@ -7,15 +7,18 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class PresentationWindowController;
 
 
 @interface ACShellController : NSObject {
 	NSArray *presentations;
+	PresentationWindowController *presentationWindowController;
 }
 
 @property (retain, nonatomic) NSArray *presentations;
 
 - (IBAction)play: (id)sender;
 - (NSArray *)selectedPresentations;
+
 
 @end

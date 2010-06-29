@@ -7,10 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "Presentation.h"
+#import "GridViewDataSource.h"
 
-
-@interface PresentationWindowController : NSWindowController {
-
+@interface PresentationWindowController : NSWindowController <GridViewDataSource> {
+	NSArray *presentations;
 }
+
+@property (retain) NSArray *presentations;
+
 
 @end

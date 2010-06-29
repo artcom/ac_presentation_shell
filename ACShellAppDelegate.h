@@ -16,8 +16,4 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSView *mainView;
 
-- (NSString *)findSystemFolderType:(int)folderType forDomain:(int)domain;
-- (NSString *)applicationSupportDirectoryInUserDomain;
-
-
 @end

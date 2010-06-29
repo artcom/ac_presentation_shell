@@ -8,19 +8,22 @@
 
 #import "Presentation.h"
 #import "PresentationData.h"
+#import "PresentationContext.h"
 
 
 @implementation Presentation
 
 @synthesize selected;
 @synthesize presentationId;
+@synthesize context;
 @synthesize data;
 
-- (id) initWithData: (PresentationData *)theData {
+- (id)initWithId:(NSInteger)theId inContext: (PresentationContext *)theContext; {
 	self = [super init];
 	if (self != nil) {
 		self.selected = YES;
-		self.data = theData;
+		self.context = theContext;
+		self.presentationId = theId;
 	}
 	
 	return self;
@@ -30,8 +33,24 @@
 	return [NSString stringWithFormat:@"%@", self.data.title];
 }
 
+- (PresentationData *)data {
+	if (data == nil) {
+		self.data = [context presentationDataWithId:self.presentationId];
+	}
+	
+	return data;
+}
+
+- (NSImage *)thumbnail {
+	NSString *filepath = [context.directory stringByAppendingPathComponent:self.data.thumbnailPath];
+	NSLog(@"filepath: %@", filepath);
+	
+	return [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
+}
+
 - (void) dealloc {
 	[data release];
+	[context release];
 	[super dealloc];
 }
 

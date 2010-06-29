@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 @class PresentationData;
+@class PresentationContext;
 
 
 @interface Presentation : NSObject {
@@ -15,12 +16,16 @@
 	NSInteger presentationId;
 	
 	PresentationData *data;
+	PresentationContext *context;
 }
 
 @property (assign) BOOL selected;
 @property (assign) NSInteger presentationId;
+@property (retain) PresentationContext *context;
 @property (retain) PresentationData *data; 
 
-- (id) initWithData: (PresentationData *)theData;
+
+- (id) initWithId:(NSInteger)theId inContext: (PresentationContext *)theContext;
+- (NSImage *)thumbnail;
 
 @end

@@ -8,9 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
+#import "GridViewDataSource.h"
 
 @interface GridView : NSView {
+	id <GridViewDataSource> dataSource;
 }
+
+@property (assign, nonatomic) id <GridViewDataSource> dataSource;
 
 - (void)arrangeSublayer;
 

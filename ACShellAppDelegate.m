@@ -7,6 +7,7 @@
 //
 
 #import "ACShellAppDelegate.h"
+#import "NSFileManager-DirectoryHelper.h"
 
 @implementation ACShellAppDelegate
 
@@ -14,40 +15,7 @@
 @synthesize mainView;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	NSLog(@"application support: %@", [self applicationSupportDirectoryInUserDomain]);
+	NSLog(@"application support: %@", [[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]);
 }
-
-- (NSString *)applicationSupportDirectoryInUserDomain {
-	NSString *applicationSupportFolder = [self findSystemFolderType:kApplicationSupportFolderType forDomain:kUserDomain];
-	NSString *myApplicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"AC Shell"];
-	
-	if (![[NSFileManager defaultManager] fileExistsAtPath:myApplicationSupportFolder]) {
-		NSError *error = nil;
-		[[NSFileManager defaultManager] createDirectoryAtPath:myApplicationSupportFolder withIntermediateDirectories:NO attributes:nil error:&error];
-		
-		if (error != nil) {
-			NSLog(@"error: %@", error);
-		}
-		
-	}
-	
-	return myApplicationSupportFolder;
-}
-
-- (NSString *)findSystemFolderType:(int)folderType forDomain:(int)domain {
-    FSRef folder;
-    OSErr err = noErr;
-    CFURLRef url;
-    NSString *result = nil;
-	
-    err = FSFindFolder(domain, folderType, false, &folder);
-    if (err == noErr) {
-        url = CFURLCreateFromFSRef(kCFAllocatorDefault, &folder);
-        result = [(NSURL *)url path];
-    }
-	
-    return result;
-}
-
 
 @end

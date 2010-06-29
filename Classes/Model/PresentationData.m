@@ -30,7 +30,7 @@
 -(NSString *) title {
 	NSArray *titleNodes = [xmlNode nodesForXPath:@"title" error:nil];
 	if ([titleNodes count] != 1) {
-		[NSException raise:@"No Title attribute found in xml file" format:@""];
+		[NSException raise:@"No title attribute found in xml file" format:@""];
 	} 
 	 
 	return [[titleNodes objectAtIndex: 0] stringValue];	
@@ -43,13 +43,22 @@
 	return [[titleNode objectValue] intValue];	
 }
 
-- (BOOL) highlight {
+- (BOOL)highlight {
 	NSXMLNode *titleNode = [xmlNode attributeForName:@"highlight"];
 	
 	return [[titleNode objectValue] boolValue];
 }
 
--(NSString *) description {
+-(NSString *)thumbnailPath {
+	NSArray *thumbnailNodes = [xmlNode nodesForXPath:@"thumbnail" error:nil];
+	if ([thumbnailNodes count] != 1) {
+		[NSException raise:@"No thumbnail attribute found in xml file" format:@""];
+	} 
+	
+	return [[thumbnailNodes objectAtIndex: 0] stringValue];	
+}
+
+-(NSString *)description {
 	return [NSString stringWithFormat:@"%d - %@", self.presentationId, self.title];
 }
 
