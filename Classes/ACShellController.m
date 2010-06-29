@@ -9,6 +9,7 @@
 #import "ACShellController.h"
 #import "Presentation.h"
 #import "PresentationContext.h"
+#import "PresentationWindowController.h"
 
 @implementation ACShellController
 @synthesize presentations;
@@ -30,14 +31,14 @@
 }
 
 
-- (IBAction)play: (id)sender; {
-	NSLog(@"selected: %@", [self selectedPresentations]);
+- (IBAction)play: (id)sender; {	
+	PresentationWindowController *presentationWindowController = [[PresentationWindowController alloc] init];
+	[presentationWindowController showWindow:nil];
 }
 
 
 - (NSArray *)selectedPresentations {
 	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES"];
-	
 	return [self.presentations filteredArrayUsingPredicate:selected];
 }
 
