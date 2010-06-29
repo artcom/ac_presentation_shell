@@ -9,8 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "Presentation.h"
 #import "GridViewDataSource.h"
+#import "GridViewDelegate.h"
 
-@interface PresentationWindowController : NSWindowController <GridViewDataSource> {
+@interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate> {
 	NSArray *presentations;
 }
 

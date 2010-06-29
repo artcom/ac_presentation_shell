@@ -7,7 +7,8 @@
 //
 
 #import "PresentationWindowController.h"
-#import "Presentation.h";
+#import "Presentation.h"
+#import "PresentationData.h"
 
 
 @implementation PresentationWindowController
@@ -32,6 +33,8 @@
 	[self.window setFrame:[NSScreen mainScreen].frame display:YES animate: YES];
 	[self.window makeKeyAndOrderFront:nil];
 	
+	
+	
 	@try {
 		NSApplicationPresentationOptions options = NSApplicationPresentationHideDock + NSApplicationPresentationHideMenuBar;
 		[NSApp setPresentationOptions:options];
@@ -42,6 +45,9 @@
 	}
 }
 
+
+#pragma mark -
+#pragma mark GridView DataSource
 -(NSInteger) numberOfItemsInGridView:(GridView *)aGridView {
 	return [self.presentations count];
 }
@@ -51,12 +57,19 @@
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	NSImage *image = presentation.thumbnail;
 	
-	NSLog(@"getting image: %@", image);
 	CALayer *firstLayer = [CALayer layer];
 	firstLayer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
 	firstLayer.contents = image;
 	
 	return firstLayer;
 }
+
+#pragma mark -
+#pragma mark GridView Delegate
+-(void) gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
+	Presentation *presentation = [self.presentations objectAtIndex:index];
+	NSLog(@"cliecked: %@", presentation.data.title);
+}
+
 
 @end

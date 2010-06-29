@@ -20,5 +20,4 @@
 - (IBAction)play: (id)sender;
 - (NSArray *)selectedPresentations;
 
-
 @end

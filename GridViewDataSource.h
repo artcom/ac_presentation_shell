@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 @class GridView;
 
-@protocol GridViewDataSource
+@protocol GridViewDataSource <NSObject>
 
 - (NSInteger)numberOfItemsInGridView: (GridView *)aGridView;
 - (CALayer *)gridView: (GridView *)aGridView layerForItemAtIndex: (NSInteger)index;

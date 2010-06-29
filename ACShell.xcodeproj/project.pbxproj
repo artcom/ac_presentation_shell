@@ -12,6 +12,7 @@
 		22B2002711D9F33900C6D9ED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
 		22B2007111D9FD9A00C6D9ED /* demo_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22B2007011D9FD9A00C6D9ED /* demo_image.jpg */; };
 		22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */; };
+		22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2019811DA365B00C6D9ED /* GridLayout.m */; };
 		22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F76511D8AFF90030AFBD /* ACShellController.m */; };
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
 		22D2F7AB11D8BC490030AFBD /* demo_library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 22D2F7AA11D8BC490030AFBD /* demo_library.xml */; };
@@ -38,6 +39,9 @@
 		22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager-DirectoryHelper.h"; sourceTree = "<group>"; };
 		22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager-DirectoryHelper.m"; sourceTree = "<group>"; };
 		22B2011E11DA28A100C6D9ED /* GridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewDataSource.h; sourceTree = "<group>"; };
+		22B2019711DA365B00C6D9ED /* GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridLayout.h; path = Classes/View/GridLayout.h; sourceTree = "<group>"; };
+		22B2019811DA365B00C6D9ED /* GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridLayout.m; path = Classes/View/GridLayout.m; sourceTree = "<group>"; };
+		22B2027711DA53C900C6D9ED /* GridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewDelegate.h; sourceTree = "<group>"; };
 		22D2F76411D8AFF90030AFBD /* ACShellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACShellController.h; path = Classes/ACShellController.h; sourceTree = "<group>"; };
 		22D2F76511D8AFF90030AFBD /* ACShellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellController.m; path = Classes/ACShellController.m; sourceTree = "<group>"; };
 		22D2F77211D8B5E10030AFBD /* Presentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Presentation.h; path = Classes/Model/Presentation.h; sourceTree = "<group>"; };
@@ -126,6 +130,9 @@
 				22B2000B11D9EECE00C6D9ED /* GridView.h */,
 				22B2000C11D9EECE00C6D9ED /* GridView.m */,
 				22B2011E11DA28A100C6D9ED /* GridViewDataSource.h */,
+				22B2027711DA53C900C6D9ED /* GridViewDelegate.h */,
+				22B2019711DA365B00C6D9ED /* GridLayout.h */,
+				22B2019811DA365B00C6D9ED /* GridLayout.m */,
 			);
 			name = GridView;
 			sourceTree = "<group>";
@@ -266,6 +273,7 @@
 				22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */,
 				22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */,
 				22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */,
+				22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
