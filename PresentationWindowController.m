@@ -68,7 +68,9 @@
 #pragma mark GridView Delegate
 -(void) gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
-	NSLog(@"cliecked: %@", presentation.data.title);
+	NSLog(@"opening: %@", presentation.presentationFile);
+	NSURL *url = [NSURL fileURLWithPath: presentation.presentationFile];
+	[[NSWorkspace sharedWorkspace] openURL: url];
 }
 
 

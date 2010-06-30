@@ -21,13 +21,13 @@
 	return self;
 }
 
--(void) dealloc {
+- (void) dealloc {
 	[xmlNode release];
 	
 	[super dealloc];
 }
 
--(NSString *) title {
+- (NSString *) title {
 	NSArray *titleNodes = [xmlNode nodesForXPath:@"title" error:nil];
 	if ([titleNodes count] != 1) {
 		[NSException raise:@"No title attribute found in xml file" format:@""];
@@ -49,7 +49,7 @@
 	return [[titleNode objectValue] boolValue];
 }
 
--(NSString *)thumbnailPath {
+- (NSString *)thumbnailPath {
 	NSArray *thumbnailNodes = [xmlNode nodesForXPath:@"thumbnail" error:nil];
 	if ([thumbnailNodes count] != 1) {
 		[NSException raise:@"No thumbnail attribute found in xml file" format:@""];
@@ -58,7 +58,16 @@
 	return [[thumbnailNodes objectAtIndex: 0] stringValue];	
 }
 
--(NSString *)description {
+- (NSString *)presentationPath {
+	NSArray *nodes = [xmlNode nodesForXPath:@"file" error:nil];
+	if ([nodes count] != 1) {
+		[NSException raise:@"No file property found in xml file" format:@""];
+	} 
+	
+	return [[nodes objectAtIndex: 0] stringValue];	
+}
+
+- (NSString *)description {
 	return [NSString stringWithFormat:@"%d - %@", self.presentationId, self.title];
 }
 

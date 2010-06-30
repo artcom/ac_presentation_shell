@@ -43,9 +43,12 @@
 
 - (NSImage *)thumbnail {
 	NSString *filepath = [context.directory stringByAppendingPathComponent:self.data.thumbnailPath];
-	NSLog(@"filepath: %@", filepath);
 	
 	return [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
+}
+
+- (NSString *)presentationFile {
+	return [self.context.directory stringByAppendingPathComponent:self.data.presentationPath];
 }
 
 - (void) dealloc {

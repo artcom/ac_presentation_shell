@@ -18,7 +18,7 @@
 @property (readonly) BOOL highlight;
 @property (readonly) NSString *thumbnailPath;
 //@property (readonly) NSString *filetype;
-//@property (readonly) NSString *presentationPath;
+@property (readonly) NSString *presentationPath;
 
 - (id)initWithXMLNode: (NSXMLElement *)aNode;
 
