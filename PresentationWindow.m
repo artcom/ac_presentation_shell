@@ -23,6 +23,7 @@
 
 - (void)cancelOperation:(id)sender {
 	[self orderOut:nil];
+	[NSApp setPresentationOptions:NSApplicationPresentationDefault];
 }
 
 @end

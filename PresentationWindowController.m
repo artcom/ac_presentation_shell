@@ -28,17 +28,8 @@
 
 - (void)awakeFromNib {
 	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
-
-	[self.window setFrame:frame display:YES animate: YES];
-	[self.window makeKeyAndOrderFront:nil];
 	
-	@try {
-		NSApplicationPresentationOptions options = NSApplicationPresentationHideDock + NSApplicationPresentationHideMenuBar;
-		[NSApp setPresentationOptions:options];
-	}
-	@catch(NSException * exception) {
-		NSLog(@"Error.  Make sure you have a valid combination of options.");
-	}
+	[self.window setFrame:frame display:YES animate: NO];
 }
 
 #pragma mark -
@@ -50,6 +41,23 @@
 		
 		[gridView arrangeSublayer];
 	}
+}
+
+- (void) showWindow:(id)sender {
+	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
+	
+	[self.window setFrame:frame display:YES animate: NO];
+	[self.window makeKeyAndOrderFront:nil];
+	
+	@try {
+		NSApplicationPresentationOptions options = NSApplicationPresentationHideDock + NSApplicationPresentationHideMenuBar;
+		[NSApp setPresentationOptions:options];
+	}
+	@catch(NSException * exception) {
+		NSLog(@"Error.  Make sure you have a valid combination of options.");
+	}
+	
+	[super showWindow:sender];
 }
 
 
