@@ -11,13 +11,17 @@
 #import "GridViewDataSource.h"
 #import "GridViewDelegate.h"
 @class KeynoteHandler;
+@class GridView;
 
 @interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate> {
 	KeynoteHandler *keynote;
 	NSArray *presentations;
+	
+	GridView *gridView;
 }
 
 @property (retain) NSArray *presentations;
+@property (retain) IBOutlet GridView *gridView;
 
 
 @end

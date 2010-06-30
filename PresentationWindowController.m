@@ -10,13 +10,15 @@
 #import "Presentation.h"
 #import "PresentationData.h"
 #import "KeynoteHandler.h"
+#import "GridView.h"
 
 
 @implementation PresentationWindowController
 
 @synthesize presentations;
+@synthesize gridView;
 
-- (id) init {
+- (id)init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
 	if (self != nil) {
 		keynote = [[KeynoteHandler alloc] init];
@@ -24,14 +26,10 @@
 	return self;
 }
 
--(void) awakeFromNib {
-	NSLog(@"%@", self.window);
+- (void)awakeFromNib {
 	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
-	NSLog(@"self.window.frame %f, %f, %f, %f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
-	frame = [[[NSScreen screens] objectAtIndex:1] frame];	
-	NSLog(@"self.window.frame %f, %f, %f, %f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
 
-	[self.window setFrame:[NSScreen mainScreen].frame display:YES animate: YES];
+	[self.window setFrame:frame display:YES animate: YES];
 	[self.window makeKeyAndOrderFront:nil];
 	
 	@try {
@@ -43,14 +41,25 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Setter Methods
+- (void) setPresentations:(NSArray *)newPresentations {
+	if (presentations != newPresentations) {
+		[presentations release];
+		presentations = [newPresentations retain];
+		
+		[gridView arrangeSublayer];
+	}
+}
+
 
 #pragma mark -
 #pragma mark GridView DataSource
--(NSInteger) numberOfItemsInGridView:(GridView *)aGridView {
+- (NSInteger)numberOfItemsInGridView:(GridView *)aGridView {
 	return [self.presentations count];
 }
 
--(CALayer *) gridView:(GridView *)aGridView layerForItemAtIndex:(NSInteger)index {
+- (CALayer *)gridView:(GridView *)aGridView layerForItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	NSImage *image = presentation.thumbnail;
 	
@@ -63,7 +72,7 @@
 
 #pragma mark -
 #pragma mark GridView Delegate
--(void) gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
+- (void)gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	
 	[keynote open: presentation.presentationFile];

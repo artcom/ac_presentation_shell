@@ -38,6 +38,7 @@
 
 - (IBAction)play: (id)sender {	
 	presentationWindowController.presentations = [self selectedPresentations];
+	NSLog(@"self presenations: %@", [self selectedPresentations]);
 	[presentationWindowController showWindow:nil];
 }
 

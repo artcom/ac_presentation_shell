@@ -15,6 +15,7 @@
 	
 	CGFloat paddingHorizontal;
 	CGFloat paddingVertical;
+	CGFloat border;
 
 	@private
 	CGRect viewPort;

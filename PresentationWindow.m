@@ -8,12 +8,21 @@
 
 #import "PresentationWindow.h"
 
-
 @implementation PresentationWindow
 
--(void) awakeFromNib {
+- (void)awakeFromNib {
 	[self setStyleMask:NSBorderlessWindowMask];
 	[self setLevel:NSStatusWindowLevel];
+	
+	[self makeFirstResponder:self];
+}
+
+- (BOOL) canBecomeKeyWindow {
+	return YES;
+}
+
+- (void)cancelOperation:(id)sender {
+	[self orderOut:nil];
 }
 
 @end

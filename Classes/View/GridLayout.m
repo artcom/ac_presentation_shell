@@ -18,6 +18,8 @@
 @synthesize paddingVertical;
 
 - (void)calculate {
+	border = 5;
+	
 	viewPort.origin.x = viewFrame.origin.x + paddingHorizontal;
 	viewPort.origin.y = viewFrame.origin.y + paddingVertical;
 	viewPort.size.width = viewFrame.size.width - 2 * paddingHorizontal;
@@ -37,8 +39,8 @@
 	NSInteger col = index % [self cols];
 	NSInteger row = index / [self cols];
 	
-	position.x = viewPort.origin.x + itemSize.width / 2 + (col * itemSize.width);
-	position.y = viewFrame.size.height - (itemSize.height / 2 + viewPort.origin.y + row * itemSize.height);
+	position.x = viewPort.origin.x + itemSize.width / 2 + (col * (itemSize.width + border));
+	position.y = viewFrame.size.height - (itemSize.height / 2 + viewPort.origin.y + row * (itemSize.height + border));
 	
 	return position;
 }
