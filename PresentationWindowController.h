@@ -10,8 +10,10 @@
 #import "Presentation.h"
 #import "GridViewDataSource.h"
 #import "GridViewDelegate.h"
+@class KeynoteHandler;
 
 @interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate> {
+	KeynoteHandler *keynote;
 	NSArray *presentations;
 }
 

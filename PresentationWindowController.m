@@ -9,6 +9,7 @@
 #import "PresentationWindowController.h"
 #import "Presentation.h"
 #import "PresentationData.h"
+#import "KeynoteHandler.h"
 
 
 @implementation PresentationWindowController
@@ -18,7 +19,7 @@
 - (id) init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
 	if (self != nil) {
-
+		keynote = [[KeynoteHandler alloc] init];
 	}
 	return self;
 }
@@ -33,12 +34,9 @@
 	[self.window setFrame:[NSScreen mainScreen].frame display:YES animate: YES];
 	[self.window makeKeyAndOrderFront:nil];
 	
-	
-	
 	@try {
 		NSApplicationPresentationOptions options = NSApplicationPresentationHideDock + NSApplicationPresentationHideMenuBar;
 		[NSApp setPresentationOptions:options];
-		
 	}
 	@catch(NSException * exception) {
 		NSLog(@"Error.  Make sure you have a valid combination of options.");
@@ -53,24 +51,22 @@
 }
 
 -(CALayer *) gridView:(GridView *)aGridView layerForItemAtIndex:(NSInteger)index {
-	
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	NSImage *image = presentation.thumbnail;
 	
-	CALayer *firstLayer = [CALayer layer];
-	firstLayer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-	firstLayer.contents = image;
+	CALayer *layer = [CALayer layer];
+	layer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+	layer.contents = image;
 	
-	return firstLayer;
+	return layer;
 }
 
 #pragma mark -
 #pragma mark GridView Delegate
 -(void) gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
-	NSLog(@"opening: %@", presentation.presentationFile);
-	NSURL *url = [NSURL fileURLWithPath: presentation.presentationFile];
-	[[NSWorkspace sharedWorkspace] openURL: url];
+	
+	[keynote open: presentation.presentationFile];
 }
 
 

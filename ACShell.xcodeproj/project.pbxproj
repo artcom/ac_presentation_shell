@@ -13,6 +13,8 @@
 		22B2007111D9FD9A00C6D9ED /* demo_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22B2007011D9FD9A00C6D9ED /* demo_image.jpg */; };
 		22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */; };
 		22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2019811DA365B00C6D9ED /* GridLayout.m */; };
+		22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7F8D211DB3E7E00A54494 /* KeynoteHandler.m */; };
+		22C7F8DF11DB406700A54494 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C7F8DE11DB406700A54494 /* ScriptingBridge.framework */; };
 		22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F76511D8AFF90030AFBD /* ACShellController.m */; };
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
 		22D2F7AB11D8BC490030AFBD /* demo_library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 22D2F7AA11D8BC490030AFBD /* demo_library.xml */; };
@@ -42,6 +44,10 @@
 		22B2019711DA365B00C6D9ED /* GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridLayout.h; path = Classes/View/GridLayout.h; sourceTree = "<group>"; };
 		22B2019811DA365B00C6D9ED /* GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridLayout.m; path = Classes/View/GridLayout.m; sourceTree = "<group>"; };
 		22B2027711DA53C900C6D9ED /* GridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewDelegate.h; sourceTree = "<group>"; };
+		22C7F8D011DB3E4A00A54494 /* Keynote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Keynote.h; path = Classes/Keynote/Keynote.h; sourceTree = "<group>"; };
+		22C7F8D111DB3E7E00A54494 /* KeynoteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeynoteHandler.h; path = Classes/Keynote/KeynoteHandler.h; sourceTree = "<group>"; };
+		22C7F8D211DB3E7E00A54494 /* KeynoteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeynoteHandler.m; path = Classes/Keynote/KeynoteHandler.m; sourceTree = "<group>"; };
+		22C7F8DE11DB406700A54494 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
 		22D2F76411D8AFF90030AFBD /* ACShellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACShellController.h; path = Classes/ACShellController.h; sourceTree = "<group>"; };
 		22D2F76511D8AFF90030AFBD /* ACShellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellController.m; path = Classes/ACShellController.m; sourceTree = "<group>"; };
 		22D2F77211D8B5E10030AFBD /* Presentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Presentation.h; path = Classes/Model/Presentation.h; sourceTree = "<group>"; };
@@ -73,6 +79,7 @@
 			files = (
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				22B2002711D9F33900C6D9ED /* QuartzCore.framework in Frameworks */,
+				22C7F8DF11DB406700A54494 /* ScriptingBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +89,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22C7F8CD11DB3DDA00A54494 /* Keynote */,
 				22B200B611DA1F3A00C6D9ED /* Helper */,
 				22B2004211D9F75500C6D9ED /* GridView */,
 				22D2F76311D8AF810030AFBD /* Model */,
@@ -102,6 +110,7 @@
 			children = (
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				22B2002611D9F33900C6D9ED /* QuartzCore.framework */,
+				22C7F8DE11DB406700A54494 /* ScriptingBridge.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -144,6 +153,16 @@
 				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 			);
 			name = Helper;
+			sourceTree = "<group>";
+		};
+		22C7F8CD11DB3DDA00A54494 /* Keynote */ = {
+			isa = PBXGroup;
+			children = (
+				22C7F8D011DB3E4A00A54494 /* Keynote.h */,
+				22C7F8D111DB3E7E00A54494 /* KeynoteHandler.h */,
+				22C7F8D211DB3E7E00A54494 /* KeynoteHandler.m */,
+			);
+			name = Keynote;
 			sourceTree = "<group>";
 		};
 		22D2F76311D8AF810030AFBD /* Model */ = {
@@ -274,6 +293,7 @@
 				22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */,
 				22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */,
 				22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */,
+				22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
