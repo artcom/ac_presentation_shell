@@ -15,7 +15,7 @@
 
 @interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate> {
 	KeynoteHandler *keynote;
-	NSArray *presentations;
+	NSMutableArray *presentations;
 	
 	GridView *gridView;
 }

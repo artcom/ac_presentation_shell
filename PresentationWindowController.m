@@ -37,7 +37,7 @@
 - (void) setPresentations:(NSArray *)newPresentations {
 	if (presentations != newPresentations) {
 		[presentations release];
-		presentations = [newPresentations retain];
+		presentations = [newPresentations mutableCopy];
 		
 		[gridView arrangeSublayer];
 	}

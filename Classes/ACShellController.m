@@ -23,6 +23,12 @@
 		
 		presentationWindowController = [[PresentationWindowController alloc] init];
 
+		NSMutableArray *staticCategories = [NSMutableArray array];
+		[staticCategories addObject: [NSDictionary dictionaryWithObject:@"All" forKey:@"key"]];
+		[staticCategories addObject: [NSDictionary dictionaryWithObject:@"Highlight" forKey:@"key"]];
+
+		NSMutableDictionary *object = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Library", @"key", staticCategories, @"children", nil];
+		categories = [NSMutableArray arrayWithObject:object];
 	}
 	
 	return self;
@@ -38,7 +44,6 @@
 
 - (IBAction)play: (id)sender {	
 	presentationWindowController.presentations = [self selectedPresentations];
-	NSLog(@"self presenations: %@", [self selectedPresentations]);
 	[presentationWindowController showWindow:nil];
 }
 

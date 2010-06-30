@@ -12,6 +12,8 @@
 
 @interface ACShellController : NSObject {
 	NSArray *presentations;
+	NSMutableArray* categories;
+
 	PresentationWindowController *presentationWindowController;
 }
 
