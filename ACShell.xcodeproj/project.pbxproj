@@ -8,16 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		225C7E7F11DBA4B200EF3009 /* Playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* Playlist.m */; };
 		22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* GridView.m */; };
 		22B2002711D9F33900C6D9ED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
-		22B2007111D9FD9A00C6D9ED /* demo_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 22B2007011D9FD9A00C6D9ED /* demo_image.jpg */; };
 		22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */; };
 		22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2019811DA365B00C6D9ED /* GridLayout.m */; };
 		22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7F8D211DB3E7E00A54494 /* KeynoteHandler.m */; };
 		22C7F8DF11DB406700A54494 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C7F8DE11DB406700A54494 /* ScriptingBridge.framework */; };
 		22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F76511D8AFF90030AFBD /* ACShellController.m */; };
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
-		22D2F7AB11D8BC490030AFBD /* demo_library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 22D2F7AA11D8BC490030AFBD /* demo_library.xml */; };
 		22D2F7C811D8CEF80030AFBD /* PresentationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationContext.m */; };
 		22D2F7F111D8D2880030AFBD /* PresentationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7F011D8D2880030AFBD /* PresentationData.m */; };
 		22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */; };
@@ -34,10 +33,11 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		225C7E7D11DBA4B200EF3009 /* Playlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playlist.h; path = Classes/Model/Playlist.h; sourceTree = "<group>"; };
+		225C7E7E11DBA4B200EF3009 /* Playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Playlist.m; path = Classes/Model/Playlist.m; sourceTree = "<group>"; };
 		22B2000B11D9EECE00C6D9ED /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridView.h; path = Classes/View/GridView.h; sourceTree = "<group>"; };
 		22B2000C11D9EECE00C6D9ED /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridView.m; path = Classes/View/GridView.m; sourceTree = "<group>"; };
 		22B2002611D9F33900C6D9ED /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		22B2007011D9FD9A00C6D9ED /* demo_image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = demo_image.jpg; path = ../../../Desktop/_Projektbilder/demo_image.jpg; sourceTree = SOURCE_ROOT; };
 		22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSFileManager-DirectoryHelper.h"; sourceTree = "<group>"; };
 		22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSFileManager-DirectoryHelper.m"; sourceTree = "<group>"; };
 		22B2011E11DA28A100C6D9ED /* GridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GridViewDataSource.h; sourceTree = "<group>"; };
@@ -52,7 +52,6 @@
 		22D2F76511D8AFF90030AFBD /* ACShellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellController.m; path = Classes/ACShellController.m; sourceTree = "<group>"; };
 		22D2F77211D8B5E10030AFBD /* Presentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Presentation.h; path = Classes/Model/Presentation.h; sourceTree = "<group>"; };
 		22D2F77311D8B5E10030AFBD /* Presentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Presentation.m; path = Classes/Model/Presentation.m; sourceTree = "<group>"; };
-		22D2F7AA11D8BC490030AFBD /* demo_library.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = demo_library.xml; sourceTree = "<group>"; };
 		22D2F7C611D8CEF80030AFBD /* PresentationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationContext.h; path = Classes/Model/PresentationContext.h; sourceTree = "<group>"; };
 		22D2F7C711D8CEF80030AFBD /* PresentationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationContext.m; path = Classes/Model/PresentationContext.m; sourceTree = "<group>"; };
 		22D2F7EF11D8D2880030AFBD /* PresentationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationData.h; path = Classes/Model/PresentationData.h; sourceTree = "<group>"; };
@@ -174,6 +173,8 @@
 				22D2F7F011D8D2880030AFBD /* PresentationData.m */,
 				22D2F77211D8B5E10030AFBD /* Presentation.h */,
 				22D2F77311D8B5E10030AFBD /* Presentation.m */,
+				225C7E7D11DBA4B200EF3009 /* Playlist.h */,
+				225C7E7E11DBA4B200EF3009 /* Playlist.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -202,8 +203,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				22B2007011D9FD9A00C6D9ED /* demo_image.jpg */,
-				22D2F7AA11D8BC490030AFBD /* demo_library.xml */,
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
@@ -269,9 +268,7 @@
 			files = (
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				22D2F7AB11D8BC490030AFBD /* demo_library.xml in Resources */,
 				22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */,
-				22B2007111D9FD9A00C6D9ED /* demo_image.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +291,7 @@
 				22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */,
 				22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */,
 				22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */,
+				225C7E7F11DBA4B200EF3009 /* Playlist.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
