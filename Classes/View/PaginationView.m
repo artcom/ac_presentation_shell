@@ -12,6 +12,7 @@
 
 - (void)prepareDots;
 - (void)calculateDotPositions;
+- (void)setActiveDot;
 
 @end
 
@@ -21,6 +22,9 @@
 
 @synthesize pages;
 @synthesize activePage;
+
+@synthesize activeDot;
+@synthesize inactiveDot;
 
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
@@ -33,17 +37,16 @@
 
 		[self setWantsLayer:YES];
 		[self prepareDots];
+		[self setActiveDot];
 	}
 	
     return self;
 }
 
-- (void)increment {
-	self.activePage += 1;
-}
-
 - (void)setActivePage: (NSInteger)newActivePage {
 	activePage = newActivePage;
+	
+	[self setActiveDot]; 
 	[self calculateDotPositions];
 }
 
@@ -51,6 +54,7 @@
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
 	[self prepareDots];
+	[self setActiveDot];
 	[self calculateDotPositions];
 }
 
@@ -72,6 +76,16 @@
 	}
 }
 
+- (void)setActiveDot {
+	for (CALayer *layer in dots) {
+		layer.contents = self.inactiveDot;
+	}
+
+	CALayer *layer = [dots objectAtIndex:self.activePage];
+	layer.contents = self.activeDot;
+	NSLog(@"layer contents: %@", layer.contents);
+}
+
 - (void)prepareDots {
 	for (CALayer *dotLayer in dots) {
 		[dotLayer removeFromSuperlayer];
@@ -79,13 +93,7 @@
 	[dots removeAllObjects];
 	
 	for (NSInteger i = 0; i < self.pages; i++) {
-		CGColorRef redColor=CGColorCreateGenericRGB(1.0, 0.0, 0.0, 1.0);		
-		
 		CALayer *dotLayer = [CALayer layer];
-		dotLayer.backgroundColor = redColor; 
-		
-		CGColorRelease(redColor);
-		
 		[self.layer addSublayer:dotLayer];
 		[dots addObject:dotLayer];
 	}
@@ -97,6 +105,22 @@
 
 - (NSInteger )dotsOnBottom {
 	return self.pages - self.dotsOnTop;
+}
+
+- (NSImage *)activeDot {
+	if (activeDot == nil) {
+		self.activeDot = [NSImage imageNamed:@"icn_pagnation_active.png"];
+	}
+	
+	return activeDot;
+}
+
+- (NSImage *)inactiveDot {
+	if (inactiveDot == nil) {
+		self.inactiveDot = [NSImage imageNamed:@"icn_pagnation.png"];
+	}
+	
+	return inactiveDot;
 }
 
 @end

@@ -14,6 +14,9 @@
 	NSInteger pages;
 	NSInteger activePage;
 	NSMutableArray *dots;
+	
+	NSImage *activeDot;
+	NSImage *inactiveDot;
 }
 
 @property (assign, nonatomic) NSInteger pages;
@@ -21,5 +24,8 @@
 
 @property (readonly) NSInteger dotsOnTop;
 @property (readonly) NSInteger dotsOnBottom;
+
+@property (retain) NSImage *activeDot;
+@property (retain) NSImage *inactiveDot;
 
 @end
