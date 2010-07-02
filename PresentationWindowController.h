@@ -23,5 +23,4 @@
 @property (retain) NSArray *presentations;
 @property (retain) IBOutlet GridView *gridView;
 
-
 @end

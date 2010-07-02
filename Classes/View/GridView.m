@@ -10,7 +10,6 @@
 
 @implementation GridView
 
-
 @synthesize dataSource;
 @synthesize delegate;
 
@@ -67,9 +66,6 @@
 		[self.layer addSublayer:layer];	
 		[sublayers addObject:layer];
 	}
-	
-
-	
 }
 
 @end

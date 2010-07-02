@@ -7,8 +7,12 @@
 //
 
 #import "PresentationWindow.h"
+#import "PaginationView.h"
 
 @implementation PresentationWindow
+
+@synthesize paginationView;
+
 
 - (void)awakeFromNib {
 	[self setStyleMask:NSBorderlessWindowMask];
@@ -19,6 +23,14 @@
 
 - (BOOL) canBecomeKeyWindow {
 	return YES;
+}
+
+-(void)moveUp:(id)sender {
+	paginationView.activePage -= 1;
+}
+
+- (void)moveDown:(id)sender {
+	paginationView.activePage += 1;
 }
 
 - (void)cancelOperation:(id)sender {

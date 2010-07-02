@@ -7,11 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class PaginationView;
 
 
 @interface PresentationWindow : NSWindow {
-
+	PaginationView *paginationView;
 }
 
+@property (retain) IBOutlet PaginationView *paginationView;
 
 @end

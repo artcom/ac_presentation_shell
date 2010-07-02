@@ -11,6 +11,7 @@
 #import "PresentationData.h"
 #import "KeynoteHandler.h"
 #import "GridView.h"
+#import "PaginationView.h"
 
 
 @implementation PresentationWindowController
