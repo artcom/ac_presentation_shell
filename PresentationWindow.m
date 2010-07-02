@@ -8,17 +8,21 @@
 
 #import "PresentationWindow.h"
 #import "PaginationView.h"
+#import "GridView.h"
 
 @implementation PresentationWindow
 
 @synthesize paginationView;
-
+@synthesize gridView;
 
 - (void)awakeFromNib {
 	[self setStyleMask:NSBorderlessWindowMask];
 	[self setLevel:NSStatusWindowLevel];
-	
-	[self makeFirstResponder:self];
+}
+
+- (void) dealloc {
+	[paginationView release];
+	[super dealloc];
 }
 
 - (BOOL) canBecomeKeyWindow {
@@ -27,10 +31,12 @@
 
 -(void)moveUp:(id)sender {
 	paginationView.activePage -= 1;
+	gridView.page -= 1;
 }
 
 - (void)moveDown:(id)sender {
 	paginationView.activePage += 1;
+	gridView.page += 1;
 }
 
 - (void)cancelOperation:(id)sender {

@@ -16,8 +16,6 @@
 
 @end
 
-
-
 @implementation PaginationView
 
 @synthesize pages;
@@ -43,6 +41,14 @@
     return self;
 }
 
+- (void) dealloc {
+	[activeDot release];
+	[inactiveDot release];
+	
+	[super dealloc];
+}
+
+
 - (void)setActivePage: (NSInteger)newActivePage {
 	activePage = newActivePage;
 	
@@ -67,7 +73,7 @@
 	NSInteger i = 0;
 	for (i = 0; i < self.dotsOnTop; i++) {
 		CALayer *layer = [dots objectAtIndex:i];
-		layer.frame = CGRectMake(0, self.frame.size.height - 10*i, 6, 6);
+		layer.frame = CGRectMake(0, self.frame.size.height - 10 * i, 6, 6);
 	}
 	
 	for (; i < self.pages; i++) {
@@ -83,7 +89,6 @@
 
 	CALayer *layer = [dots objectAtIndex:self.activePage];
 	layer.contents = self.activeDot;
-	NSLog(@"layer contents: %@", layer.contents);
 }
 
 - (void)prepareDots {

@@ -18,11 +18,15 @@
 
 	GridLayout *layout;
 	NSMutableArray *sublayers;
+	
+	NSInteger page;
 }
 
 @property (assign, nonatomic) id <GridViewDataSource> dataSource;
 @property (assign, nonatomic) id <GridViewDelegate> delegate;
+@property (assign, nonatomic) NSInteger page;
 
 - (void)arrangeSublayer;
+
 
 @end

@@ -34,6 +34,10 @@
 	return viewPort.size.height / itemSize.height;
 }
 
+- (NSInteger)itemsOnPage {
+	return self.cols * self.rows;
+}
+
 - (CGPoint)positionForItem: (NSInteger)index {
 	CGPoint position;
 	NSInteger col = index % [self cols];

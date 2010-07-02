@@ -12,6 +12,7 @@
 
 @synthesize dataSource;
 @synthesize delegate;
+@synthesize page;
 
 - (void)awakeFromNib {
 	CALayer *rootLayer=[CALayer layer];
@@ -25,7 +26,8 @@
 		
 	sublayers = [[NSMutableArray alloc] init];
 	layout = [[GridLayout alloc] init];
-
+	
+	self.page = 0;
 	[self arrangeSublayer];
 }
 
@@ -58,14 +60,26 @@
 	}
 	[sublayers removeAllObjects];
 	
-	NSInteger items = [dataSource numberOfItemsInGridView:self]; 
-	for (int i = 0; i < items; i++) {
+	NSInteger items = [dataSource numberOfItemsInGridView:self];
+	NSInteger firstItem = self.page * layout.itemsOnPage;
+	NSInteger lastItem = (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) : items;
+	NSLog(@"items on page %d - %d", firstItem, lastItem); 
+	
+	for (int i = firstItem; i < lastItem; i++) {
 		CALayer *layer = [dataSource gridView:self layerForItemAtIndex:i];
-		layer.position = [layout positionForItem:i];
+		layer.position = [layout positionForItem:i % layout.itemsOnPage];
 		
 		[self.layer addSublayer:layer];	
 		[sublayers addObject:layer];
 	}
+}
+
+-(void) setPage:(NSInteger)newPage {
+	[self willChangeValueForKey:@"page"];
+	page = newPage;
+	[self didChangeValueForKey:@"page"];
+	[self arrangeSublayer];
+	
 }
 
 @end

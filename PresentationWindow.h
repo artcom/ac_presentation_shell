@@ -8,12 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 @class PaginationView;
+@class GridView;
 
 
 @interface PresentationWindow : NSWindow {
 	PaginationView *paginationView;
+	GridView *gridView;
 }
 
 @property (retain) IBOutlet PaginationView *paginationView;
+@property (retain) IBOutlet GridView *gridView; 
 
 @end

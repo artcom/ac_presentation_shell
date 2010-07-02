@@ -27,6 +27,8 @@
 @property (assign) CGFloat paddingHorizontal;
 @property (assign) CGFloat paddingVertical;
 
+@property (readonly) NSInteger itemsOnPage;
+
 - (void)calculate;
 - (NSInteger)cols;
 - (NSInteger)rows;

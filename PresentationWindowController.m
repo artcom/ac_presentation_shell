@@ -87,5 +87,9 @@
 	[keynote open: presentation.presentationFile];
 }
 
+-(void) moveUp:(id)sender {
+	NSLog(@"move up");
+}
+
 
 @end
