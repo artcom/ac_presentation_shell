@@ -32,7 +32,7 @@
 		dots = [[NSMutableArray alloc] initWithCapacity:self.pages];
 		
 		self.layer = [CALayer layer];
-
+		
 		[self setWantsLayer:YES];
 		[self prepareDots];
 		[self setActiveDot];
@@ -59,6 +59,7 @@
 
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
+	
 	[self prepareDots];
 	[self setActiveDot];
 	[self calculateDotPositions];
@@ -73,12 +74,12 @@
 	NSInteger i = 0;
 	for (i = 0; i < self.dotsOnTop; i++) {
 		CALayer *layer = [dots objectAtIndex:i];
-		layer.frame = CGRectMake(0, self.frame.size.height - 10 * i, 6, 6);
+		layer.frame = CGRectMake(0, (self.frame.size.height - 10 * i) + 6, 6, 6);
 	}
 	
 	for (; i < self.pages; i++) {
 		CALayer *layer = [dots objectAtIndex:i];
-		layer.frame = CGRectMake(0, (self.pages - i) * 10, 6, 6);
+		layer.frame = CGRectMake(0, ((self.pages - i) * 10) + 6, 6, 6);
 	}
 }
 
@@ -92,6 +93,7 @@
 }
 
 - (void)prepareDots {
+	
 	for (CALayer *dotLayer in dots) {
 		[dotLayer removeFromSuperlayer];
 	}

@@ -32,6 +32,7 @@
 }
 
 - (void) mouseUp:(NSEvent *)theEvent {
+	NSLog(@"mouseUp %@", theEvent);
 	CALayer *clickedLayer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
 	if (clickedLayer == self.layer) {
 		return;
@@ -47,8 +48,8 @@
 
 	layout.viewFrame = NSRectToCGRect(self.frame);
 	layout.itemSize = CGSizeMake(220, 100);
-	layout.paddingVertical = 200;
-	layout.paddingHorizontal = 150;
+	layout.paddingVertical = 300;
+	layout.paddingHorizontal = 250;
 	
 	[layout calculate];
 	[self arrangeSublayer];
@@ -79,7 +80,6 @@
 	page = newPage;
 	[self didChangeValueForKey:@"page"];
 	[self arrangeSublayer];
-	
 }
 
 @end

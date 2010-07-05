@@ -17,6 +17,7 @@
 	
 	PresentationData *data;
 	PresentationContext *context;
+	NSImage *thumbnail;
 }
 
 @property (assign) BOOL selected;

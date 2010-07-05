@@ -24,12 +24,14 @@
 		self.selected = YES;
 		self.context = theContext;
 		self.presentationId = theId;
+		
+		[self thumbnail];
 	}
 	
 	return self;
 }
 
--(NSString *) description {
+- (NSString *)description {
 	return [NSString stringWithFormat:@"%@", self.data.title];
 }
 
@@ -42,9 +44,12 @@
 }
 
 - (NSImage *)thumbnail {
-	NSString *filepath = [context.directory stringByAppendingPathComponent:self.data.thumbnailPath];
-	
-	return [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
+	if (thumbnail == nil) {
+		NSString *filepath = [context.directory stringByAppendingPathComponent:self.data.thumbnailPath];
+		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];		
+	}
+
+	return thumbnail;
 }
 
 - (NSString *)presentationFile {
@@ -52,6 +57,7 @@
 }
 
 - (void) dealloc {
+	[thumbnail release];
 	[data release];
 	[context release];
 	[super dealloc];

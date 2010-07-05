@@ -18,6 +18,8 @@
 - (void)awakeFromNib {
 	[self setStyleMask:NSBorderlessWindowMask];
 	[self setLevel:NSStatusWindowLevel];
+	
+	[self makeFirstResponder:self];
 }
 
 - (void) dealloc {
@@ -42,6 +44,10 @@
 - (void)cancelOperation:(id)sender {
 	[self orderOut:nil];
 	[NSApp setPresentationOptions:NSApplicationPresentationDefault];
+}
+
+- (void) setFrame:(NSRect)frameRect display:(BOOL)displayFlag animate:(BOOL)animateFlag {
+	[super setFrame:frameRect display:displayFlag animate:animateFlag];
 }
 
 @end
