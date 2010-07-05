@@ -19,6 +19,7 @@
 	[self setStyleMask:NSBorderlessWindowMask];
 	[self setLevel:NSStatusWindowLevel];
 	
+	[self setAcceptsMouseMovedEvents:YES];
 	[self makeFirstResponder:self];
 }
 

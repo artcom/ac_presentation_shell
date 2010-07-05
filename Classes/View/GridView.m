@@ -13,6 +13,7 @@
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize page;
+@synthesize hoveredLayer;
 
 - (void)awakeFromNib {
 	CALayer *rootLayer=[CALayer layer];
@@ -29,6 +30,12 @@
 	
 	self.page = 0;
 	[self arrangeSublayer];
+	
+	mouseTrackingRect = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:YES];
+}
+
+- (BOOL)acceptsFirstResponder {
+	return YES;
 }
 
 - (void) mouseUp:(NSEvent *)theEvent {
@@ -42,9 +49,37 @@
 	}
 }
 
+- (void)mouseMoved:(NSEvent *)theEvent {
+	CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
+	if (layer != self.layer && layer != self.hoveredLayer) {
+		[hoveredLayer removeFromSuperlayer];
+		
+		CGColorRef red = CGColorCreateGenericRGB(1, 0, 0, 1);
+		
+		self.hoveredLayer = [CALayer layer];
+		hoveredLayer.backgroundColor = red;
+		hoveredLayer.frame = layer.frame;
+		
+		[self.layer addSublayer:hoveredLayer];
+		
+		CGColorRelease(red);
+	}
+}
+
+- (void) mouseEntered:(NSEvent *)theEvent {
+	[[self window] setAcceptsMouseMovedEvents:YES];
+}
+
+- (void)mouseExited:(NSEvent *)theEvent {
+	[[self window] setAcceptsMouseMovedEvents:NO];
+}
+
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
 
+	[self removeTrackingRect:mouseTrackingRect];
+	[self addTrackingRect:self.frame owner:self userData:nil assumeInside:YES];
+	
 	layout.viewFrame = NSRectToCGRect(self.frame);
 	layout.itemSize = CGSizeMake(220, 100);
 	layout.paddingVertical = 0;
@@ -63,7 +98,6 @@
 	NSInteger items = [dataSource numberOfItemsInGridView:self];
 	NSInteger firstItem = self.page * layout.itemsOnPage;
 	NSInteger lastItem = (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) : items;
-	// NSLog(@"items on page %d: %d - %d", layout.itemsOnPage, firstItem, lastItem); 
 	
 	for (int i = firstItem; i < lastItem; i++) {
 		CALayer *layer = [dataSource gridView:self layerForItemAtIndex:i];
@@ -91,6 +125,14 @@
 	}
 	
 	return ([dataSource numberOfItemsInGridView:self] / layout.itemsOnPage) + 1;
+}
+
+- (BOOL)hasNextPage {
+	
+}
+
+- (BOOL)hasPreviousPage {
+	
 }
 
 @end

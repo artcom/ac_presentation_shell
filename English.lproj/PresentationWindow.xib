@@ -157,6 +157,10 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">icn_next_page</string>
 								</object>
+								<object class="NSCustomResource" key="NSAlternateImage" id="227745561">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">icn_prev_page</string>
+								</object>
 								<string key="NSAlternateContents"/>
 								<string key="NSKeyEquivalent"/>
 								<int key="NSPeriodicDelay">200</int>
@@ -178,10 +182,7 @@
 								<reference key="NSControlView" ref="322275461"/>
 								<int key="NSButtonFlags">-2041822977</int>
 								<int key="NSButtonFlags2">1</int>
-								<object class="NSCustomResource" key="NSNormalImage">
-									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">icn_prev_page</string>
-								</object>
+								<reference key="NSNormalImage" ref="227745561"/>
 								<string key="NSAlternateContents"/>
 								<string key="NSKeyEquivalent"/>
 								<int key="NSPeriodicDelay">200</int>

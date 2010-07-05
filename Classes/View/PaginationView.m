@@ -68,7 +68,7 @@
 - (void)calculateDotPositions {
 	if (!(self.activePage < self.pages)) {
 		return;
-		//[NSException raise:@"IndexOutOfBound" format:@"PaginationView is setup for %d pages but %d was selected" arguments:self.pages];
+		// [NSException raise:@"IndexOutOfBound" format:@"PaginationView is setup for %d pages but %d was selected" arguments:self.pages, self.activePage];
 	}
 	
 	NSInteger i = 0;
@@ -116,7 +116,7 @@
 
 - (NSImage *)activeDot {
 	if (activeDot == nil) {
-		self.activeDot = [NSImage imageNamed:@"icn_pagnation_active.png"];
+		self.activeDot = [NSImage imageNamed:@"icn_pagination_active.png"];
 	}
 
 	return activeDot;
@@ -124,7 +124,7 @@
 
 - (NSImage *)inactiveDot {
 	if (inactiveDot == nil) {
-		self.inactiveDot = [NSImage imageNamed:@"icn_pagnation.png"];
+		self.inactiveDot = [NSImage imageNamed:@"icn_pagination.png"];
 	}
 	
 	return inactiveDot;

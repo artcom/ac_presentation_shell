@@ -18,6 +18,9 @@
 
 	GridLayout *layout;
 	NSMutableArray *sublayers;
+
+	CALayer *hoveredLayer;
+	NSTrackingRectTag mouseTrackingRect;
 	
 	NSInteger page;
 }
@@ -26,8 +29,11 @@
 @property (assign, nonatomic) id <GridViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
+@property (retain) CALayer *hoveredLayer; 
 
 - (void)arrangeSublayer;
+- (BOOL)hasNextPage;
+- (BOOL)hasPreviousPage;
 
 
 @end
