@@ -18,6 +18,7 @@
 
 @synthesize presentations;
 @synthesize gridView;
+@synthesize paginationView;
 
 - (id)init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
@@ -87,9 +88,8 @@
 	[keynote open: presentation.presentationFile];
 }
 
--(void) moveUp:(id)sender {
-	NSLog(@"move up");
+- (void) didUpdateGridView:(GridView *)aView {
+	paginationView.pages = aView.pages;
 }
-
 
 @end

@@ -12,15 +12,18 @@
 #import "GridViewDelegate.h"
 @class KeynoteHandler;
 @class GridView;
+@class PaginationView;
 
 @interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate> {
 	KeynoteHandler *keynote;
 	NSMutableArray *presentations;
 	
 	GridView *gridView;
+	PaginationView *paginationView;
 }
 
 @property (retain) NSArray *presentations;
 @property (retain) IBOutlet GridView *gridView;
+@property (retain) IBOutlet PaginationView *paginationView;
 
 @end

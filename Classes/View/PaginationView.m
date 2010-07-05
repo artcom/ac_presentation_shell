@@ -74,12 +74,12 @@
 	NSInteger i = 0;
 	for (i = 0; i < self.dotsOnTop; i++) {
 		CALayer *layer = [dots objectAtIndex:i];
-		layer.frame = CGRectMake(0, (self.frame.size.height - 10 * i) + 6, 6, 6);
+		layer.frame = CGRectMake(0, (self.frame.size.height - 10 * i - 6), 6, 6);
 	}
 	
 	for (; i < self.pages; i++) {
 		CALayer *layer = [dots objectAtIndex:i];
-		layer.frame = CGRectMake(0, ((self.pages - i) * 10) + 6, 6, 6);
+		layer.frame = CGRectMake(0, ((self.pages - i - 1) * 10), 6, 6);		
 	}
 }
 
@@ -118,7 +118,7 @@
 	if (activeDot == nil) {
 		self.activeDot = [NSImage imageNamed:@"icn_pagnation_active.png"];
 	}
-	
+
 	return activeDot;
 }
 

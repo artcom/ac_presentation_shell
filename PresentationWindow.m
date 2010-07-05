@@ -22,23 +22,28 @@
 	[self makeFirstResponder:self];
 }
 
-- (void) dealloc {
+- (void)dealloc {
+	[gridView release];
 	[paginationView release];
 	[super dealloc];
 }
 
-- (BOOL) canBecomeKeyWindow {
+- (BOOL)canBecomeKeyWindow {
 	return YES;
 }
 
--(void)moveUp:(id)sender {
-	paginationView.activePage -= 1;
-	gridView.page -= 1;
+- (void)moveUp:(id)sender {
+	if (gridView.page - 1 >= 0) {
+		paginationView.activePage -= 1;
+		gridView.page -= 1;
+	}
 }
 
 - (void)moveDown:(id)sender {
-	paginationView.activePage += 1;
-	gridView.page += 1;
+	if (gridView.page + 1 < gridView.pages) {
+		paginationView.activePage += 1;
+		gridView.page += 1;	
+	}
 }
 
 - (void)cancelOperation:(id)sender {

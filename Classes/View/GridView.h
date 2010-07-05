@@ -25,6 +25,7 @@
 @property (assign, nonatomic) id <GridViewDataSource> dataSource;
 @property (assign, nonatomic) id <GridViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
+@property (assign, readonly) NSInteger pages;
 
 - (void)arrangeSublayer;
 

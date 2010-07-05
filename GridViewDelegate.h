@@ -11,6 +11,8 @@
 
 @protocol GridViewDelegate <NSObject>
 
+@optional
 - (void)gridView:(GridView *)aView didClickedItemAtIndex: (NSInteger)index; 
+- (void)didUpdateGridView: (GridView *)aView;
 
 @end

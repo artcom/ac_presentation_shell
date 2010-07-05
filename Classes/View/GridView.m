@@ -47,8 +47,8 @@
 
 	layout.viewFrame = NSRectToCGRect(self.frame);
 	layout.itemSize = CGSizeMake(220, 100);
-	layout.paddingVertical = 300;
-	layout.paddingHorizontal = 250;
+	layout.paddingVertical = 0;
+	layout.paddingHorizontal = 0;
 	
 	[layout calculate];
 	[self arrangeSublayer];
@@ -63,7 +63,7 @@
 	NSInteger items = [dataSource numberOfItemsInGridView:self];
 	NSInteger firstItem = self.page * layout.itemsOnPage;
 	NSInteger lastItem = (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) : items;
-	NSLog(@"items on page %d - %d", firstItem, lastItem); 
+	// NSLog(@"items on page %d: %d - %d", layout.itemsOnPage, firstItem, lastItem); 
 	
 	for (int i = firstItem; i < lastItem; i++) {
 		CALayer *layer = [dataSource gridView:self layerForItemAtIndex:i];
@@ -72,13 +72,25 @@
 		[self.layer addSublayer:layer];	
 		[sublayers addObject:layer];
 	}
+	
+	if ([delegate respondsToSelector:@selector(didUpdateGridView:)]) {
+		[delegate didUpdateGridView: self];
+	}
 }
 
--(void) setPage:(NSInteger)newPage {
+- (void)setPage:(NSInteger)newPage {
 	[self willChangeValueForKey:@"page"];
 	page = newPage;
 	[self didChangeValueForKey:@"page"];
 	[self arrangeSublayer];
+}
+
+- (NSInteger)pages {
+	if (layout.itemsOnPage == 0) {
+		return 0;
+	}
+	
+	return ([dataSource numberOfItemsInGridView:self] / layout.itemsOnPage) + 1;
 }
 
 @end

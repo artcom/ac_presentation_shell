@@ -20,18 +20,18 @@
 - (void)calculate {
 	border = 10;
 	
-	viewPort.origin.x = viewFrame.origin.x + paddingHorizontal;
-	viewPort.origin.y = viewFrame.origin.y + paddingVertical;
+	viewPort.origin.x = 0 + paddingHorizontal;
+	viewPort.origin.y = 0 + paddingVertical;
 	viewPort.size.width = viewFrame.size.width - 2 * paddingHorizontal;
 	viewPort.size.height = viewFrame.size.height - 2 * paddingVertical;
 }
 
 - (NSInteger)cols {
-	return viewPort.size.width / itemSize.width;
+	return viewPort.size.width / (itemSize.width + border);
 }
 
 - (NSInteger)rows {
-	return viewPort.size.height / itemSize.height;
+	return viewPort.size.height / (itemSize.height + border);
 }
 
 - (NSInteger)itemsOnPage {
@@ -42,9 +42,9 @@
 	CGPoint position;
 	NSInteger col = index % [self cols];
 	NSInteger row = index / [self cols];
-	
+
 	position.x = viewPort.origin.x + itemSize.width / 2 + (col * (itemSize.width + border));
-	position.y = viewFrame.size.height - (itemSize.height / 2 + viewPort.origin.y + row * (itemSize.height + border));
+	position.y = viewPort.size.height - (itemSize.height / 2 + viewPort.origin.y + row * (itemSize.height + border));
 	
 	return position;
 }
