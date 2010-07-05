@@ -32,14 +32,13 @@
 }
 
 - (void) mouseUp:(NSEvent *)theEvent {
-	NSLog(@"mouseUp %@", theEvent);
 	CALayer *clickedLayer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
 	if (clickedLayer == self.layer) {
 		return;
 	}
 	
 	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
-		[self.delegate gridView:self didClickedItemAtIndex:[sublayers indexOfObject:clickedLayer]];
+		[self.delegate gridView:self didClickedItemAtIndex:[sublayers indexOfObject:clickedLayer] + self.page * layout.itemsOnPage];
 	}
 }
 
