@@ -108,6 +108,18 @@
 	return layer;
 }
 
+- (CALayer *)gridView:(GridView *)aGridView hoverLayerForItemAtIndex:(NSInteger)index {
+	Presentation *presentation = [self.presentations objectAtIndex:index];
+
+	CATextLayer *textLayer = [CATextLayer layer];
+	textLayer.string = presentation.data.title;
+	textLayer.backgroundColor = CGColorGetConstantColor(kCGColorWhite);
+	textLayer.foregroundColor = CGColorGetConstantColor(kCGColorBlack);
+		
+	return textLayer;
+}
+
+
 #pragma mark -
 #pragma mark GridView Delegate
 - (void)gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {

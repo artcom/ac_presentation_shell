@@ -15,4 +15,7 @@
 - (NSInteger)numberOfItemsInGridView: (GridView *)aGridView;
 - (CALayer *)gridView: (GridView *)aGridView layerForItemAtIndex: (NSInteger)index;
 
+@optional 
+- (CALayer *)gridView: (GridView *)aGridView hoverLayerForItemAtIndex: (NSInteger)index;
+
 @end

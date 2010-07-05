@@ -20,7 +20,8 @@
 	NSMutableArray *sublayers;
 
 	CALayer *hoveredLayer;
-	NSTrackingRectTag mouseTrackingRect;
+	NSInteger hoveredItem;
+	NSTrackingRectTag mouseTrackingRectTag;
 	
 	NSInteger page;
 }
@@ -34,6 +35,5 @@
 - (void)arrangeSublayer;
 - (BOOL)hasNextPage;
 - (BOOL)hasPreviousPage;
-
 
 @end

@@ -121,7 +121,7 @@
 						<object class="NSCustomView" id="797530568">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">273</int>
-							<string key="NSFrame">{{1310, 159}, {10, 542}}</string>
+							<string key="NSFrame">{{1310, 159}, {10, 541}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">PaginationView</string>
@@ -129,7 +129,7 @@
 						<object class="NSCustomView" id="698732095">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">274</int>
-							<string key="NSFrame">{{150, 159}, {1142, 542}}</string>
+							<string key="NSFrame">{{152, 159}, {1141, 541}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<int key="NSViewLayerContentsRedrawPolicy">2</int>
 							<string key="NSClassName">GridView</string>
@@ -317,11 +317,11 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="698732095"/>
-							<reference ref="797530568"/>
 							<reference ref="411892740"/>
-							<reference ref="611014357"/>
 							<reference ref="495051416"/>
 							<reference ref="322275461"/>
+							<reference ref="797530568"/>
+							<reference ref="611014357"/>
 						</object>
 						<reference key="parent" ref="1005"/>
 					</object>
@@ -422,9 +422,9 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{90, 136}, {1440, 900}}</string>
+					<string>{{76, 80}, {1440, 900}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{90, 136}, {1440, 900}}</string>
+					<string>{{76, 80}, {1440, 900}}</string>
 					<integer value="1"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>

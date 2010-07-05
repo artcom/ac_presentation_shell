@@ -8,6 +8,12 @@
 #import "GridView.h"
 #import "GridLayout.h"
 
+@interface GridView () 
+- (void)updateMouseTrackingRect;
+- (NSInteger)lastItemOnPage;
+@end
+
+
 @implementation GridView
 
 @synthesize dataSource;
@@ -31,7 +37,7 @@
 	self.page = 0;
 	[self arrangeSublayer];
 	
-	mouseTrackingRect = [self addTrackingRect:self.frame owner:self userData:nil assumeInside:YES];
+	[self updateMouseTrackingRect];
 }
 
 - (BOOL)acceptsFirstResponder {
@@ -44,26 +50,43 @@
 		return;
 	}
 	
+	NSInteger selectedItem = -1;
+	if (clickedLayer == self.hoveredLayer) {
+		selectedItem = hoveredItem;
+	} else {
+		selectedItem = [sublayers indexOfObject:clickedLayer] + self.page * layout.itemsOnPage;
+	}
+	
 	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
-		[self.delegate gridView:self didClickedItemAtIndex:[sublayers indexOfObject:clickedLayer] + self.page * layout.itemsOnPage];
+		[self.delegate gridView:self didClickedItemAtIndex:selectedItem];
 	}
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
-	if (layer != self.layer && layer != self.hoveredLayer) {
-		[hoveredLayer removeFromSuperlayer];
-		
-		CGColorRef red = CGColorCreateGenericRGB(1, 0, 0, 1);
-		
-		self.hoveredLayer = [CALayer layer];
-		hoveredLayer.backgroundColor = red;
-		hoveredLayer.frame = layer.frame;
-		
-		[self.layer addSublayer:hoveredLayer];
-		
-		CGColorRelease(red);
+	if (![dataSource respondsToSelector: @selector(gridView:hoverLayerForItemAtIndex:)]) {
+		return;
 	}
+	
+	CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
+
+	if (layer == self.layer) {
+		[self.hoveredLayer removeFromSuperlayer];
+		self.hoveredLayer == nil;
+		
+		return;
+	}
+	
+	if (![sublayers containsObject:layer] || layer == self.hoveredLayer) {
+		return;
+	}
+
+	[self.hoveredLayer removeFromSuperlayer];
+	hoveredItem = [sublayers indexOfObject:layer] + self.page * layout.itemsOnPage;
+		
+	self.hoveredLayer = [dataSource gridView:self hoverLayerForItemAtIndex:hoveredItem];
+	self.hoveredLayer.frame = layer.frame;
+		
+	[self.layer addSublayer: self.hoveredLayer];
 }
 
 - (void) mouseEntered:(NSEvent *)theEvent {
@@ -71,14 +94,15 @@
 }
 
 - (void)mouseExited:(NSEvent *)theEvent {
+	[self.hoveredLayer removeFromSuperlayer];
+
 	[[self window] setAcceptsMouseMovedEvents:NO];
 }
 
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
 
-	[self removeTrackingRect:mouseTrackingRect];
-	[self addTrackingRect:self.frame owner:self userData:nil assumeInside:YES];
+	[self updateMouseTrackingRect];
 	
 	layout.viewFrame = NSRectToCGRect(self.frame);
 	layout.itemSize = CGSizeMake(220, 100);
@@ -95,9 +119,8 @@
 	}
 	[sublayers removeAllObjects];
 	
-	NSInteger items = [dataSource numberOfItemsInGridView:self];
 	NSInteger firstItem = self.page * layout.itemsOnPage;
-	NSInteger lastItem = (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) : items;
+	NSInteger lastItem = [self lastItemOnPage];
 	
 	for (int i = firstItem; i < lastItem; i++) {
 		CALayer *layer = [dataSource gridView:self layerForItemAtIndex:i];
@@ -134,5 +157,21 @@
 - (BOOL)hasPreviousPage {
 	
 }
+
+
+#pragma mark -
+#pragma mark Private Methods
+- (void)updateMouseTrackingRect {
+	[self removeTrackingRect:mouseTrackingRectTag];
+	NSRect trackingRect = NSMakeRect(0, 0, self.frame.size.width, self.frame.size.height);
+	mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
+}
+
+- (NSInteger)lastItemOnPage {
+	NSInteger items = [dataSource numberOfItemsInGridView:self];
+	
+	return (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) : items;
+}
+
 
 @end

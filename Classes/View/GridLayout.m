@@ -18,7 +18,7 @@
 @synthesize paddingVertical;
 
 - (void)calculate {
-	border = 8;
+	border = 10;
 	
 	viewPort.origin.x = 0 + paddingHorizontal;
 	viewPort.origin.y = 0 + paddingVertical;
@@ -27,11 +27,11 @@
 }
 
 - (NSInteger)cols {
-	return viewPort.size.width / (itemSize.width + border);
+	return viewPort.size.width / (itemSize.width);
 }
 
 - (NSInteger)rows {
-	return viewPort.size.height / (itemSize.height + border);
+	return viewPort.size.height / (itemSize.height);
 }
 
 - (NSInteger)itemsOnPage {
