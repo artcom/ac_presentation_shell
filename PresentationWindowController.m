@@ -28,11 +28,39 @@
 	return self;
 }
 
+- (void) dealloc {
+	[keynote release];
+	[presentations release];
+	
+	[gridView release];
+	[paginationView release];
+	
+	[super dealloc];
+}
+
+
 - (void)awakeFromNib {
 	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
 	
 	[self.window setFrame:frame display:YES animate: NO];
 }
+
+#pragma mark -
+#pragma mark User Actions
+- (void)nextPage:(id)sender {
+	if (gridView.page - 1 >= 0) {
+		paginationView.activePage -= 1;
+		gridView.page -= 1;
+	}
+}
+
+- (void)previousPage:(id)sender {
+	if (gridView.page + 1 < gridView.pages) {
+		paginationView.activePage += 1;
+		gridView.page += 1;	
+	}
+}
+
 
 #pragma mark -
 #pragma mark Setter Methods
@@ -46,7 +74,7 @@
 }
 
 - (void) showWindow:(id)sender {
-	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
+	NSRect frame = [[[NSScreen screens] objectAtIndex:1] frame];
 	
 	[self.window setFrame:frame display:YES animate: NO];
 	[self.window makeKeyAndOrderFront:nil];

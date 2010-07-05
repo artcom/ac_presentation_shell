@@ -18,7 +18,7 @@
 @synthesize paddingVertical;
 
 - (void)calculate {
-	border = 10;
+	border = 8;
 	
 	viewPort.origin.x = 0 + paddingHorizontal;
 	viewPort.origin.y = 0 + paddingVertical;

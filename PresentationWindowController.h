@@ -26,4 +26,8 @@
 @property (retain) IBOutlet GridView *gridView;
 @property (retain) IBOutlet PaginationView *paginationView;
 
+- (IBAction)nextPage:(id)sender;
+- (IBAction)previousPage:(id)sender;
+
+
 @end
