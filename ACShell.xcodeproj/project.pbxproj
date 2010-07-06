@@ -11,6 +11,14 @@
 		225C7E7F11DBA4B200EF3009 /* Playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* Playlist.m */; };
 		228C741911E1DBA800D55C89 /* ImageGrid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 228C741811E1DBA800D55C89 /* ImageGrid.jpg */; };
 		228C742011E1DE2700D55C89 /* PresentationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 228C741F11E1DE2700D55C89 /* PresentationView.m */; };
+		2295411011E3249500E09031 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
+		2295411411E3259800E09031 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
+		2295412B11E3263100E09031 /* GridLayoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2295412A11E3263100E09031 /* GridLayoutTest.m */; };
+		2295413011E3275A00E09031 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 229540D611E3223100E09031 /* GHUnitTestMain.m */; };
+		2295416311E32CA700E09031 /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2019811DA365B00C6D9ED /* GridLayout.m */; };
+		229541A211E331EE00E09031 /* GridViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229541A111E331EE00E09031 /* GridViewTest.m */; };
+		229541B811E3342700E09031 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* GridView.m */; };
+		229541F011E3365B00E09031 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
 		22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* GridView.m */; };
 		22B2002711D9F33900C6D9ED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
 		22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */; };
@@ -36,6 +44,19 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		2295411511E325B600E09031 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2295411411E3259800E09031 /* GHUnit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
@@ -46,6 +67,12 @@
 		228C741811E1DBA800D55C89 /* ImageGrid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ImageGrid.jpg; path = "../../../Desktop/AC Shell/ImageGrid.jpg"; sourceTree = SOURCE_ROOT; };
 		228C741E11E1DE2700D55C89 /* PresentationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationView.h; path = Classes/View/PresentationView.h; sourceTree = "<group>"; };
 		228C741F11E1DE2700D55C89 /* PresentationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationView.m; path = Classes/View/PresentationView.m; sourceTree = "<group>"; };
+		229540BD11E3213300E09031 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = libs/GHUnit.framework; sourceTree = "<group>"; };
+		229540CD11E3216100E09031 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		229540D611E3223100E09031 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitTestMain.m; path = Tests/GHUnitTestMain.m; sourceTree = "<group>"; };
+		2295410C11E3248700E09031 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2295412A11E3263100E09031 /* GridLayoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridLayoutTest.m; path = Tests/GridLayoutTest.m; sourceTree = "<group>"; };
+		229541A111E331EE00E09031 /* GridViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridViewTest.m; path = Tests/GridViewTest.m; sourceTree = "<group>"; };
 		22B2000B11D9EECE00C6D9ED /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridView.h; path = Classes/View/GridView.h; sourceTree = "<group>"; };
 		22B2000C11D9EECE00C6D9ED /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridView.m; path = Classes/View/GridView.m; sourceTree = "<group>"; };
 		22B2002611D9F33900C6D9ED /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -90,6 +117,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2295410A11E3248700E09031 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2295411011E3249500E09031 /* GHUnit.framework in Frameworks */,
+				229541F011E3365B00E09031 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072E0486CEB800E47090 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +164,7 @@
 				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
 				22B2002611D9F33900C6D9ED /* QuartzCore.framework */,
 				22C7F8DE11DB406700A54494 /* ScriptingBridge.framework */,
+				229540BD11E3213300E09031 /* GHUnit.framework */,
 			);
 			name = "Linked Frameworks";
 			sourceTree = "<group>";
@@ -146,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* ACShell.app */,
+				2295410C11E3248700E09031 /* Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -153,6 +191,9 @@
 		228C73CD11E1D6E600D55C89 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				229540D611E3223100E09031 /* GHUnitTestMain.m */,
+				2295412A11E3263100E09031 /* GridLayoutTest.m */,
+				229541A111E331EE00E09031 /* GridViewTest.m */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -238,6 +279,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				229540CD11E3216100E09031 /* Tests-Info.plist */,
 			);
 			name = ACShell;
 			sourceTree = "<group>";
@@ -275,6 +317,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2295410B11E3248700E09031 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2295411211E3249600E09031 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				2295411511E325B600E09031 /* CopyFiles */,
+				2295410811E3248700E09031 /* Resources */,
+				2295410911E3248700E09031 /* Sources */,
+				2295410A11E3248700E09031 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = 2295410C11E3248700E09031 /* Tests.app */;
+			productType = "com.apple.product-type.application";
+		};
 		8D1107260486CEB800E47090 /* ACShell */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ACShell" */;
@@ -309,11 +369,19 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* ACShell */,
+				2295410B11E3248700E09031 /* Tests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		2295410811E3248700E09031 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D1107290486CEB800E47090 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -333,6 +401,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2295410911E3248700E09031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2295412B11E3263100E09031 /* GridLayoutTest.m in Sources */,
+				2295413011E3275A00E09031 /* GHUnitTestMain.m in Sources */,
+				2295416311E32CA700E09031 /* GridLayout.m in Sources */,
+				229541A211E331EE00E09031 /* GridViewTest.m in Sources */,
+				229541B811E3342700E09031 /* GridView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -385,11 +465,73 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		2295410E11E3248700E09031 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+			};
+			name = Debug;
+		};
+		2295410F11E3248700E09031 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -407,6 +549,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/libs\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ACShell_Prefix.pch;
@@ -445,6 +591,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2295411211E3249600E09031 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2295410E11E3248700E09031 /* Debug */,
+				2295410F11E3248700E09031 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ACShell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

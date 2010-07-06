@@ -47,15 +47,15 @@
 
 #pragma mark -
 #pragma mark User Actions
-- (void)nextPage:(id)sender {
-	if (gridView.page - 1 >= 0) {
+- (void)previousPage:(id)sender {
+	if ([gridView hasPreviousPage]) {
 		paginationView.activePage -= 1;
 		gridView.page -= 1;
 	}
 }
 
-- (void)previousPage:(id)sender {
-	if (gridView.page + 1 < gridView.pages) {
+- (void)nextPage:(id)sender {
+	if ([gridView hasNextPage]) {
 		paginationView.activePage += 1;
 		gridView.page += 1;	
 	}

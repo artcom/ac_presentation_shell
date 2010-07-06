@@ -26,6 +26,7 @@
 
 @property (assign) CGFloat paddingHorizontal;
 @property (assign) CGFloat paddingVertical;
+@property (assign) CGFloat border;
 
 @property (readonly) NSInteger itemsOnPage;
 

@@ -106,6 +106,7 @@
 	
 	layout.viewFrame = NSRectToCGRect(self.frame);
 	layout.itemSize = CGSizeMake(220, 100);
+	layout.border = 10;
 	layout.paddingVertical = 0;
 	layout.paddingHorizontal = 0;
 	
@@ -136,6 +137,8 @@
 }
 
 - (void)setPage:(NSInteger)newPage {
+	
+	
 	[self willChangeValueForKey:@"page"];
 	page = newPage;
 	[self didChangeValueForKey:@"page"];
@@ -147,15 +150,15 @@
 		return 0;
 	}
 	
-	return ([dataSource numberOfItemsInGridView:self] / layout.itemsOnPage) + 1;
+	return ceil(([dataSource numberOfItemsInGridView:self] / (float)layout.itemsOnPage));
 }
 
 - (BOOL)hasNextPage {
-	
+	return (self.page + 1 < self.pages);
 }
 
 - (BOOL)hasPreviousPage {
-	
+	return (self.page - 1 >= 0);
 }
 
 

@@ -16,10 +16,9 @@
 
 @synthesize paddingHorizontal;
 @synthesize paddingVertical;
+@synthesize border;
 
-- (void)calculate {
-	border = 10;
-	
+- (void)calculate {	
 	viewPort.origin.x = 0 + paddingHorizontal;
 	viewPort.origin.y = 0 + paddingVertical;
 	viewPort.size.width = viewFrame.size.width - 2 * paddingHorizontal;
