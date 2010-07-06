@@ -27,7 +27,7 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-		self.pages = 5;
+		self.pages = 1;
 		self.activePage = 0;
 		dots = [[NSMutableArray alloc] initWithCapacity:self.pages];
 		
@@ -39,6 +39,12 @@
 	}
 	
     return self;
+}
+
+- (void)updateView {
+	[self prepareDots];
+	[self setActiveDot];
+	[self calculateDotPositions];
 }
 
 - (void) dealloc {
@@ -55,7 +61,6 @@
 	[self setActiveDot]; 
 	[self calculateDotPositions];
 }
-
 
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
 	[super resizeWithOldSuperviewSize:oldBoundsSize];

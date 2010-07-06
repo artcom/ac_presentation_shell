@@ -36,4 +36,9 @@
 - (BOOL)hasNextPage;
 - (BOOL)hasPreviousPage;
 
+- (NSInteger)lastItemOnPage;
+- (NSInteger)firstItemOnPage;
+- (NSInteger)indexOfItemOnPage: (NSInteger)index;
+
+
 @end

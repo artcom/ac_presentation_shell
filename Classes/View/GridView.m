@@ -9,7 +9,9 @@
 #import "GridLayout.h"
 
 @interface GridView () 
+- (void)setupView;
 - (void)updateMouseTrackingRect;
+- (void)updateLayout;
 - (NSInteger)lastItemOnPage;
 @end
 
@@ -21,24 +23,34 @@
 @synthesize page;
 @synthesize hoveredLayer;
 
+-(id) initWithFrame:(NSRect)frameRect {
+	self = [super initWithFrame:frameRect];
+	if (self != nil) {
+		[self setupView];
+	}
+	return self;
+}
+
 - (void)awakeFromNib {
+	[self setupView];
+}
+
+- (void)setupView {
 	CALayer *rootLayer=[CALayer layer];
-	CGColorRef whiteColor=CGColorCreateGenericRGB(1.0, 1.0, 1.0, 1.0);
-	rootLayer.backgroundColor=whiteColor;
-	
-	CGColorRelease(whiteColor);
-	
+	rootLayer.backgroundColor= CGColorGetConstantColor(kCGColorWhite);
 	[self setLayer:rootLayer];
 	[self setWantsLayer:YES];
-		
+	
 	sublayers = [[NSMutableArray alloc] init];
 	layout = [[GridLayout alloc] init];
 	
 	self.page = 0;
-	[self arrangeSublayer];
 	
+	[self updateLayout];
 	[self updateMouseTrackingRect];
+	[self arrangeSublayer];
 }
+
 
 - (BOOL)acceptsFirstResponder {
 	return YES;
@@ -54,7 +66,7 @@
 	if (clickedLayer == self.hoveredLayer) {
 		selectedItem = hoveredItem;
 	} else {
-		selectedItem = [sublayers indexOfObject:clickedLayer] + self.page * layout.itemsOnPage;
+		selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
 	}
 	
 	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
@@ -72,7 +84,6 @@
 	if (layer == self.layer) {
 		[self.hoveredLayer removeFromSuperlayer];
 		self.hoveredLayer == nil;
-		
 		return;
 	}
 	
@@ -81,7 +92,7 @@
 	}
 
 	[self.hoveredLayer removeFromSuperlayer];
-	hoveredItem = [sublayers indexOfObject:layer] + self.page * layout.itemsOnPage;
+	hoveredItem = [self indexOfItemOnPage:[sublayers indexOfObject:layer]];
 		
 	self.hoveredLayer = [dataSource gridView:self hoverLayerForItemAtIndex:hoveredItem];
 	self.hoveredLayer.frame = layer.frame;
@@ -89,9 +100,11 @@
 	[self.layer addSublayer: self.hoveredLayer];
 }
 
+
 - (void) mouseEntered:(NSEvent *)theEvent {
 	[[self window] setAcceptsMouseMovedEvents:YES];
 }
+
 
 - (void)mouseExited:(NSEvent *)theEvent {
 	[self.hoveredLayer removeFromSuperlayer];
@@ -99,31 +112,28 @@
 	[[self window] setAcceptsMouseMovedEvents:NO];
 }
 
+
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
 
 	[self updateMouseTrackingRect];
+	[self updateLayout];
 	
-	layout.viewFrame = NSRectToCGRect(self.frame);
-	layout.itemSize = CGSizeMake(220, 100);
-	layout.border = 10;
-	layout.paddingVertical = 0;
-	layout.paddingHorizontal = 0;
-	
-	[layout calculate];
 	[self arrangeSublayer];
 }
+
 
 - (void)arrangeSublayer {
 	for (CALayer *layer in sublayers) {
 		[layer removeFromSuperlayer];
 	}
+	
 	[sublayers removeAllObjects];
 	
-	NSInteger firstItem = self.page * layout.itemsOnPage;
+	NSInteger firstItem = [self firstItemOnPage];
 	NSInteger lastItem = [self lastItemOnPage];
 	
-	for (int i = firstItem; i < lastItem; i++) {
+	for (int i = firstItem; i <= lastItem; i++) {
 		CALayer *layer = [dataSource gridView:self layerForItemAtIndex:i];
 		layer.position = [layout positionForItem:i % layout.itemsOnPage];
 		
@@ -136,14 +146,14 @@
 	}
 }
 
+
 - (void)setPage:(NSInteger)newPage {
-	
-	
 	[self willChangeValueForKey:@"page"];
 	page = newPage;
 	[self didChangeValueForKey:@"page"];
 	[self arrangeSublayer];
 }
+
 
 - (NSInteger)pages {
 	if (layout.itemsOnPage == 0) {
@@ -153,12 +163,36 @@
 	return ceil(([dataSource numberOfItemsInGridView:self] / (float)layout.itemsOnPage));
 }
 
+
 - (BOOL)hasNextPage {
 	return (self.page + 1 < self.pages);
 }
 
+
 - (BOOL)hasPreviousPage {
 	return (self.page - 1 >= 0);
+}
+
+- (NSInteger)lastItemOnPage {
+	NSInteger items = [dataSource numberOfItemsInGridView:self];
+	
+	return (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) - 1 : items -1;
+}
+
+- (NSInteger)firstItemOnPage; {
+	return self.page * layout.itemsOnPage;
+}
+
+- (NSInteger)indexOfItemOnPage: (NSInteger)index {
+	return index + self.page * layout.itemsOnPage;
+}
+
+
+#pragma mark -
+#pragma mark Setter/Getter 
+- (void)setDataSource:(id <GridViewDataSource>)newDataSource {
+	dataSource = newDataSource;
+	[self updateLayout];
 }
 
 
@@ -170,11 +204,20 @@
 	mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
 }
 
-- (NSInteger)lastItemOnPage {
-	NSInteger items = [dataSource numberOfItemsInGridView:self];
-	
-	return (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) : items;
+- (void)updateLayout {
+	layout.viewFrame = NSRectToCGRect(self.frame);
+	layout.border = 10;	
+
+	if ([dataSource respondsToSelector:@selector(sizeForItemInGridView:)]) {
+		layout.itemSize = [dataSource sizeForItemInGridView:self];		
+	}
+		 
+	[layout calculate];
 }
+
+
+
+
 
 
 @end

@@ -88,6 +88,8 @@
 	}
 	
 	[super showWindow:sender];
+	[paginationView updateView];
+	
 }
 
 
@@ -95,6 +97,10 @@
 #pragma mark GridView DataSource
 - (NSInteger)numberOfItemsInGridView:(GridView *)aGridView {
 	return [self.presentations count];
+}
+
+- (CGSize)sizeForItemInGridView: (GridView *)aGridView {
+	return CGSizeMake(220, 100);
 }
 
 - (CALayer *)gridView:(GridView *)aGridView layerForItemAtIndex:(NSInteger)index {
@@ -128,7 +134,7 @@
 	[keynote open: presentation.presentationFile];
 }
 
-- (void) didUpdateGridView:(GridView *)aView {
+- (void) didUpdateGridView:(GridView *)aView {	
 	paginationView.pages = aView.pages;
 }
 

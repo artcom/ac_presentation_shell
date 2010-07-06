@@ -33,7 +33,11 @@
 }
 
 - (CALayer *)gridView: (GridView *)aGridView layerForItemAtIndex: (NSInteger)index; {
-	return nil;
+	return [CALayer layer];
+}
+
+- (CGSize)sizeForItemInGridView: (GridView *)aGridView {
+	return CGSizeMake(10, 10);
 }
 
 @end
@@ -41,22 +45,93 @@
 
 
 @interface GridViewTest : GHTestCase {
-	
+	MockedDataSource *dataSource;
+	GridView *view;
 }
 @end
 
 
 @implementation GridViewTest
 
-- (void)testPageCalculation {
-	MockedDataSource *dataSource = [[MockedDataSource alloc] init];
-	dataSource.items = 10;
+- (void)setUp {
+	dataSource = [[MockedDataSource alloc] init];
+	view = [[GridView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
 	
-	GridView *view = [[GridView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
-	view.dataSource = dataSource;
+	view.dataSource = dataSource;	
+}
+
+- (void)tearDown {
+	[dataSource release];
+	[view release];
+}
+
+- (void)testPageCalculation {	
+	dataSource.items = 1;
+
+	GHAssertEquals(view.pages, 1, nil);
+}
+
+- (void)testPageCalculationWithZeroItems {
+	dataSource.items = 0;
+	GHAssertEquals(view.pages, 0, nil);
+}
+
+- (void)testPageCalculationWithManyItems {
+	dataSource.items = 201;
+	GHAssertEquals(view.pages, 3, nil);
+}
+
+- (void)testPageCalculationWithTwoFullPages {
+	dataSource.items = 200;
+	GHAssertEquals(view.pages, 2, nil);
+}
+
+- (void)testNextPage {
+	dataSource.items = 200;
+	GHAssertEquals(view.pages, 2, nil);
+
+	GHAssertEquals(view.page, 0, @"should be on first page");
+	GHAssertTrue([view hasNextPage], @"should have next page");
 	
-	GHTestLog(@"pages: %d", view.pages);
-	GHAssertEquals(view.pages, 10, nil);
+	view.page = 1;
+	GHAssertFalse([view hasNextPage], @"should not have next page");	
+}
+
+- (void)testPreviousPage {
+	dataSource.items = 200;
+	GHAssertEquals(view.pages, 2, nil);
+	
+	GHAssertEquals(view.page, 0, @"should be on first page");
+	GHAssertFalse([view hasPreviousPage], @"should not have previous page");
+	
+	view.page = 1;
+	GHAssertTrue([view hasPreviousPage], @"should have previous page");
+}
+
+- (void)testFirstElementOnPage {
+	dataSource.items = 150;
+	
+	GHAssertEquals([view firstItemOnPage], 0, nil);
+	view.page = 1;
+	
+	GHAssertEquals([view firstItemOnPage], 100, nil);
+}
+
+- (void)testLastElementOnPage {
+	dataSource.items = 150;
+	
+	GHAssertEquals([view lastItemOnPage], 99, nil);
+	view.page = 1;
+	
+	GHAssertEquals([view lastItemOnPage], 149, nil);
+}
+
+- (void)testAdaptingIndexToPage {
+	dataSource.items = 150;
+	
+	GHAssertEquals([view indexOfItemOnPage:50], 50, nil);
+	view.page = 1;
+	GHAssertEquals([view indexOfItemOnPage:50], 150, nil);
 }
 
 

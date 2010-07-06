@@ -28,4 +28,6 @@
 @property (retain) NSImage *activeDot;
 @property (retain) NSImage *inactiveDot;
 
+- (void)updateView;
+
 @end

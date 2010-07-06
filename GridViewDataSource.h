@@ -17,5 +17,6 @@
 
 @optional 
 - (CALayer *)gridView: (GridView *)aGridView hoverLayerForItemAtIndex: (NSInteger)index;
+- (CGSize)sizeForItemInGridView: (GridView *)aGridView;
 
 @end
