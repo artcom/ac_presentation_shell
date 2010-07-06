@@ -35,6 +35,7 @@
 	[gridView release];
 	[paginationView release];
 	
+	
 	[super dealloc];
 }
 
@@ -43,20 +44,20 @@
 	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
 	
 	[self.window setFrame:frame display:YES animate: NO];
+	
+	[paginationView bind:@"activePage" toObject:gridView withKeyPath:@"page" options:nil];
 }
 
 #pragma mark -
 #pragma mark User Actions
 - (void)previousPage:(id)sender {
 	if ([gridView hasPreviousPage]) {
-		paginationView.activePage -= 1;
 		gridView.page -= 1;
 	}
 }
 
 - (void)nextPage:(id)sender {
 	if ([gridView hasNextPage]) {
-		paginationView.activePage += 1;
 		gridView.page += 1;	
 	}
 }

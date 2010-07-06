@@ -26,6 +26,7 @@
 - (void)dealloc {
 	[gridView release];
 	[paginationView release];
+	
 	[super dealloc];
 }
 
@@ -34,15 +35,13 @@
 }
 
 - (void)moveUp:(id)sender {
-	if (gridView.page - 1 >= 0) {
-		paginationView.activePage -= 1;
+	if ([gridView hasPreviousPage]) {
 		gridView.page -= 1;
 	}
 }
 
 - (void)moveDown:(id)sender {
-	if (gridView.page + 1 < gridView.pages) {
-		paginationView.activePage += 1;
+	if ([gridView hasNextPage]) {
 		gridView.page += 1;	
 	}
 }
