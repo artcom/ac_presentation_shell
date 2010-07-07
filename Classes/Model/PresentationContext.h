@@ -19,6 +19,8 @@
 @property (copy) NSString *directory;
 
 - (NSArray *)allPresentations;
+- (NSArray *)highlights;
+
 - (PresentationData *)presentationDataWithId: (NSInteger)aId;
 
 

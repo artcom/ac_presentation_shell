@@ -19,4 +19,6 @@
 @property (retain) NSMutableArray *presentations;
 @property (retain) NSMutableArray *children;
 
++ (Playlist *) playlistWithName: (NSString *)theName presentations: (NSArray *)thePresentations children: (NSArray *)theChildren;
+
 @end

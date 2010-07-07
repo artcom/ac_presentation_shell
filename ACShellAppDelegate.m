@@ -15,7 +15,6 @@
 @synthesize mainView;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	NSLog(@"application support: %@", [[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]);
 }
 
 @end

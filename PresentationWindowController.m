@@ -44,7 +44,6 @@
 	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
 	
 	[self.window setFrame:frame display:YES animate: NO];
-	
 	[paginationView bind:@"activePage" toObject:gridView withKeyPath:@"page" options:nil];
 }
 
@@ -136,7 +135,7 @@
 }
 
 - (void) didUpdateGridView:(GridView *)aView {	
-	paginationView.pages = aView.pages;
+	 paginationView.pages = aView.pages;
 }
 
 @end

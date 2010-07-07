@@ -54,6 +54,11 @@
 	return allPresentations;
 }
 
+- (NSArray *)highlights {
+	NSPredicate *highlightFilter = [NSPredicate predicateWithFormat:@"data.highlight == YES"];
+	return [[self allPresentations] filteredArrayUsingPredicate:highlightFilter];
+}
+
 - (PresentationData *)presentationDataWithId: (NSInteger)aId {
 	return [presentations objectForKey:[NSNumber numberWithInt:aId]];
 }

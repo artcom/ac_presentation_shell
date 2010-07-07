@@ -14,4 +14,23 @@
 @synthesize presentations;
 @synthesize children;
 
++ (Playlist *) playlistWithName: (NSString *)theName presentations: (NSArray *)thePresentations children: (NSArray *)theChildren {
+	Playlist *playlist = [[Playlist alloc] init];
+	
+	playlist.name = theName;
+	playlist.presentations = [[thePresentations mutableCopy] autorelease];
+	playlist.children = [[theChildren mutableCopy] autorelease];
+	
+	return [playlist autorelease];
+}
+
+- (void)dealloc {
+	[name release];
+	[presentations release];
+	[children release];
+	
+	[super dealloc];
+}
+
+
 @end

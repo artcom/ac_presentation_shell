@@ -15,9 +15,12 @@
 	NSMutableArray* categories;
 
 	PresentationWindowController *presentationWindowController;
+	
+	NSArrayController *presentationsArrayController;
 }
 
 @property (retain, nonatomic) NSArray *presentations;
+@property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 
 - (IBAction)play: (id)sender;
 - (NSArray *)selectedPresentations;
