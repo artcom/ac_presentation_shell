@@ -12,7 +12,7 @@
 #import "KeynoteHandler.h"
 #import "GridView.h"
 #import "PaginationView.h"
-
+#import "HeightForWidthLayoutManager.h"
 
 @implementation PresentationWindowController
 
@@ -119,10 +119,34 @@
 
 	CATextLayer *textLayer = [CATextLayer layer];
 	textLayer.string = presentation.data.title;
-	textLayer.backgroundColor = CGColorGetConstantColor(kCGColorWhite);
-	textLayer.foregroundColor = CGColorGetConstantColor(kCGColorBlack);
+	textLayer.foregroundColor = CGColorGetConstantColor(kCGColorWhite);
+	textLayer.wrapped = YES;
+	textLayer.fontSize = 15;
+	textLayer.font = @"AC Swiss Bold";
 		
-	return textLayer;
+	[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
+                                                        relativeTo:@"superlayer"
+                                                         attribute:kCAConstraintMaxX
+                                                            offset:-10]];
+	
+	[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
+                                                        relativeTo:@"superlayer"
+                                                         attribute:kCAConstraintMinX
+															offset:10]];
+	
+	[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
+														relativeTo:@"superlayer"
+														 attribute:kCAConstraintMinY 
+															offset:10]];
+	
+	CALayer *layer = [CALayer layer];
+	layer.contents = [NSImage imageNamed: @"gfx_project_overlay.png"];
+	layer.frame = CGRectMake(0, 0, 220, 100);
+	layer.layoutManager = [HeightForWidthLayoutManager layoutManager];
+	
+	[layer addSublayer: textLayer];
+	
+	return layer;
 }
 
 
