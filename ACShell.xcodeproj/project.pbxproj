@@ -19,6 +19,10 @@
 		229541A211E331EE00E09031 /* GridViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229541A111E331EE00E09031 /* GridViewTest.m */; };
 		229541B811E3342700E09031 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* GridView.m */; };
 		229541F011E3365B00E09031 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
+		22A3B65211E71F48003DE847 /* acswisslight.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B64E11E71F48003DE847 /* acswisslight.ttf */; };
+		22A3B65311E71F48003DE847 /* acswisslightit.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B64F11E71F48003DE847 /* acswisslightit.ttf */; };
+		22A3B65411E71F48003DE847 /* acswissmed.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B65011E71F48003DE847 /* acswissmed.ttf */; };
+		22A3B65511E71F48003DE847 /* acswissmedit.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B65111E71F48003DE847 /* acswissmedit.ttf */; };
 		22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8CAB011E63B41006707E4 /* HeightForWidthLayoutManager.m */; };
 		22A8CAB511E63BFE006707E4 /* gfx_project_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 22A8CAB411E63BFE006707E4 /* gfx_project_overlay.png */; };
 		22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* GridView.m */; };
@@ -57,6 +61,19 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22A3B63A11E71C91003DE847 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Fonts;
+			dstSubfolderSpec = 7;
+			files = (
+				22A3B65211E71F48003DE847 /* acswisslight.ttf in CopyFiles */,
+				22A3B65311E71F48003DE847 /* acswisslightit.ttf in CopyFiles */,
+				22A3B65411E71F48003DE847 /* acswissmed.ttf in CopyFiles */,
+				22A3B65511E71F48003DE847 /* acswissmedit.ttf in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +92,10 @@
 		2295410C11E3248700E09031 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2295412A11E3263100E09031 /* GridLayoutTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridLayoutTest.m; path = Tests/GridLayoutTest.m; sourceTree = "<group>"; };
 		229541A111E331EE00E09031 /* GridViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridViewTest.m; path = Tests/GridViewTest.m; sourceTree = "<group>"; };
+		22A3B64E11E71F48003DE847 /* acswisslight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = acswisslight.ttf; path = Resources/acswisslight.ttf; sourceTree = "<group>"; };
+		22A3B64F11E71F48003DE847 /* acswisslightit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = acswisslightit.ttf; path = Resources/acswisslightit.ttf; sourceTree = "<group>"; };
+		22A3B65011E71F48003DE847 /* acswissmed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = acswissmed.ttf; path = Resources/acswissmed.ttf; sourceTree = "<group>"; };
+		22A3B65111E71F48003DE847 /* acswissmedit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = acswissmedit.ttf; path = Resources/acswissmedit.ttf; sourceTree = "<group>"; };
 		22A8CAAF11E63B41006707E4 /* HeightForWidthLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightForWidthLayoutManager.h; path = Classes/HeightForWidthLayoutManager.h; sourceTree = "<group>"; };
 		22A8CAB011E63B41006707E4 /* HeightForWidthLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightForWidthLayoutManager.m; path = Classes/HeightForWidthLayoutManager.m; sourceTree = "<group>"; };
 		22A8CAB411E63BFE006707E4 /* gfx_project_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_project_overlay.png; path = Resources/gfx_project_overlay.png; sourceTree = "<group>"; };
@@ -203,6 +224,17 @@
 			name = Tests;
 			sourceTree = "<group>";
 		};
+		22A3B61711E71AA6003DE847 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				22A3B64E11E71F48003DE847 /* acswisslight.ttf */,
+				22A3B64F11E71F48003DE847 /* acswisslightit.ttf */,
+				22A3B65011E71F48003DE847 /* acswissmed.ttf */,
+				22A3B65111E71F48003DE847 /* acswissmedit.ttf */,
+			);
+			name = Font;
+			sourceTree = "<group>";
+		};
 		22A8CA9411E63AF9006707E4 /* LayoutManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -312,6 +344,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				22A3B61711E71AA6003DE847 /* Font */,
 				22D59A4511DE146B0025E48F /* images */,
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -355,6 +388,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ACShell" */;
 			buildPhases = (
+				22A3B63A11E71C91003DE847 /* CopyFiles */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,

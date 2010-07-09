@@ -123,7 +123,7 @@
 	textLayer.wrapped = YES;
 	textLayer.fontSize = 15;
 	textLayer.font = @"AC Swiss Bold";
-		
+	
 	[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
                                                         relativeTo:@"superlayer"
                                                          attribute:kCAConstraintMaxX
