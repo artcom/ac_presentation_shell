@@ -14,9 +14,10 @@
 - (id) init {
 	self = [super init];
 	if (self != nil) {
-		application = [[SBApplication applicationWithBundleIdentifier:@"com.apple.iWork.Keynote"] retain];
-		NSLog(@"application: %@", application);
-		[application activate];
+		dispatch_async(dispatch_get_global_queue(0, 0), ^{
+			application = [[SBApplication applicationWithBundleIdentifier:@"com.apple.iWork.Keynote"] retain];			
+		});
+		// [application activate];
 	}
 	return self;
 }
@@ -24,8 +25,15 @@
 - (void)open: (NSString *)file {
 	NSLog(@"opening: %@ in %@", file, application);
 	NSURL *url = [NSURL fileURLWithPath: file];
-	KeynoteSlideshow *slideshow =  [application open:url];
-	[slideshow start];
+	
+	dispatch_async(dispatch_get_global_queue(0, 0), ^{
+		KeynoteSlideshow *slideshow =  [application open:url];
+		[slideshow start];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			NSLog(@"loaded %@", file);
+		});
+	});
+
 }
 
 - (void) dealloc {
