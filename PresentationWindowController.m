@@ -39,7 +39,6 @@
 	[super dealloc];
 }
 
-
 - (void)awakeFromNib {
 	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
 	
@@ -88,8 +87,7 @@
 	}
 	
 	[super showWindow:sender];
-	[paginationView updateView];
-	
+	[paginationView updateView];	
 }
 
 
@@ -119,9 +117,10 @@
 
 	CATextLayer *textLayer = [CATextLayer layer];
 	textLayer.string = presentation.data.title;
+	// textLayer.string = @"Projekt wird geladen";
 	textLayer.foregroundColor = CGColorGetConstantColor(kCGColorWhite);
 	textLayer.wrapped = YES;
-	textLayer.fontSize = 15;
+	textLayer.fontSize = 14;
 	textLayer.font = @"AC Swiss Bold";
 	
 	[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX

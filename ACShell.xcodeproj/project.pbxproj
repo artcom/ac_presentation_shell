@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		225C7E7F11DBA4B200EF3009 /* Playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* Playlist.m */; };
-		228C741911E1DBA800D55C89 /* ImageGrid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 228C741811E1DBA800D55C89 /* ImageGrid.jpg */; };
 		228C742011E1DE2700D55C89 /* PresentationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 228C741F11E1DE2700D55C89 /* PresentationView.m */; };
 		2295411011E3249500E09031 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
 		2295411411E3259800E09031 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
@@ -83,7 +82,6 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		225C7E7D11DBA4B200EF3009 /* Playlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playlist.h; path = Classes/Model/Playlist.h; sourceTree = "<group>"; };
 		225C7E7E11DBA4B200EF3009 /* Playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Playlist.m; path = Classes/Model/Playlist.m; sourceTree = "<group>"; };
-		228C741811E1DBA800D55C89 /* ImageGrid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = ImageGrid.jpg; path = "../../../Desktop/AC Shell/ImageGrid.jpg"; sourceTree = SOURCE_ROOT; };
 		228C741E11E1DE2700D55C89 /* PresentationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationView.h; path = Classes/View/PresentationView.h; sourceTree = "<group>"; };
 		228C741F11E1DE2700D55C89 /* PresentationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationView.m; path = Classes/View/PresentationView.m; sourceTree = "<group>"; };
 		229540BD11E3213300E09031 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = libs/GHUnit.framework; sourceTree = "<group>"; };
@@ -308,7 +306,6 @@
 			isa = PBXGroup;
 			children = (
 				22A8CAB411E63BFE006707E4 /* gfx_project_overlay.png */,
-				228C741811E1DBA800D55C89 /* ImageGrid.jpg */,
 				22D59A4611DE147C0025E48F /* gfx_ac_logo.png */,
 				22D59A4711DE147C0025E48F /* icn_next_page.png */,
 				22D59A4811DE147C0025E48F /* icn_pagination_active.png */,
@@ -444,7 +441,6 @@
 				22D59A4D11DE147C0025E48F /* icn_pagination_active.png in Resources */,
 				22D59A4E11DE147C0025E48F /* icn_pagination.png in Resources */,
 				22D59A4F11DE147C0025E48F /* icn_prev_page.png in Resources */,
-				228C741911E1DBA800D55C89 /* ImageGrid.jpg in Resources */,
 				22A8CAB511E63BFE006707E4 /* gfx_project_overlay.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
