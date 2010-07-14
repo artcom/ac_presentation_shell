@@ -58,8 +58,7 @@
 }
 
 - (void) mouseUp:(NSEvent *)theEvent {
-	// CALayer *clickedLayer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
-	NSPoint location = [self con:[theEvent locationInWindow]];
+	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	
 	CALayer *clickedLayer = nil;
 	for (CALayer *layer in sublayers) {
@@ -78,22 +77,6 @@
 	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
 		[self.delegate gridView:self didClickedItemAtIndex:selectedItem];
 	}
-	
-	
-//	if (clickedLayer == self.layer) {
-//		return;
-//	}
-//	
-//	NSInteger selectedItem = -1;
-//	if (clickedLayer == self.hoveredLayer) {
-//		selectedItem = hoveredItem;
-//	} else {
-//		selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
-//	}
-//	
-//	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
-//		[self.delegate gridView:self didClickedItemAtIndex:selectedItem];
-//	}
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
