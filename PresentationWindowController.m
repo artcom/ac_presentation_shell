@@ -63,7 +63,6 @@
 	}
 }
 
-
 #pragma mark -
 #pragma mark Setter Methods
 - (void) setPresentations:(NSArray *)newPresentations {
@@ -130,9 +129,10 @@
 #pragma mark GridView Delegate
 - (void)gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
-	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 	
 	[keynote open: presentation.presentationFile];
+	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
+	self.gridView.mouseTracking = NO;
 }
 
 - (void) didUpdateGridView:(GridView *)aView {	
@@ -143,6 +143,7 @@
 #pragma mark Keynote Handler Delegate
 -(void) didFinishStartingKeynote:(KeynoteHandler *)keynote {
 	NSLog(@"loaded keynote");
+	self.gridView.mouseTracking = YES;
 }
 
 @end

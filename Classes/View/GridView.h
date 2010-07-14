@@ -24,12 +24,14 @@
 	NSTrackingRectTag mouseTrackingRectTag;
 	
 	NSInteger page;
+	BOOL mouseTracking;
 }
 
 @property (assign, nonatomic) id <GridViewDataSource> dataSource;
 @property (assign, nonatomic) id <GridViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
+@property (assign, getter=isMouseTracking) BOOL mouseTracking;
 @property (retain) CALayer *hoveredLayer; 
 
 - (void)arrangeSublayer;

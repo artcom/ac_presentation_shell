@@ -22,17 +22,17 @@
 		spinner.position = CGPointMake(self.frame.size.width / 2, 60);
 		spinner.contents = [NSImage imageNamed:@"spinner.png"];
 		
-		[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(rotate) userInfo:nil repeats:YES];
+		[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(rotateSpinner) userInfo:nil repeats:YES];
 		[self addSublayer: spinner];
 	}
 	return self;
 }
 
-- (void)rotate {
+- (void)rotateSpinner {
 	rotation += (-2 * M_PI) / 12;
 
 	[CATransaction begin];
-	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	[CATransaction setDisableActions:YES];
 	spinner.transform = CATransform3DMakeRotation(rotation, 0, 0, 1);
 	[CATransaction commit];
 }

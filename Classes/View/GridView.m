@@ -22,6 +22,7 @@
 @synthesize delegate;
 @synthesize page;
 @synthesize hoveredLayer;
+@synthesize mouseTracking;
 
 -(id) initWithFrame:(NSRect)frameRect {
 	self = [super initWithFrame:frameRect];
@@ -47,8 +48,9 @@
 	self.page = 0;
 	
 	[self updateLayout];
-	[self updateMouseTrackingRect];
 	[self arrangeSublayer];
+	
+	self.mouseTracking = YES;
 }
 
 
@@ -75,7 +77,7 @@
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	if (![dataSource respondsToSelector: @selector(gridView:hoverLayerForItemAtIndex:)]) {
+	if (!self.mouseTracking || ![dataSource respondsToSelector: @selector(gridView:hoverLayerForItemAtIndex:)]) {
 		return;
 	}
 	
@@ -203,13 +205,22 @@
 	[self updateLayout];
 }
 
+- (void) setMouseTracking:(BOOL)newMouseTracking {
+	mouseTracking = newMouseTracking;
+	
+	[self updateMouseTrackingRect];
+}
+
 
 #pragma mark -
 #pragma mark Private Methods
 - (void)updateMouseTrackingRect {
 	[self removeTrackingRect:mouseTrackingRectTag];
-	NSRect trackingRect = NSMakeRect(0, 0, self.frame.size.width, self.frame.size.height);
-	mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
+	
+	if (mouseTracking) {
+		NSRect trackingRect = NSMakeRect(0, 0, self.frame.size.width, self.frame.size.height);
+		mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
+	}
 }
 
 - (void)updateLayout {
