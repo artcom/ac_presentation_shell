@@ -10,6 +10,7 @@
 
 
 @implementation KeynoteHandler
+@synthesize delegate;
 
 - (id) init {
 	self = [super init];
@@ -30,7 +31,9 @@
 		KeynoteSlideshow *slideshow =  [application open:url];
 		[slideshow start];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			NSLog(@"loaded %@", file);
+			if ([delegate respondsToSelector:@selector(didFinishStartingKeynote:)]) {
+				[delegate didFinishStartingKeynote: self];
+			}
 		});
 	});
 

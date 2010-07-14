@@ -10,11 +10,13 @@
 #import "Presentation.h"
 #import "GridViewDataSource.h"
 #import "GridViewDelegate.h"
+#import "KeynoteDelegate.h"
+
 @class KeynoteHandler;
 @class GridView;
 @class PaginationView;
 
-@interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate> {
+@interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate, KeynoteDelegate> {
 	KeynoteHandler *keynote;
 	NSMutableArray *presentations;
 	

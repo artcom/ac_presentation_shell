@@ -26,6 +26,7 @@
 	self = [super initWithWindowNibName:@"PresentationWindow"];
 	if (self != nil) {
 		keynote = [[KeynoteHandler alloc] init];
+		keynote.delegate = self;
 	}
 	return self;
 }
@@ -136,6 +137,12 @@
 
 - (void) didUpdateGridView:(GridView *)aView {	
 	 paginationView.pages = aView.pages;
+}
+
+#pragma mark -
+#pragma mark Keynote Handler Delegate
+-(void) didFinishStartingKeynote:(KeynoteHandler *)keynote {
+	NSLog(@"loaded keynote");
 }
 
 @end

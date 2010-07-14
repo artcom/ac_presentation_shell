@@ -8,10 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Keynote.h"
+#import "KeynoteDelegate.h"
 
 @interface KeynoteHandler : NSObject {
 	KeynoteApplication *application;
+	id <KeynoteDelegate> delegate;
 }
+
+@property (retain) id <KeynoteDelegate> delegate;
 
 - (void)open: (NSString *)file;
 

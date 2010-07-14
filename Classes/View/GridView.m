@@ -100,7 +100,6 @@
 	[self.layer addSublayer: self.hoveredLayer];
 }
 
-
 - (void) mouseEntered:(NSEvent *)theEvent {
 	[[self window] setAcceptsMouseMovedEvents:YES];
 }
