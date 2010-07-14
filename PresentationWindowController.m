@@ -38,7 +38,6 @@
 	[gridView release];
 	[paginationView release];
 	
-	
 	[super dealloc];
 }
 
@@ -137,9 +136,8 @@
 - (void) didUpdateGridView:(GridView *)aView {	
 	paginationView.pages = self.gridView.pages;
 	
-	NSLog(@"pages: %d, page: %d", self.gridView.pages, self.gridView.page);
 	if (self.gridView.page >= self.gridView.pages && self.gridView.pages != 0) {
-		self.gridView.page = self.gridView.pages - 1;
+		self.gridView.page = self.gridView.pages-1;
 	}  
 }
 

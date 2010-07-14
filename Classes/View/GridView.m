@@ -47,9 +47,8 @@
 	
 	self.page = 0;
 	
-	[self updateLayout];
-	[self arrangeSublayer];
-	
+	// [self updateLayout];
+	// [self arrangeSublayer];
 	self.mouseTracking = YES;
 }
 
@@ -59,21 +58,42 @@
 }
 
 - (void) mouseUp:(NSEvent *)theEvent {
-	CALayer *clickedLayer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
-	if (clickedLayer == self.layer) {
+	// CALayer *clickedLayer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
+	NSPoint location = [self con:[theEvent locationInWindow]];
+	
+	CALayer *clickedLayer = nil;
+	for (CALayer *layer in sublayers) {
+		if ([layer hitTest:NSPointToCGPoint(location)]) {
+			NSLog(@"contains point: %@", layer);
+			clickedLayer = layer;
+		} 
+	}
+	NSLog(@"point: %@", NSStringFromPoint(location));
+	
+	if (clickedLayer == nil) {
 		return;
 	}
 	
-	NSInteger selectedItem = -1;
-	if (clickedLayer == self.hoveredLayer) {
-		selectedItem = hoveredItem;
-	} else {
-		selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
-	}
-	
+	NSInteger selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
 	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
 		[self.delegate gridView:self didClickedItemAtIndex:selectedItem];
 	}
+	
+	
+//	if (clickedLayer == self.layer) {
+//		return;
+//	}
+//	
+//	NSInteger selectedItem = -1;
+//	if (clickedLayer == self.hoveredLayer) {
+//		selectedItem = hoveredItem;
+//	} else {
+//		selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
+//	}
+//	
+//	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
+//		[self.delegate gridView:self didClickedItemAtIndex:selectedItem];
+//	}
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
