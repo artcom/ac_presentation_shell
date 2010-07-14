@@ -115,7 +115,6 @@
 }
 
 - (CALayer *)gridView:(GridView *)aGridView hoverLayerForItemAtIndex:(NSInteger)index {
-	
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 
 	OverlayLayer *layer = [OverlayLayer layer];
@@ -136,13 +135,17 @@
 }
 
 - (void) didUpdateGridView:(GridView *)aView {	
-	 paginationView.pages = aView.pages;
+	paginationView.pages = self.gridView.pages;
+	
+	NSLog(@"pages: %d, page: %d", self.gridView.pages, self.gridView.page);
+	if (self.gridView.page >= self.gridView.pages && self.gridView.pages != 0) {
+		self.gridView.page = self.gridView.pages - 1;
+	}  
 }
 
 #pragma mark -
 #pragma mark Keynote Handler Delegate
 -(void) didFinishStartingKeynote:(KeynoteHandler *)keynote {
-	NSLog(@"loaded keynote");
 	self.gridView.mouseTracking = YES;
 }
 

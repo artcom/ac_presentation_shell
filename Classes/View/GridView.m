@@ -149,6 +149,9 @@
 
 
 - (void)setPage:(NSInteger)newPage {
+	[self.hoveredLayer removeFromSuperlayer];
+	self.hoveredLayer = nil;
+	
 	[self willChangeValueForKey:@"page"];
 	page = newPage;
 	[self didChangeValueForKey:@"page"];
