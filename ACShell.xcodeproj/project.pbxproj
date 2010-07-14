@@ -30,6 +30,9 @@
 		22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2019811DA365B00C6D9ED /* GridLayout.m */; };
 		22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7F8D211DB3E7E00A54494 /* KeynoteHandler.m */; };
 		22C7F8DF11DB406700A54494 /* ScriptingBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22C7F8DE11DB406700A54494 /* ScriptingBridge.framework */; };
+		22CE72CD11EDAD8B0043F3C8 /* OverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CE72CC11EDAD8B0043F3C8 /* OverlayLayer.m */; };
+		22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */; };
+		22CE731711EDB15B0043F3C8 /* spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = 22CE731611EDB15B0043F3C8 /* spinner.png */; };
 		22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F76511D8AFF90030AFBD /* ACShellController.m */; };
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
 		22D2F7C811D8CEF80030AFBD /* PresentationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationContext.m */; };
@@ -110,6 +113,11 @@
 		22C7F8D111DB3E7E00A54494 /* KeynoteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeynoteHandler.h; path = Classes/Keynote/KeynoteHandler.h; sourceTree = "<group>"; };
 		22C7F8D211DB3E7E00A54494 /* KeynoteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeynoteHandler.m; path = Classes/Keynote/KeynoteHandler.m; sourceTree = "<group>"; };
 		22C7F8DE11DB406700A54494 /* ScriptingBridge.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ScriptingBridge.framework; path = System/Library/Frameworks/ScriptingBridge.framework; sourceTree = SDKROOT; };
+		22CE72CB11EDAD8B0043F3C8 /* OverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OverlayLayer.h; path = Classes/View/Layer/OverlayLayer.h; sourceTree = "<group>"; };
+		22CE72CC11EDAD8B0043F3C8 /* OverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = OverlayLayer.m; path = Classes/View/Layer/OverlayLayer.m; sourceTree = "<group>"; };
+		22CE72EF11EDAFE80043F3C8 /* ProgressOverlayLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProgressOverlayLayer.h; path = Classes/View/Layer/ProgressOverlayLayer.h; sourceTree = "<group>"; };
+		22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProgressOverlayLayer.m; path = Classes/View/Layer/ProgressOverlayLayer.m; sourceTree = "<group>"; };
+		22CE731611EDB15B0043F3C8 /* spinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spinner.png; path = Resources/spinner.png; sourceTree = "<group>"; };
 		22D2F76411D8AFF90030AFBD /* ACShellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACShellController.h; path = Classes/ACShellController.h; sourceTree = "<group>"; };
 		22D2F76511D8AFF90030AFBD /* ACShellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellController.m; path = Classes/ACShellController.m; sourceTree = "<group>"; };
 		22D2F77211D8B5E10030AFBD /* Presentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Presentation.h; path = Classes/Model/Presentation.h; sourceTree = "<group>"; };
@@ -274,6 +282,17 @@
 			name = Keynote;
 			sourceTree = "<group>";
 		};
+		22CE72CA11EDAD580043F3C8 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				22CE72CB11EDAD8B0043F3C8 /* OverlayLayer.h */,
+				22CE72CC11EDAD8B0043F3C8 /* OverlayLayer.m */,
+				22CE72EF11EDAFE80043F3C8 /* ProgressOverlayLayer.h */,
+				22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */,
+			);
+			name = Layer;
+			sourceTree = "<group>";
+		};
 		22D2F76311D8AF810030AFBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +311,7 @@
 		22D5993211DDD1270025E48F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				22CE72CA11EDAD580043F3C8 /* Layer */,
 				22A8CA9411E63AF9006707E4 /* LayoutManager */,
 				22B2004211D9F75500C6D9ED /* GridView */,
 				22D5993311DDD19B0025E48F /* PaginationView.h */,
@@ -305,6 +325,7 @@
 		22D59A4511DE146B0025E48F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				22CE731611EDB15B0043F3C8 /* spinner.png */,
 				22A8CAB411E63BFE006707E4 /* gfx_project_overlay.png */,
 				22D59A4611DE147C0025E48F /* gfx_ac_logo.png */,
 				22D59A4711DE147C0025E48F /* icn_next_page.png */,
@@ -442,6 +463,7 @@
 				22D59A4E11DE147C0025E48F /* icn_pagination.png in Resources */,
 				22D59A4F11DE147C0025E48F /* icn_prev_page.png in Resources */,
 				22A8CAB511E63BFE006707E4 /* gfx_project_overlay.png in Resources */,
+				22CE731711EDB15B0043F3C8 /* spinner.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +502,8 @@
 				22D5993511DDD19B0025E48F /* PaginationView.m in Sources */,
 				228C742011E1DE2700D55C89 /* PresentationView.m in Sources */,
 				22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */,
+				22CE72CD11EDAD8B0043F3C8 /* OverlayLayer.m in Sources */,
+				22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
