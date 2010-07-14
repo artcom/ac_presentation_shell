@@ -147,4 +147,9 @@
 	self.gridView.mouseTracking = YES;
 }
 
+- (void) keynoteDidStopPresentation:(KeynoteHandler *)keynote {
+	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+	[[self window] makeKeyAndOrderFront:nil];
+}
+
 @end

@@ -57,6 +57,4 @@
 	return [[presentationsArrayController arrangedObjects] filteredArrayUsingPredicate:selected];
 }
 
-
-
 @end

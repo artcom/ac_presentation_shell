@@ -13,5 +13,6 @@
 
 @optional
 - (void)didFinishStartingKeynote: (KeynoteHandler *)keynote;
+- (void)keynoteDidStopPresentation: (KeynoteHandler *)keynote;
 
 @end

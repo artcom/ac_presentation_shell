@@ -12,6 +12,7 @@
 
 @interface KeynoteHandler : NSObject {
 	KeynoteApplication *application;
+	NSTimer *keynotePollTimer;
 	id <KeynoteDelegate> delegate;
 }
 

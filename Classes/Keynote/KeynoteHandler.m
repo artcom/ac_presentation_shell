@@ -29,6 +29,7 @@
 		KeynoteSlideshow *slideshow =  [application open:url];
 		[slideshow start];
 		dispatch_async(dispatch_get_main_queue(), ^{
+			keynotePollTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(isKeynotePlaying) userInfo:nil repeats:YES];
 			if ([delegate respondsToSelector:@selector(didFinishStartingKeynote:)]) {
 				[delegate didFinishStartingKeynote: self];
 			}
@@ -36,6 +37,21 @@
 	});
 
 }
+
+
+- (void)isKeynotePlaying {
+	BOOL playing = [application playing];
+	
+	if (!playing) {
+		[keynotePollTimer invalidate];
+		keynotePollTimer = nil;		
+		
+		if ([delegate respondsToSelector:@selector(keynoteDidStopPresentation:)]) {
+			[delegate keynoteDidStopPresentation: self];
+		}
+	}
+}
+
 
 - (void) dealloc {
 	[application release];
