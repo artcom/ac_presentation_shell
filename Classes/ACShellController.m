@@ -15,6 +15,8 @@
 @implementation ACShellController
 @synthesize presentations;
 @synthesize presentationsArrayController;
+@synthesize syncWindow;
+@synthesize progressSpinner;
 
 - (id) init {
 	self = [super init];
@@ -51,6 +53,20 @@
 	[presentationWindowController showWindow:nil];
 }
 
+- (IBAction)sync: (id)sender {
+	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow:[[NSApplication sharedApplication] mainWindow] modalDelegate:self didEndSelector:@selector(didEndModal) contextInfo:nil];
+	[progressSpinner startAnimation:nil];
+}
+
+- (IBAction)abortSync: (id)sender {
+	[progressSpinner stopAnimation:nil];
+	[[NSApplication sharedApplication] endSheet:syncWindow];
+}
+
+- (void)didEndModal {
+	[syncWindow orderOut:nil];
+	NSLog(@"%s", _cmd);
+}
 
 - (NSArray *)selectedPresentations {
 	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES"];

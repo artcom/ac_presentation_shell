@@ -17,12 +17,19 @@
 	PresentationWindowController *presentationWindowController;
 	
 	NSArrayController *presentationsArrayController;
+	NSWindow *syncWindow;
+	NSProgressIndicator *progressSpinner;
 }
 
 @property (retain, nonatomic) NSArray *presentations;
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
+@property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
+@property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
 
 - (IBAction)play: (id)sender;
+- (IBAction)sync: (id)sender;
+- (IBAction)abortSync: (id)sender;
+
 - (NSArray *)selectedPresentations;
 
 @end
