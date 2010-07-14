@@ -18,10 +18,10 @@
 		self.text = @"Projekt wird geladen...";
 
 		spinner = [[CALayer layer] retain];
-		spinner.frame = self.frame;
-		spinner.contentsGravity = kCAGravityCenter;
+		spinner.frame = CGRectMake(0, 0, 32, 32);
+		spinner.position = CGPointMake(self.frame.size.width / 2, 60);
 		spinner.contents = [NSImage imageNamed:@"spinner.png"];
-				
+		
 		[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(rotate) userInfo:nil repeats:YES];
 		[self addSublayer: spinner];
 	}
