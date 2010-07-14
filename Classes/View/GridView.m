@@ -163,6 +163,15 @@
 	return ceil(([dataSource numberOfItemsInGridView:self] / (float)layout.itemsOnPage));
 }
 
+- (void)addOverlay: (CALayer *)newOverlay forItem: (NSInteger)index {
+	[self.hoveredLayer removeFromSuperlayer];
+	
+	newOverlay.position = [layout positionForItem: index % layout.itemsOnPage];
+	self.hoveredLayer = newOverlay;
+
+	[self.layer addSublayer:self.hoveredLayer];
+}
+
 
 - (BOOL)hasNextPage {
 	return (self.page + 1 < self.pages);

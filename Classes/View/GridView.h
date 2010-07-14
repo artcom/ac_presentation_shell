@@ -40,5 +40,7 @@
 - (NSInteger)firstItemOnPage;
 - (NSInteger)indexOfItemOnPage: (NSInteger)index;
 
+- (void)addOverlay: (CALayer *)newOverlay forItem: (NSInteger)index;
+
 
 @end

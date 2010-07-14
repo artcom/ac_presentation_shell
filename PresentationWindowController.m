@@ -129,6 +129,7 @@
 #pragma mark GridView Delegate
 - (void)gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
+	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 	
 	[keynote open: presentation.presentationFile];
 }
