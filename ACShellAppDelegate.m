@@ -17,4 +17,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 }
 
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+	return YES;
+}
+
 @end
