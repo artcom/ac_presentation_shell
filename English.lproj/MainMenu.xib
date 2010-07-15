@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="371"/>
+			<integer value="583"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1558,13 +1558,9 @@
 																	</object>
 																	<object class="NSTextFieldCell" key="NSDataCell" id="687959353">
 																		<int key="NSCellFlags">337772096</int>
-																		<int key="NSCellFlags2">2048</int>
+																		<int key="NSCellFlags2">133120</int>
 																		<string key="NSContents">Text Cell</string>
-																		<object class="NSFont" key="NSSupport" id="274184029">
-																			<string key="NSName">LucidaGrande</string>
-																			<double key="NSSize">13</double>
-																			<int key="NSfFlags">1044</int>
-																		</object>
+																		<reference key="NSSupport" ref="26"/>
 																		<reference key="NSControlView" ref="451034496"/>
 																		<object class="NSColor" key="NSBackgroundColor" id="89462652">
 																			<int key="NSColorSpace">6</int>
@@ -1767,9 +1763,9 @@
 																	</object>
 																	<object class="NSTextFieldCell" key="NSDataCell" id="1432455">
 																		<int key="NSCellFlags">337772096</int>
-																		<int key="NSCellFlags2">2048</int>
+																		<int key="NSCellFlags2">133120</int>
 																		<string key="NSContents">Text Cell</string>
-																		<reference key="NSSupport" ref="274184029"/>
+																		<reference key="NSSupport" ref="26"/>
 																		<reference key="NSControlView" ref="357031940"/>
 																		<reference key="NSBackgroundColor" ref="89462652"/>
 																		<reference key="NSTextColor" ref="29327441"/>
@@ -1948,7 +1944,11 @@
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
 								<string key="NSContents">Synchronizing...</string>
-								<reference key="NSSupport" ref="274184029"/>
+								<object class="NSFont" key="NSSupport" id="274184029">
+									<string key="NSName">LucidaGrande</string>
+									<double key="NSSize">13</double>
+									<int key="NSfFlags">1044</int>
+								</object>
 								<reference key="NSControlView" ref="527542091"/>
 								<object class="NSColor" key="NSBackgroundColor">
 									<int key="NSColorSpace">6</int>
@@ -4608,9 +4608,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{55, 82}, {839, 561}}</string>
+					<string>{{51, 80}, {839, 561}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{55, 82}, {839, 561}}</string>
+					<string>{{51, 80}, {839, 561}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
