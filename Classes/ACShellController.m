@@ -56,6 +56,25 @@
 - (IBAction)sync: (id)sender {
 	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow:[[NSApplication sharedApplication] mainWindow] modalDelegate:self didEndSelector:@selector(didEndModal) contextInfo:nil];
 	[progressSpinner startAnimation:nil];
+		
+    NSTask *task = [[NSTask alloc] init];
+    [task setLaunchPath: @"/bin/ls"];
+	
+    NSArray *arguments = [NSArray arrayWithObjects: @"-l", @"-a", @"-t", nil];
+    [task setArguments: arguments];
+	
+    NSPipe *pipe = [NSPipe pipe];
+    [task setStandardOutput: pipe];
+	
+    NSFileHandle *file = [pipe fileHandleForReading];
+	
+    [task launch];
+    [task waitUntilExit];
+	
+    NSData *data = [file readDataToEndOfFile];
+	
+    NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+    NSLog (@"got\n%@", string);
 }
 
 - (IBAction)abortSync: (id)sender {
@@ -65,7 +84,6 @@
 
 - (void)didEndModal {
 	[syncWindow orderOut:nil];
-	NSLog(@"%s", _cmd);
 }
 
 - (NSArray *)selectedPresentations {

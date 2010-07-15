@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="371"/>
 			<integer value="644"/>
-			<integer value="535"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1377,7 +1377,7 @@
 								<nil key="NSToolbarItemView"/>
 								<object class="NSCustomResource" key="NSToolbarItemImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">NSEveryone</string>
+									<string key="NSResourceName">icn_synchro</string>
 								</object>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
@@ -4672,7 +4672,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{554, 649}, {617, 0}}</string>
+					<string>{{594, 710}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -5938,18 +5938,18 @@
 			<bool key="EncodedWithXMLCoder">YES</bool>
 			<object class="NSArray" key="dict.sortedKeys">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>NSEveryone</string>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
 				<string>NSSwitch</string>
 				<string>icn_start_presentation</string>
+				<string>icn_synchro</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
-				<string>{32, 32}</string>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
 				<string>{15, 15}</string>
+				<string>{32, 32}</string>
 				<string>{32, 32}</string>
 			</object>
 		</object>
