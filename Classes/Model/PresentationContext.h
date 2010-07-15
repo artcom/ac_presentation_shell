@@ -11,17 +11,21 @@
 
 
 @interface PresentationContext : NSObject {
-	NSMutableDictionary *presentations;
+	NSMutableDictionary *presentationsData;
+	NSMutableArray *allPresentations;
+	
 	
 	NSString *directory;
 }
 
 @property (copy) NSString *directory;
+@property (readonly) NSArray *allPresentations;
 
-- (NSArray *)allPresentations;
 - (NSArray *)highlights;
 
 - (PresentationData *)presentationDataWithId: (NSInteger)aId;
+- (void)save;
 
+- (NSString *)settingFilePath;
 
 @end

@@ -7,13 +7,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class ACShellController;
 
 @interface ACShellAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
-	NSView *mainView;
+	ACShellController *shellController;
 }
 
-@property (assign) IBOutlet NSWindow *window;
-@property (assign) IBOutlet NSView *mainView;
+@property (retain) IBOutlet ACShellController *shellController;
 
 @end

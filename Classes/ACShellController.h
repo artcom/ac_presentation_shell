@@ -8,9 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 @class PresentationWindowController;
+@class PresentationContext;
 
 
 @interface ACShellController : NSObject {
+	PresentationContext *presentationContext;
+	
 	NSArray *presentations;
 	NSMutableArray* categories;
 
@@ -23,6 +26,7 @@
 	NSTask *rsyncTask;
 }
 
+@property (retain) PresentationContext *presentationContext;
 @property (retain, nonatomic) NSArray *presentations;
 @property (retain, nonatomic) NSMutableArray *categories;
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;

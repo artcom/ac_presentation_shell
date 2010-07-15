@@ -22,12 +22,16 @@
 @end
 
 
+
 @implementation ACShellController
+@synthesize presentationContext;
 @synthesize presentations;
 @synthesize categories;
 @synthesize presentationsArrayController;
 @synthesize syncWindow;
 @synthesize progressSpinner;
+
+
 
 - (id) init {
 	self = [super init];
@@ -41,24 +45,24 @@
 }
 
 - (void)updatePresentationLists {
-	PresentationContext *context = [[PresentationContext alloc] init];
-	self.presentations = [context allPresentations];
+	self.presentationContext = [[[PresentationContext alloc] init] autorelease];
+
+	self.presentations = [presentationContext allPresentations];
 	
 	NSMutableArray *staticCategories = [NSMutableArray array];
-	[staticCategories addObject: [Playlist playlistWithName:@"All" presentations:[context allPresentations] children:nil]];
-	[staticCategories addObject: [Playlist playlistWithName:@"Highlight" presentations:[context highlights] children:nil]];
+	[staticCategories addObject: [Playlist playlistWithName:@"All" presentations:[presentationContext allPresentations] children:nil]];
+	[staticCategories addObject: [Playlist playlistWithName:@"Highlight" presentations:[presentationContext highlights] children:nil]];
 	
 	Playlist *object = [Playlist playlistWithName:@"Library" presentations:nil children:staticCategories];
 	self.categories = [[NSMutableArray arrayWithObject:object] retain];
-	
-	[context release];
 }
 
 - (void) dealloc {
 	[categories release];
 	[presentations release];
 	[presentationWindowController release];
-
+	[presentationContext release];
+	
 	[super dealloc];
 }
 

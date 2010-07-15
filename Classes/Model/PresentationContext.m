@@ -17,7 +17,7 @@
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-		presentations = [[NSMutableDictionary alloc] init];
+		presentationsData = [[NSMutableDictionary alloc] init];
 
 		self.directory = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
 		NSString *libraryPath = [self.directory stringByAppendingPathComponent:@"library.xml"];
@@ -29,7 +29,7 @@
 
 		for (NSXMLElement *presentation in xmlPresentations) {
 			PresentationData *data = [[PresentationData alloc] initWithXMLNode:presentation];
-			[presentations setObject: data forKey: [NSNumber numberWithInt: [data presentationId]]];			
+			[presentationsData setObject: data forKey: [NSNumber numberWithInt: [data presentationId]]];			
 			
 			[data release];
 		}
@@ -40,17 +40,39 @@
 
 - (void) dealloc {
 	[directory release];
-	[presentations release];
+	[presentationsData release];
+	[allPresentations release];
+	
 	[super dealloc];
 }
 
 - (NSArray *)allPresentations {
-	NSMutableArray *allPresentations = [NSMutableArray array];
-	for (PresentationData *data in [presentations allValues]) {
-		Presentation *presentation = [[[Presentation alloc] initWithId: data.presentationId inContext:self] autorelease];
-		[allPresentations addObject:presentation];
+	if (allPresentations != nil) {
+		return allPresentations;
 	}
 	
+	allPresentations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self settingFilePath]];
+	
+	
+	if (allPresentations != nil) {
+		NSMutableArray *removedIds = [[NSMutableArray alloc] init];
+		[allPresentations enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL *stop){
+			Presentation *presentation = (Presentation *)object;
+			
+			presentation.context = self;
+			NSNumber *presentationId = [NSNumber numberWithInt:presentation.presentationId];
+			if (![presentationsData objectForKey: presentationId]) {
+				[removedIds addObject:presentationId];
+			}
+		}];
+	} else {
+		allPresentations = [[NSMutableArray alloc] init];
+		for (PresentationData *data in [presentationsData allValues]) {
+			Presentation *presentation = [[[Presentation alloc] initWithId: data.presentationId inContext:self] autorelease];
+			[allPresentations addObject:presentation];
+		}
+	}
+
 	return allPresentations;
 }
 
@@ -60,8 +82,17 @@
 }
 
 - (PresentationData *)presentationDataWithId: (NSInteger)aId {
-	return [presentations objectForKey:[NSNumber numberWithInt:aId]];
+	return [presentationsData objectForKey:[NSNumber numberWithInt:aId]];
 }
 
+- (void)save {
+	[NSKeyedArchiver archiveRootObject:allPresentations toFile:[self settingFilePath]];
+}
+						
+- (NSString *)settingFilePath {
+	return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
+
+}
+					
 
 @end

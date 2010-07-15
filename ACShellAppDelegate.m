@@ -8,17 +8,22 @@
 
 #import "ACShellAppDelegate.h"
 #import "NSFileManager-DirectoryHelper.h"
+#import "ACShellController.h"
+#import "PresentationContext.h"
 
 @implementation ACShellAppDelegate
 
-@synthesize window;
-@synthesize mainView;
+@synthesize shellController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
 	return YES;
+}
+
+- (void) applicationWillTerminate:(NSNotification *)notification {
+	[shellController.presentationContext save];
 }
 
 @end

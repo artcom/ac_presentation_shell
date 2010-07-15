@@ -31,6 +31,21 @@
 	return self;
 }
 
+-(id) initWithCoder:(NSCoder *)aDecoder {
+	self = [super init];
+	if (self != nil) {
+		self.selected = [aDecoder decodeBoolForKey:@"selected"];
+		self.presentationId = [aDecoder decodeIntegerForKey:@"presentationId"];
+	}
+	
+	return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder {
+	[aCoder encodeBool:self.selected forKey:@"selected"];
+	[aCoder encodeInteger:self.presentationId forKey:@"presentationId"];
+}
+
 - (NSString *)description {
 	return [NSString stringWithFormat:@"%@", self.data.title];
 }
