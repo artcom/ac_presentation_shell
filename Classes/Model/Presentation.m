@@ -71,6 +71,15 @@
 	return [self.context.directory stringByAppendingPathComponent:self.data.presentationPath];
 }
 
+- (BOOL) isEqual:(id)object {
+	if (![object isKindOfClass:[self class]]) {
+		return NO;
+	}
+	
+	return self.presentationId == ((Presentation *)object).presentationId;
+}
+
+
 - (void) dealloc {
 	[thumbnail release];
 	[data release];

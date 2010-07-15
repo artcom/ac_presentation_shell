@@ -51,27 +51,22 @@
 		return allPresentations;
 	}
 	
-	allPresentations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self settingFilePath]];
-
-	if (allPresentations != nil) {
-		NSMutableArray *removedObjects = [[NSMutableArray alloc] init];
-		[allPresentations enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL *stop){
-			Presentation *presentation = (Presentation *)object;
+	allPresentations = [[NSMutableArray alloc] init];
+	for (PresentationData *data in [presentationsData allValues]) {
+		Presentation *presentation = [[[Presentation alloc] initWithId: data.presentationId inContext:self] autorelease];
+		[allPresentations addObject:presentation];
+	}
+	
+	NSArray *savedPresentationSettings = [NSKeyedUnarchiver unarchiveObjectWithFile:[self settingFilePath]];
+	if (savedPresentationSettings != nil) {
+		[savedPresentationSettings enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL* stop){
+			NSUInteger presentationIndex = [allPresentations indexOfObject:object];
 			
-			presentation.context = self;
-			NSNumber *presentationId = [NSNumber numberWithInt:presentation.presentationId];
-			if (![presentationsData objectForKey: presentationId]) {
-				[removedObjects addObject:presentation];
+			if (presentationIndex != NSNotFound) {
+				Presentation *currentPresentation = [allPresentations objectAtIndex:presentationIndex];
+				currentPresentation.selected = ((Presentation *)object).selected;
 			}
 		}];
-		
-		[allPresentations removeObjectsInArray:removedObjects];
-	} else {
-		allPresentations = [[NSMutableArray alloc] init];
-		for (PresentationData *data in [presentationsData allValues]) {
-			Presentation *presentation = [[[Presentation alloc] initWithId: data.presentationId inContext:self] autorelease];
-			[allPresentations addObject:presentation];
-		}
 	}
 
 	return allPresentations;
