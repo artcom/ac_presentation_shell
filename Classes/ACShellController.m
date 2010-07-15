@@ -18,6 +18,7 @@
 - (void)performRsync;
 - (void)updatePresentationLists;
 - (void)didFinishSyncing;
+- (void)beautifyOutlineView;
 
 @end
 
@@ -30,6 +31,7 @@
 @synthesize presentationsArrayController;
 @synthesize syncWindow;
 @synthesize progressSpinner;
+@synthesize playlistView;
 
 
 
@@ -38,13 +40,18 @@
 	if (self != nil) {		
 		presentationWindowController = [[PresentationWindowController alloc] init];
 
-		[self updatePresentationLists];
 	}
 	
 	return self;
 }
 
+- (void) awakeFromNib {
+	[self updatePresentationLists];
+}
+
+
 - (void)updatePresentationLists {
+	NSLog(@"%s", _cmd);
 	self.presentationContext = [[[PresentationContext alloc] init] autorelease];
 
 	self.presentations = [presentationContext allPresentations];
@@ -55,6 +62,8 @@
 	
 	Playlist *object = [Playlist playlistWithName:@"Library" presentations:nil children:staticCategories];
 	self.categories = [[NSMutableArray arrayWithObject:object] retain];
+	
+	[self beautifyOutlineView];
 }
 
 - (void) dealloc {
@@ -62,6 +71,7 @@
 	[presentations release];
 	[presentationWindowController release];
 	[presentationContext release];
+	[playlistView release];
 	
 	[super dealloc];
 }
@@ -105,6 +115,12 @@
 }
 
 
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
+	Playlist *playlist = (Playlist *)[item representedObject];
+	return playlist.children == nil;
+}
+
+
 #pragma mark -
 #pragma mark Private Methods
 
@@ -133,6 +149,15 @@
 	
     NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
     NSLog (@"got\n%@", string);	
+}
+
+- (void)beautifyOutlineView {
+	NSTreeNode *firstNode = [playlistView itemAtRow:0];
+	[playlistView expandItem:firstNode];
+	NSTreeNode *allItem = [[firstNode childNodes] objectAtIndex:0];
+	
+	NSUInteger row = [playlistView rowForItem:allItem];
+	[playlistView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }
 
 

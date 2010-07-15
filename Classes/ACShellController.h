@@ -18,6 +18,7 @@
 	NSMutableArray* categories;
 
 	PresentationWindowController *presentationWindowController;
+	NSOutlineView *playlistView;
 	
 	NSArrayController *presentationsArrayController;
 	NSWindow *syncWindow;
@@ -32,6 +33,7 @@
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
+@property (retain, nonatomic) IBOutlet NSOutlineView *playlistView;
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;
