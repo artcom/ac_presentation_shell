@@ -73,7 +73,9 @@
 }
 
 - (IBAction)sync: (id)sender {
-	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow:[[NSApplication sharedApplication] mainWindow] modalDelegate:self didEndSelector:@selector(didEndModal) contextInfo:nil];
+	[self.presentationContext save];
+	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow:[[NSApplication sharedApplication] mainWindow] 
+									modalDelegate:self didEndSelector:@selector(didEndModal) contextInfo:nil];
 	[progressSpinner startAnimation:nil];
 		
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

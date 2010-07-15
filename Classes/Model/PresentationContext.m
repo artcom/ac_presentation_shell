@@ -52,19 +52,20 @@
 	}
 	
 	allPresentations = [NSKeyedUnarchiver unarchiveObjectWithFile:[self settingFilePath]];
-	
-	
+
 	if (allPresentations != nil) {
-		NSMutableArray *removedIds = [[NSMutableArray alloc] init];
+		NSMutableArray *removedObjects = [[NSMutableArray alloc] init];
 		[allPresentations enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL *stop){
 			Presentation *presentation = (Presentation *)object;
 			
 			presentation.context = self;
 			NSNumber *presentationId = [NSNumber numberWithInt:presentation.presentationId];
 			if (![presentationsData objectForKey: presentationId]) {
-				[removedIds addObject:presentationId];
+				[removedObjects addObject:presentation];
 			}
 		}];
+		
+		[allPresentations removeObjectsInArray:removedObjects];
 	} else {
 		allPresentations = [[NSMutableArray alloc] init];
 		for (PresentationData *data in [presentationsData allValues]) {
@@ -78,7 +79,7 @@
 
 - (NSArray *)highlights {
 	NSPredicate *highlightFilter = [NSPredicate predicateWithFormat:@"data.highlight == YES"];
-	return [[self allPresentations] filteredArrayUsingPredicate:highlightFilter];
+	return [self.allPresentations filteredArrayUsingPredicate:highlightFilter];
 }
 
 - (PresentationData *)presentationDataWithId: (NSInteger)aId {
