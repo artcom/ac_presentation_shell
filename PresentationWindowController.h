@@ -31,5 +31,7 @@
 - (IBAction)nextPage:(id)sender;
 - (IBAction)previousPage:(id)sender;
 
+- (NSRect)presentationScreenFrame;
+
 
 @end

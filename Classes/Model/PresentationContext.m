@@ -87,8 +87,6 @@
 						
 - (NSString *)settingFilePath {
 	return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
-
 }
-					
 
 @end

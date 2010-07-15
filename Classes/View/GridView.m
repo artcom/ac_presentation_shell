@@ -38,17 +38,14 @@
 
 - (void)setupView {
 	CALayer *rootLayer=[CALayer layer];
-	rootLayer.backgroundColor= CGColorGetConstantColor(kCGColorWhite);
+	rootLayer.frame = NSRectToCGRect(self.frame);
 	[self setLayer:rootLayer];
 	[self setWantsLayer:YES];
 	
 	sublayers = [[NSMutableArray alloc] init];
 	layout = [[GridLayout alloc] init];
 	
-	self.page = 0;
-	
-	// [self updateLayout];
-	// [self arrangeSublayer];
+	self.page = 0;	
 	self.mouseTracking = YES;
 }
 
@@ -126,6 +123,7 @@
 
 
 - (void)arrangeSublayer {
+	[self updateLayout];
 	for (CALayer *layer in sublayers) {
 		[layer removeFromSuperlayer];
 	}

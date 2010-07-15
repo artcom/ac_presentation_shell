@@ -41,10 +41,7 @@
 	[super dealloc];
 }
 
-- (void)awakeFromNib {
-	NSRect frame = [[[NSScreen screens] objectAtIndex:0] frame];
-	
-	[self.window setFrame:frame display:YES animate: NO];
+- (void)awakeFromNib {	
 	[paginationView bind:@"activePage" toObject:gridView withKeyPath:@"page" options:nil];
 }
 
@@ -74,9 +71,9 @@
 }
 
 - (void) showWindow:(id)sender {
-	NSRect frame = [[[NSScreen screens] objectAtIndex:1] frame];
-	
+	NSRect frame = [self presentationScreenFrame];
 	[self.window setFrame:frame display:YES animate: NO];
+	
 	[self.window makeKeyAndOrderFront:nil];
 	
 	@try {
@@ -150,6 +147,17 @@
 - (void) keynoteDidStopPresentation:(KeynoteHandler *)keynote {
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[[self window] makeKeyAndOrderFront:nil];
+}
+
+- (NSRect)presentationScreenFrame {
+	NSArray *screens = [NSScreen screens];
+	NSLog(@"screens count: %d", [screens count]);
+	
+	if ([screens count] > 1) {
+		return [[screens objectAtIndex:1] frame];
+	}
+	
+	return [[screens objectAtIndex:0] frame];
 }
 
 @end
