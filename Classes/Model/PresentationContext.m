@@ -19,7 +19,7 @@
 	if (self != nil) {
 		presentations = [[NSMutableDictionary alloc] init];
 
-		self.directory = [[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain];
+		self.directory = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
 		NSString *libraryPath = [self.directory stringByAppendingPathComponent:@"library.xml"];
 		#pragma mark TODO: check if file exists and offer option or hint for first sync.
 		

@@ -63,11 +63,9 @@
 	CALayer *clickedLayer = nil;
 	for (CALayer *layer in sublayers) {
 		if ([layer hitTest:NSPointToCGPoint(location)]) {
-			NSLog(@"contains point: %@", layer);
 			clickedLayer = layer;
 		} 
 	}
-	NSLog(@"point: %@", NSStringFromPoint(location));
 	
 	if (clickedLayer == nil) {
 		return;

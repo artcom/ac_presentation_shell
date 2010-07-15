@@ -22,6 +22,7 @@
 }
 
 @property (retain, nonatomic) NSArray *presentations;
+@property (retain, nonatomic) NSMutableArray *categories;
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
