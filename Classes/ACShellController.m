@@ -17,6 +17,7 @@
 
 - (void)performRsync;
 - (void)updatePresentationLists;
+- (void)didFinishSyncing;
 
 @end
 
@@ -75,22 +76,22 @@
 		[self performRsync];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self updatePresentationLists];
-			[self abortSync:nil];
+			[self didFinishSyncing];
 		});
 	});
 }
 
 - (IBAction)abortSync: (id)sender {
-	[progressSpinner stopAnimation:nil];
-	[[NSApplication sharedApplication] endSheet:syncWindow];
+	[rsyncTask terminate];
+		
+	[self didFinishSyncing];
 }
+
+
 
 - (void)didEndModal {
 	[syncWindow orderOut:nil];
 }
-
-
-
 
 - (NSArray *)selectedPresentations {
 	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES"];
@@ -100,17 +101,26 @@
 
 #pragma mark -
 #pragma mark Private Methods
+
+- (void)didFinishSyncing {
+	[rsyncTask release];
+	rsyncTask = nil;
+	
+	[progressSpinner stopAnimation:nil];
+	[[NSApplication sharedApplication] endSheet:syncWindow];	
+}
+
 - (void)performRsync {
-	NSTask *task = [[NSTask alloc] init];
-    [task setLaunchPath: @"/opt/local/bin/rsync"];
+	rsyncTask = [[NSTask alloc] init];
+    [rsyncTask setLaunchPath: @"/opt/local/bin/rsync"];
 	NSString *libraryPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
-	[task setArguments: [NSArray arrayWithObjects: @"-avz", @"/Volumes/kommunikation/extern/Praesentationen/presentationtest/", libraryPath, nil]];
+	[rsyncTask setArguments: [NSArray arrayWithObjects: @"-avz", @"--delete", @"/Volumes/kommunikation/extern/Praesentationen/presentationtest/", libraryPath, nil]];
 	
 	NSPipe *pipe = [NSPipe pipe];
-	[task setStandardOutput: pipe];
+	[rsyncTask setStandardOutput: pipe];
 	
-	[task launch];
-    [task waitUntilExit];
+	[rsyncTask launch];
+    [rsyncTask waitUntilExit];
 	
     NSFileHandle *file = [pipe fileHandleForReading];
     NSData *data = [file readDataToEndOfFile];
@@ -118,5 +128,7 @@
     NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
     NSLog (@"got\n%@", string);	
 }
+
+
 
 @end

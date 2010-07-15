@@ -19,6 +19,8 @@
 	NSArrayController *presentationsArrayController;
 	NSWindow *syncWindow;
 	NSProgressIndicator *progressSpinner;
+	
+	NSTask *rsyncTask;
 }
 
 @property (retain, nonatomic) NSArray *presentations;
