@@ -14,6 +14,7 @@
 @interface Presentation : NSObject <NSCoding> {
 	BOOL selected;
 	NSInteger presentationId;
+	NSInteger index;
 	
 	PresentationData *data;
 	PresentationContext *context;
@@ -22,6 +23,7 @@
 
 @property (assign) BOOL selected;
 @property (assign) NSInteger presentationId;
+@property (assign) NSInteger index;
 @property (retain) PresentationContext *context;
 @property (retain) PresentationData *data; 
 

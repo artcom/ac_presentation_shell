@@ -15,6 +15,7 @@
 @interface PresentationContext ()
 
 - (void)ensureSettings;
+- (void)updateIndices: (NSArray*) thePresentations;
 
 @end
 
@@ -82,12 +83,17 @@
 
 #pragma mark TODO: move this to settings?
 - (void) dropStalledPresentations: (NSMutableArray*) presentations {
+    BOOL droppedStuff = NO;
     for (int i = [presentations count] - 1; i >= 0; i--) {
         Presentation* presentation = (Presentation*) [presentations objectAtIndex: i];
         if ([self presentationDataWithId: presentation.presentationId] == nil) {
             [presentations removeObjectAtIndex: i];
+            droppedStuff = YES;
         }
-    }    
+    }
+    if (droppedStuff) {
+        [self updateIndices: presentations];
+    }
 }
 
 - (void)syncPresentations: (NSMutableArray*) presentations withPredicate: thePredicate {
@@ -96,17 +102,27 @@
     for (Presentation* presentation in presentations) {
         [presentIds addObject: [NSNumber numberWithInt: presentation.presentationId]];
     }
+    BOOL addedStuff = NO;
     for (NSNumber * key in presentationsData) {
         if (NSNotFound == [presentIds indexOfObject: key]) {
             Presentation * newPresentation = [[[Presentation alloc] initWithId: [key integerValue] inContext:self] autorelease];
             if (thePredicate == nil || [thePredicate evaluateWithObject:newPresentation]) {
                 [presentations insertObject: newPresentation atIndex:0];
+                addedStuff = YES;
             }
         } else {
             ((Presentation*)[presentations objectAtIndex: [presentIds indexOfObject: key]]).context = self;
         }
     }
+    if (addedStuff) {
+        [self updateIndices: presentations];
+    }
 }
 
-
+- (void)updateIndices: (NSArray*) thePresentations {
+    int i = 0;
+    for (Presentation* presentation in thePresentations) {
+        presentation.index = ++i;
+    }
+}
 @end

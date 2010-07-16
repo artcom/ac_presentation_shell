@@ -15,6 +15,7 @@
 
 @synthesize selected;
 @synthesize presentationId;
+@synthesize index;
 @synthesize context;
 @synthesize data;
 
@@ -24,6 +25,7 @@
 		self.selected = YES;
 		self.context = theContext;
 		self.presentationId = theId;
+        self.index = -1;
 		
 		[self thumbnail];
 	}
@@ -36,6 +38,7 @@
 	if (self != nil) {
 		self.selected = [aDecoder decodeBoolForKey:@"selected"];
 		self.presentationId = [aDecoder decodeIntegerForKey:@"presentationId"];
+        self.index = [aDecoder decodeIntegerForKey:@"index"];
 	}
 	
 	return self;
@@ -44,6 +47,7 @@
 - (void) encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeBool:self.selected forKey:@"selected"];
 	[aCoder encodeInteger:self.presentationId forKey:@"presentationId"];
+	[aCoder encodeInteger:self.index forKey:@"index"];
 }
 
 - (NSString *)description {
