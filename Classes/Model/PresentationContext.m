@@ -64,7 +64,7 @@
 
 - (NSMutableArray *)presets {
 	[self ensureSettings];
-
+	
 	return settings.presets;
 }
 

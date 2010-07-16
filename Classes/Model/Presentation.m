@@ -44,6 +44,10 @@
 	return self;
 }
 
+- (id) copyWithZone:(NSZone *)zone {
+	return [[[self class] allocWithZone:zone] initWithId:self.presentationId inContext:self.context];
+}
+
 - (void) encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeBool:self.selected forKey:@"selected"];
 	[aCoder encodeInteger:self.presentationId forKey:@"presentationId"];

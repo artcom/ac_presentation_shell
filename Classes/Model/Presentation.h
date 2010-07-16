@@ -11,7 +11,7 @@
 @class PresentationContext;
 
 
-@interface Presentation : NSObject <NSCoding> {
+@interface Presentation : NSObject <NSCoding, NSCopying> {
 	BOOL selected;
 	NSInteger presentationId;
 	NSInteger index;

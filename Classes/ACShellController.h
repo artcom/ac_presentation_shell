@@ -12,7 +12,7 @@
 @class Playlist;
 
 
-@interface ACShellController : NSObject <NSOutlineViewDelegate, NSTableViewDelegate, NSTableViewDataSource> {
+@interface ACShellController : NSObject <NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
 	PresentationContext *presentationContext;
 	
 	NSArray *presentations;

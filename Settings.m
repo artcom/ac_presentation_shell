@@ -52,11 +52,20 @@
 	[aCoder encodeObject: allPresentations forKey:@"allPresentations"];
 	[aCoder encodeObject: highlights forKey:@"highlights"];
 	[aCoder encodeObject: presets forKey:@"presets"];	
+	
+	NSLog(@"presets: %@", presets);
 }
 
 - (void)syncWithContext: (PresentationContext*) theContext {
     [theContext syncPresentations: allPresentations withPredicate: nil];
     [theContext syncPresentations: highlights withPredicate: [NSPredicate predicateWithFormat:@"data.highlight == YES"]];
+	
+	for (Playlist *playlist in presets) {
+		[theContext dropStalledPresentations:playlist.presentations];
+		for (Presentation *presentation in playlist.presentations) {
+			presentation.context = theContext;
+		}
+	}
 }
 
 + (NSString *)filePath {

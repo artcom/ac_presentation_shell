@@ -59,6 +59,7 @@
 	[self updatePresentationLists];
 	
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
+	[playlistView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 }
 
 - (void)updatePresentationLists {
@@ -185,8 +186,6 @@
 	
 	NSUInteger insertionIndex = insertionPoint ? [myPresentations indexOfObject:insertionPoint] : [myPresentations count];
 	
-	NSLog(@"insertionIndex: %d, myPres count: %d ", insertionIndex, [myPresentations count]);
-	
 	for (Presentation *p in (insertionPoint ? [movedPresentations objectEnumerator] : [movedPresentations reverseObjectEnumerator])) {
 		if (insertionIndex < [myPresentations count]) {
 			[myPresentations insertObject:p atIndex:insertionIndex];	
@@ -201,6 +200,7 @@
 	NSIndexSet *newSelection = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionIndex, [movedPresentations count])];
 	[presentationTable selectRowIndexes:newSelection byExtendingSelection:NO];
 	[presentationTable reloadData];
+	
 	return YES;
 }
 
@@ -220,6 +220,37 @@
     return  ! [self isSpecialGroup: item] && ! [self isStaticCategory: item];
 }
 
+- (NSDragOperation) outlineView:(NSOutlineView *)outlineView 
+				   validateDrop:(id <NSDraggingInfo>)info 
+				   proposedItem:(id)item proposedChildIndex:(NSInteger)index {
+	
+	if (index != -1) {
+		return NSDragOperationNone;
+	}
+	
+	if ([self isSpecialGroup: item] || [self isStaticCategory:item]) {
+		return NSDragOperationNone;
+	}
+	
+	return NSDragOperationLink;
+}
+
+- (BOOL) outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
+	NSPasteboard* pboard = [info draggingPasteboard];
+    NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
+    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+	
+	Playlist *selectedPlaylist = [[playlistTreeController selectedObjects] objectAtIndex:0];
+	
+	NSArray *selectionArray = [[NSArray alloc] initWithArray:[selectedPlaylist.presentations objectsAtIndexes:rowIndexes] copyItems:YES];
+	
+	Playlist *playlist = (Playlist *)[item representedObject];
+	[playlist.presentations addObjectsFromArray:selectionArray];
+	[selectionArray release];
+	
+	[self.presentationContext updateIndices:playlist.presentations];
+	return YES;
+}
 
 #pragma mark -
 #pragma mark Private Methods
