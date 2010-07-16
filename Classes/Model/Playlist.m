@@ -27,7 +27,8 @@
 - (id) initWithCoder:(NSCoder *)aDecoder {
 	self = [super init];
 	if (self != nil) {
-		self.name = [aDecoder decodeObjectForKey:@"name"];	
+		self.name = [aDecoder decodeObjectForKey:@"name"];
+		self.presentations = [aDecoder decodeObjectForKey:@"presentations"];
 	}
 	
 	return self;
@@ -35,6 +36,7 @@
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeObject:self.name forKey:@"name"];
+	[aCoder encodeObject:self.presentations forKey:@"presentations"];
 }
 
 - (void)dealloc {

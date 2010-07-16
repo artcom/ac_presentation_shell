@@ -48,9 +48,7 @@
     [super dealloc];
 }
 
-- (void) encodeWithCoder:(NSCoder *)aCoder {
-	NSLog(@"presets: %@", presets);
-	
+- (void) encodeWithCoder:(NSCoder *)aCoder {	
 	[aCoder encodeObject: allPresentations forKey:@"allPresentations"];
 	[aCoder encodeObject: highlights forKey:@"highlights"];
 	[aCoder encodeObject: presets forKey:@"presets"];	

@@ -129,6 +129,23 @@
 	[presentationContext.presets addObject:list];
 }
 
+- (IBAction)removePlaylist: (id)sender {
+	NSIndexPath *selectedPath = [playlistTreeController selectionIndexPath];
+	
+	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
+		return;
+	}
+
+	NSArray *selectedNodes = [playlistTreeController selectedNodes];
+	
+	if ([selectedNodes count] > 0) {
+		[presentationContext.presets removeObject:[[selectedNodes objectAtIndex:0] representedObject]];
+	}
+	
+	[playlistTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
+}
+
+
 
 #pragma mark -
 #pragma mark  NSOutlineViewDelegate Protocol Methods

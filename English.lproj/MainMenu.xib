@@ -1905,6 +1905,30 @@
 								<int key="NSPeriodicInterval">75</int>
 							</object>
 						</object>
+						<object class="NSButton" id="583979973">
+							<reference key="NSNextResponder" ref="439893737"/>
+							<int key="NSvFlags">292</int>
+							<string key="NSFrame">{{49, 5}, {34, 18}}</string>
+							<reference key="NSSuperview" ref="439893737"/>
+							<bool key="NSEnabled">YES</bool>
+							<object class="NSButtonCell" key="NSCell" id="443960152">
+								<int key="NSCellFlags">-2080244224</int>
+								<int key="NSCellFlags2">134348800</int>
+								<string key="NSContents">-</string>
+								<reference key="NSSupport" ref="26"/>
+								<reference key="NSControlView" ref="583979973"/>
+								<int key="NSButtonFlags">-2031337217</int>
+								<int key="NSButtonFlags2">35</int>
+								<object class="NSCustomResource" key="NSNormalImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">NSRemoveTemplate</string>
+								</object>
+								<string key="NSAlternateContents"/>
+								<string key="NSKeyEquivalent"/>
+								<int key="NSPeriodicDelay">400</int>
+								<int key="NSPeriodicInterval">75</int>
+							</object>
+						</object>
 					</object>
 					<string key="NSFrameSize">{839, 561}</string>
 					<reference key="NSSuperview"/>
@@ -2970,6 +2994,14 @@
 					</object>
 					<int key="connectionID">669</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">removePlaylist:</string>
+						<reference key="source" ref="246107155"/>
+						<reference key="destination" ref="583979973"/>
+					</object>
+					<int key="connectionID">673</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -3526,8 +3558,9 @@
 						<reference key="object" ref="439893737"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="851891861"/>
 							<reference ref="435083102"/>
+							<reference ref="851891861"/>
+							<reference ref="583979973"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -4296,6 +4329,20 @@
 						<reference key="object" ref="872979549"/>
 						<reference key="parent" ref="600118046"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">670</int>
+						<reference key="object" ref="583979973"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="443960152"/>
+						</object>
+						<reference key="parent" ref="439893737"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">671</int>
+						<reference key="object" ref="443960152"/>
+						<reference key="parent" ref="583979973"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -4567,6 +4614,8 @@
 					<string>663.IBPluginDependency</string>
 					<string>664.IBPluginDependency</string>
 					<string>665.IBPluginDependency</string>
+					<string>670.IBPluginDependency</string>
+					<string>671.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>73.IBPluginDependency</string>
@@ -4862,6 +4911,8 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
@@ -4905,7 +4956,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">669</int>
+			<int key="maxID">673</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4939,10 +4990,12 @@
 							<string>abortSync:</string>
 							<string>addPlaylist:</string>
 							<string>play:</string>
+							<string>removePlaylist:</string>
 							<string>sync:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -4956,6 +5009,7 @@
 							<string>abortSync:</string>
 							<string>addPlaylist:</string>
 							<string>play:</string>
+							<string>removePlaylist:</string>
 							<string>sync:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -4970,6 +5024,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">play:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">removePlaylist:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">
@@ -6088,6 +6146,7 @@
 				<string>NSAddTemplate</string>
 				<string>NSMenuCheckmark</string>
 				<string>NSMenuMixedState</string>
+				<string>NSRemoveTemplate</string>
 				<string>NSSwitch</string>
 				<string>icn_start_presentation</string>
 				<string>icn_synchro</string>
@@ -6097,6 +6156,7 @@
 				<string>{8, 8}</string>
 				<string>{9, 8}</string>
 				<string>{7, 2}</string>
+				<string>{8, 8}</string>
 				<string>{15, 15}</string>
 				<string>{32, 32}</string>
 				<string>{32, 32}</string>

@@ -42,6 +42,7 @@
 - (IBAction)sync: (id)sender;
 - (IBAction)abortSync: (id)sender;
 - (IBAction)addPlaylist: (id)sender;
+- (IBAction)removePlaylist: (id)sender;
 
 - (NSArray *)selectedPresentations;
 
