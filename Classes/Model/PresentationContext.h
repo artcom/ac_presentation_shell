@@ -8,24 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 @class PresentationData;
-
+@class Settings;
 
 @interface PresentationContext : NSObject {
 	NSMutableDictionary *presentationsData;
-	NSMutableArray *allPresentations;
-	
-	
+    Settings *settings;
 	NSString *directory;
 }
 
 @property (copy) NSString *directory;
-@property (readonly) NSArray *allPresentations;
+@property (readonly) NSMutableArray *allPresentations;
 
-- (NSArray *)highlights;
+#pragma mark TODO: make this a property too
+- (NSMutableArray *)highlights;
 
 - (PresentationData *)presentationDataWithId: (NSInteger)aId;
 - (void)save;
-
-- (NSString *)settingFilePath;
+- (void)syncPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
+- (void) dropStalledPresentations: (NSMutableArray*) presentations;
 
 @end

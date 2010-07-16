@@ -11,6 +11,7 @@
 
 @implementation PresentationData
 
+
 - (id)initWithXMLNode: (NSXMLElement *)aNode
 {
 	self = [super init];
@@ -38,15 +39,15 @@
 }
 
 - (NSInteger) presentationId {
-	NSXMLNode *titleNode = [xmlNode attributeForName:@"id"];
+	NSXMLNode *idAttribute = [xmlNode attributeForName:@"id"];
 	
-	return [[titleNode objectValue] intValue];	
+	return [[idAttribute objectValue] intValue];	
 }
 
 - (BOOL)highlight {
-	NSXMLNode *titleNode = [xmlNode attributeForName:@"highlight"];
+	NSXMLNode *highlightAttribute = [xmlNode attributeForName:@"highlight"];
 	
-	return [[titleNode objectValue] boolValue];
+	return [[highlightAttribute objectValue] boolValue];
 }
 
 - (NSString *)thumbnailPath {

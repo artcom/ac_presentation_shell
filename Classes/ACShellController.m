@@ -13,12 +13,19 @@
 #import "Playlist.h"
 #import "NSFileManager-DirectoryHelper.h"
 
+#define LIBRARY_NAME @"LIBRARY"
+#define PRESETS_NAME @"PRESETS"
+#define CATEGORY_ALL @"All"
+#define CATEGORY_HIGHLIGHTS @"Highlights"
+
 @interface ACShellController ()
 
 - (void)performRsync;
 - (void)updatePresentationLists;
 - (void)didFinishSyncing;
 - (void)beautifyOutlineView;
+- (BOOL) isSpecialGroup: (id) item;
+- (BOOL) isStaticCategory: (id) item;
 
 @end
 
@@ -55,13 +62,12 @@
 	self.presentations = [presentationContext allPresentations];
 	
 	NSMutableArray *staticCategories = [NSMutableArray array];
-	[staticCategories addObject: [Playlist playlistWithName:@"All" presentations:[presentationContext allPresentations] children:nil]];
-	[staticCategories addObject: [Playlist playlistWithName:@"Highlight" presentations:[presentationContext highlights] children:nil]];
-	
-	Playlist *library = [Playlist playlistWithName:@"Library" presentations:nil children:staticCategories];
-	Playlist *presets = [Playlist playlistWithName:@"Presets" presentations:nil children:nil];
-	
-	self.categories = [[NSMutableArray arrayWithObjects:library, presets, nil] retain];
+	[staticCategories addObject: [Playlist playlistWithName:CATEGORY_ALL presentations:[presentationContext allPresentations] children:nil]];
+	[staticCategories addObject: [Playlist playlistWithName:CATEGORY_HIGHLIGHTS presentations:[presentationContext highlights] children:nil]];
+
+	Playlist *library = [Playlist playlistWithName:LIBRARY_NAME presentations:nil children:staticCategories];
+    Playlist *presets = [Playlist playlistWithName:PRESETS_NAME presentations:[presentationContext highlights] children:nil];
+    self.categories = [[NSMutableArray arrayWithObjects: library, presets, nil] retain];
 	
 	[self beautifyOutlineView];
 }
@@ -113,15 +119,45 @@
 	return [[presentationsArrayController arrangedObjects] filteredArrayUsingPredicate:selected];
 }
 
+#pragma mark -
+#pragma mark  NSOutlineViewDelegate Protocol Methods
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-	Playlist *playlist = (Playlist *)[item representedObject];
-	return playlist.presentations != nil;
+    return ! [self isSpecialGroup: item];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
+    return [self isSpecialGroup: item];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
+{
+    return  ! [self isSpecialGroup: item] && ! [self isStaticCategory: item];
 }
 
 
 #pragma mark -
 #pragma mark Private Methods
+
+- (BOOL) isSpecialGroup: (id) item {
+	Playlist *playlist = (Playlist *)[item representedObject];
+    if ([playlist.name isEqualToString: LIBRARY_NAME] ||
+        [playlist.name isEqualToString: PRESETS_NAME])
+    {
+        return YES;
+    }
+	return NO;    
+}
+
+- (BOOL) isStaticCategory: (id) item {
+	Playlist *playlist = (Playlist *)[item representedObject];
+    if ([playlist.name isEqualToString: CATEGORY_ALL] ||
+        [playlist.name isEqualToString: CATEGORY_HIGHLIGHTS])
+    {
+        return YES;
+    }
+	return NO;    
+}
 
 - (void)didFinishSyncing {
 	[rsyncTask release];
@@ -142,6 +178,8 @@
 	
 	[rsyncTask launch];
     [rsyncTask waitUntilExit];
+    
+    #pragma mark TODO: handle non-zero exit status
 	
     NSFileHandle *file = [pipe fileHandleForReading];
     NSData *data = [file readDataToEndOfFile];

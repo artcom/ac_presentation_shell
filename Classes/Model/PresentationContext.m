@@ -10,6 +10,14 @@
 #import "PresentationData.h"
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
+#import "Settings.h"
+
+@interface PresentationContext ()
+
+- (void)ensureSettings;
+- (void)updateIndices: (NSArray*) thePresentations;
+
+@end
 
 @implementation PresentationContext
 @synthesize directory;
@@ -40,41 +48,19 @@
 
 - (void) dealloc {
 	[directory release];
-	[presentationsData release];
-	[allPresentations release];
+    [settings release];
 	
 	[super dealloc];
 }
 
-- (NSArray *)allPresentations {
-	if (allPresentations != nil) {
-		return allPresentations;
-	}
-	
-	allPresentations = [[NSMutableArray alloc] init];
-	for (PresentationData *data in [presentationsData allValues]) {
-		Presentation *presentation = [[[Presentation alloc] initWithId: data.presentationId inContext:self] autorelease];
-		[allPresentations addObject:presentation];
-	}
-	
-	NSArray *savedPresentationSettings = [NSKeyedUnarchiver unarchiveObjectWithFile:[self settingFilePath]];
-	if (savedPresentationSettings != nil) {
-		[savedPresentationSettings enumerateObjectsUsingBlock:^(id object, NSUInteger index, BOOL* stop){
-			NSUInteger presentationIndex = [allPresentations indexOfObject:object];
-			
-			if (presentationIndex != NSNotFound) {
-				Presentation *currentPresentation = [allPresentations objectAtIndex:presentationIndex];
-				currentPresentation.selected = ((Presentation *)object).selected;
-			}
-		}];
-	}
-
-	return allPresentations;
+- (NSMutableArray *)allPresentations {
+    [self ensureSettings];
+	return settings.allPresentations;    
 }
 
-- (NSArray *)highlights {
-	NSPredicate *highlightFilter = [NSPredicate predicateWithFormat:@"data.highlight == YES"];
-	return [self.allPresentations filteredArrayUsingPredicate:highlightFilter];
+- (NSMutableArray *)highlights {
+    [self ensureSettings];
+	return settings.highlights;    
 }
 
 - (PresentationData *)presentationDataWithId: (NSInteger)aId {
@@ -82,11 +68,61 @@
 }
 
 - (void)save {
-	[NSKeyedArchiver archiveRootObject:allPresentations toFile:[self settingFilePath]];
-}
-						
-- (NSString *)settingFilePath {
-	return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
+    [NSKeyedArchiver archiveRootObject: settings toFile:[Settings filePath]];
 }
 
+- (void)ensureSettings {
+    if (settings == nil) {
+        settings = [[NSKeyedUnarchiver unarchiveObjectWithFile:[Settings filePath]] retain];
+        if (settings == nil) {
+            settings = [[[Settings alloc] init] retain];
+        }
+        [settings syncWithContext: self];
+    }
+}
+
+#pragma mark TODO: move this to settings?
+- (void) dropStalledPresentations: (NSMutableArray*) presentations {
+    BOOL droppedStuff = NO;
+    for (int i = [presentations count] - 1; i >= 0; i--) {
+        Presentation* presentation = (Presentation*) [presentations objectAtIndex: i];
+        if ([self presentationDataWithId: presentation.presentationId] == nil) {
+            [presentations removeObjectAtIndex: i];
+            droppedStuff = YES;
+        }
+    }
+    if (droppedStuff) {
+        [self updateIndices: presentations];
+    }
+}
+
+- (void)syncPresentations: (NSMutableArray*) presentations withPredicate: thePredicate {
+    [self dropStalledPresentations: presentations];
+    NSMutableArray * presentIds = [[NSMutableArray alloc] init];
+    for (Presentation* presentation in presentations) {
+        [presentIds addObject: [NSNumber numberWithInt: presentation.presentationId]];
+    }
+    BOOL addedStuff = NO;
+    for (NSNumber * key in presentationsData) {
+        if (NSNotFound == [presentIds indexOfObject: key]) {
+            Presentation * newPresentation = [[[Presentation alloc] initWithId: [key integerValue] inContext:self] autorelease];
+            if (thePredicate == nil || [thePredicate evaluateWithObject:newPresentation]) {
+                [presentations insertObject: newPresentation atIndex:0];
+                addedStuff = YES;
+            }
+        } else {
+            ((Presentation*)[presentations objectAtIndex: [presentIds indexOfObject: key]]).context = self;
+        }
+    }
+    if (addedStuff) {
+        [self updateIndices: presentations];
+    }
+}
+
+- (void)updateIndices: (NSArray*) thePresentations {
+    int i = 0;
+    for (Presentation* presentation in thePresentations) {
+        presentation.index = ++i;
+    }
+}
 @end
