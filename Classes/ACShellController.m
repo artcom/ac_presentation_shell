@@ -49,9 +49,7 @@
 	[self updatePresentationLists];
 }
 
-
 - (void)updatePresentationLists {
-	NSLog(@"%s", _cmd);
 	self.presentationContext = [[[PresentationContext alloc] init] autorelease];
 
 	self.presentations = [presentationContext allPresentations];
@@ -60,8 +58,10 @@
 	[staticCategories addObject: [Playlist playlistWithName:@"All" presentations:[presentationContext allPresentations] children:nil]];
 	[staticCategories addObject: [Playlist playlistWithName:@"Highlight" presentations:[presentationContext highlights] children:nil]];
 	
-	Playlist *object = [Playlist playlistWithName:@"Library" presentations:nil children:staticCategories];
-	self.categories = [[NSMutableArray arrayWithObject:object] retain];
+	Playlist *library = [Playlist playlistWithName:@"Library" presentations:nil children:staticCategories];
+	Playlist *presets = [Playlist playlistWithName:@"Presets" presentations:nil children:nil];
+	
+	self.categories = [[NSMutableArray arrayWithObjects:library, presets, nil] retain];
 	
 	[self beautifyOutlineView];
 }
@@ -104,7 +104,6 @@
 }
 
 
-
 - (void)didEndModal {
 	[syncWindow orderOut:nil];
 }
@@ -117,7 +116,7 @@
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
 	Playlist *playlist = (Playlist *)[item representedObject];
-	return playlist.children == nil;
+	return playlist.presentations != nil;
 }
 
 
