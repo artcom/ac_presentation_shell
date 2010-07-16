@@ -36,6 +36,7 @@
 @synthesize presentations;
 @synthesize categories;
 @synthesize presentationsArrayController;
+@synthesize playlistTreeController;
 @synthesize syncWindow;
 @synthesize progressSpinner;
 @synthesize playlistView;
@@ -66,7 +67,7 @@
 	[staticCategories addObject: [Playlist playlistWithName:CATEGORY_HIGHLIGHTS presentations:[presentationContext highlights] children:nil]];
 
 	Playlist *library = [Playlist playlistWithName:LIBRARY_NAME presentations:nil children:staticCategories];
-    Playlist *presets = [Playlist playlistWithName:PRESETS_NAME presentations:[presentationContext highlights] children:nil];
+    Playlist *presets = [Playlist playlistWithName:PRESETS_NAME presentations:nil children:[presentationContext presets]];
     self.categories = [[NSMutableArray arrayWithObjects: library, presets, nil] retain];
 	
 	[self beautifyOutlineView];
@@ -118,6 +119,16 @@
 	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES"];
 	return [[presentationsArrayController arrangedObjects] filteredArrayUsingPredicate:selected];
 }
+
+- (IBAction)addPlaylist: (id)sender {
+	Playlist *list = [Playlist playlistWithName:@"new preset" presentations:[NSMutableArray array] children:nil];
+	
+	NSUInteger indices[] = {1,[presentationContext.presets count]};
+	
+	[playlistTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
+	[presentationContext.presets addObject:list];
+}
+
 
 #pragma mark -
 #pragma mark  NSOutlineViewDelegate Protocol Methods
@@ -190,7 +201,7 @@
 
 - (void)beautifyOutlineView {
 	NSTreeNode *firstNode = [playlistView itemAtRow:0];
-	[playlistView expandItem:firstNode];
+	[playlistView expandItem:nil expandChildren:YES];
 	NSTreeNode *allItem = [[firstNode childNodes] objectAtIndex:0];
 	
 	NSUInteger row = [playlistView rowForItem:allItem];

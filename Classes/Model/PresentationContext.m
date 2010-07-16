@@ -63,6 +63,12 @@
 	return settings.highlights;    
 }
 
+- (NSMutableArray *)presets {
+	[self ensureSettings];
+
+	return settings.presets;
+}
+
 - (PresentationData *)presentationDataWithId: (NSInteger)aId {
 	return [presentationsData objectForKey:[NSNumber numberWithInt:aId]];
 }

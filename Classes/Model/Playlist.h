@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface Playlist : NSObject {
+@interface Playlist : NSObject <NSCoding> {
 	NSString *name;
 	NSMutableArray *presentations;
 	NSMutableArray *children;
@@ -19,6 +19,6 @@
 @property (retain) NSMutableArray *presentations;
 @property (retain) NSMutableArray *children;
 
-+ (Playlist *) playlistWithName: (NSString *)theName presentations: (NSArray *)thePresentations children: (NSArray *)theChildren;
++ (Playlist *) playlistWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren;
 
 @end

@@ -11,6 +11,7 @@
 #import "Presentation.h"
 #import "PresentationData.h"
 #import "NSFileManager-DirectoryHelper.h"
+#import "Playlist.h"
 
 @implementation Settings
 
@@ -48,9 +49,11 @@
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
+	NSLog(@"presets: %@", presets);
+	
 	[aCoder encodeObject: allPresentations forKey:@"allPresentations"];
 	[aCoder encodeObject: highlights forKey:@"highlights"];
-	[aCoder encodeObject: presets forKey:@"presets"];
+	[aCoder encodeObject: presets forKey:@"presets"];	
 }
 
 - (void)syncWithContext: (PresentationContext*) theContext {
@@ -58,7 +61,7 @@
     [theContext syncPresentations: highlights withPredicate: [NSPredicate predicateWithFormat:@"data.highlight == YES"]];
 }
 
-+(NSString *) filePath {
++ (NSString *)filePath {
 	return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
 }
 

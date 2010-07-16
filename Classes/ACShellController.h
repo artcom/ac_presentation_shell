@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 @class PresentationWindowController;
 @class PresentationContext;
+@class Playlist;
 
 
 @interface ACShellController : NSObject {
@@ -21,6 +22,7 @@
 	NSOutlineView *playlistView;
 	
 	NSArrayController *presentationsArrayController;
+	NSTreeController *playlistTreeController;
 	NSWindow *syncWindow;
 	NSProgressIndicator *progressSpinner;
 	
@@ -31,6 +33,7 @@
 @property (retain, nonatomic) NSArray *presentations;
 @property (retain, nonatomic) NSMutableArray *categories;
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
+@property (retain, nonatomic) IBOutlet 	NSTreeController *playlistTreeController;
 @property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
 @property (retain, nonatomic) IBOutlet NSOutlineView *playlistView;
@@ -38,6 +41,7 @@
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;
 - (IBAction)abortSync: (id)sender;
+- (IBAction)addPlaylist: (id)sender;
 
 - (NSArray *)selectedPresentations;
 

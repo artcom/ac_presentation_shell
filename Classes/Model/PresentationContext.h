@@ -18,6 +18,7 @@
 
 @property (copy) NSString *directory;
 @property (readonly) NSMutableArray *allPresentations;
+@property (readonly) NSMutableArray *presets;
 
 #pragma mark TODO: make this a property too
 - (NSMutableArray *)highlights;
