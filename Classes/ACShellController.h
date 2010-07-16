@@ -12,7 +12,7 @@
 @class Playlist;
 
 
-@interface ACShellController : NSObject {
+@interface ACShellController : NSObject <NSOutlineViewDelegate, NSTableViewDelegate, NSTableViewDataSource> {
 	PresentationContext *presentationContext;
 	
 	NSArray *presentations;
@@ -20,6 +20,7 @@
 
 	PresentationWindowController *presentationWindowController;
 	NSOutlineView *playlistView;
+	NSTableView *presentationTable;
 	
 	NSArrayController *presentationsArrayController;
 	NSTreeController *playlistTreeController;
@@ -37,6 +38,7 @@
 @property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
 @property (retain, nonatomic) IBOutlet NSOutlineView *playlistView;
+@property (retain, nonatomic) IBOutlet NSTableView *presentationTable;
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;

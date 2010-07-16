@@ -27,5 +27,6 @@
 - (void)save;
 - (void)syncPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
 - (void) dropStalledPresentations: (NSMutableArray*) presentations;
+- (void)updateIndices: (NSArray*) thePresentations;
 
 @end

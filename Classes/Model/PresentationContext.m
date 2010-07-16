@@ -15,7 +15,6 @@
 @interface PresentationContext ()
 
 - (void)ensureSettings;
-- (void)updateIndices: (NSArray*) thePresentations;
 
 @end
 

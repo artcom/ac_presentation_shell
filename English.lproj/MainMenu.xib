@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="372"/>
+			<integer value="554"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1905,18 +1905,18 @@
 								<int key="NSPeriodicInterval">75</int>
 							</object>
 						</object>
-						<object class="NSButton" id="583979973">
+						<object class="NSButton" id="460545058">
 							<reference key="NSNextResponder" ref="439893737"/>
 							<int key="NSvFlags">292</int>
 							<string key="NSFrame">{{49, 5}, {34, 18}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
 							<bool key="NSEnabled">YES</bool>
-							<object class="NSButtonCell" key="NSCell" id="443960152">
+							<object class="NSButtonCell" key="NSCell" id="542703335">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">134348800</int>
 								<string key="NSContents">-</string>
 								<reference key="NSSupport" ref="26"/>
-								<reference key="NSControlView" ref="583979973"/>
+								<reference key="NSControlView" ref="460545058"/>
 								<int key="NSButtonFlags">-2031337217</int>
 								<int key="NSButtonFlags2">35</int>
 								<object class="NSCustomResource" key="NSNormalImage">
@@ -2891,14 +2891,6 @@
 					<int key="connectionID">646</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">animate:</string>
-						<reference key="source" ref="457829891"/>
-						<reference key="destination" ref="357031940"/>
-					</object>
-					<int key="connectionID">649</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">progressSpinner</string>
 						<reference key="source" ref="246107155"/>
@@ -2998,9 +2990,33 @@
 					<object class="IBActionConnection" key="connection">
 						<string key="label">removePlaylist:</string>
 						<reference key="source" ref="246107155"/>
-						<reference key="destination" ref="583979973"/>
+						<reference key="destination" ref="460545058"/>
 					</object>
 					<int key="connectionID">673</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="357031940"/>
+						<reference key="destination" ref="246107155"/>
+					</object>
+					<int key="connectionID">674</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">presentationTable</string>
+						<reference key="source" ref="246107155"/>
+						<reference key="destination" ref="357031940"/>
+					</object>
+					<int key="connectionID">675</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">dataSource</string>
+						<reference key="source" ref="357031940"/>
+						<reference key="destination" ref="246107155"/>
+					</object>
+					<int key="connectionID">676</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -3560,7 +3576,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="435083102"/>
 							<reference ref="851891861"/>
-							<reference ref="583979973"/>
+							<reference ref="460545058"/>
 						</object>
 						<reference key="parent" ref="972006081"/>
 					</object>
@@ -4331,17 +4347,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">670</int>
-						<reference key="object" ref="583979973"/>
+						<reference key="object" ref="460545058"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="443960152"/>
+							<reference ref="542703335"/>
 						</object>
 						<reference key="parent" ref="439893737"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">671</int>
-						<reference key="object" ref="443960152"/>
-						<reference key="parent" ref="583979973"/>
+						<reference key="object" ref="542703335"/>
+						<reference key="parent" ref="460545058"/>
 					</object>
 				</object>
 			</object>
@@ -4774,9 +4790,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{62, 231}, {839, 561}}</string>
+					<string>{{375, 234}, {839, 561}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{62, 231}, {839, 561}}</string>
+					<string>{{375, 234}, {839, 561}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -4956,7 +4972,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">673</int>
+			<int key="maxID">676</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5042,6 +5058,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>playlistTreeController</string>
 							<string>playlistView</string>
+							<string>presentationTable</string>
 							<string>presentationsArrayController</string>
 							<string>progressSpinner</string>
 							<string>syncWindow</string>
@@ -5050,6 +5067,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSTreeController</string>
 							<string>NSOutlineView</string>
+							<string>NSTableView</string>
 							<string>NSArrayController</string>
 							<string>NSProgressIndicator</string>
 							<string>NSWindow</string>
@@ -5061,6 +5079,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>playlistTreeController</string>
 							<string>playlistView</string>
+							<string>presentationTable</string>
 							<string>presentationsArrayController</string>
 							<string>progressSpinner</string>
 							<string>syncWindow</string>
@@ -5074,6 +5093,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">playlistView</string>
 								<string key="candidateClassName">NSOutlineView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">presentationTable</string>
+								<string key="candidateClassName">NSTableView</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">presentationsArrayController</string>

@@ -18,6 +18,8 @@
 #define CATEGORY_ALL @"All"
 #define CATEGORY_HIGHLIGHTS @"Highlights"
 
+#define ACSHELL_PRESENTATION @"ACShell_Presentation"
+
 @interface ACShellController ()
 
 - (void)performRsync;
@@ -40,6 +42,7 @@
 @synthesize syncWindow;
 @synthesize progressSpinner;
 @synthesize playlistView;
+@synthesize presentationTable;
 
 
 
@@ -47,7 +50,6 @@
 	self = [super init];
 	if (self != nil) {		
 		presentationWindowController = [[PresentationWindowController alloc] init];
-
 	}
 	
 	return self;
@@ -55,6 +57,8 @@
 
 - (void) awakeFromNib {
 	[self updatePresentationLists];
+	
+	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 }
 
 - (void)updatePresentationLists {
@@ -79,6 +83,7 @@
 	[presentationWindowController release];
 	[presentationContext release];
 	[playlistView release];
+	[presentationTable release];
 	
 	[super dealloc];
 }
@@ -145,7 +150,59 @@
 	[playlistTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
 }
 
+#pragma mark -
+#pragma mark NSTableViewDelegate Protocol Methods 
 
+- (BOOL) tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
+	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
+    [pboard declareTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION] owner:self];
+    [pboard setData:data forType:ACSHELL_PRESENTATION];
+    return YES;
+}
+
+- (NSDragOperation) tableView:(NSTableView *)tableView validateDrop:(id <NSDraggingInfo>)info proposedRow:(NSInteger)row proposedDropOperation:(NSTableViewDropOperation)dropOperation {
+	if (dropOperation == NSTableViewDropOn) {
+		return NSDragOperationNone;
+	}
+	return NSDragOperationMove;
+}
+
+- (BOOL) tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
+	NSPasteboard* pboard = [info draggingPasteboard];
+    NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
+    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+    
+	Playlist *selectedPlaylist = [[playlistTreeController selectedObjects] objectAtIndex:0];
+	NSMutableArray *myPresentations = selectedPlaylist.presentations;
+	
+	NSMutableArray *movedPresentations = [[NSMutableArray alloc] init];
+	
+	Presentation *insertionPoint = row < [myPresentations count] ? [myPresentations objectAtIndex:row] : nil;
+	[rowIndexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger index, BOOL *stop) {
+		[movedPresentations addObject: [myPresentations objectAtIndex:index]];
+		[myPresentations removeObjectAtIndex:index];
+	}];
+	
+	NSUInteger insertionIndex = insertionPoint ? [myPresentations indexOfObject:insertionPoint] : [myPresentations count];
+	
+	NSLog(@"insertionIndex: %d, myPres count: %d ", insertionIndex, [myPresentations count]);
+	
+	for (Presentation *p in (insertionPoint ? [movedPresentations objectEnumerator] : [movedPresentations reverseObjectEnumerator])) {
+		if (insertionIndex < [myPresentations count]) {
+			[myPresentations insertObject:p atIndex:insertionIndex];	
+		} else {
+			[myPresentations addObject:p];
+		}
+		
+	}
+	
+	
+	[presentationContext updateIndices:myPresentations];
+	NSIndexSet *newSelection = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionIndex, [movedPresentations count])];
+	[presentationTable selectRowIndexes:newSelection byExtendingSelection:NO];
+	[presentationTable reloadData];
+	return YES;
+}
 
 #pragma mark -
 #pragma mark  NSOutlineViewDelegate Protocol Methods
