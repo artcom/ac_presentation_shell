@@ -181,6 +181,8 @@
 	
 	[rsyncTask launch];
     [rsyncTask waitUntilExit];
+    
+    #pragma mark TODO: handle non-zero exit status
 	
     NSFileHandle *file = [pipe fileHandleForReading];
     NSData *data = [file readDataToEndOfFile];

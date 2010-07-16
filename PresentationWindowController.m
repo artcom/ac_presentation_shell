@@ -151,7 +151,6 @@
 
 - (NSRect)presentationScreenFrame {
 	NSArray *screens = [NSScreen screens];
-	NSLog(@"screens count: %d", [screens count]);
 	
 	if ([screens count] > 1) {
 		return [[screens objectAtIndex:1] frame];
