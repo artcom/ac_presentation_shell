@@ -139,7 +139,8 @@
 }
 
 - (IBAction)addCollection: (id)sender {
-	ACShellCollection *list = [ACShellCollection collectionWithName:@"new collection" presentations:[NSMutableArray array] children:nil];
+	ACShellCollection *list = [ACShellCollection collectionWithName:NSLocalizedString(@"new collection", nil)
+                                                      presentations:[NSMutableArray array] children:nil];
 	
 	NSUInteger indices[] = {1,[presentationContext.collections count]};
 	

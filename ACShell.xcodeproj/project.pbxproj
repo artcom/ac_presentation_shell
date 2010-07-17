@@ -342,7 +342,7 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		22D59A4511DE146B0025E48F /* images */ = {
+		22D59A4511DE146B0025E48F /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				6366035011F2305300D6DD96 /* icn_highlight.png */,
@@ -356,7 +356,7 @@
 				22D59A4911DE147C0025E48F /* icn_pagination.png */,
 				22D59A4A11DE147C0025E48F /* icn_prev_page.png */,
 			);
-			name = images;
+			name = Images;
 			sourceTree = "<group>";
 		};
 		29B97314FDCFA39411CA2CEA /* ACShell */ = {
@@ -386,7 +386,7 @@
 			isa = PBXGroup;
 			children = (
 				22A3B61711E71AA6003DE847 /* Font */,
-				22D59A4511DE146B0025E48F /* images */,
+				22D59A4511DE146B0025E48F /* Images */,
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
