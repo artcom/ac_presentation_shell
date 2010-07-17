@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
-		225C7E7F11DBA4B200EF3009 /* Playlist.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* Playlist.m */; };
+		225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */; };
 		228C742011E1DE2700D55C89 /* PresentationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 228C741F11E1DE2700D55C89 /* PresentationView.m */; };
 		2295411011E3249500E09031 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
 		2295411411E3259800E09031 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
@@ -87,8 +87,8 @@
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		225C7E7D11DBA4B200EF3009 /* Playlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Playlist.h; path = Classes/Model/Playlist.h; sourceTree = "<group>"; };
-		225C7E7E11DBA4B200EF3009 /* Playlist.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Playlist.m; path = Classes/Model/Playlist.m; sourceTree = "<group>"; };
+		225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACShellCollection.h; path = Classes/Model/ACShellCollection.h; sourceTree = "<group>"; };
+		225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellCollection.m; path = Classes/Model/ACShellCollection.m; sourceTree = "<group>"; };
 		228C741E11E1DE2700D55C89 /* PresentationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationView.h; path = Classes/View/PresentationView.h; sourceTree = "<group>"; };
 		228C741F11E1DE2700D55C89 /* PresentationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationView.m; path = Classes/View/PresentationView.m; sourceTree = "<group>"; };
 		229540BD11E3213300E09031 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = libs/GHUnit.framework; sourceTree = "<group>"; };
@@ -153,6 +153,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6366013511F1B7A000D6DD96 /* NSTableView-WithDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTableView-WithDelete.h"; path = "Classes/Helper/NSTableView-WithDelete.h"; sourceTree = "<group>"; };
 		6366013611F1B7A000D6DD96 /* NSTableView-WithDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTableView-WithDelete.m"; path = "Classes/Helper/NSTableView-WithDelete.m"; sourceTree = "<group>"; };
+		636601C711F1D58100D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		6366FF8E11F0108B00D6DD96 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = Classes/Model/Settings.h; sourceTree = "<group>"; };
 		6366FF8F11F0108B00D6DD96 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = Classes/Model/Settings.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
@@ -314,8 +315,8 @@
 				22D2F7F011D8D2880030AFBD /* PresentationData.m */,
 				22D2F77211D8B5E10030AFBD /* Presentation.h */,
 				22D2F77311D8B5E10030AFBD /* Presentation.m */,
-				225C7E7D11DBA4B200EF3009 /* Playlist.h */,
-				225C7E7E11DBA4B200EF3009 /* Playlist.m */,
+				225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */,
+				225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */,
 				6366FF8E11F0108B00D6DD96 /* Settings.h */,
 				6366FF8F11F0108B00D6DD96 /* Settings.m */,
 			);
@@ -518,7 +519,7 @@
 				22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */,
 				22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */,
 				22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */,
-				225C7E7F11DBA4B200EF3009 /* Playlist.m in Sources */,
+				225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */,
 				22D5993511DDD19B0025E48F /* PaginationView.m in Sources */,
 				228C742011E1DE2700D55C89 /* PresentationView.m in Sources */,
 				22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */,
@@ -544,6 +545,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1DDD58150DA1D0A300B32029 /* English */,
+				636601C711F1D58100D6DD96 /* German */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";

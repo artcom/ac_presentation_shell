@@ -1,27 +1,27 @@
 //
-//  Playlist.m
+//  ACShellCollection.m
 //  ACShell
 //
 //  Created by Robert Palmer on 30.06.10.
 //  Copyright 2010 Art+Com AG. All rights reserved.
 //
 
-#import "Playlist.h"
+#import "ACShellCollection.h"
 
-@implementation Playlist
+@implementation ACShellCollection
 
 @synthesize name;
 @synthesize presentations;
 @synthesize children;
 
-+ (Playlist *) playlistWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren {
-	Playlist *playlist = [[Playlist alloc] init];
++ (ACShellCollection *) collectionWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren {
+	ACShellCollection *collection = [[ACShellCollection alloc] init];
 	
-	playlist.name = theName;
-	playlist.presentations = thePresentations;
-	playlist.children = theChildren;
+	collection.name = theName;
+	collection.presentations = thePresentations;
+	collection.children = theChildren;
 	
-	return [playlist autorelease];
+	return [collection autorelease];
 }
 
 - (id) initWithCoder:(NSCoder *)aDecoder {

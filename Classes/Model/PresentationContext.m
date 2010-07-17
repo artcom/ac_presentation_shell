@@ -62,10 +62,10 @@
 	return settings.highlights;    
 }
 
-- (NSMutableArray *)presets {
+- (NSMutableArray *)collections {
 	[self ensureSettings];
 	
-	return settings.presets;
+	return settings.collections;
 }
 
 - (PresentationData *)presentationDataWithId: (NSInteger)aId {

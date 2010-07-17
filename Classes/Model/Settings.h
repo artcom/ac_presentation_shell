@@ -13,12 +13,12 @@
 @interface Settings : NSObject <NSCoding> {
     NSMutableArray* allPresentations;
     NSMutableArray* highlights;
-    NSMutableArray* presets;
+    NSMutableArray* collections;
 }
 
 @property (retain) NSMutableArray* allPresentations;
 @property (retain) NSMutableArray* highlights;
-@property (retain) NSMutableArray* presets;
+@property (retain) NSMutableArray* collections;
 
 + (NSString*) filePath;
 - (void) syncWithContext: (PresentationContext*) theContext;

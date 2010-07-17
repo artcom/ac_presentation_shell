@@ -12,6 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="644"/>
 			<integer value="590"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
@@ -1319,7 +1320,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{335, 189}, {839, 561}}</string>
 				<int key="NSWTFlags">1954021376</int>
-				<string key="NSWindowTitle">ART+COM Presentation Shell</string>
+				<string key="NSWindowTitle">ART+COM Presentations Shell</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<object class="NSToolbar" key="NSViewClass" id="123287168">
 					<object class="NSMutableString" key="NSToolbarIdentifier">
@@ -1348,7 +1349,7 @@
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">C8F1CB4C-E384-4A54-974A-500F2BFFA08C</characters>
 								</object>
-								<string key="NSToolbarItemLabel">Start</string>
+								<string key="NSToolbarItemLabel">Starten</string>
 								<string key="NSToolbarItemPaletteLabel"/>
 								<string key="NSToolbarItemToolTip"/>
 								<nil key="NSToolbarItemView"/>
@@ -1370,7 +1371,7 @@
 								<object class="NSMutableString" key="NSToolbarItemIdentifier">
 									<characters key="NS.bytes">E4827680-9674-400C-AF80-518EC7F65923</characters>
 								</object>
-								<string key="NSToolbarItemLabel">Synchronize</string>
+								<string key="NSToolbarItemLabel">Synchronisieren</string>
 								<string key="NSToolbarItemPaletteLabel"/>
 								<string key="NSToolbarItemToolTip"/>
 								<nil key="NSToolbarItemView"/>
@@ -1923,7 +1924,7 @@
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">NSRemoveTemplate</string>
 								</object>
-								<string key="NSAlternateContents">Delete preset</string>
+								<string key="NSAlternateContents"/>
 								<string key="NSKeyEquivalent"/>
 								<int key="NSPeriodicDelay">400</int>
 								<int key="NSPeriodicInterval">75</int>
@@ -1991,12 +1992,12 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{196, 381}, {335, 129}}</string>
 				<int key="NSWTFlags">544735232</int>
-				<string key="NSWindowTitle">Synchronizing</string>
+				<string key="NSWindowTitle">Synchronisiere</string>
 				<string key="NSWindowClass">NSWindow</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<object class="NSView" key="NSWindowView" id="878171674">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -2012,13 +2013,13 @@
 						<object class="NSTextField" id="527542091">
 							<reference key="NSNextResponder" ref="878171674"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{115, 54}, {106, 17}}</string>
+							<string key="NSFrame">{{113, 54}, {109, 17}}</string>
 							<reference key="NSSuperview" ref="878171674"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="1064916127">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Synchronizing...</string>
+								<string key="NSContents">Synchronisiere...</string>
 								<object class="NSFont" key="NSSupport" id="274184029">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">13</double>
@@ -2037,7 +2038,7 @@
 						<object class="NSButton" id="556130102">
 							<reference key="NSNextResponder" ref="878171674"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{120, 9}, {96, 32}}</string>
+							<string key="NSFrame">{{127, 12}, {82, 32}}</string>
 							<reference key="NSSuperview" ref="878171674"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="431656670">
@@ -2056,6 +2057,7 @@
 						</object>
 					</object>
 					<string key="NSFrameSize">{335, 129}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1920, 1178}}</string>
 				<string key="NSMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -2988,33 +2990,33 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">removeCollection:</string>
+						<string key="label">addCollection:</string>
 						<reference key="source" ref="246107155"/>
-						<reference key="destination" ref="675966939"/>
+						<reference key="destination" ref="435083102"/>
 					</object>
 					<int key="connectionID">677</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">addCollection:</string>
+						<string key="label">removeCollection:</string>
 						<reference key="source" ref="246107155"/>
-						<reference key="destination" ref="435083102"/>
+						<reference key="destination" ref="675966939"/>
 					</object>
 					<int key="connectionID">678</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">collectionTreeController</string>
-						<reference key="source" ref="246107155"/>
-						<reference key="destination" ref="527866442"/>
-					</object>
-					<int key="connectionID">679</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
 						<string key="label">collectionView</string>
 						<reference key="source" ref="246107155"/>
 						<reference key="destination" ref="451034496"/>
+					</object>
+					<int key="connectionID">679</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">collectionTreeController</string>
+						<reference key="source" ref="246107155"/>
+						<reference key="destination" ref="527866442"/>
 					</object>
 					<int key="connectionID">680</int>
 				</object>
@@ -4792,9 +4794,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{54, 106}, {839, 561}}</string>
+					<string>{{64, 100}, {839, 561}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{54, 106}, {839, 561}}</string>
+					<string>{{64, 100}, {839, 561}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -4882,7 +4884,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{166, 643}, {617, 0}}</string>
+					<string>{{165, 795}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4910,9 +4912,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{585, 489}, {335, 129}}</string>
+					<string>{{558, 489}, {335, 129}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{585, 489}, {335, 129}}</string>
+					<string>{{558, 489}, {335, 129}}</string>
 					<boolean value="NO"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -4927,7 +4929,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="435083102"/>
-							<string key="toolTip">Create a collection</string>
+							<string key="toolTip">Erzeuge eine Sammlung</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4941,7 +4943,7 @@
 						<object class="IBToolTipAttribute" key="NS.object.0">
 							<string key="name">ToolTip</string>
 							<reference key="object" ref="675966939"/>
-							<string key="toolTip">Delete the current collection</string>
+							<string key="toolTip">Lösche die aktuelle Sammlung</string>
 						</object>
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>

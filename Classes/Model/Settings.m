@@ -11,20 +11,20 @@
 #import "Presentation.h"
 #import "PresentationData.h"
 #import "NSFileManager-DirectoryHelper.h"
-#import "Playlist.h"
+#import "ACShellCollection.h"
 
 @implementation Settings
 
 @synthesize allPresentations;
 @synthesize highlights;
-@synthesize presets;
+@synthesize collections;
 
 -(id) init {
     self = [super init];
     if (self != nil) {
         self.allPresentations = [[NSMutableArray alloc] init];
         self.highlights = [[NSMutableArray alloc] init];
-        self.presets = [[NSMutableArray alloc] init];
+        self.collections = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -34,7 +34,7 @@
 	if (self != nil) {
 		self.allPresentations = [aDecoder decodeObjectForKey:@"allPresentations"];
 		self.highlights = [aDecoder decodeObjectForKey:@"highlights"];
-        self.presets = [aDecoder decodeObjectForKey:@"presets"];
+        self.collections = [aDecoder decodeObjectForKey:@"collections"];
 	}
 	
 	return self;
@@ -43,7 +43,7 @@
 - (void) dealloc {
     [allPresentations release];
     [highlights release];
-    [presets release];
+    [collections release];
     
     [super dealloc];
 }
@@ -51,18 +51,18 @@
 - (void) encodeWithCoder:(NSCoder *)aCoder {	
 	[aCoder encodeObject: allPresentations forKey:@"allPresentations"];
 	[aCoder encodeObject: highlights forKey:@"highlights"];
-	[aCoder encodeObject: presets forKey:@"presets"];	
+	[aCoder encodeObject: collections forKey:@"collections"];	
 	
-	NSLog(@"presets: %@", presets);
+	NSLog(@"collections: %@", collections);
 }
 
 - (void)syncWithContext: (PresentationContext*) theContext {
     [theContext syncPresentations: allPresentations withPredicate: nil];
     [theContext syncPresentations: highlights withPredicate: [NSPredicate predicateWithFormat:@"data.highlight == YES"]];
 	
-	for (Playlist *playlist in presets) {
-		[theContext dropStalledPresentations:playlist.presentations];
-		for (Presentation *presentation in playlist.presentations) {
+	for (ACShellCollection *collection in collections) {
+		[theContext dropStalledPresentations:collection.presentations];
+		for (Presentation *presentation in collection.presentations) {
 			presentation.context = theContext;
 		}
 	}

@@ -10,11 +10,11 @@
 #import "Presentation.h"
 #import "PresentationContext.h"
 #import "PresentationWindowController.h"
-#import "Playlist.h"
+#import "ACShellCollection.h"
 #import "NSFileManager-DirectoryHelper.h"
 
 #define LIBRARY_NAME @"LIBRARY"
-#define PRESETS_NAME @"PRESETS"
+#define COLLECTIONS_NAME @"COLLECTIONS"
 #define CATEGORY_ALL @"All"
 #define CATEGORY_HIGHLIGHTS @"Highlights"
 
@@ -38,10 +38,10 @@
 @synthesize presentations;
 @synthesize categories;
 @synthesize presentationsArrayController;
-@synthesize playlistTreeController;
+@synthesize collectionTreeController;
 @synthesize syncWindow;
 @synthesize progressSpinner;
-@synthesize playlistView;
+@synthesize collectionView;
 @synthesize presentationTable;
 
 
@@ -59,7 +59,7 @@
 	[self updatePresentationLists];
 	
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
-	[playlistView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
+	[collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 }
 
 - (void)updatePresentationLists {
@@ -68,12 +68,12 @@
 	self.presentations = [presentationContext allPresentations];
 	
 	NSMutableArray *staticCategories = [NSMutableArray array];
-	[staticCategories addObject: [Playlist playlistWithName:CATEGORY_ALL presentations:[presentationContext allPresentations] children:nil]];
-	[staticCategories addObject: [Playlist playlistWithName:CATEGORY_HIGHLIGHTS presentations:[presentationContext highlights] children:nil]];
+	[staticCategories addObject: [ACShellCollection collectionWithName:CATEGORY_ALL presentations:[presentationContext allPresentations] children:nil]];
+	[staticCategories addObject: [ACShellCollection collectionWithName:CATEGORY_HIGHLIGHTS presentations:[presentationContext highlights] children:nil]];
 
-	Playlist *library = [Playlist playlistWithName:LIBRARY_NAME presentations:nil children:staticCategories];
-    Playlist *presets = [Playlist playlistWithName:PRESETS_NAME presentations:nil children:[presentationContext presets]];
-    self.categories = [[NSMutableArray arrayWithObjects: library, presets, nil] retain];
+	ACShellCollection *library = [ACShellCollection collectionWithName:LIBRARY_NAME presentations:nil children:staticCategories];
+    ACShellCollection *collections = [ACShellCollection collectionWithName:COLLECTIONS_NAME presentations:nil children:[presentationContext collections]];
+    self.categories = [[NSMutableArray arrayWithObjects: library, collections, nil] retain];
 	
 	[self beautifyOutlineView];
 }
@@ -83,7 +83,7 @@
 	[presentations release];
 	[presentationWindowController release];
 	[presentationContext release];
-	[playlistView release];
+	[collectionView release];
 	[presentationTable release];
 	
 	[super dealloc];
@@ -126,29 +126,29 @@
 	return [[presentationsArrayController arrangedObjects] filteredArrayUsingPredicate:selected];
 }
 
-- (IBAction)addPlaylist: (id)sender {
-	Playlist *list = [Playlist playlistWithName:@"new preset" presentations:[NSMutableArray array] children:nil];
+- (IBAction)addCollection: (id)sender {
+	ACShellCollection *list = [ACShellCollection collectionWithName:@"new collection" presentations:[NSMutableArray array] children:nil];
 	
-	NSUInteger indices[] = {1,[presentationContext.presets count]};
+	NSUInteger indices[] = {1,[presentationContext.collections count]};
 	
-	[playlistTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
-	[presentationContext.presets addObject:list];
+	[collectionTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
+	[presentationContext.collections addObject:list];
 }
 
-- (IBAction)removePlaylist: (id)sender {
-	NSIndexPath *selectedPath = [playlistTreeController selectionIndexPath];
+- (IBAction)removeCollection: (id)sender {
+	NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
 	
 	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
 		return;
 	}
 
-	NSArray *selectedNodes = [playlistTreeController selectedNodes];
+	NSArray *selectedNodes = [collectionTreeController selectedNodes];
 	
 	if ([selectedNodes count] > 0) {
-		[presentationContext.presets removeObject:[[selectedNodes objectAtIndex:0] representedObject]];
+		[presentationContext.collections removeObject:[[selectedNodes objectAtIndex:0] representedObject]];
 	}
 	
-	[playlistTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
+	[collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
 }
 
 #pragma mark -
@@ -173,8 +173,8 @@
     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
     
-	Playlist *selectedPlaylist = [[playlistTreeController selectedObjects] objectAtIndex:0];
-	NSMutableArray *myPresentations = selectedPlaylist.presentations;
+	ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
+	NSMutableArray *myPresentations = selectedCollection.presentations;
 	
 	NSMutableArray *movedPresentations = [[NSMutableArray alloc] init];
 	
@@ -224,15 +224,15 @@
 				   validateDrop:(id <NSDraggingInfo>)info 
 				   proposedItem:(id)item proposedChildIndex:(NSInteger)index {
 	
-	if (index != -1 || // only allow drops on playlists, not between them
+	if (index != -1 || // only allow drops on collections, not between them
         [self isSpecialGroup: item] || [self isStaticCategory:item]) // keep static stuff static
     {
 		return NSDragOperationNone;
 	}
 
-    Playlist * selectedPlaylist = [[playlistTreeController selectedObjects] objectAtIndex: 0];
-    Playlist * droppedOnPlaylist = (Playlist *)[item representedObject];
-    if (selectedPlaylist == droppedOnPlaylist) {
+    ACShellCollection * selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex: 0];
+    ACShellCollection * droppedOnCollection = (ACShellCollection *)[item representedObject];
+    if (selectedCollection == droppedOnCollection) {
         return NSDragOperationNone;
     }
 
@@ -244,25 +244,36 @@
     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
 	
-	Playlist *selectedPlaylist = [[playlistTreeController selectedObjects] objectAtIndex:0];
+	ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
 	
-	NSArray *selectionArray = [[NSArray alloc] initWithArray:[selectedPlaylist.presentations objectsAtIndexes:rowIndexes] copyItems:YES];
+	NSArray *selectionArray = [[NSArray alloc] initWithArray:[selectedCollection.presentations objectsAtIndexes:rowIndexes] copyItems:YES];
 	
-	Playlist *playlist = (Playlist *)[item representedObject];
-	[playlist.presentations addObjectsFromArray:selectionArray];
+	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
+	[collection.presentations addObjectsFromArray:selectionArray];
 	[selectionArray release];
 	
-	[self.presentationContext updateIndices:playlist.presentations];
+	[self.presentationContext updateIndices:collection.presentations];
 	return YES;
+}
+
+#pragma mark -
+#pragma mark DeleteKeyDelegate Protocol Methods
+
+- (void) deleteKeyPressed: (NSTableView *) sender {
+    if (sender == presentationTable) {
+        NSLog(@"delete presentation");
+    } else if (sender == collectionView) {
+        [self removeCollection: sender];
+    }
 }
 
 #pragma mark -
 #pragma mark Private Methods
 
 - (BOOL) isSpecialGroup: (id) item {
-	Playlist *playlist = (Playlist *)[item representedObject];
-    if ([playlist.name isEqualToString: LIBRARY_NAME] ||
-        [playlist.name isEqualToString: PRESETS_NAME])
+	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
+    if ([collection.name isEqualToString: LIBRARY_NAME] ||
+        [collection.name isEqualToString: COLLECTIONS_NAME])
     {
         return YES;
     }
@@ -270,9 +281,9 @@
 }
 
 - (BOOL) isStaticCategory: (id) item {
-	Playlist *playlist = (Playlist *)[item representedObject];
-    if ([playlist.name isEqualToString: CATEGORY_ALL] ||
-        [playlist.name isEqualToString: CATEGORY_HIGHLIGHTS])
+	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
+    if ([collection.name isEqualToString: CATEGORY_ALL] ||
+        [collection.name isEqualToString: CATEGORY_HIGHLIGHTS])
     {
         return YES;
     }
@@ -309,12 +320,12 @@
 }
 
 - (void)beautifyOutlineView {
-	NSTreeNode *firstNode = [playlistView itemAtRow:0];
-	[playlistView expandItem:nil expandChildren:YES];
+	NSTreeNode *firstNode = [collectionView itemAtRow:0];
+	[collectionView expandItem:nil expandChildren:YES];
 	NSTreeNode *allItem = [[firstNode childNodes] objectAtIndex:0];
 	
-	NSUInteger row = [playlistView rowForItem:allItem];
-	[playlistView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+	NSUInteger row = [collectionView rowForItem:allItem];
+	[collectionView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }
 
 

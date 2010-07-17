@@ -1,5 +1,5 @@
 //
-//  Playlist.h
+//  ACShellCollection.h
 //  ACShell
 //
 //  Created by Robert Palmer on 30.06.10.
@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface Playlist : NSObject <NSCoding> {
+@interface ACShellCollection : NSObject <NSCoding> {
 	NSString *name;
 	NSMutableArray *presentations;
 	NSMutableArray *children;
@@ -19,6 +19,6 @@
 @property (retain) NSMutableArray *presentations;
 @property (retain) NSMutableArray *children;
 
-+ (Playlist *) playlistWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren;
++ (ACShellCollection *) collectionWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren;
 
 @end
