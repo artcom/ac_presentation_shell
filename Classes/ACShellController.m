@@ -224,14 +224,18 @@
 				   validateDrop:(id <NSDraggingInfo>)info 
 				   proposedItem:(id)item proposedChildIndex:(NSInteger)index {
 	
-	if (index != -1) {
+	if (index != -1 || // only allow drops on playlists, not between them
+        [self isSpecialGroup: item] || [self isStaticCategory:item]) // keep static stuff static
+    {
 		return NSDragOperationNone;
 	}
-	
-	if ([self isSpecialGroup: item] || [self isStaticCategory:item]) {
-		return NSDragOperationNone;
-	}
-	
+
+    Playlist * selectedPlaylist = [[playlistTreeController selectedObjects] objectAtIndex: 0];
+    Playlist * droppedOnPlaylist = (Playlist *)[item representedObject];
+    if (selectedPlaylist == droppedOnPlaylist) {
+        return NSDragOperationNone;
+    }
+
 	return NSDragOperationLink;
 }
 
