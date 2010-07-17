@@ -145,6 +145,9 @@
 	
 	[collectionTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
 	[presentationContext.collections addObject:list];
+
+    [collectionTreeController setSelectionIndexPath: [NSIndexPath indexPathWithIndexes: indices length: 2]];
+    [collectionView editColumn: 0 row: [collectionView selectedRow] withEvent:nil select:YES];
 }
 
 - (IBAction)removeCollection: (id)sender {
