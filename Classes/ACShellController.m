@@ -164,6 +164,10 @@
 	}
 	
 	[collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
+
+    if ([presentationContext.collections count] == 0) {
+        [collectionView deselectAll: self];
+    }
 }
 
 #pragma mark -

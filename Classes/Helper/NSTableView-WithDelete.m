@@ -11,16 +11,20 @@
 @implementation NSTableView ( DeleteKey )
 - ( void ) keyDown: ( NSEvent * ) event {
 	id obj = [self delegate];
-	unichar firstChar = [[event characters] characterAtIndex: 0];
-	
-	// if the user pressed delete and the delegate supports deleteKeyPressed
+
+	if ([[event characters] length] == 0) {
+        return;
+    }
+
+    unichar firstChar = [[event characters] characterAtIndex: 0];
+
 	if ( ( firstChar == NSDeleteFunctionKey ||
           firstChar == NSDeleteCharFunctionKey ||
           firstChar == NSDeleteCharacter) &&
         [obj respondsToSelector: @selector( deleteKeyPressed:)] )
     {
 		id < DeleteKeyDelegate > delegate = ( id < DeleteKeyDelegate > ) obj;
-        
+
 		[delegate deleteKeyPressed: self];
 	}
 }
