@@ -19,6 +19,7 @@
 	PresentationData *data;
 	PresentationContext *context;
 	NSImage *thumbnail;
+    NSImage *highlight_icon;
 }
 
 @property (assign) BOOL selected;
@@ -29,6 +30,7 @@
 
 @property (readonly) NSString *presentationFile;
 @property (readonly) NSImage *thumbnail;
+@property (readonly) NSImage *highlight_icon;
 
 - (id) initWithId:(NSInteger)theId inContext: (PresentationContext *)theContext;
 
