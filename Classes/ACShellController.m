@@ -153,8 +153,8 @@
 
 - (IBAction)removeCollection: (id)sender {
 	NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
-	
 	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
+        NSBeep();
 		return;
 	}
 
@@ -169,6 +169,16 @@
     if ([presentationContext.collections count] == 0) {
         [collectionView deselectAll: self];
     }
+}
+
+- (IBAction)removePresentation: (id) sender {
+    NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
+	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
+        NSBeep();
+		return;
+	}
+
+    [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
 }
 
 #pragma mark -
@@ -225,7 +235,6 @@
 }
 
 - (void) selectionDidChange: (NSNotification *) aNotification {
-    NSLog(@"Selection changed");
     unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
     
     if (selectedItems > 0) {
@@ -295,7 +304,7 @@
 
 - (void) deleteKeyPressed: (NSTableView *) sender {
     if (sender == presentationTable) {
-        NSLog(@"delete presentation");
+        [self removePresentation: sender];
     } else if (sender == collectionView) {
         [self removeCollection: sender];
     }
@@ -312,12 +321,9 @@
 }
 
 - (BOOL) isStaticCategory: (id) item {
-	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-    if ([collection.name isEqualToString: ACSHELL_CATEGORY_ALL] ||
-        [collection.name isEqualToString: ACSHELL_CATEGORY_HIGHLIGHTS])
-    {
-        return YES;
-    }
+	if ([[item indexPath] length] >= 1 && [[item indexPath] indexAtPosition: 0] == 0) {
+		return YES;
+	}
 	return NO;    
 }
 

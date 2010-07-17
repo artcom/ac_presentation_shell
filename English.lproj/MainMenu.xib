@@ -12,7 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="584"/>
+			<integer value="81"/>
+			<integer value="371"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1800,7 +1801,7 @@
 																	<bool key="NSIsResizeable">YES</bool>
 																	<reference key="NSTableView" ref="357031940"/>
 																</object>
-																<object class="NSTableColumn" id="591037702">
+																<object class="NSTableColumn" id="114637079">
 																	<double key="NSWidth">36</double>
 																	<double key="NSMinWidth">10</double>
 																	<double key="NSMaxWidth">3.4028234663852886e+38</double>
@@ -1812,7 +1813,7 @@
 																		<reference key="NSBackgroundColor" ref="320378256"/>
 																		<reference key="NSTextColor" ref="766243406"/>
 																	</object>
-																	<object class="NSImageCell" key="NSDataCell" id="179486945">
+																	<object class="NSImageCell" key="NSDataCell" id="904893005">
 																		<int key="NSCellFlags">67239424</int>
 																		<int key="NSCellFlags2">33685504</int>
 																		<object class="NSCustomResource" key="NSContents">
@@ -3081,10 +3082,10 @@
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: arrangedObjects.highlight_icon</string>
-						<reference key="source" ref="591037702"/>
+						<reference key="source" ref="114637079"/>
 						<reference key="destination" ref="217264308"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="591037702"/>
+							<reference key="NSSource" ref="114637079"/>
 							<reference key="NSDestination" ref="217264308"/>
 							<string key="NSLabel">value: arrangedObjects.highlight_icon</string>
 							<string key="NSBinding">value</string>
@@ -4205,7 +4206,7 @@
 							<reference ref="247451344"/>
 							<reference ref="642159794"/>
 							<reference ref="600118046"/>
-							<reference ref="591037702"/>
+							<reference ref="114637079"/>
 						</object>
 						<reference key="parent" ref="1026852083"/>
 					</object>
@@ -4453,17 +4454,17 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">684</int>
-						<reference key="object" ref="591037702"/>
+						<reference key="object" ref="114637079"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="179486945"/>
+							<reference ref="904893005"/>
 						</object>
 						<reference key="parent" ref="357031940"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">687</int>
-						<reference key="object" ref="179486945"/>
-						<reference key="parent" ref="591037702"/>
+						<reference key="object" ref="904893005"/>
+						<reference key="parent" ref="114637079"/>
 					</object>
 				</object>
 			</object>
@@ -4905,9 +4906,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{54, 106}, {839, 561}}</string>
+					<string>{{54, 107}, {839, 561}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{54, 106}, {839, 561}}</string>
+					<string>{{54, 107}, {839, 561}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -5082,7 +5083,7 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{452, 109}, {196, 203}}</string>
+					<string>{{465, 633}, {196, 203}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
 					<string>{{145, 474}, {199, 203}}</string>

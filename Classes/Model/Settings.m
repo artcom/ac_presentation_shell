@@ -52,8 +52,6 @@
 	[aCoder encodeObject: allPresentations forKey:@"allPresentations"];
 	[aCoder encodeObject: highlights forKey:@"highlights"];
 	[aCoder encodeObject: collections forKey:@"collections"];	
-	
-	NSLog(@"collections: %@", collections);
 }
 
 - (void)syncWithContext: (PresentationContext*) theContext {
