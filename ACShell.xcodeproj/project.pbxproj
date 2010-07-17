@@ -50,6 +50,7 @@
 		22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */; };
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
 		6366013711F1B7A000D6DD96 /* NSTableView-WithDelete.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366013611F1B7A000D6DD96 /* NSTableView-WithDelete.m */; };
+		6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6366021B11F1F02800D6DD96 /* Localizable.strings */; };
 		6366FF9011F0108B00D6DD96 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366FF8F11F0108B00D6DD96 /* Settings.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -153,7 +154,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		6366013511F1B7A000D6DD96 /* NSTableView-WithDelete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSTableView-WithDelete.h"; path = "Classes/Helper/NSTableView-WithDelete.h"; sourceTree = "<group>"; };
 		6366013611F1B7A000D6DD96 /* NSTableView-WithDelete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSTableView-WithDelete.m"; path = "Classes/Helper/NSTableView-WithDelete.m"; sourceTree = "<group>"; };
-		636601C711F1D58100D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		6366021D11F1F08E00D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6366FF8E11F0108B00D6DD96 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = Classes/Model/Settings.h; sourceTree = "<group>"; };
 		6366FF8F11F0108B00D6DD96 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = Classes/Model/Settings.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
@@ -387,6 +388,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
+				6366021B11F1F02800D6DD96 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -485,6 +487,7 @@
 				22CE731711EDB15B0043F3C8 /* spinner.png in Resources */,
 				22CE744A11EDD36D0043F3C8 /* icn_start_presentation.png in Resources */,
 				22C64DDC11EEFEA900D73CE4 /* icn_synchro.png in Resources */,
+				6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -545,7 +548,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				1DDD58150DA1D0A300B32029 /* English */,
-				636601C711F1D58100D6DD96 /* German */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -556,6 +558,14 @@
 				22EF9E7811D8EE4600E91DF0 /* English */,
 			);
 			name = PresentationWindow.xib;
+			sourceTree = "<group>";
+		};
+		6366021B11F1F02800D6DD96 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6366021D11F1F08E00D6DD96 /* German */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

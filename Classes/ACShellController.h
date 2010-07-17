@@ -26,6 +26,10 @@
 	
 	NSArrayController *presentationsArrayController;
 	NSTreeController *collectionTreeController;
+
+    NSTextField * statusLine;
+
+    #pragma mark TODO: move to RSyncController?
 	NSWindow *syncWindow;
 	NSProgressIndicator *progressSpinner;
 	
@@ -41,6 +45,7 @@
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
 @property (retain, nonatomic) IBOutlet NSOutlineView *collectionView;
 @property (retain, nonatomic) IBOutlet NSTableView *presentationTable;
+@property (retain, nonatomic) IBOutlet NSTextField *statusLine;
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;

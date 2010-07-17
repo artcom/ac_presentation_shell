@@ -13,10 +13,10 @@
 #import "ACShellCollection.h"
 #import "NSFileManager-DirectoryHelper.h"
 
-#define LIBRARY_NAME @"LIBRARY"
-#define COLLECTIONS_NAME @"COLLECTIONS"
-#define CATEGORY_ALL @"All"
-#define CATEGORY_HIGHLIGHTS @"Highlights"
+#define ACSHELL_LIBRARY_NAME @"LIBRARY"
+#define ACSHELL_COLLECTIONS_NAME @"COLLECTIONS"
+#define ACSHELL_CATEGORY_ALL @"All"
+#define ACSHELL_CATEGORY_HIGHLIGHTS @"Highlights"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
@@ -26,7 +26,7 @@
 - (void)updatePresentationLists;
 - (void)didFinishSyncing;
 - (void)beautifyOutlineView;
-- (BOOL) isSpecialGroup: (id) item;
+- (BOOL) isToplevelGroup: (id) item;
 - (BOOL) isStaticCategory: (id) item;
 
 @end
@@ -43,6 +43,7 @@
 @synthesize progressSpinner;
 @synthesize collectionView;
 @synthesize presentationTable;
+@synthesize statusLine;
 
 
 
@@ -60,6 +61,13 @@
 	
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 	[collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
+    
+    [[statusLine cell] setBackgroundStyle:NSBackgroundStyleRaised];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionDidChange:)
+                                                 name:NSTableViewSelectionDidChangeNotification object:presentationTable];
+    
+    [presentationTable deselectAll: self];
 }
 
 - (void)updatePresentationLists {
@@ -68,11 +76,15 @@
 	self.presentations = [presentationContext allPresentations];
 	
 	NSMutableArray *staticCategories = [NSMutableArray array];
-	[staticCategories addObject: [ACShellCollection collectionWithName:CATEGORY_ALL presentations:[presentationContext allPresentations] children:nil]];
-	[staticCategories addObject: [ACShellCollection collectionWithName:CATEGORY_HIGHLIGHTS presentations:[presentationContext highlights] children:nil]];
+	[staticCategories addObject: [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_ALL, nil)
+                                                         presentations:[presentationContext allPresentations] children:nil]];
+	[staticCategories addObject: [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_HIGHLIGHTS, nil)
+                                                         presentations:[presentationContext highlights] children:nil]];
 
-	ACShellCollection *library = [ACShellCollection collectionWithName:LIBRARY_NAME presentations:nil children:staticCategories];
-    ACShellCollection *collections = [ACShellCollection collectionWithName:COLLECTIONS_NAME presentations:nil children:[presentationContext collections]];
+	ACShellCollection *library = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil) 
+                                                         presentations:nil children:staticCategories];
+    ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_COLLECTIONS_NAME, nil)
+                                                             presentations:nil children:[presentationContext collections]];
     self.categories = [[NSMutableArray arrayWithObjects: library, collections, nil] retain];
 	
 	[self beautifyOutlineView];
@@ -204,20 +216,34 @@
 	return YES;
 }
 
+- (void) selectionDidChange: (NSNotification *) aNotification {
+    NSLog(@"Selection changed");
+    unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
+    
+    if (selectedItems > 0) {
+        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d of %d presentations", nil), 
+                                     selectedItems, [[presentationsArrayController arrangedObjects] count]]];
+    } else {
+        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d presentations", nil),
+                                     [[presentationsArrayController arrangedObjects] count]]];
+    }
+}
+
+
 #pragma mark -
 #pragma mark  NSOutlineViewDelegate Protocol Methods
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-    return ! [self isSpecialGroup: item];
+    return ! [self isToplevelGroup: item];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
-    return [self isSpecialGroup: item];
+    return [self isToplevelGroup: item];
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
 {
-    return  ! [self isSpecialGroup: item] && ! [self isStaticCategory: item];
+    return  ! [self isToplevelGroup: item] && ! [self isStaticCategory: item];
 }
 
 - (NSDragOperation) outlineView:(NSOutlineView *)outlineView 
@@ -225,7 +251,7 @@
 				   proposedItem:(id)item proposedChildIndex:(NSInteger)index {
 	
 	if (index != -1 || // only allow drops on collections, not between them
-        [self isSpecialGroup: item] || [self isStaticCategory:item]) // keep static stuff static
+        [self isToplevelGroup: item] || [self isStaticCategory:item]) // keep static stuff static
     {
 		return NSDragOperationNone;
 	}
@@ -270,11 +296,8 @@
 #pragma mark -
 #pragma mark Private Methods
 
-- (BOOL) isSpecialGroup: (id) item {
-	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-    if ([collection.name isEqualToString: LIBRARY_NAME] ||
-        [collection.name isEqualToString: COLLECTIONS_NAME])
-    {
+- (BOOL) isToplevelGroup: (id) item {
+    if ([[item indexPath] length] == 1) {
         return YES;
     }
 	return NO;    
@@ -282,8 +305,8 @@
 
 - (BOOL) isStaticCategory: (id) item {
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-    if ([collection.name isEqualToString: CATEGORY_ALL] ||
-        [collection.name isEqualToString: CATEGORY_HIGHLIGHTS])
+    if ([collection.name isEqualToString: ACSHELL_CATEGORY_ALL] ||
+        [collection.name isEqualToString: ACSHELL_CATEGORY_HIGHLIGHTS])
     {
         return YES;
     }
