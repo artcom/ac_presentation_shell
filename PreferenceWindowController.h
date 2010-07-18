@@ -20,7 +20,7 @@
     
     int currentPanelIndex;
     int initialHeight;
-    int initialY;
+    NSString * initialTitle;
 }
 
 @property (retain) IBOutlet NSView * advancedPreferences;

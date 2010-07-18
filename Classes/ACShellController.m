@@ -29,6 +29,7 @@
 - (void)beautifyOutlineView;
 - (BOOL) isToplevelGroup: (id) item;
 - (BOOL) isStaticCategory: (id) item;
+- (void) updateStatusText: (NSNotification*) notification;
 
 @end
 
@@ -52,6 +53,9 @@
 	if (self != nil) {		
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
+
+        NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
+        [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
 	}
 	
 	return self;
@@ -65,10 +69,13 @@
     
     [[statusLine cell] setBackgroundStyle:NSBackgroundStyleRaised];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectionDidChange:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
                                                  name:NSTableViewSelectionDidChangeNotification object:presentationTable];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
+                                                 name:NSOutlineViewSelectionDidChangeNotification object:collectionView];
+
     [presentationTable deselectAll: self];
+    [self updateStatusText: nil];
 }
 
 - (void)updatePresentationLists {
@@ -240,9 +247,8 @@
 	return YES;
 }
 
-- (void) selectionDidChange: (NSNotification *) aNotification {
+- (void) updateStatusText: (NSNotification*) notification {
     unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
-    
     if (selectedItems > 0) {
         [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d of %d presentations", nil), 
                                      selectedItems, [[presentationsArrayController arrangedObjects] count]]];

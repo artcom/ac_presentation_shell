@@ -32,6 +32,7 @@
 -(void)awakeFromNib {
     static const int ibWindowHeight = 20;
     initialHeight = self.window.frame.size.height - ibWindowHeight;
+    initialTitle = [self.window.title retain];
     
     preferencePanels = [[NSArray arrayWithObjects: 
                         generalPreferences,
@@ -45,6 +46,7 @@
 
 - (void) dealloc {
     [preferencePanels release];
+    [initialTitle release];
     
     [super dealloc];
 }
@@ -72,26 +74,20 @@
                         nil];
         NSArray * animations = [NSArray arrayWithObject: windowResize];
         NSViewAnimation * anim = [[NSViewAnimation alloc] initWithViewAnimations: animations];
+        anim.duration = 0.2;
         [anim setDelegate: self];
         [anim startAnimation];
-        //[self.window setFrame: newWindowFrame display: YES animate: YES];
     }
 }
 
 - (void) animationDidEnd:(NSAnimation*) anim {
-    NSLog(@"anim done");
     if (currentPanelIndex < 0) {
-        self.window.contentView = nil;
+        self.window.contentView = emptyPanel;
+        [self.window setTitle: initialTitle];
     } else {
         [self.window setContentView: [preferencePanels objectAtIndex: currentPanelIndex]];
-    }
-}
-
-- (NSString*) windowTitleForDocumentDisplayName: (NSString *) displayName {
-    if (currentPanelIndex < 0) {
-        return self.window.title;
-    } else {
-        return [[[toolbar items] objectAtIndex: currentPanelIndex] label];
+        [self.window setTitle: [NSString stringWithFormat:  @"%@: %@", initialTitle, 
+                                [[[toolbar items] objectAtIndex: currentPanelIndex] label]]];
     }
 }
 
