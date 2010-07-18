@@ -52,6 +52,8 @@
 		6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6366021B11F1F02800D6DD96 /* Localizable.strings */; };
 		6366035111F2305300D6DD96 /* icn_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6366035011F2305300D6DD96 /* icn_highlight.png */; };
 		636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */; };
+		6366050411F2EF0D00D6DD96 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */; };
+		6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */; };
 		6366FF9011F0108B00D6DD96 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366FF8F11F0108B00D6DD96 /* Settings.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -157,6 +159,9 @@
 		6366035011F2305300D6DD96 /* icn_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_highlight.png; path = Resources/Images/icn_highlight.png; sourceTree = "<group>"; };
 		636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighlightIconTransformer.h; path = Classes/Helper/HighlightIconTransformer.h; sourceTree = "<group>"; };
 		636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HighlightIconTransformer.m; path = Classes/Helper/HighlightIconTransformer.m; sourceTree = "<group>"; };
+		6366050111F2EEFF00D6DD96 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PreferenceWindow.xib; sourceTree = "<group>"; };
+		6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
+		6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		6366FF8E11F0108B00D6DD96 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = Classes/Model/Settings.h; sourceTree = "<group>"; };
 		6366FF8F11F0108B00D6DD96 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = Classes/Model/Settings.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
@@ -199,6 +204,8 @@
 				22D2F76511D8AFF90030AFBD /* ACShellController.m */,
 				22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */,
 				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
+				6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */,
+				6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -392,6 +399,7 @@
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
 				6366021B11F1F02800D6DD96 /* Localizable.strings */,
+				6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -492,6 +500,7 @@
 				22C64DDC11EEFEA900D73CE4 /* icn_synchro.png in Resources */,
 				6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */,
 				6366035111F2305300D6DD96 /* icn_highlight.png in Resources */,
+				6366050411F2EF0D00D6DD96 /* PreferenceWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +543,7 @@
 				22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */,
 				6366FF9011F0108B00D6DD96 /* Settings.m in Sources */,
 				636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */,
+				6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -570,6 +580,14 @@
 				6366021D11F1F08E00D6DD96 /* German */,
 			);
 			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6366050111F2EEFF00D6DD96 /* English */,
+			);
+			name = PreferenceWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -9,17 +9,20 @@
 #import <Cocoa/Cocoa.h>
 
 @class PresentationWindowController;
+@class PreferenceWindowController;
 @class PresentationContext;
 @class ACShellCollection;
 
 
-@interface ACShellController : NSWindowController <NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
+@interface ACShellController : NSObject <NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
 	PresentationContext *presentationContext;
 	
 	NSArray *presentations;
 	NSMutableArray* categories;
 
 	PresentationWindowController *presentationWindowController;
+    PreferenceWindowController * preferenceWindowController;
+    
 	NSOutlineView *collectionView;
 	NSTableView *presentationTable;
 	
@@ -53,6 +56,8 @@
 - (IBAction)abortSync: (id)sender;
 - (IBAction)addCollection: (id)sender;
 - (IBAction)removeCollection: (id)sender;
+
+- (IBAction)showPreferences: (id)sender;
 
 - (NSArray *)selectedPresentations;
 

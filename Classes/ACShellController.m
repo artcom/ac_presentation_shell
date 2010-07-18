@@ -12,6 +12,7 @@
 #import "PresentationWindowController.h"
 #import "ACShellCollection.h"
 #import "NSFileManager-DirectoryHelper.h"
+#import "PreferenceWindowController.h"
 
 #define ACSHELL_LIBRARY_NAME @"LIBRARY"
 #define ACSHELL_COLLECTIONS_NAME @"COLLECTIONS"
@@ -46,12 +47,11 @@
 @synthesize presentationTable;
 @synthesize statusLine;
 
-
-
 - (id) init {
 	self = [super init];
 	if (self != nil) {		
 		presentationWindowController = [[PresentationWindowController alloc] init];
+        preferenceWindowController = [[PreferenceWindowController alloc] init];
 	}
 	
 	return self;
@@ -59,9 +59,7 @@
 
 - (void) awakeFromNib {
 	[self updatePresentationLists];
-    
-    [browserWindow setWindowController: self];
-	
+    	
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 	[collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
     
@@ -97,6 +95,7 @@
 	[categories release];
 	[presentations release];
 	[presentationWindowController release];
+    [preferenceWindowController release];
 	[presentationContext release];
 	[collectionView release];
 	[presentationTable release];
@@ -182,6 +181,10 @@
 	}
 
     [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
+}
+
+- (IBAction)showPreferences: (id) sender {
+    [preferenceWindowController showWindow: sender];
 }
 
 #pragma mark -
