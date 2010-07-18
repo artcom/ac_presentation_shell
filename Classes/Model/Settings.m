@@ -55,6 +55,8 @@
 }
 
 - (void)syncWithContext: (PresentationContext*) theContext {
+    NSLog(@"sync");
+
     [theContext syncPresentations: allPresentations withPredicate: nil];
     [theContext syncPresentations: highlights withPredicate: [NSPredicate predicateWithFormat:@"data.highlight == YES"]];
 	

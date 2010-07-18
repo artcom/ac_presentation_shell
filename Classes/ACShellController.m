@@ -339,8 +339,19 @@
 }
 
 - (void)didFinishSyncing {
-	[rsyncTask release];
-	rsyncTask = nil;
+    #pragma mark TODO: handle non-zero exit status
+    
+    if ([rsyncTask terminationStatus] != 0) {
+        NSFileHandle *file = [rsyncTask.standardError fileHandleForReading];
+        NSData *data = [file readDataToEndOfFile];
+        
+        NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
+        NSLog (@"got\n%@", string);	
+    } else {        
+        [presentationContext loadXmlLibrary];
+    }
+    [rsyncTask release];
+    rsyncTask = nil;    
 	
 	[progressSpinner stopAnimation:nil];
 	[[NSApplication sharedApplication] endSheet:syncWindow];	
@@ -349,22 +360,20 @@
 - (void)performRsync {
 	rsyncTask = [[NSTask alloc] init];
     [rsyncTask setLaunchPath: @"/opt/local/bin/rsync"];
-	NSString *libraryPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
-	[rsyncTask setArguments: [NSArray arrayWithObjects: @"-avz", @"--delete", @"/Volumes/kommunikation/extern/Praesentationen/presentationtest/", libraryPath, nil]];
+	NSString *dstPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
+	NSString * srcPath = [[NSUserDefaults standardUserDefaults] stringForKey: @"libraryPath"];
+    
+    NSLog(@"%@", srcPath);
+    /*if ([srcPath characterAtIndex: [srcPath length] - 1] != '/') {
+        srcPath = [srcPath stringByAppendingString: @"/"];
+    }*/
+    [rsyncTask setArguments: [NSArray arrayWithObjects: @"-avz", @"--delete", srcPath, dstPath, nil]];
 	
 	NSPipe *pipe = [NSPipe pipe];
-	[rsyncTask setStandardOutput: pipe];
+	[rsyncTask setStandardError: pipe];
 	
 	[rsyncTask launch];
     [rsyncTask waitUntilExit];
-    
-    #pragma mark TODO: handle non-zero exit status
-	
-    NSFileHandle *file = [pipe fileHandleForReading];
-    NSData *data = [file readDataToEndOfFile];
-	
-    NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-    NSLog (@"got\n%@", string);	
 }
 
 - (void)beautifyOutlineView {

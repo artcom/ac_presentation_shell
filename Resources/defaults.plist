@@ -5,6 +5,6 @@
 	<key>syncServer</key>
 	<string>graviton.intern.artcom.de</string>
 	<key>libraryPath</key>
-	<string>/Volumes/kommunikation/extern/Praesentationen/presentationtest</string>
+	<string>/Volumes/kommunikation/extern/Praesentationen/presentationtest/</string>
 </dict>
 </plist>

@@ -24,22 +24,9 @@
 - (id)init {
 	self = [super init];
 	if (self != nil) {
-		presentationsData = [[NSMutableDictionary alloc] init];
-
-		self.directory = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
-		NSString *libraryPath = [self.directory stringByAppendingPathComponent:@"library.xml"];
-		#pragma mark TODO: check if file exists and offer option or hint for first sync.
-		
-		NSError *error = nil;
-		NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
-		NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
-
-		for (NSXMLElement *presentation in xmlPresentations) {
-			PresentationData *data = [[PresentationData alloc] initWithXMLNode:presentation];
-			[presentationsData setObject: data forKey: [NSNumber numberWithInt: [data presentationId]]];			
-			
-			[data release];
-		}
+        self.directory = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
+        presentationsData = nil;
+        [self loadXmlLibrary];
 	}
 	
 	return self;
@@ -69,7 +56,10 @@
 }
 
 - (PresentationData *)presentationDataWithId: (NSInteger)aId {
-	return [presentationsData objectForKey:[NSNumber numberWithInt:aId]];
+    if (presentationsData != nil) {
+        return [presentationsData objectForKey:[NSNumber numberWithInt:aId]];
+    }
+    return nil;
 }
 
 - (void)save {
@@ -82,8 +72,8 @@
         if (settings == nil) {
             settings = [[[Settings alloc] init] retain];
         }
-        [settings syncWithContext: self];
     }
+    [settings syncWithContext: self];
 }
 
 #pragma mark TODO: move this to settings?
@@ -130,4 +120,27 @@
         presentation.index = ++i;
     }
 }
+
+- (void) loadXmlLibrary {
+    NSLog(@"loadXML");
+    NSString *libraryPath = [self.directory stringByAppendingPathComponent:@"library.xml"];
+#pragma mark TODO: check if file exists and offer option or hint for first sync.
+    
+    NSError *error = nil;
+    NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
+    NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
+    
+    if (error != nil) {
+        NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
+    }
+
+    presentationsData = [[[NSMutableDictionary alloc] init] autorelease];
+    for (NSXMLElement *presentation in xmlPresentations) {
+        PresentationData *data = [[[PresentationData alloc] initWithXMLNode:presentation] autorelease];
+        [presentationsData setObject: data forKey: [NSNumber numberWithInt: [data presentationId]]];			
+    }    
+    [self ensureSettings];
+    [settings syncWithContext: self];
+}
+
 @end
