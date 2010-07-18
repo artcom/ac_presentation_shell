@@ -3,7 +3,7 @@
 //  ACShell
 //
 //  Created by Robert Palmer on 28.06.10.
-//  Copyright 2010 Art+Com AG. All rights reserved.
+//  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -30,7 +30,6 @@
 
 @property (readonly) NSString *presentationFile;
 @property (readonly) NSImage *thumbnail;
-@property (readonly) NSImage *highlight_icon;
 
 - (id) initWithId:(NSInteger)theId inContext: (PresentationContext *)theContext;
 

@@ -3,7 +3,7 @@
 //  ACShell
 //
 //  Created by Robert Palmer on 28.06.10.
-//  Copyright 2010 Art+Com AG. All rights reserved.
+//  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>
@@ -14,7 +14,7 @@
 @class ACShellCollection;
 
 
-@interface ACShellController : NSObject <DeleteKeyDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
+@interface ACShellController : NSWindowController <DeleteKeyDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
 	PresentationContext *presentationContext;
 	
 	NSArray *presentations;
@@ -30,6 +30,7 @@
     NSTextField * statusLine;
 
     #pragma mark TODO: move to RSyncController?
+    NSWindow *browserWindow;
 	NSWindow *syncWindow;
 	NSProgressIndicator *progressSpinner;
 	
@@ -41,6 +42,7 @@
 @property (retain, nonatomic) NSMutableArray *categories;
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (retain, nonatomic) IBOutlet 	NSTreeController *collectionTreeController;
+@property (retain, nonatomic) IBOutlet NSWindow *browserWindow;
 @property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
 @property (retain, nonatomic) IBOutlet NSOutlineView *collectionView;

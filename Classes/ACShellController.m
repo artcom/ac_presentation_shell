@@ -3,7 +3,7 @@
 //  ACShell
 //
 //  Created by Robert Palmer on 28.06.10.
-//  Copyright 2010 Art+Com AG. All rights reserved.
+//  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
 #import "ACShellController.h"
@@ -40,6 +40,7 @@
 @synthesize presentationsArrayController;
 @synthesize collectionTreeController;
 @synthesize syncWindow;
+@synthesize browserWindow;
 @synthesize progressSpinner;
 @synthesize collectionView;
 @synthesize presentationTable;
@@ -58,6 +59,8 @@
 
 - (void) awakeFromNib {
 	[self updatePresentationLists];
+    
+    [browserWindow setWindowController: self];
 	
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 	[collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];

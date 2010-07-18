@@ -3,7 +3,7 @@
 //  ACShell
 //
 //  Created by Robert Palmer on 28.06.10.
-//  Copyright 2010 Art+Com AG. All rights reserved.
+//  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
 #import "Presentation.h"
@@ -73,17 +73,6 @@
 	}
 
 	return thumbnail;
-}
-
-- (NSImage *)highlight_icon {
-    if (data.highlight) {
-        if (highlight_icon == nil) {
-            NSString* filepath = [[NSBundle mainBundle] pathForResource:@"icn_highlight" ofType:@"png"];
-            highlight_icon =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
-        }
-        return highlight_icon;
-    }
-	return nil;
 }
 
 - (NSString *)presentationFile {
