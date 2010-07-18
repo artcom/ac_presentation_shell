@@ -7,14 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NSTableView-WithDelete.h"
 
 @class PresentationWindowController;
 @class PresentationContext;
 @class ACShellCollection;
 
 
-@interface ACShellController : NSWindowController <DeleteKeyDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
+@interface ACShellController : NSWindowController <NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
 	PresentationContext *presentationContext;
 	
 	NSArray *presentations;

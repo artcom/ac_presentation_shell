@@ -302,9 +302,7 @@
 	return YES;
 }
 
-#pragma mark -
-#pragma mark DeleteKeyDelegate Protocol Methods
-
+/*
 - (void) deleteKeyPressed: (NSTableView *) sender {
     if (sender == presentationTable) {
         [self removePresentation: sender];
@@ -312,6 +310,7 @@
         [self removeCollection: sender];
     }
 }
+*/
 
 #pragma mark -
 #pragma mark Private Methods
@@ -324,7 +323,7 @@
 }
 
 - (BOOL) isStaticCategory: (id) item {
-	if ([[item indexPath] length] >= 1 && [[item indexPath] indexAtPosition: 0] == 0) {
+	if ([[item indexPath] length] == 2 && [[item indexPath] indexAtPosition: 0] == 0) {
 		return YES;
 	}
 	return NO;    
