@@ -51,8 +51,10 @@
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;
 - (IBAction)abortSync: (id)sender;
+- (IBAction)remove: (id)sender;
 - (IBAction)addCollection: (id)sender;
 - (IBAction)removeCollection: (id)sender;
+- (IBAction)removePresentation: (id) sender;
 
 - (NSArray *)selectedPresentations;
 
