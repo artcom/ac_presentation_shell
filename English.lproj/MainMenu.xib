@@ -1827,6 +1827,11 @@
 																	<int key="NSResizingMask">2</int>
 																	<bool key="NSIsResizeable">YES</bool>
 																	<reference key="NSTableView" ref="357031940"/>
+																	<object class="NSSortDescriptor" key="NSSortDescriptorPrototype">
+																		<string key="NSKey">highlight</string>
+																		<bool key="NSAscending">YES</bool>
+																		<string key="NSSelector">compare:</string>
+																	</object>
 																</object>
 															</object>
 															<double key="NSIntercellSpacingWidth">3</double>
