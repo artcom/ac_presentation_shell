@@ -156,6 +156,7 @@
         predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@", searchString];
     }
     [presentationsArrayController setFilterPredicate: predicate];
+    [self updateStatusText: nil];
 }
 
 - (void)didEndModal {

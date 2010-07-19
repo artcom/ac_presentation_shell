@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="371"/>
+			<integer value="372"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1396,11 +1396,9 @@
 								<string key="NSToolbarItemPaletteLabel">Search</string>
 								<nil key="NSToolbarItemToolTip"/>
 								<object class="NSSearchField" key="NSToolbarItemView" id="636256507">
-									<reference key="NSNextResponder"/>
+									<nil key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
 									<string key="NSFrame">{{0, 14}, {186, 22}}</string>
-									<reference key="NSSuperview"/>
-									<reference key="NSWindow"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSSearchFieldCell" key="NSCell" id="211403879">
 										<int key="NSCellFlags">343014976</int>
@@ -2069,7 +2067,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="152034271">
 								<int key="NSCellFlags">67239488</int>
 								<int key="NSCellFlags2">138549312</int>
-								<string key="NSContents"/>
+								<string key="NSContents">No Library</string>
 								<reference key="NSSupport" ref="26"/>
 								<reference key="NSControlView" ref="837347054"/>
 								<object class="NSColor" key="NSBackgroundColor" id="946291957">
@@ -4911,6 +4909,7 @@
 					<string>687.IBPluginDependency</string>
 					<string>716.IBPluginDependency</string>
 					<string>717.IBPluginDependency</string>
+					<string>718.IBPluginDependency</string>
 					<string>72.IBPluginDependency</string>
 					<string>72.ImportedFromIB2</string>
 					<string>73.IBPluginDependency</string>
@@ -5228,6 +5227,7 @@
 					<reference ref="616763719"/>
 					<real value="0.0"/>
 					<real value="0.0"/>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
