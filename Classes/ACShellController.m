@@ -272,7 +272,9 @@
 
 - (void) updateStatusText: (NSNotification*) notification {
     unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
-    if (selectedItems > 0) {
+    if ( ! [presentationLibrary hasLibrary]) {
+        [statusLine setStringValue: NSLocalizedString(@"No library loaded", nil)];
+    } else if (selectedItems > 0) {
         [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d of %d presentations", nil), 
                                      selectedItems, [[presentationsArrayController arrangedObjects] count]]];
     } else {
