@@ -38,7 +38,7 @@
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;
-@property (retain, nonatomic) NSMutableArray * libraryRoot;
+@property (retain, nonatomic) NSMutableArray * library;
 
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (retain, nonatomic) IBOutlet 	NSTreeController *collectionTreeController;

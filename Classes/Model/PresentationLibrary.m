@@ -17,13 +17,17 @@
 
 @interface PresentationLibrary ()
 
+@property (readonly) NSMutableArray* allPresentations;
+@property (readonly) NSMutableArray* highlights;
+@property (readonly) NSMutableArray* collections;
+
 -(void) setup;
 -(void) syncPresentations;
 
 @end
 
 @implementation PresentationLibrary
-@synthesize libraryRoot;
+@synthesize library;
 
 -(id) init {
 	self = [super init];
@@ -41,32 +45,31 @@
         [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_CATEGORY_HIGHLIGHTS]];
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_COLLECTIONS]];
 
-        [libraryRoot assignContext: self];
-		
-		NSLog(@"collections: %@", self.collections);
-    }
+        [library assignContext: self];
+}
 	
 	return self;
 }
 
 -(void) setup {
-    NSLog(@"setup");
     presentationData = nil;
-    libraryRoot = [[ACShellCollection collectionWithName: @"root"] retain];
-    ACShellCollection *library = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil)];
-    [libraryRoot.children addObject: library];
+    library = [[ACShellCollection collectionWithName: @"root"] retain];
+    ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil)];
+    [library.children addObject: lib];
     
     ACShellCollection *all = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_ALL, nil)];
-    [library.children addObject: all];
+    [lib.children addObject: all];
     ACShellCollection *highlights = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_HIGHLIGHTS, nil)];
-    [library.children addObject: highlights];
+    [lib.children addObject: highlights];
     
     ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_COLLECTIONS, nil)];
-    [libraryRoot.children addObject: collections];
+    [library.children addObject: collections];
 }
 
 - (void) dealloc {
-    
+    [presentationData release];
+	[library release];
+	
 	[super dealloc];
 }
 
@@ -74,8 +77,6 @@
 	[aCoder encodeObject: self.allPresentations forKey:ACSHELL_CATEGORY_ALL];
 	[aCoder encodeObject: self.highlights forKey:ACSHELL_CATEGORY_HIGHLIGHTS];
 	[aCoder encodeObject: self.collections forKey:ACSHELL_COLLECTIONS];	
-	
-	NSLog(@"collections: %@", self.collections);
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
@@ -85,7 +86,7 @@
     return nil;
 }
 
-+ (id) contextFromSettingsFile {
++ (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
     if (lib != nil) {
         return lib;
@@ -98,16 +99,22 @@
     [NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];
 }
 
+- (NSUInteger)collectionCount {
+	return [self.collections count];
+}
+
+
+
 - (NSMutableArray*) allPresentations {
-    return (NSMutableArray*)[[[[libraryRoot.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
+    return (NSMutableArray*)[[[[library.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
 }
 
 - (NSMutableArray*) highlights {
-    return (NSMutableArray*)[[[[libraryRoot.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
+    return (NSMutableArray*)[[[[library.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
 }
 
 - (NSMutableArray*) collections {
-    return (NSMutableArray*)[[libraryRoot.children objectAtIndex: 1] children];
+    return (NSMutableArray*)[[library.children objectAtIndex: 1] children];
 }
 
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations {
@@ -137,11 +144,9 @@
                 [thePresentations insertObject: newPresentation atIndex:0];
                 addedStuff = YES;
             }
-        } else {
-			// XXX
-            ((Presentation*)[thePresentations objectAtIndex: [presentIds indexOfObject: key]]).context = self;
         }
     }
+	
     if (addedStuff) {
         [self updateIndices: thePresentations];
     }

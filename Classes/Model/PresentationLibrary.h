@@ -15,29 +15,28 @@
 @interface PresentationLibrary : NSObject <NSCoding> {
 	NSMutableDictionary *presentationData;
     
-    ACShellCollection * libraryRoot;
+    ACShellCollection * library;
 }
 
-@property (readonly) NSMutableArray* allPresentations;
-@property (readonly) NSMutableArray* highlights;
-@property (readonly) NSMutableArray* collections;
-@property (retain, nonatomic) ACShellCollection* libraryRoot;
+@property (retain, nonatomic) ACShellCollection* library;
 
 @property (readonly) BOOL hasLibrary;
 
 
-+ (id)contextFromSettingsFile;
++ (id)libraryFromSettingsFile;
 
 + (NSString*) libraryDir;
 + (NSString*) settingsFilepath;
 
 
 - (void)saveSettings;
-- (BOOL) loadXmlLibrary;
+- (BOOL)loadXmlLibrary;
    
 - (NSXMLElement *) xmlNode: (id) aId;
 - (void)addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
 - (void) dropStalledPresentations: (NSMutableArray*) presentations;
 - (void)updateIndices: (NSArray*) thePresentations;
+
+- (NSUInteger)collectionCount;
 
 @end

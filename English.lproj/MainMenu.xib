@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="372"/>
+			<integer value="557"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -1727,7 +1727,6 @@
 																	</object>
 																	<int key="NSResizingMask">2</int>
 																	<bool key="NSIsResizeable">YES</bool>
-																	<bool key="NSIsEditable">YES</bool>
 																	<reference key="NSTableView" ref="357031940"/>
 																</object>
 																<object class="NSTableColumn" id="600118046">
@@ -3048,22 +3047,6 @@
 					<int key="connectionID">696</int>
 				</object>
 				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: libraryRoot</string>
-						<reference key="source" ref="527866442"/>
-						<reference key="destination" ref="246107155"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="527866442"/>
-							<reference key="NSDestination" ref="246107155"/>
-							<string key="NSLabel">contentArray: libraryRoot</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">libraryRoot</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">697</int>
-				</object>
-				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
 						<string key="label">remove:</string>
 						<reference key="source" ref="246107155"/>
@@ -3128,6 +3111,22 @@
 						</object>
 					</object>
 					<int key="connectionID">701</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: library</string>
+						<reference key="source" ref="527866442"/>
+						<reference key="destination" ref="246107155"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="527866442"/>
+							<reference key="NSDestination" ref="246107155"/>
+							<string key="NSLabel">contentArray: library</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">library</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">703</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4941,9 +4940,9 @@
 					<integer value="1"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="1"/>
-					<string>{{423, 374}, {839, 561}}</string>
+					<string>{{322, 374}, {839, 561}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{423, 374}, {839, 561}}</string>
+					<string>{{322, 374}, {839, 561}}</string>
 					<integer value="1"/>
 					<string>{{33, 99}, {480, 360}}</string>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -5147,7 +5146,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">702</int>
+			<int key="maxID">703</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">

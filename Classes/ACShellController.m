@@ -50,7 +50,7 @@
 		
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
-        presentationLibrary = [[PresentationLibrary contextFromSettingsFile] retain];
+        presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
 	}
 	
 	return self;
@@ -164,7 +164,7 @@
 	ACShellCollection *list = [ACShellCollection collectionWithName:NSLocalizedString(@"new collection", nil)
                                                       presentations:[NSMutableArray array] children:nil];
 	
-	NSUInteger indices[] = {1,[presentationLibrary.collections count]};
+	NSUInteger indices[] = {1,[presentationLibrary collectionCount]};
 	
 	[collectionTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
 
@@ -181,7 +181,7 @@
 
 	[collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
 
-    if ([presentationLibrary.collections count] == 0) {
+    if ([presentationLibrary collectionCount] == 0) {
         [collectionView deselectAll: self];
     }
 }
@@ -200,12 +200,12 @@
     [preferenceWindowController showWindow: sender];
 }
 
--(NSMutableArray*) libraryRoot {
-    return presentationLibrary.libraryRoot.children;
+-(NSMutableArray*) library {
+    return presentationLibrary.library.children;
 }
 
--(void) setLibraryRoot:(NSMutableArray *) array {
-    presentationLibrary.libraryRoot.children = array;
+-(void) setLibrary:(NSMutableArray *) array {
+    presentationLibrary.library.children = array;
 }
 
 #pragma mark -
