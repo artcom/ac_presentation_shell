@@ -14,11 +14,6 @@
 #import "NSFileManager-DirectoryHelper.h"
 #import "PreferenceWindowController.h"
 
-#define ACSHELL_LIBRARY_NAME @"LIBRARY"
-#define ACSHELL_COLLECTIONS_NAME @"COLLECTIONS"
-#define ACSHELL_CATEGORY_ALL @"All"
-#define ACSHELL_CATEGORY_HIGHLIGHTS @"Highlights"
-
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
 @interface ACShellController ()
@@ -74,16 +69,7 @@
                                                  name:NSTableViewSelectionDidChangeNotification object:presentationTable];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
                                                  name:NSOutlineViewSelectionDidChangeNotification object:collectionView];
-
 }
-
-
-- (void)updatePresentationLists {
-	
-	
-	[self beautifyOutlineView];
-}
-
 
 - (void) dealloc {
 	[categories release];
@@ -106,6 +92,8 @@
                           nil);
 
     }
+	
+	[self beautifyOutlineView];
 }
 
 -(void) onLibrarySyncAnswered: (NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
@@ -124,7 +112,6 @@
 }
 
 - (IBAction)sync: (id)sender {
-	//[self.presentationContext saveSettings];
 	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow: browserWindow 
 									modalDelegate:self didEndSelector:@selector(didEndModal) contextInfo:nil];
 	[progressSpinner startAnimation:nil];
@@ -132,7 +119,6 @@
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		[self performRsync];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			//[self updatePresentationLists];
 			[self didFinishSyncing];
 		});
 	});
@@ -170,7 +156,6 @@
 	NSUInteger indices[] = {1,[presentationLibrary.collections count]};
 	
 	[collectionTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
-	[presentationLibrary.collections addObject:list];
 
     [collectionTreeController setSelectionIndexPath: [NSIndexPath indexPathWithIndexes: indices length: 2]];
     [collectionView editColumn: 0 row: [collectionView selectedRow] withEvent:nil select:YES];
@@ -183,12 +168,6 @@
 		return;
 	}
 
-	NSArray *selectedNodes = [collectionTreeController selectedNodes];
-	
-	if ([selectedNodes count] > 0) {
-		[presentationLibrary.collections removeObject:[[selectedNodes objectAtIndex:0] representedObject]];
-	}
-	
 	[collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
 
     if ([presentationLibrary.collections count] == 0) {
@@ -401,10 +380,10 @@
 }
 
 - (void)beautifyOutlineView {
-	NSTreeNode *firstNode = [collectionView itemAtRow:0];
 	[collectionView expandItem:nil expandChildren:YES];
-	NSTreeNode *allItem = [[firstNode childNodes] objectAtIndex:0];
 	
+	NSTreeNode *firstNode = [collectionView itemAtRow:0];
+	NSTreeNode *allItem = [[firstNode childNodes] objectAtIndex:0];
 	NSUInteger row = [collectionView rowForItem:allItem];
 	[collectionView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }

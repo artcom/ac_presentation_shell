@@ -21,8 +21,8 @@
 }
 
 @property (assign) BOOL selected;
-@property (assign) id presentationId;
 @property (assign) NSInteger index;
+@property (retain) id presentationId;
 @property (retain) PresentationLibrary *context;
 
 

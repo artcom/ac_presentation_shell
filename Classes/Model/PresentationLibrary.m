@@ -42,6 +42,8 @@
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_COLLECTIONS]];
 
         [libraryRoot assignContext: self];
+		
+		NSLog(@"collections: %@", self.collections);
     }
 	
 	return self;
@@ -69,13 +71,15 @@
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {	
-	[aCoder encodeObject: self.allPresentations forKey:@"allPresentations"];
-	[aCoder encodeObject: self.highlights forKey:@"highlights"];
-	[aCoder encodeObject: self.collections forKey:@"collections"];	
+	[aCoder encodeObject: self.allPresentations forKey:ACSHELL_CATEGORY_ALL];
+	[aCoder encodeObject: self.highlights forKey:ACSHELL_CATEGORY_HIGHLIGHTS];
+	[aCoder encodeObject: self.collections forKey:ACSHELL_COLLECTIONS];	
+	
+	NSLog(@"collections: %@", self.collections);
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
-    if (presentationData != nil) {
+	if (presentationData != nil) {
         return [presentationData objectForKey: aId];
     }
     return nil;
@@ -134,6 +138,7 @@
                 addedStuff = YES;
             }
         } else {
+			// XXX
             ((Presentation*)[thePresentations objectAtIndex: [presentIds indexOfObject: key]]).context = self;
         }
     }
