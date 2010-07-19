@@ -21,13 +21,25 @@
 @property (readonly) NSMutableArray* highlights;
 @property (readonly) NSMutableArray* collections;
 
++ (NSString*) settingsFilepath;
 -(void) setup;
 -(void) syncPresentations;
+-(void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
+-(void) dropStalledPresentations: (NSMutableArray*) presentations;
 
 @end
 
 @implementation PresentationLibrary
 @synthesize library;
+
++ (id) libraryFromSettingsFile {
+    PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
+    if (lib != nil) {
+        return lib;
+    }
+    NSLog(@"no library");
+    return [[[PresentationLibrary alloc] init] autorelease];
+}
 
 -(id) init {
 	self = [super init];
@@ -46,8 +58,8 @@
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_COLLECTIONS]];
 
         [library assignContext: self];
-}
-	
+    }
+
 	return self;
 }
 
@@ -69,7 +81,7 @@
 - (void) dealloc {
     [presentationData release];
 	[library release];
-	
+
 	[super dealloc];
 }
 
@@ -79,6 +91,38 @@
 	[aCoder encodeObject: self.collections forKey:ACSHELL_COLLECTIONS];	
 }
 
+- (void)saveSettings {
+    [NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];
+}
+
+- (BOOL) loadXmlLibrary {
+    NSLog(@"loadXML");
+    presentationData = nil;
+    
+    NSString *libraryPath = [[PresentationLibrary libraryDir] stringByAppendingPathComponent:@"library.xml"];
+    
+    if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
+        NSLog(@"file '%@' does not exist", libraryPath);
+        return NO;
+    }
+    NSError *error = nil;
+    NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
+    NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
+    
+    if (error != nil) {
+        NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
+        return NO;
+    }
+    
+    presentationData = [[NSMutableDictionary alloc] init];
+    for (NSXMLElement * element in xmlPresentations) {
+        [presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
+    }
+    
+    [self syncPresentations];
+    return YES;
+}
+
 - (NSXMLElement *) xmlNode: (id)aId {
 	if (presentationData != nil) {
         return [presentationData objectForKey: aId];
@@ -86,25 +130,16 @@
     return nil;
 }
 
-+ (id) libraryFromSettingsFile {
-    PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
-    if (lib != nil) {
-        return lib;
-    }
-    NSLog(@"no library");
-    return [[[PresentationLibrary alloc] init] autorelease];
-}
-
-- (void)saveSettings {
-    [NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];
-}
-
 - (NSUInteger)collectionCount {
 	return [self.collections count];
 }
 
++ (NSString*) libraryDir {
+    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
+}
 
-
+#pragma mark -
+#pragma mark Private Methods
 - (NSMutableArray*) allPresentations {
     return (NSMutableArray*)[[[[library.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
 }
@@ -172,40 +207,8 @@
     }
 }
 
-- (BOOL) loadXmlLibrary {
-    NSLog(@"loadXML");
-    presentationData = nil;
-
-    NSString *libraryPath = [[PresentationLibrary libraryDir] stringByAppendingPathComponent:@"library.xml"];
-    
-    if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
-        NSLog(@"file '%@' does not exist", libraryPath);
-        return NO;
-    }
-    NSError *error = nil;
-    NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
-    NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
-    
-    if (error != nil) {
-        NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
-        return NO;
-    }
-
-    presentationData = [[NSMutableDictionary alloc] init];
-    for (NSXMLElement * element in xmlPresentations) {
-        [presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
-    }
-    
-    [self syncPresentations];
-    return YES;
-}
-
 - (BOOL) hasLibrary {
     return presentationData != nil;
-}
-
-+ (NSString*) libraryDir {
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
 }
 
 + (NSString*) settingsFilepath {

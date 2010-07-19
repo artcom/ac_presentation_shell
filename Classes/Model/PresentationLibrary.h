@@ -26,15 +26,13 @@
 + (id)libraryFromSettingsFile;
 
 + (NSString*) libraryDir;
-+ (NSString*) settingsFilepath;
 
 
 - (void)saveSettings;
 - (BOOL)loadXmlLibrary;
    
 - (NSXMLElement *) xmlNode: (id) aId;
-- (void)addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
-- (void) dropStalledPresentations: (NSMutableArray*) presentations;
+
 - (void)updateIndices: (NSArray*) thePresentations;
 
 - (NSUInteger)collectionCount;

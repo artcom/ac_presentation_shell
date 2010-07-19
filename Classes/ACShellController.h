@@ -57,6 +57,7 @@
 - (IBAction)removeCollection: (id)sender;
 - (IBAction)removePresentation: (id) sender;
 - (IBAction)openPresentation: (id)sender;
+- (IBAction)updatePresentationFilter: (id) sender;
 
 - (IBAction)showPreferences: (id)sender;
 

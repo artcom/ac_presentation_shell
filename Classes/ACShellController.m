@@ -149,6 +149,15 @@
 	}
 }
 
+- (IBAction)updatePresentationFilter: (id) sender {
+    NSString * searchString = [sender stringValue];
+    NSPredicate * predicate = nil;
+    if ((searchString != nil) && (![searchString isEqualToString:@""])) {
+        predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@", searchString];
+    }
+    [presentationsArrayController setFilterPredicate: predicate];
+}
+
 - (void)didEndModal {
     NSLog(@"sync window out");
     [syncWindow close];
