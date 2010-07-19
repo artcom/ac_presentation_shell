@@ -155,6 +155,13 @@
 	[self didFinishSyncing];
 }
 
+- (IBAction)remove: (id)sender {
+	if ([browserWindow firstResponder] == presentationTable) {
+		[self removePresentation:sender];			
+	} else if ([browserWindow firstResponder] == collectionView) {
+		[self removeCollection:self];
+	}
+}
 
 - (void)didEndModal {
     NSLog(@"sync window out");
