@@ -44,6 +44,7 @@
 		22D59A4D11DE147C0025E48F /* icn_pagination_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4811DE147C0025E48F /* icn_pagination_active.png */; };
 		22D59A4E11DE147C0025E48F /* icn_pagination.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4911DE147C0025E48F /* icn_pagination.png */; };
 		22D59A4F11DE147C0025E48F /* icn_prev_page.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4A11DE147C0025E48F /* icn_prev_page.png */; };
+		22D7541E11F4877F00BA7713 /* SingleLineTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D7541D11F4877F00BA7713 /* SingleLineTransformer.m */; };
 		22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */; };
 		22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */; };
 		22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */; };
@@ -142,6 +143,8 @@
 		22D59A4811DE147C0025E48F /* icn_pagination_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_pagination_active.png; path = Resources/Images/icn_pagination_active.png; sourceTree = "<group>"; };
 		22D59A4911DE147C0025E48F /* icn_pagination.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_pagination.png; path = Resources/Images/icn_pagination.png; sourceTree = "<group>"; };
 		22D59A4A11DE147C0025E48F /* icn_prev_page.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_prev_page.png; path = Resources/Images/icn_prev_page.png; sourceTree = "<group>"; };
+		22D7541C11F4877F00BA7713 /* SingleLineTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SingleLineTransformer.h; path = Classes/Helper/SingleLineTransformer.h; sourceTree = "<group>"; };
+		22D7541D11F4877F00BA7713 /* SingleLineTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SingleLineTransformer.m; path = Classes/Helper/SingleLineTransformer.m; sourceTree = "<group>"; };
 		22EF9E7811D8EE4600E91DF0 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationWindow.xib; sourceTree = "<group>"; };
 		22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationWindowController.h; path = Classes/PresentationWindowController.h; sourceTree = "<group>"; };
 		22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationWindowController.m; path = Classes/PresentationWindowController.m; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 				636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */,
 				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
 				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
+				22D7541C11F4877F00BA7713 /* SingleLineTransformer.h */,
+				22D7541D11F4877F00BA7713 /* SingleLineTransformer.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -542,6 +547,7 @@
 				636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */,
 				6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */,
 				636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */,
+				22D7541E11F4877F00BA7713 /* SingleLineTransformer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
