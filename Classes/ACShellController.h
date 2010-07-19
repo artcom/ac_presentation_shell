@@ -15,7 +15,7 @@
 
 
 @interface ACShellController : NSObject <NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
-	PresentationLibrary *presentationContext;
+	PresentationLibrary *presentationLibrary;
 	
 	NSArray *presentations;
 	NSMutableArray* categories;
@@ -39,7 +39,7 @@
 	NSTask *rsyncTask;
 }
 
-@property (retain) PresentationLibrary *presentationContext;
+@property (retain) PresentationLibrary *presentationLibrary;
 @property (retain, nonatomic) NSArray *presentations;
 //@property (retain, nonatomic) NSMutableArray *categories;
 @property (retain, nonatomic) NSMutableArray * libraryRoot;

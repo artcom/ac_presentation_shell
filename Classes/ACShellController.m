@@ -36,7 +36,7 @@
 
 
 @implementation ACShellController
-@synthesize presentationContext;
+@synthesize presentationLibrary;
 @synthesize presentations;
 //@synthesize categories;
 @synthesize presentationsArrayController;
@@ -56,9 +56,9 @@
         
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
-        presentationContext = [PresentationLibrary contextFromSettingsFile];
+        presentationLibrary = [[PresentationLibrary contextFromSettingsFile] retain];
         
-        NSLog(@"context: %@", presentationContext);
+        NSLog(@"context: %@", presentationLibrary);
 	}
 	
 	return self;
@@ -77,31 +77,20 @@
 
 }
 
-/*
-- (void)updatePresentationLists {
-	self.presentations = [presentationContext allPresentations];
-	
-	NSMutableArray *staticCategories = [NSMutableArray array];
-	[staticCategories addObject: [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_ALL, nil)
-                                                         presentations:[presentationContext allPresentations] children:nil]];
-	[staticCategories addObject: [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_HIGHLIGHTS, nil)
-                                                         presentations:[presentationContext highlights] children:nil]];
 
-	ACShellCollection *library = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil) 
-                                                         presentations:nil children:staticCategories];
-    ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_COLLECTIONS_NAME, nil)
-                                                             presentations:nil children:[presentationContext collections]];
-    self.categories = [[NSMutableArray arrayWithObjects: library, collections, nil] retain];
+- (void)updatePresentationLists {
+	
 	
 	[self beautifyOutlineView];
 }
-*/
+
+
 - (void) dealloc {
 	[categories release];
 	[presentations release];
 	[presentationWindowController release];
     [preferenceWindowController release];
-	[presentationContext release];
+	[presentationLibrary release];
 	[collectionView release];
 	[presentationTable release];
 	
@@ -109,7 +98,7 @@
 }
 
 -(void) load {
-    if ( ! [presentationContext loadXmlLibrary]) {
+    if ( ! [presentationLibrary loadXmlLibrary]) {
         NSBeginAlertSheet( NSLocalizedString(@"Synchronize library now?",nil), @"OK", @"Cancel",
                           nil, browserWindow, self, @selector(onLibrarySyncAnswered:returnCode:contextInfo:),
                           nil, browserWindow, 
@@ -178,10 +167,10 @@
 	ACShellCollection *list = [ACShellCollection collectionWithName:NSLocalizedString(@"new collection", nil)
                                                       presentations:[NSMutableArray array] children:nil];
 	
-	NSUInteger indices[] = {1,[presentationContext.collections count]};
+	NSUInteger indices[] = {1,[presentationLibrary.collections count]};
 	
 	[collectionTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
-	[presentationContext.collections addObject:list];
+	[presentationLibrary.collections addObject:list];
 
     [collectionTreeController setSelectionIndexPath: [NSIndexPath indexPathWithIndexes: indices length: 2]];
     [collectionView editColumn: 0 row: [collectionView selectedRow] withEvent:nil select:YES];
@@ -197,12 +186,12 @@
 	NSArray *selectedNodes = [collectionTreeController selectedNodes];
 	
 	if ([selectedNodes count] > 0) {
-		[presentationContext.collections removeObject:[[selectedNodes objectAtIndex:0] representedObject]];
+		[presentationLibrary.collections removeObject:[[selectedNodes objectAtIndex:0] representedObject]];
 	}
 	
 	[collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
 
-    if ([presentationContext.collections count] == 0) {
+    if ([presentationLibrary.collections count] == 0) {
         [collectionView deselectAll: self];
     }
 }
@@ -222,11 +211,11 @@
 }
 
 -(NSMutableArray*) libraryRoot {
-    return presentationContext.libraryRoot.children;
+    return presentationLibrary.libraryRoot.children;
 }
 
 -(void) setLibraryRoot:(NSMutableArray *) array {
-    presentationContext.libraryRoot.children = array;
+    presentationLibrary.libraryRoot.children = array;
 }
 
 #pragma mark -
@@ -274,7 +263,7 @@
 	}
 	
 	
-	[presentationContext updateIndices:myPresentations];
+	[presentationLibrary updateIndices:myPresentations];
 	NSIndexSet *newSelection = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionIndex, [movedPresentations count])];
 	[presentationTable selectRowIndexes:newSelection byExtendingSelection:NO];
 	[presentationTable reloadData];
@@ -342,7 +331,7 @@
 	[collection.presentations addObjectsFromArray:selectionArray];
 	[selectionArray release];
 	
-	[self.presentationContext updateIndices:collection.presentations];
+	[self.presentationLibrary updateIndices:collection.presentations];
 	return YES;
 }
 
@@ -379,9 +368,9 @@
         NSData *data = [file readDataToEndOfFile];
         
         NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-        NSLog (@"got\n%@", string);	
+        NSLog (@"ERROR\n%@", string);	
     } else {        
-        if ( ! [presentationContext loadXmlLibrary] ) {
+        if ( ! [presentationLibrary loadXmlLibrary] ) {
             NSLog(@"Failed to load xml library after syncing.");
         }
     }

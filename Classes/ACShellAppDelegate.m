@@ -16,7 +16,6 @@
 @synthesize shellController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    NSLog(@"UP");
     [shellController load];
 }
 
@@ -25,7 +24,7 @@
 }
 
 - (void) applicationWillTerminate:(NSNotification *)notification {
-	[shellController.presentationContext saveSettings];
+	[shellController.presentationLibrary saveSettings];
 }
 
 @end

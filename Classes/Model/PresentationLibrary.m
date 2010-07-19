@@ -7,10 +7,8 @@
 //
 
 #import "PresentationLibrary.h"
-#import "PresentationData.h"
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
-#import "Settings.h"
 
 #define ACSHELL_LIBRARY_NAME @"LIBRARY"
 #define ACSHELL_COLLECTIONS @"COLLECTIONS"
@@ -53,15 +51,15 @@
     NSLog(@"setup");
     presentationData = nil;
     libraryRoot = [[ACShellCollection collectionWithName: @"root"] retain];
-    ACShellCollection *library = [[ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil)] retain];
+    ACShellCollection *library = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil)];
     [libraryRoot.children addObject: library];
     
-    ACShellCollection *all = [[ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_ALL, nil)] retain];
+    ACShellCollection *all = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_ALL, nil)];
     [library.children addObject: all];
-    ACShellCollection *highlights = [[ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_HIGHLIGHTS, nil)] retain];
+    ACShellCollection *highlights = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_HIGHLIGHTS, nil)];
     [library.children addObject: highlights];
     
-    ACShellCollection *collections = [[ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_COLLECTIONS, nil)] retain];
+    ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_COLLECTIONS, nil)];
     [libraryRoot.children addObject: collections];
 }
 
@@ -86,10 +84,10 @@
 + (id) contextFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
     if (lib != nil) {
-        return [lib retain];
+        return lib;
     }
     NSLog(@"no library");
-    return [[PresentationLibrary alloc] init];
+    return [[[PresentationLibrary alloc] init] autorelease];
 }
 
 - (void)saveSettings {
@@ -97,11 +95,11 @@
 }
 
 - (NSMutableArray*) allPresentations {
-    return (NSMutableArray*)[[[libraryRoot.children objectAtIndex: 0] objectAtIndex: 0] children];
+    return (NSMutableArray*)[[[[libraryRoot.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
 }
 
 - (NSMutableArray*) highlights {
-    return (NSMutableArray*)[[[libraryRoot.children objectAtIndex: 0] objectAtIndex: 1] children];
+    return (NSMutableArray*)[[[[libraryRoot.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
 }
 
 - (NSMutableArray*) collections {
@@ -150,7 +148,7 @@
     [self dropStalledPresentations: self.allPresentations];
     [self addNewPresentations: self.allPresentations withPredicate: nil];
     [self dropStalledPresentations: self.highlights];
-    [self addNewPresentations:  self.highlights withPredicate: [NSPredicate predicateWithFormat:@"data.highlight == YES"]];
+    [self addNewPresentations:  self.highlights withPredicate: [NSPredicate predicateWithFormat:@"highlight == YES"]];
 	
 	for (ACShellCollection *collection in self.collections) {
 		[self dropStalledPresentations:collection.presentations];
@@ -183,7 +181,7 @@
         return NO;
     }
 
-    presentationData = [[[NSMutableDictionary alloc] init] autorelease];
+    presentationData = [[NSMutableDictionary alloc] init];
     for (NSXMLElement * element in xmlPresentations) {
         [presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
     }

@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class PresentationData;
 @class PresentationLibrary;
 
 
@@ -16,7 +15,6 @@
 	id presentationId;
 	NSInteger index;
 	
-	PresentationData *data;
 	PresentationLibrary *context;
 	NSImage *thumbnail;
     NSImage *highlight_icon;

@@ -7,7 +7,6 @@
 //
 
 #import "Presentation.h"
-#import "PresentationData.h"
 #import "PresentationLibrary.h"
 
 @interface Presentation ()
@@ -43,6 +42,7 @@
 		self.selected = [aDecoder decodeBoolForKey:@"selected"];
 		self.presentationId = [aDecoder decodeObjectForKey:@"presentationId"];
         self.index = [aDecoder decodeIntegerForKey:@"index"];
+		self.context = nil;
 	}	
 	return self;
 }
@@ -117,7 +117,6 @@
 
 - (void) dealloc {
 	[thumbnail release];
-	[data release];
 	[context release];
 	[super dealloc];
 }

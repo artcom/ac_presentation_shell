@@ -29,8 +29,8 @@
 	ACShellCollection *collection = [[ACShellCollection alloc] init];
 	
 	collection.name = theName;
-	collection.presentations = [[NSMutableArray  alloc] init];
-	collection.children = [[NSMutableArray alloc] init];
+	collection.presentations = [NSMutableArray  array];
+	collection.children = [NSMutableArray array];
 	
 	return [collection autorelease];
 }

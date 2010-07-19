@@ -38,7 +38,6 @@
 		22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F76511D8AFF90030AFBD /* ACShellController.m */; };
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
 		22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
-		22D2F7F111D8D2880030AFBD /* PresentationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7F011D8D2880030AFBD /* PresentationData.m */; };
 		22D5993511DDD19B0025E48F /* PaginationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5993411DDD19B0025E48F /* PaginationView.m */; };
 		22D59A4B11DE147C0025E48F /* gfx_ac_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4611DE147C0025E48F /* gfx_ac_logo.png */; };
 		22D59A4C11DE147C0025E48F /* icn_next_page.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4711DE147C0025E48F /* icn_next_page.png */; };
@@ -56,7 +55,6 @@
 		6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
-		6366FF9011F0108B00D6DD96 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366FF8F11F0108B00D6DD96 /* Settings.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -137,8 +135,6 @@
 		22D2F77311D8B5E10030AFBD /* Presentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Presentation.m; path = Classes/Model/Presentation.m; sourceTree = "<group>"; };
 		22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationLibrary.h; path = Classes/Model/PresentationLibrary.h; sourceTree = "<group>"; };
 		22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationLibrary.m; path = Classes/Model/PresentationLibrary.m; sourceTree = "<group>"; };
-		22D2F7EF11D8D2880030AFBD /* PresentationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationData.h; path = Classes/Model/PresentationData.h; sourceTree = "<group>"; };
-		22D2F7F011D8D2880030AFBD /* PresentationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationData.m; path = Classes/Model/PresentationData.m; sourceTree = "<group>"; };
 		22D5993311DDD19B0025E48F /* PaginationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaginationView.h; path = Classes/View/PaginationView.h; sourceTree = "<group>"; };
 		22D5993411DDD19B0025E48F /* PaginationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PaginationView.m; path = Classes/View/PaginationView.m; sourceTree = "<group>"; };
 		22D59A4611DE147C0025E48F /* gfx_ac_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_ac_logo.png; path = Resources/Images/gfx_ac_logo.png; sourceTree = "<group>"; };
@@ -167,8 +163,6 @@
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-WithUUID.h"; path = "Classes/Helper/NSString-WithUUID.h"; sourceTree = "<group>"; };
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-WithUUID.m"; path = "Classes/Helper/NSString-WithUUID.m"; sourceTree = "<group>"; };
-		6366FF8E11F0108B00D6DD96 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = Classes/Model/Settings.h; sourceTree = "<group>"; };
-		6366FF8F11F0108B00D6DD96 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = Classes/Model/Settings.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -328,14 +322,10 @@
 			children = (
 				22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */,
 				22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */,
-				22D2F7EF11D8D2880030AFBD /* PresentationData.h */,
-				22D2F7F011D8D2880030AFBD /* PresentationData.m */,
 				22D2F77211D8B5E10030AFBD /* Presentation.h */,
 				22D2F77311D8B5E10030AFBD /* Presentation.m */,
 				225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */,
 				225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */,
-				6366FF8E11F0108B00D6DD96 /* Settings.h */,
-				6366FF8F11F0108B00D6DD96 /* Settings.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -537,7 +527,6 @@
 				22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */,
 				22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */,
 				22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */,
-				22D2F7F111D8D2880030AFBD /* PresentationData.m in Sources */,
 				22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */,
 				22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */,
 				22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */,
@@ -550,7 +539,6 @@
 				22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */,
 				22CE72CD11EDAD8B0043F3C8 /* OverlayLayer.m in Sources */,
 				22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */,
-				6366FF9011F0108B00D6DD96 /* Settings.m in Sources */,
 				636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */,
 				6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */,
 				636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */,
