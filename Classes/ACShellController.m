@@ -17,6 +17,9 @@
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
+#define ACSHELL_OPEN_PRESENTATION 0
+#define ACSHELL_PLAY_PRESENTATION 1
+
 @interface ACShellController ()
 
 - (void)performRsync;
@@ -134,10 +137,14 @@
 }
 
 - (IBAction)openPresentation: (id)sender {
-	NSLog(@"sender: %@", sender);
 	if (sender == presentationTable) {
 		Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
-		[[KeynoteHandler sharedHandler] play: presentation.presentationFile withDelegate: self];		
+		
+		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"presentationDoubleClick"] intValue] == ACSHELL_OPEN_PRESENTATION) {
+			[[KeynoteHandler sharedHandler] open: presentation.presentationFile];			
+		} else {
+			[[KeynoteHandler sharedHandler] play: presentation.presentationFile withDelegate: self];			
+		}
 		
 	}
 }

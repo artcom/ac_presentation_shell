@@ -6,5 +6,7 @@
 	<string>graviton.intern.artcom.de</string>
 	<key>libraryPath</key>
 	<string>/Volumes/kommunikation/extern/Praesentationen/presentationtest/</string>
+	<key>presentationDoubleClick</key>
+	<integer>0</integer>
 </dict>
 </plist>
