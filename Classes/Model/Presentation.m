@@ -8,8 +8,13 @@
 
 #import "Presentation.h"
 #import "PresentationData.h"
-#import "PresentationContext.h"
+#import "PresentationLibrary.h"
 
+@interface Presentation ()
+
+- (NSXMLElement*) xmlNode;
+
+@end
 
 @implementation Presentation
 
@@ -17,9 +22,8 @@
 @synthesize presentationId;
 @synthesize index;
 @synthesize context;
-@synthesize data;
 
-- (id)initWithId:(NSInteger)theId inContext: (PresentationContext *)theContext; {
+- (id)initWithId:(id)theId inContext: (PresentationLibrary *)theContext; {
 	self = [super init];
 	if (self != nil) {
 		self.selected = YES;
@@ -37,10 +41,9 @@
 	self = [super init];
 	if (self != nil) {
 		self.selected = [aDecoder decodeBoolForKey:@"selected"];
-		self.presentationId = [aDecoder decodeIntegerForKey:@"presentationId"];
+		self.presentationId = [aDecoder decodeObjectForKey:@"presentationId"];
         self.index = [aDecoder decodeIntegerForKey:@"index"];
-	}
-	
+	}	
 	return self;
 }
 
@@ -50,33 +53,57 @@
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeBool:self.selected forKey:@"selected"];
-	[aCoder encodeInteger:self.presentationId forKey:@"presentationId"];
+	[aCoder encodeObject:self.presentationId forKey:@"presentationId"];
 	[aCoder encodeInteger:self.index forKey:@"index"];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"%@", self.data.title];
-}
-
-- (PresentationData *)data {
-	if (data == nil) {
-		self.data = [context presentationDataWithId:self.presentationId];
-	}
-	
-	return data;
+	return [NSString stringWithFormat:@"%@", self.title];
 }
 
 - (NSImage *)thumbnail {
 	if (thumbnail == nil) {
-		NSString *filepath = [context.directory stringByAppendingPathComponent:self.data.thumbnailPath];
+		NSString *filepath = [[PresentationLibrary libraryDir] stringByAppendingPathComponent: self.thumbnailPath];
 		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];		
 	}
-
 	return thumbnail;
 }
 
+
+- (NSString*) title {     
+    NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
+    if ([titleNodes count] != 1) {
+        [NSException raise:@"No title attribute found in xml file" format:@""];
+    } 
+    
+    return [[titleNodes objectAtIndex: 0] stringValue];	
+}
+
+
+- (BOOL)highlight {
+	return [[[[self xmlNode] attributeForName:@"highlight"] objectValue] boolValue];
+}
+
+- (NSString *)thumbnailPath {
+	NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
+	if ([thumbnailNodes count] != 1) {
+		[NSException raise:@"No thumbnail attribute found in xml file" format:@""];
+	} 
+	
+	return [[thumbnailNodes objectAtIndex: 0] stringValue];	
+}
+
+- (NSString *)presentationPath {
+	NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
+	if ([nodes count] != 1) {
+		[NSException raise:@"No file property found in xml file" format:@""];
+	} 
+	
+	return [[nodes objectAtIndex: 0] stringValue];	
+}
+
 - (NSString *)presentationFile {
-	return [self.context.directory stringByAppendingPathComponent:self.data.presentationPath];
+	return [[PresentationLibrary libraryDir] stringByAppendingPathComponent: self.presentationPath];
 }
 
 - (BOOL) isEqual:(id)object {
@@ -95,5 +122,8 @@
 	[super dealloc];
 }
 
+- (NSXMLElement*) xmlNode {
+    return [context xmlNode: presentationId];
+}
 
 @end

@@ -9,13 +9,15 @@
 #import "ACShellAppDelegate.h"
 #import "NSFileManager-DirectoryHelper.h"
 #import "ACShellController.h"
-#import "PresentationContext.h"
+#import "PresentationLibrary.h"
 
 @implementation ACShellAppDelegate
 
 @synthesize shellController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    NSLog(@"UP");
+    [shellController load];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
@@ -23,7 +25,7 @@
 }
 
 - (void) applicationWillTerminate:(NSNotification *)notification {
-	[shellController.presentationContext save];
+	[shellController.presentationContext saveSettings];
 }
 
 @end

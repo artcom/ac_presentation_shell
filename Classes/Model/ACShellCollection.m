@@ -7,6 +7,7 @@
 //
 
 #import "ACShellCollection.h"
+#import "Presentation.h"
 
 @implementation ACShellCollection
 
@@ -20,6 +21,16 @@
 	collection.name = theName;
 	collection.presentations = thePresentations;
 	collection.children = theChildren;
+	
+	return [collection autorelease];
+}
+
++ (ACShellCollection *) collectionWithName: (NSString *)theName {
+	ACShellCollection *collection = [[ACShellCollection alloc] init];
+	
+	collection.name = theName;
+	collection.presentations = [[NSMutableArray  alloc] init];
+	collection.children = [[NSMutableArray alloc] init];
 	
 	return [collection autorelease];
 }
@@ -47,5 +58,13 @@
 	[super dealloc];
 }
 
+- (void) assignContext: (id) context {
+    for (ACShellCollection * c in children) {
+        [c assignContext: context];
+    }
+    for (Presentation * p in presentations) {
+        p.context = context;
+    }    
+}
 
 @end

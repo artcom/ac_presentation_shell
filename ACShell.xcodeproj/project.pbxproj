@@ -37,7 +37,7 @@
 		22CE744A11EDD36D0043F3C8 /* icn_start_presentation.png in Resources */ = {isa = PBXBuildFile; fileRef = 22CE744911EDD36D0043F3C8 /* icn_start_presentation.png */; };
 		22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F76511D8AFF90030AFBD /* ACShellController.m */; };
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
-		22D2F7C811D8CEF80030AFBD /* PresentationContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationContext.m */; };
+		22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
 		22D2F7F111D8D2880030AFBD /* PresentationData.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7F011D8D2880030AFBD /* PresentationData.m */; };
 		22D5993511DDD19B0025E48F /* PaginationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5993411DDD19B0025E48F /* PaginationView.m */; };
 		22D59A4B11DE147C0025E48F /* gfx_ac_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4611DE147C0025E48F /* gfx_ac_logo.png */; };
@@ -55,6 +55,7 @@
 		6366050411F2EF0D00D6DD96 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */; };
 		6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
+		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
 		6366FF9011F0108B00D6DD96 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366FF8F11F0108B00D6DD96 /* Settings.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -134,8 +135,8 @@
 		22D2F76511D8AFF90030AFBD /* ACShellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellController.m; path = Classes/ACShellController.m; sourceTree = "<group>"; };
 		22D2F77211D8B5E10030AFBD /* Presentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Presentation.h; path = Classes/Model/Presentation.h; sourceTree = "<group>"; };
 		22D2F77311D8B5E10030AFBD /* Presentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Presentation.m; path = Classes/Model/Presentation.m; sourceTree = "<group>"; };
-		22D2F7C611D8CEF80030AFBD /* PresentationContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationContext.h; path = Classes/Model/PresentationContext.h; sourceTree = "<group>"; };
-		22D2F7C711D8CEF80030AFBD /* PresentationContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationContext.m; path = Classes/Model/PresentationContext.m; sourceTree = "<group>"; };
+		22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationLibrary.h; path = Classes/Model/PresentationLibrary.h; sourceTree = "<group>"; };
+		22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationLibrary.m; path = Classes/Model/PresentationLibrary.m; sourceTree = "<group>"; };
 		22D2F7EF11D8D2880030AFBD /* PresentationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationData.h; path = Classes/Model/PresentationData.h; sourceTree = "<group>"; };
 		22D2F7F011D8D2880030AFBD /* PresentationData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationData.m; path = Classes/Model/PresentationData.m; sourceTree = "<group>"; };
 		22D5993311DDD19B0025E48F /* PaginationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PaginationView.h; path = Classes/View/PaginationView.h; sourceTree = "<group>"; };
@@ -164,6 +165,8 @@
 		6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
 		6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
+		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-WithUUID.h"; path = "Classes/Helper/NSString-WithUUID.h"; sourceTree = "<group>"; };
+		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-WithUUID.m"; path = "Classes/Helper/NSString-WithUUID.m"; sourceTree = "<group>"; };
 		6366FF8E11F0108B00D6DD96 /* Settings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Settings.h; path = Classes/Model/Settings.h; sourceTree = "<group>"; };
 		6366FF8F11F0108B00D6DD96 /* Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Settings.m; path = Classes/Model/Settings.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 				636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */,
 				636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */,
+				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
+				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
 			);
 			name = Helper;
 			sourceTree = "<group>";
@@ -321,8 +326,8 @@
 		22D2F76311D8AF810030AFBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				22D2F7C611D8CEF80030AFBD /* PresentationContext.h */,
-				22D2F7C711D8CEF80030AFBD /* PresentationContext.m */,
+				22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */,
+				22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */,
 				22D2F7EF11D8D2880030AFBD /* PresentationData.h */,
 				22D2F7F011D8D2880030AFBD /* PresentationData.m */,
 				22D2F77211D8B5E10030AFBD /* Presentation.h */,
@@ -531,7 +536,7 @@
 				256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */,
 				22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */,
 				22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */,
-				22D2F7C811D8CEF80030AFBD /* PresentationContext.m in Sources */,
+				22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */,
 				22D2F7F111D8D2880030AFBD /* PresentationData.m in Sources */,
 				22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */,
 				22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */,
@@ -548,6 +553,7 @@
 				6366FF9011F0108B00D6DD96 /* Settings.m in Sources */,
 				636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */,
 				6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */,
+				636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

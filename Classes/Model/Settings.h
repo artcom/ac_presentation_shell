@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class PresentationContext;
+@class PresentationLibrary;
 
 @interface Settings : NSObject <NSCoding> {
     NSMutableArray* allPresentations;
@@ -21,6 +21,6 @@
 @property (retain) NSMutableArray* collections;
 
 + (NSString*) filePath;
-- (void) syncWithContext: (PresentationContext*) theContext;
+- (void) syncWithContext: (PresentationLibrary*) theContext;
 
 @end

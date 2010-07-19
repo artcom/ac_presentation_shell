@@ -8,7 +8,7 @@
 
 #import "ACShellController.h"
 #import "Presentation.h"
-#import "PresentationContext.h"
+#import "PresentationLibrary.h"
 #import "PresentationWindowController.h"
 #import "ACShellCollection.h"
 #import "NSFileManager-DirectoryHelper.h"
@@ -24,7 +24,7 @@
 @interface ACShellController ()
 
 - (void)performRsync;
-- (void)updatePresentationLists;
+//- (void)updatePresentationLists;
 - (void)didFinishSyncing;
 - (void)beautifyOutlineView;
 - (BOOL) isToplevelGroup: (id) item;
@@ -38,7 +38,7 @@
 @implementation ACShellController
 @synthesize presentationContext;
 @synthesize presentations;
-@synthesize categories;
+//@synthesize categories;
 @synthesize presentationsArrayController;
 @synthesize collectionTreeController;
 @synthesize syncWindow;
@@ -50,20 +50,21 @@
 
 - (id) init {
 	self = [super init];
-	if (self != nil) {		
-		presentationWindowController = [[PresentationWindowController alloc] init];
-        preferenceWindowController = [[PreferenceWindowController alloc] init];
-
+	if (self != nil) {		        
         NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
         [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
+        
+		presentationWindowController = [[PresentationWindowController alloc] init];
+        preferenceWindowController = [[PreferenceWindowController alloc] init];
+        presentationContext = [PresentationLibrary contextFromSettingsFile];
+        
+        NSLog(@"context: %@", presentationContext);
 	}
 	
 	return self;
 }
 
 - (void) awakeFromNib {
-	[self updatePresentationLists];
-    	
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 	[collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
     
@@ -74,13 +75,10 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
                                                  name:NSOutlineViewSelectionDidChangeNotification object:collectionView];
 
-    [presentationTable deselectAll: self];
-    [self updateStatusText: nil];
 }
 
+/*
 - (void)updatePresentationLists {
-	self.presentationContext = [[[PresentationContext alloc] init] autorelease];
-
 	self.presentations = [presentationContext allPresentations];
 	
 	NSMutableArray *staticCategories = [NSMutableArray array];
@@ -97,7 +95,7 @@
 	
 	[self beautifyOutlineView];
 }
-
+*/
 - (void) dealloc {
 	[categories release];
 	[presentations release];
@@ -110,22 +108,42 @@
 	[super dealloc];
 }
 
+-(void) load {
+    if ( ! [presentationContext loadXmlLibrary]) {
+        NSBeginAlertSheet( NSLocalizedString(@"Synchronize library now?",nil), @"OK", @"Cancel",
+                          nil, browserWindow, self, @selector(onLibrarySyncAnswered:returnCode:contextInfo:),
+                          nil, browserWindow, 
+                          NSLocalizedString(@"A good network connection and some patience is required.", nil),
+                          nil);
 
+    }
+}
+
+-(void) onLibrarySyncAnswered: (NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    NSLog(@"answer");
+    if (returnCode == NSAlertDefaultReturn) {
+        [sheet close];
+        [self sync: nil];
+    } else {
+        NSLog(@"sync canceled");
+    }
+}
+        
 - (IBAction)play: (id)sender {	
 	presentationWindowController.presentations = [self selectedPresentations];
 	[presentationWindowController showWindow:nil];
 }
 
 - (IBAction)sync: (id)sender {
-	[self.presentationContext save];
-	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow:[[NSApplication sharedApplication] mainWindow] 
+	//[self.presentationContext saveSettings];
+	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow: browserWindow 
 									modalDelegate:self didEndSelector:@selector(didEndModal) contextInfo:nil];
 	[progressSpinner startAnimation:nil];
 		
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		[self performRsync];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[self updatePresentationLists];
+			//[self updatePresentationLists];
 			[self didFinishSyncing];
 		});
 	});
@@ -139,6 +157,8 @@
 
 
 - (void)didEndModal {
+    NSLog(@"sync window out");
+    [syncWindow close];
 	[syncWindow orderOut:nil];
 }
 
@@ -192,6 +212,14 @@
 
 - (IBAction)showPreferences: (id) sender {
     [preferenceWindowController showWindow: sender];
+}
+
+-(NSMutableArray*) libraryRoot {
+    return presentationContext.libraryRoot.children;
+}
+
+-(void) setLibraryRoot:(NSMutableArray *) array {
+    presentationContext.libraryRoot.children = array;
 }
 
 #pragma mark -
@@ -339,8 +367,6 @@
 }
 
 - (void)didFinishSyncing {
-    #pragma mark TODO: handle non-zero exit status
-    
     if ([rsyncTask terminationStatus] != 0) {
         NSFileHandle *file = [rsyncTask.standardError fileHandleForReading];
         NSData *data = [file readDataToEndOfFile];
@@ -348,7 +374,9 @@
         NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
         NSLog (@"got\n%@", string);	
     } else {        
-        [presentationContext loadXmlLibrary];
+        if ( ! [presentationContext loadXmlLibrary] ) {
+            NSLog(@"Failed to load xml library after syncing.");
+        }
     }
     [rsyncTask release];
     rsyncTask = nil;    

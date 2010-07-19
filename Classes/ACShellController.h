@@ -10,12 +10,12 @@
 
 @class PresentationWindowController;
 @class PreferenceWindowController;
-@class PresentationContext;
+@class PresentationLibrary;
 @class ACShellCollection;
 
 
 @interface ACShellController : NSObject <NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
-	PresentationContext *presentationContext;
+	PresentationLibrary *presentationContext;
 	
 	NSArray *presentations;
 	NSMutableArray* categories;
@@ -39,9 +39,11 @@
 	NSTask *rsyncTask;
 }
 
-@property (retain) PresentationContext *presentationContext;
+@property (retain) PresentationLibrary *presentationContext;
 @property (retain, nonatomic) NSArray *presentations;
-@property (retain, nonatomic) NSMutableArray *categories;
+//@property (retain, nonatomic) NSMutableArray *categories;
+@property (retain, nonatomic) NSMutableArray * libraryRoot;
+
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (retain, nonatomic) IBOutlet 	NSTreeController *collectionTreeController;
 @property (retain, nonatomic) IBOutlet NSWindow *browserWindow;
@@ -58,6 +60,8 @@
 - (IBAction)removeCollection: (id)sender;
 
 - (IBAction)showPreferences: (id)sender;
+
+-(IBAction) load;
 
 - (NSArray *)selectedPresentations;
 

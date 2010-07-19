@@ -114,7 +114,7 @@
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 
 	OverlayLayer *layer = [OverlayLayer layer];
-	layer.text = presentation.data.title;
+	layer.text = presentation.title;
 	
 	return layer;
 }

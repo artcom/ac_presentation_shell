@@ -7,7 +7,7 @@
 //
 
 #import "Settings.h"
-#import "PresentationContext.h"
+#import "PresentationLibrary.h"
 #import "Presentation.h"
 #import "PresentationData.h"
 #import "NSFileManager-DirectoryHelper.h"
@@ -54,9 +54,9 @@
 	[aCoder encodeObject: collections forKey:@"collections"];	
 }
 
-- (void)syncWithContext: (PresentationContext*) theContext {
+- (void)syncWithContext: (PresentationLibrary*) theContext {
     NSLog(@"sync");
-
+/*
     [theContext syncPresentations: allPresentations withPredicate: nil];
     [theContext syncPresentations: highlights withPredicate: [NSPredicate predicateWithFormat:@"data.highlight == YES"]];
 	
@@ -65,7 +65,7 @@
 		for (Presentation *presentation in collection.presentations) {
 			presentation.context = theContext;
 		}
-	}
+	}*/
 }
 
 + (NSString *)filePath {

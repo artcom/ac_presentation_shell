@@ -2029,9 +2029,8 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>name</string>
 					<string>presentations</string>
-					<string>presentation</string>
 				</object>
-				<string key="NSObjectClassName">Playlist</string>
+				<string key="NSObjectClassName">ACShellCollection</string>
 				<bool key="NSEditable">YES</bool>
 				<object class="_NSManagedProxy" key="_NSManagedProxy"/>
 				<bool key="NSAvoidsEmptySelection">YES</bool>
@@ -2834,22 +2833,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">contentArray: categories</string>
-						<reference key="source" ref="527866442"/>
-						<reference key="destination" ref="246107155"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="527866442"/>
-							<reference key="NSDestination" ref="246107155"/>
-							<string key="NSLabel">contentArray: categories</string>
-							<string key="NSBinding">contentArray</string>
-							<string key="NSKeyPath">categories</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">614</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: arrangedObjects.name</string>
 						<reference key="source" ref="659909049"/>
 						<reference key="destination" ref="527866442"/>
@@ -3118,6 +3101,22 @@
 						<reference key="destination" ref="609285721"/>
 					</object>
 					<int key="connectionID">696</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">contentArray: libraryRoot</string>
+						<reference key="source" ref="527866442"/>
+						<reference key="destination" ref="246107155"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="527866442"/>
+							<reference key="NSDestination" ref="246107155"/>
+							<string key="NSLabel">contentArray: libraryRoot</string>
+							<string key="NSBinding">contentArray</string>
+							<string key="NSKeyPath">libraryRoot</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">697</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -5137,7 +5136,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">696</int>
+			<int key="maxID">697</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5156,7 +5155,7 @@
 				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">ACShellController</string>
-					<string key="superclassName">NSWindowController</string>
+					<string key="superclassName">NSObject</string>
 					<object class="NSMutableDictionary" key="actions">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">

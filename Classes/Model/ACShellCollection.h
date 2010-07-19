@@ -16,9 +16,10 @@
 }
 
 @property (copy) NSString *name;
-@property (retain) NSMutableArray *presentations;
-@property (retain) NSMutableArray *children;
-
+@property (retain, nonatomic) NSMutableArray *presentations;
+@property (retain, nonatomic) NSMutableArray *children;
++ (ACShellCollection *) collectionWithName: (NSString *)theName;
 + (ACShellCollection *) collectionWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren;
 
+- (void) assignContext: (id) context;
 @end
