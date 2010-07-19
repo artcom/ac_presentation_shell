@@ -24,14 +24,12 @@
 - (id)init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
 	if (self != nil) {
-		keynote = [[KeynoteHandler alloc] init];
-		keynote.delegate = self;
+		keynote = [KeynoteHandler sharedHandler];
 	}
 	return self;
 }
 
 - (void) dealloc {
-	[keynote release];
 	[presentations release];
 	
 	[gridView release];
@@ -124,7 +122,8 @@
 - (void)gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	
-	[keynote open: presentation.presentationFile];
+	[keynote play: presentation.presentationFile withDelegate: self];
+	
 	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 	self.gridView.mouseTracking = NO;
 }
@@ -143,7 +142,7 @@
 	self.gridView.mouseTracking = YES;
 }
 
-- (void) keynoteDidStopPresentation:(KeynoteHandler *)keynote {
+- (void) keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[[self window] makeKeyAndOrderFront:nil];
 }

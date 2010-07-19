@@ -8,9 +8,18 @@
 
 #import "KeynoteHandler.h"
 
+KeynoteHandler *sharedInstance;
 
 @implementation KeynoteHandler
-@synthesize delegate;
+
++ (KeynoteHandler *)sharedHandler {
+	if (sharedInstance == nil) {
+		sharedInstance = [[KeynoteHandler alloc] init];
+	}
+	
+	return sharedInstance;
+}
+
 
 - (id) init {
 	self = [super init];
@@ -22,14 +31,15 @@
 	return self;
 }
 
-- (void)open: (NSString *)file {
+- (void)play: (NSString *)file withDelegate: (id <KeynoteDelegate>) delegate {
 	NSURL *url = [NSURL fileURLWithPath: file];
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		KeynoteSlideshow *slideshow =  [application open:url];
 		[slideshow start];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			keynotePollTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(isKeynotePlaying) userInfo:nil repeats:YES];
+			[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(isKeynotePlaying:) userInfo:delegate repeats:YES];
+			
 			if ([delegate respondsToSelector:@selector(didFinishStartingKeynote:)]) {
 				[delegate didFinishStartingKeynote: self];
 			}
@@ -39,13 +49,23 @@
 }
 
 
-- (void)isKeynotePlaying {
+- (void)open: (NSString *)file {
+	NSURL *url = [NSURL fileURLWithPath: file];
+
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		[application open:url];
+	});	
+}
+
+
+- (void)isKeynotePlaying: (NSTimer *)timer {
 	BOOL playing = [application playing];
 	
 	if (!playing) {
-		[keynotePollTimer invalidate];
-		keynotePollTimer = nil;		
+		id <KeynoteDelegate> delegate = [timer userInfo];
 		
+		[timer invalidate];
+				
 		if ([delegate respondsToSelector:@selector(keynoteDidStopPresentation:)]) {
 			[delegate keynoteDidStopPresentation: self];
 		}

@@ -13,13 +13,13 @@
 #import "ACShellCollection.h"
 #import "NSFileManager-DirectoryHelper.h"
 #import "PreferenceWindowController.h"
+#import "KeynoteHandler.h"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
 @interface ACShellController ()
 
 - (void)performRsync;
-//- (void)updatePresentationLists;
 - (void)didFinishSyncing;
 - (void)beautifyOutlineView;
 - (BOOL) isToplevelGroup: (id) item;
@@ -28,12 +28,8 @@
 
 @end
 
-
-
 @implementation ACShellController
 @synthesize presentationLibrary;
-@synthesize presentations;
-//@synthesize categories;
 @synthesize presentationsArrayController;
 @synthesize collectionTreeController;
 @synthesize syncWindow;
@@ -48,12 +44,10 @@
 	if (self != nil) {		        
         NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
         [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
-        
+		
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
         presentationLibrary = [[PresentationLibrary contextFromSettingsFile] retain];
-        
-        NSLog(@"context: %@", presentationLibrary);
 	}
 	
 	return self;
@@ -61,6 +55,9 @@
 
 - (void) awakeFromNib {
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
+	[presentationTable setTarget:self];
+	[presentationTable setDoubleAction:@selector(openPresentation:)];
+	
 	[collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
     
     [[statusLine cell] setBackgroundStyle:NSBackgroundStyleRaised];
@@ -72,8 +69,6 @@
 }
 
 - (void) dealloc {
-	[categories release];
-	[presentations release];
 	[presentationWindowController release];
     [preferenceWindowController release];
 	[presentationLibrary release];
@@ -135,6 +130,15 @@
 		[self removePresentation:sender];			
 	} else if ([browserWindow firstResponder] == collectionView) {
 		[self removeCollection:self];
+	}
+}
+
+- (IBAction)openPresentation: (id)sender {
+	NSLog(@"sender: %@", sender);
+	if (sender == presentationTable) {
+		Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
+		[[KeynoteHandler sharedHandler] play: presentation.presentationFile withDelegate: self];		
+		
 	}
 }
 
@@ -241,7 +245,6 @@
 		
 	}
 	
-	
 	[presentationLibrary updateIndices:myPresentations];
 	NSIndexSet *newSelection = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionIndex, [movedPresentations count])];
 	[presentationTable selectRowIndexes:newSelection byExtendingSelection:NO];
@@ -314,19 +317,16 @@
 	return YES;
 }
 
-/*
-- (void) deleteKeyPressed: (NSTableView *) sender {
-    if (sender == presentationTable) {
-        [self removePresentation: sender];
-    } else if (sender == collectionView) {
-        [self removeCollection: sender];
-    }
+#pragma mark -
+#pragma mark KeynoteDelegate Protocol Methods
+- (void) keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
+	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+	[[self browserWindow] makeKeyAndOrderFront:nil];
 }
-*/
+
 
 #pragma mark -
 #pragma mark Private Methods
-
 - (BOOL) isToplevelGroup: (id) item {
     if ([[item indexPath] length] == 1) {
         return YES;

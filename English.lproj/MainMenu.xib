@@ -5147,7 +5147,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">701</int>
+			<int key="maxID">702</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -5180,6 +5180,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>abortSync:</string>
 							<string>addCollection:</string>
+							<string>openPresentation:</string>
 							<string>play:</string>
 							<string>remove:</string>
 							<string>removeCollection:</string>
@@ -5189,6 +5190,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -5205,6 +5207,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>abortSync:</string>
 							<string>addCollection:</string>
+							<string>openPresentation:</string>
 							<string>play:</string>
 							<string>remove:</string>
 							<string>removeCollection:</string>
@@ -5220,6 +5223,10 @@
 							</object>
 							<object class="IBActionInfo">
 								<string key="name">addCollection:</string>
+								<string key="candidateClassName">id</string>
+							</object>
+							<object class="IBActionInfo">
+								<string key="name">openPresentation:</string>
 								<string key="candidateClassName">id</string>
 							</object>
 							<object class="IBActionInfo">

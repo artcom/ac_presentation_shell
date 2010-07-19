@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "KeynoteDelegate.h"
 
 @class PresentationWindowController;
 @class PreferenceWindowController;
@@ -14,11 +15,8 @@
 @class ACShellCollection;
 
 
-@interface ACShellController : NSObject <NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
+@interface ACShellController : NSObject <KeynoteDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
 	PresentationLibrary *presentationLibrary;
-	
-	NSArray *presentations;
-	NSMutableArray* categories;
 
 	PresentationWindowController *presentationWindowController;
     PreferenceWindowController * preferenceWindowController;
@@ -40,8 +38,6 @@
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;
-@property (retain, nonatomic) NSArray *presentations;
-//@property (retain, nonatomic) NSMutableArray *categories;
 @property (retain, nonatomic) NSMutableArray * libraryRoot;
 
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
@@ -60,10 +56,11 @@
 - (IBAction)addCollection: (id)sender;
 - (IBAction)removeCollection: (id)sender;
 - (IBAction)removePresentation: (id) sender;
+- (IBAction)openPresentation: (id)sender;
 
 - (IBAction)showPreferences: (id)sender;
 
--(IBAction) load;
+- (IBAction)load;
 
 - (NSArray *)selectedPresentations;
 

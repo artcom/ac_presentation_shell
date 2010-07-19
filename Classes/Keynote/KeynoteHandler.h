@@ -12,12 +12,10 @@
 
 @interface KeynoteHandler : NSObject {
 	KeynoteApplication *application;
-	NSTimer *keynotePollTimer;
-	id <KeynoteDelegate> delegate;
 }
 
-@property (retain) id <KeynoteDelegate> delegate;
-
++ (KeynoteHandler *)sharedHandler;
+- (void)play: (NSString *)file withDelegate: (id <KeynoteDelegate>) delegate;
 - (void)open: (NSString *)file;
 
 @end
