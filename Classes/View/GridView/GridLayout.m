@@ -19,6 +19,9 @@
 @synthesize border;
 
 - (void)calculate {	
+	// float width = [self cols] * itemSize.width + 
+	
+	
 	viewPort.origin.x = 0 + paddingHorizontal;
 	viewPort.origin.y = 0 + paddingVertical;
 	viewPort.size.width = viewFrame.size.width - 2 * paddingHorizontal;
@@ -26,11 +29,11 @@
 }
 
 - (NSInteger)cols {
-	return viewPort.size.width / (itemSize.width);
+	return (border + viewFrame.size.width) / (border + itemSize.width);
 }
 
 - (NSInteger)rows {
-	return viewPort.size.height / (itemSize.height);
+	return (border + viewFrame.size.height) / (border + itemSize.height);
 }
 
 - (NSInteger)itemsOnPage {
