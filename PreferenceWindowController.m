@@ -62,33 +62,13 @@
         NSView * oldPanel = self.window.contentView;
         float delta = panel.frame.size.height - oldPanel.frame.size.height;
         
-        
+		self.window.contentView = emptyPanel;	
         NSRect newWindowFrame = NSMakeRect(self.window.frame.origin.x, self.window.frame.origin.y - delta,
                                      panel.frame.size.width, initialHeight + panel.frame.size.height);
-        self.window.contentView = emptyPanel;
         
-        NSDictionary *windowResize = [NSDictionary dictionaryWithObjectsAndKeys:
-                        self.window, NSViewAnimationTargetKey,
-                        [NSValue valueWithRect: newWindowFrame],
-                        NSViewAnimationEndFrameKey,
-                        nil];
-        NSArray * animations = [NSArray arrayWithObject: windowResize];
-        NSViewAnimation * anim = [[NSViewAnimation alloc] initWithViewAnimations: animations];
-        anim.duration = 0.2;
-        [anim setDelegate: self];
-        [anim startAnimation];
-    }
-}
-
-- (void) animationDidEnd:(NSAnimation*) anim {
-    if (currentPanelIndex < 0) {
-        self.window.contentView = emptyPanel;
-        [self.window setTitle: initialTitle];
-    } else {
-        [self.window setContentView: [preferencePanels objectAtIndex: currentPanelIndex]];
-        [self.window setTitle: [NSString stringWithFormat:  @"%@: %@", initialTitle, 
-                                [[[toolbar items] objectAtIndex: currentPanelIndex] label]]];
-    }
+		[[self window] setFrame:newWindowFrame display:YES animate:YES];
+		self.window.contentView = [preferencePanels objectAtIndex: index];
+	}
 }
 
 @end
