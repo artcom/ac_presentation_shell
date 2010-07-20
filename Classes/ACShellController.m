@@ -361,12 +361,22 @@
 }
 
 - (void)didFinishSyncing {
+	[progressSpinner stopAnimation:nil];
+	[[NSApplication sharedApplication] endSheet:syncWindow];	
+
     if ([rsyncTask terminationStatus] != 0) {
         NSFileHandle *file = [rsyncTask.standardError fileHandleForReading];
         NSData *data = [file readDataToEndOfFile];
         
         NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-        NSLog (@"ERROR\n%@", string);	
+        NSLog (@"ERROR\n%@", string);
+        NSBeginCriticalAlertSheet( NSLocalizedString(@"Synchronization failed",nil),
+                          nil, nil, nil,
+                          browserWindow,
+                          nil, nil, nil, nil, 
+                          string,
+                          nil);
+        
     } else {        
         if ( ! [presentationLibrary loadXmlLibrary] ) {
             NSLog(@"Failed to load xml library after syncing.");
@@ -374,9 +384,6 @@
     }
     [rsyncTask release];
     rsyncTask = nil;    
-	
-	[progressSpinner stopAnimation:nil];
-	[[NSApplication sharedApplication] endSheet:syncWindow];	
 }
 
 - (void)performRsync {

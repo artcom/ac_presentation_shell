@@ -6,3 +6,6 @@
 "%d presentations" = "%d Präsentationen";
 "new collection" = "Neue Sammlung";
 "No library loaded" = "Keine Bibliothek geladen";
+"Synchronization failed" = "Synchronisation fehlgeschlagen";
+"Synchronize library now?" = "Bibliothek jetzt synchronisieren?";
+"A good network connection and some patience is required." = "Eine gute Netzwerkverbinung und Geduld sind gefragt.";
