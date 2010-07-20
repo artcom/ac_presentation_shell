@@ -20,6 +20,7 @@
 @synthesize presentations;
 @synthesize gridView;
 @synthesize paginationView;
+@synthesize pagerButtons;
 
 - (id)init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
@@ -34,6 +35,7 @@
 	
 	[gridView release];
 	[paginationView release];
+	[pagerButtons release];
 	
 	[super dealloc];
 }
@@ -133,7 +135,11 @@
 	
 	if (self.gridView.page >= self.gridView.pages && self.gridView.pages != 0) {
 		self.gridView.page = self.gridView.pages-1;
-	}  
+	}
+	
+	BOOL isHidden = self.gridView.pages == 1;
+	[paginationView setHidden: isHidden];
+	[pagerButtons setHidden: isHidden];
 }
 
 #pragma mark -
@@ -150,9 +156,9 @@
 - (NSRect)presentationScreenFrame {
 	NSArray *screens = [NSScreen screens];
 	
-	if ([screens count] > 1) {
-		return [[screens objectAtIndex:1] frame];
-	}
+	//if ([screens count] > 1) {
+	//	return [[screens objectAtIndex:1] frame];
+	//}
 	
 	return [[screens objectAtIndex:0] frame];
 }

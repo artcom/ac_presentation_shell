@@ -63,6 +63,7 @@
 }
 
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
+	NSLog(@"resize pagination");
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
 	
 	[self prepareDots];

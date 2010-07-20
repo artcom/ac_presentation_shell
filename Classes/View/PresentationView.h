@@ -7,10 +7,21 @@
 //
 
 #import <Cocoa/Cocoa.h>
+@class GridView;
+@class PaginationView;
 
 
 @interface PresentationView : NSView {
-
+	PaginationView *pagination;
+	NSView *pagerButtons;
+	GridView *gridView;
+	NSView *logo;
 }
+
+@property (retain) IBOutlet PaginationView *pagination;
+@property (retain) IBOutlet NSView *pagerButtons;
+@property (retain) IBOutlet NSView *logo;
+@property (retain) IBOutlet GridView *gridView;
+
 
 @end

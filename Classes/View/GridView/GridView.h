@@ -33,6 +33,7 @@
 @property (assign, readonly) NSInteger pages;
 @property (assign, getter=isMouseTracking) BOOL mouseTracking;
 @property (retain) CALayer *hoveredLayer; 
+@property (retain) GridLayout *layout;
 
 - (void)arrangeSublayer;
 - (BOOL)hasNextPage;
@@ -43,6 +44,8 @@
 - (NSInteger)indexOfItemOnPage: (NSInteger)index;
 
 - (void)addOverlay: (CALayer *)newOverlay forItem: (NSInteger)index;
+
+- (void)layoutForRect: (NSRect)frame;
 
 
 @end

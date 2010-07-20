@@ -22,11 +22,13 @@
 	
 	GridView *gridView;
 	PaginationView *paginationView;
+	NSView *pagerButtons;
 }
 
 @property (retain) NSArray *presentations;
 @property (retain) IBOutlet GridView *gridView;
 @property (retain) IBOutlet PaginationView *paginationView;
+@property (retain) IBOutlet NSView *pagerButtons;
 
 - (IBAction)nextPage:(id)sender;
 - (IBAction)previousPage:(id)sender;

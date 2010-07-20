@@ -8,6 +8,8 @@
 #import "GridView.h"
 #import "GridLayout.h"
 
+#define GRID_BORDER 10
+
 @interface GridView () 
 - (void)setupView;
 - (void)updateMouseTrackingRect;
@@ -23,6 +25,7 @@
 @synthesize page;
 @synthesize hoveredLayer;
 @synthesize mouseTracking;
+@synthesize layout;
 
 -(id) initWithFrame:(NSRect)frameRect {
 	self = [super initWithFrame:frameRect];
@@ -39,6 +42,7 @@
 - (void)setupView {
 	CALayer *rootLayer=[CALayer layer];
 	rootLayer.frame = NSRectToCGRect(self.frame);
+	// rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
 	[self setLayer:rootLayer];
 	[self setWantsLayer:YES];
 	
@@ -213,6 +217,31 @@
 	[self updateMouseTrackingRect];
 }
 
+#pragma mark -
+#pragma mark Layout Methods
+- (void)layoutForRect: (NSRect)frame {
+	NSRect frameWithBorder = NSMakeRect(0, 0, frame.size.width * 0.8, frame.size.height * 0.7); 
+	
+	[self updateLayout];
+	layout.viewFrame = NSRectToCGRect(frameWithBorder);
+	
+	NSInteger rows = [layout rows];
+	NSInteger cols = [layout cols];
+	
+	CGFloat width = cols * layout.itemSize.width + (cols - 1) * GRID_BORDER;
+	CGFloat height = rows * layout.itemSize.height + (rows - 1) * GRID_BORDER;
+	
+	CGFloat horizontalMargin = (frame.size.width - width) * 0.5;
+	CGFloat verticalMargin = (frame.size.height - height) * 0.5;
+	
+	
+	self.frame = NSMakeRect(horizontalMargin, verticalMargin, width, height);
+	self.layer.frame = NSRectToCGRect(self.frame);
+
+	[self updateLayout];
+}
+
+
 
 #pragma mark -
 #pragma mark Private Methods
@@ -227,7 +256,7 @@
 
 - (void)updateLayout {
 	layout.viewFrame = NSRectToCGRect(self.frame);
-	layout.border = 10;	
+	layout.border = GRID_BORDER;	
 
 	if ([dataSource respondsToSelector:@selector(sizeForItemInGridView:)]) {
 		layout.itemSize = [dataSource sizeForItemInGridView:self];		
