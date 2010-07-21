@@ -34,25 +34,9 @@
 	return YES;
 }
 
-- (void)moveUp:(id)sender {
-	if ([gridView hasPreviousPage]) {
-		gridView.page -= 1;
-	}
-}
-
-- (void)moveDown:(id)sender {
-	if ([gridView hasNextPage]) {
-		gridView.page += 1;	
-	}
-}
-
 - (void)cancelOperation:(id)sender {
 	[self orderOut:nil];
 	[NSApp setPresentationOptions:NSApplicationPresentationDefault];
-}
-
-- (void) setFrame:(NSRect)frameRect display:(BOOL)displayFlag animate:(BOOL)animateFlag {
-	[super setFrame:frameRect display:displayFlag animate:animateFlag];
 }
 
 @end

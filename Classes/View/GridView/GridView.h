@@ -11,6 +11,7 @@
 #import "GridViewDataSource.h"
 #import "GridViewDelegate.h"
 @class GridLayout;
+@class PaginationView;
 
 @interface GridView : NSView {
 	id <GridViewDataSource> dataSource;
@@ -25,6 +26,10 @@
 	
 	NSInteger page;
 	BOOL mouseTracking;
+	
+	CALayer *logo;
+	PaginationView *paginationView;
+	NSButton *pageButtons;
 }
 
 @property (assign, nonatomic) id <GridViewDataSource> dataSource;

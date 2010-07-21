@@ -18,7 +18,7 @@
 @synthesize border;
 
 - (void)calculate {		
-	CGRect frameWithBorder = CGRectMake(0, 0, self.viewFrame.size.width * 0.8, self.viewFrame.size.height * 0.7); 
+	CGRect frameWithBorder = CGRectMake(0, 0, self.viewFrame.size.width * 0.85, self.viewFrame.size.height * 0.7); 
 	[self calculateViewPortWithSuggestedRect: frameWithBorder];
 }
 

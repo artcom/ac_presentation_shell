@@ -7,16 +7,19 @@
 
 #import "GridView.h"
 #import "GridLayout.h"
+#import "PaginationView.h"
 
 #define GRID_BORDER 10
 
 @interface GridView () 
+- (void)setUpAccessorieViews;
 - (void)setupView;
 - (void)updateMouseTrackingRect;
 - (void)updateLayout;
 - (NSInteger)lastItemOnPage;
-@end
 
+- (void)viewDidResize: (NSNotification *)aNotification;
+@end
 
 @implementation GridView
 
@@ -42,7 +45,7 @@
 - (void)setupView {
 	CALayer *rootLayer=[CALayer layer];
 	rootLayer.frame = NSRectToCGRect(self.frame);
-	rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
+	rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorWhite);
 	[self setLayer:rootLayer];
 	[self setWantsLayer:YES];
 	
@@ -52,10 +55,11 @@
 	self.page = 0;	
 	self.mouseTracking = YES;
 	
+	[self setUpAccessorieViews];
+	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) 
 												 name:NSViewFrameDidChangeNotification object:self];	
 }
-
 
 - (BOOL)acceptsFirstResponder {
 	return YES;
@@ -119,16 +123,17 @@
 }
 
 
-- (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
-	NSLog(@"resizing gird");
-	[super resizeWithOldSuperviewSize:oldBoundsSize];
-
-	[self updateMouseTrackingRect];
-	[self updateLayout];
-	
-	[self arrangeSublayer];
+- (void)moveUp:(id)sender {
+	if ([self hasPreviousPage]) {
+		self.page -= 1;
+	}
 }
 
+- (void)moveDown:(id)sender {
+	if ([self hasNextPage]) {
+		self.page += 1;	
+	}
+}
 
 - (void)arrangeSublayer {
 	[self updateLayout];
@@ -149,6 +154,7 @@
 		[sublayers addObject:layer];
 	}
 	
+	paginationView.pages = self.pages;
 	if ([delegate respondsToSelector:@selector(didUpdateGridView:)]) {
 		[delegate didUpdateGridView: self];
 	}
@@ -221,13 +227,78 @@
 	[self updateMouseTrackingRect];
 }
 
+
+#pragma mark -
+#pragma mark Resizing
+- (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
+	[super resizeWithOldSuperviewSize:oldBoundsSize];
+	[self viewDidResize:nil];
+}
+
+- (void)viewDidResize: (NSNotification *)aNotification {
+	[self arrangeSublayer];
+	
+	NSRect screenFrame = self.frame;
+
+	[CATransaction begin];
+	[CATransaction setDisableActions:YES];
+	CGFloat verticalMargin = (screenFrame.size.height - layout.viewPort.size.height) * 0.5;
+	CGFloat logoYOrigin = (verticalMargin * 1.5) + layout.viewPort.size.height - logo.frame.size.height / 2;
+	logo.frame = CGRectMake(layout.viewPort.origin.x, logoYOrigin, logo.frame.size.width, logo.frame.size.height);
+	[CATransaction commit];	
+
+	CGFloat pagerButtonsXOrigin = layout.viewPort.origin.x + layout.viewPort.size.width - pageButtons.frame.size.width;
+	[pageButtons setFrameOrigin: NSMakePoint(pagerButtonsXOrigin, layout.viewPort.origin.y - 23 - pageButtons.frame.size.height)];
+	
+	[paginationView setFrameOrigin:NSMakePoint(layout.viewPort.origin.x + layout.viewPort.size.width + 20, layout.viewPort.origin.y)];
+	[paginationView setFrameSize:NSMakeSize(paginationView.frame.size.width, layout.viewPort.size.height)];
+	
+	[self updateMouseTrackingRect];
+}
+
+#pragma mark -
+#pragma mark Set Up Accessorie Views
+
+- (void)setUpAccessorieViews {
+	NSImage *logoImage = [NSImage imageNamed:@"gfx_ac_logo.png"];
+	logo = [[CALayer layer] retain];
+	logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
+	logo.contents = logoImage;
+	[self.layer addSublayer: logo];
+	
+	paginationView = [[PaginationView alloc] initWithFrame:NSMakeRect(0, 0, 6, 100)];
+	paginationView.pages = 1;
+	paginationView.activePage = 0;
+	[self addSubview:paginationView];
+	
+	pageButtons = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 30, 10)];
+	
+	NSButton *upButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 15, 10)] autorelease];
+	[upButtons setImage: [NSImage imageNamed:@"icn_prev_page.png"]];
+	[upButtons setBordered:NO];
+	[upButtons setTarget:self];
+	[upButtons setAction:@selector(moveUp:)];
+	[pageButtons addSubview:upButtons];
+	
+	NSButton *downButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(15, 0, 15, 10)] autorelease];
+	[downButtons setImage:[NSImage imageNamed:@"icn_next_page.png"]];
+	[downButtons setBordered:NO];
+	[downButtons setTarget:self];
+	[downButtons setAction:@selector(moveDown:)];
+	[pageButtons addSubview:downButtons];
+	
+	[self addSubview:pageButtons];
+	
+	[paginationView bind:@"activePage" toObject:self withKeyPath:@"page" options:nil];
+}
+
 #pragma mark -
 #pragma mark Private Methods
 - (void)updateMouseTrackingRect {
 	[self removeTrackingRect:mouseTrackingRectTag];
 	
 	if (mouseTracking) {
-		NSRect trackingRect = NSMakeRect(0, 0, self.frame.size.width, self.frame.size.height);
+		NSRect trackingRect = NSRectFromCGRect(self.layout.viewPort);
 		mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
 	}
 }
@@ -235,36 +306,12 @@
 - (void)updateLayout {
 	layout.viewFrame = NSRectToCGRect(self.frame);
 	layout.border = GRID_BORDER;	
-
+	
 	if ([dataSource respondsToSelector:@selector(sizeForItemInGridView:)]) {
 		layout.itemSize = [dataSource sizeForItemInGridView:self];		
 	}
-		 
-	[layout calculate];
-}
-
-#pragma mark -
-#pragma mark Resizing
-- (void)viewDidResize: (NSNotification *)aNotification {
-	NSLog(@"resize notification");
-	[self arrangeSublayer];
 	
-//	NSRect screenFrame = [[[self window] windowController] presentationScreenFrame];
-//	// [gridView layoutForRect: screenFrame];
-//	
-//	NSRect gridFrame = gridView.frame;
-//	CGFloat verticalMargin = (screenFrame.size.height - gridFrame.size.height) * 0.5;
-//	
-//	// [gridView setFrameOrigin:NSMakePoint(gridView.frame.origin.x, verticalMargin)];
-//	
-//	CGFloat logoYOrigin = (verticalMargin * 1.5) + gridFrame.size.height - logo.frame.size.height / 2;
-//	logo.frame = NSMakeRect(gridFrame.origin.x, logoYOrigin , logo.frame.size.width, logo.frame.size.height);
-//	
-//	
-//	CGFloat pagerButtonsXOrigin = gridFrame.origin.x + gridFrame.size.width - pagerButtons.frame.size.width;
-//	[pagerButtons setFrameOrigin: NSMakePoint(pagerButtonsXOrigin, gridFrame.origin.y - 23 - pagerButtons.frame.size.height)];
-//	
-//	[pagination setFrameOrigin:NSMakePoint(gridFrame.origin.x + gridFrame.size.width + 20, gridView.frame.origin.y)];
+	[layout calculate];
 }
 
 @end

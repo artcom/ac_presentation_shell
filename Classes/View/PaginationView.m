@@ -27,15 +27,17 @@
 - (id)initWithFrame:(NSRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
+		self.layer = [CALayer layer];
+		// self.layer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
+		[self setWantsLayer:YES];
+		
+		dots = [[NSMutableArray alloc] initWithCapacity:self.pages];
+
 		self.pages = 1;
 		self.activePage = 0;
-		dots = [[NSMutableArray alloc] initWithCapacity:self.pages];
 		
-		self.layer = [CALayer layer];
-		
-		[self setWantsLayer:YES];
-		[self prepareDots];
-		[self setActiveDot];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) 
+													 name:NSViewFrameDidChangeNotification object:self];
 	}
 	
     return self;
@@ -54,21 +56,25 @@
 	[super dealloc];
 }
 
+- (void)setPages: (NSInteger)newPages {
+	pages = newPages;
+	
+	[self updateView];
+}
+
 
 - (void)setActivePage: (NSInteger)newActivePage {
 	activePage = newActivePage;
 	
-	[self setActiveDot]; 
 	[self calculateDotPositions];
+	[self setActiveDot];
 }
 
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
 	NSLog(@"resize pagination");
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
 	
-	[self prepareDots];
-	[self setActiveDot];
-	[self calculateDotPositions];
+	[self updateView];
 }
 
 - (void)calculateDotPositions {
@@ -76,8 +82,7 @@
 		return;
 	}
 	
-	
-	if (!(self.activePage < self.pages)) {
+	if ((self.activePage >= self.pages)) {
 		return;
 		// [NSException raise:@"IndexOutOfBound" format:@"PaginationView is setup for %d pages but %d was selected" arguments:self.pages, self.activePage];
 	}
@@ -140,5 +145,11 @@
 	
 	return inactiveDot;
 }
+
+- (void)viewDidResize: (NSNotification *)notification {
+	[self updateView];
+}
+
+
 
 @end
