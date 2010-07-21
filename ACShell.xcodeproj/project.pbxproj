@@ -16,7 +16,7 @@
 		2295413011E3275A00E09031 /* GHUnitTestMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 229540D611E3223100E09031 /* GHUnitTestMain.m */; };
 		2295416311E32CA700E09031 /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2019811DA365B00C6D9ED /* GridLayout.m */; };
 		229541A211E331EE00E09031 /* GridViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 229541A111E331EE00E09031 /* GridViewTest.m */; };
-		229541B811E3342700E09031 /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* GridView.m */; };
+		229541B811E3342700E09031 /* PresentationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* PresentationView.m */; };
 		229541F011E3365B00E09031 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
 		22A3B65211E71F48003DE847 /* acswisslight.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B64E11E71F48003DE847 /* acswisslight.ttf */; };
 		22A3B65311E71F48003DE847 /* acswisslightit.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B64F11E71F48003DE847 /* acswisslightit.ttf */; };
@@ -24,7 +24,7 @@
 		22A3B65511E71F48003DE847 /* acswissmedit.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B65111E71F48003DE847 /* acswissmedit.ttf */; };
 		22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8CAB011E63B41006707E4 /* HeightForWidthLayoutManager.m */; };
 		22A8CAB511E63BFE006707E4 /* gfx_project_overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 22A8CAB411E63BFE006707E4 /* gfx_project_overlay.png */; };
-		22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* GridView.m */; };
+		22B2000D11D9EECE00C6D9ED /* PresentationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* PresentationView.m */; };
 		22B2002711D9F33900C6D9ED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
 		22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */; };
 		22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2019811DA365B00C6D9ED /* GridLayout.m */; };
@@ -108,15 +108,15 @@
 		22A8CAAF11E63B41006707E4 /* HeightForWidthLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HeightForWidthLayoutManager.h; path = Classes/View/LayoutManager/HeightForWidthLayoutManager.h; sourceTree = "<group>"; };
 		22A8CAB011E63B41006707E4 /* HeightForWidthLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HeightForWidthLayoutManager.m; path = Classes/View/LayoutManager/HeightForWidthLayoutManager.m; sourceTree = "<group>"; };
 		22A8CAB411E63BFE006707E4 /* gfx_project_overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_project_overlay.png; path = Resources/Images/gfx_project_overlay.png; sourceTree = "<group>"; };
-		22B2000B11D9EECE00C6D9ED /* GridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridView.h; path = Classes/View/GridView/GridView.h; sourceTree = "<group>"; };
-		22B2000C11D9EECE00C6D9ED /* GridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridView.m; path = Classes/View/GridView/GridView.m; sourceTree = "<group>"; };
+		22B2000B11D9EECE00C6D9ED /* PresentationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationView.h; path = Classes/View/GridView/PresentationView.h; sourceTree = "<group>"; };
+		22B2000C11D9EECE00C6D9ED /* PresentationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PresentationView.m; path = Classes/View/GridView/PresentationView.m; sourceTree = "<group>"; };
 		22B2002611D9F33900C6D9ED /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSFileManager-DirectoryHelper.h"; path = "Classes/Helper/NSFileManager-DirectoryHelper.h"; sourceTree = "<group>"; };
 		22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSFileManager-DirectoryHelper.m"; path = "Classes/Helper/NSFileManager-DirectoryHelper.m"; sourceTree = "<group>"; };
-		22B2011E11DA28A100C6D9ED /* GridViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridViewDataSource.h; path = Classes/View/GridView/GridViewDataSource.h; sourceTree = "<group>"; };
+		22B2011E11DA28A100C6D9ED /* PresentationViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationViewDataSource.h; path = Classes/View/GridView/PresentationViewDataSource.h; sourceTree = "<group>"; };
 		22B2019711DA365B00C6D9ED /* GridLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridLayout.h; path = Classes/View/GridView/GridLayout.h; sourceTree = "<group>"; };
 		22B2019811DA365B00C6D9ED /* GridLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GridLayout.m; path = Classes/View/GridView/GridLayout.m; sourceTree = "<group>"; };
-		22B2027711DA53C900C6D9ED /* GridViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GridViewDelegate.h; path = Classes/View/GridView/GridViewDelegate.h; sourceTree = "<group>"; };
+		22B2027711DA53C900C6D9ED /* PresentationViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationViewDelegate.h; path = Classes/View/GridView/PresentationViewDelegate.h; sourceTree = "<group>"; };
 		22C64DDB11EEFEA900D73CE4 /* icn_synchro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_synchro.png; path = Resources/Images/icn_synchro.png; sourceTree = "<group>"; };
 		22C7F8D011DB3E4A00A54494 /* Keynote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Keynote.h; path = Classes/Keynote/Keynote.h; sourceTree = "<group>"; };
 		22C7F8D111DB3E7E00A54494 /* KeynoteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeynoteHandler.h; path = Classes/Keynote/KeynoteHandler.h; sourceTree = "<group>"; };
@@ -274,10 +274,10 @@
 		22B2004211D9F75500C6D9ED /* GridView */ = {
 			isa = PBXGroup;
 			children = (
-				22B2000B11D9EECE00C6D9ED /* GridView.h */,
-				22B2000C11D9EECE00C6D9ED /* GridView.m */,
-				22B2011E11DA28A100C6D9ED /* GridViewDataSource.h */,
-				22B2027711DA53C900C6D9ED /* GridViewDelegate.h */,
+				22B2000B11D9EECE00C6D9ED /* PresentationView.h */,
+				22B2000C11D9EECE00C6D9ED /* PresentationView.m */,
+				22B2011E11DA28A100C6D9ED /* PresentationViewDataSource.h */,
+				22B2027711DA53C900C6D9ED /* PresentationViewDelegate.h */,
 				22B2019711DA365B00C6D9ED /* GridLayout.h */,
 				22B2019811DA365B00C6D9ED /* GridLayout.m */,
 			);
@@ -518,7 +518,7 @@
 				2295413011E3275A00E09031 /* GHUnitTestMain.m in Sources */,
 				2295416311E32CA700E09031 /* GridLayout.m in Sources */,
 				229541A211E331EE00E09031 /* GridViewTest.m in Sources */,
-				229541B811E3342700E09031 /* GridView.m in Sources */,
+				229541B811E3342700E09031 /* PresentationView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -533,7 +533,7 @@
 				22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */,
 				22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */,
 				22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */,
-				22B2000D11D9EECE00C6D9ED /* GridView.m in Sources */,
+				22B2000D11D9EECE00C6D9ED /* PresentationView.m in Sources */,
 				22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */,
 				22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */,
 				22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */,

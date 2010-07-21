@@ -8,23 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Presentation.h"
-#import "GridViewDataSource.h"
-#import "GridViewDelegate.h"
+#import "PresentationViewDataSource.h"
+#import "PresentationViewDelegate.h"
 #import "KeynoteDelegate.h"
 
 @class KeynoteHandler;
-@class GridView;
+@class PresentationView;
 @class PaginationView;
 
-@interface PresentationWindowController : NSWindowController <GridViewDataSource, GridViewDelegate, KeynoteDelegate> {
+@interface PresentationWindowController : NSWindowController <PresentationViewDataSource, PresentationViewDelegate, KeynoteDelegate> {
 	KeynoteHandler *keynote;
 	NSMutableArray *presentations;
 	
-	GridView *gridView;
+	PresentationView *presentationView;
 }
 
 @property (retain) NSArray *presentations;
-@property (retain) IBOutlet GridView *gridView;
+@property (retain) IBOutlet PresentationView *presentationView;
 
 - (NSRect)presentationScreenFrame;
 

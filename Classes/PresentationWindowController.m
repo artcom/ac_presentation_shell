@@ -9,7 +9,7 @@
 #import "PresentationWindowController.h"
 #import "Presentation.h"
 #import "KeynoteHandler.h"
-#import "GridView.h"
+#import "PresentationView.h"
 #import "PaginationView.h"
 #import "HeightForWidthLayoutManager.h"
 #import "OverlayLayer.h"
@@ -18,7 +18,7 @@
 @implementation PresentationWindowController
 
 @synthesize presentations;
-@synthesize gridView;
+@synthesize presentationView;
 
 
 - (id)init {
@@ -32,7 +32,7 @@
 - (void) dealloc {
 	[presentations release];
 	
-	[gridView release];
+	[presentationView release];
 	
 	[super dealloc];
 }
@@ -44,7 +44,7 @@
 		[presentations release];
 		presentations = [newPresentations mutableCopy];
 		
-		[gridView arrangeSublayer];
+		[presentationView arrangeSublayer];
 	}
 }
 
@@ -67,16 +67,16 @@
 
 
 #pragma mark -
-#pragma mark GridView DataSource
-- (NSInteger)numberOfItemsInGridView:(GridView *)aGridView {
+#pragma mark PresentationView DataSource
+- (NSInteger)numberOfItemsInPresentationView:(PresentationView *)aPresentationView {
 	return [self.presentations count];
 }
 
-- (CGSize)sizeForItemInGridView: (GridView *)aGridView {
+- (CGSize)sizeForItemInPresentationView: (PresentationView *)aPresentationView {
 	return CGSizeMake(220, 100);
 }
 
-- (CALayer *)gridView:(GridView *)aGridView layerForItemAtIndex:(NSInteger)index {
+- (CALayer *)presentationView:(PresentationView *)aPresentationView layerForItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	NSImage *image = presentation.thumbnail;
 	
@@ -87,7 +87,7 @@
 	return layer;
 }
 
-- (CALayer *)gridView:(GridView *)aGridView hoverLayerForItemAtIndex:(NSInteger)index {
+- (CALayer *)presentationView:(PresentationView *)aPresentationView hoverLayerForItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 
 	OverlayLayer *layer = [OverlayLayer layer];
@@ -98,20 +98,20 @@
 
 
 #pragma mark -
-#pragma mark GridView Delegate
-- (void)gridView:(GridView *)aView didClickedItemAtIndex:(NSInteger)index {
+#pragma mark PresentationView Delegate
+- (void)presentationView:(PresentationView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	
 	[keynote play: presentation.presentationFile withDelegate: self];
 	
 	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
-	self.gridView.mouseTracking = NO;
+	self.presentationView.mouseTracking = NO;
 }
 
 #pragma mark -
 #pragma mark Keynote Handler Delegate
 -(void) didFinishStartingKeynote:(KeynoteHandler *)keynote {
-	self.gridView.mouseTracking = YES;
+	self.presentationView.mouseTracking = YES;
 }
 
 - (void) keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {

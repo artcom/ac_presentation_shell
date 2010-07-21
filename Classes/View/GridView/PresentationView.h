@@ -1,5 +1,5 @@
 //
-//  GridView.h
+//  PresentationView.h
 //  ACShell
 //
 //  Created by Robert Palmer on 29.06.10.
@@ -8,14 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
-#import "GridViewDataSource.h"
-#import "GridViewDelegate.h"
+#import "PresentationViewDataSource.h"
+#import "PresentationViewDelegate.h"
 @class GridLayout;
 @class PaginationView;
 
-@interface GridView : NSView {
-	id <GridViewDataSource> dataSource;
-	id <GridViewDelegate> delegate;
+@interface PresentationView : NSView {
+	id <PresentationViewDataSource> dataSource;
+	id <PresentationViewDelegate> delegate;
 
 	GridLayout *layout;
 	NSMutableArray *sublayers;
@@ -32,8 +32,8 @@
 	NSButton *pageButtons;
 }
 
-@property (assign, nonatomic) id <GridViewDataSource> dataSource;
-@property (assign, nonatomic) id <GridViewDelegate> delegate;
+@property (assign, nonatomic) id <PresentationViewDataSource> dataSource;
+@property (assign, nonatomic) id <PresentationViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
 @property (assign, getter=isMouseTracking) BOOL mouseTracking;

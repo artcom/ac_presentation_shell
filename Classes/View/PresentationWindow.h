@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 @class PaginationView;
-@class GridView;
+@class PresentationView;
 
 
 @interface PresentationWindow : NSWindow {

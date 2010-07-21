@@ -1,17 +1,17 @@
 //
-//  GridView.m
+//  PresentationView.m
 //  ACShell
 //
 //  Created by Robert Palmer on 29.06.10.
 //  Copyright 2010 ART+COM AG. All rights reserved.
 
-#import "GridView.h"
+#import "PresentationView.h"
 #import "GridLayout.h"
 #import "PaginationView.h"
 
 #define GRID_BORDER 10
 
-@interface GridView () 
+@interface PresentationView () 
 - (void)setUpAccessorieViews;
 - (void)setupView;
 - (void)updateMouseTrackingRect;
@@ -22,7 +22,7 @@
 - (void)viewDidResize: (NSNotification *)aNotification;
 @end
 
-@implementation GridView
+@implementation PresentationView
 
 @synthesize dataSource;
 @synthesize delegate;
@@ -81,13 +81,13 @@
 	}
 	
 	NSInteger selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
-	if ([self.delegate respondsToSelector:@selector(gridView:didClickedItemAtIndex:)]) {
-		[self.delegate gridView:self didClickedItemAtIndex:selectedItem];
+	if ([self.delegate respondsToSelector:@selector(presentationView:didClickedItemAtIndex:)]) {
+		[self.delegate presentationView:self didClickedItemAtIndex:selectedItem];
 	}
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	if (!self.mouseTracking || ![dataSource respondsToSelector: @selector(gridView:hoverLayerForItemAtIndex:)]) {
+	if (!self.mouseTracking || ![dataSource respondsToSelector: @selector(presentationView:hoverLayerForItemAtIndex:)]) {
 		return;
 	}
 	
@@ -106,7 +106,7 @@
 	[self.hoveredLayer removeFromSuperlayer];
 	hoveredItem = [self indexOfItemOnPage:[sublayers indexOfObject:layer]];
 		
-	self.hoveredLayer = [dataSource gridView:self hoverLayerForItemAtIndex:hoveredItem];
+	self.hoveredLayer = [dataSource presentationView:self hoverLayerForItemAtIndex:hoveredItem];
 	self.hoveredLayer.frame = layer.frame;
 		
 	[self.layer addSublayer: self.hoveredLayer];
@@ -148,7 +148,7 @@
 	NSInteger lastItem = [self lastItemOnPage];
 	
 	for (int i = firstItem; i <= lastItem; i++) {
-		CALayer *layer = [dataSource gridView:self layerForItemAtIndex:i];
+		CALayer *layer = [dataSource presentationView:self layerForItemAtIndex:i];
 		layer.position = [layout positionForItem:i % layout.itemsOnPage];
 		
 		[self.layer addSublayer:layer];	
@@ -175,7 +175,7 @@
 		return 0;
 	}
 	
-	return ceil(([dataSource numberOfItemsInGridView:self] / (float)layout.itemsOnPage));
+	return ceil(([dataSource numberOfItemsInPresentationView:self] / (float)layout.itemsOnPage));
 }
 
 - (void)addOverlay: (CALayer *)newOverlay forItem: (NSInteger)index {
@@ -198,7 +198,7 @@
 }
 
 - (NSInteger)lastItemOnPage {
-	NSInteger items = [dataSource numberOfItemsInGridView:self];
+	NSInteger items = [dataSource numberOfItemsInPresentationView:self];
 	
 	return (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) - 1 : items -1;
 }
@@ -214,7 +214,7 @@
 
 #pragma mark -
 #pragma mark Setter/Getter 
-- (void)setDataSource:(id <GridViewDataSource>)newDataSource {
+- (void)setDataSource:(id <PresentationViewDataSource>)newDataSource {
 	dataSource = newDataSource;
 	[self updateLayout];
 }
@@ -304,8 +304,8 @@
 		self.page -= 1;
 	}
 	
-	if ([delegate respondsToSelector:@selector(didUpdateGridView:)]) {
-		[delegate didUpdateGridView: self];
+	if ([delegate respondsToSelector:@selector(didUpdatePresentationView:)]) {
+		[delegate didUpdatePresentationView: self];
 	}
 	
 }
@@ -323,8 +323,8 @@
 	layout.viewFrame = NSRectToCGRect(self.frame);
 	layout.border = GRID_BORDER;	
 	
-	if ([dataSource respondsToSelector:@selector(sizeForItemInGridView:)]) {
-		layout.itemSize = [dataSource sizeForItemInGridView:self];		
+	if ([dataSource respondsToSelector:@selector(sizeForItemInPresentationView:)]) {
+		layout.itemSize = [dataSource sizeForItemInPresentationView:self];		
 	}
 	
 	[layout calculate];

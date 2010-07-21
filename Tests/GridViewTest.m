@@ -1,5 +1,5 @@
 //
-//  GridViewTest.m
+//  PresentationViewTest.m
 //  ACShell
 //
 //  Created by Robert Palmer on 06.07.10.
@@ -9,34 +9,34 @@
 
 #import <Cocoa/Cocoa.h>
 #import "GHUnit/GHUnit.h"
-#import "GridViewDataSource.h"
+#import "PresentationViewDataSource.h"
 #import "GridLayout.h"
-#import "GridView.h"
+#import "PresentationView.h"
 
 
-@interface MockedDataSource : NSObject <GridViewDataSource> {
+@interface MockedDataSource : NSObject <PresentationViewDataSource> {
 	NSInteger items;
 }
 
 @property (assign) NSInteger items;
 
-- (NSInteger)numberOfItemsInGridView: (GridView *)aGridView;
-- (CALayer *)gridView: (GridView *)aGridView layerForItemAtIndex: (NSInteger)index;
+- (NSInteger)numberOfItemsInPresentationView: (PresentationView *)aPresentationView;
+- (CALayer *)presentationView: (PresentationView *)aPresentationView layerForItemAtIndex: (NSInteger)index;
 
 @end
 
 @implementation MockedDataSource
 @synthesize items;
 
-- (NSInteger)numberOfItemsInGridView: (GridView *)aGridView; {
+- (NSInteger)numberOfItemsInPresentationView: (PresentationView *)aPresentationView; {
 	return items;
 }
 
-- (CALayer *)gridView: (GridView *)aGridView layerForItemAtIndex: (NSInteger)index; {
+- (CALayer *)presentationView: (PresentationView *)aPresentationView layerForItemAtIndex: (NSInteger)index; {
 	return [CALayer layer];
 }
 
-- (CGSize)sizeForItemInGridView: (GridView *)aGridView {
+- (CGSize)sizeForItemInPresentationView: (PresentationView *)aPresentationView {
 	return CGSizeMake(10, 10);
 }
 
@@ -44,18 +44,18 @@
 
 
 
-@interface GridViewTest : GHTestCase {
+@interface PresentationViewTest : GHTestCase {
 	MockedDataSource *dataSource;
-	GridView *view;
+	PresentationView *view;
 }
 @end
 
 
-@implementation GridViewTest
+@implementation PresentationViewTest
 
 - (void)setUp {
 	dataSource = [[MockedDataSource alloc] init];
-	view = [[GridView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
+	view = [[PresentationView alloc] initWithFrame:NSMakeRect(0, 0, 100, 100)];
 	
 	view.dataSource = dataSource;	
 }
