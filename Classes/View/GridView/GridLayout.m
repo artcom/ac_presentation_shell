@@ -12,29 +12,32 @@
 @implementation GridLayout
 
 @synthesize viewFrame;
+@synthesize viewPort;
 @synthesize itemSize;
 
-@synthesize paddingHorizontal;
-@synthesize paddingVertical;
 @synthesize border;
 
-- (void)calculate {	
-	// float width = [self cols] * itemSize.width + 
-	
-	
-	viewPort.origin.x = 0 + paddingHorizontal;
-	viewPort.origin.y = 0 + paddingVertical;
-	viewPort.size.width = viewFrame.size.width - 2 * paddingHorizontal;
-	viewPort.size.height = viewFrame.size.height - 2 * paddingVertical;
+- (void)calculate {		
+	CGRect frameWithBorder = CGRectMake(0, 0, self.viewFrame.size.width * 0.8, self.viewFrame.size.height * 0.7); 
+	[self calculateViewPortWithSuggestedRect: frameWithBorder];
 }
 
 - (NSInteger)cols {
-	return (border + viewFrame.size.width) / (border + itemSize.width);
+	return [self colsForWidth: viewPort.size.width];
 }
 
 - (NSInteger)rows {
-	return (border + viewFrame.size.height) / (border + itemSize.height);
+	return [self rowsForHeight: viewPort.size.height];
 }
+
+- (NSInteger)colsForWidth: (CGFloat)width {
+	return (border + width) / (border + itemSize.width);
+}
+
+- (NSInteger)rowsForHeight: (CGFloat)height {
+	return (border + height) / (border + itemSize.height); 
+}
+
 
 - (NSInteger)itemsOnPage {
 	return self.cols * self.rows;
@@ -46,9 +49,24 @@
 	NSInteger row = index / [self cols];
 
 	position.x = viewPort.origin.x + itemSize.width / 2 + (col * (itemSize.width + border));
-	position.y = viewPort.size.height - (itemSize.height / 2 + viewPort.origin.y + row * (itemSize.height + border));
+	position.y = self.viewFrame.size.height - (itemSize.height / 2 + viewPort.origin.y + row * (itemSize.height + border));
 	
 	return position;
+}
+
+#pragma mark -
+#pragma mark Layout Calculation Methods
+- (void)calculateViewPortWithSuggestedRect: (CGRect)frame {
+	NSInteger rows = [self rowsForHeight: frame.size.height];
+	NSInteger cols = [self colsForWidth: frame.size.width];
+	
+	CGFloat width = cols * self.itemSize.width + (cols - 1) * border;
+	CGFloat height = rows * self.itemSize.height + (rows - 1) * border;
+	
+	CGFloat horizontalMargin = (self.viewFrame.size.width - width) * 0.5;
+	CGFloat verticalMargin = (self.viewFrame.size.height - height) * 0.5;
+	
+	viewPort = CGRectMake(horizontalMargin, verticalMargin, width, height);
 }
 
 

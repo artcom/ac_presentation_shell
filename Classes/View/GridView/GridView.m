@@ -42,7 +42,7 @@
 - (void)setupView {
 	CALayer *rootLayer=[CALayer layer];
 	rootLayer.frame = NSRectToCGRect(self.frame);
-	// rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
+	rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorBlack);
 	[self setLayer:rootLayer];
 	[self setWantsLayer:YES];
 	
@@ -51,6 +51,9 @@
 	
 	self.page = 0;	
 	self.mouseTracking = YES;
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) 
+												 name:NSViewFrameDidChangeNotification object:self];	
 }
 
 
@@ -117,6 +120,7 @@
 
 
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
+	NSLog(@"resizing gird");
 	[super resizeWithOldSuperviewSize:oldBoundsSize];
 
 	[self updateMouseTrackingRect];
@@ -218,32 +222,6 @@
 }
 
 #pragma mark -
-#pragma mark Layout Methods
-- (void)layoutForRect: (NSRect)frame {
-	NSRect frameWithBorder = NSMakeRect(0, 0, frame.size.width * 0.8, frame.size.height * 0.7); 
-	
-	[self updateLayout];
-	layout.viewFrame = NSRectToCGRect(frameWithBorder);
-	
-	NSInteger rows = [layout rows];
-	NSInteger cols = [layout cols];
-	
-	CGFloat width = cols * layout.itemSize.width + (cols - 1) * GRID_BORDER;
-	CGFloat height = rows * layout.itemSize.height + (rows - 1) * GRID_BORDER;
-	
-	CGFloat horizontalMargin = (frame.size.width - width) * 0.5;
-	CGFloat verticalMargin = (frame.size.height - height) * 0.5;
-	
-	
-	self.frame = NSMakeRect(horizontalMargin, verticalMargin, width, height);
-	self.layer.frame = NSRectToCGRect(self.frame);
-
-	[self updateLayout];
-}
-
-
-
-#pragma mark -
 #pragma mark Private Methods
 - (void)updateMouseTrackingRect {
 	[self removeTrackingRect:mouseTrackingRectTag];
@@ -265,9 +243,28 @@
 	[layout calculate];
 }
 
-
-
-
-
+#pragma mark -
+#pragma mark Resizing
+- (void)viewDidResize: (NSNotification *)aNotification {
+	NSLog(@"resize notification");
+	[self arrangeSublayer];
+	
+//	NSRect screenFrame = [[[self window] windowController] presentationScreenFrame];
+//	// [gridView layoutForRect: screenFrame];
+//	
+//	NSRect gridFrame = gridView.frame;
+//	CGFloat verticalMargin = (screenFrame.size.height - gridFrame.size.height) * 0.5;
+//	
+//	// [gridView setFrameOrigin:NSMakePoint(gridView.frame.origin.x, verticalMargin)];
+//	
+//	CGFloat logoYOrigin = (verticalMargin * 1.5) + gridFrame.size.height - logo.frame.size.height / 2;
+//	logo.frame = NSMakeRect(gridFrame.origin.x, logoYOrigin , logo.frame.size.width, logo.frame.size.height);
+//	
+//	
+//	CGFloat pagerButtonsXOrigin = gridFrame.origin.x + gridFrame.size.width - pagerButtons.frame.size.width;
+//	[pagerButtons setFrameOrigin: NSMakePoint(pagerButtonsXOrigin, gridFrame.origin.y - 23 - pagerButtons.frame.size.height)];
+//	
+//	[pagination setFrameOrigin:NSMakePoint(gridFrame.origin.x + gridFrame.size.width + 20, gridView.frame.origin.y)];
+}
 
 @end

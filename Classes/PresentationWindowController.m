@@ -41,7 +41,7 @@
 }
 
 - (void)awakeFromNib {	
-	[paginationView bind:@"activePage" toObject:gridView withKeyPath:@"page" options:nil];
+	// [paginationView bind:@"activePage" toObject:gridView withKeyPath:@"page" options:nil];
 }
 
 #pragma mark -
@@ -131,15 +131,15 @@
 }
 
 - (void) didUpdateGridView:(GridView *)aView {	
-	paginationView.pages = self.gridView.pages;
-	
-	if (self.gridView.page >= self.gridView.pages && self.gridView.pages != 0) {
-		self.gridView.page = self.gridView.pages-1;
-	}
-	
-	BOOL isHidden = self.gridView.pages == 1;
-	[paginationView setHidden: isHidden];
-	[pagerButtons setHidden: isHidden];
+	//paginationView.pages = self.gridView.pages;
+//	
+//	if (self.gridView.page >= self.gridView.pages && self.gridView.pages != 0) {
+//		self.gridView.page = self.gridView.pages-1;
+//	}
+//	
+//	BOOL isHidden = self.gridView.pages == 1;
+//	[paginationView setHidden: isHidden];
+//	[pagerButtons setHidden: isHidden];
 }
 
 #pragma mark -

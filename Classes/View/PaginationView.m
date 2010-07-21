@@ -72,6 +72,11 @@
 }
 
 - (void)calculateDotPositions {
+	if (self.pages < 1) {
+		return;
+	}
+	
+	
 	if (!(self.activePage < self.pages)) {
 		return;
 		// [NSException raise:@"IndexOutOfBound" format:@"PaginationView is setup for %d pages but %d was selected" arguments:self.pages, self.activePage];

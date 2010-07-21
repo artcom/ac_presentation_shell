@@ -13,8 +13,6 @@
 	CGRect viewFrame;
 	CGSize itemSize;
 	
-	CGFloat paddingHorizontal;
-	CGFloat paddingVertical;
 	CGFloat border;
 
 	@private
@@ -23,9 +21,8 @@
 
 @property (assign) CGRect viewFrame;
 @property (assign) CGSize itemSize;
+@property (assign) CGRect viewPort; 
 
-@property (assign) CGFloat paddingHorizontal;
-@property (assign) CGFloat paddingVertical;
 @property (assign) CGFloat border;
 
 @property (readonly) NSInteger itemsOnPage;
@@ -33,6 +30,12 @@
 - (void)calculate;
 - (NSInteger)cols;
 - (NSInteger)rows;
+
+- (NSInteger)colsForWidth: (CGFloat)width;
+- (NSInteger)rowsForHeight: (CGFloat)height;
+
 - (CGPoint)positionForItem: (NSInteger)index;
+
+- (void)calculateViewPortWithSuggestedRect: (CGRect)frame;
 
 @end

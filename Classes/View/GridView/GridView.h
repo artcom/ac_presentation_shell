@@ -45,7 +45,4 @@
 
 - (void)addOverlay: (CALayer *)newOverlay forItem: (NSInteger)index;
 
-- (void)layoutForRect: (NSRect)frame;
-
-
 @end
