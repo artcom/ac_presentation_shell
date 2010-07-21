@@ -43,8 +43,8 @@ static NSImage * ourSyncIcon = nil;
     [super dealloc];
 }
 
-- (void) sync: (id) windowOrAlert {
-    [self setupAlert: windowOrAlert];
+- (void) sync: (NSWindow*) window {
+    [self setupAlert: window];
     
     NSTask * dryRunTask = [[[NSTask alloc] init] autorelease];
     [dryRunTask setLaunchPath: RSYNC_EXECUTABLE];
@@ -55,6 +55,7 @@ static NSImage * ourSyncIcon = nil;
     [dryRunTask launch];
     [dryRunTask waitUntilExit];
     if ([dryRunTask terminationStatus] != 0) {
+        NSLog(@"rsync dry-run failed");
         // TODO: report dry run error
 		[delegate rsync:self didFinishSyncingSuccesful:NO];
         return;
@@ -93,27 +94,21 @@ static NSImage * ourSyncIcon = nil;
     [theScanner scanInteger: (NSInteger*)& targetLibrarySize];
 }
 
--(void) setupAlert: (id) windowOrAlert {
-    if ([windowOrAlert respondsToSelector: @selector(beginSheetModalForWindow:modalDelegate:)]) {
-        alert = (NSAlert*)windowOrAlert;
-        // TODO: animate sheet?
-    } else {
-        NSWindow * window = windowOrAlert;
-		sheetOwningWindow = [windowOrAlert retain];
-        alert = [[NSAlert alloc] init];
-        [alert addButtonWithTitle:@"Cancel"];
-        [alert setMessageText: NSLocalizedString(@"Synchronizing Library",nil)];
-        [alert setInformativeText: NSLocalizedString(@"This may take a while.",nil)];
-        [alert setAlertStyle: NSWarningAlertStyle];
-        [alert setIcon: [self syncIcon]];
-        
-        NSProgressIndicator * progressBar = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)];
-        [progressBar setIndeterminate: YES];
-        [progressBar startAnimation: self];
-        [alert setAccessoryView: progressBar];
-        [alert beginSheetModalForWindow: window modalDelegate: self
-                         didEndSelector:@selector(userDidAbortSync:returnCode:contextInfo:) contextInfo:nil];
-    }
+-(void) setupAlert: (NSWindow*) window {
+    sheetOwningWindow = [window retain];
+    alert = [[NSAlert alloc] init];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert setMessageText: NSLocalizedString(@"Synchronizing Library",nil)];
+    [alert setInformativeText: NSLocalizedString(@"This may take a while.",nil)];
+    [alert setAlertStyle: NSWarningAlertStyle];
+    [alert setIcon: [self syncIcon]];
+    
+    NSProgressIndicator * progressBar = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)];
+    [progressBar setIndeterminate: YES];
+    [progressBar startAnimation: self];
+    [alert setAccessoryView: progressBar];
+    [alert beginSheetModalForWindow: window modalDelegate: self
+                     didEndSelector:@selector(userDidAbortSync:returnCode:contextInfo:) contextInfo:nil];
 }
 
 -(void)rsyncDidUpdateProgress: (NSNotification*) notification {
@@ -149,9 +144,7 @@ static NSImage * ourSyncIcon = nil;
 
 -(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {	
 	[[alert window] orderOut:self];
-	NSLog(@"terminating rsync");
 	[rsyncTask terminate];
-	NSLog(@"terminated rsync");
 }
 
 -(void) userDidAcknowledgeAbort:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
@@ -188,24 +181,22 @@ static NSImage * ourSyncIcon = nil;
 		[NSApp endSheet:[alert window]];
 	}
 	
-	
 	[self cleanup];
 	
-	if (terminationStatus == 0) {
-		[delegate rsync:self didFinishSyncingSuccesful:YES];
-	} else{
+	if (terminationStatus != 0) {
 		NSAlert *ackAlert = [[NSAlert alloc] init];
 		[ackAlert addButtonWithTitle:@"OK"];
 		[ackAlert setAlertStyle: NSWarningAlertStyle];
+        [ackAlert setIcon: [NSImage imageNamed: NSImageNameCaution]];
 		[ackAlert setMessageText: NSLocalizedString(@"Synchronization aborted.",nil)];
 		[ackAlert setInformativeText: NSLocalizedString(@"Library might be in an inconsistent state.", nil)];
 		
 		[ackAlert beginSheetModalForWindow: sheetOwningWindow modalDelegate: self
 							didEndSelector:@selector(userDidAcknowledgeAbort:returnCode:contextInfo:) contextInfo:nil];
-		
-		[delegate rsync:self didFinishSyncingSuccesful:NO];
-	}	
-	
+	}
+    [delegate rsync:self didFinishSyncingSuccesful: terminationStatus == 0];
 }
-
+/*
+-(void)showSyncError: (NSString*) message title: (NSString*) title window
+*/
 @end

@@ -188,8 +188,6 @@
 }
 
 -(void) syncPresentations {
-    NSLog(@"sync");
-    
     [self dropStalledPresentations: self.allPresentations];
     [self addNewPresentations: self.allPresentations withPredicate: nil];
     [self dropStalledPresentations: self.highlights];
