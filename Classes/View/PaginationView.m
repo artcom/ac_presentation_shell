@@ -69,7 +69,7 @@
 
 - (void)setActivePage: (NSInteger)newActivePage {
 	activePage = newActivePage;
-	
+
 	[self calculateDotPositions];
 	[self setActiveDot];
 }
@@ -89,7 +89,8 @@
 		return;
 		//[NSException raise:@"IndexOutOfBound" format:@"PaginationView is setup for %d pages but %d was selected" arguments:self.pages, self.activePage];
 	}
-	
+
+	[CATransaction begin];
 	NSInteger i = 0;
 	for (i = 0; i < self.dotsOnTop; i++) {
 		CALayer *layer = [dots objectAtIndex:i];
@@ -100,6 +101,7 @@
 		CALayer *layer = [dots objectAtIndex:i];
 		layer.frame = CGRectMake(0, ((self.pages - i - 1) * 10), 6, 6);		
 	}
+	[CATransaction commit];
 }
 
 - (void)setActiveDot {
