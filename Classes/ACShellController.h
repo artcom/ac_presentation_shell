@@ -41,7 +41,7 @@
 @property (retain, nonatomic) NSMutableArray * library;
 
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
-@property (retain, nonatomic) IBOutlet 	NSTreeController *collectionTreeController;
+@property (retain, nonatomic) IBOutlet NSTreeController *collectionTreeController;
 @property (retain, nonatomic) IBOutlet NSWindow *browserWindow;
 @property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;

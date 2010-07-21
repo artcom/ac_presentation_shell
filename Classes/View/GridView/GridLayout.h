@@ -36,6 +36,7 @@
 
 - (CGPoint)positionForItem: (NSInteger)index;
 
+- (CGRect)suggestedRectForFrame: (CGRect) frame;
 - (void)calculateViewPortWithSuggestedRect: (CGRect)frame;
 
 @end

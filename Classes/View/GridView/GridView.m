@@ -17,6 +17,7 @@
 - (void)updateMouseTrackingRect;
 - (void)updateLayout;
 - (NSInteger)lastItemOnPage;
+- (void)didUpdatePages;
 
 - (void)viewDidResize: (NSNotification *)aNotification;
 @end
@@ -153,11 +154,8 @@
 		[self.layer addSublayer:layer];	
 		[sublayers addObject:layer];
 	}
-	
-	paginationView.pages = self.pages;
-	if ([delegate respondsToSelector:@selector(didUpdateGridView:)]) {
-		[delegate didUpdateGridView: self];
-	}
+
+	[self didUpdatePages];
 }
 
 
@@ -294,6 +292,24 @@
 
 #pragma mark -
 #pragma mark Private Methods
+
+- (void)didUpdatePages {
+	paginationView.pages = self.pages;
+	
+	BOOL isHidden = self.pages == 1;
+	[paginationView setHidden: isHidden];
+	[pageButtons setHidden: isHidden];
+	
+	if (self.page >= self.pages && self.pages != 0) {
+		self.page -= 1;
+	}
+	
+	if ([delegate respondsToSelector:@selector(didUpdateGridView:)]) {
+		[delegate didUpdateGridView: self];
+	}
+	
+}
+
 - (void)updateMouseTrackingRect {
 	[self removeTrackingRect:mouseTrackingRectTag];
 	

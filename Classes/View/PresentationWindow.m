@@ -7,13 +7,8 @@
 //
 
 #import "PresentationWindow.h"
-#import "PaginationView.h"
-#import "GridView.h"
 
 @implementation PresentationWindow
-
-@synthesize paginationView;
-@synthesize gridView;
 
 - (void)awakeFromNib {
 	[self setStyleMask:NSBorderlessWindowMask];
@@ -21,13 +16,6 @@
 	
 	[self setAcceptsMouseMovedEvents:YES];
 	[self makeFirstResponder:self];
-}
-
-- (void)dealloc {
-	[gridView release];
-	[paginationView release];
-	
-	[super dealloc];
 }
 
 - (BOOL)canBecomeKeyWindow {

@@ -12,11 +12,6 @@
 
 
 @interface PresentationWindow : NSWindow {
-	PaginationView *paginationView;
-	GridView *gridView;
 }
-
-@property (retain) IBOutlet PaginationView *paginationView;
-@property (retain) IBOutlet GridView *gridView; 
 
 @end

@@ -18,8 +18,7 @@
 @synthesize border;
 
 - (void)calculate {		
-	CGRect frameWithBorder = CGRectMake(0, 0, self.viewFrame.size.width * 0.85, self.viewFrame.size.height * 0.7); 
-	[self calculateViewPortWithSuggestedRect: frameWithBorder];
+	[self calculateViewPortWithSuggestedRect: [self suggestedRectForFrame: self.viewFrame]];
 }
 
 - (NSInteger)cols {
@@ -38,7 +37,6 @@
 	return (border + height) / (border + itemSize.height); 
 }
 
-
 - (NSInteger)itemsOnPage {
 	return self.cols * self.rows;
 }
@@ -52,6 +50,10 @@
 	position.y = self.viewFrame.size.height - (itemSize.height / 2 + viewPort.origin.y + row * (itemSize.height + border));
 	
 	return position;
+}
+
+- (CGRect)suggestedRectForFrame: (CGRect) frame {
+	return CGRectMake(0, 0, frame.size.width * 0.85, frame.size.height * 0.7); 
 }
 
 #pragma mark -

@@ -19,8 +19,7 @@
 
 @synthesize presentations;
 @synthesize gridView;
-@synthesize paginationView;
-@synthesize pagerButtons;
+
 
 - (id)init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
@@ -34,28 +33,8 @@
 	[presentations release];
 	
 	[gridView release];
-	[paginationView release];
-	[pagerButtons release];
 	
 	[super dealloc];
-}
-
-- (void)awakeFromNib {	
-	// [paginationView bind:@"activePage" toObject:gridView withKeyPath:@"page" options:nil];
-}
-
-#pragma mark -
-#pragma mark User Actions
-- (void)previousPage:(id)sender {
-	if ([gridView hasPreviousPage]) {
-		gridView.page -= 1;
-	}
-}
-
-- (void)nextPage:(id)sender {
-	if ([gridView hasNextPage]) {
-		gridView.page += 1;	
-	}
 }
 
 #pragma mark -
@@ -84,7 +63,6 @@
 	}
 	
 	[super showWindow:sender];
-	[paginationView updateView];	
 }
 
 
@@ -130,18 +108,6 @@
 	self.gridView.mouseTracking = NO;
 }
 
-- (void) didUpdateGridView:(GridView *)aView {	
-	//paginationView.pages = self.gridView.pages;
-//	
-//	if (self.gridView.page >= self.gridView.pages && self.gridView.pages != 0) {
-//		self.gridView.page = self.gridView.pages-1;
-//	}
-//	
-//	BOOL isHidden = self.gridView.pages == 1;
-//	[paginationView setHidden: isHidden];
-//	[pagerButtons setHidden: isHidden];
-}
-
 #pragma mark -
 #pragma mark Keynote Handler Delegate
 -(void) didFinishStartingKeynote:(KeynoteHandler *)keynote {
@@ -156,9 +122,9 @@
 - (NSRect)presentationScreenFrame {
 	NSArray *screens = [NSScreen screens];
 	
-	// if ([screens count] > 1) {
-	//	return [[screens objectAtIndex:1] frame];
-	// }
+	if ([screens count] > 1) {
+		return [[screens objectAtIndex:1] frame];
+	}
 	
 	return [[screens objectAtIndex:0] frame];
 }
