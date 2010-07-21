@@ -46,7 +46,7 @@ static NSImage * ourSyncIcon = nil;
 - (void) sync: (id) windowOrAlert {
     [self setupAlert: windowOrAlert];
     
-    NSTask * dryRunTask = [[NSTask alloc] init];
+    NSTask * dryRunTask = [[[NSTask alloc] init] autorelease];
     [dryRunTask setLaunchPath: RSYNC_EXECUTABLE];
     [dryRunTask setArguments: [NSArray arrayWithObjects: 
                               @"-nav", source, destination, nil]];
@@ -70,9 +70,14 @@ static NSImage * ourSyncIcon = nil;
     pipe = [[NSPipe alloc] init];
     [rsyncTask setStandardOutput: pipe];
     NSFileHandle * fileHandle = [pipe fileHandleForReading];
-    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(rsyncDidUpdateProgress:)
+
+	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(rsyncDidUpdateProgress:)
                                                  name: NSFileHandleReadCompletionNotification object: fileHandle];
-    [fileHandle readInBackgroundAndNotify];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishRsync:)
+												 name:NSTaskDidTerminateNotification object:rsyncTask];
+	
+	[fileHandle readInBackgroundAndNotify];
     [rsyncTask launch];
 };
 
@@ -83,8 +88,8 @@ static NSImage * ourSyncIcon = nil;
     NSArray * lines = [output componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
     NSString * lastLine = [lines objectAtIndex: [lines count] - 2];
     NSScanner *theScanner = [NSScanner scannerWithString:lastLine];
-    NSString * msg;
-    [theScanner scanUpToCharactersFromSet: [NSCharacterSet decimalDigitCharacterSet] intoString: &msg];
+
+    [theScanner scanUpToCharactersFromSet: [NSCharacterSet decimalDigitCharacterSet] intoString: nil];
     [theScanner scanInteger: (NSInteger*)& targetLibrarySize];
 }
 
@@ -95,11 +100,11 @@ static NSImage * ourSyncIcon = nil;
     } else {
         NSWindow * window = windowOrAlert;
 		sheetOwningWindow = [windowOrAlert retain];
-        alert = [[[NSAlert alloc] init] autorelease];
+        alert = [[NSAlert alloc] init];
         [alert addButtonWithTitle:@"Cancel"];
         [alert setMessageText: NSLocalizedString(@"Synchronizing Library",nil)];
         [alert setInformativeText: NSLocalizedString(@"This may take a while.",nil)];
-        [alert setAlertStyle: NSInformationalRequest];
+        [alert setAlertStyle: NSWarningAlertStyle];
         [alert setIcon: [self syncIcon]];
         
         NSProgressIndicator * progressBar = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)];
@@ -114,15 +119,6 @@ static NSImage * ourSyncIcon = nil;
 -(void)rsyncDidUpdateProgress: (NSNotification*) notification {
     NSData * data = [[notification userInfo] objectForKey: NSFileHandleNotificationDataItem];
     if ([data length] == 0) {
-        [[alert window] orderOut: self];
-		[self cleanup];
-		
-		if ([rsyncTask terminationStatus] == 0) {
-			[delegate rsync:self didFinishSyncingSuccesful:YES];
-		} else{
-			[delegate rsync:self didFinishSyncingSuccesful:NO];
-		}
-		
         return;
     }
     [self processRsyncOutput: data];
@@ -151,27 +147,18 @@ static NSImage * ourSyncIcon = nil;
     }
 }
 
--(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [rsyncTask terminate];
-	[[alert window] orderOut: self];
-	alert = nil;
-	
-	NSAlert *ackAlert = [[NSAlert alloc] init];
-	[ackAlert addButtonWithTitle:@"OK"];
-	[ackAlert setAlertStyle: NSWarningAlertStyle];
-	[ackAlert setMessageText: NSLocalizedString(@"Synchronization aborted.",nil)];
-	[ackAlert setInformativeText: NSLocalizedString(@"Library might be in an inconsistent state.", nil)];
-
-	[ackAlert beginSheetModalForWindow: sheetOwningWindow modalDelegate: self
-					 didEndSelector:@selector(userDidAcknowledgeAbort:returnCode:contextInfo:) contextInfo:nil];
-
-    NSLog(@"sync aborted");
+-(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {	
+	[[alert window] orderOut:self];
+	NSLog(@"terminating rsync");
+	[rsyncTask terminate];
+	NSLog(@"terminated rsync");
 }
 
 -(void) userDidAcknowledgeAbort:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+	[sheetOwningWindow release];
+	sheetOwningWindow = nil;
+	
 	NSLog(@"sync really aborted");
-	[[sheet window] orderOut: self];
-	[delegate rsync: self didFinishSyncingSuccesful: NO];
 }
 
 -(NSImage*) syncIcon {
@@ -182,14 +169,43 @@ static NSImage * ourSyncIcon = nil;
 }
 
 -(void) cleanup {
-	// [alert release];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:rsyncTask];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleReadCompletionNotification object:[pipe fileHandleForReading]];
+	
 	alert = nil;
 	[rsyncTask release];
 	rsyncTask = nil;
 	[pipe release];
 	pipe = nil;
-	[sheetOwningWindow release];
-	sheetOwningWindow = nil;
+}
+
+- (void)didFinishRsync: (NSNotification *)aNotification {	
+	NSLog(@"termination status: %d, running: %d", [rsyncTask terminationStatus], [rsyncTask isRunning]);
+	NSInteger terminationStatus = [rsyncTask terminationStatus];
+	
+	if ([[alert window] isVisible]) {
+		NSLog(@"closing window programmatically");
+		[NSApp endSheet:[alert window]];
+	}
+	
+	
+	[self cleanup];
+	
+	if (terminationStatus == 0) {
+		[delegate rsync:self didFinishSyncingSuccesful:YES];
+	} else{
+		NSAlert *ackAlert = [[NSAlert alloc] init];
+		[ackAlert addButtonWithTitle:@"OK"];
+		[ackAlert setAlertStyle: NSWarningAlertStyle];
+		[ackAlert setMessageText: NSLocalizedString(@"Synchronization aborted.",nil)];
+		[ackAlert setInformativeText: NSLocalizedString(@"Library might be in an inconsistent state.", nil)];
+		
+		[ackAlert beginSheetModalForWindow: sheetOwningWindow modalDelegate: self
+							didEndSelector:@selector(userDidAcknowledgeAbort:returnCode:contextInfo:) contextInfo:nil];
+		
+		[delegate rsync:self didFinishSyncingSuccesful:NO];
+	}	
+	
 }
 
 @end

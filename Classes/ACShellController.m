@@ -118,12 +118,6 @@
 	[rsyncController sync:[[NSApplication sharedApplication] mainWindow]];
 }
 
-//- (IBAction)abortSync: (id)sender {
-//	[rsyncTask terminate];
-//		
-//	[self didFinishSyncing];
-//}
-
 - (IBAction)remove: (id)sender {
 	if ([browserWindow firstResponder] == presentationTable) {
 		[self removePresentation:sender];			
