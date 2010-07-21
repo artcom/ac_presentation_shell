@@ -8,14 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "KeynoteDelegate.h"
+#import "RsyncController.h"
 
 @class PresentationWindowController;
 @class PreferenceWindowController;
 @class PresentationLibrary;
 @class ACShellCollection;
 
-
-@interface ACShellController : NSObject <KeynoteDelegate, NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> {
+@interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, NSOutlineViewDelegate, 
+											NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> 
+{
 	PresentationLibrary *presentationLibrary;
 
 	PresentationWindowController *presentationWindowController;
@@ -31,10 +33,9 @@
 
     #pragma mark TODO: move to RSyncController?
     NSWindow *browserWindow;
-	NSWindow *syncWindow;
 	NSProgressIndicator *progressSpinner;
 	
-	NSTask *rsyncTask;
+	RsyncController *rsyncController;
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;
@@ -43,7 +44,6 @@
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (retain, nonatomic) IBOutlet NSTreeController *collectionTreeController;
 @property (retain, nonatomic) IBOutlet NSWindow *browserWindow;
-@property (retain, nonatomic) IBOutlet NSWindow *syncWindow;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
 @property (retain, nonatomic) IBOutlet NSOutlineView *collectionView;
 @property (retain, nonatomic) IBOutlet NSTableView *presentationTable;
@@ -51,7 +51,6 @@
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;
-- (IBAction)abortSync: (id)sender;
 - (IBAction)remove: (id)sender;
 - (IBAction)addCollection: (id)sender;
 - (IBAction)removeCollection: (id)sender;

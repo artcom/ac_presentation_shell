@@ -14,6 +14,7 @@
 #import "NSFileManager-DirectoryHelper.h"
 #import "PreferenceWindowController.h"
 #import "KeynoteHandler.h"
+#import "RsyncController.h"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
@@ -22,8 +23,6 @@
 
 @interface ACShellController ()
 
-- (void)performRsync;
-- (void)didFinishSyncing;
 - (void)beautifyOutlineView;
 - (BOOL) isToplevelGroup: (id) item;
 - (BOOL) isStaticCategory: (id) item;
@@ -35,7 +34,6 @@
 @synthesize presentationLibrary;
 @synthesize presentationsArrayController;
 @synthesize collectionTreeController;
-@synthesize syncWindow;
 @synthesize browserWindow;
 @synthesize progressSpinner;
 @synthesize collectionView;
@@ -51,6 +49,12 @@
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
         presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
+		
+		NSString *dstPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
+		NSString * srcPath = [[NSUserDefaults standardUserDefaults] stringForKey: @"libraryPath"];
+		
+		rsyncController = [[RsyncController alloc] initWithSource: srcPath destination: dstPath];
+		rsyncController.delegate = self;
 	}
 	
 	return self;
@@ -82,15 +86,16 @@
 }
 
 -(void) load {
+	[self willChangeValueForKey:@"library"];
     if ( ! [presentationLibrary loadXmlLibrary]) {
-        NSBeginAlertSheet( NSLocalizedString(@"Synchronize library now?",nil), @"OK", @"Cancel",
-                          nil, browserWindow, self, @selector(onLibrarySyncAnswered:returnCode:contextInfo:),
-                          nil, browserWindow, 
-                          NSLocalizedString(@"A good network connection and some patience is required.", nil),
-                          nil);
+       // NSBeginAlertSheet( NSLocalizedString(@"Synchronize library now?",nil), @"OK", @"Cancel",
+//                          nil, browserWindow, self, @selector(onLibrarySyncAnswered:returnCode:contextInfo:),
+//                          nil, browserWindow, 
+//                          NSLocalizedString(@"A good network connection and some patience is required.", nil),
+//                          nil);
 
     }
-	
+	[self didChangeValueForKey:@"library"];
 	[self beautifyOutlineView];
 }
 
@@ -110,23 +115,14 @@
 }
 
 - (IBAction)sync: (id)sender {
-	[[NSApplication sharedApplication] beginSheet:syncWindow modalForWindow: browserWindow 
-									modalDelegate:self didEndSelector:@selector(didEndModal) contextInfo:nil];
-	[progressSpinner startAnimation:nil];
-		
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[self performRsync];
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[self didFinishSyncing];
-		});
-	});
+	[rsyncController sync:[[NSApplication sharedApplication] mainWindow]];
 }
 
-- (IBAction)abortSync: (id)sender {
-	[rsyncTask terminate];
-		
-	[self didFinishSyncing];
-}
+//- (IBAction)abortSync: (id)sender {
+//	[rsyncTask terminate];
+//		
+//	[self didFinishSyncing];
+//}
 
 - (IBAction)remove: (id)sender {
 	if ([browserWindow firstResponder] == presentationTable) {
@@ -157,12 +153,6 @@
     }
     [presentationsArrayController setFilterPredicate: predicate];
     [self updateStatusText: nil];
-}
-
-- (void)didEndModal {
-    NSLog(@"sync window out");
-    [syncWindow close];
-	[syncWindow orderOut:nil];
 }
 
 - (NSArray *)selectedPresentations {
@@ -343,6 +333,16 @@
 	[[self browserWindow] makeKeyAndOrderFront:nil];
 }
 
+#pragma mark -
+#pragma mark RsyncControllerDelegate Protocol Methods
+- (void)rsync:(RsyncController *) controller didFinishSyncingSuccesful:(BOOL)successFlag {
+	NSLog(@"did finish successful? %d", successFlag);
+	
+	if (successFlag) {
+		[self load];
+	}
+}
+
 
 #pragma mark -
 #pragma mark Private Methods
@@ -360,51 +360,6 @@
 	return NO;    
 }
 
-- (void)didFinishSyncing {
-	[progressSpinner stopAnimation:nil];
-	[[NSApplication sharedApplication] endSheet:syncWindow];	
-
-    if ([rsyncTask terminationStatus] != 0) {
-        NSFileHandle *file = [rsyncTask.standardError fileHandleForReading];
-        NSData *data = [file readDataToEndOfFile];
-        
-        NSString *string = [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding];
-        NSLog (@"ERROR\n%@", string);
-        NSBeginCriticalAlertSheet( NSLocalizedString(@"Synchronization failed",nil),
-                          nil, nil, nil,
-                          browserWindow,
-                          nil, nil, nil, nil, 
-                          string,
-                          nil);
-        
-    } else {        
-        if ( ! [presentationLibrary loadXmlLibrary] ) {
-            NSLog(@"Failed to load xml library after syncing.");
-        }
-    }
-    [rsyncTask release];
-    rsyncTask = nil;    
-}
-
-- (void)performRsync {
-	rsyncTask = [[NSTask alloc] init];
-    [rsyncTask setLaunchPath: @"/opt/local/bin/rsync"];
-	NSString *dstPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
-	NSString * srcPath = [[NSUserDefaults standardUserDefaults] stringForKey: @"libraryPath"];
-    
-    NSLog(@"%@", srcPath);
-    /*if ([srcPath characterAtIndex: [srcPath length] - 1] != '/') {
-        srcPath = [srcPath stringByAppendingString: @"/"];
-    }*/
-    [rsyncTask setArguments: [NSArray arrayWithObjects: @"-avz", @"--delete", srcPath, dstPath, nil]];
-	
-	NSPipe *pipe = [NSPipe pipe];
-	[rsyncTask setStandardError: pipe];
-	
-	[rsyncTask launch];
-    [rsyncTask waitUntilExit];
-}
-
 - (void)beautifyOutlineView {
 	[collectionView expandItem:nil expandChildren:YES];
 	
@@ -413,7 +368,5 @@
 	NSUInteger row = [collectionView rowForItem:allItem];
 	[collectionView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }
-
-
 
 @end
