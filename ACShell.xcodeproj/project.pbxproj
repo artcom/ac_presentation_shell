@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */; };
+		2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2289820611F73701000D0983 /* AC-Shell-Icon.icns */; };
 		2295411011E3249500E09031 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
 		2295411411E3259800E09031 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
 		2295412B11E3263100E09031 /* GridLayoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2295412A11E3263100E09031 /* GridLayoutTest.m */; };
@@ -93,6 +94,7 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACShellCollection.h; path = Classes/Model/ACShellCollection.h; sourceTree = "<group>"; };
 		225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellCollection.m; path = Classes/Model/ACShellCollection.m; sourceTree = "<group>"; };
+		2289820611F73701000D0983 /* AC-Shell-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "AC-Shell-Icon.icns"; path = "Resources/Images/AC-Shell-Icon.icns"; sourceTree = "<group>"; };
 		229540BD11E3213300E09031 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = libs/GHUnit.framework; sourceTree = "<group>"; };
 		229540CD11E3216100E09031 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		229540D611E3223100E09031 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GHUnitTestMain.m; path = Tests/GHUnitTestMain.m; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2289820611F73701000D0983 /* AC-Shell-Icon.icns */,
 				22A3B61711E71AA6003DE847 /* Fonts */,
 				22D59A4511DE146B0025E48F /* Images */,
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
@@ -500,6 +503,7 @@
 				6366035111F2305300D6DD96 /* icn_highlight.png in Resources */,
 				6366050411F2EF0D00D6DD96 /* PreferenceWindow.xib in Resources */,
 				6366076B11F33F4200D6DD96 /* defaults.plist in Resources */,
+				2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
