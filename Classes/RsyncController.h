@@ -7,24 +7,25 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "RsyncTask.h"
 @class RsyncController;
 
-@protocol RsyncControllerDelegate
+@protocol RsyncControllerDelegate <NSObject>
 
 - (void)rsync: (RsyncController *)controller didFinishSyncingSuccesful: (BOOL)successFlag; 
 
 @end
 
-@interface RsyncController : NSObject {
+@interface RsyncController : NSObject <RsyncTaskDelegate> {
     NSString * source;
     NSString * destination;
     
     NSAlert * alert;
-    NSTask  * rsyncTask;
     NSPipe * pipe;
     NSUInteger targetLibrarySize;
 	NSWindow * sheetOwningWindow;
 	
+	RsyncTask *rsyncTask;
 	id <RsyncControllerDelegate> delegate;
 }
 
