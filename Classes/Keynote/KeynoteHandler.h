@@ -18,4 +18,6 @@
 - (void)play: (NSString *)file withDelegate: (id <KeynoteDelegate>) delegate;
 - (void)open: (NSString *)file;
 
+- (BOOL)usesSecondaryMonitorForPresentation;
+
 @end

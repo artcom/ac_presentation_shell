@@ -121,12 +121,13 @@
 
 - (NSRect)presentationScreenFrame {
 	NSArray *screens = [NSScreen screens];
+	NSUInteger monitorIndex = 0;
 	
-	if ([screens count] > 1) {
-		return [[screens objectAtIndex:1] frame];
-	}
+	if ([screens count] > 1 && [[KeynoteHandler sharedHandler] usesSecondaryMonitorForPresentation]) {
+		monitorIndex = 1;
+	};
 	
-	return [[screens objectAtIndex:0] frame];
+	return [[screens objectAtIndex: monitorIndex] frame];
 }
 
 @end
