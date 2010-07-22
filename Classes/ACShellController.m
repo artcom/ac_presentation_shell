@@ -94,6 +94,8 @@
 }
 
 -(void) load {
+	[collectionView deselectAll:self];
+	
 	[self willChangeValueForKey:@"library"];
     if ( ! [presentationLibrary loadXmlLibrary]) {
        // NSBeginAlertSheet( NSLocalizedString(@"Synchronize library now?",nil), @"OK", @"Cancel",
@@ -108,7 +110,6 @@
 }
 
 -(void) onLibrarySyncAnswered: (NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    NSLog(@"answer");
     if (returnCode == NSAlertDefaultReturn) {
         [sheet close];
         [self sync: nil];
@@ -118,7 +119,6 @@
 }
         
 - (IBAction)play: (id)sender {	
-	NSLog(@"selected presentations: %@", [self selectedPresentations]);
 	presentationWindowController.presentations = [self selectedPresentations];
 	[presentationWindowController showWindow:nil];
 }
@@ -346,7 +346,6 @@
 #pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
 - (void)rsync:(RsyncController *) controller didFinishSyncingSuccesful:(BOOL)successFlag {
-	NSLog(@"did finish successful? %d", successFlag);
 	
 	if (successFlag) {
 		[self load];
@@ -371,7 +370,6 @@
 }
 
 - (void)beautifyOutlineView {
-	NSLog(@"library: %@", self.library);
 	[collectionView expandItem:nil expandChildren:YES];
 	
 	NSTreeNode *firstNode = [collectionView itemAtRow:0];

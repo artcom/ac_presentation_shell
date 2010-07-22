@@ -150,8 +150,6 @@ static NSImage * ourSyncIcon = nil;
 -(void) userDidAcknowledgeAbort:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 	[sheetOwningWindow release];
 	sheetOwningWindow = nil;
-	
-	NSLog(@"sync really aborted");
 }
 
 -(NSImage*) syncIcon {
@@ -173,11 +171,9 @@ static NSImage * ourSyncIcon = nil;
 }
 
 - (void)didFinishRsync: (NSNotification *)aNotification {	
-	NSLog(@"termination status: %d, running: %d", [rsyncTask terminationStatus], [rsyncTask isRunning]);
 	NSInteger terminationStatus = [rsyncTask terminationStatus];
 	
 	if ([[alert window] isVisible]) {
-		NSLog(@"closing window programmatically");
 		[NSApp endSheet:[alert window]];
 	}
 	
