@@ -63,19 +63,15 @@
 
 - (NSImage *)thumbnail {
 	if (thumbnail == nil) {
-		NSString *filepath = [[PresentationLibrary libraryDir] stringByAppendingPathComponent: self.thumbnailPath];
+		NSString *filepath = [[PresentationLibrary libraryFilepath] stringByAppendingPathComponent: self.thumbnailPath];
 		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];		
 	}
 	return thumbnail;
 }
 
 
-- (NSString*) title {     
+- (NSString*) title {     	
     NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
-    if ([titleNodes count] != 1) {
-        [NSException raise:@"No title attribute found in xml file" format:@""];
-    } 
-    
     return [[titleNodes objectAtIndex: 0] stringValue];	
 }
 
@@ -86,24 +82,16 @@
 
 - (NSString *)thumbnailPath {
 	NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
-	if ([thumbnailNodes count] != 1) {
-		[NSException raise:@"No thumbnail attribute found in xml file" format:@""];
-	} 
-	
 	return [[thumbnailNodes objectAtIndex: 0] stringValue];	
 }
 
 - (NSString *)presentationPath {
 	NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
-	if ([nodes count] != 1) {
-		[NSException raise:@"No file property found in xml file" format:@""];
-	} 
-	
 	return [[nodes objectAtIndex: 0] stringValue];	
 }
 
 - (NSString *)presentationFile {
-	return [[PresentationLibrary libraryDir] stringByAppendingPathComponent: self.presentationPath];
+	return [[PresentationLibrary libraryFilepath] stringByAppendingPathComponent: self.presentationPath];
 }
 
 - (BOOL) isEqual:(id)object {
@@ -114,7 +102,6 @@
 	return self.presentationId == ((Presentation *)object).presentationId;
 }
 
-
 - (void) dealloc {
 	[thumbnail release];
 	[context release];
@@ -122,7 +109,13 @@
 }
 
 - (NSXMLElement*) xmlNode {
-    return [context xmlNode: presentationId];
+	NSXMLElement *node = [context xmlNode: presentationId];
+	if (node == nil) {
+        NSLog(@"node is nil, not good");
+		// [NSException raise:@"No title attribute found in xml file" format:@""];
+    } 
+	
+    return node;
 }
 
 @end

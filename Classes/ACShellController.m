@@ -40,17 +40,23 @@
 @synthesize presentationTable;
 @synthesize statusLine;
 
+@synthesize currentPresentationList;
+
+
++ (void) initialize {
+	NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
+	[[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
+}
+
 - (id) init {
 	self = [super init];
 	if (self != nil) {		        
-        NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
-        [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
 		
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
         presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
 		
-		NSString *dstPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
+		NSString * dstPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
 		NSString * srcPath = [[NSUserDefaults standardUserDefaults] stringForKey: @"libraryPath"];
 		
 		rsyncController = [[RsyncController alloc] initWithSource: srcPath destination: dstPath];
@@ -73,6 +79,8 @@
                                                  name:NSTableViewSelectionDidChangeNotification object:presentationTable];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
                                                  name:NSOutlineViewSelectionDidChangeNotification object:collectionView];
+	
+	[self bind: @"currentPresentationList" toObject:collectionTreeController withKeyPath:@"selection.presentations" options:nil];
 }
 
 - (void) dealloc {
@@ -110,6 +118,7 @@
 }
         
 - (IBAction)play: (id)sender {	
+	NSLog(@"selected presentations: %@", [self selectedPresentations]);
 	presentationWindowController.presentations = [self selectedPresentations];
 	[presentationWindowController showWindow:nil];
 }
@@ -200,6 +209,13 @@
 
 -(void) setLibrary:(NSMutableArray *) array {
     presentationLibrary.library.children = array;
+}
+
+-(NSMutableArray*) currentPresentationList {	
+	if (![presentationLibrary hasLibrary]) {
+		return [NSMutableArray array];
+	}
+	return currentPresentationList;
 }
 
 #pragma mark -
@@ -355,6 +371,7 @@
 }
 
 - (void)beautifyOutlineView {
+	NSLog(@"library: %@", self.library);
 	[collectionView expandItem:nil expandChildren:YES];
 	
 	NSTreeNode *firstNode = [collectionView itemAtRow:0];

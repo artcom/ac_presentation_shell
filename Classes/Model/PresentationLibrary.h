@@ -24,8 +24,7 @@
 
 
 + (id)libraryFromSettingsFile;
-
-+ (NSString*) libraryDir;
++ (NSString*) libraryFilepath;
 
 
 - (void)saveSettings;

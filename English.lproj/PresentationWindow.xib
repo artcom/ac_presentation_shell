@@ -85,11 +85,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBOutletConnection" key="connection">
-						<string key="label">gridView</string>
+						<string key="label">presentationView</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="1006"/>
 					</object>
-					<int key="connectionID">51</int>
+					<int key="connectionID">52</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -184,7 +184,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">51</int>
+			<int key="maxID">52</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -241,13 +241,13 @@
 					<string key="className">PresentationWindowController</string>
 					<string key="superclassName">NSWindowController</string>
 					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">gridView</string>
+						<string key="NS.key.0">presentationView</string>
 						<string key="NS.object.0">PresentationView</string>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">gridView</string>
+						<string key="NS.key.0">presentationView</string>
 						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">gridView</string>
+							<string key="name">presentationView</string>
 							<string key="candidateClassName">PresentationView</string>
 						</object>
 					</object>

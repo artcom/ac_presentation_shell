@@ -36,6 +36,8 @@
 	NSProgressIndicator *progressSpinner;
 	
 	RsyncController *rsyncController;
+	
+	NSMutableArray *currentPresentationList;
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;
@@ -48,6 +50,7 @@
 @property (retain, nonatomic) IBOutlet NSOutlineView *collectionView;
 @property (retain, nonatomic) IBOutlet NSTableView *presentationTable;
 @property (retain, nonatomic) IBOutlet NSTextField *statusLine;
+@property (retain, nonatomic) IBOutlet NSMutableArray * currentPresentationList;
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;

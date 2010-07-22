@@ -39,13 +39,15 @@
 
 #pragma mark -
 #pragma mark Setter Methods
-- (void) setPresentations:(NSArray *)newPresentations {
+- (void) setPresentations:(NSMutableArray *)newPresentations {
+	NSLog(@"cmd: %s", _cmd);
 	if (presentations != newPresentations) {
 		[presentations release];
-		presentations = [newPresentations mutableCopy];
-		
-		[presentationView arrangeSublayer];
+		presentations = [newPresentations retain];		
 	}
+	
+	NSLog(@"presentation view: %@", presentationView);
+	[presentationView arrangeSublayer];
 }
 
 - (void) showWindow:(id)sender {

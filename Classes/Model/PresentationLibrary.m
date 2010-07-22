@@ -37,7 +37,7 @@
     if (lib != nil) {
         return lib;
     }
-    NSLog(@"no library");
+    NSLog(@"no settings file");
     return [[[PresentationLibrary alloc] init] autorelease];
 }
 
@@ -92,14 +92,15 @@
 }
 
 - (void)saveSettings {
-    [NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];
+	[NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];	
 }
 
 - (BOOL) loadXmlLibrary {
     NSLog(@"loadXML");
     presentationData = nil;
     
-    NSString *libraryPath = [[PresentationLibrary libraryDir] stringByAppendingPathComponent:@"library.xml"];
+    NSString *libraryPath = [[PresentationLibrary libraryFilepath] stringByAppendingPathComponent:@"library.xml"];
+    presentationData = [[NSMutableDictionary alloc] init];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
         NSLog(@"file '%@' does not exist", libraryPath);
@@ -114,7 +115,6 @@
         return NO;
     }
     
-    presentationData = [[NSMutableDictionary alloc] init];
     for (NSXMLElement * element in xmlPresentations) {
         [presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
     }
@@ -124,7 +124,7 @@
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
-	if (presentationData != nil) {
+	if ([self hasLibrary]) {
         return [presentationData objectForKey: aId];
     }
     return nil;
@@ -132,10 +132,6 @@
 
 - (NSUInteger)collectionCount {
 	return [self.collections count];
-}
-
-+ (NSString*) libraryDir {
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
 }
 
 #pragma mark -
@@ -206,11 +202,15 @@
 }
 
 - (BOOL) hasLibrary {
-    return presentationData != nil;
+    return [presentationData count] > 0;
 }
 
 + (NSString*) settingsFilepath {
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
+}
+
++ (NSString*) libraryFilepath {
+    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
 }
 
 @end
