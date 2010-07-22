@@ -75,6 +75,10 @@
     return [[titleNodes objectAtIndex: 0] stringValue];	
 }
 
+- (NSString*) singleLineTitle {
+	return [[self title] stringByReplacingOccurrencesOfString:@"\n" withString:@" "]; 
+}
+
 
 - (BOOL)highlight {
 	return [[[[self xmlNode] attributeForName:@"highlight"] objectValue] boolValue];
@@ -101,6 +105,11 @@
 	
 	return self.presentationId == ((Presentation *)object).presentationId;
 }
+
+- (BOOL)isComplete {
+	return [[NSFileManager defaultManager] fileExistsAtPath: self.presentationFile] && self.thumbnail != nil;
+}
+
 
 - (void) dealloc {
 	[thumbnail release];

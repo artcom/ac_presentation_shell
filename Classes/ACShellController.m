@@ -138,6 +138,9 @@
 - (IBAction)openPresentation: (id)sender {
 	if (sender == presentationTable) {
 		Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
+		if (!presentation.isComplete) {
+			return;
+		}
 		
 		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"presentationDoubleClick"] intValue] == ACSHELL_OPEN_PRESENTATION) {
 			[[KeynoteHandler sharedHandler] open: presentation.presentationFile];			
@@ -159,7 +162,7 @@
 }
 
 - (NSArray *)selectedPresentations {
-	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES"];
+	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES AND isComplete == YES"];
 	return [[presentationsArrayController arrangedObjects] filteredArrayUsingPredicate:selected];
 }
 

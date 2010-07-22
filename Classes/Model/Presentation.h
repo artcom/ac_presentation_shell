@@ -27,12 +27,15 @@
 
 
 @property (readonly) NSString *title;
+@property (readonly) NSString *singleLineTitle;
+
 @property (readonly) BOOL highlight;
 @property (readonly) NSString *thumbnailPath;
 @property (readonly) NSString *presentationPath;
 
 @property (readonly) NSString *presentationFile;
 @property (readonly) NSImage *thumbnail;
+@property (readonly) BOOL isComplete;
 
 - (id) initWithId:(id)theId inContext: (PresentationLibrary *)theContext;
 
