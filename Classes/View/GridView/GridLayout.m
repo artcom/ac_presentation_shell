@@ -53,7 +53,11 @@
 }
 
 - (CGRect)suggestedRectForFrame: (CGRect) frame {
-	return CGRectMake(0, 0, frame.size.width * 0.85, frame.size.height * 0.7); 
+	if (frame.size.height < 800) {
+		return CGRectMake(0, 0, frame.size.width * 0.90, frame.size.height * 0.80); 
+	}
+	
+	return CGRectMake(0, 0, frame.size.width * 0.90, frame.size.height * 0.70); 
 }
 
 #pragma mark -

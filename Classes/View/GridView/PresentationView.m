@@ -269,7 +269,7 @@
 	paginationView.activePage = 0;
 	[self addSubview:paginationView];
 	
-	pageButtons = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 30, 10)];
+	pageButtons = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 32, 10)];
 	
 	NSButton *upButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 15, 10)] autorelease];
 	[upButtons setImage: [NSImage imageNamed:@"icn_prev_page.png"]];
@@ -278,7 +278,7 @@
 	[upButtons setAction:@selector(moveUp:)];
 	[pageButtons addSubview:upButtons];
 	
-	NSButton *downButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(15, 0, 15, 10)] autorelease];
+	NSButton *downButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(17, 0, 15, 10)] autorelease];
 	[downButtons setImage:[NSImage imageNamed:@"icn_next_page.png"]];
 	[downButtons setBordered:NO];
 	[downButtons setTarget:self];
