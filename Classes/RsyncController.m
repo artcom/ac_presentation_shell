@@ -144,6 +144,7 @@ static NSImage * ourSyncIcon = nil;
 }
 
 -(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [self showSheet: nil didEndSelector: nil context: nil];
 }
 
 -(NSImage*) syncIcon {
