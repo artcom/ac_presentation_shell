@@ -135,7 +135,7 @@ static NSImage * ourSyncIcon = nil;
     if (returnCode == NSAlertFirstButtonReturn) {
         [rsyncTask terminate];
         terminatedByUser = YES;
-    } else {
+    } else if (returnCode == NSAlertSecondButtonReturn) {
         NSAlert * progress = [self progressDialog];
         NSProgressIndicator * progressBar = (NSProgressIndicator*) [progress accessoryView];
         [progressBar setDoubleValue: [rsyncTask currentProgressPercent]];
@@ -144,7 +144,6 @@ static NSImage * ourSyncIcon = nil;
 }
 
 -(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    [self showSheet: nil didEndSelector: nil context: nil];
 }
 
 -(NSImage*) syncIcon {
@@ -158,12 +157,14 @@ static NSImage * ourSyncIcon = nil;
     if (currentSheet != nil) {
         [[currentSheet window] orderOut: self];
         [NSApp endSheet:[currentSheet window]];
+		[currentSheet release];
+		currentSheet = nil;
     }
     if (sheet != nil) {
         [sheet beginSheetModalForWindow: documentWindow modalDelegate:self didEndSelector: theEndSelector contextInfo:context];
-    } else {
-    }
-    currentSheet = sheet;
+    } 
+	
+	currentSheet = [sheet retain];
 }
 
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
