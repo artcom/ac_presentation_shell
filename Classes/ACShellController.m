@@ -41,7 +41,6 @@
 @synthesize collectionView;
 @synthesize presentationTable;
 @synthesize statusLine;
-@synthesize libraryDirPath;
 @synthesize currentPresentationList;
 
 

@@ -31,7 +31,6 @@
 
     NSTextField * statusLine;
 
-    #pragma mark TODO: move to RSyncController?
     NSWindow *browserWindow;
 	NSProgressIndicator *progressSpinner;
 	
