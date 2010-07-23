@@ -339,7 +339,6 @@
 #pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
 - (void)rsync:(RsyncController *) controller didFinishSyncingSuccesful:(BOOL)successFlag {
-	
 	if (successFlag) {
 		[self load];
 	}

@@ -14,6 +14,8 @@
 -(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 -(void) userDidConfirmAbort:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 -(void) userDidConfirmInitialSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+-(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+
 -(NSImage*) syncIcon;
 -(void) performSync;
 
@@ -84,15 +86,15 @@ static NSImage * ourSyncIcon = nil;
 }
 
 - (void)rsyncTask: (RsyncTask *)task didFailWithError: (NSString *)error {
-	NSLog(@"sync error: %@", error);
     if ( ! terminatedByUser) {
+        NSLog(@"sync error: %@", error);
         NSAlert * ack = [self acknowledgeDialogWithMessage: @"Synchronization failed"
                                          informationalText: error
                                                      style: NSWarningAlertStyle
                                                       icon: [NSImage imageNamed: NSImageNameCaution]];
-        [self showSheet: ack didEndSelector: nil];
+        [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:)];
     }
-	[delegate rsync:self didFinishSyncingSuccesful: YES]; // XXX wtf?
+	[delegate rsync:self didFinishSyncingSuccesful: NO];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)progress {
@@ -105,7 +107,7 @@ static NSImage * ourSyncIcon = nil;
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateStatusMessage: (NSString *)message {
 	if ([currentSheet accessoryView] != nil) {
-        [currentSheet setInformativeText: [NSString stringWithFormat: @"%@ (%0.1f%%)", message, [rsyncTask currentProgressPercent]]];
+        [currentSheet setInformativeText: [NSString stringWithFormat: @"%0.1f%% %@", [rsyncTask currentProgressPercent], message]];
     }
 }  
 
@@ -139,6 +141,9 @@ static NSImage * ourSyncIcon = nil;
     }
 }
 
+-(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+}
+
 -(NSImage*) syncIcon {
     if (ourSyncIcon == nil) {
         ourSyncIcon = [NSImage imageNamed: @"icn_sync.icns"];
@@ -149,11 +154,11 @@ static NSImage * ourSyncIcon = nil;
 -(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector {
     if (currentSheet != nil) {
         [[currentSheet window] orderOut: self];
+        [NSApp endSheet:[currentSheet window]];
     }
     if (sheet != nil) {
         [sheet beginSheetModalForWindow: documentWindow modalDelegate:self didEndSelector: theEndSelector contextInfo:nil];
     } else {
-        [NSApp endSheet:[currentSheet window]];
     }
     currentSheet = sheet;
 }

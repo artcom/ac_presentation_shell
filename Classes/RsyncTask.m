@@ -9,6 +9,20 @@
 #import "RsyncTask.h"
 
 #define RSYNC_EXECUTABLE @"/usr/bin/rsync"
+@interface NSString (appendSlash) 
+- (NSString*) stringByAppendingSlash;
+@end
+@implementation NSString (appendSlash)
+
+- (NSString*) stringByAppendingSlash {
+    if ([self characterAtIndex: [self length] - 1] == '/') {
+        return self;
+    }    
+    return [[NSArray arrayWithObjects: self, @"", nil] componentsJoinedByString: @"/"];
+}
+
+@end
+
 
 @interface RsyncTask ()
 
@@ -28,9 +42,8 @@
 - (id)initWithSource: (NSString *)theSource destination: (NSString *)theDestination; {
 	self = [super init];
 	if (self != nil) {	
-		source = [theSource retain];
-		destination = [[theDestination stringByAppendingPathComponent:@""] retain];
-		
+		source = [[theSource stringByAppendingSlash] retain];
+        destination = [[theDestination stringByAppendingSlash] retain];
 		targetLibrarySize = [self dryRun];
 	}
 	
