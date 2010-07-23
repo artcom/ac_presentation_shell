@@ -20,14 +20,13 @@
 }
 
 @property (retain, nonatomic) ACShellCollection* library;
-@property (retain) NSString * libraryDirPath;
 @property (readonly) BOOL hasLibrary;
+@property (readonly) NSString* libraryDirPath;
 
-
-+ (id)libraryFromSettingsFileWithLibraryDir: (NSString*) libraryDir;
++ (id)libraryFromSettingsFile;
 
 - (void)saveSettings;
-- (BOOL)loadXmlLibrary;
+- (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
    
 - (NSXMLElement *) xmlNode: (id) aId;
 

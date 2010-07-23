@@ -17,13 +17,13 @@
 -(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 
 -(NSImage*) syncIcon;
--(void) performSync;
+-(void) performSync: (NSString*) source destination: (NSString*) destination;
 
 
 -(NSAlert*) progressDialog;
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
 -(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
--(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector;
+-(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector context: (void*) context;
 
 
 @end
@@ -34,37 +34,34 @@ static NSImage * ourSyncIcon = nil;
 @synthesize delegate;
 @synthesize documentWindow;
 
-- (id) initWithSource: (NSString*) sourceDir destination: (NSString*) destinationDir {
+- (id) init {
     self = [super init];
     if (self != nil) {
-        source = [sourceDir retain];
-        destination = [destinationDir retain]; 
     }
     return self;   
 }
 
 -(void) dealloc {
-    [source release];
-    [destination release];
     
     [super dealloc];
 }
 
-- (void) sync {
-    [self performSync];
+- (void) syncWithSource: (NSString*) source destination: (NSString*) destination {
+    [self performSync: source destination: destination];
 }
 
--(void) initialSync {
+-(void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination {
     NSAlert * confirm = [self confirmDialogWithMessage: @"Synchronize library now?"
                                      informationalText: @"A good network connection and some patience is required."
                                                  style: NSInformationalAlertStyle
                                                   icon: [self syncIcon]];
-    [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:)];
+    NSArray * srcDst = [[NSArray arrayWithObjects: source, destination, nil] retain];
+    [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: srcDst];
 }
 
--(void) performSync {
+-(void) performSync: (NSString*) source destination: (NSString*) destination {
     NSAlert * progressDialog = [self progressDialog];
-    [self showSheet: progressDialog didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:)];
+    [self showSheet: progressDialog didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
     terminatedByUser = NO;
     // Warning: long running constructor. performs synchronous rsync. probably not good.
 	rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
@@ -80,7 +77,7 @@ static NSImage * ourSyncIcon = nil;
 
 - (void)rsyncTaskDidFinish: (RsyncTask *)task; {
 	NSLog(@"did finish syncing");
-    [self showSheet: nil didEndSelector: nil];
+    [self showSheet: nil didEndSelector: nil context: nil];
 	
 	[delegate rsync:self didFinishSyncingSuccesful: YES];
 }
@@ -92,7 +89,7 @@ static NSImage * ourSyncIcon = nil;
                                          informationalText: error
                                                      style: NSWarningAlertStyle
                                                       icon: [NSImage imageNamed: NSImageNameCaution]];
-        [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:)];
+        [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:) context: nil];
     }
 	[delegate rsync:self didFinishSyncingSuccesful: NO];
 }
@@ -116,7 +113,8 @@ static NSImage * ourSyncIcon = nil;
 
 -(void) userDidConfirmInitialSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        [self performSync];
+        NSArray * srcDst = (NSArray*) contextInfo;
+        [self performSync: [srcDst objectAtIndex: 0] destination: [srcDst objectAtIndex: 1]];
     }
 }
 
@@ -125,7 +123,7 @@ static NSImage * ourSyncIcon = nil;
         NSAlert * confirm = [self confirmDialogWithMessage: @"Really abort synchronization?" 
                                          informationalText: @"Aborting sync may lead to an inconsistent library" 
                                                      style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution]];
-        [self showSheet: confirm didEndSelector: @selector(userDidConfirmAbort:returnCode:contextInfo:)];
+        [self showSheet: confirm didEndSelector: @selector(userDidConfirmAbort:returnCode:contextInfo:) context: nil];
     }
 }
 
@@ -137,7 +135,7 @@ static NSImage * ourSyncIcon = nil;
         NSAlert * progress = [self progressDialog];
         NSProgressIndicator * progressBar = (NSProgressIndicator*) [progress accessoryView];
         [progressBar setDoubleValue: [rsyncTask currentProgressPercent]];
-        [self showSheet: [self progressDialog] didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:)];
+        [self showSheet: [self progressDialog] didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
     }
 }
 
@@ -151,13 +149,13 @@ static NSImage * ourSyncIcon = nil;
     return ourSyncIcon;
 }
 
--(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector {
+-(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector context: (void*) context {
     if (currentSheet != nil) {
         [[currentSheet window] orderOut: self];
         [NSApp endSheet:[currentSheet window]];
     }
     if (sheet != nil) {
-        [sheet beginSheetModalForWindow: documentWindow modalDelegate:self didEndSelector: theEndSelector contextInfo:nil];
+        [sheet beginSheetModalForWindow: documentWindow modalDelegate:self didEndSelector: theEndSelector contextInfo:context];
     } else {
     }
     currentSheet = sheet;

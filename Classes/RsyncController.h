@@ -17,9 +17,6 @@
 @end
 
 @interface RsyncController : NSObject <RsyncTaskDelegate> {
-    NSString * source;
-    NSString * destination;
-    
     //NSAlert * alert;
 	
 	RsyncTask *rsyncTask;
@@ -33,8 +30,7 @@
 @property (assign) id <RsyncControllerDelegate> delegate;
 @property (retain) NSWindow* documentWindow;
 
-- (id) initWithSource:(NSString *)sourceDir destination:(NSString*)destinationDir;
-- (void) sync;
-- (void) initialSync;
+- (void) syncWithSource: (NSString*) source destination: (NSString*) destination;
+- (void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination;
 
 @end

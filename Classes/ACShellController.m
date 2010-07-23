@@ -28,6 +28,8 @@
 - (BOOL) isStaticCategory: (id) item;
 - (void) updateStatusText: (NSNotification*) notification;
 
+@property (readonly) NSString* librarySource;
+
 @end
 
 @implementation ACShellController
@@ -39,7 +41,7 @@
 @synthesize collectionView;
 @synthesize presentationTable;
 @synthesize statusLine;
-
+@synthesize libraryDirPath;
 @synthesize currentPresentationList;
 
 
@@ -51,13 +53,12 @@
 - (id) init {
 	self = [super init];
 	if (self != nil) {		        
-		NSString * rsyncSource = [[NSUserDefaults standardUserDefaults] stringForKey: @"rsyncSource"];
-        presentationLibrary = [[PresentationLibrary libraryFromSettingsFileWithLibraryDir: [rsyncSource lastPathComponent]] retain];
+        presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
 
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
 		
-		rsyncController = [[RsyncController alloc] initWithSource: rsyncSource destination: presentationLibrary.libraryDirPath];
+		rsyncController = [[RsyncController alloc] init];
 		rsyncController.delegate = self;
 	}
 	
@@ -97,8 +98,8 @@
 	[collectionView deselectAll:self];
 	
 	[self willChangeValueForKey:@"library"];
-    if ( ! [presentationLibrary loadXmlLibrary]) {
-        [rsyncController initialSync];
+    if ( ! [presentationLibrary loadXmlLibraryFromDirectory: self.libraryDirPath]) {
+        [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];
     }
 	[self didChangeValueForKey:@"library"];
 	[self beautifyOutlineView];
@@ -111,9 +112,9 @@
 
 - (IBAction)sync: (id)sender {
     if ([presentationLibrary hasLibrary]) {
-        [rsyncController sync];
+        [rsyncController syncWithSource: self.librarySource destination: self.libraryDirPath];
     } else {
-        [rsyncController initialSync];
+        [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];
     }
 }
 
@@ -368,6 +369,15 @@
 	NSTreeNode *allItem = [[firstNode childNodes] objectAtIndex:0];
 	NSUInteger row = [collectionView rowForItem:allItem];
 	[collectionView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
+}
+
+- (NSString*) librarySource {
+    return [[NSUserDefaults standardUserDefaults]  stringForKey: @"rsyncSource"];
+}
+            
+- (NSString*) libraryDirPath {
+    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] 
+            stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
 }
 
 @end

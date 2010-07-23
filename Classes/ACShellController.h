@@ -51,6 +51,7 @@
 @property (retain, nonatomic) IBOutlet NSTableView *presentationTable;
 @property (retain, nonatomic) IBOutlet NSTextField *statusLine;
 @property (retain, nonatomic) IBOutlet NSMutableArray * currentPresentationList;
+@property (readonly) NSString* libraryDirPath;
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;

@@ -95,7 +95,7 @@
 }
 
 - (NSString *)presentationFile {
-	return [[context libraryDirPath] stringByAppendingPathComponent: self.presentationPath];
+	return [context.libraryDirPath stringByAppendingPathComponent: self.presentationPath];
 }
 
 - (BOOL) isEqual:(id)object {

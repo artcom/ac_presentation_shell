@@ -23,12 +23,10 @@
 
 + (NSString*) settingsFilepath;
 
--(id) initWithLibraryDir: (NSString*) libraryDir;
 -(void) setup;
 -(void) syncPresentations;
 -(void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
 -(void) dropStalledPresentations: (NSMutableArray*) presentations;
-- (NSString*) buildLibDir: (NSString*) libraryDir;
 
 @end
 
@@ -36,21 +34,18 @@
 @synthesize library;
 @synthesize libraryDirPath;
 
-
-+ (id) libraryFromSettingsFileWithLibraryDir: (NSString*) libraryDir {
++ (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
     if (lib != nil) {
-        lib.libraryDirPath = [lib buildLibDir: libraryDir];
         return lib;
     }
     NSLog(@"no settings file");
-    return [[[PresentationLibrary alloc] initWithLibraryDir: libraryDir] autorelease];
+    return [[[PresentationLibrary alloc] init] autorelease];
 }
 
--(id) initWithLibraryDir: (NSString*) libraryDir {
+-(id) init {
 	self = [super init];
 	if (self != nil) {
-        self.libraryDirPath = [self buildLibDir: libraryDir];
         [self setup];
     }
     return self;
@@ -102,11 +97,13 @@
 	[NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];	
 }
 
-- (BOOL) loadXmlLibrary {
+- (BOOL) loadXmlLibraryFromDirectory: (NSString*) directory {
     NSLog(@"loadXML");
     presentationData = nil;
+    [libraryDirPath release];
+    libraryDirPath = [directory retain];
     
-    NSString *libraryPath = [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"];
+    NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
     presentationData = [[NSMutableDictionary alloc] init];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
