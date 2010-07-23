@@ -124,8 +124,8 @@ static NSImage * ourSyncIcon = nil;
 
 -(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        NSAlert * confirm = [self confirmDialogWithMessage: @"Really abort synchronization?" 
-                                         informationalText: @"Aborting sync may lead to an inconsistent library" 
+        NSAlert * confirm = [self confirmDialogWithMessage: @"Abort synchronization?" 
+                                         informationalText: @"Aborting sync may lead to an inconsistent library." 
                                                      style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution]];
         [self showSheet: confirm didEndSelector: @selector(userDidConfirmAbort:returnCode:contextInfo:) context: nil];
     }

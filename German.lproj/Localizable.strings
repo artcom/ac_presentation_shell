@@ -9,3 +9,11 @@
 "Synchronization failed" = "Synchronisation fehlgeschlagen";
 "Synchronize library now?" = "Bibliothek jetzt synchronisieren?";
 "A good network connection and some patience is required." = "Eine gute Netzwerkverbinung und Geduld sind gefragt.";
+"Library synchronized" = "Bibliothek synchronisiert";
+"Have a nice day." = "Hab 'nen schönen Tag.";
+"Synchronization failed" = "Synchronisation fehlgeschlagen";
+"Abort synchronization?" = "Synchronisation abbrechen?";
+"Aborting sync may lead to an inconsistent library." = "Abbruch kann zu einer inkonsitenten Bibliothek führen.";
+"This may take a while." = "Das kann eine Weile dauern.";
+"Synchronizing Library" = "Synchronisiere Bibliothek";
+
