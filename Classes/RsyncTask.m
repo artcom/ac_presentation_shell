@@ -15,6 +15,7 @@
 - (NSUInteger) readTargetSizeFromRsyncOutput: (NSPipe *) outputPipe;
 - (void) cleanup;
 - (void) processRsyncOutput: (NSData*) output;
+- (NSUInteger)dryRun;
 
 @end
 
@@ -22,12 +23,13 @@
 @implementation RsyncTask
 
 @synthesize delegate;
+@synthesize currentProgressPercent;
 
-- (id)initWithSource: (NSString *)theSource desctination: (NSString *)theDestination; {
+- (id)initWithSource: (NSString *)theSource destination: (NSString *)theDestination; {
 	self = [super init];
 	if (self != nil) {	
 		source = [theSource retain];
-		destination = [theDestination retain];
+		destination = [[theDestination stringByAppendingPathComponent:@""] retain];
 		
 		targetLibrarySize = [self dryRun];
 	}
@@ -126,10 +128,10 @@
         
 		NSUInteger currentLibrarySize;
         if ([scanner scanInteger: (NSInteger*) & currentLibrarySize]) {
-            double progressPercent = 100 * ((double)currentLibrarySize/targetLibrarySize);
+            currentProgressPercent = 100 * ((double)currentLibrarySize/targetLibrarySize);
 			
 			if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateProgress:)]) {
-				[delegate rsyncTask: self didUpdateProgress: progressPercent];	
+				[delegate rsyncTask: self didUpdateProgress: currentProgressPercent];	
 			}
 		} else {
             if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateStatusMessage:)]) {

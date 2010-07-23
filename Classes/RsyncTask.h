@@ -31,15 +31,16 @@
 	NSString *destination;
 	
 	NSUInteger targetLibrarySize;
+    double     currentProgressPercent;
 	
 	id <RsyncTaskDelegate> delegate;
 }
 
 @property (assign) id <RsyncTaskDelegate> delegate;
+@property (readonly) double currentProgressPercent;
 
-- (id)initWithSource: (NSString *)source desctination: (NSString *)destination;
+- (id)initWithSource: (NSString *)source destination: (NSString *)destination;
 - (void)sync;
-- (NSUInteger)dryRun;
 
 - (void)terminate;
 

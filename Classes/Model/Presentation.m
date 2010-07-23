@@ -63,7 +63,7 @@
 
 - (NSImage *)thumbnail {
 	if (thumbnail == nil) {
-		NSString *filepath = [[PresentationLibrary libraryFilepath] stringByAppendingPathComponent: self.thumbnailPath];
+		NSString *filepath = [[context libraryDirPath] stringByAppendingPathComponent: self.thumbnailPath];
 		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];		
 	}
 	return thumbnail;
@@ -95,7 +95,7 @@
 }
 
 - (NSString *)presentationFile {
-	return [[PresentationLibrary libraryFilepath] stringByAppendingPathComponent: self.presentationPath];
+	return [[context libraryDirPath] stringByAppendingPathComponent: self.presentationPath];
 }
 
 - (BOOL) isEqual:(id)object {

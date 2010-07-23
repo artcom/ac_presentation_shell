@@ -51,15 +51,13 @@
 - (id) init {
 	self = [super init];
 	if (self != nil) {		        
-		
+		NSString * rsyncSource = [[NSUserDefaults standardUserDefaults] stringForKey: @"rsyncSource"];
+        presentationLibrary = [[PresentationLibrary libraryFromSettingsFileWithLibraryDir: [rsyncSource lastPathComponent]] retain];
+
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
-        presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
 		
-		NSString * dstPath = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
-		NSString * srcPath = [[NSUserDefaults standardUserDefaults] stringForKey: @"libraryPath"];
-		
-		rsyncController = [[RsyncController alloc] initWithSource: srcPath destination: dstPath];
+		rsyncController = [[RsyncController alloc] initWithSource: rsyncSource destination: presentationLibrary.libraryDirPath];
 		rsyncController.delegate = self;
 	}
 	
@@ -81,6 +79,8 @@
                                                  name:NSOutlineViewSelectionDidChangeNotification object:collectionView];
 	
 	[self bind: @"currentPresentationList" toObject:collectionTreeController withKeyPath:@"selection.presentations" options:nil];
+    
+    rsyncController.documentWindow = self.browserWindow;
 }
 
 - (void) dealloc {
@@ -98,33 +98,23 @@
 	
 	[self willChangeValueForKey:@"library"];
     if ( ! [presentationLibrary loadXmlLibrary]) {
-       // NSBeginAlertSheet( NSLocalizedString(@"Synchronize library now?",nil), @"OK", @"Cancel",
-//                          nil, browserWindow, self, @selector(onLibrarySyncAnswered:returnCode:contextInfo:),
-//                          nil, browserWindow, 
-//                          NSLocalizedString(@"A good network connection and some patience is required.", nil),
-//                          nil);
-
+        [rsyncController initialSync];
     }
 	[self didChangeValueForKey:@"library"];
 	[self beautifyOutlineView];
 }
 
--(void) onLibrarySyncAnswered: (NSWindow *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
-    if (returnCode == NSAlertDefaultReturn) {
-        [sheet close];
-        [self sync: nil];
-    } else {
-        NSLog(@"sync canceled");
-    }
-}
-        
 - (IBAction)play: (id)sender {	
 	presentationWindowController.presentations = [self selectedPresentations];
 	[presentationWindowController showWindow:nil];
 }
 
 - (IBAction)sync: (id)sender {
-	[rsyncController sync:[[NSApplication sharedApplication] mainWindow]];
+    if ([presentationLibrary hasLibrary]) {
+        [rsyncController sync];
+    } else {
+        [rsyncController initialSync];
+    }
 }
 
 - (IBAction)remove: (id)sender {

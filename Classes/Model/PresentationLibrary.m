@@ -22,28 +22,35 @@
 @property (readonly) NSMutableArray* collections;
 
 + (NSString*) settingsFilepath;
+
+-(id) initWithLibraryDir: (NSString*) libraryDir;
 -(void) setup;
 -(void) syncPresentations;
 -(void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
 -(void) dropStalledPresentations: (NSMutableArray*) presentations;
+- (NSString*) buildLibDir: (NSString*) libraryDir;
 
 @end
 
 @implementation PresentationLibrary
 @synthesize library;
+@synthesize libraryDirPath;
 
-+ (id) libraryFromSettingsFile {
+
++ (id) libraryFromSettingsFileWithLibraryDir: (NSString*) libraryDir {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
     if (lib != nil) {
+        lib.libraryDirPath = [lib buildLibDir: libraryDir];
         return lib;
     }
     NSLog(@"no settings file");
-    return [[[PresentationLibrary alloc] init] autorelease];
+    return [[[PresentationLibrary alloc] initWithLibraryDir: libraryDir] autorelease];
 }
 
--(id) init {
+-(id) initWithLibraryDir: (NSString*) libraryDir {
 	self = [super init];
 	if (self != nil) {
+        self.libraryDirPath = [self buildLibDir: libraryDir];
         [self setup];
     }
     return self;
@@ -99,7 +106,7 @@
     NSLog(@"loadXML");
     presentationData = nil;
     
-    NSString *libraryPath = [[PresentationLibrary libraryFilepath] stringByAppendingPathComponent:@"library.xml"];
+    NSString *libraryPath = [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"];
     presentationData = [[NSMutableDictionary alloc] init];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
@@ -205,12 +212,13 @@
     return [presentationData count] > 0;
 }
 
+- (NSString*) buildLibDir: (NSString*) libraryDir {
+    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent: libraryDir];
+}
+
 + (NSString*) settingsFilepath {
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
 }
 
-+ (NSString*) libraryFilepath {
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"library"];
-}
 
 @end

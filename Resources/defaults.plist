@@ -2,11 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>syncServer</key>
-	<string>graviton.intern.artcom.de</string>
-	<key>libraryPath</key>
-	<string>/Volumes/kommunikation/extern/Praesentationen/presentationtest/</string>
 	<key>presentationDoubleClick</key>
 	<integer>0</integer>
+	<key>rsyncSource</key>
+	<string>/Volumes/kommunikation/extern/Praesentationen/medium_library</string>
 </dict>
 </plist>

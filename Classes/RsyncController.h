@@ -20,18 +20,21 @@
     NSString * source;
     NSString * destination;
     
-    NSAlert * alert;
-    NSPipe * pipe;
-    NSUInteger targetLibrarySize;
-	NSWindow * sheetOwningWindow;
+    //NSAlert * alert;
 	
 	RsyncTask *rsyncTask;
 	id <RsyncControllerDelegate> delegate;
+    
+    NSAlert * currentSheet;
+	NSWindow * documentWindow;
+    BOOL terminatedByUser;
 }
 
 @property (assign) id <RsyncControllerDelegate> delegate;
+@property (retain) NSWindow* documentWindow;
 
 - (id) initWithSource:(NSString *)sourceDir destination:(NSString*)destinationDir;
-- (void) sync: (NSWindow *) sheetWindow;
+- (void) sync;
+- (void) initialSync;
 
 @end

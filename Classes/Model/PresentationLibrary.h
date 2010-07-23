@@ -16,16 +16,15 @@
 	NSMutableDictionary *presentationData;
     
     ACShellCollection * library;
+    NSString * libraryDirPath;
 }
 
 @property (retain, nonatomic) ACShellCollection* library;
-
+@property (retain) NSString * libraryDirPath;
 @property (readonly) BOOL hasLibrary;
 
 
-+ (id)libraryFromSettingsFile;
-+ (NSString*) libraryFilepath;
-
++ (id)libraryFromSettingsFileWithLibraryDir: (NSString*) libraryDir;
 
 - (void)saveSettings;
 - (BOOL)loadXmlLibrary;
