@@ -13,9 +13,10 @@
 
 - (void)rsyncTaskDidFinish: (RsyncTask *)task;
 - (void)rsyncTask: (RsyncTask *)task didFailWithError: (NSString *)error;
-- (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)progress;
-- (void)rsyncTask: (RsyncTask *)task didUpdateStatusMessage: (NSString *)message;
-
+- (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)fileProgress
+       itemNumber: (NSInteger) itemNumber
+               of: (NSInteger) itemCount;
+- (void)rsyncTask: (RsyncTask *)task didUpdateMessage: (NSString *)name;
 
 @end
 
@@ -31,13 +32,11 @@
 	NSString *destination;
 	
 	NSUInteger targetLibrarySize;
-    double     currentProgressPercent;
 	
 	id <RsyncTaskDelegate> delegate;
 }
 
 @property (assign) id <RsyncTaskDelegate> delegate;
-@property (readonly) double currentProgressPercent;
 
 - (id)initWithSource: (NSString *)source destination: (NSString *)destination;
 - (void)sync;

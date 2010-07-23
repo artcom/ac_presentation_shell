@@ -18,7 +18,7 @@
 
 -(NSImage*) syncIcon;
 -(void) performSync: (NSString*) source destination: (NSString*) destination;
-
+-(void) setFileProgress: (double) percent;
 
 -(NSAlert*) progressDialog;
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
@@ -35,14 +35,26 @@ static NSImage * ourSyncIcon = nil;
 @synthesize delegate;
 @synthesize documentWindow;
 
+@synthesize progressView;
+@synthesize fileProgressBar;
+@synthesize fileProgressLabel;
+@synthesize totalProgressBar;
+@synthesize totalProgressLabel;
+
+
 - (id) init {
     self = [super init];
     if (self != nil) {
+        [NSBundle loadNibNamed: @"RsyncProgressView" owner: self];
     }
     return self;   
 }
 
+-(void) awakeFromNib {
+}
+
 -(void) dealloc {
+    [lastRsyncMessage release];
     
     [super dealloc];
 }
@@ -65,14 +77,19 @@ static NSImage * ourSyncIcon = nil;
     NSAlert * progressDialog = [self progressDialog];
     [self showSheet: progressDialog didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
     terminatedByUser = NO;
-    // Warning: long running constructor. performs synchronous rsync. probably not good.
 	rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
 	rsyncTask.delegate = self;
     
-    [(NSProgressIndicator*) [progressDialog accessoryView] setIndeterminate: NO]; 
+    fileProgressLabel.stringValue = [NSString stringWithFormat: @"%3.1f%%", 0.0];
+    totalProgressLabel.stringValue = @"";
 
 	[rsyncTask sync];
 };
+
+-(void) setFileProgress: (double) percent {
+    fileProgressBar.doubleValue = percent;
+    fileProgressLabel.stringValue = [NSString stringWithFormat: @"%3.1f%%", percent];
+}
 
 #pragma mark -
 #pragma mark RsyncTask Delegate Methods
@@ -100,18 +117,31 @@ static NSImage * ourSyncIcon = nil;
 	[delegate rsync:self didFinishSyncingSuccesful: NO];
 }
 
-- (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)progress {
-    if ([currentSheet accessoryView] != nil) {
-        NSProgressIndicator * progressBar = (NSProgressIndicator*)[currentSheet accessoryView];
-        [progressBar setIndeterminate: NO];
-        [progressBar setDoubleValue: progress];
+- (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)fileProgress
+       itemNumber: (NSInteger) itemNumber of: (NSInteger) itemCount
+{
+    [self setFileProgress: fileProgress];
+    
+    if (itemNumber >= 0 && itemCount >= 0) {
+        double totalPercent = ((double)itemNumber / itemCount) * 100;
+        totalProgressBar.doubleValue = totalPercent;
+        totalProgressLabel.stringValue = [NSString stringWithFormat: NSLocalizedString(@"Checked %d of %d files (%3.1f%%)", nil),
+                                          itemNumber, itemCount, totalPercent];
+    } else if (itemCount >= 0) {
+        totalProgressLabel.stringValue = [NSString stringWithFormat: NSLocalizedString(@"Checking %d files", nil), itemCount];
     }
 }
 
-- (void)rsyncTask: (RsyncTask *)task didUpdateStatusMessage: (NSString *)message {
-	if ([currentSheet accessoryView] != nil) {
-        [currentSheet setInformativeText: [NSString stringWithFormat: @"%3.1f%% %@", [rsyncTask currentProgressPercent], message]];
+- (void)rsyncTask: (RsyncTask *)task didUpdateMessage: (NSString *)message {    
+	if ([currentSheet accessoryView] == progressView) {        
+        [currentSheet setInformativeText: message];
     }
+    
+    [fileProgressBar setIndeterminate: NO];
+    [totalProgressBar setIndeterminate: NO];
+    
+    [lastRsyncMessage release];
+    lastRsyncMessage = [message retain];
 }  
 
 #pragma mark -
@@ -140,9 +170,11 @@ static NSImage * ourSyncIcon = nil;
         terminatedByUser = YES;
     } else if (returnCode == NSAlertSecondButtonReturn) {
         NSAlert * progress = [self progressDialog];
-        NSProgressIndicator * progressBar = (NSProgressIndicator*) [progress accessoryView];
-        [progressBar setDoubleValue: [rsyncTask currentProgressPercent]];
+        [progress setInformativeText: lastRsyncMessage];
         [self showSheet: [self progressDialog] didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
+        [fileProgressBar setIndeterminate: NO];
+        [totalProgressBar setIndeterminate: NO];
+        
     }
 }
 
@@ -208,16 +240,19 @@ static NSImage * ourSyncIcon = nil;
 
 -(NSAlert*) progressDialog {
     NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
-    [dialog addButtonWithTitle:@"Cancel"];
+    [dialog addButtonWithTitle:@"Abort"];
     [dialog setMessageText: NSLocalizedString(@"Synchronizing Library",nil)];
     [dialog setInformativeText: NSLocalizedString(@"This may take a while.",nil)];
     [dialog setAlertStyle: NSWarningAlertStyle];
     [dialog setIcon: [self syncIcon]];
     
-    NSProgressIndicator * progressBar = [[[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)] autorelease];
-    [progressBar setIndeterminate: YES];
-    [progressBar startAnimation: self];
-    [dialog setAccessoryView: progressBar];
+    [dialog setAccessoryView: progressView];
+    
+    [fileProgressBar setIndeterminate: YES];
+    [fileProgressBar startAnimation: self];
+
+    [totalProgressBar setIndeterminate: YES];
+    [totalProgressBar startAnimation: self];
     return dialog;
 }
 

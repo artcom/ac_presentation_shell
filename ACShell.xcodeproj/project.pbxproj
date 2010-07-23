@@ -57,6 +57,7 @@
 		6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
+		63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -168,6 +169,7 @@
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-WithUUID.h"; path = "Classes/Helper/NSString-WithUUID.h"; sourceTree = "<group>"; };
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-WithUUID.m"; path = "Classes/Helper/NSString-WithUUID.m"; sourceTree = "<group>"; };
+		63A6A9F211FA10AC0057B7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RsyncProgressView.xib; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -406,6 +408,7 @@
 				6366021B11F1F02800D6DD96 /* Localizable.strings */,
 				6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */,
 				6366076A11F33F4200D6DD96 /* defaults.plist */,
+				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 				6366076B11F33F4200D6DD96 /* defaults.plist in Resources */,
 				2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */,
 				22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */,
+				63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,6 +600,14 @@
 				6366050111F2EEFF00D6DD96 /* English */,
 			);
 			name = PreferenceWindow.xib;
+			sourceTree = "<group>";
+		};
+		63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63A6A9F211FA10AC0057B7F5 /* English */,
+			);
+			name = RsyncProgressView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

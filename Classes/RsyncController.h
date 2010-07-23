@@ -25,10 +25,24 @@
     NSAlert * currentSheet;
 	NSWindow * documentWindow;
     BOOL terminatedByUser;
+    
+    NSView * progressView;
+    NSProgressIndicator * fileProgressBar;
+    NSTextField * fileProgressLabel;
+    NSProgressIndicator * totalProgressBar;
+    NSTextField * totalProgressLabel;
+    
+    NSString * lastRsyncMessage;
 }
 
 @property (assign) id <RsyncControllerDelegate> delegate;
 @property (retain) NSWindow* documentWindow;
+
+@property (retain, nonatomic) IBOutlet NSView * progressView;
+@property (retain, nonatomic) IBOutlet NSProgressIndicator * fileProgressBar;
+@property (retain, nonatomic) IBOutlet NSTextField * fileProgressLabel;
+@property (retain, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
+@property (retain, nonatomic) IBOutlet NSTextField * totalProgressLabel;
 
 - (void) syncWithSource: (NSString*) source destination: (NSString*) destination;
 - (void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination;

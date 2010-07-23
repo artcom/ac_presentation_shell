@@ -26,10 +26,8 @@
 
 @interface RsyncTask ()
 
-- (NSUInteger) readTargetSizeFromRsyncOutput: (NSPipe *) outputPipe;
 - (void) cleanup;
 - (void) processRsyncOutput: (NSData*) output;
-- (NSUInteger)dryRun;
 
 @end
 
@@ -37,14 +35,12 @@
 @implementation RsyncTask
 
 @synthesize delegate;
-@synthesize currentProgressPercent;
 
 - (id)initWithSource: (NSString *)theSource destination: (NSString *)theDestination; {
 	self = [super init];
 	if (self != nil) {	
 		source = [[theSource stringByAppendingSlash] retain];
         destination = [[theDestination stringByAppendingSlash] retain];
-		targetLibrarySize = [self dryRun];
 	}
 	
 	return self;
@@ -84,49 +80,8 @@
     [task launch];
 }
 
-- (NSUInteger)dryRun {
-	NSTask * dryRunTask = [[[NSTask alloc] init] autorelease];
-    [dryRunTask setLaunchPath: RSYNC_EXECUTABLE];
-    [dryRunTask setArguments: [NSArray arrayWithObjects: 
-							   @"-nav", source, destination, nil]];
-    
-	NSPipe * outPipe = [NSPipe pipe];
-    [dryRunTask setStandardOutput: outPipe];
-	
-	NSPipe * dryErrorPipe = [NSPipe pipe];
-	[dryRunTask setStandardError: dryErrorPipe];
-	
-    [dryRunTask launch];
-    [dryRunTask waitUntilExit];
-    if ([dryRunTask terminationStatus] != 0) {
-        NSLog(@"rsync dry-run failed");
-		NSData *errorData = [[dryErrorPipe fileHandleForReading] readDataToEndOfFile];
-		[delegate rsyncTask:self didFailWithError: [[[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding] autorelease]];
-        return 0;
-    }
-	
-    return [self readTargetSizeFromRsyncOutput: outPipe];
-}
-
 - (void)terminate {
 	[task terminate];
-}
-
-
--(NSUInteger) readTargetSizeFromRsyncOutput: (NSPipe *) outputPipe {
-    NSUInteger size = 0;
-	
-	NSString * output = [[[NSString alloc] initWithData: [[outputPipe fileHandleForReading] readDataToEndOfFile] 
-											  encoding:NSASCIIStringEncoding] autorelease];
-    
-    NSArray * lines = [output componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
-    NSString * lastLine = [lines objectAtIndex: [lines count] - 2];
-    NSScanner *theScanner = [NSScanner scannerWithString:lastLine];
-	
-    [theScanner scanUpToCharactersFromSet: [NSCharacterSet decimalDigitCharacterSet] intoString: nil];
-    [theScanner scanInteger: (NSInteger*)& size];
-	
-	return size;
 }
 
 -(void) processRsyncOutput: (NSData*) output {
@@ -136,23 +91,49 @@
         if ([line length] == 0) {
             continue;
         }
-        NSScanner * scanner = [[[NSScanner alloc] initWithString: line] autorelease];
-        [scanner setCharactersToBeSkipped: [NSCharacterSet whitespaceCharacterSet]];
-        
-		NSUInteger currentLibrarySize;
-        if ([scanner scanInteger: (NSInteger*) & currentLibrarySize]) {
-            currentProgressPercent = 100 * ((double)currentLibrarySize/targetLibrarySize);
-			
-			if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateProgress:)]) {
-				[delegate rsyncTask: self didUpdateProgress: currentProgressPercent];	
+        NSLog(@"line: '%@'", line);
+        if ([line characterAtIndex: 0] == ' ') {
+            NSScanner * scanner = [[[NSScanner alloc] initWithString: line] autorelease];
+            [scanner setCharactersToBeSkipped: [NSCharacterSet whitespaceCharacterSet]];
+            NSInteger maybeFileCount = -1;
+            if ( ! [scanner scanInteger: &maybeFileCount]) {
+                NSLog(@"failed to parse rsync output: bytecount");
+                continue;
+            }
+            double progress;
+            if ( ! [scanner scanDouble: &progress]) {
+                if (maybeFileCount >= 0) {
+                    if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateProgress:itemNumber:of:)]) {
+                        [delegate rsyncTask: self didUpdateProgress: 0.0 itemNumber: -1 of: maybeFileCount];	
+                    }                    
+                }
+                continue;
+            }
+            if ( ! [scanner scanUpToString:@"=" intoString:nil]) {
+                NSLog(@"failed to parse rsync output: '='");
+                continue;
+            }
+            NSInteger pendingItems = 0;
+            [scanner setCharactersToBeSkipped: [NSCharacterSet characterSetWithCharactersInString:@"="]];
+            if ( ! [scanner scanInteger: & pendingItems]) {
+                pendingItems = -1;
+            }
+            [scanner setCharactersToBeSkipped: [NSCharacterSet characterSetWithCharactersInString:@"/"]];
+            NSInteger totalItems = 0;
+            if ( ! [scanner scanInteger: & totalItems]) {
+                totalItems = -1;
+            }
+            
+			if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateProgress:itemNumber:of:)]) {
+				[delegate rsyncTask: self didUpdateProgress: progress itemNumber: totalItems - pendingItems of: totalItems];	
 			}
 		} else {
-            if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateStatusMessage:)]) {
-				[delegate rsyncTask:self didUpdateStatusMessage: line];
+            if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateMessage:)]) {
+				[delegate rsyncTask:self didUpdateMessage: line];
 			}
         }
-		
     }
+		
 }
 
 -(void)rsyncDidUpdateProgress: (NSNotification*) notification {
