@@ -111,7 +111,7 @@
         return NO;
     }
     NSError *error = nil;
-    NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
+    NSXMLDocument *document = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error] autorelease];
     NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
     
     if (error != nil) {
@@ -167,7 +167,7 @@
 }
 
 - (void)addNewPresentations: (NSMutableArray*) thePresentations withPredicate: thePredicate {
-    NSMutableArray * presentIds = [[NSMutableArray alloc] init];
+    NSMutableArray * presentIds = [[[NSMutableArray alloc] init] autorelease];
     for (Presentation* presentation in thePresentations) {
         [presentIds addObject: presentation.presentationId];
     }

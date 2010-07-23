@@ -77,8 +77,12 @@ static NSImage * ourSyncIcon = nil;
 
 - (void)rsyncTaskDidFinish: (RsyncTask *)task; {
 	NSLog(@"did finish syncing");
-    [self showSheet: nil didEndSelector: nil context: nil];
-	
+    NSAlert * ack = [self acknowledgeDialogWithMessage: @"Library synchronized"
+                                     informationalText: @"Have a nice day."
+                                                 style: NSInformationalAlertStyle
+                                                  icon: [self syncIcon]];
+    [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:) context: nil];
+
 	[delegate rsync:self didFinishSyncingSuccesful: YES];
 }
 
@@ -164,7 +168,7 @@ static NSImage * ourSyncIcon = nil;
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                style: (NSAlertStyle) style icon: (NSImage*) icon
 {
-    NSAlert * dialog = [[NSAlert alloc] init];
+    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
     [dialog addButtonWithTitle:@"OK"];
     [dialog addButtonWithTitle:@"Cancel"];
     [dialog setMessageText: NSLocalizedString(message, nil)];
@@ -179,7 +183,7 @@ static NSImage * ourSyncIcon = nil;
 -(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                    style: (NSAlertStyle) style icon: (NSImage*) icon
 {
-    NSAlert * dialog = [[NSAlert alloc] init];
+    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
     [dialog addButtonWithTitle:@"OK"];
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
@@ -191,14 +195,14 @@ static NSImage * ourSyncIcon = nil;
 }
 
 -(NSAlert*) progressDialog {
-    NSAlert * dialog = [[NSAlert alloc] init];
+    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
     [dialog addButtonWithTitle:@"Cancel"];
     [dialog setMessageText: NSLocalizedString(@"Synchronizing Library",nil)];
     [dialog setInformativeText: NSLocalizedString(@"This may take a while.",nil)];
     [dialog setAlertStyle: NSWarningAlertStyle];
     [dialog setIcon: [self syncIcon]];
     
-    NSProgressIndicator * progressBar = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)];
+    NSProgressIndicator * progressBar = [[[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)] autorelease];
     [progressBar setIndeterminate: YES];
     [progressBar startAnimation: self];
     [dialog setAccessoryView: progressBar];

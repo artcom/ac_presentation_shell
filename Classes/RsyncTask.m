@@ -116,8 +116,8 @@
 -(NSUInteger) readTargetSizeFromRsyncOutput: (NSPipe *) outputPipe {
     NSUInteger size = 0;
 	
-	NSString * output = [[NSString alloc] initWithData: [[outputPipe fileHandleForReading] readDataToEndOfFile] 
-											  encoding:NSASCIIStringEncoding];
+	NSString * output = [[[NSString alloc] initWithData: [[outputPipe fileHandleForReading] readDataToEndOfFile] 
+											  encoding:NSASCIIStringEncoding] autorelease];
     
     NSArray * lines = [output componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
     NSString * lastLine = [lines objectAtIndex: [lines count] - 2];
@@ -130,13 +130,13 @@
 }
 
 -(void) processRsyncOutput: (NSData*) output {
-    NSArray * lines = [[[NSString alloc] initWithData: output encoding:NSASCIIStringEncoding] 
-                       componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
+    NSString * str = [[[NSString alloc] initWithData: output encoding:NSASCIIStringEncoding] autorelease];
+    NSArray * lines = [str componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
     for (NSString * line in lines) {
         if ([line length] == 0) {
             continue;
         }
-        NSScanner * scanner = [[NSScanner alloc] initWithString: line];
+        NSScanner * scanner = [[[NSScanner alloc] initWithString: line] autorelease];
         [scanner setCharactersToBeSkipped: [NSCharacterSet whitespaceCharacterSet]];
         
 		NSUInteger currentLibrarySize;
