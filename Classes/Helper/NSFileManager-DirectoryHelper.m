@@ -38,6 +38,7 @@
     if (err == noErr) {
         url = CFURLCreateFromFSRef(kCFAllocatorDefault, &folder);
         result = [(NSURL *)url path];
+		CFRelease(url);
     }
 	
     return result;
