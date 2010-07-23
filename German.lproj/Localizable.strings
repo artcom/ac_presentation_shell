@@ -16,4 +16,5 @@
 "Aborting sync may lead to an inconsistent library." = "Abbruch kann zu einer inkonsitenten Bibliothek führen.";
 "This may take a while." = "Das kann eine Weile dauern.";
 "Synchronizing Library" = "Synchronisiere Bibliothek";
-
+"Abort" = "Abbrechen";
+"Continue syncing" = "Fortsetzen";

@@ -21,7 +21,8 @@
 
 
 -(NSAlert*) progressDialog;
--(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
+-(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
+                               style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles;
 -(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
 -(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector context: (void*) context;
 
@@ -54,7 +55,8 @@ static NSImage * ourSyncIcon = nil;
     NSAlert * confirm = [self confirmDialogWithMessage: @"Synchronize library now?"
                                      informationalText: @"A good network connection and some patience is required."
                                                  style: NSInformationalAlertStyle
-                                                  icon: [self syncIcon]];
+                                                  icon: [self syncIcon] 
+												buttonTitles: nil];
     NSArray * srcDst = [[NSArray arrayWithObjects: source, destination, nil] retain];
     [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: srcDst];
 }
@@ -108,7 +110,7 @@ static NSImage * ourSyncIcon = nil;
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateStatusMessage: (NSString *)message {
 	if ([currentSheet accessoryView] != nil) {
-        [currentSheet setInformativeText: [NSString stringWithFormat: @"%0.1f%% %@", [rsyncTask currentProgressPercent], message]];
+        [currentSheet setInformativeText: [NSString stringWithFormat: @"%3.1f%% %@", [rsyncTask currentProgressPercent], message]];
     }
 }  
 
@@ -126,7 +128,8 @@ static NSImage * ourSyncIcon = nil;
     if (returnCode == NSAlertFirstButtonReturn) {
         NSAlert * confirm = [self confirmDialogWithMessage: @"Abort synchronization?" 
                                          informationalText: @"Aborting sync may lead to an inconsistent library." 
-                                                     style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution]];
+                                                     style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution] 
+											  buttonTitles: [NSArray arrayWithObjects:@"Abort", @"Continue syncing", nil]];
         [self showSheet: confirm didEndSelector: @selector(userDidConfirmAbort:returnCode:contextInfo:) context: nil];
     }
 }
@@ -168,11 +171,18 @@ static NSImage * ourSyncIcon = nil;
 }
 
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
-                               style: (NSAlertStyle) style icon: (NSImage*) icon
+                               style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles
 {
     NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
-    [dialog addButtonWithTitle:@"OK"];
-    [dialog addButtonWithTitle:@"Cancel"];
+
+	if (titles == nil) {
+		titles = [NSArray arrayWithObjects:@"OK", @"Cancel", nil];
+	}
+
+	for (NSString *title in titles) {
+		[dialog addButtonWithTitle: NSLocalizedString(title, nil)];
+	}
+
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
     if (icon != nil) {
