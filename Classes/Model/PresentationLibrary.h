@@ -22,6 +22,7 @@
 @property (retain, nonatomic) ACShellCollection* library;
 @property (readonly) BOOL hasLibrary;
 @property (readonly) NSString* libraryDirPath;
+@property (assign) BOOL syncSuccessful;
 
 + (id)libraryFromSettingsFile;
 

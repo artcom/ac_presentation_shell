@@ -14,12 +14,14 @@
 #define ACSHELL_COLLECTIONS @"COLLECTIONS"
 #define ACSHELL_CATEGORY_ALL @"All"
 #define ACSHELL_CATEGORY_HIGHLIGHTS @"Highlights"
+#define ACSHELL_SYNC_SUCCESSFUL @"syncSuccessful"
 
 @interface PresentationLibrary ()
 
 @property (readonly) NSMutableArray* allPresentations;
 @property (readonly) NSMutableArray* highlights;
 @property (readonly) NSMutableArray* collections;
+
 
 + (NSString*) settingsFilepath;
 
@@ -33,6 +35,7 @@
 @implementation PresentationLibrary
 @synthesize library;
 @synthesize libraryDirPath;
+@synthesize syncSuccessful;
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
@@ -47,6 +50,7 @@
 	self = [super init];
 	if (self != nil) {
         [self setup];
+        self.syncSuccessful = YES;
     }
     return self;
 }
@@ -58,7 +62,8 @@
         [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_CATEGORY_ALL]];
         [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_CATEGORY_HIGHLIGHTS]];
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_COLLECTIONS]];
-
+        self.syncSuccessful = [aDecoder decodeBoolForKey: ACSHELL_SYNC_SUCCESSFUL];
+        
         [library assignContext: self];
     }
 
@@ -90,7 +95,8 @@
 - (void) encodeWithCoder:(NSCoder *)aCoder {	
 	[aCoder encodeObject: self.allPresentations forKey:ACSHELL_CATEGORY_ALL];
 	[aCoder encodeObject: self.highlights forKey:ACSHELL_CATEGORY_HIGHLIGHTS];
-	[aCoder encodeObject: self.collections forKey:ACSHELL_COLLECTIONS];	
+	[aCoder encodeObject: self.collections forKey:ACSHELL_COLLECTIONS];
+    [aCoder encodeBool: self.syncSuccessful forKey: ACSHELL_SYNC_SUCCESSFUL];
 }
 
 - (void)saveSettings {

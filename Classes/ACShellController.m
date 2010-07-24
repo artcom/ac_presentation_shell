@@ -18,8 +18,10 @@
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
-#define ACSHELL_OPEN_PRESENTATION 0
-#define ACSHELL_PLAY_PRESENTATION 1
+enum ACPresentationDoubleClicked {
+    ACShellOpenPresentation,
+    ACShellPlayPresentation
+};
 
 @interface ACShellController ()
 
@@ -27,6 +29,7 @@
 - (BOOL) isToplevelGroup: (id) item;
 - (BOOL) isStaticCategory: (id) item;
 - (void) updateStatusText: (NSNotification*) notification;
+- (void) updateSyncFailedWarning;
 
 @property (readonly) NSString* librarySource;
 
@@ -37,11 +40,11 @@
 @synthesize presentationsArrayController;
 @synthesize collectionTreeController;
 @synthesize browserWindow;
-@synthesize progressSpinner;
 @synthesize collectionView;
 @synthesize presentationTable;
 @synthesize statusLine;
 @synthesize currentPresentationList;
+@synthesize warningIcon;
 
 
 + (void) initialize {
@@ -81,6 +84,8 @@
 	[self bind: @"currentPresentationList" toObject:collectionTreeController withKeyPath:@"selection.presentations" options:nil];
     
     rsyncController.documentWindow = self.browserWindow;
+    
+    [self updateSyncFailedWarning];
 }
 
 - (void) dealloc {
@@ -132,12 +137,11 @@
 			return;
 		}
 		
-		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"presentationDoubleClick"] intValue] == ACSHELL_OPEN_PRESENTATION) {
+		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"presentationDoubleClick"] intValue] == ACShellOpenPresentation) {
 			[[KeynoteHandler sharedHandler] open: presentation.presentationFile];			
 		} else {
 			[[KeynoteHandler sharedHandler] play: presentation.presentationFile withDelegate: self];			
 		}
-		
 	}
 }
 
@@ -188,7 +192,7 @@
         NSBeep();
 		return;
 	}
-
+# pragma mark XXX binding issue: removing presentations fails!
     [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
 }
 
@@ -339,6 +343,8 @@
 #pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
 - (void)rsync:(RsyncController *) controller didFinishSyncingSuccesful:(BOOL)successFlag {
+    self.presentationLibrary.syncSuccessful = successFlag;
+    [self updateSyncFailedWarning];
 	if (successFlag) {
 		[self load];
 	}
@@ -377,6 +383,15 @@
 - (NSString*) libraryDirPath {
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] 
             stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
+}
+
+- (void) updateSyncFailedWarning {
+    BOOL lastSyncOk = presentationLibrary.syncSuccessful;
+    [self.warningIcon setHidden: lastSyncOk];
+    if ( ! lastSyncOk ) {
+        [self.warningIcon setToolTip: NSLocalizedString(@"Last sync failed. Resync required.", nil)];
+    }
+
 }
 
 @end

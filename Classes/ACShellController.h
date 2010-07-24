@@ -37,6 +37,7 @@
 	RsyncController *rsyncController;
 	
 	NSMutableArray *currentPresentationList;
+    NSImageView * warningIcon;
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;
@@ -45,11 +46,12 @@
 @property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (retain, nonatomic) IBOutlet NSTreeController *collectionTreeController;
 @property (retain, nonatomic) IBOutlet NSWindow *browserWindow;
-@property (retain, nonatomic) IBOutlet NSProgressIndicator *progressSpinner;
 @property (retain, nonatomic) IBOutlet NSOutlineView *collectionView;
 @property (retain, nonatomic) IBOutlet NSTableView *presentationTable;
 @property (retain, nonatomic) IBOutlet NSTextField *statusLine;
-@property (retain, nonatomic) IBOutlet NSMutableArray * currentPresentationList;
+@property (retain, nonatomic) NSMutableArray * currentPresentationList;
+@property (retain, nonatomic) IBOutlet NSImageView * warningIcon;
+
 @property (readonly) NSString* libraryDirPath;
 
 - (IBAction)play: (id)sender;
