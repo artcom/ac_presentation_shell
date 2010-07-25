@@ -102,7 +102,7 @@
 - (void)presentationView:(PresentationView *)aView didClickedItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	
-	[keynote play: presentation.presentationFile withDelegate: self];
+	[keynote play: presentation.absolutePresentationPath withDelegate: self];
 	
 	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 	self.presentationView.mouseTracking = NO;

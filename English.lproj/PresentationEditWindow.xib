@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
+			<integer value="5"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -250,7 +250,7 @@
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSImageCell" key="NSCell" id="752454710">
 												<int key="NSCellFlags">270663168</int>
-												<int key="NSCellFlags2">0</int>
+												<int key="NSCellFlags2">32768</int>
 												<int key="NSAlign">0</int>
 												<int key="NSScale">0</int>
 												<int key="NSStyle">2</int>
@@ -266,7 +266,7 @@
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="787020023">
 												<int key="NSCellFlags">68288064</int>
-												<int key="NSCellFlags2">272761856</int>
+												<int key="NSCellFlags2">272765952</int>
 												<string key="NSContents">Thumbnail Path</string>
 												<object class="NSFont" key="NSSupport" id="26">
 													<string key="NSName">LucidaGrande</string>
@@ -304,18 +304,18 @@
 												<reference key="NSTextColor" ref="894965154"/>
 											</object>
 										</object>
-										<object class="NSTextField" id="717780122">
+										<object class="NSTextField" id="1066414692">
 											<reference key="NSNextResponder" ref="457155503"/>
 											<int key="NSvFlags">300</int>
 											<string key="NSFrame">{{243, 188}, {74, 14}}</string>
 											<reference key="NSSuperview" ref="457155503"/>
 											<bool key="NSEnabled">YES</bool>
-											<object class="NSTextFieldCell" key="NSCell" id="177933713">
+											<object class="NSTextFieldCell" key="NSCell" id="699317200">
 												<int key="NSCellFlags">68288064</int>
 												<int key="NSCellFlags2">272761856</int>
 												<string key="NSContents">Presentation:</string>
 												<reference key="NSSupport" ref="26"/>
-												<reference key="NSControlView" ref="717780122"/>
+												<reference key="NSControlView" ref="1066414692"/>
 												<reference key="NSBackgroundColor" ref="230408472"/>
 												<reference key="NSTextColor" ref="894965154"/>
 											</object>
@@ -344,7 +344,7 @@
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSButtonCell" key="NSCell" id="1069696480">
 												<int key="NSCellFlags">-2080244224</int>
-												<int key="NSCellFlags2">131072</int>
+												<int key="NSCellFlags2">163840</int>
 												<string key="NSContents">Highlight</string>
 												<reference key="NSSupport" ref="26"/>
 												<reference key="NSControlView" ref="739635673"/>
@@ -371,7 +371,7 @@
 											<bool key="NSEnabled">YES</bool>
 											<object class="NSTextFieldCell" key="NSCell" id="453199906">
 												<int key="NSCellFlags">68288064</int>
-												<int key="NSCellFlags2">4326400</int>
+												<int key="NSCellFlags2">4330496</int>
 												<string key="NSContents">Presentation Path</string>
 												<reference key="NSSupport" ref="26"/>
 												<reference key="NSControlView" ref="147044425"/>
@@ -379,7 +379,7 @@
 												<reference key="NSTextColor" ref="894965154"/>
 											</object>
 										</object>
-										<object class="NSImageView" id="835954565">
+										<object class="NSImageView" id="523977384">
 											<reference key="NSNextResponder" ref="457155503"/>
 											<int key="NSvFlags">268</int>
 											<object class="NSMutableSet" key="NSDragTypes">
@@ -397,9 +397,9 @@
 											<string key="NSFrame">{{243, 84}, {226, 106}}</string>
 											<reference key="NSSuperview" ref="457155503"/>
 											<bool key="NSEnabled">YES</bool>
-											<object class="NSImageCell" key="NSCell" id="566630542">
-												<int key="NSCellFlags">130560</int>
-												<int key="NSCellFlags2">33554432</int>
+											<object class="NSImageCell" key="NSCell" id="596721789">
+												<int key="NSCellFlags">270663168</int>
+												<int key="NSCellFlags2">32768</int>
 												<int key="NSAlign">0</int>
 												<int key="NSScale">0</int>
 												<int key="NSStyle">2</int>
@@ -407,18 +407,18 @@
 											</object>
 											<bool key="NSEditable">YES</bool>
 										</object>
-										<object class="NSButton" id="202513638">
+										<object class="NSButton" id="808756091">
 											<reference key="NSNextResponder" ref="457155503"/>
 											<int key="NSvFlags">268</int>
 											<string key="NSFrame">{{427, 63}, {33, 18}}</string>
 											<reference key="NSSuperview" ref="457155503"/>
 											<bool key="NSEnabled">YES</bool>
-											<object class="NSButtonCell" key="NSCell" id="1062284005">
+											<object class="NSButtonCell" key="NSCell" id="691021836">
 												<int key="NSCellFlags">-2080244224</int>
-												<int key="NSCellFlags2">134348800</int>
+												<int key="NSCellFlags2">134381568</int>
 												<string key="NSContents">Edit</string>
 												<reference key="NSSupport" ref="26"/>
-												<reference key="NSControlView" ref="202513638"/>
+												<reference key="NSControlView" ref="808756091"/>
 												<int key="NSButtonFlags">-2038152961</int>
 												<int key="NSButtonFlags2">163</int>
 												<string key="NSAlternateContents"/>
@@ -554,38 +554,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: editPresentation.thumbnailPath</string>
-						<reference key="source" ref="201714774"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="201714774"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: editPresentation.thumbnailPath</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">editPresentation.thumbnailPath</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">64</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: editPresentation.presentationPath</string>
-						<reference key="source" ref="147044425"/>
-						<reference key="destination" ref="1001"/>
-						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="147044425"/>
-							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">value: editPresentation.presentationPath</string>
-							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">editPresentation.presentationPath</string>
-							<int key="NSNibBindingConnectorVersion">2</int>
-						</object>
-					</object>
-					<int key="connectionID">65</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: editPresentation.highlight</string>
 						<reference key="source" ref="739635673"/>
 						<reference key="destination" ref="1001"/>
@@ -631,11 +599,51 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">userDidDropImage:</string>
+						<string key="label">userDidDropThumbnail:</string>
 						<reference key="source" ref="1001"/>
 						<reference key="destination" ref="439507972"/>
 					</object>
-					<int key="connectionID">76</int>
+					<int key="connectionID">83</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">userDidDropKeynote:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="523977384"/>
+					</object>
+					<int key="connectionID">84</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">droppedKeynote</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="523977384"/>
+					</object>
+					<int key="connectionID">87</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">keynoteFileLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="147044425"/>
+					</object>
+					<int key="connectionID">90</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">thumbnailFileLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="201714774"/>
+					</object>
+					<int key="connectionID">91</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">editWithKeynote:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="808756091"/>
+					</object>
+					<int key="connectionID">92</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -711,14 +719,14 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="264556687"/>
 							<reference ref="253130481"/>
-							<reference ref="439507972"/>
 							<reference ref="201714774"/>
 							<reference ref="36961598"/>
-							<reference ref="717780122"/>
-							<reference ref="147044425"/>
-							<reference ref="835954565"/>
-							<reference ref="202513638"/>
+							<reference ref="1066414692"/>
+							<reference ref="523977384"/>
+							<reference ref="808756091"/>
 							<reference ref="739635673"/>
+							<reference ref="439507972"/>
+							<reference ref="147044425"/>
 						</object>
 						<reference key="parent" ref="1006"/>
 					</object>
@@ -848,45 +856,45 @@
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">77</int>
-						<reference key="object" ref="835954565"/>
+						<reference key="object" ref="523977384"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="566630542"/>
+							<reference ref="596721789"/>
 						</object>
 						<reference key="parent" ref="872192000"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">78</int>
-						<reference key="object" ref="566630542"/>
-						<reference key="parent" ref="835954565"/>
+						<reference key="object" ref="596721789"/>
+						<reference key="parent" ref="523977384"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">79</int>
-						<reference key="object" ref="202513638"/>
+						<reference key="object" ref="808756091"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="1062284005"/>
+							<reference ref="691021836"/>
 						</object>
 						<reference key="parent" ref="872192000"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">80</int>
-						<reference key="object" ref="1062284005"/>
-						<reference key="parent" ref="202513638"/>
+						<reference key="object" ref="691021836"/>
+						<reference key="parent" ref="808756091"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">81</int>
-						<reference key="object" ref="717780122"/>
+						<reference key="object" ref="1066414692"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="177933713"/>
+							<reference ref="699317200"/>
 						</object>
 						<reference key="parent" ref="872192000"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">82</int>
-						<reference key="object" ref="177933713"/>
-						<reference key="parent" ref="717780122"/>
+						<reference key="object" ref="699317200"/>
+						<reference key="parent" ref="1066414692"/>
 					</object>
 				</object>
 			</object>
@@ -921,6 +929,7 @@
 					<string>55.IBPluginDependency</string>
 					<string>6.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
+					<string>77.CustomClassName</string>
 					<string>77.IBPluginDependency</string>
 					<string>78.IBPluginDependency</string>
 					<string>79.IBPluginDependency</string>
@@ -959,6 +968,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>KeynoteDropper</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -985,7 +995,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">82</int>
+			<int key="maxID">92</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -997,20 +1007,47 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>editWithKeynote:</string>
 							<string>userDidCancelEdit:</string>
 							<string>userDidConfirmEdit:</string>
-							<string>userDidDropImage:</string>
+							<string>userDidDropKeynote:</string>
+							<string>userDidDropThumbnail:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
+							<string>id</string>
+							<string>id</string>
+						</object>
+					</object>
+					<object class="NSMutableDictionary" key="outlets">
+						<bool key="EncodedWithXMLCoder">YES</bool>
+						<object class="NSArray" key="dict.sortedKeys">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>droppedKeynote</string>
+							<string>keynoteFileLabel</string>
+							<string>thumbnailFileLabel</string>
+						</object>
+						<object class="NSMutableArray" key="dict.values">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>KeynoteDropper</string>
+							<string>NSTextField</string>
+							<string>NSTextField</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">Classes/EditWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">KeynoteDropper</string>
+					<string key="superclassName">NSImageView</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">Classes/View/KeynoteDropper.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

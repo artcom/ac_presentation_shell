@@ -11,6 +11,7 @@
 
 @class Presentation;
 @class ACShellController;
+@class KeynoteDropper;
 
 @interface EditWindowController : NSWindowController <PresentationDataContext> {
     Presentation * editPresentation;
@@ -20,16 +21,27 @@
     ACShellController * shellController;
     
     NSString * thumbnailFilename;
+    NSString * keynoteFilename;
+    
+    KeynoteDropper * droppedKeynote;
+    
+    NSTextField * thumbnailFileLabel;
+    NSTextField * keynoteFileLabel;
 }
 
 @property (retain) Presentation * editPresentation;
+@property (retain, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
+@property (retain, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
+@property (retain, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
 
 
 - (id) initWithShellController:(ACShellController *)theShellController;
 
 - (IBAction) userDidConfirmEdit: (id) sender;
 - (IBAction) userDidCancelEdit: (id) sender;
-- (IBAction) userDidDropImage: (id) sender;
+- (IBAction) userDidDropThumbnail: (id) sender;
+- (IBAction) userDidDropKeynote: (id) sender;
+- (IBAction) editWithKeynote: (id) sender;
 
 - (void) edit: (Presentation*) aPresentation;
 

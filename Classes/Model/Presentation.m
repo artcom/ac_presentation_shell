@@ -17,13 +17,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (NSString*) subdirectoryFromTitle;
 - (NSString*) extractSubdirectoryFromPresentationPath;
 
-- (void) setPresentationPath: (NSString*) newPath;
-- (void) setThumbnailPath: (NSString*) newPath;
+- (void) setRelativePresentationPath: (NSString*) newPath;
+- (void) setRelativeThumbnailPath: (NSString*) newPath;
 - (void) setTitle: (NSString*) title;
 
 - (BOOL) updateSubdirectory: (NSString*) newSubdirectory;
 - (BOOL) updateThumbnail: (NSString*) newThumbnailPath;
+- (BOOL) updateKeynote: (NSString*) newKeynotePath;
 - (NSString*) rewriteToplevelDirectory: (NSString*) path toDir: (NSString*) newToplevel;
+- (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile;
 
 @end
 
@@ -69,7 +71,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	[aCoder encodeInteger:self.index forKey:@"index"];
 }
 
-- (BOOL) updateFromPresentation: (Presentation*) other newThumbnailPath: (NSString*) filename {
+- (BOOL) updateFromPresentation: (Presentation*) other 
+               newThumbnailPath: (NSString*) thumbnailFile
+                 newKeynotePath: (NSString*) keynoteFile
+{
     NSLog(@"subdir: '%@'", [other subdirectoryFromTitle]);
     BOOL xmlChanged = NO;
     if ([self updateSubdirectory: [other subdirectoryFromTitle]]) {
@@ -83,7 +88,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
         self.highlight = other.highlight;
         xmlChanged = YES;
     }
-    if ([self updateThumbnail: filename]) {
+    if ([self updateThumbnail: thumbnailFile]) {
+        xmlChanged = YES;
+    }
+    if ([self updateKeynote: keynoteFile]) {
         xmlChanged = YES;
     }
     return xmlChanged;
@@ -95,7 +103,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (NSImage *)thumbnail {
 	if (thumbnail == nil) {
-		NSString *filepath = [[context libraryDirPath] stringByAppendingPathComponent: self.thumbnailPath];
+		NSString *filepath = [[context libraryDirPath] stringByAppendingPathComponent: self.relativeThumbnailPath];
 		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];		
 	}
 	return thumbnail;
@@ -128,29 +136,33 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 
-- (NSString *)thumbnailPath {
+- (NSString *)relativeThumbnailPath {
 	NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
 	return [[thumbnailNodes objectAtIndex: 0] stringValue];	
 }
 
-- (void) setThumbnailPath: (NSString*) newPath {
+- (void) setRelativeThumbnailPath: (NSString*) newPath {
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
 }
 
-- (NSString *)presentationPath {
+- (NSString*) absoluteThumbnailPath {
+    return [[context libraryDirPath] stringByAppendingPathComponent: self.relativeThumbnailPath];
+}
+
+- (NSString *)relativePresentationPath {
 	NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
 	return [[nodes objectAtIndex: 0] stringValue];	
 }
 
-- (void) setPresentationPath: (NSString*) newPath {
+- (void) setRelativePresentationPath: (NSString*) newPath {
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
 }
 
 
-- (NSString *)presentationFile {
-	return [[context libraryDirPath] stringByAppendingPathComponent: self.presentationPath];
+- (NSString *)absolutePresentationPath {
+	return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
 }
 
 - (BOOL) isEqual:(id)object {
@@ -166,7 +178,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL) presentationFileExists {
-    return [[NSFileManager defaultManager] fileExistsAtPath: self.presentationFile];
+    return [[NSFileManager defaultManager] fileExistsAtPath: self.absolutePresentationPath];
 }
 
 - (NSString*) subdirectoryFromTitle {
@@ -206,7 +218,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (NSString*) extractSubdirectoryFromPresentationPath {
-    return [[self.presentationPath pathComponents] objectAtIndex: 0];
+    return [[self.relativePresentationPath pathComponents] objectAtIndex: 0];
 }
 
 - (BOOL) updateSubdirectory: (NSString*) newSubdirectory {
@@ -228,33 +240,50 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [NSException raise: @"IO Error"
                     format: @"Failed o rename directory: %@", error];
     }
-    self.presentationPath = [self rewriteToplevelDirectory: self.presentationPath toDir: newSubdirectory];
-    self.thumbnailPath = [self rewriteToplevelDirectory: self.thumbnailPath toDir: newSubdirectory];
+    self.relativePresentationPath = [self rewriteToplevelDirectory: self.relativePresentationPath toDir: newSubdirectory];
+    self.relativeThumbnailPath = [self rewriteToplevelDirectory: self.relativeThumbnailPath toDir: newSubdirectory];
     return YES;
 }
 
 - (BOOL) updateThumbnail: (NSString*) newThumbnailPath {
-    if (newThumbnailPath == nil) {
+    if ( ! [self updateFile: self.absoluteThumbnailPath new: newThumbnailPath]) {
         return NO;
     }
-    if ([newThumbnailPath isEqual: self.thumbnailPath]) {
+    self.relativeThumbnailPath = [[self extractSubdirectoryFromPresentationPath] stringByAppendingPathComponent: [newThumbnailPath lastPathComponent]];
+    return YES;
+}
+
+- (BOOL) updateKeynote: (NSString*) newKeynotePath {
+    if ( ! [self updateFile: self.absolutePresentationPath new: newKeynotePath]) {
         return NO;
     }
-    if ([[NSFileManager defaultManager] fileExistsAtPath: self.thumbnailPath]) {
+    self.relativePresentationPath = [[self extractSubdirectoryFromPresentationPath] stringByAppendingPathComponent: [newKeynotePath lastPathComponent]];
+    return YES;
+}
+
+
+- (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile {
+    if (newFile == nil) {
+        return NO;
+    }
+    if ([newFile isEqual: oldFile]) {
+        return NO;
+    }
+    if ([[NSFileManager defaultManager] fileExistsAtPath: oldFile]) {
         NSError * error;
-        if ( ! [[NSFileManager defaultManager] removeItemAtPath: self.thumbnailPath error: &error]) {
-            [NSException raise: @"IO Error" format: @"Failed to remove thumbnail: %@", error];
+        if ( ! [[NSFileManager defaultManager] removeItemAtPath: oldFile error: &error]) {
+            [NSException raise: @"IO Error" format: @"Failed to remove old file: %@", error];
         }
     }
     NSString * subdir = [self extractSubdirectoryFromPresentationPath];
-    NSString * newPath = [[context.libraryDirPath 
+    NSString * newTargetPath = [[context.libraryDirPath 
                            stringByAppendingPathComponent: subdir]
-                          stringByAppendingPathComponent: [newThumbnailPath lastPathComponent]];
+                          stringByAppendingPathComponent: [newFile lastPathComponent]];
     NSError * error;
-    if ( ! [[NSFileManager defaultManager] copyItemAtPath: newThumbnailPath toPath: newPath error: &error]) {
+    if ( ! [[NSFileManager defaultManager] copyItemAtPath: newFile toPath: newTargetPath error: &error]) {
         [NSException raise: @"IO Error" format: @"Failed to copy thumbnail: %@", error];
     }
-    self.thumbnailPath = [subdir stringByAppendingPathComponent: [newThumbnailPath lastPathComponent]];
     return YES;
 }
+
 @end

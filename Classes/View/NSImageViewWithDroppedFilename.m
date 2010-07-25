@@ -16,19 +16,16 @@
     if ( ! [super performDragOperation:sender] ) {
         return NO;
     }
-    NSString *filenamesXML = [[sender draggingPasteboard] stringForType:NSFilenamesPboardType];
-    if (filenamesXML) {
-        NSArray *filenames = [NSPropertyListSerialization
-                              propertyListFromData:[filenamesXML dataUsingEncoding:NSUTF8StringEncoding]
-                              mutabilityOption:NSPropertyListImmutable
-                              format:nil
-                              errorDescription:nil];
+    NSPasteboard * pasteboard = [sender draggingPasteboard];
+    if ( [[pasteboard types] containsObject: NSFilenamesPboardType] ) {
+        NSArray *filenames = [pasteboard propertyListForType:NSFilenamesPboardType];
         if ([filenames count] >= 1) {
             filename = [filenames objectAtIndex:0];
         } else {
             filename = nil;   
         }
+        return YES;
     }
-    return YES;
+    return NO;
 }
 @end

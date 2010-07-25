@@ -143,12 +143,12 @@ enum ACPresentationDoubleClicked {
         switch (doubleClickSetting) {
             case ACShellOpenPresentation:
                 if (presentation.presentationFileExists) {
-                    [[KeynoteHandler sharedHandler] open: presentation.presentationFile];			
+                    [[KeynoteHandler sharedHandler] open: presentation.absolutePresentationPath];			
                 }
                 break;
             case ACShellPlayPresentation:
                 if (presentation.presentationFileExists) {
-                    [[KeynoteHandler sharedHandler] play: presentation.presentationFile withDelegate: self];			
+                    [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate: self];			
                 }
                 break;
             case ACShellOpenEditWindow:

@@ -30,17 +30,20 @@
 @property (readonly) NSString *singleLineTitle;
 
 @property (assign) BOOL highlight;
-@property (retain) NSString *thumbnailPath;
-@property (retain) NSString *presentationPath;
 
-@property (readonly) NSString *presentationFile;
+@property (retain) NSString *relativeThumbnailPath;
+@property (readonly) NSString *absoluteThumbnailPath;
+
+@property (retain) NSString *relativePresentationPath;
+@property (readonly) NSString *absolutePresentationPath;
+
 @property (readonly) BOOL presentationFileExists;
 @property (readonly) NSImage *thumbnail;
 @property (readonly) BOOL isComplete;
 
 - (id) initWithId:(id)theId inContext: (id<PresentationDataContext>)theContext;
 
-- (BOOL) updateFromPresentation: (Presentation*) other newThumbnailPath: (NSString*) filename;
+- (BOOL) updateFromPresentation: (Presentation*) other newThumbnailPath: (NSString*) thumbnailPath newKeynotePath: keynotePath;
 - (NSXMLElement*) xmlNode;
 
 @end

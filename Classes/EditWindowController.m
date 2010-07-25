@@ -10,15 +10,22 @@
 #import "Presentation.h"
 #import "ACShellController.h"
 #import "PresentationLibrary.h"
+#import "KeynoteDropper.h"
+#import "KeynoteHandler.h"
 
 @interface EditWindowController ()
 
 - (void) postEditCleanUp;
+- (void) updateFileLabel: (NSTextField*) textLabel filename: (NSString*) aFilename;
+- (void) setGuiValues;
 
 @end
 
 @implementation EditWindowController
 @synthesize editPresentation;
+@synthesize droppedKeynote;
+@synthesize thumbnailFileLabel;
+@synthesize keynoteFileLabel;
 
 - (id) initWithShellController: (ACShellController*) theShellController {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
@@ -28,27 +35,33 @@
     return self;
 }
 
+- (void) awakeFromNib {
+    [self setGuiValues];
+}
+
 - (void) dealloc {
-    [editPresentation release];
-    [originalPresentation release];
     [shellController release];
-    [thumbnailFilename release];
     
     [super dealloc];
 }
 
 - (void) edit: (Presentation*) aPresentation {
+
     originalPresentation = [aPresentation retain];
     self.editPresentation = [aPresentation copy];
     editNode = [[[originalPresentation xmlNode] copyWithZone: nil] retain];
     self.editPresentation.context = self;
+    
+    [self setGuiValues];
+    
     [self showWindow: nil];
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
     NSLog(@"edit confirmed");
     BOOL xmlChanged = [originalPresentation updateFromPresentation: editPresentation
-                                                  newThumbnailPath: thumbnailFilename];
+                                                  newThumbnailPath: thumbnailFilename
+                                                    newKeynotePath: keynoteFilename];
     if (xmlChanged) {
         [[shellController presentationLibrary] saveXmlLibrary];
     }
@@ -60,9 +73,18 @@
     [self postEditCleanUp];
 }
 
-- (IBAction) userDidDropImage: (id) sender {
-    NSLog(@"new image: %@", [sender filename]);
+- (IBAction) userDidDropThumbnail: (id) sender {
     thumbnailFilename = [[sender filename] retain];
+    [self updateFileLabel: thumbnailFileLabel filename: [sender filename]];
+}
+
+- (IBAction) userDidDropKeynote: (id) sender {
+    keynoteFilename = [[sender filename] retain];
+    [self updateFileLabel: keynoteFileLabel filename: [sender filename]];
+}
+
+- (IBAction) editWithKeynote: (id) sender {
+    [[KeynoteHandler sharedHandler] open: editPresentation.absolutePresentationPath];
 }
 
 - (void) postEditCleanUp {
@@ -75,6 +97,8 @@
     editNode = nil;
     [thumbnailFilename release];
     thumbnailFilename = nil;
+    [keynoteFilename release];
+    keynoteFilename = nil;
 }
 
 #pragma mark -
@@ -84,5 +108,16 @@
 }
 
 - (NSString*) libraryDirPath { return shellController.libraryDirPath; }
+
+
+- (void) updateFileLabel: (NSTextField*) textLabel filename: (NSString*) aFilename {
+    textLabel.stringValue = [aFilename lastPathComponent];
+}
+
+- (void) setGuiValues {
+    [self updateFileLabel: thumbnailFileLabel filename: editPresentation.absoluteThumbnailPath];
+    [self updateFileLabel: keynoteFileLabel filename: editPresentation.absolutePresentationPath];
+    droppedKeynote.filename = editPresentation.absolutePresentationPath;
+}
 
 @end
