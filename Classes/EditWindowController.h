@@ -7,13 +7,31 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class Presentation;
+#import "PresentationDataContext.h"
 
-@interface EditWindowController : NSWindowController {
-    Presentation * presentation;
+@class Presentation;
+@class ACShellController;
+
+@interface EditWindowController : NSWindowController <PresentationDataContext> {
+    Presentation * editPresentation;
+    Presentation * originalPresentation;
+    
+    NSXMLElement * editNode;
+    ACShellController * shellController;
+    
+    NSString * thumbnailFilename;
 }
 
-@property (retain, nonatomic) Presentation * presentation;
+@property (retain) Presentation * editPresentation;
 
-- (void) edit: (Presentation*) presentation;
+
+- (id) initWithShellController:(ACShellController *)theShellController;
+
+- (IBAction) userDidConfirmEdit: (id) sender;
+- (IBAction) userDidCancelEdit: (id) sender;
+- (IBAction) userDidDropImage: (id) sender;
+
+- (void) edit: (Presentation*) aPresentation;
+
+
 @end

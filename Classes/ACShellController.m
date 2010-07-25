@@ -63,7 +63,7 @@ enum ACPresentationDoubleClicked {
         preferenceWindowController = [[PreferenceWindowController alloc] init];
         if ([[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]) {
             NSLog(@"=== Editing enabled ===");
-            editWindowController = [[EditWindowController alloc] init];
+            editWindowController = [[EditWindowController alloc] initWithShellController: self];
         }
 		
 		rsyncController = [[RsyncController alloc] init];

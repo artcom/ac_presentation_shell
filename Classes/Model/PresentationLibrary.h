@@ -7,12 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ACShellCollection.h"
+//#import "ACShellCollection.h"
+#import "PresentationDataContext.h"
 
+@class ACShellCollection;
 @class PresentationData;
 @class Settings;
 
-@interface PresentationLibrary : NSObject <NSCoding> {
+@interface PresentationLibrary : NSObject <PresentationDataContext, NSCoding> {
 	NSMutableDictionary *presentationData;
     
     ACShellCollection * library;
@@ -28,6 +30,7 @@
 
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
+- (void) saveXmlLibrary;
    
 - (NSXMLElement *) xmlNode: (id) aId;
 

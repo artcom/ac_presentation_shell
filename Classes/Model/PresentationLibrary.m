@@ -6,6 +6,7 @@
 //  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
+#import "ACShellCollection.h"
 #import "PresentationLibrary.h"
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
@@ -133,6 +134,19 @@
     return YES;
 }
 
+- (void) saveXmlLibrary {
+    NSXMLElement * root = [[[NSXMLElement alloc] initWithName: @"presentations"] autorelease];
+    NSXMLDocument * document = [[[NSXMLDocument alloc] initWithRootElement: root] autorelease];
+    for (id key in presentationData) {
+        NSXMLElement * element = [presentationData objectForKey: key];
+        [root addChild: element];
+    }
+    NSData *xmlData = [document XMLDataWithOptions: NSXMLNodePrettyPrint];
+    if (![xmlData writeToFile: [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"] atomically:YES]) {
+        NSLog(@"Failed to save xml file.");
+    }
+}
+
 - (NSXMLElement *) xmlNode: (id)aId {
 	if ([self hasLibrary]) {
         return [presentationData objectForKey: aId];
@@ -222,6 +236,5 @@
 + (NSString*) settingsFilepath {
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
 }
-
 
 @end
