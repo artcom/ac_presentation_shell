@@ -15,12 +15,14 @@
 #import "PreferenceWindowController.h"
 #import "KeynoteHandler.h"
 #import "RsyncController.h"
+#import "EditWindowController.h"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
 enum ACPresentationDoubleClicked {
     ACShellOpenPresentation,
-    ACShellPlayPresentation
+    ACShellPlayPresentation,
+    ACShellOpenEditWindow
 };
 
 @interface ACShellController ()
@@ -59,6 +61,10 @@ enum ACPresentationDoubleClicked {
 
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]) {
+            NSLog(@"=== Editing enabled ===");
+            editWindowController = [[EditWindowController alloc] init];
+        }
 		
 		rsyncController = [[RsyncController alloc] init];
 		rsyncController.delegate = self;
@@ -133,15 +139,25 @@ enum ACPresentationDoubleClicked {
 - (IBAction)openPresentation: (id)sender {
 	if (sender == presentationTable) {
 		Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
-		if (!presentation.isComplete) {
-			return;
-		}
-		
-		if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"presentationDoubleClick"] intValue] == ACShellOpenPresentation) {
-			[[KeynoteHandler sharedHandler] open: presentation.presentationFile];			
-		} else {
-			[[KeynoteHandler sharedHandler] play: presentation.presentationFile withDelegate: self];			
-		}
+        int doubleClickSetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"presentationDoubleClick"] intValue];
+        switch (doubleClickSetting) {
+            case ACShellOpenPresentation:
+                if (presentation.presentationFileExists) {
+                    [[KeynoteHandler sharedHandler] open: presentation.presentationFile];			
+                }
+                break;
+            case ACShellPlayPresentation:
+                if (presentation.presentationFileExists) {
+                    [[KeynoteHandler sharedHandler] play: presentation.presentationFile withDelegate: self];			
+                }
+                break;
+            case ACShellOpenEditWindow:
+                [editWindowController edit: presentation];
+                break;
+            default:
+                break;
+        }
+
 	}
 }
 

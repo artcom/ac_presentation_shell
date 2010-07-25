@@ -14,6 +14,7 @@
 @class PreferenceWindowController;
 @class PresentationLibrary;
 @class ACShellCollection;
+@class EditWindowController;
 
 @interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, NSOutlineViewDelegate, 
 											NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> 
@@ -22,6 +23,7 @@
 
 	PresentationWindowController *presentationWindowController;
     PreferenceWindowController * preferenceWindowController;
+    EditWindowController * editWindowController;
     
 	NSOutlineView *collectionView;
 	NSTableView *presentationTable;

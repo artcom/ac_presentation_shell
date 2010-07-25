@@ -91,7 +91,6 @@
         if ([line length] == 0) {
             continue;
         }
-        NSLog(@"line: '%@'", line);
         if ([line characterAtIndex: 0] == ' ') {
             NSScanner * scanner = [[[NSScanner alloc] initWithString: line] autorelease];
             [scanner setCharactersToBeSkipped: [NSCharacterSet whitespaceCharacterSet]];

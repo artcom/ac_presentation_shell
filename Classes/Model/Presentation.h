@@ -34,6 +34,7 @@
 @property (readonly) NSString *presentationPath;
 
 @property (readonly) NSString *presentationFile;
+@property (readonly) BOOL presentationFileExists;
 @property (readonly) NSImage *thumbnail;
 @property (readonly) BOOL isComplete;
 

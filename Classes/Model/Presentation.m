@@ -107,9 +107,12 @@
 }
 
 - (BOOL)isComplete {
-	return [[NSFileManager defaultManager] fileExistsAtPath: self.presentationFile] && self.thumbnail != nil;
+	return self.presentationFileExists && self.thumbnail != nil;
 }
 
+- (BOOL) presentationFileExists {
+    return [[NSFileManager defaultManager] fileExistsAtPath: self.presentationFile];
+}
 
 - (void) dealloc {
 	[thumbnail release];

@@ -20,6 +20,7 @@
 @synthesize advancedPreferences;
 @synthesize generalPreferences;
 @synthesize toolbar;
+@synthesize editOnDoubleClickOption;
 
 - (id)init {
     self = [super initWithWindowNibName: @"PreferenceWindow"];
@@ -38,9 +39,12 @@
                         generalPreferences,
                         advancedPreferences,
                         nil] retain];
-    
+
     emptyPanel = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 1, 1)];
-    
+
+    NSLog(@"editing: %d", [[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]);
+    [editOnDoubleClickOption setEnabled: [[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]];
+
     [self showPanel: 0];
 }
 

@@ -59,6 +59,8 @@
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
 		63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */; };
 		63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E4B311FB8B160036DBC1 /* icn_warning.png */; };
+		63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */; };
+		63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8E52811FBACD50036DBC1 /* EditWindowController.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -172,6 +174,9 @@
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-WithUUID.m"; path = "Classes/Helper/NSString-WithUUID.m"; sourceTree = "<group>"; };
 		63A6A9F211FA10AC0057B7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RsyncProgressView.xib; sourceTree = "<group>"; };
 		63B8E4B311FB8B160036DBC1 /* icn_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_warning.png; path = Resources/Images/icn_warning.png; sourceTree = "<group>"; };
+		63B8E52211FBA2CD0036DBC1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
+		63B8E52711FBACD50036DBC1 /* EditWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditWindowController.h; path = Classes/EditWindowController.h; sourceTree = "<group>"; };
+		63B8E52811FBACD50036DBC1 /* EditWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditWindowController.m; path = Classes/EditWindowController.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -218,6 +223,8 @@
 				22F2B8DF11F73EC100EE4717 /* RsyncController.m */,
 				222781E711F88AD2007C1B6C /* RsyncTask.h */,
 				222781E811F88AD2007C1B6C /* RsyncTask.m */,
+				63B8E52711FBACD50036DBC1 /* EditWindowController.h */,
+				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -412,6 +419,7 @@
 				6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */,
 				6366076A11F33F4200D6DD96 /* defaults.plist */,
 				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
+				63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -517,6 +525,7 @@
 				22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */,
 				63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */,
 				63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */,
+				63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +569,7 @@
 				636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */,
 				22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */,
 				222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */,
+				63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,6 +622,14 @@
 				63A6A9F211FA10AC0057B7F5 /* English */,
 			);
 			name = RsyncProgressView.xib;
+			sourceTree = "<group>";
+		};
+		63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63B8E52211FBA2CD0036DBC1 /* English */,
+			);
+			name = PresentationEditWindow.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

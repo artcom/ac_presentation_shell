@@ -20,3 +20,4 @@
 "Continue syncing" = "Fortsetzen";
 "Checked %d of %d files (%3.1f%%)" = "%d von %d Dateien überprüft (%3.1f%%)";
 "Checking %d files" = "Überprüfe %d Dateien";
+"Last sync failed. Resync required." = "Letzte Synchronisation fehlgeschlagen. Erneuter sync ist erfordelich.";

@@ -21,13 +21,15 @@
     int currentPanelIndex;
     int initialHeight;
     NSString * initialTitle;
+    
+    NSButtonCell * editOnDoubleClickOption;
 }
 
 @property (retain) IBOutlet NSView * advancedPreferences;
 @property (retain) IBOutlet NSView * generalPreferences;
 @property (retain) IBOutlet NSToolbar * toolbar;
+@property (retain) IBOutlet NSButtonCell * editOnDoubleClickOption;
 
 - (IBAction) showPrefs: (id) sender;
-
 
 @end
