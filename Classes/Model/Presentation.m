@@ -8,6 +8,7 @@
 
 #import "Presentation.h"
 #import "PresentationLibrary.h"
+#import "FileCopyController.h"
 
 
 static NSCharacterSet * ourNonDirNameCharSet;
@@ -26,6 +27,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (BOOL) updateKeynote: (NSString*) newKeynotePath;
 - (NSString*) rewriteToplevelDirectory: (NSString*) path toDir: (NSString*) newToplevel;
 - (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile;
+
+- (BOOL)prepareCopyForm: (NSString *)oldFile to: (NSString *)newFile;
 
 @end
 
@@ -72,7 +75,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (BOOL) updateFromPresentation: (Presentation*) other 
                newThumbnailPath: (NSString*) thumbnailFile
                  newKeynotePath: (NSString*) keynoteFile
+				 copyController: (FileCopyController *)controller
 {
+	[copyController release];
+	copyController = [controller retain];
+	
+	
     NSLog(@"subdir: '%@'", [other subdirectoryFromTitle]);
     BOOL xmlChanged = NO;
     if ([self updateSubdirectory: [other subdirectoryFromTitle]]) {
@@ -253,16 +261,35 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL) updateKeynote: (NSString*) newKeynotePath {
-    if ( ! [self updateFile: self.absolutePresentationPath new: newKeynotePath]) {
-        return NO;
-    }
+    if (![self prepareCopyForm:self.absolutePresentationPath to: newKeynotePath]) {
+		return NO;
+	}
+	
+    [copyController copy: newKeynotePath to:self.absolutePresentationPath];
+	
     self.relativePresentationPath = [[self extractSubdirectoryFromPresentationPath] stringByAppendingPathComponent: [newKeynotePath lastPathComponent]];
     return YES;
 }
 
 
 - (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile {
-    if (newFile == nil) {
+    if (![self prepareCopyForm:oldFile to:newFile]) {
+		return NO;
+	}
+	
+	NSString * subdir = [self extractSubdirectoryFromPresentationPath];
+    NSString * newTargetPath = [[context.libraryDirPath 
+                           stringByAppendingPathComponent: subdir]
+                          stringByAppendingPathComponent: [newFile lastPathComponent]];
+    NSError * error;
+    if ( ! [[NSFileManager defaultManager] copyItemAtPath: newFile toPath: newTargetPath error: &error]) {
+        [NSException raise: @"IO Error" format: @"Failed to copy thumbnail: %@", error];
+    }
+    return YES;
+}
+
+- (BOOL)prepareCopyForm: (NSString *)oldFile to: (NSString *)newFile {
+	if (newFile == nil) {
         return NO;
     }
     if ([newFile isEqual: oldFile]) {
@@ -274,15 +301,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
             [NSException raise: @"IO Error" format: @"Failed to remove old file: %@", error];
         }
     }
-    NSString * subdir = [self extractSubdirectoryFromPresentationPath];
-    NSString * newTargetPath = [[context.libraryDirPath 
-                           stringByAppendingPathComponent: subdir]
-                          stringByAppendingPathComponent: [newFile lastPathComponent]];
-    NSError * error;
-    if ( ! [[NSFileManager defaultManager] copyItemAtPath: newFile toPath: newTargetPath error: &error]) {
-        [NSException raise: @"IO Error" format: @"Failed to copy thumbnail: %@", error];
-    }
-    return YES;
+	
+	return YES;
+	
 }
 
 @end

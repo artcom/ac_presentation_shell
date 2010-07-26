@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 222781E811F88AD2007C1B6C /* RsyncTask.m */; };
+		223DF7F411FDEE6300D53152 /* FileCopyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223DF7F311FDEE6300D53152 /* FileCopyController.m */; };
 		225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */; };
 		2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2289820611F73701000D0983 /* AC-Shell-Icon.icns */; };
 		2295411011E3249500E09031 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
@@ -101,6 +102,8 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		222781E711F88AD2007C1B6C /* RsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RsyncTask.h; path = Classes/RsyncTask.h; sourceTree = "<group>"; };
 		222781E811F88AD2007C1B6C /* RsyncTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RsyncTask.m; path = Classes/RsyncTask.m; sourceTree = "<group>"; };
+		223DF7F211FDEE6300D53152 /* FileCopyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileCopyController.h; path = Classes/FileCopyController.h; sourceTree = "<group>"; };
+		223DF7F311FDEE6300D53152 /* FileCopyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileCopyController.m; path = Classes/FileCopyController.m; sourceTree = "<group>"; };
 		225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACShellCollection.h; path = Classes/Model/ACShellCollection.h; sourceTree = "<group>"; };
 		225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACShellCollection.m; path = Classes/Model/ACShellCollection.m; sourceTree = "<group>"; };
 		2289820611F73701000D0983 /* AC-Shell-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "AC-Shell-Icon.icns"; path = "Resources/Images/AC-Shell-Icon.icns"; sourceTree = "<group>"; };
@@ -232,6 +235,8 @@
 				222781E811F88AD2007C1B6C /* RsyncTask.m */,
 				63B8E52711FBACD50036DBC1 /* EditWindowController.h */,
 				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
+				223DF7F211FDEE6300D53152 /* FileCopyController.h */,
+				223DF7F311FDEE6300D53152 /* FileCopyController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -584,6 +589,7 @@
 				63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */,
 				630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */,
 				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
+				223DF7F411FDEE6300D53152 /* FileCopyController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

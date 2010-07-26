@@ -8,12 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 #import "PresentationDataContext.h"
+#import "FileCopyController.h"
 
 @class Presentation;
 @class ACShellController;
 @class KeynoteDropper;
 
-@interface EditWindowController : NSWindowController <PresentationDataContext> {
+@interface EditWindowController : NSWindowController <PresentationDataContext, FileCopyControllerDelegate> {
     Presentation * editPresentation;
     Presentation * originalPresentation;
     

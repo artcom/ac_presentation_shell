@@ -12,6 +12,7 @@
 #import "PresentationLibrary.h"
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
+#import "FileCopyController.h"
 
 @interface EditWindowController ()
 
@@ -60,16 +61,26 @@
 
 - (IBAction) userDidConfirmEdit: (id) sender {
     NSLog(@"edit confirmed");
-    
+	
+	FileCopyController *fileCopyController = [[FileCopyController alloc] initWithParentWindow:[self window]];
+	fileCopyController.delegate = self;
+	
 	BOOL xmlChanged = [originalPresentation updateFromPresentation: editPresentation
-                                                  newThumbnailPath: thumbnailFilename
-                                                    newKeynotePath: keynoteFilename];
-    if (xmlChanged) {
-        [[shellController presentationLibrary] saveXmlLibrary];
-    }
+													  newThumbnailPath: thumbnailFilename
+														newKeynotePath: keynoteFilename
+														copyController:fileCopyController];
+
+	
+	if (xmlChanged) {
+		[[shellController presentationLibrary] saveXmlLibrary];
+	}
 	[shellController.presentationLibrary flushThumbnailCacheForPresentation:editPresentation];
 
-    [self postEditCleanUp];
+	if (!fileCopyController.isCopying) {
+		[self postEditCleanUp];
+	}
+		
+	[fileCopyController release];
 }
 
 - (IBAction) userDidCancelEdit: (id) sender {
@@ -104,6 +115,19 @@
     [keynoteFilename release];
     keynoteFilename = nil;
 }
+
+
+#pragma mark -
+#pragma mark FileCopyController Delegate Methods
+
+- (void)fileCopyControllerDidFinish: (FileCopyController *)controller; {
+	[self postEditCleanUp];
+}
+
+- (void)fileCopyControllerDidFail: (FileCopyController *)controller; {
+	
+}
+
 
 #pragma mark -
 #pragma mark PresentationDataContext Protocol Methods

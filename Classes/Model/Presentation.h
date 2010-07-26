@@ -10,6 +10,7 @@
 #import "PresentationDataContext.h"
 
 @class PresentationLibrary;
+@class FileCopyController;
 
 @interface Presentation : NSObject <NSCoding, NSCopying> {
 	BOOL selected;
@@ -19,6 +20,8 @@
 	id <PresentationDataContext> context;
 	NSImage *thumbnail;
     NSImage *highlight_icon;
+	
+	FileCopyController *copyController;
 }
 
 @property (assign) BOOL selected;
@@ -43,7 +46,8 @@
 
 - (id) initWithId:(id)theId inContext: (id<PresentationDataContext>)theContext;
 
-- (BOOL) updateFromPresentation: (Presentation*) other newThumbnailPath: (NSString*) thumbnailPath newKeynotePath: keynotePath;
+- (BOOL) updateFromPresentation: (Presentation*) other newThumbnailPath: (NSString*) thumbnailFile
+				 newKeynotePath: (NSString*) keynoteFile copyController: (FileCopyController *)controller;
 - (NSXMLElement*) xmlNode;
 
 @end
