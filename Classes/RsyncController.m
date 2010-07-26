@@ -17,6 +17,8 @@
 -(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 
 -(NSImage*) syncIcon;
+-(NSImage*) uploadIcon;
+-(NSImage*) directionIcon;
 -(void) performSync: (NSString*) source destination: (NSString*) destination;
 -(void) setFileProgress: (double) percent;
 
@@ -30,6 +32,7 @@
 @end
 
 static NSImage * ourSyncIcon = nil;
+static NSImage * ourUploadIcon = nil;
 
 @implementation RsyncController
 @synthesize delegate;
@@ -60,17 +63,24 @@ static NSImage * ourSyncIcon = nil;
 }
 
 - (void) syncWithSource: (NSString*) source destination: (NSString*) destination {
+    isUploading = NO;
     [self performSync: source destination: destination];
 }
 
 -(void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination {
+    isUploading = NO;
     NSAlert * confirm = [self confirmDialogWithMessage: @"Synchronize library now?"
                                      informationalText: @"A good network connection and some patience is required."
                                                  style: NSInformationalAlertStyle
-                                                  icon: [self syncIcon] 
+                                                  icon: [self directionIcon] 
 												buttonTitles: nil];
     NSArray * srcDst = [[NSArray arrayWithObjects: source, destination, nil] retain];
     [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: srcDst];
+}
+
+- (void) uploadWithSource: (NSString*) source destination: (NSString*) destination {
+    isUploading = YES;
+    [self performSync: source destination: destination];
 }
 
 -(void) performSync: (NSString*) source destination: (NSString*) destination {
@@ -99,7 +109,7 @@ static NSImage * ourSyncIcon = nil;
     NSAlert * ack = [self acknowledgeDialogWithMessage: @"Library synchronized"
                                      informationalText: @"Have a nice day."
                                                  style: NSInformationalAlertStyle
-                                                  icon: [self syncIcon]];
+                                                  icon: [self directionIcon]];
     [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:) context: nil];
 
 	[delegate rsync:self didFinishSyncingSuccesful: YES];
@@ -183,10 +193,22 @@ static NSImage * ourSyncIcon = nil;
 
 -(NSImage*) syncIcon {
     if (ourSyncIcon == nil) {
-        ourSyncIcon = [NSImage imageNamed: @"icn_sync.icns"];
+        ourSyncIcon = [NSImage imageNamed: @"icn_sync"];
     }
     return ourSyncIcon;
 }
+
+-(NSImage*) uploadIcon {
+    if (ourUploadIcon == nil) {
+        ourUploadIcon = [NSImage imageNamed: @"icn_upload"];
+    }
+    return ourUploadIcon;
+}
+
+-(NSImage*) directionIcon {
+    return isUploading ? [self uploadIcon] : [self syncIcon];
+}
+
 
 -(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector context: (void*) context {
     if (currentSheet != nil) {
@@ -244,7 +266,7 @@ static NSImage * ourSyncIcon = nil;
     [dialog setMessageText: NSLocalizedString(@"Synchronizing Library",nil)];
     [dialog setInformativeText: NSLocalizedString(@"This may take a while.",nil)];
     [dialog setAlertStyle: NSWarningAlertStyle];
-    [dialog setIcon: [self syncIcon]];
+    [dialog setIcon: [self directionIcon]];
     
     [dialog setAccessoryView: progressView];
     

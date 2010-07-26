@@ -106,7 +106,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.5757614"
+     inkscape:zoom="0.64394035"
      inkscape:cx="265"
      inkscape:cy="596.56"
      inkscape:document-units="px"
@@ -200,8 +200,8 @@
          y="473.15152"
          style="font-size:15.98019123px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Times New Roman;-inkscape-font-specification:'Times New Roman, Bold'">!</tspan></text>
     <path
-       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 270,439.86218 -30,22.5 15,0 0,15 30,0 0,-15 15,0 -30,-22.5 z"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:10.75609683999999966px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 455.12195,66.691456 240,228.03291 l 107.56097,0 0,107.56098 215.12196,0 0,-107.56098 107.56097,0 L 455.12195,66.691456 z"
        id="path4236"
        inkscape:export-filename="/Volumes/Stuff/Users/david/artcom/ac_presentation_shell/Resources/Images/icn_upload.png"
        inkscape:export-xdpi="92"

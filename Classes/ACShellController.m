@@ -25,6 +25,11 @@ enum ACPresentationDoubleClicked {
     ACShellOpenEditWindow
 };
 
+#define AC_SHELL_TOOLBAR_ITEM_START  @"ACShellToolbarItemStart"
+#define AC_SHELL_TOOLBAR_ITEM_SYNC   @"ACShellToolbarItemSync"
+#define AC_SHELL_TOOLBAR_ITEM_UPLOAD @"ACShellToolbarItemUpload"
+#define AC_SHELL_TOOLBAR_ITEM_SEARCH @"ACShellToolbarItemSearch"
+
 @interface ACShellController ()
 
 - (void)beautifyOutlineView;
@@ -47,7 +52,7 @@ enum ACPresentationDoubleClicked {
 @synthesize statusLine;
 @synthesize currentPresentationList;
 @synthesize warningIcon;
-
+@synthesize editingEnabled;
 
 + (void) initialize {
 	NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
@@ -126,6 +131,10 @@ enum ACPresentationDoubleClicked {
     } else {
         [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];
     }
+}
+
+- (IBAction) upload: (id) sender {
+    [rsyncController uploadWithSource: self.libraryDirPath destination: self.librarySource];
 }
 
 - (IBAction)remove: (id)sender {
@@ -241,6 +250,10 @@ enum ACPresentationDoubleClicked {
 		return [NSMutableArray array];
 	}
 	return currentPresentationList;
+}
+
+- (BOOL) editingEnabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"];
 }
 
 #pragma mark -
@@ -359,6 +372,69 @@ enum ACPresentationDoubleClicked {
 	
 	[self.presentationLibrary updateIndices:collection.presentations];
 	return YES;
+}
+
+
+#pragma mark -
+#pragma mark NSToolbarDelegate Protocol Methods
+
+- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar {
+    NSLog(@"toolbar allowed items");
+    if (self.editingEnabled) {
+        return [NSArray arrayWithObjects:
+                AC_SHELL_TOOLBAR_ITEM_START,
+                AC_SHELL_TOOLBAR_ITEM_SYNC,
+                AC_SHELL_TOOLBAR_ITEM_UPLOAD,
+                AC_SHELL_TOOLBAR_ITEM_SEARCH,
+                NSToolbarCustomizeToolbarItemIdentifier,
+                NSToolbarFlexibleSpaceItemIdentifier,
+                NSToolbarSpaceItemIdentifier,
+                NSToolbarSeparatorItemIdentifier,
+                nil];
+    } else {
+        return [NSArray arrayWithObjects:
+                AC_SHELL_TOOLBAR_ITEM_START,
+                AC_SHELL_TOOLBAR_ITEM_SYNC,
+                AC_SHELL_TOOLBAR_ITEM_SEARCH,
+                NSToolbarCustomizeToolbarItemIdentifier,
+                NSToolbarFlexibleSpaceItemIdentifier,
+                NSToolbarSpaceItemIdentifier,
+                NSToolbarSeparatorItemIdentifier,
+                nil];
+    }
+}
+
+- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar {
+    NSLog(@"toolbar default items");
+    return [NSArray arrayWithObjects: 
+            NSToolbarSpaceItemIdentifier,
+            AC_SHELL_TOOLBAR_ITEM_START,
+            NSToolbarSpaceItemIdentifier,
+            AC_SHELL_TOOLBAR_ITEM_SYNC,
+            NSToolbarFlexibleSpaceItemIdentifier,
+            AC_SHELL_TOOLBAR_ITEM_SEARCH,
+            nil];
+}
+
+- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
+    NSLog(@"toolbar add item");
+    if ([itemIdentifier isEqual: AC_SHELL_TOOLBAR_ITEM_UPLOAD] && [self editingEnabled]) {
+        NSToolbarItem * item = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdentifier];
+        [item setImage: [NSImage imageNamed: @"icn_upload"]];
+        [item setLabel: NSLocalizedString(@"Upload", nil)];
+        [item setPaletteLabel: NSLocalizedString(@"Upload", nil)];
+        return item;
+    }
+    return nil;
+}
+
+- (void) toolbarWillAddItem:(NSNotification *)notification {
+    NSLog(@"toolbar will add item");
+    NSToolbarItem *addedItem = [[notification userInfo] objectForKey: @"item"];
+    if ([[addedItem itemIdentifier] isEqual: AC_SHELL_TOOLBAR_ITEM_UPLOAD]) {
+        [addedItem setTarget:self];
+        [addedItem setAction:@selector(upload:)];
+    }
 }
 
 #pragma mark -

@@ -53,7 +53,7 @@
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
 		630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */; };
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
-		630D759811FE05F400EEB7F2 /* icn_upload.png in Resources */ = {isa = PBXBuildFile; fileRef = 630D759711FE05F400EEB7F2 /* icn_upload.png */; };
+		630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 630D759711FE05F400EEB7F2 /* icn_upload.icns */; };
 		6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6366021B11F1F02800D6DD96 /* Localizable.strings */; };
 		6366035111F2305300D6DD96 /* icn_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6366035011F2305300D6DD96 /* icn_highlight.png */; };
 		636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */; };
@@ -172,7 +172,7 @@
 		630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSImageViewWithDroppedFilename.m; path = Classes/View/NSImageViewWithDroppedFilename.m; sourceTree = "<group>"; };
 		630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeynoteDropper.h; path = Classes/View/KeynoteDropper.h; sourceTree = "<group>"; };
 		630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KeynoteDropper.m; path = Classes/View/KeynoteDropper.m; sourceTree = "<group>"; };
-		630D759711FE05F400EEB7F2 /* icn_upload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_upload.png; path = Resources/Images/icn_upload.png; sourceTree = "<group>"; };
+		630D759711FE05F400EEB7F2 /* icn_upload.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icn_upload.icns; path = Resources/Images/icn_upload.icns; sourceTree = "<group>"; };
 		6366021D11F1F08E00D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6366035011F2305300D6DD96 /* icn_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_highlight.png; path = Resources/Images/icn_highlight.png; sourceTree = "<group>"; };
 		636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HighlightIconTransformer.h; path = Classes/Helper/HighlightIconTransformer.h; sourceTree = "<group>"; };
@@ -386,6 +386,8 @@
 		22D59A4511DE146B0025E48F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				2289820611F73701000D0983 /* AC-Shell-Icon.icns */,
+				630D759711FE05F400EEB7F2 /* icn_upload.icns */,
 				63B8E4B311FB8B160036DBC1 /* icn_warning.png */,
 				22F2B97D11F7541F00EE4717 /* icn_sync.icns */,
 				6366035011F2305300D6DD96 /* icn_highlight.png */,
@@ -427,8 +429,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				630D759711FE05F400EEB7F2 /* icn_upload.png */,
-				2289820611F73701000D0983 /* AC-Shell-Icon.icns */,
 				22A3B61711E71AA6003DE847 /* Fonts */,
 				22D59A4511DE146B0025E48F /* Images */,
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
@@ -546,7 +546,7 @@
 				63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */,
 				63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */,
 				63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */,
-				630D759811FE05F400EEB7F2 /* icn_upload.png in Resources */,
+				630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

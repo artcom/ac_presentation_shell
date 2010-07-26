@@ -17,7 +17,8 @@
 @class EditWindowController;
 
 @interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, NSOutlineViewDelegate, 
-											NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource> 
+											NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource,
+                                            NSToolbarDelegate> 
 {
 	PresentationLibrary *presentationLibrary;
 
@@ -55,9 +56,11 @@
 @property (retain, nonatomic) IBOutlet NSImageView * warningIcon;
 
 @property (readonly) NSString* libraryDirPath;
+@property (readonly) BOOL editingEnabled;
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;
+- (IBAction) upload: (id) sender;
 - (IBAction)remove: (id)sender;
 - (IBAction)addCollection: (id)sender;
 - (IBAction)removeCollection: (id)sender;

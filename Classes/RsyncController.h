@@ -33,6 +33,7 @@
     NSTextField * totalProgressLabel;
     
     NSString * lastRsyncMessage;
+    BOOL isUploading;
 }
 
 @property (assign) id <RsyncControllerDelegate> delegate;
@@ -47,4 +48,5 @@
 - (void) syncWithSource: (NSString*) source destination: (NSString*) destination;
 - (void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination;
 
+- (void) uploadWithSource: (NSString*) source destination: (NSString*) destination;
 @end
