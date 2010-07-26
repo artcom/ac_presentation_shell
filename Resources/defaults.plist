@@ -7,6 +7,6 @@
 	<key>rsyncSource</key>
 	<string>/Volumes/kommunikation/extern/Praesentationen/medium_library</string>
 	<key>editingEnabled</key>
-	<false/>
+	<true/>
 </dict>
 </plist>

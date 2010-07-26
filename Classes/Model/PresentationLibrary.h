@@ -19,6 +19,8 @@
     
     ACShellCollection * library;
     NSString * libraryDirPath;
+	
+	BOOL syncSuccessful;
 }
 
 @property (retain, nonatomic) ACShellCollection* library;

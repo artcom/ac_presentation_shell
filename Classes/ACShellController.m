@@ -224,6 +224,16 @@ enum ACPresentationDoubleClicked {
     presentationLibrary.library.children = array;
 }
 
+
+- (void)setCurrentPresentationList:(NSMutableArray *)newArray {
+	if (currentPresentationList != newArray) {
+		[currentPresentationList release];
+		currentPresentationList = [newArray retain];
+		
+		[[[collectionTreeController selectedObjects] objectAtIndex:0] setPresentations: currentPresentationList];
+	}
+}
+
 -(NSMutableArray*) currentPresentationList {	
 	if (![presentationLibrary hasLibrary]) {
 		return [NSMutableArray array];
