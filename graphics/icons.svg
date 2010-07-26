@@ -18,6 +18,19 @@
    sodipodi:docname="icons.svg">
   <defs
      id="defs4">
+    <marker
+       inkscape:stockid="TriangleOutL"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="TriangleOutL"
+       style="overflow:visible">
+      <path
+         id="path3750"
+         d="M 5.77,0.0 L -2.88,5.0 L -2.88,-5.0 L 5.77,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;marker-start:none"
+         transform="scale(0.8)" />
+    </marker>
     <linearGradient
        id="linearGradient3588">
       <stop
@@ -93,9 +106,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="18.656251"
-     inkscape:cx="190.14865"
-     inkscape:cy="584.61007"
+     inkscape:zoom="2.5757614"
+     inkscape:cx="265"
+     inkscape:cy="596.56"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -174,17 +187,24 @@
        inkscape:export-ydpi="92" />
     <text
        xml:space="preserve"
-       style="font-size:13.57100582px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Times"
-       x="198.83937"
-       y="471.56226"
+       style="font-size:15.98019791px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Times"
+       x="198.43764"
+       y="473.15152"
        id="text3596"
        inkscape:export-filename="/Volumes/Stuff/Users/david/artcom/ac_presentation_shell/Resources/Images/icn_warning.png"
        inkscape:export-xdpi="92"
        inkscape:export-ydpi="92"><tspan
          sodipodi:role="line"
          id="tspan3598"
-         x="198.83937"
-         y="471.56226"
-         style="font-size:13.5710001px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Times New Roman;-inkscape-font-specification:'Times New Roman, Bold'">!</tspan></text>
+         x="198.43764"
+         y="473.15152"
+         style="font-size:15.98019123px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:Times New Roman;-inkscape-font-specification:'Times New Roman, Bold'">!</tspan></text>
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 270,439.86218 -30,22.5 15,0 0,15 30,0 0,-15 15,0 -30,-22.5 z"
+       id="path4236"
+       inkscape:export-filename="/Volumes/Stuff/Users/david/artcom/ac_presentation_shell/Resources/Images/icn_upload.png"
+       inkscape:export-xdpi="92"
+       inkscape:export-ydpi="92" />
   </g>
 </svg>
