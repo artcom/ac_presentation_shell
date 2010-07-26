@@ -11,11 +11,12 @@
 #import "PresentationDataContext.h"
 
 @class ACShellCollection;
-@class PresentationData;
+@class Presentation;
 @class Settings;
 
 @interface PresentationLibrary : NSObject <PresentationDataContext, NSCoding> {
 	NSMutableDictionary *presentationData;
+	NSMutableDictionary *thumbnailCache;
     
     ACShellCollection * library;
     NSString * libraryDirPath;
@@ -25,7 +26,6 @@
 
 @property (retain, nonatomic) ACShellCollection* library;
 @property (readonly) BOOL hasLibrary;
-@property (readonly) NSString* libraryDirPath;
 @property (assign) BOOL syncSuccessful;
 
 + (id)libraryFromSettingsFile;
@@ -34,10 +34,12 @@
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;
    
-- (NSXMLElement *) xmlNode: (id) aId;
-
 - (void)updateIndices: (NSArray*) thePresentations;
 
 - (NSUInteger)collectionCount;
+
+- (void)cacheThumbnails;
+- (void)flushThumbnailCache;
+- (void)flushThumbnailCacheForPresentation: (Presentation *)presentation;
 
 @end

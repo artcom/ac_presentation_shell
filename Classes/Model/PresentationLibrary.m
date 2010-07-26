@@ -35,8 +35,8 @@
 
 @implementation PresentationLibrary
 @synthesize library;
-@synthesize libraryDirPath;
 @synthesize syncSuccessful;
+@synthesize libraryDirPath;
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
@@ -72,6 +72,8 @@
 }
 
 -(void) setup {
+	thumbnailCache = [[NSMutableDictionary alloc] init];
+	
     presentationData = nil;
     library = [[ACShellCollection collectionWithName: @"root"] retain];
     ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil)];
@@ -88,6 +90,7 @@
 
 - (void) dealloc {
     [presentationData release];
+	[thumbnailCache release];
 	[library release];
 
 	[super dealloc];
@@ -106,7 +109,9 @@
 
 - (BOOL) loadXmlLibraryFromDirectory: (NSString*) directory {
     NSLog(@"loadXML");
-    presentationData = nil;
+    
+	[self flushThumbnailCache];
+	presentationData = nil;
     [libraryDirPath release];
     libraryDirPath = [directory retain];
     
@@ -128,8 +133,10 @@
     
     for (NSXMLElement * element in xmlPresentations) {
         [presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
+		[element detach];
     }
     
+	[self cacheThumbnails];
     [self syncPresentations];
     return YES;
 }
@@ -145,6 +152,11 @@
     if (![xmlData writeToFile: [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"] atomically:YES]) {
         NSLog(@"Failed to save xml file.");
     }
+	
+	for (id key in presentationData) {
+		NSXMLElement * element = [presentationData objectForKey: key];
+		[element detach];
+	}
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
@@ -152,6 +164,33 @@
         return [presentationData objectForKey: aId];
     }
     return nil;
+}
+
+- (NSImage *)thumbnailForPresentation: (Presentation *)presentation {
+	NSImage *thumbnail = [thumbnailCache objectForKey:presentation.presentationId]; 
+
+	if (thumbnail == nil) {
+		NSString *filepath = [[self libraryDirPath] stringByAppendingPathComponent: presentation.relativeThumbnailPath];
+		thumbnail =  [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]] autorelease];
+		
+		[thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
+	}
+	
+	return thumbnail;
+}
+
+- (void)flushThumbnailCache {
+	[thumbnailCache removeAllObjects];
+}
+
+- (void)cacheThumbnails {
+	for (Presentation *presentation in self.allPresentations) {
+		[self thumbnailForPresentation:presentation];
+	}
+}
+
+- (void)flushThumbnailCacheForPresentation: (Presentation *)presentation {
+	[thumbnailCache removeObjectForKey:presentation.presentationId];
 }
 
 - (NSUInteger)collectionCount {

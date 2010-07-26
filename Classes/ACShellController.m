@@ -208,7 +208,7 @@ enum ACPresentationDoubleClicked {
         NSBeep();
 		return;
 	}
-# pragma mark XXX binding issue: removing presentations fails!
+
     [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
 }
 
@@ -230,7 +230,9 @@ enum ACPresentationDoubleClicked {
 		[currentPresentationList release];
 		currentPresentationList = [newArray retain];
 		
-		[[[collectionTreeController selectedObjects] objectAtIndex:0] setPresentations: currentPresentationList];
+		if ([[collectionTreeController selectedObjects] count] > 0) {
+			[[[collectionTreeController selectedObjects] objectAtIndex:0] setPresentations: currentPresentationList];
+		}		
 	}
 }
 

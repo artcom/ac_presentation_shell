@@ -43,8 +43,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 		self.context = theContext;
 		self.presentationId = theId;
         self.index = -1;
-		
-		[self thumbnail];
 	}
 	
 	return self;
@@ -102,11 +100,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (NSImage *)thumbnail {
-	if (thumbnail == nil) {
-		NSString *filepath = [[context libraryDirPath] stringByAppendingPathComponent: self.relativeThumbnailPath];
-		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];		
-	}
-	return thumbnail;
+	return [context thumbnailForPresentation:self];
 }
 
 - (NSString*) title {     	
@@ -142,8 +136,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void) setRelativeThumbnailPath: (NSString*) newPath {
+	[self willChangeValueForKey:@"thumbnail"];
+	[thumbnail release];
+	thumbnail = nil;
+	
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
+	[self didChangeValueForKey:@"thumbnail"];
 }
 
 - (NSString*) absoluteThumbnailPath {

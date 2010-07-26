@@ -8,8 +8,9 @@
 
 @protocol PresentationDataContext <NSCoding, NSObject>
 
-- (NSXMLElement*) xmlNode: (id) presentationId;
+@property (readonly) NSString *libraryDirPath;
 
-- (NSString*) libraryDirPath;
+- (NSXMLElement*) xmlNode: (id) presentationId;
+- (NSImage *)thumbnailForPresentation: (id) aId;
 
 @end

@@ -50,6 +50,7 @@
     originalPresentation = [aPresentation retain];
     self.editPresentation = [aPresentation copy];
     editNode = [[[originalPresentation xmlNode] copyWithZone: nil] retain];
+	NSLog(@"edit parent: %@", editNode.parent);
     self.editPresentation.context = self;
     
     [self setGuiValues];
@@ -59,12 +60,15 @@
 
 - (IBAction) userDidConfirmEdit: (id) sender {
     NSLog(@"edit confirmed");
-    BOOL xmlChanged = [originalPresentation updateFromPresentation: editPresentation
+    
+	BOOL xmlChanged = [originalPresentation updateFromPresentation: editPresentation
                                                   newThumbnailPath: thumbnailFilename
                                                     newKeynotePath: keynoteFilename];
     if (xmlChanged) {
         [[shellController presentationLibrary] saveXmlLibrary];
     }
+	[shellController.presentationLibrary flushThumbnailCacheForPresentation:editPresentation];
+
     [self postEditCleanUp];
 }
 
@@ -107,9 +111,16 @@
     return editNode;
 }
 
-- (NSString*) libraryDirPath { return shellController.libraryDirPath; }
+- (NSImage *)thumbnailForPresentation: (Presentation *)presentation {
+	return [shellController.presentationLibrary thumbnailForPresentation:presentation];
+}
 
+- (NSString*) libraryDirPath { 
+	return shellController.libraryDirPath; 
+}
 
+#pragma mark -
+#pragma mark Private Methods
 - (void) updateFileLabel: (NSTextField*) textLabel filename: (NSString*) aFilename {
     textLabel.stringValue = [aFilename lastPathComponent];
 }
