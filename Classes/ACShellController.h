@@ -41,6 +41,9 @@
 	
 	NSMutableArray *currentPresentationList;
     NSImageView * warningIcon;
+	
+	BOOL editingEnabled;
+	NSButton * removeButton;
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;

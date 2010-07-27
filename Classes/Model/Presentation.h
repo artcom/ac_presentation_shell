@@ -21,6 +21,9 @@
     NSImage *highlight_icon;
 	
 	FileCopyController *copyController;
+	
+	NSString * keynoteFilename;
+	NSString * thumbnailFilename;
 }
 
 @property (assign) BOOL selected;
