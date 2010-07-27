@@ -137,8 +137,9 @@
 		[element detach];
     }
     
-	[self cacheThumbnails];
     [self syncPresentations];
+
+	[self cacheThumbnails];
     return YES;
 }
 
@@ -174,7 +175,6 @@
 		NSString *filepath = [[self libraryDirPath] stringByAppendingPathComponent: presentation.relativeThumbnailPath];
 		thumbnail =  [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]] autorelease];
 		
-	
 		[thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
 	}
 	
