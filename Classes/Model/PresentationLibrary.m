@@ -204,10 +204,9 @@
 {
     NSString * newId = [NSString stringWithUUID];
     NSXMLElement * node = [NSXMLElement elementWithName: @"presentation"];
-    [node addAttribute: [NSXMLNode attributeWithName: @"id" stringValue: newId]];
     [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
     [node addAttribute: [NSXMLNode attributeWithName: @"highlight" stringValue: @""]];
-    [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
+    [node addAttribute: [NSXMLNode attributeWithName: @"id" stringValue: newId]];
     [node addChild: [NSXMLElement elementWithName: @"title"]];
     [node addChild: [NSXMLElement elementWithName: @"file"]];
     [node addChild: [NSXMLElement elementWithName: @"thumbnail"]];
