@@ -481,6 +481,7 @@ enum ACPresentationDoubleClicked {
 }
 
 - (NSString*) librarySource {
+	[[NSUserDefaults standardUserDefaults] synchronize];
     return [[NSUserDefaults standardUserDefaults]  stringForKey: @"rsyncSource"];
 }
             

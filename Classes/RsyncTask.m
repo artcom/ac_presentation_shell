@@ -60,7 +60,7 @@
 
 
 - (void)sync {
-	NSLog(@"syncing to %@", destination);
+	NSLog(@"syncing from %@ to %@", source, destination);
 	
     task = [[NSTask alloc] init];
     [task setLaunchPath: RSYNC_EXECUTABLE];

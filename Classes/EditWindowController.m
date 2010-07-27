@@ -77,7 +77,6 @@
                                                        copyController: fileCopyController];
     }
     
-#pragma mark XXX is this still neccesary?
 	if (!fileCopyController.isCopying) {
 		[self postEditCleanUp];
 	}

@@ -30,8 +30,7 @@
 -(void) setup;
 -(void) syncPresentations;
 -(void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
--(void) dropStalledPresentations: (NSMutableArray*) presentations;
-
+-(void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate;
 @end
 
 @implementation PresentationLibrary
@@ -238,12 +237,13 @@
     return (NSMutableArray*)[[library.children objectAtIndex: 1] children];
 }
 
-- (void) dropStalledPresentations: (NSMutableArray*) thePresentations {
+- (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate {
     BOOL droppedStuff = NO;
     for (int i = [thePresentations count] - 1; i >= 0; i--) {
         Presentation* presentation = (Presentation*) [thePresentations objectAtIndex: i];
-        if ([self xmlNode: presentation.presentationId] == nil) {
-            [thePresentations removeObjectAtIndex: i];
+        if ([self xmlNode: presentation.presentationId] == nil || (thePredicate != nil && ![thePredicate evaluateWithObject:presentation])) {
+
+			[thePresentations removeObjectAtIndex: i];
             droppedStuff = YES;
         }
     }
@@ -252,7 +252,7 @@
     }
 }
 
-- (void)addNewPresentations: (NSMutableArray*) thePresentations withPredicate: thePredicate {
+- (void)addNewPresentations: (NSMutableArray*) thePresentations withPredicate: (NSPredicate *) thePredicate {
     NSMutableArray * presentIds = [[[NSMutableArray alloc] init] autorelease];
     for (Presentation* presentation in thePresentations) {
         [presentIds addObject: presentation.presentationId];
@@ -274,13 +274,15 @@
 }
 
 -(void) syncPresentations {
-    [self dropStalledPresentations: self.allPresentations];
+    [self dropStalledPresentations: self.allPresentations notMatchingPredicate: nil];
     [self addNewPresentations: self.allPresentations withPredicate: nil];
-    [self dropStalledPresentations: self.highlights];
-    [self addNewPresentations:  self.highlights withPredicate: [NSPredicate predicateWithFormat:@"highlight == YES"]];
+	
+	NSPredicate *highlightPredicate = [NSPredicate predicateWithFormat:@"highlight == YES"];
+    [self dropStalledPresentations: self.highlights notMatchingPredicate: highlightPredicate];
+    [self addNewPresentations:  self.highlights withPredicate: highlightPredicate];
 	
 	for (ACShellCollection *collection in self.collections) {
-		[self dropStalledPresentations:collection.presentations];
+		[self dropStalledPresentations:collection.presentations notMatchingPredicate: nil];
 	}
 }
 

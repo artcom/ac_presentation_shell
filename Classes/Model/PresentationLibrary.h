@@ -38,7 +38,7 @@
 - (NSUInteger)collectionCount;
 
 - (NSXMLElement*) xmlNode:(id)aId;
-
+- (void) syncPresentations;
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation;
 - (void)cacheThumbnails;
 - (void)flushThumbnailCache;
