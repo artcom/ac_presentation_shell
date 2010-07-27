@@ -15,7 +15,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 @interface Presentation ()
 
-- (NSString*) subdirectoryFromTitle;
+- (NSString*) subdirectoryFromTitle: (NSString*) title;
 - (NSString*) extractSubdirectoryFromPresentationPath;
 
 - (void) setRelativePresentationPath: (NSString*) newPath;
@@ -72,34 +72,34 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	[aCoder encodeInteger:self.index forKey:@"index"];
 }
 
-- (BOOL) updateFromPresentation: (Presentation*) other 
-               newThumbnailPath: (NSString*) thumbnailFile
-                 newKeynotePath: (NSString*) keynoteFile
-				 copyController: (FileCopyController *)controller
+- (BOOL) updateWithTitle: (NSString*) title
+           thumbnailPath: (NSString*) thumbnailPath
+             keynotePath: (NSString*) keynotePath
+             isHighlight: (BOOL) highlightFlag
+          copyController: (FileCopyController *)controller
 {
 	[copyController release];
 	copyController = [controller retain];
 	
-	
-    NSLog(@"subdir: '%@'", [other subdirectoryFromTitle]);
     BOOL xmlChanged = NO;
-    if ([self updateSubdirectory: [other subdirectoryFromTitle]]) {
+    if ([self updateThumbnail: thumbnailPath]) {
         xmlChanged = YES;
     }
-    if ( ! [self.title isEqual: other.title]) {
-        self.title = other.title;
+    if ([self updateKeynote: keynotePath]) {
         xmlChanged = YES;
     }
-    if (self.highlight != other.highlight) {
-        self.highlight = other.highlight;
+    if ([self updateSubdirectory: [self subdirectoryFromTitle: title]]) {
         xmlChanged = YES;
     }
-    if ([self updateThumbnail: thumbnailFile]) {
+    if ( ! [self.title isEqual: title]) {
+        self.title = title;
         xmlChanged = YES;
     }
-    if ([self updateKeynote: keynoteFile]) {
+    if (self.highlight != highlightFlag) {
+        self.highlight = highlightFlag;
         xmlChanged = YES;
     }
+
     return xmlChanged;
 }
 
@@ -117,7 +117,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void) setTitle: (NSString*) newTitle {
-    NSLog(@"setTitle: %@", newTitle);
     NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
     [self willChangeValueForKey:@"singleLineTitle"];
     [[titleNodes objectAtIndex: 0] setStringValue: newTitle];	
@@ -188,7 +187,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return [[NSFileManager defaultManager] fileExistsAtPath: self.absolutePresentationPath];
 }
 
-- (NSString*) subdirectoryFromTitle {
+- (NSString*) subdirectoryFromTitle: (NSString*) aTitle {
     if ( ! ourNonDirNameCharSet ) {
         NSMutableCharacterSet * workingSet = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
         [workingSet addCharactersInString: @"_-."];
@@ -196,7 +195,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [workingSet invert];
         ourNonDirNameCharSet = [workingSet copy];
     }
-    NSString * str = [[[self.title componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""] autorelease];
+    NSString * str = [[[aTitle componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""] autorelease];
     NSArray * words = [[str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] autorelease];
     str = [words componentsJoinedByString: @"_"];
     return str;
@@ -233,7 +232,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
         return NO;
     }
 
-    NSLog(@"directory changed");
     NSString * newDir = [[context libraryDirPath] stringByAppendingPathComponent: newSubdirectory];
     if ([[NSFileManager defaultManager] fileExistsAtPath: newDir]) {
         NSLog(@"Conflicting directory names");

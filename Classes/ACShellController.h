@@ -54,14 +54,16 @@
 @property (retain, nonatomic) IBOutlet NSTextField *statusLine;
 @property (retain, nonatomic) NSMutableArray * currentPresentationList;
 @property (retain, nonatomic) IBOutlet NSImageView * warningIcon;
+@property (retain, nonatomic) IBOutlet NSButton * removeButton;
 
 @property (readonly) NSString* libraryDirPath;
 @property (readonly) BOOL editingEnabled;
 
 - (IBAction)play: (id)sender;
 - (IBAction)sync: (id)sender;
-- (IBAction) upload: (id) sender;
+- (IBAction)upload: (id) sender;
 - (IBAction)remove: (id)sender;
+- (IBAction)addPresentation: sender;
 - (IBAction)addCollection: (id)sender;
 - (IBAction)removeCollection: (id)sender;
 - (IBAction)removePresentation: (id) sender;

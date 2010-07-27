@@ -8,13 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 //#import "ACShellCollection.h"
-#import "PresentationDataContext.h"
 
 @class ACShellCollection;
 @class Presentation;
 @class Settings;
 
-@interface PresentationLibrary : NSObject <PresentationDataContext, NSCoding> {
+@interface PresentationLibrary : NSObject <NSCoding> {
 	NSMutableDictionary *presentationData;
 	NSMutableDictionary *thumbnailCache;
     
@@ -27,6 +26,7 @@
 @property (retain, nonatomic) ACShellCollection* library;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
+@property (readonly) NSString * libraryDirPath;
 
 + (id)libraryFromSettingsFile;
 

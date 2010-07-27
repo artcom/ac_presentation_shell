@@ -188,7 +188,6 @@
 		63B8E52211FBA2CD0036DBC1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
 		63B8E52711FBACD50036DBC1 /* EditWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditWindowController.h; path = Classes/EditWindowController.h; sourceTree = "<group>"; };
 		63B8E52811FBACD50036DBC1 /* EditWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditWindowController.m; path = Classes/EditWindowController.m; sourceTree = "<group>"; };
-		63B8E6D811FC585D0036DBC1 /* PresentationDataContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PresentationDataContext.h; path = Classes/Model/PresentationDataContext.h; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -360,7 +359,6 @@
 				22D2F77311D8B5E10030AFBD /* Presentation.m */,
 				225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */,
 				225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */,
-				63B8E6D811FC585D0036DBC1 /* PresentationDataContext.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";

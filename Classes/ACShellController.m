@@ -32,13 +32,14 @@ enum ACPresentationDoubleClicked {
 
 @interface ACShellController ()
 
+@property (readonly) NSString* librarySource;
+
 - (void)beautifyOutlineView;
 - (BOOL) isToplevelGroup: (id) item;
 - (BOOL) isStaticCategory: (id) item;
 - (void) updateStatusText: (NSNotification*) notification;
 - (void) updateSyncFailedWarning;
-
-@property (readonly) NSString* librarySource;
+- (BOOL) isCollectionSelected;
 
 @end
 
@@ -53,6 +54,7 @@ enum ACPresentationDoubleClicked {
 @synthesize currentPresentationList;
 @synthesize warningIcon;
 @synthesize editingEnabled;
+@synthesize removeButton;
 
 + (void) initialize {
 	NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
@@ -67,7 +69,6 @@ enum ACPresentationDoubleClicked {
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
         if ([[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]) {
-            NSLog(@"=== Editing enabled ===");
             editWindowController = [[EditWindowController alloc] initWithShellController: self];
         }
 		
@@ -89,8 +90,6 @@ enum ACPresentationDoubleClicked {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
                                                  name:NSTableViewSelectionDidChangeNotification object:presentationTable];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
-                                                 name:NSOutlineViewSelectionDidChangeNotification object:collectionView];
 	
 	[self bind: @"currentPresentationList" toObject:collectionTreeController withKeyPath:@"selection.presentations" options:nil];
     
@@ -145,6 +144,8 @@ enum ACPresentationDoubleClicked {
 	}
 }
 
+- (IBAction)addPresentation: sender { [editWindowController add]; }
+
 - (IBAction)openPresentation: (id)sender {
 	if (sender == presentationTable) {
 		Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
@@ -166,7 +167,6 @@ enum ACPresentationDoubleClicked {
             default:
                 break;
         }
-
 	}
 }
 
@@ -197,9 +197,17 @@ enum ACPresentationDoubleClicked {
     [collectionView editColumn: 0 row: [collectionView selectedRow] withEvent:nil select:YES];
 }
 
-- (IBAction)removeCollection: (id)sender {
+- (BOOL) isCollectionSelected {
 	NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
 	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
+		return NO;
+	}
+    return YES;
+}
+
+- (IBAction)removeCollection: (id)sender {
+	NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
+	if (! [self isCollectionSelected]) {
         NSBeep();
 		return;
 	}
@@ -308,19 +316,6 @@ enum ACPresentationDoubleClicked {
 	return YES;
 }
 
-- (void) updateStatusText: (NSNotification*) notification {
-    unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
-    if ( ! [presentationLibrary hasLibrary]) {
-        [statusLine setStringValue: NSLocalizedString(@"No library loaded", nil)];
-    } else if (selectedItems > 0) {
-        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d of %d presentations", nil), 
-                                     selectedItems, [[presentationsArrayController arrangedObjects] count]]];
-    } else {
-        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d presentations", nil),
-                                     [[presentationsArrayController arrangedObjects] count]]];
-    }
-}
-
 
 #pragma mark -
 #pragma mark  NSOutlineViewDelegate Protocol Methods
@@ -374,13 +369,16 @@ enum ACPresentationDoubleClicked {
 	return YES;
 }
 
+- (void)outlineViewSelectionDidChange:(NSNotification *)notification {
+    [removeButton setEnabled: [self isCollectionSelected]];
+    [self updateStatusText: nil];
+}
 
 #pragma mark -
 #pragma mark NSToolbarDelegate Protocol Methods
 
 - (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar {
-    NSLog(@"toolbar allowed items");
-    if (self.editingEnabled) {
+//    if (self.editingEnabled) {
         return [NSArray arrayWithObjects:
                 AC_SHELL_TOOLBAR_ITEM_START,
                 AC_SHELL_TOOLBAR_ITEM_SYNC,
@@ -391,7 +389,7 @@ enum ACPresentationDoubleClicked {
                 NSToolbarSpaceItemIdentifier,
                 NSToolbarSeparatorItemIdentifier,
                 nil];
-    } else {
+/*    } else {
         return [NSArray arrayWithObjects:
                 AC_SHELL_TOOLBAR_ITEM_START,
                 AC_SHELL_TOOLBAR_ITEM_SYNC,
@@ -401,11 +399,10 @@ enum ACPresentationDoubleClicked {
                 NSToolbarSpaceItemIdentifier,
                 NSToolbarSeparatorItemIdentifier,
                 nil];
-    }
+    }*/
 }
 
 - (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar {
-    NSLog(@"toolbar default items");
     return [NSArray arrayWithObjects: 
             NSToolbarSpaceItemIdentifier,
             AC_SHELL_TOOLBAR_ITEM_START,
@@ -417,11 +414,11 @@ enum ACPresentationDoubleClicked {
 }
 
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
-    NSLog(@"toolbar add item");
     if ([itemIdentifier isEqual: AC_SHELL_TOOLBAR_ITEM_UPLOAD] && [self editingEnabled]) {
         NSToolbarItem * item = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdentifier];
         [item setImage: [NSImage imageNamed: @"icn_upload"]];
         [item setLabel: NSLocalizedString(@"Upload", nil)];
+        [item setToolTip: NSLocalizedString(@"Upload local library to server", nil)];
         [item setPaletteLabel: NSLocalizedString(@"Upload", nil)];
         return item;
     }
@@ -429,11 +426,14 @@ enum ACPresentationDoubleClicked {
 }
 
 - (void) toolbarWillAddItem:(NSNotification *)notification {
-    NSLog(@"toolbar will add item");
     NSToolbarItem *addedItem = [[notification userInfo] objectForKey: @"item"];
     if ([[addedItem itemIdentifier] isEqual: AC_SHELL_TOOLBAR_ITEM_UPLOAD]) {
-        [addedItem setTarget:self];
-        [addedItem setAction:@selector(upload:)];
+        if (self.editingEnabled) {
+            [addedItem setTarget:self];
+            [addedItem setAction:@selector(upload:)];
+        } else {
+            [addedItem setEnabled: NO];
+        }
     }
 }
 
@@ -497,5 +497,18 @@ enum ACPresentationDoubleClicked {
     }
 
 }
+- (void) updateStatusText: (NSNotification*) notification {
+    unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
+    if ( ! [presentationLibrary hasLibrary]) {
+        [statusLine setStringValue: NSLocalizedString(@"No library loaded", nil)];
+    } else if (selectedItems > 0) {
+        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d of %d presentations", nil), 
+                                     selectedItems, [[presentationsArrayController arrangedObjects] count]]];
+    } else {
+        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d presentations", nil),
+                                     [[presentationsArrayController arrangedObjects] count]]];
+    }
+}
+
 
 @end

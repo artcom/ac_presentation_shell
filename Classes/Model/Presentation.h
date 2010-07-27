@@ -44,10 +44,11 @@
 @property (readonly) NSImage *thumbnail;
 @property (readonly) BOOL isComplete;
 
-- (id) initWithId:(id)theId inContext: (id<PresentationDataContext>)theContext;
+- (id) initWithId:(id)theId inContext: (PresentationLibrary*)theContext;
 
-- (BOOL) updateFromPresentation: (Presentation*) other newThumbnailPath: (NSString*) thumbnailFile
-				 newKeynotePath: (NSString*) keynoteFile copyController: (FileCopyController *)controller;
+- (BOOL) updateWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnailPath
+             keynotePath: (NSString*) keynotePath isHighlight: (BOOL) highlightFlag
+          copyController: (FileCopyController *)controller;
 - (NSXMLElement*) xmlNode;
 
 @end

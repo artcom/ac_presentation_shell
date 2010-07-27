@@ -7,34 +7,35 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "PresentationDataContext.h"
 #import "FileCopyController.h"
 
 @class Presentation;
 @class ACShellController;
 @class KeynoteDropper;
+@class NSImageViewWithDroppedFilename;
 
-@interface EditWindowController : NSWindowController <PresentationDataContext, FileCopyControllerDelegate> {
-    Presentation * editPresentation;
-    Presentation * originalPresentation;
-    
-    NSXMLElement * editNode;
-    ACShellController * shellController;
-    
-    NSString * thumbnailFilename;
-    NSString * keynoteFilename;
-    
+@interface EditWindowController : NSWindowController <FileCopyControllerDelegate> {
+    Presentation * presentation;
+
     KeynoteDropper * droppedKeynote;
-    
-    NSTextField * thumbnailFileLabel;
     NSTextField * keynoteFileLabel;
+
+    NSTextView * titleView;
+    
+    NSImageViewWithDroppedFilename * droppedThumbnail;
+    
+    NSButton * highlightCheckbox;
+    
+    ACShellController * shellController;
 }
 
-@property (retain) Presentation * editPresentation;
 @property (retain, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
-@property (retain, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 @property (retain, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
 
+@property (retain, nonatomic) IBOutlet NSTextView * titleView;
+@property (retain, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
+
+@property (retain, nonatomic) IBOutlet NSButton * highlightCheckbox;
 
 - (id) initWithShellController:(ACShellController *)theShellController;
 
@@ -45,6 +46,7 @@
 - (IBAction) editWithKeynote: (id) sender;
 
 - (void) edit: (Presentation*) aPresentation;
+- (void) add;
 
 
 @end

@@ -10,10 +10,7 @@
 
 
 @implementation KeynoteDropper
-
--(NSString*) filename {
-    return filename;
-}
+@synthesize filename;
 
 -(void) setFilename: (NSString*) aFilename {
     filename = [aFilename retain];

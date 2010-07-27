@@ -23,10 +23,11 @@
 @end
 
 @implementation EditWindowController
-@synthesize editPresentation;
+@synthesize titleView;
 @synthesize droppedKeynote;
-@synthesize thumbnailFileLabel;
 @synthesize keynoteFileLabel;
+@synthesize droppedThumbnail;
+@synthesize highlightCheckbox;
 
 - (id) initWithShellController: (ACShellController*) theShellController {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
@@ -47,15 +48,14 @@
 }
 
 - (void) edit: (Presentation*) aPresentation {
+    presentation = [aPresentation retain];
 
-    originalPresentation = [aPresentation retain];
-    self.editPresentation = [aPresentation copy];
-    editNode = [[[originalPresentation xmlNode] copyWithZone: nil] retain];
-	NSLog(@"edit parent: %@", editNode.parent);
-    self.editPresentation.context = self;
-    
     [self setGuiValues];
     
+    [self showWindow: nil];
+}
+
+- (void) add {
     [self showWindow: nil];
 }
 
@@ -64,21 +64,22 @@
 	
 	FileCopyController *fileCopyController = [[FileCopyController alloc] initWithParentWindow:[self window]];
 	fileCopyController.delegate = self;
-	
-	BOOL xmlChanged = [originalPresentation updateFromPresentation: editPresentation
-													  newThumbnailPath: thumbnailFilename
-														newKeynotePath: keynoteFilename
-														copyController:fileCopyController];
+    
+	BOOL xmlChanged = [presentation updateWithTitle: [[titleView textStorage] string]
+                                      thumbnailPath: droppedThumbnail.filename
+                                        keynotePath: droppedKeynote.filename
+                                        isHighlight: [highlightCheckbox intValue]
+                                     copyController: fileCopyController];
 
-	
+#pragma mark XXX move this to PresentationLibrary
 	if (xmlChanged) {
 		[[shellController presentationLibrary] saveXmlLibrary];
 	}
-	[shellController.presentationLibrary flushThumbnailCacheForPresentation:editPresentation];
+	[shellController.presentationLibrary flushThumbnailCacheForPresentation:presentation];
 
-	if (!fileCopyController.isCopying) {
+//	if (!fileCopyController.isCopying) {
 		[self postEditCleanUp];
-	}
+//	}
 		
 	[fileCopyController release];
 }
@@ -89,31 +90,19 @@
 }
 
 - (IBAction) userDidDropThumbnail: (id) sender {
-    thumbnailFilename = [[sender filename] retain];
-    [self updateFileLabel: thumbnailFileLabel filename: [sender filename]];
 }
 
 - (IBAction) userDidDropKeynote: (id) sender {
-    keynoteFilename = [[sender filename] retain];
-    [self updateFileLabel: keynoteFileLabel filename: [sender filename]];
 }
 
 - (IBAction) editWithKeynote: (id) sender {
-    [[KeynoteHandler sharedHandler] open: editPresentation.absolutePresentationPath];
+    [[KeynoteHandler sharedHandler] open: droppedKeynote.filename];
 }
 
 - (void) postEditCleanUp {
     [self close];
-    [originalPresentation release];
-    originalPresentation = nil;
-    [editPresentation release];
-    editPresentation = nil;
-    [editNode release];
-    editNode = nil;
-    [thumbnailFilename release];
-    thumbnailFilename = nil;
-    [keynoteFilename release];
-    keynoteFilename = nil;
+    [presentation release];
+    presentation = nil;
 }
 
 
@@ -128,21 +117,6 @@
 	
 }
 
-
-#pragma mark -
-#pragma mark PresentationDataContext Protocol Methods
-- (NSXMLElement*) xmlNode:(id)presentationId {
-    return editNode;
-}
-
-- (NSImage *)thumbnailForPresentation: (Presentation *)presentation {
-	return [shellController.presentationLibrary thumbnailForPresentation:presentation];
-}
-
-- (NSString*) libraryDirPath { 
-	return shellController.libraryDirPath; 
-}
-
 #pragma mark -
 #pragma mark Private Methods
 - (void) updateFileLabel: (NSTextField*) textLabel filename: (NSString*) aFilename {
@@ -150,9 +124,14 @@
 }
 
 - (void) setGuiValues {
-    [self updateFileLabel: thumbnailFileLabel filename: editPresentation.absoluteThumbnailPath];
-    [self updateFileLabel: keynoteFileLabel filename: editPresentation.absolutePresentationPath];
-    droppedKeynote.filename = editPresentation.absolutePresentationPath;
+    [self updateFileLabel: keynoteFileLabel filename: presentation.absolutePresentationPath];
+    droppedKeynote.filename = presentation.absolutePresentationPath;
+    
+    [titleView setString: presentation.title];
+
+    [droppedThumbnail setImage: presentation.thumbnail];
+    
+    [highlightCheckbox setState: presentation.highlight];
 }
 
 @end
