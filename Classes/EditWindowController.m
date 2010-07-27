@@ -17,7 +17,6 @@
 @interface EditWindowController ()
 
 - (void) postEditCleanUp;
-- (void) updateFileLabel: (NSTextField*) textLabel filename: (NSString*) aFilename;
 - (void) setGuiValues;
 
 @end
@@ -49,13 +48,12 @@
 
 - (void) edit: (Presentation*) aPresentation {
     presentation = [aPresentation retain];
-
     [self setGuiValues];
-    
     [self showWindow: nil];
 }
 
 - (void) add {
+    [self setGuiValues];
     [self showWindow: nil];
 }
 
@@ -65,21 +63,16 @@
 	FileCopyController *fileCopyController = [[FileCopyController alloc] initWithParentWindow:[self window]];
 	fileCopyController.delegate = self;
     
-	BOOL xmlChanged = [presentation updateWithTitle: [[titleView textStorage] string]
-                                      thumbnailPath: droppedThumbnail.filename
-                                        keynotePath: droppedKeynote.filename
-                                        isHighlight: [highlightCheckbox intValue]
-                                     copyController: fileCopyController];
-
-#pragma mark XXX move this to PresentationLibrary
-	if (xmlChanged) {
-		[[shellController presentationLibrary] saveXmlLibrary];
-	}
-	[shellController.presentationLibrary flushThumbnailCacheForPresentation:presentation];
-
-//	if (!fileCopyController.isCopying) {
+	[presentation updateWithTitle: [[titleView textStorage] string]
+                    thumbnailPath: droppedThumbnail.filename
+                      keynotePath: droppedKeynote.filename
+                      isHighlight: [highlightCheckbox intValue]
+                   copyController: fileCopyController];
+    
+#pragma mark XXX is this still neccesary?
+	if (!fileCopyController.isCopying) {
 		[self postEditCleanUp];
-//	}
+	}
 		
 	[fileCopyController release];
 }
@@ -93,6 +86,7 @@
 }
 
 - (IBAction) userDidDropKeynote: (id) sender {
+    keynoteFileLabel.stringValue = [presentation.absolutePresentationPath lastPathComponent];
 }
 
 - (IBAction) editWithKeynote: (id) sender {
@@ -114,24 +108,26 @@
 }
 
 - (void)fileCopyControllerDidFail: (FileCopyController *)controller; {
-	
+	NSLog(@"File copy failed");
 }
 
 #pragma mark -
 #pragma mark Private Methods
-- (void) updateFileLabel: (NSTextField*) textLabel filename: (NSString*) aFilename {
-    textLabel.stringValue = [aFilename lastPathComponent];
-}
 
 - (void) setGuiValues {
-    [self updateFileLabel: keynoteFileLabel filename: presentation.absolutePresentationPath];
-    droppedKeynote.filename = presentation.absolutePresentationPath;
-    
-    [titleView setString: presentation.title];
-
-    [droppedThumbnail setImage: presentation.thumbnail];
-    
-    [highlightCheckbox setState: presentation.highlight];
+    if (presentation) {
+        keynoteFileLabel.stringValue = [presentation.absolutePresentationPath lastPathComponent];
+        droppedKeynote.filename = presentation.absolutePresentationPath;
+        [titleView setString: presentation.title];
+        [droppedThumbnail setImage: presentation.thumbnail];
+        [highlightCheckbox setState: presentation.highlight];
+    } else {
+        keynoteFileLabel.stringValue = NSLocalizedString(@"Drop a keynote", nil);
+        droppedKeynote.filename = nil;
+        [titleView setString: @""];
+        [droppedThumbnail setImage: nil];
+        [highlightCheckbox setState: FALSE];
+    }
 }
 
 @end

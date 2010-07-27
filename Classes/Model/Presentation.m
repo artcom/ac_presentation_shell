@@ -100,6 +100,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
         xmlChanged = YES;
     }
 
+    if (xmlChanged) {
+		[context saveXmlLibrary];
+	}
+	[context flushThumbnailCacheForPresentation: self];
+    
     return xmlChanged;
 }
 
