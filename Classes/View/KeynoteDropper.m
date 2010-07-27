@@ -23,9 +23,7 @@
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
-    NSLog(@"dragging entered");
     NSPasteboard *pasteboard = [sender draggingPasteboard];
-//    NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
  
     if ( [[pasteboard types] containsObject:NSFilenamesPboardType] ) {
         NSArray *filenames = [pasteboard propertyListForType: NSFilenamesPboardType];
@@ -41,11 +39,7 @@
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    if ( ! [super performDragOperation: sender]) {
-        return NO;
-    }
     NSPasteboard *pasteboard = [sender draggingPasteboard];
- //   NSDragOperation sourceDragMask = [sender draggingSourceOperationMask];
     if ( [[pasteboard types] containsObject: NSFilenamesPboardType] ) {
         NSArray *files = [pasteboard propertyListForType:NSFilenamesPboardType];
         

@@ -7,11 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-//#import "ACShellCollection.h"
 
 @class ACShellCollection;
 @class Presentation;
-@class Settings;
+@class FileCopyController;
 
 @interface PresentationLibrary : NSObject <NSCoding> {
 	NSMutableDictionary *presentationData;
@@ -38,8 +37,14 @@
 
 - (NSUInteger)collectionCount;
 
+- (NSXMLElement*) xmlNode:(id)aId;
+
+- (NSImage *)thumbnailForPresentation: (Presentation *)presentation;
 - (void)cacheThumbnails;
 - (void)flushThumbnailCache;
 - (void)flushThumbnailCacheForPresentation: (Presentation *)presentation;
 
+- (void) addPresentationWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnail 
+                      keynotePath: (NSString*) keynote isHighlight: (BOOL) highlightFlag
+                   copyController: (FileCopyController*) copyController;
 @end

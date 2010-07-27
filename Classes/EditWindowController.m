@@ -62,12 +62,20 @@
 	
 	FileCopyController *fileCopyController = [[FileCopyController alloc] initWithParentWindow:[self window]];
 	fileCopyController.delegate = self;
-    
-	[presentation updateWithTitle: [[titleView textStorage] string]
-                    thumbnailPath: droppedThumbnail.filename
-                      keynotePath: droppedKeynote.filename
-                      isHighlight: [highlightCheckbox intValue]
-                   copyController: fileCopyController];
+    if (presentation) {
+        [presentation updateWithTitle: [[titleView textStorage] string]
+                        thumbnailPath: droppedThumbnail.filename
+                          keynotePath: droppedKeynote.filename
+                          isHighlight: [highlightCheckbox intValue]
+                       copyController: fileCopyController];
+    } else {
+        NSLog(@"thumb: %@", droppedThumbnail.filename);
+        [shellController.presentationLibrary addPresentationWithTitle: [[titleView textStorage] string]
+                                                        thumbnailPath: droppedThumbnail.filename
+                                                          keynotePath: droppedKeynote.filename
+                                                          isHighlight: [highlightCheckbox intValue]
+                                                       copyController: fileCopyController];
+    }
     
 #pragma mark XXX is this still neccesary?
 	if (!fileCopyController.isCopying) {
@@ -86,7 +94,7 @@
 }
 
 - (IBAction) userDidDropKeynote: (id) sender {
-    keynoteFileLabel.stringValue = [presentation.absolutePresentationPath lastPathComponent];
+    [keynoteFileLabel setStringValue: [[sender filename] lastPathComponent]];
 }
 
 - (IBAction) editWithKeynote: (id) sender {

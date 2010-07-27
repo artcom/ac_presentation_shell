@@ -10,6 +10,7 @@
 #import "PresentationLibrary.h"
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
+#import "NSString-WithUUID.h"
 
 #define ACSHELL_LIBRARY_NAME @"LIBRARY"
 #define ACSHELL_COLLECTIONS @"COLLECTIONS"
@@ -195,6 +196,32 @@
 
 - (NSUInteger)collectionCount {
 	return [self.collections count];
+}
+
+- (void) addPresentationWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnail 
+                      keynotePath: (NSString*) keynote isHighlight: (BOOL) highlightFlag
+                   copyController: (FileCopyController*) copyController
+{
+    NSString * newId = [NSString stringWithUUID];
+    NSXMLElement * node = [NSXMLElement elementWithName: @"presentation"];
+    [node addAttribute: [NSXMLNode attributeWithName: @"id" stringValue: newId]];
+    [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
+    [node addAttribute: [NSXMLNode attributeWithName: @"highlight" stringValue: @""]];
+    [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
+    [node addChild: [NSXMLElement elementWithName: @"title"]];
+    [node addChild: [NSXMLElement elementWithName: @"file"]];
+    [node addChild: [NSXMLElement elementWithName: @"thumbnail"]];
+    
+    [presentationData setObject: node forKey: newId];
+    
+    Presentation * p = [[Presentation alloc] initWithId: newId inContext: self];
+    [p updateWithTitle: title
+         thumbnailPath: thumbnail
+           keynotePath: keynote
+           isHighlight: highlightFlag
+        copyController: copyController];
+    
+    [self syncPresentations];
 }
 
 #pragma mark -
