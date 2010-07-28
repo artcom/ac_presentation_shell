@@ -22,3 +22,6 @@
 "Checking %d files" = "Überprüfe %d Dateien";
 "Last sync failed. Resync required." = "Letzte Synchronisation fehlgeschlagen. Erneuter sync ist erfordelich.";
 "Updating presentation" = "Aktualisiere Präsentation";
+"Do you really want to delete the selected collection?" = "Willst Du die ausgewählte Sammlung wirklich löschen?";
+"Delete" = "Löschen";
+"Do you really want to remove the selected presentations from the current collection?" = "Willst Du die ausgewählten Präsentationen wirklich aus dieser Sammlung löschen?";

@@ -41,6 +41,11 @@ enum ACPresentationDoubleClicked {
 - (void) updateSyncFailedWarning;
 - (BOOL) isCollectionSelected;
 
+- (BOOL) runSuppressableBooleanDialogWithIdentifier: (NSString*) identifier
+                                            message: (NSString*) message
+                                           okButton: (NSString*) ok
+                                       cancelButton: (NSString*) cancel;
+
 @end
 
 @implementation ACShellController
@@ -211,11 +216,17 @@ enum ACPresentationDoubleClicked {
         NSBeep();
 		return;
 	}
-
-	[collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
-
-    if ([presentationLibrary collectionCount] == 0) {
-        [collectionView deselectAll: self];
+    
+    BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeleteCollection"
+                                                             message: @"Do you really want to delete the selected collection?"
+                                                            okButton: @"Delete"
+                                                        cancelButton: @"Cancel"];
+    if (deleteIt) {
+        [collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
+        
+        if ([presentationLibrary collectionCount] == 0) {
+            [collectionView deselectAll: self];
+        }
     }
 }
 
@@ -226,7 +237,13 @@ enum ACPresentationDoubleClicked {
 		return;
 	}
 
-    [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
+    BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeletePresentationFromCollection"
+                                                             message: @"Do you really want to remove the selected presentations from this collection?"
+                                                            okButton: @"Delete"
+                                                        cancelButton: @"Cancel"];
+    if (deleteIt) {
+        [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
+    }
 }
 
 - (IBAction)showPreferences: (id) sender {
@@ -378,28 +395,16 @@ enum ACPresentationDoubleClicked {
 #pragma mark NSToolbarDelegate Protocol Methods
 
 - (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar {
-//    if (self.editingEnabled) {
-        return [NSArray arrayWithObjects:
-                AC_SHELL_TOOLBAR_ITEM_START,
-                AC_SHELL_TOOLBAR_ITEM_SYNC,
-                AC_SHELL_TOOLBAR_ITEM_UPLOAD,
-                AC_SHELL_TOOLBAR_ITEM_SEARCH,
-                NSToolbarCustomizeToolbarItemIdentifier,
-                NSToolbarFlexibleSpaceItemIdentifier,
-                NSToolbarSpaceItemIdentifier,
-                NSToolbarSeparatorItemIdentifier,
-                nil];
-/*    } else {
-        return [NSArray arrayWithObjects:
-                AC_SHELL_TOOLBAR_ITEM_START,
-                AC_SHELL_TOOLBAR_ITEM_SYNC,
-                AC_SHELL_TOOLBAR_ITEM_SEARCH,
-                NSToolbarCustomizeToolbarItemIdentifier,
-                NSToolbarFlexibleSpaceItemIdentifier,
-                NSToolbarSpaceItemIdentifier,
-                NSToolbarSeparatorItemIdentifier,
-                nil];
-    }*/
+    return [NSArray arrayWithObjects:
+            AC_SHELL_TOOLBAR_ITEM_START,
+            AC_SHELL_TOOLBAR_ITEM_SYNC,
+            AC_SHELL_TOOLBAR_ITEM_UPLOAD,
+            AC_SHELL_TOOLBAR_ITEM_SEARCH,
+            NSToolbarCustomizeToolbarItemIdentifier,
+            NSToolbarFlexibleSpaceItemIdentifier,
+            NSToolbarSpaceItemIdentifier,
+            NSToolbarSeparatorItemIdentifier,
+            nil];
 }
 
 - (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar {
@@ -511,5 +516,28 @@ enum ACPresentationDoubleClicked {
     }
 }
 
-
+- (BOOL) runSuppressableBooleanDialogWithIdentifier: (NSString*) identifier
+                                            message: (NSString*) message
+                                           okButton: (NSString*) ok
+                                       cancelButton: (NSString*) cancel
+{
+    BOOL reallyDoIt = NO;
+    NSString * userDefaultsKey = [NSString stringWithFormat: @"supress%@Dialog", identifier];
+    BOOL suppressAlert = [[NSUserDefaults standardUserDefaults] boolForKey: userDefaultsKey];
+    if (suppressAlert ) {
+        reallyDoIt = YES;
+    } else {
+        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        [alert setMessageText: NSLocalizedString(message, nil)];
+        [alert addButtonWithTitle: NSLocalizedString(ok, nil)];
+        [alert addButtonWithTitle: NSLocalizedString(cancel, nil)];
+        [alert setShowsSuppressionButton: YES];
+        
+        if ([alert runModal] == NSAlertFirstButtonReturn) {
+            reallyDoIt = YES;
+        }
+        [[NSUserDefaults standardUserDefaults] setBool: alert.suppressionButton.state forKey: userDefaultsKey];
+    }
+    return reallyDoIt;
+}    
 @end
