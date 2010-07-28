@@ -65,7 +65,7 @@
     task = [[NSTask alloc] init];
     [task setLaunchPath: RSYNC_EXECUTABLE];
     [task setArguments: [NSArray arrayWithObjects:
-                              @"-rlpt", @"--progress", @"--delete", source, destination, nil]];
+                              @"-rlt", @"--progress", @"--delete", source, destination, nil]];
     pipe = [[NSPipe alloc] init];
     [task setStandardOutput: pipe];
 	
