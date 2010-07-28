@@ -7,6 +7,7 @@
 //
 
 #import "PreferenceWindowController.h"
+#import "default_keys.h"
 
 @interface PreferenceWindowController () 
 
@@ -42,8 +43,7 @@
 
     emptyPanel = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 1, 1)];
 
-    NSLog(@"editing: %d", [[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]);
-    [editOnDoubleClickOption setEnabled: [[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]];
+    [editOnDoubleClickOption setEnabled: [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]];
 
     [self showPanel: 0];
 }

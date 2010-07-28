@@ -16,6 +16,7 @@
 #import "KeynoteHandler.h"
 #import "RsyncController.h"
 #import "EditWindowController.h"
+#import "default_keys.h"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
@@ -73,7 +74,7 @@ enum ACPresentationDoubleClicked {
 
 		presentationWindowController = [[PresentationWindowController alloc] init];
         preferenceWindowController = [[PreferenceWindowController alloc] init];
-        if ([[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"]) {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
             editWindowController = [[EditWindowController alloc] initWithShellController: self];
         }
 		
@@ -154,7 +155,7 @@ enum ACPresentationDoubleClicked {
 - (IBAction)openPresentation: (id)sender {
 	if (sender == presentationTable) {
 		Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
-        int doubleClickSetting = [[[NSUserDefaults standardUserDefaults] objectForKey:@"presentationDoubleClick"] intValue];
+        int doubleClickSetting = [[[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_PRESENTATION_DOUBLE_CLICKED] intValue];
         switch (doubleClickSetting) {
             case ACShellOpenPresentation:
                 if (presentation.presentationFileExists) {
@@ -278,7 +279,7 @@ enum ACPresentationDoubleClicked {
 }
 
 - (BOOL) editingEnabled {
-    return [[NSUserDefaults standardUserDefaults] boolForKey: @"editingEnabled"];
+    return [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
 }
 
 #pragma mark -
@@ -487,7 +488,7 @@ enum ACPresentationDoubleClicked {
 
 - (NSString*) librarySource {
 	[[NSUserDefaults standardUserDefaults] synchronize];
-    return [[NSUserDefaults standardUserDefaults]  stringForKey: @"rsyncSource"];
+    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
             
 - (NSString*) libraryDirPath {
