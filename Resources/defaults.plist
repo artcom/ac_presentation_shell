@@ -5,7 +5,7 @@
 	<key>presentationDoubleClick</key>
 	<integer>0</integer>
 	<key>rsyncSource</key>
-	<string>/Volumes/kommunikation/extern/Praesentationen/medium_library</string>
+	<string>graviton.intern.artcom.de:/srv/data/kommunikation/extern/Praesentationen/demo_library</string>
 	<key>editingEnabled</key>
 	<false/>
 </dict>
