@@ -13,6 +13,7 @@
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
 #import "FileCopyController.h"
+#import "localized_text_keys.h"
 
 @interface EditWindowController ()
 
@@ -129,7 +130,7 @@
         [droppedThumbnail setImage: presentation.thumbnail];
         [highlightCheckbox setState: presentation.highlight];
     } else {
-        keynoteFileLabel.stringValue = NSLocalizedString(@"Drop a keynote", nil);
+        keynoteFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil);
         droppedKeynote.filename = nil;
         [titleView setString: @""];
         [droppedThumbnail setImage: nil];

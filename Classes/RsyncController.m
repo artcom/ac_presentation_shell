@@ -8,6 +8,7 @@
 
 #import "RsyncController.h"
 #import "RsyncTask.h"
+#import "localized_text_keys.h"
 
 @interface RsyncController ()
 
@@ -107,7 +108,7 @@ static NSImage * ourUploadIcon = nil;
 - (void)rsyncTaskDidFinish: (RsyncTask *)task; {
 	NSLog(@"did finish syncing");
     NSAlert * ack = [self acknowledgeDialogWithMessage: @"Library synchronized"
-                                     informationalText: @"Have a nice day."
+                                     informationalText: nil
                                                  style: NSInformationalAlertStyle
                                                   icon: [self directionIcon]];
     [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:) context: nil];
@@ -135,10 +136,10 @@ static NSImage * ourUploadIcon = nil;
     if (itemNumber >= 0 && itemCount >= 0) {
         double totalPercent = ((double)itemNumber / itemCount) * 100;
         totalProgressBar.doubleValue = totalPercent;
-        totalProgressLabel.stringValue = [NSString stringWithFormat: NSLocalizedString(@"Checked %d of %d files (%3.1f%%)", nil),
+        totalProgressLabel.stringValue = [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_CHECKED_N_OF_M_FILES, nil),
                                           itemNumber, itemCount, totalPercent];
     } else if (itemCount >= 0) {
-        totalProgressLabel.stringValue = [NSString stringWithFormat: NSLocalizedString(@"Checking %d files", nil), itemCount];
+        totalProgressLabel.stringValue = [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_CHECKING_N_FILES, nil), itemCount];
     }
 }
 
@@ -166,10 +167,10 @@ static NSImage * ourUploadIcon = nil;
 
 -(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        NSAlert * confirm = [self confirmDialogWithMessage: @"Abort synchronization?" 
-                                         informationalText: @"Aborting sync may lead to an inconsistent library." 
+        NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_ABORT_SYNC 
+                                         informationalText: ACSHELL_STR_ABORT_SYNC_WARNING 
                                                      style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution] 
-											  buttonTitles: [NSArray arrayWithObjects:@"Abort", @"Continue syncing", nil]];
+											  buttonTitles: [NSArray arrayWithObjects: ACSHELL_STR_ABORT, ACSHELL_STR_CONTINUE_SYNC, nil]];
         [self showSheet: confirm didEndSelector: @selector(userDidConfirmAbort:returnCode:contextInfo:) context: nil];
     }
 }
@@ -230,7 +231,7 @@ static NSImage * ourUploadIcon = nil;
     NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
 
 	if (titles == nil) {
-		titles = [NSArray arrayWithObjects:@"OK", @"Cancel", nil];
+		titles = [NSArray arrayWithObjects: ACSHELL_STR_OK, ACSHELL_STR_CANCEL, nil];
 	}
 
 	for (NSString *title in titles) {
@@ -250,7 +251,7 @@ static NSImage * ourUploadIcon = nil;
                                    style: (NSAlertStyle) style icon: (NSImage*) icon
 {
     NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
-    [dialog addButtonWithTitle:@"OK"];
+    [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
     if (icon != nil) {
@@ -262,9 +263,9 @@ static NSImage * ourUploadIcon = nil;
 
 -(NSAlert*) progressDialog {
     NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
-    [dialog addButtonWithTitle:@"Abort"];
-    [dialog setMessageText: NSLocalizedString(@"Synchronizing Library",nil)];
-    [dialog setInformativeText: NSLocalizedString(@"This may take a while.",nil)];
+    [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
+    [dialog setMessageText: NSLocalizedString(ACSHELL_STR_SYNCING,nil)];
+    [dialog setInformativeText: NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE,nil)];
     [dialog setAlertStyle: NSWarningAlertStyle];
     [dialog setIcon: [self directionIcon]];
     

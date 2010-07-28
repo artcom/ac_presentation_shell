@@ -11,11 +11,8 @@
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
 #import "NSString-WithUUID.h"
+#import "localized_text_keys.h"
 
-#define ACSHELL_LIBRARY_NAME @"LIBRARY"
-#define ACSHELL_COLLECTIONS @"COLLECTIONS"
-#define ACSHELL_CATEGORY_ALL @"All"
-#define ACSHELL_CATEGORY_HIGHLIGHTS @"Highlights"
 #define ACSHELL_SYNC_SUCCESSFUL @"syncSuccessful"
 
 @interface PresentationLibrary ()
@@ -60,9 +57,10 @@
 	self = [super init];
 	if (self != nil) {
         [self setup];
-        [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_CATEGORY_ALL]];
-        [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_CATEGORY_HIGHLIGHTS]];
-        [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_COLLECTIONS]];
+        [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey: ACSHELL_STR_LIBRARY]];
+        [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_HIGHLIGHTS]];
+        [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_COLLECTIONS]];
+        
         self.syncSuccessful = [aDecoder decodeBoolForKey: ACSHELL_SYNC_SUCCESSFUL];
         
         [library assignContext: self];
@@ -76,15 +74,15 @@
 	
     presentationData = nil;
     library = [[ACShellCollection collectionWithName: @"root"] retain];
-    ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_LIBRARY_NAME, nil)];
+    ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_LIBRARY, nil)];
     [library.children addObject: lib];
     
-    ACShellCollection *all = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_ALL, nil)];
+    ACShellCollection *all = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_ALL, nil)];
     [lib.children addObject: all];
-    ACShellCollection *highlights = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_CATEGORY_HIGHLIGHTS, nil)];
+    ACShellCollection *highlights = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_HIGHLIGHTS, nil)];
     [lib.children addObject: highlights];
     
-    ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_COLLECTIONS, nil)];
+    ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_STR_COLLECTIONS, nil)];
     [library.children addObject: collections];
 }
 
@@ -97,9 +95,9 @@
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {	
-	[aCoder encodeObject: self.allPresentations forKey:ACSHELL_CATEGORY_ALL];
-	[aCoder encodeObject: self.highlights forKey:ACSHELL_CATEGORY_HIGHLIGHTS];
-	[aCoder encodeObject: self.collections forKey:ACSHELL_COLLECTIONS];
+	[aCoder encodeObject: self.allPresentations forKey:ACSHELL_STR_ALL];
+	[aCoder encodeObject: self.highlights forKey:ACSHELL_STR_HIGHLIGHTS];
+	[aCoder encodeObject: self.collections forKey:ACSHELL_STR_COLLECTIONS];
     [aCoder encodeBool: self.syncSuccessful forKey: ACSHELL_SYNC_SUCCESSFUL];
 }
 

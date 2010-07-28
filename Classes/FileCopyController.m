@@ -7,6 +7,7 @@
 //
 
 #import "FileCopyController.h"
+#import "localized_text_keys.h"
 
 
 @implementation FileCopyController
@@ -36,8 +37,8 @@
 												 name:NSWorkspaceDidPerformFileOperationNotification object:nil];
 	
 	progressSheet = [[NSAlert alloc] init];
-	[progressSheet setMessageText:NSLocalizedString(@"Updating presentation", nil)];
-	[progressSheet setInformativeText:NSLocalizedString(@"This may take a while.", nil)];
+	[progressSheet setMessageText:NSLocalizedString(ACSHELL_STR_UPDATE_PRESENTATION, nil)];
+	[progressSheet setInformativeText:NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE, nil)];
 	
 	NSProgressIndicator *spinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)];
 	[spinner startAnimation:self];

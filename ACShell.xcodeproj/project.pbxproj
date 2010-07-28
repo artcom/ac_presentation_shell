@@ -169,6 +169,8 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = default_keys.h; path = OtherSources/default_keys.h; sourceTree = "<group>"; };
+		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = localized_text_keys.h; path = OtherSources/localized_text_keys.h; sourceTree = "<group>"; };
+		630D57851200CD60009D4CAE /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		630D728E11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NSImageViewWithDroppedFilename.h; path = Classes/View/NSImageViewWithDroppedFilename.h; sourceTree = "<group>"; };
 		630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NSImageViewWithDroppedFilename.m; path = Classes/View/NSImageViewWithDroppedFilename.m; sourceTree = "<group>"; };
 		630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KeynoteDropper.h; path = Classes/View/KeynoteDropper.h; sourceTree = "<group>"; };
@@ -422,6 +424,7 @@
 				256AC3F00F4B6AF500CF3369 /* ACShell_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				630D57591200C017009D4CAE /* default_keys.h */,
+				630D57791200C484009D4CAE /* localized_text_keys.h */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 		6366021B11F1F02800D6DD96 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
+				630D57851200CD60009D4CAE /* English */,
 				6366021D11F1F08E00D6DD96 /* German */,
 			);
 			name = Localizable.strings;

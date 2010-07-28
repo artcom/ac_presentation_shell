@@ -17,6 +17,7 @@
 #import "RsyncController.h"
 #import "EditWindowController.h"
 #import "default_keys.h"
+#import "localized_text_keys.h"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
@@ -192,7 +193,7 @@ enum ACPresentationDoubleClicked {
 }
 
 - (IBAction)addCollection: (id)sender {
-	ACShellCollection *list = [ACShellCollection collectionWithName:NSLocalizedString(@"new collection", nil)
+	ACShellCollection *list = [ACShellCollection collectionWithName:NSLocalizedString(ACSHELL_STR_NEW_COLLECTION, nil)
                                                       presentations:[NSMutableArray array] children:nil];
 	
 	NSUInteger indices[] = {1,[presentationLibrary collectionCount]};
@@ -219,9 +220,9 @@ enum ACPresentationDoubleClicked {
 	}
     
     BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeleteCollection"
-                                                             message: @"Do you really want to delete the selected collection?"
-                                                            okButton: @"Delete"
-                                                        cancelButton: @"Cancel"];
+                                                             message: ACSHELL_STR_DELETE_COLLECTION
+                                                            okButton: ACSHELL_STR_DELETE
+                                                        cancelButton: ACSHELL_STR_CANCEL];
     if (deleteIt) {
         [collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
         
@@ -239,9 +240,9 @@ enum ACPresentationDoubleClicked {
 	}
 
     BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeletePresentationFromCollection"
-                                                             message: @"Do you really want to remove the selected presentations from this collection?"
-                                                            okButton: @"Delete"
-                                                        cancelButton: @"Cancel"];
+                                                             message: ACSHELL_STR_DELETE_PRESENTATION
+                                                            okButton: ACSHELL_STR_DELETE
+                                                        cancelButton: ACSHELL_STR_CANCEL];
     if (deleteIt) {
         [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
     }
@@ -423,9 +424,9 @@ enum ACPresentationDoubleClicked {
     if ([itemIdentifier isEqual: AC_SHELL_TOOLBAR_ITEM_UPLOAD] && [self editingEnabled]) {
         NSToolbarItem * item = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdentifier];
         [item setImage: [NSImage imageNamed: @"icn_upload"]];
-        [item setLabel: NSLocalizedString(@"Upload", nil)];
-        [item setToolTip: NSLocalizedString(@"Upload local library to server", nil)];
-        [item setPaletteLabel: NSLocalizedString(@"Upload", nil)];
+        [item setLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
+        [item setToolTip: NSLocalizedString(ACSHELL_STR_UPLOAD_TOOLTIP, nil)];
+        [item setPaletteLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
         return item;
     }
     return nil;
@@ -500,19 +501,19 @@ enum ACPresentationDoubleClicked {
     BOOL lastSyncOk = presentationLibrary.syncSuccessful;
     [self.warningIcon setHidden: lastSyncOk];
     if ( ! lastSyncOk ) {
-        [self.warningIcon setToolTip: NSLocalizedString(@"Last sync failed. Resync required.", nil)];
+        [self.warningIcon setToolTip: NSLocalizedString(ACSHELL_STR_LAST_SYNC_FAILED, nil)];
     }
 
 }
 - (void) updateStatusText: (NSNotification*) notification {
     unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
     if ( ! [presentationLibrary hasLibrary]) {
-        [statusLine setStringValue: NSLocalizedString(@"No library loaded", nil)];
+        [statusLine setStringValue: NSLocalizedString(ACSHELL_STR_NO_LIBRARY, nil)];
     } else if (selectedItems > 0) {
-        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d of %d presentations", nil), 
+        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_M_PRESENTATIONS, nil), 
                                      selectedItems, [[presentationsArrayController arrangedObjects] count]]];
     } else {
-        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(@"%d presentations", nil),
+        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_PRESENTATIONS, nil),
                                      [[presentationsArrayController arrangedObjects] count]]];
     }
 }
