@@ -21,6 +21,8 @@
 	NSMutableArray *presentations;
 	
 	PresentationView *presentationView;
+	
+//	NSInteger playingKeynote;
 }
 
 @property (retain) NSArray *presentations;

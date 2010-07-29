@@ -31,7 +31,6 @@
 
 - (void) dealloc {
 	[presentations release];
-	
 	[presentationView release];
 	
 	[super dealloc];
@@ -106,6 +105,8 @@
 	
 	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 	self.presentationView.mouseTracking = NO;
+	
+	// playingKeynote = index;
 }
 
 #pragma mark -
@@ -115,7 +116,10 @@
 }
 
 - (void) keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
-	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+	// CALayer *oldHoveredLayer = [self presentationView: presentationView hoverLayerForItemAtIndex: playingKeynote];
+	// [presentationView addOverlay: oldHoveredLayer forItem: playingKeynote];
+	
+ 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[[self window] makeKeyAndOrderFront:nil];
 }
 

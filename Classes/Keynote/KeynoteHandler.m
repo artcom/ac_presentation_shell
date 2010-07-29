@@ -38,7 +38,7 @@ KeynoteHandler *sharedInstance;
 		KeynoteSlideshow *slideshow =  [application open:url];
 		[slideshow start];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(isKeynotePlaying:) userInfo:delegate repeats:YES];
+			[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(isKeynotePlaying:) userInfo:delegate repeats:YES];
 			
 			if ([delegate respondsToSelector:@selector(didFinishStartingKeynote:)]) {
 				[delegate didFinishStartingKeynote: self];
