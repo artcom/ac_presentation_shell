@@ -14,12 +14,12 @@
 
 -(void) setFilename: (NSString*) aFilename {
     filename = [aFilename retain];
-    if (filename == nil) {
-        return;
+    NSImage *iconImage = nil;
+    if (filename != nil) {
+        iconImage = [[NSWorkspace sharedWorkspace] iconForFile: aFilename];
+        [iconImage setSize:NSMakeSize(64,64)];
     }
-    NSImage *iconImage = [[NSWorkspace sharedWorkspace] iconForFile: aFilename];
-	[iconImage setSize:NSMakeSize(64,64)];
-    self.image = iconImage;
+    [self setImage: iconImage];
 }
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
