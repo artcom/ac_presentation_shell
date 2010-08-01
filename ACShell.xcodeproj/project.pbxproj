@@ -65,6 +65,7 @@
 		63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E4B311FB8B160036DBC1 /* icn_warning.png */; };
 		63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */; };
 		63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8E52811FBACD50036DBC1 /* EditWindowController.m */; };
+		63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63EB804B12043663008D7814 /* icn_missing_file.icns */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -191,6 +192,7 @@
 		63B8E52211FBA2CD0036DBC1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
 		63B8E52711FBACD50036DBC1 /* EditWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditWindowController.h; path = Classes/Controllers/EditWindowController.h; sourceTree = "<group>"; };
 		63B8E52811FBACD50036DBC1 /* EditWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditWindowController.m; path = Classes/Controllers/EditWindowController.m; sourceTree = "<group>"; };
+		63EB804B12043663008D7814 /* icn_missing_file.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icn_missing_file.icns; path = Resources/Images/icn_missing_file.icns; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -222,10 +224,10 @@
 			isa = PBXGroup;
 			children = (
 				63AE0E4B1204241800FD8172 /* Controllers */,
-				22C7F8CD11DB3DDA00A54494 /* Keynote */,
 				22B200B611DA1F3A00C6D9ED /* Helper */,
-				22D5993211DDD1270025E48F /* View */,
+				22C7F8CD11DB3DDA00A54494 /* Keynote */,
 				22D2F76311D8AF810030AFBD /* Model */,
+				22D5993211DDD1270025E48F /* View */,
 				256AC3D80F4B6AC300CF3369 /* ACShellAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */,
 				222781E711F88AD2007C1B6C /* RsyncTask.h */,
@@ -310,10 +312,10 @@
 		22B200B611DA1F3A00C6D9ED /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */,
-				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 				636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */,
 				636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */,
+				22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */,
+				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
 				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
 			);
@@ -324,9 +326,9 @@
 			isa = PBXGroup;
 			children = (
 				22C7F8D011DB3E4A00A54494 /* Keynote.h */,
+				22CE742511EDCD070043F3C8 /* KeynoteDelegate.h */,
 				22C7F8D111DB3E7E00A54494 /* KeynoteHandler.h */,
 				22C7F8D211DB3E7E00A54494 /* KeynoteHandler.m */,
-				22CE742511EDCD070043F3C8 /* KeynoteDelegate.h */,
 			);
 			name = Keynote;
 			sourceTree = "<group>";
@@ -345,12 +347,12 @@
 		22D2F76311D8AF810030AFBD /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */,
-				22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */,
-				22D2F77211D8B5E10030AFBD /* Presentation.h */,
-				22D2F77311D8B5E10030AFBD /* Presentation.m */,
 				225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */,
 				225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */,
+				22D2F77211D8B5E10030AFBD /* Presentation.h */,
+				22D2F77311D8B5E10030AFBD /* Presentation.m */,
+				22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */,
+				22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -376,6 +378,7 @@
 		22D59A4511DE146B0025E48F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				63EB804B12043663008D7814 /* icn_missing_file.icns */,
 				2289820611F73701000D0983 /* AC-Shell-Icon.icns */,
 				630D759711FE05F400EEB7F2 /* icn_upload.icns */,
 				63B8E4B311FB8B160036DBC1 /* icn_warning.png */,
@@ -424,14 +427,14 @@
 				22A3B61711E71AA6003DE847 /* Fonts */,
 				22D59A4511DE146B0025E48F /* Images */,
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
-				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
-				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
-				6366021B11F1F02800D6DD96 /* Localizable.strings */,
-				6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */,
 				6366076A11F33F4200D6DD96 /* defaults.plist */,
-				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				6366021B11F1F02800D6DD96 /* Localizable.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+				6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */,
 				63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */,
+				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
+				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */,
 				63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */,
 				630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */,
+				63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

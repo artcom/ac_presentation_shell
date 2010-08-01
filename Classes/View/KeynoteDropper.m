@@ -18,6 +18,9 @@
     if (filename != nil) {
         iconImage = [[NSWorkspace sharedWorkspace] iconForFile: aFilename];
         [iconImage setSize:NSMakeSize(64,64)];
+        if ( ! [[NSFileManager defaultManager] fileExistsAtPath: aFilename isDirectory: nil]) {
+            iconImage = [NSImage imageNamed: @"icn_missing_file"];
+        }
     }
     [self setImage: iconImage];
 }

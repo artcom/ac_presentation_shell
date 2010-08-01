@@ -37,3 +37,6 @@
 #define ACSHELL_STR_UPLOAD_TOOLTIP       @"UploadTooltip"
 #define ACSHELL_STR_CANCEL               @"Cancel"
 #define ACSHELL_STR_OK                   @"Ok"
+#define ACSHELL_STR_EDIT_WIN_TITLE       @"EditWindowTitle"
+#define ACSHELL_STR_ADD_WIN_TITLE        @"AddWindowTitle"
+#define ACSHELL_STR_DROP_THUMBNAIL       @"DropThumbnail"

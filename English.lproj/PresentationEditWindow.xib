@@ -154,6 +154,22 @@
 												</object>
 											</object>
 										</object>
+										<object class="NSTextField" id="58932893">
+											<reference key="NSNextResponder" ref="457155503"/>
+											<int key="NSvFlags">298</int>
+											<string key="NSFrame">{{243, 40}, {226, 14}}</string>
+											<reference key="NSSuperview" ref="457155503"/>
+											<bool key="NSEnabled">YES</bool>
+											<object class="NSTextFieldCell" key="NSCell" id="396241586">
+												<int key="NSCellFlags">68288064</int>
+												<int key="NSCellFlags2">4330496</int>
+												<string key="NSContents">Thumbnail Path</string>
+												<reference key="NSSupport" ref="26"/>
+												<reference key="NSControlView" ref="58932893"/>
+												<reference key="NSBackgroundColor" ref="230408472"/>
+												<reference key="NSTextColor" ref="894965154"/>
+											</object>
+										</object>
 										<object class="NSImageView" id="439507972">
 											<reference key="NSNextResponder" ref="457155503"/>
 											<int key="NSvFlags">302</int>
@@ -568,6 +584,22 @@
 					</object>
 					<int key="connectionID">103</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">editButton</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="808756091"/>
+					</object>
+					<int key="connectionID">104</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">thumbnailFileLabel</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="58932893"/>
+					</object>
+					<int key="connectionID">107</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -648,6 +680,7 @@
 							<reference ref="542392608"/>
 							<reference ref="739635673"/>
 							<reference ref="253130481"/>
+							<reference ref="58932893"/>
 						</object>
 						<reference key="parent" ref="1006"/>
 					</object>
@@ -789,6 +822,20 @@
 						<reference key="object" ref="1069696480"/>
 						<reference key="parent" ref="739635673"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">105</int>
+						<reference key="object" ref="58932893"/>
+						<object class="NSMutableArray" key="children">
+							<bool key="EncodedWithXMLCoder">YES</bool>
+							<reference ref="396241586"/>
+						</object>
+						<reference key="parent" ref="872192000"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">106</int>
+						<reference key="object" ref="396241586"/>
+						<reference key="parent" ref="58932893"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -802,6 +849,8 @@
 					<string>1.WindowOrigin</string>
 					<string>1.editorWindowContentRectSynchronizationRect</string>
 					<string>10.IBPluginDependency</string>
+					<string>105.IBPluginDependency</string>
+					<string>106.IBPluginDependency</string>
 					<string>11.IBPluginDependency</string>
 					<string>12.IBPluginDependency</string>
 					<string>13.IBPluginDependency</string>
@@ -830,12 +879,14 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{203, 408}, {520, 448}}</string>
+					<string>{{277, 408}, {520, 448}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{203, 408}, {520, 448}}</string>
+					<string>{{277, 408}, {520, 448}}</string>
 					<boolean value="YES"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
+					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -880,7 +931,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">103</int>
+			<int key="maxID">107</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -913,8 +964,10 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>droppedKeynote</string>
 							<string>droppedThumbnail</string>
+							<string>editButton</string>
 							<string>highlightCheckbox</string>
 							<string>keynoteFileLabel</string>
+							<string>thumbnailFileLabel</string>
 							<string>titleView</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -922,13 +975,15 @@
 							<string>KeynoteDropper</string>
 							<string>NSImageViewWithDroppedFilename</string>
 							<string>NSButton</string>
+							<string>NSButton</string>
+							<string>NSTextField</string>
 							<string>NSTextField</string>
 							<string>NSTextView</string>
 						</object>
 					</object>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">Classes/EditWindowController.h</string>
+						<string key="minorKey">Classes/Controllers/EditWindowController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

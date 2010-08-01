@@ -19,10 +19,12 @@
 
     KeynoteDropper * droppedKeynote;
     NSTextField * keynoteFileLabel;
-
-    NSTextView * titleView;
+    NSButton * editButton;
     
+    NSTextView * titleView;
     NSImageViewWithDroppedFilename * droppedThumbnail;
+    NSTextField * thumbnailFileLabel;
+
     
     NSButton * highlightCheckbox;
     
@@ -31,9 +33,11 @@
 
 @property (retain, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
 @property (retain, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
+@property (retain, nonatomic) IBOutlet NSButton * editButton;
 
 @property (retain, nonatomic) IBOutlet NSTextView * titleView;
 @property (retain, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
+@property (retain, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
 @property (retain, nonatomic) IBOutlet NSButton * highlightCheckbox;
 

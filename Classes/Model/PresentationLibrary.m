@@ -171,8 +171,9 @@
 	if (thumbnail == nil) {
 		NSString *filepath = [[self libraryDirPath] stringByAppendingPathComponent: presentation.relativeThumbnailPath];
 		thumbnail =  [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]] autorelease];
-		
-		[thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
+		if (thumbnail != nil) {
+            [thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
+        }
 	}
 	
 	return thumbnail;

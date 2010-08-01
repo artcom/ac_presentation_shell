@@ -28,6 +28,8 @@
 @synthesize keynoteFileLabel;
 @synthesize droppedThumbnail;
 @synthesize highlightCheckbox;
+@synthesize editButton;
+@synthesize thumbnailFileLabel;
 
 - (id) initWithShellController: (ACShellController*) theShellController {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
@@ -38,6 +40,8 @@
 }
 
 - (void) awakeFromNib {
+    [droppedKeynote setToolTip: NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil)];
+    [droppedThumbnail setToolTip: NSLocalizedString(ACSHELL_STR_DROP_THUMBNAIL, nil)];
     [self setGuiValues];
 }
 
@@ -91,10 +95,16 @@
 }
 
 - (IBAction) userDidDropThumbnail: (id) sender {
+    if (droppedThumbnail.filename != nil && ! [[NSFileManager defaultManager] fileExistsAtPath: droppedThumbnail.filename isDirectory: nil]) {
+        [droppedThumbnail setImage: [NSImage imageNamed: @"icn_missing_file"]];
+    }
 }
 
 - (IBAction) userDidDropKeynote: (id) sender {
     [keynoteFileLabel setStringValue: [[sender filename] lastPathComponent]];
+    BOOL fileExists = presentation.presentationFileExists;
+    [editButton setEnabled: fileExists];
+    [keynoteFileLabel setEnabled: fileExists];
 }
 
 - (IBAction) editWithKeynote: (id) sender {
@@ -124,17 +134,32 @@
 
 - (void) setGuiValues {
     if (presentation) {
-        keynoteFileLabel.stringValue = [presentation.absolutePresentationPath lastPathComponent];
+        [[self window] setTitle: NSLocalizedString(ACSHELL_STR_EDIT_WIN_TITLE, nil)];
+        BOOL fileExists = presentation.presentationFileExists;
+        [editButton setEnabled: fileExists];
+        [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
+        keynoteFileLabel.stringValue = presentation.relativePresentationPath;
         droppedKeynote.filename = presentation.absolutePresentationPath;
+
         [titleView setString: presentation.title];
-        [droppedThumbnail setImage: presentation.thumbnail];
+        
+        NSImage * thumbnail = presentation.thumbnail;
+        [droppedThumbnail setImage: thumbnail ? thumbnail : [NSImage imageNamed: @"icn_missing_file"]];
+        thumbnailFileLabel.stringValue = presentation.relativeThumbnailPath;
+        [thumbnailFileLabel setTextColor: thumbnail ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
         [highlightCheckbox setState: presentation.highlight];
+
     } else {
+        [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
         keynoteFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil);
+        [keynoteFileLabel setTextColor: [NSColor controlTextColor]];
         droppedKeynote.filename = nil;
         [titleView setString: @""];
         [droppedThumbnail setImage: nil];
+        thumbnailFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_THUMBNAIL, nil);
+        [thumbnailFileLabel setTextColor: [NSColor controlTextColor]];
         [highlightCheckbox setState: FALSE];
+        [editButton setEnabled: NO];
     }
 }
 

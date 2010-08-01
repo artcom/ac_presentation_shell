@@ -28,3 +28,6 @@
 "UploadTooltip" = "Lokale Bibliothek auf den Server laden";
 "Cancel" = "Abbrechen";
 "Ok" = "Ok";
+"EditWindowTitle" = "Editieren";
+"AddWindowTitle" = "Hinzufügen";
+"DropThumbnail" = "Lass ein Bildchen fallen";

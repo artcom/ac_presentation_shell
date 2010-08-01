@@ -32,8 +32,11 @@
 "DeleteCollection" = "Do you really want to delete the selected collection?";
 "Delete" = "Delete";
 "DeletePresentation" = "Do you really want to remove the selected presentations from the current collection?";
-"DropKeynote" = "Drop a Keynote";
+"DropKeynote" = "Drop a keynote";
 "Upload" = "Upload";
 "UploadTooltip" = "Upload local library to server";
 "Cancel" = "Cancel";
 "Ok" = "Ok";
+"EditWindowTitle" = "Edit Presentation";
+"AddWindowTitle" = "Add Presentation";
+"DropThumbnail" = "Drop a thumbnail image";
