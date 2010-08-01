@@ -16,7 +16,6 @@
 @synthesize shellController;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    [shellController load];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {

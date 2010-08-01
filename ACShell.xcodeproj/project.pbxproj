@@ -66,6 +66,9 @@
 		63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */; };
 		63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8E52811FBACD50036DBC1 /* EditWindowController.m */; };
 		63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63EB804B12043663008D7814 /* icn_missing_file.icns */; };
+		63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EB809C12050048008D7814 /* SetupAssistantController.m */; };
+		63EB809F12050118008D7814 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63EB809E12050118008D7814 /* SetupAssistant.xib */; };
+		63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -193,6 +196,10 @@
 		63B8E52711FBACD50036DBC1 /* EditWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditWindowController.h; path = Classes/Controllers/EditWindowController.h; sourceTree = "<group>"; };
 		63B8E52811FBACD50036DBC1 /* EditWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditWindowController.m; path = Classes/Controllers/EditWindowController.m; sourceTree = "<group>"; };
 		63EB804B12043663008D7814 /* icn_missing_file.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icn_missing_file.icns; path = Resources/Images/icn_missing_file.icns; sourceTree = "<group>"; };
+		63EB809B12050048008D7814 /* SetupAssistantController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetupAssistantController.h; path = Classes/Controllers/SetupAssistantController.h; sourceTree = "<group>"; };
+		63EB809C12050048008D7814 /* SetupAssistantController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetupAssistantController.m; path = Classes/Controllers/SetupAssistantController.m; sourceTree = "<group>"; };
+		63EB809E12050118008D7814 /* SetupAssistant.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SetupAssistant.xib; path = Resources/SetupAssistant.xib; sourceTree = "<group>"; };
+		63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_ac_logo_no_text.png; path = Resources/Images/gfx_ac_logo_no_text.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -378,6 +385,7 @@
 		22D59A4511DE146B0025E48F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */,
 				63EB804B12043663008D7814 /* icn_missing_file.icns */,
 				2289820611F73701000D0983 /* AC-Shell-Icon.icns */,
 				630D759711FE05F400EEB7F2 /* icn_upload.icns */,
@@ -435,6 +443,7 @@
 				63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */,
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
 				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
+				63EB809E12050118008D7814 /* SetupAssistant.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -463,6 +472,8 @@
 				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
 				22F2B8DE11F73EC100EE4717 /* RsyncController.h */,
 				22F2B8DF11F73EC100EE4717 /* RsyncController.m */,
+				63EB809B12050048008D7814 /* SetupAssistantController.h */,
+				63EB809C12050048008D7814 /* SetupAssistantController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -562,6 +573,8 @@
 				63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */,
 				630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */,
 				63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */,
+				63EB809F12050118008D7814 /* SetupAssistant.xib in Resources */,
+				63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,6 +622,7 @@
 				630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */,
 				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
 				223DF7F411FDEE6300D53152 /* FileCopyController.m in Sources */,
+				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

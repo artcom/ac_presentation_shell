@@ -16,6 +16,7 @@
 #import "KeynoteHandler.h"
 #import "RsyncController.h"
 #import "EditWindowController.h"
+#import "SetupAssistantController.h"
 #import "default_keys.h"
 #import "localized_text_keys.h"
 
@@ -103,6 +104,15 @@ enum ACPresentationDoubleClicked {
     rsyncController.documentWindow = self.browserWindow;
     
     [self updateSyncFailedWarning];
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
+        [[self browserWindow] makeKeyAndOrderFront: self];
+        [self load];
+    } else {
+        NSLog(@"===== first run ====");
+        setupAssistant = [[SetupAssistantController alloc] init];
+        [setupAssistant showWindow: self];
+    }
 }
 
 - (void) dealloc {

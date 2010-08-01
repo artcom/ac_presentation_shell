@@ -95,7 +95,9 @@
 }
 
 - (IBAction) userDidDropThumbnail: (id) sender {
-    if (droppedThumbnail.filename != nil && ! [[NSFileManager defaultManager] fileExistsAtPath: droppedThumbnail.filename isDirectory: nil]) {
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath: droppedThumbnail.filename isDirectory: nil];
+    [thumbnailFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
+    if (droppedThumbnail.filename != nil && ! fileExists) {
         [droppedThumbnail setImage: [NSImage imageNamed: @"icn_missing_file"]];
     }
 }
@@ -104,7 +106,7 @@
     [keynoteFileLabel setStringValue: [[sender filename] lastPathComponent]];
     BOOL fileExists = presentation.presentationFileExists;
     [editButton setEnabled: fileExists];
-    [keynoteFileLabel setEnabled: fileExists];
+    [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
 }
 
 - (IBAction) editWithKeynote: (id) sender {

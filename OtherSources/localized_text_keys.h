@@ -40,3 +40,8 @@
 #define ACSHELL_STR_EDIT_WIN_TITLE       @"EditWindowTitle"
 #define ACSHELL_STR_ADD_WIN_TITLE        @"AddWindowTitle"
 #define ACSHELL_STR_DROP_THUMBNAIL       @"DropThumbnail"
+#define ACSHELL_STR_FINISH               @"Finish"
+#define ACSHELL_STR_CONTINUE             @"Continue"
+#define ACSHELL_STR_QUIT                 @"Quit"
+#define ACSHELL_STR_NEXT                 @"Next"
+#define ACSHELL_STR_BACK                 @"Back"

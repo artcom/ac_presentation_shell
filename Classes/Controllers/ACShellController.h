@@ -15,6 +15,7 @@
 @class PresentationLibrary;
 @class ACShellCollection;
 @class EditWindowController;
+@class SetupAssistantController;
 
 @interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, NSOutlineViewDelegate, 
 											NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource,
@@ -44,6 +45,8 @@
 	
 	BOOL editingEnabled;
 	NSButton * removeButton;
+    
+    SetupAssistantController * setupAssistant;
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;
