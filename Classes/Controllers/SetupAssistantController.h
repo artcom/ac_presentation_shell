@@ -8,8 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
+//=== SetupAssistantController =================================================
 
-@interface SetupAssistantController : NSWindowController <NSTabViewDelegate> {
+@interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
     
     NSTabView * pages;
     
@@ -23,20 +24,39 @@
     NSTableView * publicKeyTable;
     NSButton * generateSshKeysButton;
     NSProgressIndicator * sshKeygenSpinner;
+    
+    NSTableView * bonjourServerList;
+    NSTextField * rsyncSourceEntry;
+    
+    NSNetServiceBrowser * bonjourBrowser;
+    NSMutableArray * bonjourLibraries;
+    NSArrayController * bonjourLibrariesArrayController;
 }
 
 @property (retain, nonatomic) IBOutlet NSTabView * pages;
 
 @property (retain, nonatomic) IBOutlet NSButton * nextButton;
 @property (retain, nonatomic) IBOutlet NSButton * backButton;
+
 @property (retain, nonatomic) IBOutlet NSArrayController * publicKeyArrayController;
 @property (retain, nonatomic) IBOutlet NSTableView * publicKeyTable;
 @property (retain, nonatomic) IBOutlet NSButton * generateSshKeysButton;
 @property (retain, nonatomic) IBOutlet NSProgressIndicator * sshKeygenSpinner;
+@property (retain, nonatomic) NSMutableArray * publicKeys;
+
+@property (retain, nonatomic) IBOutlet NSTableView * bonjourServerList;
+@property (retain, nonatomic) IBOutlet NSTextField * rsyncSourceEntry;
+@property (retain, nonatomic) IBOutlet NSArrayController * bonjourLibrariesArrayController;
+@property (retain, nonatomic) NSMutableArray * bonjourLibraries;
+
+
+
 
 - (IBAction) userDidClickNext: (id) sender;
 - (IBAction) userDidClickBack: (id) sender;
 
 - (IBAction) generateSshKeys: (id) sender;
+
+- (IBAction) userDidChangeServerDiscoveryMode: (id) sender;
 
 @end

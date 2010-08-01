@@ -7,50 +7,33 @@
 //
 
 #import "SetupAssistantController.h"
+#import "LibraryServer.h"
+#import "SshIdentity.h"
 #import "localized_text_keys.h"
 
-@interface SshIdentityFile : NSObject {
-    NSString * path;
-}
+#define ACSHELL_BONJOUR_TYPE @"_acshelllib._tcp"
 
-@property (retain) NSString * path;
-@property (readonly) NSString * filename;
-
-
-- (id) initWithPath: (NSString*) path;
-
-@end
-
-@implementation SshIdentityFile
-@synthesize path;
-- (id) initWithPath: (NSString*) aPath {
-    self = [super init];
-    if (self != nil) {
-        self.path = aPath;
-    }
-    return self;
-}
-- (NSString*) filename {
-    return [path lastPathComponent];
-}
-
-@end
+//=== Prototypes ===============================================================
 
 NSString * sshDirString();
 NSString * sshPrivateKeyFilename();
 NSString * sshPublicKeyFilename();
+
+//=== SetupAssistantController =================================================
 
 @interface SetupAssistantController ()
 
 - (void) updateButtons: (NSTabViewItem*) item;
 - (void) setupSshIdentityPage;
 - (void) updatePublicKeyList;
+- (void) setupSubscritptionPage;
 
 @end
 
 enum PageTags {
     SETUP_PAGE_WELCOME,
-    SETUP_PAGE_SSH_IDENTITY
+    SETUP_PAGE_SSH_IDENTITY,
+    SETUP_PAGE_SUBSCRIBE_LIBRARY
 };
 
 @implementation SetupAssistantController
@@ -61,17 +44,27 @@ enum PageTags {
 @synthesize publicKeyTable;
 @synthesize generateSshKeysButton;
 @synthesize sshKeygenSpinner;
+@synthesize bonjourServerList;
+@synthesize rsyncSourceEntry;
+@synthesize bonjourLibrariesArrayController;
+@synthesize publicKeys;
+@synthesize bonjourLibraries;
 
 - (id) init {
     self = [super initWithWindowNibName: @"SetupAssistant"];
     if (self) {
         publicKeys = [[NSMutableArray alloc] init];
+        bonjourBrowser = [[NSNetServiceBrowser alloc] init];
+        [bonjourBrowser setDelegate: self];
+        bonjourLibraries = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void) dealloc {
     [publicKeys release];
+    [bonjourBrowser release];
+    [bonjourLibraries release];
     
     [super dealloc];
 }
@@ -82,7 +75,6 @@ enum PageTags {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publicKeySelectionDidChange:)
                                                  name:NSTableViewSelectionDidChangeNotification object: publicKeyTable];
-    
 }
 
 - (IBAction) userDidClickNext: (id) sender {
@@ -96,6 +88,12 @@ enum PageTags {
     } else {
         [pages selectPreviousTabViewItem: sender];
     }
+}
+
+- (IBAction) userDidChangeServerDiscoveryMode: (id) sender {
+    int selectedCellIndex = [[sender selectedCell] tag];
+    [bonjourServerList setEnabled: selectedCellIndex == 0];
+    [rsyncSourceEntry setEnabled: selectedCellIndex == 1];
 }
 
 
@@ -121,6 +119,9 @@ enum PageTags {
         case SETUP_PAGE_SSH_IDENTITY:
             [self setupSshIdentityPage];
             break;
+        case SETUP_PAGE_SUBSCRIBE_LIBRARY:
+            [self setupSubscritptionPage];
+            break;
         default:
             break;
     }
@@ -133,18 +134,22 @@ enum PageTags {
     [generateSshKeysButton setEnabled: ! idFileExists];
 }
 
+- (void) setupSubscritptionPage {
+    [nextButton setEnabled: NO];
+    [bonjourLibraries removeAllObjects];
+    [bonjourBrowser searchForServicesOfType: ACSHELL_BONJOUR_TYPE inDomain: @""];
+}
+
 - (void) updatePublicKeyList {
     NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: sshDirString() error: nil];
     NSArray * publicKeyPaths = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pub'"]];
-    [publicKeys removeAllObjects];
+    [self willChangeValueForKey: @"publicKeys"];
     for (NSString * path in publicKeyPaths) {
-        [publicKeys addObject: [[[SshIdentityFile alloc] initWithPath: path] autorelease]];
+        [publicKeyArrayController addObject: [[[SshIdentityFile alloc] initWithPath: path] autorelease]];
     }
-    [publicKeyArrayController setContent: publicKeys];
 }
 
 - (void) publicKeySelectionDidChange: (NSNotification *) notification {
-    NSLog(@"=====");
     [nextButton setEnabled: [publicKeyArrayController selectionIndex] != NSNotFound];
 }
 
@@ -172,12 +177,38 @@ enum PageTags {
 }
 
 - (void) didFinishSshKeygen: (NSNotification*) notification {
-    NSLog(@"==== keygen done");
     [self updatePublicKeyList];
     [sshKeygenSpinner setHidden: YES];
     [sshKeygenSpinner stopAnimation: nil];
 }
 
+
+#pragma mark -
+#pragma mark NSNetServiceBrowserDelegate Protocol Methods
+- (void) netServiceBrowser: (NSNetServiceBrowser*) browser 
+              didNotSearch: (NSDictionary*) errorDict
+{
+    NSLog(@"Failed to browse service: %@", errorDict);
+}
+
+- (void) netServiceBrowser: (NSNetServiceBrowser*) browser
+            didFindService: (NSNetService*) aNetService
+                moreComing: (BOOL) moreComing
+{
+ 
+    [bonjourLibrariesArrayController addObject: [[[LibraryServer alloc] initWithNetService: aNetService] autorelease]];
+}
+
+- (void) netServiceBrowser: (NSNetServiceBrowser*) browser
+          didRemoveService: (NSNetService*) aNetService
+                moreComing: (BOOL) moreComing
+{
+    // XXX find correct object
+    [bonjourLibraries removeObject: aNetService];
+}
+
+#pragma mark -
+#pragma mark Helpers
 NSString * sshDirString() {
     return [[NSString stringWithString: @"~/.ssh/"] stringByExpandingTildeInPath];
 }

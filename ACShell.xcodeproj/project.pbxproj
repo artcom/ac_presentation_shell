@@ -61,6 +61,8 @@
 		6366050A11F2F4A400D6DD96 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
+		63904053120617EE0061D215 /* LibraryServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904052120617EE0061D215 /* LibraryServer.m */; };
+		6390407812061A860061D215 /* SshIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390407712061A860061D215 /* SshIdentity.m */; };
 		63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */; };
 		63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E4B311FB8B160036DBC1 /* icn_warning.png */; };
 		63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */; };
@@ -190,6 +192,10 @@
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-WithUUID.h"; path = "Classes/Helper/NSString-WithUUID.h"; sourceTree = "<group>"; };
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-WithUUID.m"; path = "Classes/Helper/NSString-WithUUID.m"; sourceTree = "<group>"; };
+		63904051120617EE0061D215 /* LibraryServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibraryServer.h; path = Classes/Model/LibraryServer.h; sourceTree = "<group>"; };
+		63904052120617EE0061D215 /* LibraryServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryServer.m; path = Classes/Model/LibraryServer.m; sourceTree = "<group>"; };
+		6390407612061A860061D215 /* SshIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SshIdentity.h; path = Classes/Model/SshIdentity.h; sourceTree = "<group>"; };
+		6390407712061A860061D215 /* SshIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SshIdentity.m; path = Classes/Model/SshIdentity.m; sourceTree = "<group>"; };
 		63A6A9F211FA10AC0057B7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RsyncProgressView.xib; sourceTree = "<group>"; };
 		63B8E4B311FB8B160036DBC1 /* icn_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_warning.png; path = Resources/Images/icn_warning.png; sourceTree = "<group>"; };
 		63B8E52211FBA2CD0036DBC1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
@@ -356,10 +362,14 @@
 			children = (
 				225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */,
 				225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */,
+				63904051120617EE0061D215 /* LibraryServer.h */,
+				63904052120617EE0061D215 /* LibraryServer.m */,
 				22D2F77211D8B5E10030AFBD /* Presentation.h */,
 				22D2F77311D8B5E10030AFBD /* Presentation.m */,
 				22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */,
 				22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */,
+				6390407612061A860061D215 /* SshIdentity.h */,
+				6390407712061A860061D215 /* SshIdentity.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -623,6 +633,8 @@
 				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
 				223DF7F411FDEE6300D53152 /* FileCopyController.m in Sources */,
 				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
+				63904053120617EE0061D215 /* LibraryServer.m in Sources */,
+				6390407812061A860061D215 /* SshIdentity.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
