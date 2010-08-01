@@ -16,5 +16,6 @@
 - (id) initWithNetService: (NSNetService*) aNetService;
 
 @property (readonly) NSString* hostname;
+@property (readonly) NSNetService * netService;
 
 @end

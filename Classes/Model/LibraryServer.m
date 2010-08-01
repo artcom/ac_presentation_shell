@@ -9,7 +9,8 @@
 #import "LibraryServer.h"
 
 
-@implementation LibraryServer 
+@implementation LibraryServer
+@synthesize netService;
 
 - (id) initWithNetService: (NSNetService*) aNetService {
     self = [super init];

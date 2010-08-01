@@ -63,6 +63,8 @@
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
 		63904053120617EE0061D215 /* LibraryServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904052120617EE0061D215 /* LibraryServer.m */; };
 		6390407812061A860061D215 /* SshIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390407712061A860061D215 /* SshIdentity.m */; };
+		63904153120632FE0061D215 /* LibraryServerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904152120632FE0061D215 /* LibraryServerView.m */; };
+		63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904155120633FC0061D215 /* LibraryServerCollectionItem.m */; };
 		63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */; };
 		63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E4B311FB8B160036DBC1 /* icn_warning.png */; };
 		63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */; };
@@ -196,6 +198,10 @@
 		63904052120617EE0061D215 /* LibraryServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryServer.m; path = Classes/Model/LibraryServer.m; sourceTree = "<group>"; };
 		6390407612061A860061D215 /* SshIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SshIdentity.h; path = Classes/Model/SshIdentity.h; sourceTree = "<group>"; };
 		6390407712061A860061D215 /* SshIdentity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SshIdentity.m; path = Classes/Model/SshIdentity.m; sourceTree = "<group>"; };
+		63904151120632FE0061D215 /* LibraryServerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibraryServerView.h; path = Classes/View/LibraryServerView.h; sourceTree = "<group>"; };
+		63904152120632FE0061D215 /* LibraryServerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryServerView.m; path = Classes/View/LibraryServerView.m; sourceTree = "<group>"; };
+		63904154120633FC0061D215 /* LibraryServerCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibraryServerCollectionItem.h; path = Classes/Controllers/LibraryServerCollectionItem.h; sourceTree = "<group>"; };
+		63904155120633FC0061D215 /* LibraryServerCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryServerCollectionItem.m; path = Classes/Controllers/LibraryServerCollectionItem.m; sourceTree = "<group>"; };
 		63A6A9F211FA10AC0057B7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RsyncProgressView.xib; sourceTree = "<group>"; };
 		63B8E4B311FB8B160036DBC1 /* icn_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_warning.png; path = Resources/Images/icn_warning.png; sourceTree = "<group>"; };
 		63B8E52211FBA2CD0036DBC1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
@@ -388,6 +394,8 @@
 				630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */,
 				630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */,
 				630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */,
+				63904151120632FE0061D215 /* LibraryServerView.h */,
+				63904152120632FE0061D215 /* LibraryServerView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -476,6 +484,8 @@
 				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
 				223DF7F211FDEE6300D53152 /* FileCopyController.h */,
 				223DF7F311FDEE6300D53152 /* FileCopyController.m */,
+				63904154120633FC0061D215 /* LibraryServerCollectionItem.h */,
+				63904155120633FC0061D215 /* LibraryServerCollectionItem.m */,
 				6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */,
 				6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */,
 				22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */,
@@ -635,6 +645,8 @@
 				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
 				63904053120617EE0061D215 /* LibraryServer.m in Sources */,
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,
+				63904153120632FE0061D215 /* LibraryServerView.m in Sources */,
+				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -203,8 +203,12 @@ enum PageTags {
           didRemoveService: (NSNetService*) aNetService
                 moreComing: (BOOL) moreComing
 {
-    // XXX find correct object
-    [bonjourLibraries removeObject: aNetService];
+    for (LibraryServer * server in bonjourLibraries) {
+        if ([server.netService isEqual: aNetService]) {
+            [bonjourLibrariesArrayController removeObject: server];
+            break;
+        }
+    }
 }
 
 #pragma mark -
