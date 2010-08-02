@@ -8,7 +8,7 @@
 
 #import "PublicKeyDraglet.h"
 
-#pragma mark TODO: DRY up. Lots of shared code with KeynoteDropper
+#pragma mark TODO: DRY up. Shares code with KeynoteDropper
 
 @implementation PublicKeyDraglet
 @synthesize filename;

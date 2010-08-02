@@ -40,7 +40,6 @@
     if (lib != nil) {
         return lib;
     }
-    NSLog(@"no settings file");
     return [[[PresentationLibrary alloc] init] autorelease];
 }
 
@@ -106,7 +105,6 @@
 }
 
 - (BOOL) loadXmlLibraryFromDirectory: (NSString*) directory {
-    NSLog(@"loadXML");
     
 	[self flushThumbnailCache];
 	presentationData = nil;

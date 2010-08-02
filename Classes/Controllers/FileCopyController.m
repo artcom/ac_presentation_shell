@@ -53,7 +53,6 @@
 		[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceCopyOperation source:sourceDir destination:destinationDir files:files tag:&tag];
 		
 		dispatch_async(dispatch_get_main_queue(), ^{
-			NSLog(@"tag: %d", tag);
 			[self didFinishCopying:nil];
 		});
 	});

@@ -79,7 +79,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	copyController = [controller retain];
 	
     BOOL xmlChanged = NO;
-    NSLog(@"==== title: %@", title);
     if ([self updateSubdirectory: [self subdirectoryFromTitle: title]]) {
         xmlChanged = YES;
     }
@@ -251,8 +250,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [NSException raise: @"Conflict"
                     format: @"Directory '%@' already exists.", newSubdirectory];
     }
-    NSString * d = self.directory;
-    NSLog(@"=====dir: %@", d);
     if ([self.directory length] == 0) {
         NSLog(@"Creating project dir");
         self.directory = newSubdirectory;

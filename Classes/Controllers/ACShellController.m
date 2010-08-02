@@ -36,6 +36,7 @@ enum ACPresentationDoubleClicked {
 @interface ACShellController ()
 
 @property (readonly) NSString* librarySource;
+@property (readonly) NSString* libraryTarget;
 
 - (void)beautifyOutlineView;
 - (BOOL) isToplevelGroup: (id) item;
@@ -149,7 +150,7 @@ enum ACPresentationDoubleClicked {
 }
 
 - (IBAction) upload: (id) sender {
-    [rsyncController uploadWithSource: self.libraryDirPath destination: self.librarySource];
+    [rsyncController uploadWithSource: self.libraryDirPath destination: self.libraryTarget];
 }
 
 - (IBAction)remove: (id)sender {
@@ -473,7 +474,6 @@ enum ACPresentationDoubleClicked {
 #pragma mark -
 #pragma mark SetupAssistantDelegate Protocol Methods 
 - (void) setupDidFinish: (id) sender {
-    NSLog(@"==== setupDidFinish ====");
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
     [self beautifyOutlineView];
     [[self browserWindow] makeKeyAndOrderFront: self];
@@ -505,10 +505,28 @@ enum ACPresentationDoubleClicked {
 }
 
 - (NSString*) librarySource {
+    if ([self editingEnabled]) {
+        return self.libraryTarget;
+    } 
 	[[NSUserDefaults standardUserDefaults] synchronize];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER] != nil) {
+        return [NSString stringWithFormat: @"%@@%@",
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER],
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
+    }
     return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
-            
+
+- (NSString*) libraryTarget {
+	[[NSUserDefaults standardUserDefaults] synchronize];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER] != nil) {
+        return [NSString stringWithFormat: @"%@@%@",
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER],
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
+    }
+    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+}
+
 - (NSString*) libraryDirPath {
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] 
             stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
@@ -520,8 +538,8 @@ enum ACPresentationDoubleClicked {
     if ( ! lastSyncOk ) {
         [self.warningIcon setToolTip: NSLocalizedString(ACSHELL_STR_LAST_SYNC_FAILED, nil)];
     }
-
 }
+
 - (void) updateStatusText: (NSNotification*) notification {
     unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
     if ( ! [presentationLibrary hasLibrary]) {

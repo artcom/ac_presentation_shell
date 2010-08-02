@@ -86,6 +86,8 @@
 @synthesize administratorAddress;
 @synthesize rsyncSource;
 @synthesize rsyncPath;
+@synthesize readUser;
+@synthesize writeUser;
 
 - (id) initWithNetService: (NSNetService*) aNetService {
     self = [super init];
@@ -139,6 +141,22 @@
     return [NSString stringWithString: @""];
 }
 
+- (NSString*) readUser {
+    NSData * value = [txtRecord objectForKey: @"readUser"];
+    if (value != nil) {
+        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+    }
+    return [NSString stringWithString: @""];
+}
+
+- (NSString*) writeUser {
+    NSData * value = [txtRecord objectForKey: @"writeUser"];
+    if (value != nil) {
+        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+    }
+    return [NSString stringWithString: @""];
+}
+
 #pragma mark -
 #pragma mark NSNetServiceDelegate Protocol Methods
 - (void)netServiceDidResolveAddress: (NSNetService *) sender {
@@ -164,10 +182,16 @@
     [self willChangeValueForKey: @"rsyncSource"];
     [self didChangeValueForKey: @"rsyncSource"];        
     
+    [self willChangeValueForKey: @"readUser"];
+    [self didChangeValueForKey: @"readUser"];        
+    
+    [self willChangeValueForKey: @"writeUser"];
+    [self didChangeValueForKey: @"writeUser"];        
+    
 }
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {
-    NSLog(@"=== failed to resolve: %@", errorDict);
+    NSLog(@"Failed to resolve: %@", errorDict);
 }
 
 

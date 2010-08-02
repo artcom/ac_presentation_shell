@@ -36,6 +36,8 @@
     NSMatrix * discoveryModeButtons;
     
     PublicKeyDraglet * publicKeyDraglet;
+    NSTextField * libraryNameLabel;
+    NSTextField * administratorAddressLabel;
     
     id<SetupAssistantDelegate> delegate;
 }

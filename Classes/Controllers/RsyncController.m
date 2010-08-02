@@ -106,7 +106,6 @@ static NSImage * ourUploadIcon = nil;
 #pragma mark RsyncTask Delegate Methods
 
 - (void)rsyncTaskDidFinish: (RsyncTask *)task; {
-	NSLog(@"did finish syncing");
     NSAlert * ack = [self acknowledgeDialogWithMessage: @"Library synchronized"
                                      informationalText: nil
                                                  style: NSInformationalAlertStyle

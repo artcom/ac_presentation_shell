@@ -17,6 +17,8 @@
     NSString * administratorAddress;
     NSString * rsyncSource;
     NSString * rsyncPath;
+    NSString * readUser;
+    NSString * writeUser;
     
     NSDictionary * txtRecord;
 }
@@ -28,6 +30,8 @@
 @property (readonly) NSString* administratorAddress;
 @property (readonly) NSString* rsyncSource;
 @property (readonly) NSString* rsyncPath;
+@property (readonly) NSString* readUser;
+@property (readonly) NSString* writeUser;
 
 @property (readonly) NSNetService * netService;
 

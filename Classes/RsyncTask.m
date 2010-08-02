@@ -98,7 +98,6 @@
             [scanner setCharactersToBeSkipped: [NSCharacterSet whitespaceCharacterSet]];
             NSInteger maybeFileCount = -1;
             if ( ! [scanner scanInteger: &maybeFileCount]) {
-                NSLog(@"failed to parse rsync output: bytecount");
                 continue;
             }
             double progress;

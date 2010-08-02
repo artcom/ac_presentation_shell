@@ -45,3 +45,4 @@
 #define ACSHELL_STR_QUIT                 @"Quit"
 #define ACSHELL_STR_NEXT                 @"Next"
 #define ACSHELL_STR_BACK                 @"Back"
+#define ACSHELL_STR_UNKNOWN              @"Unknown"

@@ -11,6 +11,7 @@
 #import "SshIdentity.h"
 #import "PublicKeyDraglet.h"
 #import "localized_text_keys.h"
+#import "default_keys.h"
 
 #define ACSHELL_BONJOUR_TYPE @"_acshell._tcp"
 
@@ -31,6 +32,7 @@ NSString * sshPublicKeyFilename();
 - (void) updatePublicKeyList;
 - (void) setupSubscritptionPage;
 - (void) setupSendMailPage;
+- (void) writeUserDefaults;
 
 @end
 
@@ -91,10 +93,10 @@ enum PageTags {
 }
 
 - (IBAction) userDidClickNext: (id) sender {
-    // TODO: find a better way to check for the first page
+    // TODO: find a better way to check for the last page
     if ([nextButton.title isEqual: NSLocalizedString(ACSHELL_STR_FINISH, nil)]) {
-        NSLog(@"==== did finish");
         [self close];
+        [self writeUserDefaults];
         [delegate setupDidFinish: self];
     } else {
         [pages selectNextTabViewItem: sender];
@@ -200,20 +202,17 @@ enum PageTags {
 
 - (void) setupSendMailPage {
     [nextButton setEnabled: NO];
-    NSString * libraryName = [NSString stringWithString: @"Unknown"];
-    NSString * adminAddress = [NSString stringWithString: @"Unknwon"];
+    NSString * libraryName = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
+    NSString * adminAddress = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil); 
     if ([[discoveryModeButtons selectedCell] tag] == 0) {
         NSIndexSet * selection = [bonjourServerList selectionIndexes];
         if ([selection count] == 0) {
             NSLog(@"Error: no server selected.");
             return;
         }
-        
         LibraryServer * server = [bonjourLibraries objectAtIndex: [selection firstIndex]];
         libraryName = server.name;
         adminAddress = server.administratorAddress;
-        
-        NSLog(@"==== %@", server.rsyncSource);
     }
 
     [libraryNameLabel setStringValue: libraryName];
@@ -308,6 +307,28 @@ enum PageTags {
             break;
         }
     }
+}
+
+- (void) writeUserDefaults {
+    NSString * rsyncSource;
+    
+    if ([[discoveryModeButtons selectedCell] tag] == 0) {
+        NSIndexSet * selection = [bonjourServerList selectionIndexes];
+        if ([selection count] == 0) {
+            NSLog(@"Error: no server selected.");
+            return;
+        }
+        LibraryServer * server = [bonjourLibraries objectAtIndex: [selection firstIndex]];
+        
+        rsyncSource = server.rsyncSource;
+        
+        [[NSUserDefaults standardUserDefaults] setValue: server.readUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
+        [[NSUserDefaults standardUserDefaults] setValue: server.writeUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];        
+    } else {
+        rsyncSource = [rsyncSourceEntry stringValue];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setValue: rsyncSource forKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
 
 #pragma mark -

@@ -63,8 +63,6 @@
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
-    NSLog(@"edit confirmed");
-	
 	FileCopyController *fileCopyController = [[FileCopyController alloc] initWithParentWindow:[self window]];
 	fileCopyController.delegate = self;
     if (presentation) {
@@ -74,7 +72,6 @@
                           isHighlight: [highlightCheckbox intValue]
                        copyController: fileCopyController];
     } else {
-        NSLog(@"thumb: %@", droppedThumbnail.filename);
         [shellController.presentationLibrary addPresentationWithTitle: [[titleView textStorage] string]
                                                         thumbnailPath: droppedThumbnail.filename
                                                           keynotePath: droppedKeynote.filename
@@ -90,7 +87,6 @@
 }
 
 - (IBAction) userDidCancelEdit: (id) sender {
-    NSLog(@"edit canceld");
     [self postEditCleanUp];
 }
 
