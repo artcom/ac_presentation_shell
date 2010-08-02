@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="81"/>
 			<integer value="161"/>
+			<integer value="116"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -867,7 +867,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSTextField" id="769843358">
 						<reference key="NSNextResponder" ref="650445067"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{49, 5}, {237, 14}}</string>
+						<string key="NSFrame">{{48, 6}, {237, 14}}</string>
 						<reference key="NSSuperview" ref="650445067"/>
 						<bool key="NSEnabled">YES</bool>
 						<object class="NSTextFieldCell" key="NSCell" id="632842423">
@@ -895,7 +895,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSTextField" id="120891636">
 						<reference key="NSNextResponder" ref="650445067"/>
 						<int key="NSvFlags">266</int>
-						<string key="NSFrame">{{49, 20}, {237, 18}}</string>
+						<string key="NSFrame">{{49, 19}, {237, 19}}</string>
 						<reference key="NSSuperview" ref="650445067"/>
 						<int key="NSViewLayerContentsRedrawPolicy">2</int>
 						<bool key="NSEnabled">YES</bool>
@@ -905,18 +905,12 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string key="NSContents">ART+COM</string>
 							<object class="NSFont" key="NSSupport">
 								<string key="NSName">LucidaGrande-Bold</string>
-								<double key="NSSize">14</double>
+								<double key="NSSize">16</double>
 								<int key="NSfFlags">16</int>
 							</object>
 							<reference key="NSControlView" ref="120891636"/>
 							<reference key="NSBackgroundColor" ref="88493151"/>
-							<object class="NSColor" key="NSTextColor">
-								<int key="NSColorSpace">3</int>
-								<bytes key="NSWhite">MC4yNQA</bytes>
-								<object class="NSColorSpace" key="NSCustomColorSpace">
-									<int key="NSID">2</int>
-								</object>
-							</object>
+							<reference key="NSTextColor" ref="888467051"/>
 						</object>
 					</object>
 					<object class="NSImageView" id="183380375">
@@ -1167,6 +1161,62 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="destination" ref="120891636"/>
 					</object>
 					<int key="connectionID">179</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: representedObject.title</string>
+						<reference key="source" ref="120891636"/>
+						<reference key="destination" ref="908176516"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="120891636"/>
+							<reference key="NSDestination" ref="908176516"/>
+							<string key="NSLabel">value: representedObject.title</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">representedObject.title</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">184</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">value: representedObject.hostname</string>
+						<reference key="source" ref="769843358"/>
+						<reference key="destination" ref="908176516"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="769843358"/>
+							<reference key="NSDestination" ref="908176516"/>
+							<string key="NSLabel">value: representedObject.hostname</string>
+							<string key="NSBinding">value</string>
+							<string key="NSKeyPath">representedObject.hostname</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">188</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">bonjourServerList</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="157429101"/>
+					</object>
+					<int key="connectionID">189</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">userDidChangeRsyncSource:</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="483037070"/>
+					</object>
+					<int key="connectionID">190</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">discoveryModeButtons</string>
+						<reference key="source" ref="1001"/>
+						<reference key="destination" ref="68793442"/>
+					</object>
+					<int key="connectionID">191</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1602,9 +1652,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="object" ref="650445067"/>
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<reference ref="120891636"/>
 							<reference ref="769843358"/>
 							<reference ref="183380375"/>
+							<reference ref="120891636"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Library Server View</string>
@@ -1732,9 +1782,9 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{81, 277}, {749, 548}}</string>
+					<string>{{376, 280}, {749, 548}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{81, 277}, {749, 548}}</string>
+					<string>{{376, 280}, {749, 548}}</string>
 					<integer value="1"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -1816,7 +1866,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">179</int>
+			<int key="maxID">191</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1857,12 +1907,14 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>generateSshKeys:</string>
+							<string>userDidChangeRsyncSource:</string>
 							<string>userDidChangeServerDiscoveryMode:</string>
 							<string>userDidClickBack:</string>
 							<string>userDidClickNext:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -1876,6 +1928,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<string>backButton</string>
 							<string>bonjourLibrariesArrayController</string>
 							<string>bonjourServerList</string>
+							<string>discoveryModeButtons</string>
 							<string>generateSshKeysButton</string>
 							<string>nextButton</string>
 							<string>pages</string>
@@ -1888,7 +1941,8 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>NSButton</string>
 							<string>NSArrayController</string>
-							<string>NSTableView</string>
+							<string>NSCollectionView</string>
+							<string>NSMatrix</string>
 							<string>NSButton</string>
 							<string>NSButton</string>
 							<string>NSTabView</string>

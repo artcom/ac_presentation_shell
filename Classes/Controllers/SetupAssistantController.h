@@ -25,12 +25,13 @@
     NSButton * generateSshKeysButton;
     NSProgressIndicator * sshKeygenSpinner;
     
-    NSTableView * bonjourServerList;
+    NSCollectionView * bonjourServerList;
     NSTextField * rsyncSourceEntry;
     
     NSNetServiceBrowser * bonjourBrowser;
     NSMutableArray * bonjourLibraries;
     NSArrayController * bonjourLibrariesArrayController;
+    NSMatrix * discoveryModeButtons;
 }
 
 @property (retain, nonatomic) IBOutlet NSTabView * pages;
@@ -44,11 +45,11 @@
 @property (retain, nonatomic) IBOutlet NSProgressIndicator * sshKeygenSpinner;
 @property (retain, nonatomic) NSMutableArray * publicKeys;
 
-@property (retain, nonatomic) IBOutlet NSTableView * bonjourServerList;
+@property (retain, nonatomic) IBOutlet NSCollectionView * bonjourServerList;
 @property (retain, nonatomic) IBOutlet NSTextField * rsyncSourceEntry;
 @property (retain, nonatomic) IBOutlet NSArrayController * bonjourLibrariesArrayController;
+@property (retain, nonatomic) IBOutlet NSMatrix * discoveryModeButtons;
 @property (retain, nonatomic) NSMutableArray * bonjourLibraries;
-
 
 
 
@@ -58,5 +59,6 @@
 - (IBAction) generateSshKeys: (id) sender;
 
 - (IBAction) userDidChangeServerDiscoveryMode: (id) sender;
+- (IBAction) userDidChangeRsyncSource: (id) sender;
 
 @end

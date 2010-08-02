@@ -11,11 +11,15 @@
 
 @interface LibraryServer : NSObject <NSNetServiceDelegate> {
     NSNetService * netService;
+    
+    NSString * hostname;
+    NSString * title;
 }
 
 - (id) initWithNetService: (NSNetService*) aNetService;
 
 @property (readonly) NSString* hostname;
+@property (readonly) NSString* title;
 @property (readonly) NSNetService * netService;
 
 @end

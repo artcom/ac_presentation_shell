@@ -10,14 +10,16 @@
 
 
 @implementation LibraryServer
+
+@synthesize hostname;
 @synthesize netService;
+@synthesize title;
 
 - (id) initWithNetService: (NSNetService*) aNetService {
     self = [super init];
     if (self != nil) {
         netService = [aNetService retain];
         [netService setDelegate: self];
-        [self willChangeValueForKey: @"hostname"];
         [netService resolveWithTimeout: 10];
     }
     return self;
@@ -33,15 +35,18 @@
     return [netService hostName];
 }
 
+- (NSString*) title {
+    return [NSString stringWithString: @"narf"];
+}
+
 #pragma mark -
 #pragma mark NSNetServiceDelegate Protocol Methods
 - (void)netServiceDidResolveAddress: (NSNetService *) sender {
-    NSLog(@"=== resolved %@", [sender hostName]);
+    [self willChangeValueForKey: @"hostname"];
     [self didChangeValueForKey: @"hostname"];
 }
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {
-    [self didChangeValueForKey: @"hostname"];
     NSLog(@"=== failed to resolve: %@", errorDict);
 }
 

@@ -49,6 +49,7 @@ enum PageTags {
 @synthesize bonjourLibrariesArrayController;
 @synthesize publicKeys;
 @synthesize bonjourLibraries;
+@synthesize discoveryModeButtons;
 
 - (id) init {
     self = [super initWithWindowNibName: @"SetupAssistant"];
@@ -75,6 +76,8 @@ enum PageTags {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publicKeySelectionDidChange:)
                                                  name:NSTableViewSelectionDidChangeNotification object: publicKeyTable];
+    
+    [bonjourServerList addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context:nil];
 }
 
 - (IBAction) userDidClickNext: (id) sender {
@@ -92,8 +95,14 @@ enum PageTags {
 
 - (IBAction) userDidChangeServerDiscoveryMode: (id) sender {
     int selectedCellIndex = [[sender selectedCell] tag];
-    [bonjourServerList setEnabled: selectedCellIndex == 0];
     [rsyncSourceEntry setEnabled: selectedCellIndex == 1];
+    NSIndexSet * selectedServer = [bonjourServerList selectionIndexes];
+    [nextButton setEnabled: (selectedCellIndex == 1 && [[rsyncSourceEntry stringValue] length] > 0) || 
+                            (selectedCellIndex == 0 && [selectedServer count] > 0)];
+}
+
+- (IBAction) userDidChangeRsyncSource: (id) sender {
+    [nextButton setEnabled: [[rsyncSourceEntry stringValue] length] > 0];
 }
 
 
@@ -108,6 +117,18 @@ enum PageTags {
     } else {
         [nextButton setTitle: NSLocalizedString(ACSHELL_STR_NEXT, nil)];
         [backButton setTitle: NSLocalizedString(ACSHELL_STR_BACK, nil)];
+    }
+}
+
+-(void)observeValueForKeyPath:(NSString *)keyPath 
+                     ofObject:(id)object
+                       change:(NSDictionary *)change
+                      context:(void *)context
+{
+    if ([object isEqual: bonjourServerList]) {
+        NSIndexSet * indices = [bonjourServerList selectionIndexes];
+        [discoveryModeButtons selectCellWithTag: 0];
+        [nextButton setEnabled: [indices count] > 0];
     }
 }
 

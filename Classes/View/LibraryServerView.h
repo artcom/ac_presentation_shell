@@ -11,6 +11,7 @@
 
 @interface LibraryServerView : NSView {
     BOOL selected;
+    NSTextField * titleField;
 }
 
 @property (readwrite) BOOL selected;
