@@ -53,6 +53,9 @@
 @property (retain, nonatomic) IBOutlet NSMatrix * discoveryModeButtons;
 @property (retain, nonatomic) NSMutableArray * bonjourLibraries;
 
+@property (retain, nonatomic) IBOutlet NSTextField * administratorAddressLabel;
+@property (retain, nonatomic) IBOutlet NSTextField * libraryNameLabel;
+
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 
 - (IBAction) userDidClickNext: (id) sender;

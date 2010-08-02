@@ -14,12 +14,17 @@
     
     NSString * hostname;
     NSString * name;
+    NSString * administratorAddress;
+    
+    NSDictionary * txtRecord;
 }
 
 - (id) initWithNetService: (NSNetService*) aNetService;
 
 @property (readonly) NSString* hostname;
 @property (readonly) NSString* name;
+@property (readonly) NSString* administratorAddress;
+
 @property (readonly) NSNetService * netService;
 
 @end

@@ -27,6 +27,7 @@ NSString * sshPublicKeyFilename();
 - (void) setupSshIdentityPage;
 - (void) updatePublicKeyList;
 - (void) setupSubscritptionPage;
+- (void) setupSendMailPage;
 
 @end
 
@@ -51,6 +52,8 @@ enum PageTags {
 @synthesize publicKeys;
 @synthesize bonjourLibraries;
 @synthesize discoveryModeButtons;
+@synthesize libraryNameLabel;
+@synthesize administratorAddressLabel;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) theDelegate {
     self = [super initWithWindowNibName: @"SetupAssistant"];
@@ -158,6 +161,7 @@ enum PageTags {
             [self setupSubscritptionPage];
             break;
         case SETUP_PAGE_SEND_MAIL:
+            [self setupSendMailPage];
             break;
         default:
             break;
@@ -185,6 +189,24 @@ enum PageTags {
             [nextButton setEnabled: YES];
         }
     }
+}
+
+- (void) setupSendMailPage {
+    NSString * libraryName = [NSString stringWithString: @"Unknown"];
+    NSString * adminAddress = [NSString stringWithString: @"Unknwon"];
+    if ([[discoveryModeButtons selectedCell] tag] == 0) {
+        NSIndexSet * selection = [bonjourServerList selectionIndexes];
+        if ([selection count] == 0) {
+            NSLog(@"Error: no server selected.");
+            return;
+        }
+        
+        LibraryServer * server = [bonjourLibraries objectAtIndex: [selection firstIndex]];
+        libraryName = server.name;
+        adminAddress = server.administratorAddress;
+    }
+    [libraryNameLabel setStringValue: libraryName];
+    [administratorAddressLabel setStringValue: adminAddress];
 }
 
 - (void) updatePublicKeyList {
@@ -246,7 +268,6 @@ enum PageTags {
               didNotSearch: (NSDictionary*) errorDict
 {
     NSLog(@"Failed to browse service: %@", errorDict);
-    
 }
 
 - (void) netServiceBrowser: (NSNetServiceBrowser*) browser

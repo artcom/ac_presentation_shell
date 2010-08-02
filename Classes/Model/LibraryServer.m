@@ -14,6 +14,7 @@
 @synthesize hostname;
 @synthesize netService;
 @synthesize name;
+@synthesize administratorAddress;
 
 - (id) initWithNetService: (NSNetService*) aNetService {
     self = [super init];
@@ -21,6 +22,7 @@
         netService = [aNetService retain];
         [netService setDelegate: self];
         [netService resolveWithTimeout: 10];
+        txtRecord = nil;
     }
     return self;
 }
@@ -36,27 +38,40 @@
 }
 
 - (NSString*) name {
-    NSData * txtRecordData = [[netService TXTRecordData] retain];
-    if (txtRecordData != nil) {
-        NSDictionary * txtRecord = [NSNetService dictionaryFromTXTRecordData: txtRecordData];
-        NSData * value = [txtRecord objectForKey: @"name"];
-        if ( value != nil) {
-            return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
-        }
+    NSData * value = [txtRecord objectForKey: @"name"];
+    if (value != nil) {
+        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
     }
-    return [NSString stringWithString: @"Unknown"];
+    return [NSString stringWithString: @""];
+}
+
+- (NSString*) administratorAddress {
+    NSData * value = [txtRecord objectForKey: @"administrator"];
+    if (value != nil) {
+        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+    }
+    return [NSString stringWithString: @""];
 }
 
 #pragma mark -
 #pragma mark NSNetServiceDelegate Protocol Methods
 - (void)netServiceDidResolveAddress: (NSNetService *) sender {
+    NSData * txtRecordData = [netService TXTRecordData];
+    if (txtRecordData != nil) {
+        txtRecord = [[NSNetService dictionaryFromTXTRecordData: txtRecordData] retain];
+    }
+    
+    // XXX stupid ...but works
     [self willChangeValueForKey: @"hostname"];
     [self didChangeValueForKey: @"hostname"];
     
-    // XXX stupid ...but works
+
     [self willChangeValueForKey: @"name"];
     [self didChangeValueForKey: @"name"];    
 
+    [self willChangeValueForKey: @"administratorAddress"];
+    [self didChangeValueForKey: @"administratorAddress"];    
+    
 }
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {
