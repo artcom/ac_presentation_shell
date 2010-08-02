@@ -15,6 +15,8 @@
     NSString * hostname;
     NSString * name;
     NSString * administratorAddress;
+    NSString * rsyncSource;
+    NSString * rsyncPath;
     
     NSDictionary * txtRecord;
 }
@@ -24,6 +26,8 @@
 @property (readonly) NSString* hostname;
 @property (readonly) NSString* name;
 @property (readonly) NSString* administratorAddress;
+@property (readonly) NSString* rsyncSource;
+@property (readonly) NSString* rsyncPath;
 
 @property (readonly) NSNetService * netService;
 

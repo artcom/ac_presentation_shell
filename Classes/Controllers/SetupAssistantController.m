@@ -13,6 +13,8 @@
 
 #define ACSHELL_BONJOUR_TYPE @"_acshell._tcp"
 
+
+
 //=== Prototypes ===============================================================
 
 NSString * sshDirString();
@@ -204,6 +206,8 @@ enum PageTags {
         LibraryServer * server = [bonjourLibraries objectAtIndex: [selection firstIndex]];
         libraryName = server.name;
         adminAddress = server.administratorAddress;
+        
+        NSLog(@"==== %@", server.rsyncSource);
     }
     [libraryNameLabel setStringValue: libraryName];
     [administratorAddressLabel setStringValue: adminAddress];
@@ -274,7 +278,6 @@ enum PageTags {
             didFindService: (NSNetService*) aNetService
                 moreComing: (BOOL) moreComing
 {
- 
     [bonjourLibrariesArrayController addObject: [[[LibraryServer alloc] initWithNetService: aNetService] autorelease]];
     NSIndexSet * selection = [bonjourServerList selectionIndexes];
     if ([selection count] == 0) {
