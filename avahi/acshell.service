@@ -1,0 +1,14 @@
+<?xml version="1.0" standalone='no'?><!--*-nxml-*-->
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+    <name>ART+COM Presentations</name>
+    <service>
+        <type>_acshell._tcp</type>
+        <port>22</port>
+        <txt-record>administrator=sysad@example.com</txt-record>
+        <txt-record>readUser=pr-reader</txt-record>
+        <txt-record>writeUser=pr-editor</txt-record>
+        <txt-record>rsyncPath=/path/to/library/dir</txt-record>
+    </service>
+</service-group>
+

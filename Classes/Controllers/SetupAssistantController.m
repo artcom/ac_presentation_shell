@@ -11,7 +11,7 @@
 #import "SshIdentity.h"
 #import "localized_text_keys.h"
 
-#define ACSHELL_BONJOUR_TYPE @"_acshelllib._tcp"
+#define ACSHELL_BONJOUR_TYPE @"_acshell._tcp"
 
 //=== Prototypes ===============================================================
 

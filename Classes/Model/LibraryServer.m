@@ -38,11 +38,7 @@
 }
 
 - (NSString*) name {
-    NSData * value = [txtRecord objectForKey: @"name"];
-    if (value != nil) {
-        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
-    }
-    return [NSString stringWithString: @""];
+    return [netService name];
 }
 
 - (NSString*) administratorAddress {
