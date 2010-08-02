@@ -1,5 +1,5 @@
 //
-//  FirstRunAssistantController.m
+//  SetupAssistantController.m
 //  ACShell
 //
 //  Created by David Siegel on 8/1/10.
@@ -9,6 +9,7 @@
 #import "SetupAssistantController.h"
 #import "LibraryServer.h"
 #import "SshIdentity.h"
+#import "PublicKeyDraglet.h"
 #import "localized_text_keys.h"
 
 #define ACSHELL_BONJOUR_TYPE @"_acshell._tcp"
@@ -56,6 +57,7 @@ enum PageTags {
 @synthesize discoveryModeButtons;
 @synthesize libraryNameLabel;
 @synthesize administratorAddressLabel;
+@synthesize publicKeyDraglet;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) theDelegate {
     self = [super initWithWindowNibName: @"SetupAssistant"];
@@ -124,6 +126,10 @@ enum PageTags {
     [nextButton setEnabled: [[rsyncSourceEntry stringValue] length] > 0];
 }
 
+- (IBAction) userDidSendEmail: (id) sender {
+    [nextButton setEnabled: [sender state]];
+}
+
 
 - (void) updateButtons: (NSTabViewItem*) item {
     NSInteger index = [pages indexOfTabViewItem: item];
@@ -179,7 +185,6 @@ enum PageTags {
 
 - (void) setupSubscritptionPage {
     [nextButton setEnabled: NO];
-    //[bonjourLibraries removeAllObjects];
     if ( ! bonjourBrowserRunning) {
         [bonjourBrowser searchForServicesOfType: ACSHELL_BONJOUR_TYPE inDomain: @""];
     }
@@ -194,6 +199,7 @@ enum PageTags {
 }
 
 - (void) setupSendMailPage {
+    [nextButton setEnabled: NO];
     NSString * libraryName = [NSString stringWithString: @"Unknown"];
     NSString * adminAddress = [NSString stringWithString: @"Unknwon"];
     if ([[discoveryModeButtons selectedCell] tag] == 0) {
@@ -209,18 +215,25 @@ enum PageTags {
         
         NSLog(@"==== %@", server.rsyncSource);
     }
+
     [libraryNameLabel setStringValue: libraryName];
     [administratorAddressLabel setStringValue: adminAddress];
+
+    SshIdentityFile * identity = [[publicKeyArrayController selectedObjects] objectAtIndex: 0];
+    publicKeyDraglet.filename = identity.path;
 }
 
 - (void) updatePublicKeyList {
     [publicKeys removeAllObjects];
-    NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: sshDirString() error: nil];
-    NSArray * publicKeyPaths = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pub'"]];
+    NSString * sshDir = sshDirString();
+    NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: sshDir error: nil];
+    NSArray * publicKeyFiles = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pub'"]];
     [self willChangeValueForKey: @"publicKeys"];
-    for (NSString * path in publicKeyPaths) {
+    for (NSString * file in publicKeyFiles) {
+        NSString * path = [sshDir stringByAppendingPathComponent: file];
         [publicKeyArrayController addObject: [[[SshIdentityFile alloc] initWithPath: path] autorelease]];
     }
+    [self didChangeValueForKey: @"publicKeys"];
 }
 
 - (void) publicKeySelectionDidChange: (NSNotification *) notification {

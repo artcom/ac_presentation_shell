@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "SetupAssistantDelegateProtocol.h"
 
+@class PublicKeyDraglet;
+
 @interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
     
     NSTabView * pages;
@@ -33,6 +35,8 @@
     NSArrayController * bonjourLibrariesArrayController;
     NSMatrix * discoveryModeButtons;
     
+    PublicKeyDraglet * publicKeyDraglet;
+    
     id<SetupAssistantDelegate> delegate;
 }
 
@@ -56,6 +60,8 @@
 @property (retain, nonatomic) IBOutlet NSTextField * administratorAddressLabel;
 @property (retain, nonatomic) IBOutlet NSTextField * libraryNameLabel;
 
+@property (retain, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
+
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 
 - (IBAction) userDidClickNext: (id) sender;
@@ -65,5 +71,7 @@
 
 - (IBAction) userDidChangeServerDiscoveryMode: (id) sender;
 - (IBAction) userDidChangeRsyncSource: (id) sender;
+
+- (IBAction) userDidSendEmail: (id) sender;
 
 @end
