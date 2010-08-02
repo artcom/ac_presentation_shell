@@ -13,13 +13,13 @@
     NSNetService * netService;
     
     NSString * hostname;
-    NSString * title;
+    NSString * name;
 }
 
 - (id) initWithNetService: (NSNetService*) aNetService;
 
 @property (readonly) NSString* hostname;
-@property (readonly) NSString* title;
+@property (readonly) NSString* name;
 @property (readonly) NSNetService * netService;
 
 @end

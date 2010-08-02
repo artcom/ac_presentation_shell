@@ -27,6 +27,7 @@
     NSCollectionView * bonjourServerList;
     NSTextField * rsyncSourceEntry;
     
+    BOOL bonjourBrowserRunning;
     NSNetServiceBrowser * bonjourBrowser;
     NSMutableArray * bonjourLibraries;
     NSArrayController * bonjourLibrariesArrayController;

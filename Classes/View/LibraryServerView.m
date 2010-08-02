@@ -23,7 +23,6 @@
 
 - (void) awakeFromNib {
     [super awakeFromNib];
-    NSLog(@"====LibraryServerView awake %@", titleField);
     [[titleField cell] setBackgroundStyle: NSBackgroundStyleRaised]; // hmmmm
 }
 

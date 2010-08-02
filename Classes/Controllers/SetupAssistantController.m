@@ -56,6 +56,7 @@ enum PageTags {
     self = [super initWithWindowNibName: @"SetupAssistant"];
     if (self) {
         publicKeys = [[NSMutableArray alloc] init];
+        bonjourBrowserRunning = NO;
         bonjourBrowser = [[NSNetServiceBrowser alloc] init];
         [bonjourBrowser setDelegate: self];
         bonjourLibraries = [[NSMutableArray alloc] init];
@@ -106,6 +107,10 @@ enum PageTags {
     int selectedCellIndex = [[sender selectedCell] tag];
     [rsyncSourceEntry setEnabled: selectedCellIndex == 1];
     NSIndexSet * selectedServer = [bonjourServerList selectionIndexes];
+    if (selectedCellIndex == 0 && [selectedServer count] == 0 && [bonjourLibraries count] > 0) {
+        [bonjourServerList setSelectionIndexes: [NSIndexSet indexSetWithIndex: 0]];
+        selectedServer = [bonjourServerList selectionIndexes];
+    }
     [nextButton setEnabled: (selectedCellIndex == 1 && [[rsyncSourceEntry stringValue] length] > 0) || 
                             (selectedCellIndex == 0 && [selectedServer count] > 0)];
 }
@@ -168,11 +173,22 @@ enum PageTags {
 
 - (void) setupSubscritptionPage {
     [nextButton setEnabled: NO];
-    [bonjourLibraries removeAllObjects];
-    [bonjourBrowser searchForServicesOfType: ACSHELL_BONJOUR_TYPE inDomain: @""];
+    //[bonjourLibraries removeAllObjects];
+    if ( ! bonjourBrowserRunning) {
+        [bonjourBrowser searchForServicesOfType: ACSHELL_BONJOUR_TYPE inDomain: @""];
+    }
+    if ([bonjourLibraries count] > 0) {
+        NSIndexSet * selection = [bonjourServerList selectionIndexes];
+        if ([selection count] == 0) {
+            [bonjourServerList setSelectionIndexes: [NSIndexSet indexSetWithIndex: 0]];
+        } else {
+            [nextButton setEnabled: YES];
+        }
+    }
 }
 
 - (void) updatePublicKeyList {
+    [publicKeys removeAllObjects];
     NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: sshDirString() error: nil];
     NSArray * publicKeyPaths = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pub'"]];
     [self willChangeValueForKey: @"publicKeys"];
@@ -217,10 +233,20 @@ enum PageTags {
 
 #pragma mark -
 #pragma mark NSNetServiceBrowserDelegate Protocol Methods
+- (void) netServiceBrowserWillSearch: (NSNetServiceBrowser*) netServiceBrowser {
+    bonjourBrowserRunning = YES;
+}
+
+- (void) netServiceBrowserDidStopSearch: (NSNetServiceBrowser*) netServiceBrowser {
+    bonjourBrowserRunning = NO;
+}
+
+
 - (void) netServiceBrowser: (NSNetServiceBrowser*) browser 
               didNotSearch: (NSDictionary*) errorDict
 {
     NSLog(@"Failed to browse service: %@", errorDict);
+    
 }
 
 - (void) netServiceBrowser: (NSNetServiceBrowser*) browser
@@ -229,6 +255,10 @@ enum PageTags {
 {
  
     [bonjourLibrariesArrayController addObject: [[[LibraryServer alloc] initWithNetService: aNetService] autorelease]];
+    NSIndexSet * selection = [bonjourServerList selectionIndexes];
+    if ([selection count] == 0) {
+        [bonjourServerList setSelectionIndexes: [NSIndexSet indexSetWithIndex: 0]];
+    }
 }
 
 - (void) netServiceBrowser: (NSNetServiceBrowser*) browser
