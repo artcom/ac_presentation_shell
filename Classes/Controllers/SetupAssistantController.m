@@ -33,7 +33,8 @@ NSString * sshPublicKeyFilename();
 enum PageTags {
     SETUP_PAGE_WELCOME,
     SETUP_PAGE_SSH_IDENTITY,
-    SETUP_PAGE_SUBSCRIBE_LIBRARY
+    SETUP_PAGE_SUBSCRIBE_LIBRARY,
+    SETUP_PAGE_SEND_MAIL
 };
 
 @implementation SetupAssistantController
@@ -51,13 +52,14 @@ enum PageTags {
 @synthesize bonjourLibraries;
 @synthesize discoveryModeButtons;
 
-- (id) init {
+- (id) initWithDelegate: (id<SetupAssistantDelegate>) theDelegate {
     self = [super initWithWindowNibName: @"SetupAssistant"];
     if (self) {
         publicKeys = [[NSMutableArray alloc] init];
         bonjourBrowser = [[NSNetServiceBrowser alloc] init];
         [bonjourBrowser setDelegate: self];
         bonjourLibraries = [[NSMutableArray alloc] init];
+        delegate = theDelegate;
     }
     return self;
 }
@@ -81,7 +83,14 @@ enum PageTags {
 }
 
 - (IBAction) userDidClickNext: (id) sender {
-    [pages selectNextTabViewItem: sender];
+    // TODO: find a better way to check for the first page
+    if ([nextButton.title isEqual: NSLocalizedString(ACSHELL_STR_FINISH, nil)]) {
+        NSLog(@"==== did finish");
+        [self close];
+        [delegate setupDidFinish: self];
+    } else {
+        [pages selectNextTabViewItem: sender];
+    }
 }
 
 - (IBAction) userDidClickBack: (id) sender {
@@ -142,6 +151,8 @@ enum PageTags {
             break;
         case SETUP_PAGE_SUBSCRIBE_LIBRARY:
             [self setupSubscritptionPage];
+            break;
+        case SETUP_PAGE_SEND_MAIL:
             break;
         default:
             break;

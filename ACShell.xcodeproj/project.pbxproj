@@ -202,6 +202,7 @@
 		63904152120632FE0061D215 /* LibraryServerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryServerView.m; path = Classes/View/LibraryServerView.m; sourceTree = "<group>"; };
 		63904154120633FC0061D215 /* LibraryServerCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibraryServerCollectionItem.h; path = Classes/Controllers/LibraryServerCollectionItem.h; sourceTree = "<group>"; };
 		63904155120633FC0061D215 /* LibraryServerCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryServerCollectionItem.m; path = Classes/Controllers/LibraryServerCollectionItem.m; sourceTree = "<group>"; };
+		639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SetupAssistantDelegateProtocol.h; path = Classes/Controllers/SetupAssistantDelegateProtocol.h; sourceTree = "<group>"; };
 		63A6A9F211FA10AC0057B7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RsyncProgressView.xib; sourceTree = "<group>"; };
 		63B8E4B311FB8B160036DBC1 /* icn_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_warning.png; path = Resources/Images/icn_warning.png; sourceTree = "<group>"; };
 		63B8E52211FBA2CD0036DBC1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
@@ -494,6 +495,7 @@
 				22F2B8DF11F73EC100EE4717 /* RsyncController.m */,
 				63EB809B12050048008D7814 /* SetupAssistantController.h */,
 				63EB809C12050048008D7814 /* SetupAssistantController.m */,
+				639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

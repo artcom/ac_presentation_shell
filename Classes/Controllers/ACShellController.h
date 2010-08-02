@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "KeynoteDelegate.h"
 #import "RsyncController.h"
+#import "SetupAssistantDelegateProtocol.h"
 
 @class PresentationWindowController;
 @class PreferenceWindowController;
@@ -17,9 +18,9 @@
 @class EditWindowController;
 @class SetupAssistantController;
 
-@interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, NSOutlineViewDelegate, 
-											NSOutlineViewDataSource, NSTableViewDelegate, NSTableViewDataSource,
-                                            NSToolbarDelegate> 
+@interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, SetupAssistantDelegate,
+                                            NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate,
+                                            NSTableViewDataSource, NSToolbarDelegate> 
 {
 	PresentationLibrary *presentationLibrary;
 

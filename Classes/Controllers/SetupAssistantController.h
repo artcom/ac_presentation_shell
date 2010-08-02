@@ -7,8 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
-//=== SetupAssistantController =================================================
+#import "SetupAssistantDelegateProtocol.h"
 
 @interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
     
@@ -32,6 +31,8 @@
     NSMutableArray * bonjourLibraries;
     NSArrayController * bonjourLibrariesArrayController;
     NSMatrix * discoveryModeButtons;
+    
+    id<SetupAssistantDelegate> delegate;
 }
 
 @property (retain, nonatomic) IBOutlet NSTabView * pages;
@@ -51,7 +52,7 @@
 @property (retain, nonatomic) IBOutlet NSMatrix * discoveryModeButtons;
 @property (retain, nonatomic) NSMutableArray * bonjourLibraries;
 
-
+- (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 
 - (IBAction) userDidClickNext: (id) sender;
 - (IBAction) userDidClickBack: (id) sender;

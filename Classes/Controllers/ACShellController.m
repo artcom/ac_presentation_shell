@@ -109,8 +109,7 @@ enum ACPresentationDoubleClicked {
         [[self browserWindow] makeKeyAndOrderFront: self];
         [self load];
     } else {
-        NSLog(@"===== first run ====");
-        setupAssistant = [[SetupAssistantController alloc] init];
+        setupAssistant = [[SetupAssistantController alloc] initWithDelegate: self];
         [setupAssistant showWindow: self];
     }
 }
@@ -471,6 +470,14 @@ enum ACPresentationDoubleClicked {
 	}
 }
 
+#pragma mark -
+#pragma mark SetupAssistantDelegate Protocol Methods 
+- (void) setupDidFinish: (id) sender {
+    NSLog(@"==== setupDidFinish ====");
+    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
+    [self beautifyOutlineView];
+    [[self browserWindow] makeKeyAndOrderFront: self];
+}
 
 #pragma mark -
 #pragma mark Private Methods

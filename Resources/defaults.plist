@@ -8,7 +8,7 @@
 	<string>graviton.intern.artcom.de:/srv/data/kommunikation/extern/Praesentationen/demo_library</string>
 	<key>editingEnabled</key>
 	<false/>
-	<key>userEnvInitialized</key>
-	<false/>
+	<key>setupDone</key>
+	<true/>
 </dict>
 </plist>
