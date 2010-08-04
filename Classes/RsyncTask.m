@@ -9,6 +9,7 @@
 #import "RsyncTask.h"
 
 #define RSYNC_EXECUTABLE @"/usr/bin/rsync"
+
 @interface NSString (appendSlash) 
 - (NSString*) stringByAppendingSlash;
 @end
@@ -64,8 +65,9 @@
 	
     task = [[NSTask alloc] init];
     [task setLaunchPath: RSYNC_EXECUTABLE];
-    [task setArguments: [NSArray arrayWithObjects:
-                              @"-rlt", @"--progress", @"--delete", source, destination, nil]];
+    [task setArguments: [NSArray arrayWithObjects: @"-rlt", @"--progress", @"--delete", 
+                         @"--chmod=u=rwX,go=rX",
+                         source, destination, nil]];
     pipe = [[NSPipe alloc] init];
     [task setStandardOutput: pipe];
 	
