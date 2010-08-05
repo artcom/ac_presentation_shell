@@ -180,9 +180,6 @@ enum PageTags {
 
 - (void) setupSshIdentityPage {
     [self updatePublicKeyList];
-    [nextButton setEnabled: [publicKeyArrayController selectionIndex] != NSNotFound];
-    BOOL idFileExists = [[NSFileManager defaultManager] fileExistsAtPath: sshPublicKeyFilename() isDirectory: nil];
-    [generateSshKeysButton setEnabled: ! idFileExists];
 }
 
 - (void) setupSubscritptionPage {
@@ -233,6 +230,11 @@ enum PageTags {
         [publicKeyArrayController addObject: [[[SshIdentityFile alloc] initWithPath: path] autorelease]];
     }
     [self didChangeValueForKey: @"publicKeys"];
+    
+    [nextButton setEnabled: [publicKeyArrayController selectionIndex] != NSNotFound];
+    BOOL idFileExists = [[NSFileManager defaultManager] fileExistsAtPath: sshPublicKeyFilename() isDirectory: nil];
+    [generateSshKeysButton setEnabled: ! idFileExists];
+    
 }
 
 - (void) publicKeySelectionDidChange: (NSNotification *) notification {
