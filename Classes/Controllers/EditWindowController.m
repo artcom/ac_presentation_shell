@@ -100,7 +100,7 @@
 
 - (IBAction) userDidDropKeynote: (id) sender {
     [keynoteFileLabel setStringValue: [[sender filename] lastPathComponent]];
-    BOOL fileExists = presentation.presentationFileExists;
+    BOOL fileExists = droppedKeynote.fileExists;
     [editButton setEnabled: fileExists];
     [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
 }
@@ -124,7 +124,11 @@
 }
 
 - (void)fileCopyControllerDidFail: (FileCopyController *)controller; {
-	NSLog(@"File copy failed");
+    NSAlert * alert = [[[NSAlert alloc] init] autorelease];
+    [alert addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
+    [alert setMessageText: NSLocalizedString(ACSHELL_STR_COPY_FAILED, nil)];
+    [alert runModal];
+    [self postEditCleanUp];
 }
 
 #pragma mark -
