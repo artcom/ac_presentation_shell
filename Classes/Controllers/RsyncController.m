@@ -118,6 +118,10 @@ static NSImage * ourUploadIcon = nil;
 - (void)rsyncTask: (RsyncTask *)task didFailWithError: (NSString *)error {
     if ( ! terminatedByUser) {
         NSLog(@"sync error: %@", error);
+        const int maxLength = 6 * 80;
+        if ([error length] > maxLength) {
+            error = [error substringToIndex: maxLength];
+        }
         NSAlert * ack = [self acknowledgeDialogWithMessage: @"Synchronization failed"
                                          informationalText: error
                                                      style: NSWarningAlertStyle
