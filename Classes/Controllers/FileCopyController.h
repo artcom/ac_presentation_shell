@@ -32,6 +32,4 @@
 - (id)initWithParentWindow: (NSWindow *)aWindow;
 - (void)copy: (NSString *)source to: (NSString *)destination;
 
-- (void)didFinishCopying: (NSNotification *)notification;
-
 @end

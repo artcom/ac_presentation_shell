@@ -39,6 +39,7 @@
 	progressSheet = [[NSAlert alloc] init];
 	[progressSheet setMessageText:NSLocalizedString(ACSHELL_STR_UPDATE_PRESENTATION, nil)];
 	[progressSheet setInformativeText:NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE, nil)];
+    [progressSheet addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
 	
 	NSProgressIndicator *spinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)];
 	[spinner startAnimation:self];
@@ -53,24 +54,20 @@
 		[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceCopyOperation source:sourceDir destination:destinationDir files:files tag:&tag];
 		
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[self didFinishCopying:nil];
+            [NSApp endSheet:[progressSheet window]];
+            if (tag < 0) {
+                [delegate fileCopyControllerDidFail:self];
+            } else {
+                [delegate fileCopyControllerDidFinish:self];
+            }
 		});
 	});
 }
 
 
 - (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+#pragma mark TODO
 	NSLog(@"haha - can't cancel!!");
-}
-
-- (void)didFinishCopyingOperation: (NSNotification *)notification {
-	NSLog(@"%s", _cmd);
-}
-
-- (void)didFinishCopying: (NSNotification *)notification {
-	[NSApp endSheet:[progressSheet window]];
-	
-	[delegate fileCopyControllerDidFinish:self];
 }
 
 @end
