@@ -60,6 +60,9 @@
 		6366050411F2EF0D00D6DD96 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
+		6379E770120C8B3F006A6FEF /* acshell_ask_ssh_add_key.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */; };
+		6379E79D120C8CAA006A6FEF /* acshell_askpasswd in Resources */ = {isa = PBXBuildFile; fileRef = 6379E76C120C8B24006A6FEF /* acshell_askpasswd */; };
+		6379E7C1120CA95F006A6FEF /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6379E7C0120CA95F006A6FEF /* Security.framework */; };
 		63904053120617EE0061D215 /* LibraryServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904052120617EE0061D215 /* LibraryServer.m */; };
 		6390407812061A860061D215 /* SshIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390407712061A860061D215 /* SshIdentity.m */; };
 		63904153120632FE0061D215 /* LibraryServerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904152120632FE0061D215 /* LibraryServerView.m */; };
@@ -78,6 +81,16 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6379E79B120C8BA7006A6FEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6379E76B120C8B24006A6FEF;
+			remoteInfo = acshell_askpasswd;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		2295411511E325B600E09031 /* CopyFiles */ = {
@@ -195,6 +208,9 @@
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString-WithUUID.h"; path = "Classes/Helper/NSString-WithUUID.h"; sourceTree = "<group>"; };
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString-WithUUID.m"; path = "Classes/Helper/NSString-WithUUID.m"; sourceTree = "<group>"; };
+		6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = acshell_ask_ssh_add_key.m; sourceTree = "<group>"; };
+		6379E76C120C8B24006A6FEF /* acshell_askpasswd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = acshell_askpasswd; sourceTree = BUILT_PRODUCTS_DIR; };
+		6379E7C0120CA95F006A6FEF /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		63904051120617EE0061D215 /* LibraryServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LibraryServer.h; path = Classes/Model/LibraryServer.h; sourceTree = "<group>"; };
 		63904052120617EE0061D215 /* LibraryServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LibraryServer.m; path = Classes/Model/LibraryServer.m; sourceTree = "<group>"; };
 		6390407612061A860061D215 /* SshIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SshIdentity.h; path = Classes/Model/SshIdentity.h; sourceTree = "<group>"; };
@@ -227,6 +243,14 @@
 			files = (
 				2295411011E3249500E09031 /* GHUnit.framework in Frameworks */,
 				229541F011E3365B00E09031 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6379E76A120C8B24006A6FEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6379E7C1120CA95F006A6FEF /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +309,7 @@
 			children = (
 				8D1107320486CEB800E47090 /* ACShell.app */,
 				2295410C11E3248700E09031 /* Tests.app */,
+				6379E76C120C8B24006A6FEF /* acshell_askpasswd */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -431,13 +456,15 @@
 		29B97314FDCFA39411CA2CEA /* ACShell */ = {
 			isa = PBXGroup;
 			children = (
-				228C73CD11E1D6E600D55C89 /* Tests */,
+				6379E762120C891A006A6FEF /* acshell_ask_ssh_add_key */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				228C73CD11E1D6E600D55C89 /* Tests */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				229540CD11E3216100E09031 /* Tests-Info.plist */,
+				6379E7C0120CA95F006A6FEF /* Security.framework */,
 			);
 			name = ACShell;
 			sourceTree = "<group>";
@@ -479,6 +506,14 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6379E762120C891A006A6FEF /* acshell_ask_ssh_add_key */ = {
+			isa = PBXGroup;
+			children = (
+				6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */,
+			);
+			path = acshell_ask_ssh_add_key;
 			sourceTree = "<group>";
 		};
 		63AE0E4B1204241800FD8172 /* Controllers */ = {
@@ -526,6 +561,22 @@
 			productReference = 2295410C11E3248700E09031 /* Tests.app */;
 			productType = "com.apple.product-type.application";
 		};
+		6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6379E79A120C8B46006A6FEF /* Build configuration list for PBXNativeTarget "acshell_ask_ssh_add_key" */;
+			buildPhases = (
+				6379E769120C8B24006A6FEF /* Sources */,
+				6379E76A120C8B24006A6FEF /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = acshell_ask_ssh_add_key;
+			productName = acshell_askpasswd;
+			productReference = 6379E76C120C8B24006A6FEF /* acshell_askpasswd */;
+			productType = "com.apple.product-type.tool";
+		};
 		8D1107260486CEB800E47090 /* ACShell */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "ACShell" */;
@@ -538,6 +589,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				6379E79C120C8BA7006A6FEF /* PBXTargetDependency */,
 			);
 			name = ACShell;
 			productInstallPath = "$(HOME)/Applications";
@@ -562,6 +614,7 @@
 			targets = (
 				8D1107260486CEB800E47090 /* ACShell */,
 				2295410B11E3248700E09031 /* Tests */,
+				6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */,
 			);
 		};
 /* End PBXProject section */
@@ -578,6 +631,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6379E79D120C8CAA006A6FEF /* acshell_askpasswd in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */,
@@ -620,6 +674,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6379E769120C8B24006A6FEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6379E770120C8B3F006A6FEF /* acshell_ask_ssh_add_key.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D11072C0486CEB800E47090 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -659,6 +721,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6379E79C120C8BA7006A6FEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */;
+			targetProxy = 6379E79B120C8BA7006A6FEF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
@@ -779,6 +849,52 @@
 			};
 			name = Release;
 		};
+		6379E76E120C8B24006A6FEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = acshell_askpasswd;
+			};
+			name = Debug;
+		};
+		6379E76F120C8B24006A6FEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INSTALL_PATH = /usr/local/bin;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = acshell_askpasswd;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -854,6 +970,15 @@
 			buildConfigurations = (
 				2295410E11E3248700E09031 /* Debug */,
 				2295410F11E3248700E09031 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6379E79A120C8B46006A6FEF /* Build configuration list for PBXNativeTarget "acshell_ask_ssh_add_key" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6379E76E120C8B24006A6FEF /* Debug */,
+				6379E76F120C8B24006A6FEF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

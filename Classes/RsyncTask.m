@@ -73,7 +73,19 @@
 	
 	errorPipe = [[NSPipe alloc] init];
 	[task setStandardError:errorPipe];
+    
+    // required to make the askpass magic work
+    [task setStandardInput: [NSFileHandle fileHandleWithNullDevice]];
+    NSString * askpasswdPath = [[NSBundle mainBundle] pathForResource: @"acshell_askpasswd" ofType: @""];
 	
+    NSMutableDictionary * env = [[[NSProcessInfo processInfo] environment] mutableCopy];
+    [env setObject: askpasswdPath forKey: @"SSH_ASKPASS"];
+    [env setObject: @"NONE" forKey: @"DISPLAY"];
+    NSString * iconPath = [[NSBundle mainBundle] pathForResource: @"AC-Shell-Icon" ofType: @"icns"];
+    [env setObject: iconPath forKey: @"ACSHELL_ICON_URL"];
+    
+    [task setEnvironment: env];
+    
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(rsyncDidUpdateProgress:)
                                                  name: NSFileHandleReadCompletionNotification object: [pipe fileHandleForReading]];
 	
