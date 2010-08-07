@@ -27,8 +27,9 @@
 "Upload" = "Hochladen";
 "UploadTooltip" = "Lokale Bibliothek auf den Server laden";
 "Cancel" = "Abbrechen";
-"Ok" = "Ok";
+"OK" = "OK";
 "EditWindowTitle" = "Editieren";
 "AddWindowTitle" = "Hinzufügen";
 "DropThumbnail" = "Lass ein Bildchen fallen";
 "Unknown" = "Unbekannt";
+"CopyFailed" = "Kopieren fehlgeschlagen.";

@@ -36,8 +36,9 @@
 "Upload" = "Upload";
 "UploadTooltip" = "Upload local library to server";
 "Cancel" = "Cancel";
-"Ok" = "Ok";
+"OK" = "OK";
 "EditWindowTitle" = "Edit Presentation";
 "AddWindowTitle" = "Add Presentation";
 "DropThumbnail" = "Drop a thumbnail image";
 "Unknown" = "Unknown";
+"CopyFailed" = "File copy failed.";

@@ -239,7 +239,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL) updateSubdirectory: (NSString*) newSubdirectory {
-    if ([self.directory isEqual: newSubdirectory]) {
+    // XXX relies on case ignoring filesystem ... sux
+    if ([self.directory caseInsensitiveCompare: newSubdirectory]) {
         return NO;
     }
     
@@ -322,6 +323,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     BOOL isDirectory;
     BOOL exists = [[NSFileManager defaultManager]  fileExistsAtPath: oldFile isDirectory: &isDirectory];
+    // XXX bug: keynotes might be a directory!!!
     if (exists && ! isDirectory) {
         NSError * error;
         if ( ! [[NSFileManager defaultManager] removeItemAtPath: oldFile error: &error]) {

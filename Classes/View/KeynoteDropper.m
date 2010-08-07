@@ -52,4 +52,12 @@
     }
     return NO;
 }
+
+- (BOOL) fileExists {
+    if (filename == nil || [filename length] == 0) {
+        return NO;
+    }
+    return [[NSFileManager defaultManager] fileExistsAtPath: filename isDirectory: nil];
+}
+
 @end

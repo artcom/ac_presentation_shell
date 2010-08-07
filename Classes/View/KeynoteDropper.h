@@ -12,8 +12,11 @@
 
 @interface KeynoteDropper : NSImageView {
     NSString * filename;
+    
+    BOOL fileExists;
 }
 
 @property (retain) NSString * filename;
+@property (readonly) BOOL fileExists;
 
 @end
