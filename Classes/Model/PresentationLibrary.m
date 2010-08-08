@@ -12,8 +12,11 @@
 #import "NSFileManager-DirectoryHelper.h"
 #import "NSString-WithUUID.h"
 #import "localized_text_keys.h"
+#import "AssetManager.h"
 
 #define ACSHELL_SYNC_SUCCESSFUL @"syncSuccessful"
+
+static NSCharacterSet * ourNonDirNameCharSet;
 
 @interface PresentationLibrary ()
 
@@ -28,6 +31,8 @@
 -(void) syncPresentations;
 -(void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
 -(void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate;
+
+- (NSString*) subdirectoryFromTitle: (NSString*) aTitle;
 @end
 
 @implementation PresentationLibrary
@@ -197,8 +202,9 @@
 
 - (void) addPresentationWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnail 
                       keynotePath: (NSString*) keynote isHighlight: (BOOL) highlightFlag
-                   copyController: (FileCopyController*) copyController
+                 progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
+    
     NSString * newId = [NSString stringWithUUID];
     NSXMLElement * node = [NSXMLElement elementWithName: @"presentation"];
     [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
@@ -207,19 +213,100 @@
     [node addChild: [NSXMLElement elementWithName: @"title"]];
     [node addChild: [NSXMLElement elementWithName: @"file"]];
     [node addChild: [NSXMLElement elementWithName: @"thumbnail"]];
-    
+
     [presentationData setObject: node forKey: newId];
-    
+
     Presentation * p = [[Presentation alloc] initWithId: newId inContext: self];
-    [p updateWithTitle: title
-         thumbnailPath: thumbnail
-           keynotePath: keynote
-           isHighlight: highlightFlag
-        copyController: copyController];
+    p.directory = [self subdirectoryFromTitle: title];
+    if ([[NSFileManager defaultManager] fileExistsAtPath: p.directory]) {
+        p.directory = [NSString stringWithFormat: @"%@-%@", p.directory, p.presentationId];
+    }
+    NSError * error;
+    if ( ! [[NSFileManager defaultManager] createDirectoryAtPath: p.absoluteDirectory 
+                                     withIntermediateDirectories: YES attributes: nil error: &error])
+    {
+        NSLog(@"Failed to create directory: %@", error);
+        return;
+    }
     
-    [self syncPresentations];
+    p.title = title;
+    p.highlight = highlightFlag;
+    p.presentationFilename = [keynote lastPathComponent];
+    p.thumbnailFilename = [thumbnail lastPathComponent];
+    
+    [self.allPresentations insertObject: p atIndex:0];
+    [self updateIndices: self.allPresentations];
+    if (p.highlight) {
+        [self.highlights insertObject: [p copy] atIndex: 0];
+        [self updateIndices: self.highlights];
+    }
+    
+    AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: p progressDelegate: delegate];
+    [assetManager copyAsset: thumbnail];
+    [assetManager copyAsset: keynote];
+    [assetManager run];
+    
+    [self saveXmlLibrary];
 }
 
+- (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
+              thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
+                isHighlight: (BOOL) highlightFlag 
+           progressDelegate: (id<ProgressDelegateProtocol>) delegate
+{
+    BOOL xmlChanged = NO;
+    AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
+        NSLog(@"=== thmbnail changed");
+        if (presentation.thumbnailFileExists) {
+            [assetManager trashAsset: presentation.absoluteThumbnailPath];
+        }
+        [assetManager copyAsset: thumbnail];
+        
+        presentation.thumbnailFilename = [thumbnail lastPathComponent];
+        
+        [self flushThumbnailCacheForPresentation: presentation];
+
+        xmlChanged = YES;
+    }
+    
+    if ( ! [keynote isEqual: presentation.absolutePresentationPath]) {
+        NSLog(@"=== keynote changed");
+        if (presentation.presentationFileExists) {
+            [assetManager trashAsset: presentation.absolutePresentationPath];
+        }
+        [assetManager copyAsset: keynote];
+        
+        presentation.presentationFilename = [keynote lastPathComponent];
+        
+        xmlChanged = YES;
+    }
+    
+    if ( ! [title isEqual: presentation.title]) {
+        NSLog(@"=== title changed");
+        presentation.title = title;
+        xmlChanged = YES;
+        NSString * newDir = [self subdirectoryFromTitle: title];
+        if ( ! [presentation.directory isEqual: newDir]) {
+            NSLog(@"=== dir changed");
+            if ([[NSFileManager defaultManager] fileExistsAtPath: newDir]) {
+                newDir = [NSString stringWithFormat: @"%@-%@", newDir, presentation.presentationId];
+            }
+            NSString * newDirPath  = [self.libraryDirPath stringByAppendingPathComponent: newDir];
+            // TODO error handling
+            NSError * error;
+            [[NSFileManager defaultManager] moveItemAtPath: presentation.absoluteDirectory
+                                                    toPath: newDirPath
+                                                     error: &error];
+            presentation.directory = newDir;
+        }
+    }
+    [assetManager run];
+    if (xmlChanged) {
+        [self saveXmlLibrary];
+    }
+}
+    
 #pragma mark -
 #pragma mark Private Methods
 - (NSMutableArray*) allPresentations {
@@ -300,6 +387,19 @@
 
 + (NSString*) settingsFilepath {
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
+}
+
+- (NSString*) subdirectoryFromTitle: (NSString*) aTitle {
+    if ( ! ourNonDirNameCharSet ) {
+        NSMutableCharacterSet * workingSet = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
+        [workingSet addCharactersInString: @"_-."];
+        [workingSet formUnionWithCharacterSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        [workingSet invert];
+        ourNonDirNameCharSet = [workingSet copy];
+    }
+    NSString * str = [[[aTitle componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""] autorelease];
+    NSArray * words = [[str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] autorelease];
+    return [[words componentsJoinedByString: @"_"] lowercaseString];
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ProgressDelegateProtocol.h"
 
 @class PresentationLibrary;
 @class FileCopyController;
@@ -22,7 +23,7 @@
 	
 	FileCopyController *copyController;
 	
-	NSString * keynoteFilename;
+	NSString * presentationFilename;
 	NSString * thumbnailFilename;
 }
 
@@ -43,11 +44,13 @@
 @property (readonly) NSString * relativeThumbnailPath;
 @property (readonly) NSString * absoluteThumbnailPath;
 
-@property (retain)   NSString * keynoteFilename;
+@property (retain)   NSString * presentationFilename;
 @property (readonly) NSString * relativePresentationPath;
 @property (readonly) NSString * absolutePresentationPath;
 
 @property (readonly) BOOL presentationFileExists;
+@property (readonly) BOOL thumbnailFileExists;
+
 @property (readonly) NSImage *thumbnail;
 @property (readonly) BOOL isComplete;
 

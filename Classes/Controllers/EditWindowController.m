@@ -32,6 +32,11 @@
 @synthesize editButton;
 @synthesize thumbnailFileLabel;
 @synthesize okButton;
+@synthesize progressSheet;
+@synthesize progressTitle;
+@synthesize progressMessage;
+@synthesize progressBar;
+@synthesize progressText;
 
 - (id) initWithShellController: (ACShellController*) theShellController {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
@@ -42,8 +47,6 @@
 }
 
 - (void) awakeFromNib {
-    [droppedKeynote setToolTip: NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil)];
-    [droppedThumbnail setToolTip: NSLocalizedString(ACSHELL_STR_DROP_THUMBNAIL, nil)];
     [self setGuiValues];
 }
 
@@ -67,27 +70,27 @@
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
-	FileCopyController *fileCopyController = [[FileCopyController alloc] initWithParentWindow:[self window]];
-	fileCopyController.delegate = self;
-    if (presentation) {
-        [presentation updateWithTitle: [titleField stringValue]
-                        thumbnailPath: droppedThumbnail.filename
-                          keynotePath: droppedKeynote.filename
-                          isHighlight: [highlightCheckbox intValue]
-                       copyController: fileCopyController];
+    [NSApp beginSheet: progressSheet modalForWindow: [self window] 
+        modalDelegate: self 
+       didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
+          contextInfo: nil];
+    [progressBar setIndeterminate: YES];
+    [progressBar startAnimation: nil];
+    if (presentation == nil) {
+        [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
+        [shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
+                                                        thumbnailPath: [self.droppedThumbnail filename]
+                                                          keynotePath: [self.droppedKeynote filename]
+                                                          isHighlight: [self.highlightCheckbox intValue]
+                                                     progressDelegate: self];
     } else {
-        [shellController.presentationLibrary addPresentationWithTitle: [titleField stringValue]
-                                                        thumbnailPath: droppedThumbnail.filename
-                                                          keynotePath: droppedKeynote.filename
-                                                          isHighlight: [highlightCheckbox intValue]
-                                                       copyController: fileCopyController];
+        [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
+        [shellController.presentationLibrary updatePresentation: presentation title: [self.titleField stringValue]
+                                                  thumbnailPath: [self.droppedThumbnail filename]
+                                                    keynotePath: [self.droppedKeynote filename]
+                                                    isHighlight: [self.highlightCheckbox intValue]
+                                               progressDelegate: self];
     }
-    
-	if (!fileCopyController.isCopying) {
-		[self postEditCleanUp];
-	}
-		
-	[fileCopyController release];
 }
 
 - (IBAction) userDidCancelEdit: (id) sender {
@@ -129,7 +132,7 @@
 }
 
 #pragma mark -
-#pragma mark FileCopyController Delegate Methods
+#pragma mark TODO: remove FileCopyController Delegate Methods
 
 - (void)fileCopyControllerDidFinish: (FileCopyController *)controller; {
 	[self postEditCleanUp];
@@ -142,6 +145,29 @@
     [alert runModal];
     [self postEditCleanUp];
 }
+
+#pragma mark -
+#pragma mark Progress Sheet Methods
+
+- (void) operationDidFinish {
+    [NSApp endSheet: progressSheet];
+}
+
+- (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode contextInfo: (void*) contextInfo {
+    [sheet orderOut:self];
+    [self postEditCleanUp];
+}
+
+- (void) setMessage: (NSString*) message {
+    [progressMessage setStringValue: message];
+}
+
+- (void) setProgress: (double) percent text: (NSString*) text {
+    [progressBar setIndeterminate: NO];
+    [progressBar setDoubleValue: percent];
+    [progressText setStringValue: text];
+}
+
 
 #pragma mark -
 #pragma mark Private Methods

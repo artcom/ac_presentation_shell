@@ -42,3 +42,5 @@
 "DropThumbnail" = "Drop a thumbnail image";
 "Unknown" = "Unknown";
 "CopyFailed" = "File copy failed.";
+"AddingPresentation" = "Adding Presentation...";
+"UpdatingPresentation" = "Updating Presentation...";

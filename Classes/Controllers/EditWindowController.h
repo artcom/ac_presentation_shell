@@ -8,13 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "FileCopyController.h"
+#import "ProgressDelegateProtocol.h"
 
 @class Presentation;
 @class ACShellController;
 @class KeynoteDropper;
 @class NSImageViewWithDroppedFilename;
 
-@interface EditWindowController : NSWindowController <FileCopyControllerDelegate> {
+@interface EditWindowController : NSWindowController <ProgressDelegateProtocol,
+                                                    FileCopyControllerDelegate> //XXX remove
+{
     Presentation * presentation;
 
     KeynoteDropper * droppedKeynote;
@@ -28,6 +31,12 @@
     NSButton * highlightCheckbox;
     
     NSButton * okButton;
+    
+    NSWindow *            progressSheet;
+    NSTextField *         progressTitle;
+    NSTextField *         progressMessage;
+    NSProgressIndicator * progressBar;
+    NSTextField *         progressText;
     
     ACShellController * shellController;
 }
@@ -43,6 +52,12 @@
 @property (retain, nonatomic) IBOutlet NSButton * highlightCheckbox;
 
 @property (retain, nonatomic) IBOutlet NSButton * okButton;
+
+@property (retain, nonatomic) IBOutlet NSWindow* progressSheet;
+@property (retain, nonatomic) IBOutlet NSTextField* progressTitle;
+@property (retain, nonatomic) IBOutlet NSTextField* progressMessage;
+@property (retain, nonatomic) IBOutlet NSProgressIndicator* progressBar;
+@property (retain, nonatomic) IBOutlet NSTextField* progressText;
 
 - (id) initWithShellController:(ACShellController *)theShellController;
 

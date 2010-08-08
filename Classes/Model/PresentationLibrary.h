@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "ProgressDelegateProtocol.h"
 
 @class ACShellCollection;
 @class Presentation;
@@ -44,7 +45,13 @@
 - (void)flushThumbnailCache;
 - (void)flushThumbnailCacheForPresentation: (Presentation *)presentation;
 
+- (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
+              thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
+                isHighlight: (BOOL) highlightFlag 
+           progressDelegate: (id<ProgressDelegateProtocol>) delegate;
+
 - (void) addPresentationWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnail 
                       keynotePath: (NSString*) keynote isHighlight: (BOOL) highlightFlag
-                   copyController: (FileCopyController*) copyController;
+                 progressDelegate: (id<ProgressDelegateProtocol>) delegate;
+
 @end

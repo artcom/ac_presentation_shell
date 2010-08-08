@@ -34,7 +34,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @synthesize index;
 @synthesize context;
 @synthesize thumbnailFilename;
-@synthesize keynoteFilename;
+//@synthesize presentationFilename;
 
 - (id)initWithId:(id)theId inContext: (PresentationLibrary*) theContext {
 	self = [super init];
@@ -201,12 +201,17 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL)isComplete {
-	return self.presentationFileExists && self.thumbnail != nil;
+	return self.presentationFileExists && self.thumbnailFileExists;
 }
 
 - (BOOL) presentationFileExists {
     return [[NSFileManager defaultManager] fileExistsAtPath: self.absolutePresentationPath];
 }
+
+- (BOOL) thumbnailFileExists {
+    return [[NSFileManager defaultManager] fileExistsAtPath: self.absoluteThumbnailPath];
+}
+
 
 - (NSString*) subdirectoryFromTitle: (NSString*) aTitle {
     if ( ! ourNonDirNameCharSet ) {
@@ -228,13 +233,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (NSXMLElement*) xmlNode {
-	NSXMLElement *node = [context xmlNode: presentationId];
-	if (node == nil) {
-        NSLog(@"node is nil, not good");
-		// [NSException raise:@"No title attribute found in xml file" format:@""];
-    } 
-	
-    return node;
+	return [context xmlNode: presentationId];
 }
 
 - (BOOL) updateSubdirectory: (NSString*) newSubdirectory {
@@ -329,7 +328,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
 	
 	return YES;
-	
 }
+
+
 
 @end

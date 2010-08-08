@@ -40,7 +40,7 @@
 	[progressSheet setInformativeText:NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE, nil)];
     [progressSheet addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
 	
-	NSProgressIndicator *spinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 20)];
+	NSProgressIndicator *spinner = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(0, 0, 300, 16)];
 	[spinner startAnimation:self];
 	[progressSheet setAccessoryView: spinner];
 	
