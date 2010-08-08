@@ -51,7 +51,7 @@
 - (IBAction) userDidDropThumbnail: (id) sender;
 - (IBAction) userDidDropKeynote: (id) sender;
 - (IBAction) editWithKeynote: (id) sender;
-- (IBAction) titleDidChange: (id) sender;
+- (IBAction) userDidChangeTitle: (id) sender;
 
 - (void) edit: (Presentation*) aPresentation;
 - (void) add;

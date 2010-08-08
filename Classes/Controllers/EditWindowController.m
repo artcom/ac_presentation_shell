@@ -108,14 +108,12 @@
     [self updateOkButton];
 }
 
-- (IBAction) editWithKeynote: (id) sender {
-    [[KeynoteHandler sharedHandler] open: droppedKeynote.filename];
+- (IBAction) userDidChangeTitle: (id) sender {
+    [self updateOkButton];
 }
 
-- (void) postEditCleanUp {
-    [self close];
-    [presentation release];
-    presentation = nil;
+- (IBAction) editWithKeynote: (id) sender {
+    [[KeynoteHandler sharedHandler] open: droppedKeynote.filename];
 }
 
 
@@ -128,10 +126,6 @@
         [fieldEditor insertNewlineIgnoringFieldEditor:nil];
     }
     return retval;
-}
-
-- (IBAction) titleDidChange: (id) sender {
-    [self updateOkButton];
 }
 
 #pragma mark -
@@ -189,5 +183,12 @@
                           droppedKeynote.fileExists && 
                           droppedThumbnail.fileExists];
 }
+
+- (void) postEditCleanUp {
+    [self close];
+    [presentation release];
+    presentation = nil;
+}
+
 
 @end
