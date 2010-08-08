@@ -11,8 +11,7 @@
 			<string key="NS.object.0">762</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="29"/>
-			<integer value="583"/>
+			<integer value="205"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -313,6 +312,24 @@
 									<string key="NSTitle">Redo</string>
 									<string key="NSKeyEquiv">Z</string>
 									<int key="NSKeyEquivModMask">1179648</int>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="376061196">
+									<reference key="NSMenu" ref="789758025"/>
+									<bool key="NSIsDisabled">YES</bool>
+									<bool key="NSIsSeparator">YES</bool>
+									<string key="NSTitle"/>
+									<string key="NSKeyEquiv"/>
+									<int key="NSMnemonicLoc">2147483647</int>
+									<reference key="NSOnImage" ref="35465992"/>
+									<reference key="NSMixedImage" ref="502551668"/>
+								</object>
+								<object class="NSMenuItem" id="99503618">
+									<reference key="NSMenu" ref="789758025"/>
+									<string key="NSTitle">Edit Presentation...</string>
+									<string key="NSKeyEquiv"/>
 									<int key="NSMnemonicLoc">2147483647</int>
 									<reference key="NSOnImage" ref="35465992"/>
 									<reference key="NSMixedImage" ref="502551668"/>
@@ -1525,7 +1542,7 @@
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
 				<string key="NSWindowContentMinSize">{400, 0}</string>
 				<object class="NSView" key="NSWindowView" id="439893737">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSSplitView" id="851891861">
@@ -1638,7 +1655,6 @@
 													</array>
 													<string key="NSFrameSize">{158, 530}</string>
 													<reference key="NSSuperview" ref="972098163"/>
-													<reference key="NSNextKeyView" ref="451034496"/>
 													<reference key="NSDocView" ref="451034496"/>
 													<object class="NSColor" key="NSBGColor">
 														<int key="NSColorSpace">2</int>
@@ -1668,7 +1684,6 @@
 											</array>
 											<string key="NSFrameSize">{158, 530}</string>
 											<reference key="NSSuperview" ref="15646819"/>
-											<reference key="NSNextKeyView" ref="202894451"/>
 											<int key="NSsFlags">560</int>
 											<reference key="NSVScroller" ref="196128545"/>
 											<reference key="NSHScroller" ref="611973952"/>
@@ -1869,7 +1884,6 @@
 													</array>
 													<string key="NSFrame">{{0, 17}, {680, 513}}</string>
 													<reference key="NSSuperview" ref="1026852083"/>
-													<reference key="NSNextKeyView" ref="357031940"/>
 													<reference key="NSDocView" ref="357031940"/>
 													<reference key="NSBGColor" ref="89462652"/>
 													<int key="NScvFlags">4</int>
@@ -1901,7 +1915,6 @@
 													</array>
 													<string key="NSFrameSize">{680, 17}</string>
 													<reference key="NSSuperview" ref="1026852083"/>
-													<reference key="NSNextKeyView" ref="693188629"/>
 													<reference key="NSDocView" ref="693188629"/>
 													<reference key="NSBGColor" ref="89462652"/>
 													<int key="NScvFlags">4</int>
@@ -1910,7 +1923,6 @@
 											</array>
 											<string key="NSFrameSize">{680, 530}</string>
 											<reference key="NSSuperview" ref="494953895"/>
-											<reference key="NSNextKeyView" ref="835804633"/>
 											<int key="NSsFlags">560</int>
 											<reference key="NSVScroller" ref="345263083"/>
 											<reference key="NSHScroller" ref="138024216"/>
@@ -2033,7 +2045,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{839, 561}</string>
-					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{400, 77}</string>
@@ -3176,6 +3187,22 @@
 					</object>
 					<int key="connectionID">815</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">editPresentationMenuItem</string>
+						<reference key="source" ref="246107155"/>
+						<reference key="destination" ref="99503618"/>
+					</object>
+					<int key="connectionID">818</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">editPresentation:</string>
+						<reference key="source" ref="246107155"/>
+						<reference key="destination" ref="99503618"/>
+					</object>
+					<int key="connectionID">819</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -3313,6 +3340,8 @@
 							<reference ref="507821607"/>
 							<reference ref="288088188"/>
 							<reference ref="82994268"/>
+							<reference ref="376061196"/>
+							<reference ref="99503618"/>
 						</array>
 						<reference key="parent" ref="952259628"/>
 					</object>
@@ -4470,6 +4499,16 @@
 						<reference key="object" ref="1026472154"/>
 						<reference key="parent" ref="653693933"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">816</int>
+						<reference key="object" ref="376061196"/>
+						<reference key="parent" ref="789758025"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">817</int>
+						<reference key="object" ref="99503618"/>
+						<reference key="parent" ref="789758025"/>
+					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -4519,7 +4558,7 @@
 				<integer value="1" key="203.ImportedFromIB2"/>
 				<string key="204.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="204.ImportedFromIB2"/>
-				<string key="205.IBEditorWindowLastContentRect">{{507, 553}, {261, 283}}</string>
+				<string key="205.IBEditorWindowLastContentRect">{{507, 522}, {261, 313}}</string>
 				<string key="205.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="205.ImportedFromIB2"/>
 				<string key="205.editorWindowContentRectSynchronizationRect">{{187, 434}, {243, 243}}</string>
@@ -4784,6 +4823,8 @@
 				<string key="81.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="81.ImportedFromIB2"/>
 				<string key="81.editorWindowContentRectSynchronizationRect">{{145, 474}, {199, 203}}</string>
+				<string key="816.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="817.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="82.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="82.ImportedFromIB2"/>
 				<string key="83.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -4795,7 +4836,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">815</int>
+			<int key="maxID">819</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4817,6 +4858,7 @@
 					<dictionary class="NSMutableDictionary" key="actions">
 						<string key="addCollection:">id</string>
 						<string key="addPresentation:">id</string>
+						<string key="editPresentation:">id</string>
 						<string key="openPresentation:">id</string>
 						<string key="play:">id</string>
 						<string key="remove:">id</string>
@@ -4831,6 +4873,7 @@
 						<string key="browserWindow">NSWindow</string>
 						<string key="collectionTreeController">NSTreeController</string>
 						<string key="collectionView">NSOutlineView</string>
+						<string key="editPresentationMenuItem">NSMenuItem</string>
 						<string key="presentationTable">NSTableView</string>
 						<string key="presentationsArrayController">NSArrayController</string>
 						<string key="removeButton">NSButton</string>

@@ -64,6 +64,7 @@ enum ACPresentationDoubleClicked {
 @synthesize warningIcon;
 @synthesize editingEnabled;
 @synthesize removeButton;
+@synthesize editPresentationMenuItem;
 
 + (void) initialize {
 	NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
@@ -99,7 +100,7 @@ enum ACPresentationDoubleClicked {
     
     [[statusLine cell] setBackgroundStyle:NSBackgroundStyleRaised];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateStatusText:)
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentationSelectionDidChange:)
                                                  name:NSTableViewSelectionDidChangeNotification object:presentationTable];
 	
 	[self bind: @"currentPresentationList" toObject:collectionTreeController withKeyPath:@"selection.presentations" options:nil];
@@ -164,7 +165,10 @@ enum ACPresentationDoubleClicked {
 	}
 }
 
-- (IBAction)addPresentation: sender { [editWindowController add]; }
+- (IBAction)addPresentation: sender {
+    [self beautifyOutlineView];
+    [editWindowController add];
+}
 
 - (IBAction)openPresentation: (id)sender {
 	if (sender == presentationTable) {
@@ -215,6 +219,11 @@ enum ACPresentationDoubleClicked {
 
     [collectionTreeController setSelectionIndexPath: [NSIndexPath indexPathWithIndexes: indices length: 2]];
     [collectionView editColumn: 0 row: [collectionView selectedRow] withEvent:nil select:YES];
+}
+
+- (IBAction)editPresentation: (id) sender {
+    Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
+    [editWindowController edit: presentation];
 }
 
 - (BOOL) isCollectionSelected {
@@ -348,6 +357,21 @@ enum ACPresentationDoubleClicked {
 	return YES;
 }
 
+- (void) presentationSelectionDidChange: (id) sender {
+    [self updateStatusText: sender];
+}
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem {
+    SEL theAction = [anItem action];
+    
+    if (theAction == @selector(editPresentation:)){
+        if ([[presentationTable selectedRowIndexes] count] == 1) {
+            return YES;
+        }
+        return NO;
+    }
+    return YES;
+}
 
 #pragma mark -
 #pragma mark  NSOutlineViewDelegate Protocol Methods
@@ -555,7 +579,7 @@ enum ACPresentationDoubleClicked {
 }
 
 - (void) updateStatusText: (NSNotification*) notification {
-    unsigned selectedItems =     [[presentationTable selectedRowIndexes] count];
+    unsigned selectedItems = [[presentationTable selectedRowIndexes] count];
     if ( ! [presentationLibrary hasLibrary]) {
         [statusLine setStringValue: NSLocalizedString(ACSHELL_STR_NO_LIBRARY, nil)];
     } else if (selectedItems > 0) {

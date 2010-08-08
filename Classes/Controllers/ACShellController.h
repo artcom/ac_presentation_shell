@@ -47,6 +47,7 @@
 	BOOL editingEnabled;
 	NSButton * removeButton;
     
+    NSMenuItem * editPresentationMenuItem;
     SetupAssistantController * setupAssistant;
 }
 
@@ -62,6 +63,7 @@
 @property (retain, nonatomic) NSMutableArray * currentPresentationList;
 @property (retain, nonatomic) IBOutlet NSImageView * warningIcon;
 @property (retain, nonatomic) IBOutlet NSButton * removeButton;
+@property (retain, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
 
 @property (readonly) NSString* libraryDirPath;
 @property (readonly) BOOL editingEnabled;
@@ -76,6 +78,7 @@
 - (IBAction)removePresentation: (id) sender;
 - (IBAction)openPresentation: (id)sender;
 - (IBAction)updatePresentationFilter: (id) sender;
+- (IBAction)editPresentation: (id) sender;
 
 - (IBAction)showPreferences: (id)sender;
 
