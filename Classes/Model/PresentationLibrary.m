@@ -106,7 +106,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)saveSettings {
-    NSLog(@"====saved");
 	[NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];	
 }
 
@@ -262,7 +261,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
-        NSLog(@"=== thmbnail changed");
         if (presentation.thumbnailFileExists) {
             [assetManager trashAsset: presentation.absoluteThumbnailPath];
         }
@@ -276,7 +274,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     if ( ! [keynote isEqual: presentation.absolutePresentationPath]) {
-        NSLog(@"=== keynote changed");
         if (presentation.presentationFileExists) {
             [assetManager trashAsset: presentation.absolutePresentationPath];
         }
@@ -288,12 +285,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     if ( ! [title isEqual: presentation.title]) {
-        NSLog(@"=== title changed");
         presentation.title = title;
         xmlChanged = YES;
         NSString * newDir = [self subdirectoryFromTitle: title];
         if ( ! [presentation.directory isEqual: newDir]) {
-            NSLog(@"=== dir changed");
             if ([[NSFileManager defaultManager] fileExistsAtPath: newDir]) {
                 newDir = [NSString stringWithFormat: @"%@-%@", newDir, presentation.presentationId];
             }

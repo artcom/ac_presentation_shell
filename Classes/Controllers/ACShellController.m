@@ -489,7 +489,6 @@ enum ACPresentationDoubleClicked {
 }
 
 - (void) keynoteAppDidLaunch: (BOOL) success {
-    NSLog(@"=== keynote.app launched %d", success);
     NSMutableArray * keynoteWarnings = [[NSMutableArray alloc] init];
     if (success) {
         //run prefs checks

@@ -205,7 +205,6 @@
 }
 
 - (void) updateOkButton {
-    NSLog(@"%d %d %d", [[titleField stringValue] length] > 0, droppedKeynote.fileExists, droppedThumbnail.fileExists);
     [okButton setEnabled: [[titleField stringValue] length] > 0 && 
                           droppedKeynote.fileExists && 
                           droppedThumbnail.fileExists];
