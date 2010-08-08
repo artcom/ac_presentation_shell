@@ -8,25 +8,6 @@
 
 #import "Presentation.h"
 #import "PresentationLibrary.h"
-#import "FileCopyController.h"
-
-
-static NSCharacterSet * ourNonDirNameCharSet;
-
-@interface Presentation ()
-
-- (NSString*) subdirectoryFromTitle: (NSString*) title;
-
-- (void) setTitle: (NSString*) title;
-
-- (BOOL) updateSubdirectory: (NSString*) newSubdirectory;
-- (BOOL) updateThumbnail: (NSString*) newThumbnailPath;
-- (BOOL) updateKeynote: (NSString*) newKeynotePath;
-- (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile;
-
-- (BOOL)prepareCopyFrom: (NSString *)oldFile to: (NSString *)newFile;
-
-@end
 
 @implementation Presentation
 @synthesize selected;
@@ -34,7 +15,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @synthesize index;
 @synthesize context;
 @synthesize thumbnailFilename;
-//@synthesize presentationFilename;
+@synthesize title;
 
 - (id)initWithId:(id)theId inContext: (PresentationLibrary*) theContext {
 	self = [super init];
@@ -67,43 +48,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	[aCoder encodeBool:self.selected forKey:@"selected"];
 	[aCoder encodeObject:self.presentationId forKey:@"presentationId"];
 	[aCoder encodeInteger:self.index forKey:@"index"];
-}
-
-- (BOOL) updateWithTitle: (NSString*) title
-           thumbnailPath: (NSString*) thumbnailPath
-             keynotePath: (NSString*) keynotePath
-             isHighlight: (BOOL) highlightFlag
-          copyController: (FileCopyController *)controller
-{
-	[copyController release];
-	copyController = [controller retain];
-	
-    BOOL xmlChanged = NO;
-    if ([self updateSubdirectory: [self subdirectoryFromTitle: title]]) {
-        xmlChanged = YES;
-    }
-    if ([self updateThumbnail: thumbnailPath]) {
-        xmlChanged = YES;
-    }
-    if ([self updateKeynote: keynotePath]) {
-        xmlChanged = YES;
-    }
-    if ( ! [self.title isEqual: title]) {
-        self.title = title;
-        xmlChanged = YES;
-    }
-    if (self.highlight != highlightFlag) {
-        self.highlight = highlightFlag;
-        xmlChanged = YES;
-    }
-
-    if (xmlChanged) {
-		[context saveXmlLibrary];
-	}
-	[context syncPresentations];
-	[context flushThumbnailCacheForPresentation: self];
-    
-    return xmlChanged;
 }
 
 - (NSString *)description {
@@ -212,20 +156,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return [[NSFileManager defaultManager] fileExistsAtPath: self.absoluteThumbnailPath];
 }
 
-
-- (NSString*) subdirectoryFromTitle: (NSString*) aTitle {
-    if ( ! ourNonDirNameCharSet ) {
-        NSMutableCharacterSet * workingSet = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
-        [workingSet addCharactersInString: @"_-."];
-        [workingSet formUnionWithCharacterSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        [workingSet invert];
-        ourNonDirNameCharSet = [workingSet copy];
-    }
-    NSString * str = [[[aTitle componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""] autorelease];
-    NSArray * words = [[str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] autorelease];
-    return [[words componentsJoinedByString: @"_"] lowercaseString];
-}
-
 - (void) dealloc {
 	[thumbnail release];
 	[context release];
@@ -235,101 +165,5 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (NSXMLElement*) xmlNode {
 	return [context xmlNode: presentationId];
 }
-
-- (BOOL) updateSubdirectory: (NSString*) newSubdirectory {
-    if ([self.directory isEqual: newSubdirectory]) {
-        return NO;
-    }
-    
-    NSError * error;
-    NSString * newDir = [[context libraryDirPath] stringByAppendingPathComponent: newSubdirectory];
-    if ([[NSFileManager defaultManager] fileExistsAtPath: newDir]) {
-        NSLog(@"Conflicting directory names");
-        [NSException raise: @"Conflict"
-                    format: @"Directory '%@' already exists.", newSubdirectory];
-    }
-    if ([self.directory length] == 0) {
-        self.directory = newSubdirectory;
-        if ( ! [[NSFileManager defaultManager] createDirectoryAtPath: self.absoluteDirectory
-                                         withIntermediateDirectories: YES attributes: nil error: &error])
-        {
-            NSLog(@"Failed to create directory: %@", error);
-            [NSException raise: @"IO Error"
-                        format: @"Failed to create directory: %@", error];            
-        }
-    } else {
-        NSString * oldDir = self.absoluteDirectory;
-        if ( ! [[NSFileManager defaultManager] moveItemAtPath: oldDir toPath: newDir error: &error]) {
-            NSLog(@"Failed to rename directory: %@", error);
-            [NSException raise: @"IO Error"
-                        format: @"Failed to rename directory: %@", error];
-        }
-        self.directory = newSubdirectory;
-    }
-    return YES;
-}
-
-- (BOOL) updateThumbnail: (NSString*) newThumbnailPath {
-    if ( ! [self updateFile: self.absoluteThumbnailPath new: newThumbnailPath]) {
-        return NO;
-    }
-    self.thumbnailFilename = [newThumbnailPath lastPathComponent];
-    return YES;
-}
-
-- (BOOL) updateKeynote: (NSString*) newKeynotePath {
-    if (![self prepareCopyFrom: self.absolutePresentationPath to: newKeynotePath]) {
-		return NO;
-	}
-	
-    NSString * p = self.absolutePresentationPath;
-    BOOL isDir;
-    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath: p isDirectory: &isDir];
-    if (exists && isDir) {
-        p = [p stringByAppendingPathComponent: [newKeynotePath lastPathComponent]];
-        
-    }
-    
-    [copyController copy: newKeynotePath to: p];
-	
-    self.presentationFilename = [newKeynotePath lastPathComponent];
-    return YES;
-}
-
-
-- (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile {
-    if (![self prepareCopyFrom:oldFile to:newFile]) {
-		return NO;
-	}
-	
-    NSString * newTargetPath = [self.absoluteDirectory stringByAppendingPathComponent: [newFile lastPathComponent]];
-    NSError * error;
-    if ( ! [[NSFileManager defaultManager] copyItemAtPath: newFile toPath: newTargetPath error: &error]) {
-        [NSException raise: @"IO Error" format: @"Failed to copy thumbnail: %@", error];
-    }
-    return YES;
-}
-
-- (BOOL)prepareCopyFrom: (NSString *)oldFile to: (NSString *)newFile {
-	if (newFile == nil) {
-        return NO;
-    }
-    if ([newFile isEqual: oldFile]) {
-        return NO;
-    }
-    BOOL isDirectory;
-    BOOL exists = [[NSFileManager defaultManager]  fileExistsAtPath: oldFile isDirectory: &isDirectory];
-    // XXX bug: keynotes might be a directory!!!
-    if (exists && ! isDirectory) {
-        NSError * error;
-        if ( ! [[NSFileManager defaultManager] removeItemAtPath: oldFile error: &error]) {
-            [NSException raise: @"IO Error" format: @"Failed to remove old file: %@", error];
-        }
-    }
-	
-	return YES;
-}
-
-
 
 @end

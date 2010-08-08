@@ -7,7 +7,6 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "FileCopyController.h"
 #import "ProgressDelegateProtocol.h"
 
 @class Presentation;
@@ -15,8 +14,7 @@
 @class KeynoteDropper;
 @class NSImageViewWithDroppedFilename;
 
-@interface EditWindowController : NSWindowController <ProgressDelegateProtocol,
-                                                    FileCopyControllerDelegate> //XXX remove
+@interface EditWindowController : NSWindowController <ProgressDelegateProtocol>
 {
     Presentation * presentation;
 
@@ -24,7 +22,7 @@
     NSTextField * keynoteFileLabel;
     NSButton * editButton;
     
-    NSTextField * titleView;
+    NSTextField * titleField;
     NSImageViewWithDroppedFilename * droppedThumbnail;
     NSTextField * thumbnailFileLabel;
 

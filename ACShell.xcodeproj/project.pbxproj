@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 222781E811F88AD2007C1B6C /* RsyncTask.m */; };
-		223DF7F411FDEE6300D53152 /* FileCopyController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223DF7F311FDEE6300D53152 /* FileCopyController.m */; };
 		225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */; };
 		2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2289820611F73701000D0983 /* AC-Shell-Icon.icns */; };
 		2295411011E3249500E09031 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
@@ -125,8 +124,6 @@
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		222781E711F88AD2007C1B6C /* RsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RsyncTask.h; sourceTree = "<group>"; };
 		222781E811F88AD2007C1B6C /* RsyncTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RsyncTask.m; sourceTree = "<group>"; };
-		223DF7F211FDEE6300D53152 /* FileCopyController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileCopyController.h; sourceTree = "<group>"; };
-		223DF7F311FDEE6300D53152 /* FileCopyController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileCopyController.m; sourceTree = "<group>"; };
 		225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACShellCollection.h; sourceTree = "<group>"; };
 		225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACShellCollection.m; sourceTree = "<group>"; };
 		2289820611F73701000D0983 /* AC-Shell-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "AC-Shell-Icon.icns"; path = "Resources/Images/AC-Shell-Icon.icns"; sourceTree = "<group>"; };
@@ -363,14 +360,14 @@
 		22B200B611DA1F3A00C6D9ED /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				630F36AC120F0B2100F89EFB /* AssetManager.h */,
+				630F36AD120F0B2100F89EFB /* AssetManager.m */,
 				636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */,
 				636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */,
 				22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */,
 				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
 				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
-				630F36AC120F0B2100F89EFB /* AssetManager.h */,
-				630F36AD120F0B2100F89EFB /* AssetManager.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -525,8 +522,6 @@
 				22D2F76511D8AFF90030AFBD /* ACShellController.m */,
 				63B8E52711FBACD50036DBC1 /* EditWindowController.h */,
 				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
-				223DF7F211FDEE6300D53152 /* FileCopyController.h */,
-				223DF7F311FDEE6300D53152 /* FileCopyController.m */,
 				63904154120633FC0061D215 /* LibraryServerCollectionItem.h */,
 				63904155120633FC0061D215 /* LibraryServerCollectionItem.m */,
 				6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */,
@@ -712,7 +707,6 @@
 				63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */,
 				630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */,
 				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
-				223DF7F411FDEE6300D53152 /* FileCopyController.m in Sources */,
 				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
 				63904053120617EE0061D215 /* LibraryServer.m in Sources */,
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,

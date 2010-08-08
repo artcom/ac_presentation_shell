@@ -12,7 +12,6 @@
 #import "PresentationLibrary.h"
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
-#import "FileCopyController.h"
 #import "localized_text_keys.h"
 
 @interface EditWindowController ()

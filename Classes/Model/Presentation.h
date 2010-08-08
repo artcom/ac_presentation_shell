@@ -23,6 +23,7 @@
 	
 	FileCopyController *copyController;
 	
+    NSString * title;
 	NSString * presentationFilename;
 	NSString * thumbnailFilename;
 }
@@ -56,9 +57,6 @@
 
 - (id) initWithId:(id)theId inContext: (PresentationLibrary*)theContext;
 
-- (BOOL) updateWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnailPath
-             keynotePath: (NSString*) keynotePath isHighlight: (BOOL) highlightFlag
-          copyController: (FileCopyController *)controller;
 - (NSXMLElement*) xmlNode;
 
 @end
