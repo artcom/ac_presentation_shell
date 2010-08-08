@@ -8,6 +8,7 @@
 
 #import "AssetManager.h"
 #import "Presentation.h";
+#import "localized_text_keys.h"
 
 static void fileOpStatusCallback (FSFileOperationRef fileOp,
                             const FSRef *currentItem,
@@ -101,9 +102,9 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     if ([opcode isEqualToNumber: copy_op]) {
         error = FSCopyObjectAsync(op, &srcRef, &destDirRef, NULL, kFSFileOperationDefaultOptions,
                                   fileOpStatusCallback, 1.0, &clientContext);
-        [delegate setMessage: @"Copying items"];
+        [delegate setMessage: NSLocalizedString(ACSHELL_STR_COPYING_ITEMS, nil)];
     } else if ([opcode isEqualToNumber: trash_op]) {
-        [delegate setMessage: @"Moving items to trash"];
+        [delegate setMessage: NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
         error = FSMoveObjectToTrashAsync(op, &srcRef, kFSFileOperationDefaultOptions,
                                          fileOpStatusCallback, 1.0, &clientContext);
     }
@@ -114,6 +115,7 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
           stage: (FSFileOperationStage) stage error: (OSStatus) error 
 statusDictionary: (CFDictionaryRef) statusDictionary
 {
+#pragma mark TODO: error handling!
     if (statusDictionary) {
         NSNumber *itemsCompleted, *bytesCompleted, *totalItems, *totalBytes;
         
@@ -124,8 +126,8 @@ statusDictionary: (CFDictionaryRef) statusDictionary
         if (itemsCompleted && bytesCompleted && totalItems && totalBytes) {
             double percent = ([bytesCompleted doubleValue] / [totalBytes doubleValue]) * 100;
             [delegate setProgress: percent
-                             text: [NSString stringWithFormat:@"%d of %d (%.1f%%)", 
-                                    [itemsCompleted intValue], [totalItems intValue], 
+                             text: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_WITH_PERCENT, nil), 
+                                    [itemsCompleted intValue] + 1, [totalItems intValue], 
                                     percent]];
         }
     }

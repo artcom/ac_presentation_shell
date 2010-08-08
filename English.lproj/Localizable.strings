@@ -44,3 +44,6 @@
 "CopyFailed" = "File copy failed.";
 "AddingPresentation" = "Adding Presentation...";
 "UpdatingPresentation" = "Updating Presentation...";
+"NofMWithPercent" = "%d of %d (%.1f%%)";
+"CopyingItems" = "Copying items";
+"TrashingItems" = "Moving items to the trash";

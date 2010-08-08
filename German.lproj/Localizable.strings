@@ -33,3 +33,8 @@
 "DropThumbnail" = "Lass ein Bildchen fallen";
 "Unknown" = "Unbekannt";
 "CopyFailed" = "Kopieren fehlgeschlagen.";
+"AddingPresentation" = "Präsentation hinzufügen...";
+"UpdatingPresentation" = "Aktualisiere Präsentation...";
+"NofMWithPercent" = "%d von %d (%.1f%%)";
+"CopyingItems" = "Kopiere Dateien";
+"TrashingItems" = "Verschiebe Dateien in den Papierkorb";

@@ -49,3 +49,6 @@
 #define ACSHELL_STR_COPY_FAILED           @"CopyFailed"
 #define ACSHELL_STR_ADDING_PRESENTATION   @"AddingPresentation"
 #define ACSHELL_STR_UPDATING_PRESENTATION @"UpdatingPresentation"
+#define ACSHELL_STR_N_OF_WITH_PERCENT     @"NofMWithPercent"
+#define ACSHELL_STR_COPYING_ITEMS         @"CopyingItems"
+#define ACSHELL_STR_TRASHING_ITEMS        @"TrashingItems"

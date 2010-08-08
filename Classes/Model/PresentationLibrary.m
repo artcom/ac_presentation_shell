@@ -106,6 +106,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)saveSettings {
+    NSLog(@"====saved");
 	[NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];	
 }
 
@@ -255,6 +256,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
     BOOL xmlChanged = NO;
+    if (presentation.highlight != highlightFlag) {
+        presentation.highlight = highlightFlag;
+        xmlChanged = YES;
+    }
     AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         NSLog(@"=== thmbnail changed");

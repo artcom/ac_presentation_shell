@@ -75,6 +75,8 @@
           contextInfo: nil];
     [progressBar setIndeterminate: YES];
     [progressBar startAnimation: nil];
+    [progressText setStringValue: @""];
+    [progressMessage setStringValue: @""];
     if (presentation == nil) {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
         [shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
