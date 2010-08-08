@@ -28,4 +28,21 @@
     }
     return NO;
 }
+
+-(void) setFilename: (NSString*) aFilename {
+    filename = [aFilename retain];
+    NSImage *iconImage = nil;
+    if (filename != nil) {
+        if ([[NSFileManager defaultManager] fileExistsAtPath: aFilename]) {
+            iconImage = [[[NSImage alloc] initByReferencingFile: aFilename] autorelease];
+        } else {
+            iconImage = [NSImage imageNamed: @"icn_missing_file"];
+        }
+    }
+    [self setImage: iconImage];
+}
+
+- (BOOL) fileExists {
+    return [[NSFileManager defaultManager] fileExistsAtPath: self.filename];
+}
 @end

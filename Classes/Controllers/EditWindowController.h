@@ -21,12 +21,13 @@
     NSTextField * keynoteFileLabel;
     NSButton * editButton;
     
-    NSTextView * titleView;
+    NSTextField * titleView;
     NSImageViewWithDroppedFilename * droppedThumbnail;
     NSTextField * thumbnailFileLabel;
 
-    
     NSButton * highlightCheckbox;
+    
+    NSButton * okButton;
     
     ACShellController * shellController;
 }
@@ -35,11 +36,13 @@
 @property (retain, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
 @property (retain, nonatomic) IBOutlet NSButton * editButton;
 
-@property (retain, nonatomic) IBOutlet NSTextView * titleView;
+@property (retain, nonatomic) IBOutlet NSTextField * titleField;
 @property (retain, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
 @property (retain, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
 @property (retain, nonatomic) IBOutlet NSButton * highlightCheckbox;
+
+@property (retain, nonatomic) IBOutlet NSButton * okButton;
 
 - (id) initWithShellController:(ACShellController *)theShellController;
 
@@ -48,6 +51,7 @@
 - (IBAction) userDidDropThumbnail: (id) sender;
 - (IBAction) userDidDropKeynote: (id) sender;
 - (IBAction) editWithKeynote: (id) sender;
+- (IBAction) titleDidChange: (id) sender;
 
 - (void) edit: (Presentation*) aPresentation;
 - (void) add;

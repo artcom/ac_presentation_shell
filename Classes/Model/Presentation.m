@@ -24,7 +24,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (BOOL) updateKeynote: (NSString*) newKeynotePath;
 - (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile;
 
-- (BOOL)prepareCopyForm: (NSString *)oldFile to: (NSString *)newFile;
+- (BOOL)prepareCopyFrom: (NSString *)oldFile to: (NSString *)newFile;
 
 @end
 
@@ -218,8 +218,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     NSString * str = [[[aTitle componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""] autorelease];
     NSArray * words = [[str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] autorelease];
-    str = [words componentsJoinedByString: @"_"];
-    return str;
+    return [[words componentsJoinedByString: @"_"] lowercaseString];
 }
 
 - (void) dealloc {
@@ -239,8 +238,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL) updateSubdirectory: (NSString*) newSubdirectory {
-    // XXX relies on case ignoring filesystem ... sux
-    if ([self.directory caseInsensitiveCompare: newSubdirectory]) {
+    if ([self.directory isEqual: newSubdirectory]) {
         return NO;
     }
     
@@ -252,7 +250,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
                     format: @"Directory '%@' already exists.", newSubdirectory];
     }
     if ([self.directory length] == 0) {
-        NSLog(@"Creating project dir");
         self.directory = newSubdirectory;
         if ( ! [[NSFileManager defaultManager] createDirectoryAtPath: self.absoluteDirectory
                                          withIntermediateDirectories: YES attributes: nil error: &error])
@@ -282,7 +279,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL) updateKeynote: (NSString*) newKeynotePath {
-    if (![self prepareCopyForm: self.absolutePresentationPath to: newKeynotePath]) {
+    if (![self prepareCopyFrom: self.absolutePresentationPath to: newKeynotePath]) {
 		return NO;
 	}
 	
@@ -302,7 +299,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 
 - (BOOL) updateFile: (NSString*) oldFile new: (NSString*) newFile {
-    if (![self prepareCopyForm:oldFile to:newFile]) {
+    if (![self prepareCopyFrom:oldFile to:newFile]) {
 		return NO;
 	}
 	
@@ -314,7 +311,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return YES;
 }
 
-- (BOOL)prepareCopyForm: (NSString *)oldFile to: (NSString *)newFile {
+- (BOOL)prepareCopyFrom: (NSString *)oldFile to: (NSString *)newFile {
 	if (newFile == nil) {
         return NO;
     }

@@ -12,10 +12,17 @@
 
 @interface KeynoteHandler : NSObject {
 	KeynoteApplication *application;
+    
+    id<KeynoteDelegate> delegate;
 }
 
+@property (assign) id<KeynoteDelegate> delegate;
+
 + (KeynoteHandler *)sharedHandler;
-- (void)play: (NSString *)file withDelegate: (id <KeynoteDelegate>) delegate;
+
+- (void) launch;
+
+- (void)play: (NSString *)file;
 - (void)open: (NSString *)file;
 
 - (BOOL)usesSecondaryMonitorForPresentation;

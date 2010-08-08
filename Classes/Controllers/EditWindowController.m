@@ -19,17 +19,19 @@
 
 - (void) postEditCleanUp;
 - (void) setGuiValues;
+- (void) updateOkButton;
 
 @end
 
 @implementation EditWindowController
-@synthesize titleView;
+@synthesize titleField;
 @synthesize droppedKeynote;
 @synthesize keynoteFileLabel;
 @synthesize droppedThumbnail;
 @synthesize highlightCheckbox;
 @synthesize editButton;
 @synthesize thumbnailFileLabel;
+@synthesize okButton;
 
 - (id) initWithShellController: (ACShellController*) theShellController {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
@@ -55,24 +57,26 @@
     presentation = [aPresentation retain];
     [self setGuiValues];
     [self showWindow: nil];
+    [self updateOkButton];
 }
 
 - (void) add {
     [self setGuiValues];
     [self showWindow: nil];
+    [self updateOkButton];
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
 	FileCopyController *fileCopyController = [[FileCopyController alloc] initWithParentWindow:[self window]];
 	fileCopyController.delegate = self;
     if (presentation) {
-        [presentation updateWithTitle: [[titleView textStorage] string]
+        [presentation updateWithTitle: [titleField stringValue]
                         thumbnailPath: droppedThumbnail.filename
                           keynotePath: droppedKeynote.filename
                           isHighlight: [highlightCheckbox intValue]
                        copyController: fileCopyController];
     } else {
-        [shellController.presentationLibrary addPresentationWithTitle: [[titleView textStorage] string]
+        [shellController.presentationLibrary addPresentationWithTitle: [titleField stringValue]
                                                         thumbnailPath: droppedThumbnail.filename
                                                           keynotePath: droppedKeynote.filename
                                                           isHighlight: [highlightCheckbox intValue]
@@ -91,11 +95,9 @@
 }
 
 - (IBAction) userDidDropThumbnail: (id) sender {
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath: droppedThumbnail.filename isDirectory: nil];
+    BOOL fileExists = droppedThumbnail.fileExists;
     [thumbnailFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
-    if (droppedThumbnail.filename != nil && ! fileExists) {
-        [droppedThumbnail setImage: [NSImage imageNamed: @"icn_missing_file"]];
-    }
+    [self updateOkButton];
 }
 
 - (IBAction) userDidDropKeynote: (id) sender {
@@ -103,6 +105,7 @@
     BOOL fileExists = droppedKeynote.fileExists;
     [editButton setEnabled: fileExists];
     [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
+    [self updateOkButton];
 }
 
 - (IBAction) editWithKeynote: (id) sender {
@@ -115,6 +118,21 @@
     presentation = nil;
 }
 
+
+#pragma mark -
+#pragma mark Title Text Field Delegate Methods
+- (BOOL)control:(NSControl *)control textView:(NSTextView *)fieldEditor doCommandBySelector:(SEL)commandSelector {
+    BOOL retval = NO;
+    if (commandSelector == @selector(insertNewline:) && titleField == control) {
+        retval = YES;
+        [fieldEditor insertNewlineIgnoringFieldEditor:nil];
+    }
+    return retval;
+}
+
+- (IBAction) titleDidChange: (id) sender {
+    [self updateOkButton];
+}
 
 #pragma mark -
 #pragma mark FileCopyController Delegate Methods
@@ -143,12 +161,11 @@
         keynoteFileLabel.stringValue = presentation.relativePresentationPath;
         droppedKeynote.filename = presentation.absolutePresentationPath;
 
-        [titleView setString: presentation.title];
+        [titleField setStringValue: presentation.title];
         
-        NSImage * thumbnail = presentation.thumbnail;
-        [droppedThumbnail setImage: thumbnail ? thumbnail : [NSImage imageNamed: @"icn_missing_file"]];
+        droppedThumbnail.filename = presentation.absoluteThumbnailPath;
         thumbnailFileLabel.stringValue = presentation.relativeThumbnailPath;
-        [thumbnailFileLabel setTextColor: thumbnail ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
+        [thumbnailFileLabel setTextColor: droppedThumbnail.fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
         [highlightCheckbox setState: presentation.highlight];
 
     } else {
@@ -156,13 +173,21 @@
         keynoteFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil);
         [keynoteFileLabel setTextColor: [NSColor controlTextColor]];
         droppedKeynote.filename = nil;
-        [titleView setString: @""];
-        [droppedThumbnail setImage: nil];
+        [titleField setStringValue: @""];
+        droppedThumbnail.filename = nil;
         thumbnailFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_THUMBNAIL, nil);
         [thumbnailFileLabel setTextColor: [NSColor controlTextColor]];
         [highlightCheckbox setState: FALSE];
         [editButton setEnabled: NO];
     }
+    [self updateOkButton];
+}
+
+- (void) updateOkButton {
+    NSLog(@"%d %d %d", [[titleField stringValue] length] > 0, droppedKeynote.fileExists, droppedThumbnail.fileExists);
+    [okButton setEnabled: [[titleField stringValue] length] > 0 && 
+                          droppedKeynote.fileExists && 
+                          droppedThumbnail.fileExists];
 }
 
 @end

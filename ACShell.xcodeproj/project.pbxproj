@@ -76,6 +76,7 @@
 		63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EB809C12050048008D7814 /* SetupAssistantController.m */; };
 		63EB809F12050118008D7814 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63EB809E12050118008D7814 /* SetupAssistant.xib */; };
 		63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */; };
+		63FABE49120E0B4A00789325 /* TitleTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 63FABE48120E0B4A00789325 /* TitleTextField.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -230,6 +231,8 @@
 		63EB809C12050048008D7814 /* SetupAssistantController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupAssistantController.m; sourceTree = "<group>"; };
 		63EB809E12050118008D7814 /* SetupAssistant.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SetupAssistant.xib; path = Resources/SetupAssistant.xib; sourceTree = "<group>"; };
 		63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_ac_logo_no_text.png; path = Resources/Images/gfx_ac_logo_no_text.png; sourceTree = "<group>"; };
+		63FABE47120E0B4A00789325 /* TitleTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTextField.h; sourceTree = "<group>"; };
+		63FABE48120E0B4A00789325 /* TitleTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTextField.m; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -424,6 +427,8 @@
 				22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */,
 				639043EE12075DFC0061D215 /* PublicKeyDraglet.h */,
 				639043EF12075DFC0061D215 /* PublicKeyDraglet.m */,
+				63FABE47120E0B4A00789325 /* TitleTextField.h */,
+				63FABE48120E0B4A00789325 /* TitleTextField.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -713,6 +718,7 @@
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
 				639043321206F23E0061D215 /* PreferenceWindowController.m in Sources */,
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
+				63FABE49120E0B4A00789325 /* TitleTextField.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

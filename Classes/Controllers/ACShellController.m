@@ -83,6 +83,8 @@ enum ACPresentationDoubleClicked {
 		
 		rsyncController = [[RsyncController alloc] init];
 		rsyncController.delegate = self;
+        
+        [KeynoteHandler sharedHandler].delegate = self;
 	}
 	
 	return self;
@@ -107,6 +109,7 @@ enum ACPresentationDoubleClicked {
     [self updateSyncFailedWarning];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
+        [[KeynoteHandler sharedHandler] launch];
         [[self browserWindow] makeKeyAndOrderFront: self];
         [self load];
     } else {
@@ -175,7 +178,7 @@ enum ACPresentationDoubleClicked {
                 break;
             case ACShellPlayPresentation:
                 if (presentation.presentationFileExists) {
-                    [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate: self];			
+                    [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath];			
                 }
                 break;
             case ACShellOpenEditWindow:
@@ -461,6 +464,16 @@ enum ACPresentationDoubleClicked {
 	[[self browserWindow] makeKeyAndOrderFront:nil];
 }
 
+- (void) keynoteAppDidLaunch: (BOOL) success {
+    NSLog(@"=== keynote.app launched %d", success);
+    NSMutableArray * keynoteWarnings = [[NSMutableArray alloc] init];
+    if (success) {
+        //run prefs checks
+    } else {
+        [keynoteWarnings addObject: @"Keynote.app not found"];
+    }
+}
+
 #pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
 - (void)rsync:(RsyncController *) controller didFinishSyncingSuccesful:(BOOL)successFlag {
@@ -477,6 +490,7 @@ enum ACPresentationDoubleClicked {
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
     [self beautifyOutlineView];
     [[self browserWindow] makeKeyAndOrderFront: self];
+    [[KeynoteHandler sharedHandler] launch];
 }
 
 #pragma mark -

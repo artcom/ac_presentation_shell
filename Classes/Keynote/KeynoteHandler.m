@@ -11,6 +11,7 @@
 KeynoteHandler *sharedInstance;
 
 @implementation KeynoteHandler
+@synthesize delegate;
 
 + (KeynoteHandler *)sharedHandler {
 	if (sharedInstance == nil) {
@@ -24,14 +25,23 @@ KeynoteHandler *sharedInstance;
 - (id) init {
 	self = [super init];
 	if (self != nil) {
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-			application = [[SBApplication applicationWithBundleIdentifier:@"com.apple.iWork.Keynote"] retain];			
-		});
 	}
 	return self;
 }
 
-- (void)play: (NSString *)file withDelegate: (id <KeynoteDelegate>) delegate {
+- (void) launch {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        application = [[SBApplication applicationWithBundleIdentifier:@"com.apple.iWork.Keynote"] retain];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([delegate respondsToSelector:@selector(keynoteAppDidLaunch:)]) {
+                [delegate keynoteAppDidLaunch: application != nil];
+            }
+        });          
+        
+    });
+}
+
+- (void)play: (NSString *)file {
 	NSURL *url = [NSURL fileURLWithPath: file];
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -39,7 +49,7 @@ KeynoteHandler *sharedInstance;
 		[[slideshow.slides objectAtIndex:0] startFrom];
 		// [slideshow start];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(isKeynotePlaying:) userInfo:delegate repeats:YES];
+			[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(isKeynotePlaying:) userInfo:nil repeats:YES];
 			
 			if ([delegate respondsToSelector:@selector(didFinishStartingKeynote:)]) {
 				[delegate didFinishStartingKeynote: self];
@@ -63,7 +73,6 @@ KeynoteHandler *sharedInstance;
 	BOOL playing = [application playing];
 	
 	if (!playing) {
-		id <KeynoteDelegate> delegate = [timer userInfo];
 		
 		[timer invalidate];
 				

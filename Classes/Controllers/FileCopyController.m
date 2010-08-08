@@ -24,7 +24,6 @@
 	return self;
 }
 
-
 - (void)copy: (NSString *)source to: (NSString *)destination {
 	
 	NSString *sourceDir = [source stringByDeletingLastPathComponent];
@@ -63,7 +62,6 @@
 		});
 	});
 }
-
 
 - (void) alertDidEnd:(NSAlert *)alert returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 #pragma mark TODO
