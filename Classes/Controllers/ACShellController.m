@@ -331,7 +331,10 @@ enum ACPresentationDoubleClicked {
 		return NSDragOperationNone;
 	}
     NSArray * sortDescriptors = [tableView sortDescriptors];
-    if ([sortDescriptors count] > 0 && [[[sortDescriptors objectAtIndex: 0] key] isEqual: @"index"]) {
+    if ([sortDescriptors count] > 0 && 
+        [[[sortDescriptors objectAtIndex: 0] key] isEqual: @"index"] &&
+        [presentationsArrayController filterPredicate] == nil)
+    {
         return NSDragOperationMove;
     }
     return NSDragOperationNone;
@@ -342,49 +345,36 @@ enum ACPresentationDoubleClicked {
     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
     
-    [rowIndexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger index, BOOL *stop) {
-        NSLog(@"index: %d", index);
-	}];
+    NSLog(@"target row: %d num rows: %d", row, [rowIndexes count]);
     
+    NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
+    NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
     
-    
-    
-    
-    
-    
-    
-    
-    /* This is broken beyond reasonable repair. Rewrite. */
-    
-    
-	ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
+    ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
 	NSMutableArray *myPresentations = selectedCollection.presentations;
-	
-	NSMutableArray *movedPresentations = [[NSMutableArray alloc] init];
-	
-	Presentation *insertionPoint = row < [myPresentations count] ? [myPresentations objectAtIndex:row] : nil;
-	[rowIndexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger index, BOOL *stop) {
-		[movedPresentations addObject: [myPresentations objectAtIndex:index]];
-		[myPresentations removeObjectAtIndex:index];
-	}];
-	
-	NSUInteger insertionIndex = insertionPoint ? [myPresentations indexOfObject:insertionPoint] : [myPresentations count];
-	
-	for (Presentation *p in (insertionPoint ? [movedPresentations objectEnumerator] : [movedPresentations reverseObjectEnumerator])) {
-		if (insertionIndex < [myPresentations count]) {
-			[myPresentations insertObject:p atIndex:insertionIndex];	
-		} else {
-			[myPresentations addObject:p];
-		}
-		
-	}
-	
+
+    NSMutableArray * movedItems = [[[NSMutableArray alloc] init] autorelease];
+    for (Presentation* p in draggedItems) {
+        [myPresentations removeObject: p];
+        if (p.index - 1 < row) {
+            row -= 1;
+        }
+        [movedItems addObject: p];
+    }
+    
+    if (row >= [myPresentations count]) {
+        row = [myPresentations count];
+    }
+    
+    NSIndexSet *newSelection = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [rowIndexes count])];
+
+    [myPresentations insertObjects: movedItems atIndexes: newSelection];
+        
 	[presentationLibrary updateIndices:myPresentations];
-	NSIndexSet *newSelection = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(insertionIndex, [movedPresentations count])];
-	[presentationTable selectRowIndexes:newSelection byExtendingSelection:NO];
-	[presentationTable reloadData];
-	
-	return YES;
+    
+	//[presentationTable reloadData];
+    
+    return YES;
 }
 
 - (void) presentationSelectionDidChange: (id) sender {
@@ -447,29 +437,14 @@ enum ACPresentationDoubleClicked {
         NSLog(@"index: %d", index);
 	}];
     
+    NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
+    NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
+    NSArray * newItems = [[[NSArray alloc] initWithArray: draggedItems copyItems: YES] autorelease];
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /* This is broken beyond reasonable repair. Rewrite. */
-    
-	
-	ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
-	
-	NSArray *selectionArray = [[NSArray alloc] initWithArray:[selectedCollection.presentations objectsAtIndexes:rowIndexes] copyItems:YES];
 	
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-	[collection.presentations addObjectsFromArray:selectionArray];
-	[selectionArray release];
-	
+	[collection.presentations addObjectsFromArray: newItems];
+    
 	[self.presentationLibrary updateIndices:collection.presentations];
 	return YES;
 }
