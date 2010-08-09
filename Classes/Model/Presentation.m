@@ -12,7 +12,7 @@
 @implementation Presentation
 @synthesize selected;
 @synthesize presentationId;
-@synthesize index;
+@synthesize order;
 @synthesize context;
 @synthesize thumbnailFilename;
 @synthesize title;
@@ -23,7 +23,7 @@
 		self.selected = YES;
 		self.context = theContext;
 		self.presentationId = theId;
-        self.index = -1;
+        self.order = -1;
 	}
 	
 	return self;
@@ -34,7 +34,7 @@
 	if (self != nil) {
 		self.selected = [aDecoder decodeBoolForKey:@"selected"];
 		self.presentationId = [aDecoder decodeObjectForKey:@"presentationId"];
-        self.index = [aDecoder decodeIntegerForKey:@"index"];
+        self.order = [aDecoder decodeIntegerForKey:@"order"];
 		self.context = nil;
 	}	
 	return self;
@@ -47,11 +47,11 @@
 - (void) encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeBool:self.selected forKey:@"selected"];
 	[aCoder encodeObject:self.presentationId forKey:@"presentationId"];
-	[aCoder encodeInteger:self.index forKey:@"index"];
+	[aCoder encodeInteger:self.order forKey:@"order"];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"%@", self.title];
+	return [NSString stringWithFormat:@"%d-%@", self.order, self.title];
 }
 
 - (NSImage *)thumbnail {
@@ -166,4 +166,12 @@
 	return [context xmlNode: presentationId];
 }
 
+- (NSComparisonResult) compareByOrder: (Presentation*) other {
+    if (self.order < other.order) {
+        return NSOrderedAscending;
+    } else if (self.order > other.order) {
+        return NSOrderedDescending;
+    }
+    return NSOrderedSame;
+}
 @end

@@ -15,7 +15,7 @@
 @interface Presentation : NSObject <NSCoding, NSCopying> {
 	BOOL selected;
 	id presentationId;
-	NSInteger index;
+	NSInteger order;
 	
 	PresentationLibrary* context;
 	NSImage *thumbnail;
@@ -29,7 +29,7 @@
 }
 
 @property (assign) BOOL selected;
-@property (assign) NSInteger index;
+@property (assign) NSInteger order;
 @property (retain) id presentationId;
 @property (retain) PresentationLibrary* context;
 
@@ -58,5 +58,7 @@
 - (id) initWithId:(id)theId inContext: (PresentationLibrary*)theContext;
 
 - (NSXMLElement*) xmlNode;
+
+- (NSComparisonResult) compareByOrder: (Presentation*) other;
 
 @end

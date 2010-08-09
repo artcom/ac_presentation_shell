@@ -34,8 +34,6 @@
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;
    
-- (void)updateIndices: (NSArray*) thePresentations;
-
 - (NSUInteger)collectionCount;
 
 - (NSXMLElement*) xmlNode:(id)aId;

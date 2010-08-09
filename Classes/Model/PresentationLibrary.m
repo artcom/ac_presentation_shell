@@ -27,10 +27,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 + (NSString*) settingsFilepath;
 
--(void) setup;
--(void) syncPresentations;
--(void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
--(void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate;
+- (void) setup;
+- (void) syncPresentations;
+- (void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
+- (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate;
+- (void) updateIndices: (NSMutableArray*) thePresentations;
 
 - (NSString*) subdirectoryFromTitle: (NSString*) aTitle;
 @end
@@ -61,7 +62,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	self = [super init];
 	if (self != nil) {
         [self setup];
-        [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey: ACSHELL_STR_LIBRARY]];
+        [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey: ACSHELL_STR_ALL]];
         [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_HIGHLIGHTS]];
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_COLLECTIONS]];
         
@@ -106,6 +107,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)saveSettings {
+    [self.allPresentations sortUsingSelector:@selector(compareByOrder:)];
 	[NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];	
 }
 
@@ -138,7 +140,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     [self syncPresentations];
-
+    
 	[self cacheThumbnails];
     return YES;
 }
@@ -146,10 +148,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void) saveXmlLibrary {
     NSXMLElement * root = [[[NSXMLElement alloc] initWithName: @"presentations"] autorelease];
     NSXMLDocument * document = [[[NSXMLDocument alloc] initWithRootElement: root] autorelease];
-    for (id key in presentationData) {
-        NSXMLElement * element = [presentationData objectForKey: key];
-        [root addChild: element];
+    for (Presentation* p in self.allPresentations) {
+        [root addChild: [presentationData objectForKey: p.presentationId]];
     }
+
     NSData *xmlData = [document XMLDataWithOptions: NSXMLNodePrettyPrint];
     if (![xmlData writeToFile: [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"] atomically:YES]) {
         NSLog(@"Failed to save xml file.");
@@ -344,7 +346,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     BOOL addedStuff = NO;
     for (NSNumber * key in presentationData) {
         if (NSNotFound == [presentIds indexOfObject: key]) {
-            Presentation * newPresentation = [[[Presentation alloc] initWithId: key inContext:self] autorelease];
+            Presentation * newPresentation = [[Presentation alloc] initWithId: key inContext:self];
             if (thePredicate == nil || [thePredicate evaluateWithObject:newPresentation]) {
                 [thePresentations insertObject: newPresentation atIndex:0];
                 addedStuff = YES;
@@ -370,10 +372,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	}
 }
 
-- (void)updateIndices: (NSArray*) thePresentations {
+- (void)updateIndices: (NSMutableArray*) thePresentations {
+    //[thePresentations sortUsingSelector:@selector(compareByOrder)];
     int i = 0;
     for (Presentation* presentation in thePresentations) {
-        presentation.index = ++i;
+        presentation.order = ++i;
     }
 }
 

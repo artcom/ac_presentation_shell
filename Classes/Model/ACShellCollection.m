@@ -40,6 +40,7 @@
 	if (self != nil) {
 		self.name = [aDecoder decodeObjectForKey:@"name"];
 		self.presentations = [aDecoder decodeObjectForKey:@"presentations"];
+		self.children = [aDecoder decodeObjectForKey:@"children"];
 	}
 	
 	return self;
@@ -48,6 +49,8 @@
 - (void) encodeWithCoder:(NSCoder *)aCoder {
 	[aCoder encodeObject:self.name forKey:@"name"];
 	[aCoder encodeObject:self.presentations forKey:@"presentations"];
+    [aCoder encodeObject:self.children forKey:@"children"];
+
 }
 
 - (void)dealloc {

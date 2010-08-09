@@ -121,7 +121,7 @@ enum ACPresentationDoubleClicked {
         [setupAssistant showWindow: self];
     }
     
-    NSSortDescriptor* sortDescriptor = [[[NSSortDescriptor alloc] initWithKey: @"index" ascending: YES] autorelease];
+    NSSortDescriptor* sortDescriptor = [[[NSSortDescriptor alloc] initWithKey: @"order" ascending: YES] autorelease];
     [presentationTable setSortDescriptors:[NSArray arrayWithObject: sortDescriptor]];
 }
 
@@ -335,7 +335,7 @@ enum ACPresentationDoubleClicked {
 	}
     NSArray * sortDescriptors = [tableView sortDescriptors];
     if ([sortDescriptors count] > 0 && 
-        [[[sortDescriptors objectAtIndex: 0] key] isEqual: @"index"] &&
+        [[[sortDescriptors objectAtIndex: 0] key] isEqual: @"order"] &&
         [presentationsArrayController filterPredicate] == nil)
     {
         return NSDragOperationMove;
@@ -356,14 +356,12 @@ enum ACPresentationDoubleClicked {
     [presentationsArrayController setSelectionIndexes:indexSet];
     
     NSSortDescriptor * sort = [[presentationsArrayController sortDescriptors] objectAtIndex: 0];
-    if ([sort ascending]) {
-        [presentationLibrary updateIndices: [presentationsArrayController arrangedObjects]];
-    } else {
-        NSArray * items = [presentationsArrayController arrangedObjects];
-        int index = [items count];
-        for (Presentation* p in items) {
-            p.index = index--;
-        }
+    NSArray * items = [presentationsArrayController arrangedObjects];
+    BOOL isAscending = [sort ascending];
+    int index = isAscending ? 1 : [items count];
+    for (Presentation* p in items) {
+        p.order = index;
+        index += (isAscending ? 1 : -1);
     }
 
     return YES;
@@ -475,8 +473,10 @@ enum ACPresentationDoubleClicked {
 	
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
 	[collection.presentations addObjectsFromArray: newItems];
-    
-	[self.presentationLibrary updateIndices:collection.presentations];
+    int order = [collection.presentations count] + 1;
+	for (Presentation* p in newItems) {
+        p.order = order++;
+    }
 	return YES;
 }
 
