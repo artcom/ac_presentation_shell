@@ -1759,10 +1759,6 @@
 																	<int key="NSResizingMask">2</int>
 																	<bool key="NSIsResizeable">YES</bool>
 																	<reference key="NSTableView" ref="357031940"/>
-																	<object class="NSSortDescriptor" key="NSSortDescriptorPrototype">
-																		<bool key="NSAscending">YES</bool>
-																		<string key="NSSelector">compare:</string>
-																	</object>
 																</object>
 																<object class="NSTableColumn" id="600118046">
 																	<double key="NSWidth">19</double>

@@ -50,6 +50,9 @@ enum ACPresentationDoubleClicked {
                                            okButton: (NSString*) ok
                                        cancelButton: (NSString*) cancel;
 
+-(void) moveObjectsInArrangedObjectsFromIndexes:(NSIndexSet*)indexSet toIndex:(NSUInteger)insertIndex;
+- (NSInteger)rowsAboveRow:(NSInteger)row inIndexSet:(NSIndexSet *)indexSet;
+
 @end
 
 @implementation ACShellController
@@ -340,41 +343,69 @@ enum ACPresentationDoubleClicked {
     return NSDragOperationNone;
 }
 
-- (BOOL) tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
-	NSPasteboard* pboard = [info draggingPasteboard];
-    NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
-    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+- (BOOL) tableView: (NSTableView*) tableView acceptDrop: (id<NSDraggingInfo>) info 
+               row: (NSInteger) row dropOperation: (NSTableViewDropOperation) dropOperation
+{
+    NSData * rowsData = [[info draggingPasteboard] dataForType: ACSHELL_PRESENTATION];
+    NSIndexSet * indexSet = [NSKeyedUnarchiver unarchiveObjectWithData: rowsData];		
+    [self moveObjectsInArrangedObjectsFromIndexes: indexSet toIndex: row];
     
-    NSLog(@"target row: %d num rows: %d", row, [rowIndexes count]);
+    NSInteger rowsAbove = [self rowsAboveRow:row inIndexSet:indexSet];
+    NSRange range = NSMakeRange(row - rowsAbove, [indexSet count]);
+    indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
+    [presentationsArrayController setSelectionIndexes:indexSet];
     
-    NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
-    NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
-    
-    ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
-	NSMutableArray *myPresentations = selectedCollection.presentations;
-
-    NSMutableArray * movedItems = [[[NSMutableArray alloc] init] autorelease];
-    for (Presentation* p in draggedItems) {
-        [myPresentations removeObject: p];
-        if (p.index - 1 < row) {
-            row -= 1;
+    NSSortDescriptor * sort = [[presentationsArrayController sortDescriptors] objectAtIndex: 0];
+    if ([sort ascending]) {
+        [presentationLibrary updateIndices: [presentationsArrayController arrangedObjects]];
+    } else {
+        NSArray * items = [presentationsArrayController arrangedObjects];
+        int index = [items count];
+        for (Presentation* p in items) {
+            p.index = index--;
         }
-        [movedItems addObject: p];
     }
-    
-    if (row >= [myPresentations count]) {
-        row = [myPresentations count];
-    }
-    
-    NSIndexSet *newSelection = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(row, [rowIndexes count])];
 
-    [myPresentations insertObjects: movedItems atIndexes: newSelection];
-        
-	[presentationLibrary updateIndices:myPresentations];
-    
-	//[presentationTable reloadData];
-    
     return YES;
+}
+
+-(void) moveObjectsInArrangedObjectsFromIndexes:(NSIndexSet*)indexSet toIndex:(NSUInteger)insertIndex {
+	
+    NSArray *objects = [presentationsArrayController arrangedObjects];
+	NSInteger idx = [indexSet lastIndex];
+	
+    NSInteger aboveInsertIndexCount = 0;
+    id object;
+    NSInteger removeIndex;
+	
+    while (NSNotFound != idx) {
+		if (idx >= insertIndex) {
+			removeIndex = idx + aboveInsertIndexCount;
+			aboveInsertIndexCount += 1;
+		}
+		else {
+			removeIndex = idx;
+			insertIndex -= 1;
+		}
+		object = [[objects objectAtIndex:removeIndex] retain];
+		[presentationsArrayController removeObjectAtArrangedObjectIndex:removeIndex];
+		[presentationsArrayController insertObject:object atArrangedObjectIndex:insertIndex];
+		[object release];
+		idx = [indexSet indexLessThanIndex:idx];
+    }
+}
+
+- (NSInteger)rowsAboveRow:(NSInteger)row inIndexSet:(NSIndexSet *)indexSet {
+    
+	NSUInteger currentIndex = [indexSet firstIndex];
+    NSInteger i = 0;
+    while (currentIndex != NSNotFound) {
+		if (currentIndex < row) {
+            i++;
+        }
+		currentIndex = [indexSet indexGreaterThanIndex:currentIndex];
+    }
+    return i;
 }
 
 - (void) presentationSelectionDidChange: (id) sender {
