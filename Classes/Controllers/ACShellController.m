@@ -117,6 +117,9 @@ enum ACPresentationDoubleClicked {
         setupAssistant = [[SetupAssistantController alloc] initWithDelegate: self];
         [setupAssistant showWindow: self];
     }
+    
+    NSSortDescriptor* sortDescriptor = [[[NSSortDescriptor alloc] initWithKey: @"index" ascending: YES] autorelease];
+    [presentationTable setSortDescriptors:[NSArray arrayWithObject: sortDescriptor]];
 }
 
 - (void) dealloc {
@@ -186,7 +189,11 @@ enum ACPresentationDoubleClicked {
                 }
                 break;
             case ACShellOpenEditWindow:
-                [editWindowController edit: presentation];
+                if ( ! [[editWindowController window] isVisible]) {
+                    [editWindowController edit: presentation];
+                } else {
+                    NSBeep();
+                }
                 break;
             default:
                 break;
@@ -222,8 +229,12 @@ enum ACPresentationDoubleClicked {
 }
 
 - (IBAction)editPresentation: (id) sender {
-    Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
-    [editWindowController edit: presentation];
+    if ( ! [[editWindowController window] isVisible]) {
+        Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
+        [editWindowController edit: presentation];
+    } else {
+        NSBeep();
+    }
 }
 
 - (BOOL) isCollectionSelected {
@@ -319,13 +330,32 @@ enum ACPresentationDoubleClicked {
 	if (dropOperation == NSTableViewDropOn) {
 		return NSDragOperationNone;
 	}
-	return NSDragOperationMove;
+    NSArray * sortDescriptors = [tableView sortDescriptors];
+    if ([sortDescriptors count] > 0 && [[[sortDescriptors objectAtIndex: 0] key] isEqual: @"index"]) {
+        return NSDragOperationMove;
+    }
+    return NSDragOperationNone;
 }
 
 - (BOOL) tableView:(NSTableView *)tableView acceptDrop:(id <NSDraggingInfo>)info row:(NSInteger)row dropOperation:(NSTableViewDropOperation)dropOperation {
 	NSPasteboard* pboard = [info draggingPasteboard];
     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+    
+    [rowIndexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger index, BOOL *stop) {
+        NSLog(@"index: %d", index);
+	}];
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /* This is broken beyond reasonable repair. Rewrite. */
+    
     
 	ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
 	NSMutableArray *myPresentations = selectedCollection.presentations;
@@ -412,6 +442,25 @@ enum ACPresentationDoubleClicked {
 	NSPasteboard* pboard = [info draggingPasteboard];
     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+    
+    [rowIndexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger index, BOOL *stop) {
+        NSLog(@"index: %d", index);
+	}];
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /* This is broken beyond reasonable repair. Rewrite. */
+    
 	
 	ACShellCollection *selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex:0];
 	
