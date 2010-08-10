@@ -87,8 +87,6 @@ enum ACPresentationDoubleClicked {
 		
 		rsyncController = [[RsyncController alloc] init];
 		rsyncController.delegate = self;
-        
-        [KeynoteHandler sharedHandler].delegate = self;
 	}
 	
 	return self;
@@ -113,7 +111,7 @@ enum ACPresentationDoubleClicked {
     [self updateSyncFailedWarning];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
-        [[KeynoteHandler sharedHandler] launch];
+        [[KeynoteHandler sharedHandler] launchWithDelgate: self];
         [[self browserWindow] makeKeyAndOrderFront: self];
         [self load];
     } else {
@@ -188,7 +186,7 @@ enum ACPresentationDoubleClicked {
                 break;
             case ACShellPlayPresentation:
                 if (presentation.presentationFileExists) {
-                    [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath];			
+                    [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate: self];
                 }
                 break;
             case ACShellOpenEditWindow:
@@ -564,7 +562,7 @@ enum ACPresentationDoubleClicked {
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
     [self beautifyOutlineView];
     [[self browserWindow] makeKeyAndOrderFront: self];
-    [[KeynoteHandler sharedHandler] launch];
+    [[KeynoteHandler sharedHandler] launchWithDelgate: self];
 }
 
 #pragma mark -
