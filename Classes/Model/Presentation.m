@@ -34,7 +34,11 @@
 	if (self != nil) {
 		self.selected = [aDecoder decodeBoolForKey:@"selected"];
 		self.presentationId = [aDecoder decodeObjectForKey:@"presentationId"];
-        self.order = [aDecoder decodeIntegerForKey:@"order"];
+        if ([aDecoder containsValueForKey: @"index"]) {
+            self.order = [aDecoder decodeIntegerForKey:@"index"];
+        } else {
+            self.order = [aDecoder decodeIntegerForKey:@"order"];
+        }
 		self.context = nil;
 	}	
 	return self;

@@ -40,7 +40,11 @@
 	if (self != nil) {
 		self.name = [aDecoder decodeObjectForKey:@"name"];
 		self.presentations = [aDecoder decodeObjectForKey:@"presentations"];
-		self.children = [aDecoder decodeObjectForKey:@"children"];
+        if ([aDecoder containsValueForKey: @"children"]) {
+            self.children = [aDecoder decodeObjectForKey:@"children"];
+        } else {
+            self.children = [NSMutableArray array];
+        }
 	}
 	
 	return self;
