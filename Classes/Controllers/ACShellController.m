@@ -462,21 +462,17 @@ enum ACPresentationDoubleClicked {
     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
     
-    [rowIndexes enumerateIndexesWithOptions:NSEnumerationReverse usingBlock:^(NSUInteger index, BOOL *stop) {
-        NSLog(@"index: %d", index);
-	}];
-    
     NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
     NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
     NSArray * newItems = [[[NSArray alloc] initWithArray: draggedItems copyItems: YES] autorelease];
 
 	
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-	[collection.presentations addObjectsFromArray: newItems];
     int order = [collection.presentations count] + 1;
 	for (Presentation* p in newItems) {
         p.order = order++;
     }
+	[collection.presentations addObjectsFromArray: newItems];
 	return YES;
 }
 
