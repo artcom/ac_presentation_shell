@@ -20,8 +20,6 @@
 
 @end
 
-
-
 @interface RsyncTask : NSObject {
 	NSTask *task;
 

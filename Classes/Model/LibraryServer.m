@@ -88,6 +88,8 @@
 @synthesize rsyncPath;
 @synthesize readUser;
 @synthesize writeUser;
+@synthesize keyRequestEmailSubject;
+@synthesize keyRequestEmailBody;
 
 - (id) initWithNetService: (NSNetService*) aNetService {
     self = [super init];
@@ -119,7 +121,8 @@
     if (value != nil) {
         return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
     }
-    return [NSString stringWithString: @""];
+    return nil;
+    //return [NSString stringWithString: @""];
 }
 
 - (NSString*) rsyncSource {
@@ -138,7 +141,8 @@
     if (value != nil) {
         return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
     }
-    return [NSString stringWithString: @""];
+    return nil;
+    //return [NSString stringWithString: @""];
 }
 
 - (NSString*) readUser {
@@ -146,7 +150,8 @@
     if (value != nil) {
         return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
     }
-    return [NSString stringWithString: @""];
+    return nil;
+    //return [NSString stringWithString: @""];
 }
 
 - (NSString*) writeUser {
@@ -154,8 +159,28 @@
     if (value != nil) {
         return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
     }
-    return [NSString stringWithString: @""];
+    return nil;
+    //return [NSString stringWithString: @""];
 }
+
+- (NSString*) keyRequestEmailSubject {
+    NSData * value = [txtRecord objectForKey: @"keyRequestEmailSubject"];
+    if (value != nil) {
+        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+    }
+    return nil;
+    //return [NSString stringWithString: @""];
+}
+
+- (NSString*) keyRequestEmailBody {
+    NSData * value = [txtRecord objectForKey: @"keyRequestEmailBody"];
+    if (value != nil) {
+        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+    }
+    return nil;
+    //return [NSString stringWithString: @""];
+}
+
 
 #pragma mark -
 #pragma mark NSNetServiceDelegate Protocol Methods
@@ -188,6 +213,11 @@
     [self willChangeValueForKey: @"writeUser"];
     [self didChangeValueForKey: @"writeUser"];        
     
+    [self willChangeValueForKey: @"keyRequestEmailSubject"];
+    [self didChangeValueForKey: @"keyRequestEmailSubject"];        
+    
+    [self willChangeValueForKey: @"keyRequestEmailBody"];
+    [self didChangeValueForKey: @"keyRequestEmailBody"];        
 }
 
 - (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict {

@@ -19,6 +19,8 @@
     NSString * rsyncPath;
     NSString * readUser;
     NSString * writeUser;
+    NSString * keyRequestEmailSubject;
+    NSString * keyRequestEmailBody;
     
     NSDictionary * txtRecord;
 }
@@ -32,6 +34,8 @@
 @property (readonly) NSString* rsyncPath;
 @property (readonly) NSString* readUser;
 @property (readonly) NSString* writeUser;
+@property (readonly) NSString* keyRequestEmailSubject;
+@property (readonly) NSString* keyRequestEmailBody;
 
 @property (readonly) NSNetService * netService;
 

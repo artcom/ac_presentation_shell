@@ -200,7 +200,9 @@ enum PageTags {
 - (void) setupSendMailPage {
     [nextButton setEnabled: NO];
     NSString * libraryName = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
-    NSString * adminAddress = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil); 
+    NSString * adminAddress = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
+    NSString * subject = [NSString stringWithFormat: @"ACShell library access"];
+    NSString * body = [NSString stringWithFormat: @"Hi,\nI need to access the presentation library.\n Here is my public key:\n"];
     if ([[discoveryModeButtons selectedCell] tag] == 0) {
         NSIndexSet * selection = [bonjourServerList selectionIndexes];
         if ([selection count] == 0) {
@@ -210,6 +212,8 @@ enum PageTags {
         LibraryServer * server = [bonjourLibraries objectAtIndex: [selection firstIndex]];
         libraryName = server.name;
         adminAddress = server.administratorAddress;
+        subject = [server.keyRequestEmailSubject stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];
+        body = [server.keyRequestEmailBody stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];
     }
 
     [libraryNameLabel setStringValue: libraryName];
@@ -217,6 +221,12 @@ enum PageTags {
 
     SshIdentityFile * identity = [[publicKeyArrayController selectedObjects] objectAtIndex: 0];
     publicKeyDraglet.filename = identity.path;
+    
+    NSString * mailToURL = [NSString stringWithFormat: @"mailto:%@?subject=%@&body=%@",
+                            adminAddress,
+                            [subject stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding],
+                            [body stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+    [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: mailToURL]];
 }
 
 - (void) updatePublicKeyList {
