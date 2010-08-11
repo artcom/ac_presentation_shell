@@ -53,7 +53,7 @@ enum ACPresentationDoubleClicked {
 -(void) moveObjectsInArrangedObjectsFromIndexes:(NSIndexSet*)indexSet toIndex:(NSUInteger)insertIndex;
 - (NSInteger)rowsAboveRow:(NSInteger)row inIndexSet:(NSIndexSet *)indexSet;
 
-- (void) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection;
+- (BOOL) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection;
 
 @end
 
@@ -473,13 +473,13 @@ enum ACPresentationDoubleClicked {
 
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
     
-    [self handleDuplicates: newItems inCollection: collection];
-    
-    int order = [collection.presentations count] + 1;
-	for (Presentation* p in newItems) {
-        p.order = order++;
+    if ([self handleDuplicates: newItems inCollection: collection]) {
+        int order = [collection.presentations count] + 1;
+        for (Presentation* p in newItems) {
+            p.order = order++;
+        }
+        [collection.presentations addObjectsFromArray: newItems];
     }
-	[collection.presentations addObjectsFromArray: newItems];
 	return YES;
 }
 
@@ -673,9 +673,7 @@ enum ACPresentationDoubleClicked {
     return reallyDoIt;
 }
 
-- (void) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection {
-    //NSLog(@"==== newItems: %d collection: %d", [newItems count], [collection.presentations count]);
-    //Presentation * duplicate = [newItems firstObjectCommonWithArray: collection.presentations];
+- (BOOL) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection {
     BOOL hasDuplicates = NO;
     for (Presentation * p in newItems) {
         if ([collection.presentations containsObject: p]) {
@@ -684,8 +682,6 @@ enum ACPresentationDoubleClicked {
         }
     }
     if (hasDuplicates) {
-        NSLog(@"==== found dups");
-        
         NSAlert *alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_WARN_DUPLICATES, nil)
                                          defaultButton: NSLocalizedString(ACSHELL_STR_ADD, nil)
                                        alternateButton: NSLocalizedString(ACSHELL_STR_SKIP, nil)
@@ -693,6 +689,8 @@ enum ACPresentationDoubleClicked {
                              informativeTextWithFormat: @""];
         NSInteger result = [alert runModal];
         switch (result) {
+            case NSAlertOtherReturn:
+                return NO;
             case NSAlertDefaultReturn: /* add them anyway */
                 break;
             case NSAlertAlternateReturn: /* skip duplicates */
@@ -702,11 +700,9 @@ enum ACPresentationDoubleClicked {
                     }
                 }
                 break;
-            case NSAlertOtherReturn:
-                [newItems removeAllObjects]; /* cancel */
-                break;
         }
     }
+    return YES;
 }
 
 @end
