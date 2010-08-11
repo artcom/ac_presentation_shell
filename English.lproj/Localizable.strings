@@ -47,3 +47,6 @@
 "NofMWithPercent" = "%d of %d (%.1f%%)";
 "CopyingItems" = "Copying items";
 "TrashingItems" = "Moving items to the trash";
+"WarnDuplicates" = "There are duplicates being added to the collection. Would you like to add the duplicates or skip them?";
+"Add" = "Add";
+"Skip" = "Skip";

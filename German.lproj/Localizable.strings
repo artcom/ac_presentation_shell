@@ -38,3 +38,6 @@
 "NofMWithPercent" = "%d von %d (%.1f%%)";
 "CopyingItems" = "Kopiere Dateien";
 "TrashingItems" = "Verschiebe Dateien in den Papierkorb";
+"WarnDuplicates" = "Es werden Duplikate zur Sammlung hinzugefügt. Möchtest Du die Duplikate hinzufügen oder überspringen?";
+"Add" = "Hinzufügen";
+"Skip" = "Überspringen";

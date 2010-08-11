@@ -53,6 +53,8 @@ enum ACPresentationDoubleClicked {
 -(void) moveObjectsInArrangedObjectsFromIndexes:(NSIndexSet*)indexSet toIndex:(NSUInteger)insertIndex;
 - (NSInteger)rowsAboveRow:(NSInteger)row inIndexSet:(NSIndexSet *)indexSet;
 
+- (void) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection;
+
 @end
 
 @implementation ACShellController
@@ -278,7 +280,12 @@ enum ACPresentationDoubleClicked {
                                                             okButton: ACSHELL_STR_DELETE
                                                         cancelButton: ACSHELL_STR_CANCEL];
     if (deleteIt) {
-        [presentationsArrayController removeObjects: [presentationsArrayController selectedObjects]];
+        [presentationsArrayController removeObjectsAtArrangedObjectIndexes: [presentationsArrayController selectionIndexes]];
+        NSArray * items = [[[collectionTreeController selectedObjects] objectAtIndex:0] presentations];
+        NSInteger order = 1;
+        for (Presentation* p in items) {
+            p.order = order++;
+        }        
     }
 }
 
@@ -462,10 +469,12 @@ enum ACPresentationDoubleClicked {
     
     NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
     NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
-    NSArray * newItems = [[[NSArray alloc] initWithArray: draggedItems copyItems: YES] autorelease];
+    NSMutableArray * newItems = [[[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES] autorelease];
 
-	
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
+    
+    [self handleDuplicates: newItems inCollection: collection];
+    
     int order = [collection.presentations count] + 1;
 	for (Presentation* p in newItems) {
         p.order = order++;
@@ -662,5 +671,42 @@ enum ACPresentationDoubleClicked {
         [[NSUserDefaults standardUserDefaults] setBool: alert.suppressionButton.state forKey: userDefaultsKey];
     }
     return reallyDoIt;
-}    
+}
+
+- (void) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection {
+    //NSLog(@"==== newItems: %d collection: %d", [newItems count], [collection.presentations count]);
+    //Presentation * duplicate = [newItems firstObjectCommonWithArray: collection.presentations];
+    BOOL hasDuplicates = NO;
+    for (Presentation * p in newItems) {
+        if ([collection.presentations containsObject: p]) {
+            hasDuplicates = YES;
+            break;
+        }
+    }
+    if (hasDuplicates) {
+        NSLog(@"==== found dups");
+        
+        NSAlert *alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_WARN_DUPLICATES, nil)
+                                         defaultButton: NSLocalizedString(ACSHELL_STR_ADD, nil)
+                                       alternateButton: NSLocalizedString(ACSHELL_STR_SKIP, nil)
+                                           otherButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil)
+                             informativeTextWithFormat: @""];
+        NSInteger result = [alert runModal];
+        switch (result) {
+            case NSAlertDefaultReturn: /* add them anyway */
+                break;
+            case NSAlertAlternateReturn: /* skip duplicates */
+                for (Presentation * p in [newItems reverseObjectEnumerator]) {
+                    if ([collection.presentations containsObject: p]) {
+                        [newItems removeObject: p];
+                    }
+                }
+                break;
+            case NSAlertOtherReturn:
+                [newItems removeAllObjects]; /* cancel */
+                break;
+        }
+    }
+}
+
 @end

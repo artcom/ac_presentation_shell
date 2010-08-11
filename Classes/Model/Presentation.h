@@ -60,5 +60,5 @@
 - (NSXMLElement*) xmlNode;
 
 - (NSComparisonResult) compareByOrder: (Presentation*) other;
-
+- (BOOL) isEqual: (id) object;
 @end

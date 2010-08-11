@@ -52,3 +52,6 @@
 #define ACSHELL_STR_N_OF_WITH_PERCENT     @"NofMWithPercent"
 #define ACSHELL_STR_COPYING_ITEMS         @"CopyingItems"
 #define ACSHELL_STR_TRASHING_ITEMS        @"TrashingItems"
+#define ACSHELL_STR_WARN_DUPLICATES       @"WarnDuplicates"
+#define ACSHELL_STR_ADD                   @"Add"
+#define ACSHELL_STR_SKIP                  @"Skip"
