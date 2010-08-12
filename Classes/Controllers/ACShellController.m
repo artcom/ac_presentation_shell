@@ -54,6 +54,7 @@ enum ACPresentationDoubleClicked {
 - (NSInteger)rowsAboveRow:(NSInteger)row inIndexSet:(NSIndexSet *)indexSet;
 
 - (BOOL) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection;
+- (BOOL) isPresentationRemovable;
 
 @end
 
@@ -168,7 +169,9 @@ enum ACPresentationDoubleClicked {
 		[self removePresentation:sender];			
 	} else if ([browserWindow firstResponder] == collectionView) {
 		[self removeCollection:self];
-	}
+	} else {
+        NSBeep();
+    }
 }
 
 - (IBAction)addPresentation: sender {
@@ -196,6 +199,7 @@ enum ACPresentationDoubleClicked {
                     [editWindowController edit: presentation];
                 } else {
                     NSBeep();
+                    [[editWindowController window] makeKeyAndOrderFront: sender];
                 }
                 break;
             default:
@@ -269,8 +273,7 @@ enum ACPresentationDoubleClicked {
 }
 
 - (IBAction)removePresentation: (id) sender {
-    NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
-	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
+	if ( ! [self isPresentationRemovable]) {
         NSBeep();
 		return;
 	}
@@ -289,6 +292,14 @@ enum ACPresentationDoubleClicked {
     }
 }
 
+- (BOOL) isPresentationRemovable {
+    NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
+	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
+        return NO;
+    }
+    return YES;
+}
+
 - (IBAction)showPreferences: (id) sender {
     [preferenceWindowController showWindow: sender];
 }
@@ -300,7 +311,6 @@ enum ACPresentationDoubleClicked {
 -(void) setLibrary:(NSMutableArray *) array {
     presentationLibrary.library.children = array;
 }
-
 
 - (void)setCurrentPresentationList:(NSMutableArray *)newArray {
 	if (currentPresentationList != newArray) {
@@ -423,6 +433,15 @@ enum ACPresentationDoubleClicked {
             return YES;
         }
         return NO;
+    } else if (theAction == @selector(remove:)) {
+        if ([browserWindow firstResponder] == presentationTable) {
+            return [self isPresentationRemovable];
+        } else if ([browserWindow firstResponder] == collectionView) {
+            return [self isCollectionSelected];
+        } else {
+            return NO;
+        }
+
     }
     return YES;
 }
@@ -541,17 +560,12 @@ enum ACPresentationDoubleClicked {
 
 #pragma mark -
 #pragma mark KeynoteDelegate Protocol Methods
-- (void) keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
-	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
-	[[self browserWindow] makeKeyAndOrderFront:nil];
-}
 
 - (void) keynoteAppDidLaunch: (BOOL) success {
-    NSMutableArray * keynoteWarnings = [[NSMutableArray alloc] init];
     if (success) {
         //run prefs checks
     } else {
-        [keynoteWarnings addObject: @"Keynote.app not found"];
+        // issue warning
     }
 }
 
