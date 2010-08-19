@@ -34,6 +34,8 @@ NSString * sshPublicKeyFilename();
 - (void) setupSendMailPage;
 - (void) writeUserDefaults;
 
+-(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+
 @end
 
 enum PageTags {
@@ -60,6 +62,7 @@ enum PageTags {
 @synthesize libraryNameLabel;
 @synthesize administratorAddressLabel;
 @synthesize publicKeyDraglet;
+@synthesize emailSendToggle;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) theDelegate {
     self = [super initWithWindowNibName: @"SetupAssistant"];
@@ -95,9 +98,16 @@ enum PageTags {
 - (IBAction) userDidClickNext: (id) sender {
     // TODO: find a better way to check for the last page
     if ([nextButton.title isEqual: NSLocalizedString(ACSHELL_STR_FINISH, nil)]) {
-        [self close];
         [self writeUserDefaults];
-        [delegate setupDidFinish: self];
+        NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_WAIT_FOR_ACTIVATION, nil)
+                                           defaultButton: NSLocalizedString(ACSHELL_STR_OK, nil)
+                                         alternateButton: nil 
+                                             otherButton: nil
+                              informativeTextWithFormat: @""];
+        [alert beginSheetModalForWindow: [self window]
+                          modalDelegate: self
+                         didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:)
+                            contextInfo: nil];
     } else {
         [pages selectNextTabViewItem: sender];
     }
@@ -132,6 +142,10 @@ enum PageTags {
     [nextButton setEnabled: [sender state]];
 }
 
+-(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [delegate setupDidFinish: self];
+    [self close];
+}
 
 - (void) updateButtons: (NSTabViewItem*) item {
     NSInteger index = [pages indexOfTabViewItem: item];
@@ -184,6 +198,8 @@ enum PageTags {
 
 - (void) setupSubscritptionPage {
     [nextButton setEnabled: NO];
+    [emailSendToggle setState: NO];
+    
     if ( ! bonjourBrowserRunning) {
         [bonjourBrowser searchForServicesOfType: ACSHELL_BONJOUR_TYPE inDomain: @""];
     }
@@ -198,11 +214,34 @@ enum PageTags {
 }
 
 - (void) setupSendMailPage {
-    [nextButton setEnabled: NO];
+    [nextButton setEnabled: [emailSendToggle state]];
+    NSString * libraryName = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
+    NSString * adminAddress = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
+    if ([[discoveryModeButtons selectedCell] tag] == 0) {
+        NSIndexSet * selection = [bonjourServerList selectionIndexes];
+        if ([selection count] == 0) {
+            NSLog(@"Error: no server selected.");
+            return;
+        }
+        LibraryServer * server = [bonjourLibraries objectAtIndex: [selection firstIndex]];
+        libraryName = server.name;
+        adminAddress = server.administratorAddress;
+    }
+
+    [libraryNameLabel setStringValue: libraryName];
+    [administratorAddressLabel setStringValue: adminAddress];
+
+    SshIdentityFile * identity = [[publicKeyArrayController selectedObjects] objectAtIndex: 0];
+    publicKeyDraglet.filename = identity.path;
+    
+}
+
+- (IBAction) openMailTemplate: (id) sender {
     NSString * libraryName = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
     NSString * adminAddress = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
     NSString * subject = [NSString stringWithFormat: @"ACShell library access"];
     NSString * body = [NSString stringWithFormat: @"Hi,\nI need to access the presentation library.\n Here is my public key:\n"];
+
     if ([[discoveryModeButtons selectedCell] tag] == 0) {
         NSIndexSet * selection = [bonjourServerList selectionIndexes];
         if ([selection count] == 0) {
@@ -215,18 +254,13 @@ enum PageTags {
         subject = [server.keyRequestEmailSubject stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];
         body = [server.keyRequestEmailBody stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];
     }
-
-    [libraryNameLabel setStringValue: libraryName];
-    [administratorAddressLabel setStringValue: adminAddress];
-
-    SshIdentityFile * identity = [[publicKeyArrayController selectedObjects] objectAtIndex: 0];
-    publicKeyDraglet.filename = identity.path;
-    
+        
     NSString * mailToURL = [NSString stringWithFormat: @"mailto:%@?subject=%@&body=%@",
                             adminAddress,
                             [subject stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding],
                             [body stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
     [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: mailToURL]];
+    
 }
 
 - (void) updatePublicKeyList {

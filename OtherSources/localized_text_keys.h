@@ -55,3 +55,4 @@
 #define ACSHELL_STR_WARN_DUPLICATES       @"WarnDuplicates"
 #define ACSHELL_STR_ADD                   @"Add"
 #define ACSHELL_STR_SKIP                  @"Skip"
+#define ACSHELL_STR_WAIT_FOR_ACTIVATION   @"WaitForActivation"

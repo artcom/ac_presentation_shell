@@ -38,6 +38,7 @@
     PublicKeyDraglet * publicKeyDraglet;
     NSTextField * libraryNameLabel;
     NSTextField * administratorAddressLabel;
+    NSButton * emailSendToggle;
     
     id<SetupAssistantDelegate> delegate;
 }
@@ -61,6 +62,7 @@
 
 @property (retain, nonatomic) IBOutlet NSTextField * administratorAddressLabel;
 @property (retain, nonatomic) IBOutlet NSTextField * libraryNameLabel;
+@property (retain, nonatomic) IBOutlet NSButton * emailSendToggle;
 
 @property (retain, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
 
@@ -74,6 +76,7 @@
 - (IBAction) userDidChangeServerDiscoveryMode: (id) sender;
 - (IBAction) userDidChangeRsyncSource: (id) sender;
 
+- (IBAction) openMailTemplate: (id) sender;
 - (IBAction) userDidSendEmail: (id) sender;
 
 @end

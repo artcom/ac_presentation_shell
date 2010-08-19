@@ -41,3 +41,4 @@
 "WarnDuplicates" = "Es werden Duplikate zur Sammlung hinzugefügt. Möchtest Du die Duplikate hinzufügen oder überspringen?";
 "Add" = "Hinzufügen";
 "Skip" = "Überspringen";
+"WaitForActivation" = "Vielen Dank. Du kannst die Bibliothek synchronisieren sobald Dein Konto bestätigt wurde.";

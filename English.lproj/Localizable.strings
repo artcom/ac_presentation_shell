@@ -50,3 +50,4 @@
 "WarnDuplicates" = "There are duplicates being added to the collection. Would you like to add the duplicates or skip them?";
 "Add" = "Add";
 "Skip" = "Skip";
+"WaitForActivation" = "Thank you. You can synchronize your library after your account has been activated.";
