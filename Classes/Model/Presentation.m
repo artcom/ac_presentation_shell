@@ -142,10 +142,8 @@
 
 - (BOOL) isEqual:(id)object {
 	if (![object isKindOfClass:[self class]]) {
-        NSLog(@"=== class mismatch");
 		return NO;
 	}
-    NSLog(@"match: %d", [self.presentationId isEqual: ((Presentation *)object).presentationId]);
     return [self.presentationId isEqual: ((Presentation *)object).presentationId];
 }
 

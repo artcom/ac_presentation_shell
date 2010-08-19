@@ -51,7 +51,6 @@ KeynoteHandler *sharedInstance;
 			[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(isKeynotePlaying:) userInfo: delegate repeats:YES];
             
 			if ([delegate respondsToSelector:@selector(didFinishStartingKeynote:)]) {
-                NSLog(@"==== keynote started ====");
 				[delegate didFinishStartingKeynote: self];
 			}
 		});
@@ -76,7 +75,6 @@ KeynoteHandler *sharedInstance;
 		id<KeynoteDelegate> delegate = [timer userInfo];
 		[timer invalidate];
 		if ([delegate respondsToSelector:@selector(keynoteDidStopPresentation:)]) {
-            NSLog(@"==== keynote stopped ====");
 			[delegate keynoteDidStopPresentation: self];
 		}
 	}
