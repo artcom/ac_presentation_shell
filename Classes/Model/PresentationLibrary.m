@@ -308,6 +308,17 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self saveXmlLibrary];
     }
 }
+
+- (void) deletePresentation: (Presentation*) presentation
+           progressDelegate: (id<ProgressDelegateProtocol>) delegate
+{
+    AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    [assetManager trashAsset: presentation.absoluteDirectory];
+    [assetManager run];
+    [presentationData removeObjectForKey: presentation.presentationId];
+    [self syncPresentations];
+    [self saveXmlLibrary];
+}
     
 #pragma mark -
 #pragma mark Private Methods

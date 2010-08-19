@@ -19,6 +19,7 @@
 - (void) postEditCleanUp;
 - (void) setGuiValues;
 - (void) updateOkButton;
+- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
 
 @end
 
@@ -31,6 +32,7 @@
 @synthesize editButton;
 @synthesize thumbnailFileLabel;
 @synthesize okButton;
+@synthesize deleteButton;
 @synthesize progressSheet;
 @synthesize progressTitle;
 @synthesize progressMessage;
@@ -114,6 +116,45 @@
 
 - (IBAction) userDidChangeTitle: (id) sender {
     [self updateOkButton];
+}
+
+- (IBAction) userWantsToDeletePresentation: (id) sender {
+    NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil)
+                                      defaultButton: NSLocalizedString(ACSHELL_STR_DELETE, nil)
+                                    alternateButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil) 
+                                        otherButton: nil
+                          informativeTextWithFormat: @""];
+    [alert beginSheetModalForWindow: [self window]
+                      modalDelegate: self
+                     didEndSelector: @selector(userDidDecideDelete:returnCode:contextInfo:)
+                        contextInfo: nil];
+    
+}
+
+- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+    [[sheet window] orderOut: self];
+    [NSApp endSheet:[sheet window]];
+    
+    switch (returnCode) {
+        case NSAlertDefaultReturn:
+            [NSApp beginSheet: progressSheet modalForWindow: [self window] 
+                modalDelegate: self 
+               didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
+                  contextInfo: nil];
+            [progressBar setIndeterminate: YES];
+            [progressBar startAnimation: nil];
+            [progressText setStringValue: @""];
+            [progressMessage setStringValue: @""];
+            
+            [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
+            [shellController.presentationLibrary deletePresentation: presentation
+                                                   progressDelegate: self];            
+            break;
+        case NSAlertAlternateReturn:
+            break;
+        default:
+            break;
+    }
 }
 
 - (IBAction) editWithKeynote: (id) sender {
@@ -201,6 +242,7 @@
         [highlightCheckbox setState: FALSE];
         [editButton setEnabled: NO];
     }
+    [self.deleteButton setHidden: presentation == nil];
     [self updateOkButton];
 }
 

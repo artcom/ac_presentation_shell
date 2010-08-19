@@ -29,7 +29,8 @@
     NSButton * highlightCheckbox;
     
     NSButton * okButton;
-    
+    NSButton * deleteButton;
+
     NSWindow *            progressSheet;
     NSTextField *         progressTitle;
     NSTextField *         progressMessage;
@@ -50,6 +51,7 @@
 @property (retain, nonatomic) IBOutlet NSButton * highlightCheckbox;
 
 @property (retain, nonatomic) IBOutlet NSButton * okButton;
+@property (retain, nonatomic) IBOutlet NSButton * deleteButton;
 
 @property (retain, nonatomic) IBOutlet NSWindow* progressSheet;
 @property (retain, nonatomic) IBOutlet NSTextField* progressTitle;
@@ -65,6 +67,7 @@
 - (IBAction) userDidDropKeynote: (id) sender;
 - (IBAction) editWithKeynote: (id) sender;
 - (IBAction) userDidChangeTitle: (id) sender;
+- (IBAction) userWantsToDeletePresentation: (id) sender;
 
 - (void) edit: (Presentation*) aPresentation;
 - (void) add;

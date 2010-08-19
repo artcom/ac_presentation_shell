@@ -52,4 +52,7 @@
                       keynotePath: (NSString*) keynote isHighlight: (BOOL) highlightFlag
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
+- (void) deletePresentation: (Presentation*) presentation
+           progressDelegate: (id<ProgressDelegateProtocol>) delegate;
+
 @end

@@ -42,3 +42,5 @@
 "Add" = "Hinzufügen";
 "Skip" = "Überspringen";
 "WaitForActivation" = "Vielen Dank. Du kannst die Bibliothek synchronisieren sobald Dein Konto bestätigt wurde.";
+"DeletePresentationWarning" = "Willst Du die gesamte Präsentation wirklich löschen?";
+"DeletingPresentation" = "Verschiebe Präsentation in den Papierkorb...";
