@@ -174,21 +174,6 @@
 }
 
 #pragma mark -
-#pragma mark TODO: remove FileCopyController Delegate Methods
-
-- (void)fileCopyControllerDidFinish: (FileCopyController *)controller; {
-	[self postEditCleanUp];
-}
-
-- (void)fileCopyControllerDidFail: (FileCopyController *)controller; {
-    NSAlert * alert = [[[NSAlert alloc] init] autorelease];
-    [alert addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
-    [alert setMessageText: NSLocalizedString(ACSHELL_STR_COPY_FAILED, nil)];
-    [alert runModal];
-    [self postEditCleanUp];
-}
-
-#pragma mark -
 #pragma mark Progress Sheet Methods
 
 - (void) operationDidFinish {
