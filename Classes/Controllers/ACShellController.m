@@ -77,6 +77,8 @@ enum CollectionActionTags {
 @synthesize editingEnabled;
 @synthesize editPresentationMenuItem;
 @synthesize collectionActions;
+@synthesize leftSplitPane;
+@synthesize rightSplitPane;
 
 + (void) initialize {
 	NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
@@ -530,8 +532,22 @@ enum CollectionActionTags {
 }
 
 #pragma mark -
-#pragma mark NSToolbarDelegate Protocol Methods
+#pragma mark NSSplitViewDelegate Protocol Methods
+- (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize: (NSSize)oldSize {
+    float desiredLeftViewWidth = [leftSplitPane frame].size.width;
+    [sender adjustSubviews];
+    NSRect leftFrame = [leftSplitPane frame];
+    NSRect rightFrame = [rightSplitPane frame];
+    
+    leftFrame.size.width = desiredLeftViewWidth;
+    rightFrame.size.width = [sender frame].size.width - desiredLeftViewWidth - [sender dividerThickness]; 
+    
+    [leftSplitPane setFrame: leftFrame];
+    [rightSplitPane setFrame: rightFrame];
+}
 
+#pragma mark -
+#pragma mark NSToolbarDelegate Protocol Methods
 - (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar {
     return [NSArray arrayWithObjects:
             AC_SHELL_TOOLBAR_ITEM_START,

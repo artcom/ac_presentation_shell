@@ -20,13 +20,15 @@
 
 @interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, SetupAssistantDelegate,
                                             NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate,
-                                            NSTableViewDataSource, NSToolbarDelegate> 
+                                            NSTableViewDataSource, NSToolbarDelegate, NSSplitViewDelegate> 
 {
 	PresentationLibrary *presentationLibrary;
 
 	PresentationWindowController *presentationWindowController;
     PreferenceWindowController * preferenceWindowController;
     EditWindowController * editWindowController;
+	RsyncController *rsyncController;
+    SetupAssistantController * setupAssistant;	
     
 	NSOutlineView *collectionView;
 	NSTableView *presentationTable;
@@ -39,8 +41,6 @@
     NSWindow *browserWindow;
 	NSProgressIndicator *progressSpinner;
 	
-	RsyncController *rsyncController;
-	
 	NSMutableArray *currentPresentationList;
     NSImageView * warningIcon;
 	
@@ -48,7 +48,9 @@
     NSSegmentedControl * collectionActions;
     
     NSMenuItem * editPresentationMenuItem;
-    SetupAssistantController * setupAssistant;
+    
+    NSView * leftSplitPane;
+    NSView * rightSplitPane;
 }
 
 @property (retain) PresentationLibrary *presentationLibrary;
@@ -64,6 +66,8 @@
 @property (retain, nonatomic) IBOutlet NSImageView * warningIcon;
 @property (retain, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
 @property (retain, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
+@property (retain, nonatomic) IBOutlet NSView * leftSplitPane;
+@property (retain, nonatomic) IBOutlet NSView * rightSplitPane;
 
 @property (readonly) NSString* libraryDirPath;
 @property (readonly) BOOL editingEnabled;

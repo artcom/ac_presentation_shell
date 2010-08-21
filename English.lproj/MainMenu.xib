@@ -3192,6 +3192,30 @@
 					</object>
 					<int key="connectionID">830</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">leftSplitPane</string>
+						<reference key="source" ref="246107155"/>
+						<reference key="destination" ref="15646819"/>
+					</object>
+					<int key="connectionID">831</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">rightSplitPane</string>
+						<reference key="source" ref="246107155"/>
+						<reference key="destination" ref="494953895"/>
+					</object>
+					<int key="connectionID">832</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">delegate</string>
+						<reference key="source" ref="851891861"/>
+						<reference key="destination" ref="246107155"/>
+					</object>
+					<int key="connectionID">833</int>
+				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<array key="orderedObjects">
@@ -4796,7 +4820,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">830</int>
+			<int key="maxID">833</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -4836,8 +4860,10 @@
 						<string key="collectionTreeController">NSTreeController</string>
 						<string key="collectionView">NSOutlineView</string>
 						<string key="editPresentationMenuItem">NSMenuItem</string>
+						<string key="leftSplitPane">NSView</string>
 						<string key="presentationTable">NSTableView</string>
 						<string key="presentationsArrayController">NSArrayController</string>
+						<string key="rightSplitPane">NSView</string>
 						<string key="statusLine">NSTextField</string>
 						<string key="warningIcon">NSImageView</string>
 					</dictionary>
