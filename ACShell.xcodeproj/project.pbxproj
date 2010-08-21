@@ -54,6 +54,9 @@
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 630D759711FE05F400EEB7F2 /* icn_upload.icns */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
+		6354256F12201650004FEC38 /* PreferencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354256E12201650004FEC38 /* PreferencePage.m */; };
+		635425B312202AD7004FEC38 /* PrefsGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635425B112202AD7004FEC38 /* PrefsGeneral.xib */; };
+		6354277812206542004FEC38 /* PrefsAdvanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6354277612206542004FEC38 /* PrefsAdvanced.xib */; };
 		6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6366021B11F1F02800D6DD96 /* Localizable.strings */; };
 		6366035111F2305300D6DD96 /* icn_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6366035011F2305300D6DD96 /* icn_highlight.png */; };
 		636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */; };
@@ -198,6 +201,10 @@
 		630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDelegateProtocol.h; sourceTree = "<group>"; };
 		630F36AC120F0B2100F89EFB /* AssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetManager.h; sourceTree = "<group>"; };
 		630F36AD120F0B2100F89EFB /* AssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetManager.m; sourceTree = "<group>"; };
+		6354256D12201650004FEC38 /* PreferencePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencePage.h; sourceTree = "<group>"; };
+		6354256E12201650004FEC38 /* PreferencePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencePage.m; sourceTree = "<group>"; };
+		635425B212202AD7004FEC38 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsGeneral.xib; sourceTree = "<group>"; };
+		6354277712206542004FEC38 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsAdvanced.xib; sourceTree = "<group>"; };
 		6366021D11F1F08E00D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6366035011F2305300D6DD96 /* icn_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_highlight.png; path = Resources/Images/icn_highlight.png; sourceTree = "<group>"; };
 		636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightIconTransformer.h; sourceTree = "<group>"; };
@@ -268,6 +275,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				6354256912201591004FEC38 /* PreferenceWindow */,
 				63AE0E4B1204241800FD8172 /* Controllers */,
 				22B200B611DA1F3A00C6D9ED /* Helper */,
 				22C7F8CD11DB3DDA00A54494 /* Keynote */,
@@ -490,10 +498,12 @@
 				6366021B11F1F02800D6DD96 /* Localizable.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */,
+				635425B112202AD7004FEC38 /* PrefsGeneral.xib */,
 				63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */,
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
 				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
 				63EB809E12050118008D7814 /* SetupAssistant.xib */,
+				6354277612206542004FEC38 /* PrefsAdvanced.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -505,6 +515,17 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6354256912201591004FEC38 /* PreferenceWindow */ = {
+			isa = PBXGroup;
+			children = (
+				6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */,
+				6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */,
+				6354256D12201650004FEC38 /* PreferencePage.h */,
+				6354256E12201650004FEC38 /* PreferencePage.m */,
+			);
+			path = PreferenceWindow;
 			sourceTree = "<group>";
 		};
 		6379E762120C891A006A6FEF /* acshell_ask_ssh_add_key */ = {
@@ -524,8 +545,6 @@
 				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
 				63904154120633FC0061D215 /* LibraryServerCollectionItem.h */,
 				63904155120633FC0061D215 /* LibraryServerCollectionItem.m */,
-				6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */,
-				6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */,
 				22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */,
 				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
 				630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */,
@@ -654,6 +673,8 @@
 				63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */,
 				63EB809F12050118008D7814 /* SetupAssistant.xib in Resources */,
 				63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */,
+				635425B312202AD7004FEC38 /* PrefsGeneral.xib in Resources */,
+				6354277812206542004FEC38 /* PrefsAdvanced.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -715,6 +736,7 @@
 				639043321206F23E0061D215 /* PreferenceWindowController.m in Sources */,
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
 				630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */,
+				6354256F12201650004FEC38 /* PreferencePage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -751,6 +773,22 @@
 				22EF9E7811D8EE4600E91DF0 /* English */,
 			);
 			name = PresentationWindow.xib;
+			sourceTree = "<group>";
+		};
+		635425B112202AD7004FEC38 /* PrefsGeneral.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				635425B212202AD7004FEC38 /* English */,
+			);
+			name = PrefsGeneral.xib;
+			sourceTree = "<group>";
+		};
+		6354277612206542004FEC38 /* PrefsAdvanced.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6354277712206542004FEC38 /* English */,
+			);
+			name = PrefsAdvanced.xib;
 			sourceTree = "<group>";
 		};
 		6366021B11F1F02800D6DD96 /* Localizable.strings */ = {
@@ -929,6 +967,7 @@
 				INFOPLIST_FILE = "ACShell-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = ACShell;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};

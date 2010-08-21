@@ -11,7 +11,7 @@
 			<string key="NS.object.0">762</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
-			<integer value="534"/>
+			<integer value="536"/>
 			<integer value="205"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
@@ -1358,9 +1358,10 @@
 							<string key="NSToolbarItemPaletteLabel">Search</string>
 							<nil key="NSToolbarItemToolTip"/>
 							<object class="NSSearchField" key="NSToolbarItemView" id="636256507">
-								<nil key="NSNextResponder"/>
+								<reference key="NSNextResponder"/>
 								<int key="NSvFlags">268</int>
 								<string key="NSFrame">{{0, 14}, {186, 22}}</string>
+								<reference key="NSSuperview"/>
 								<bool key="NSEnabled">YES</bool>
 								<object class="NSSearchFieldCell" key="NSCell" id="211403879">
 									<int key="NSCellFlags">343014976</int>
@@ -1770,7 +1771,7 @@
 										<object class="NSTextField" id="837347054">
 											<reference key="NSNextResponder" ref="494953895"/>
 											<int key="NSvFlags">290</int>
-											<string key="NSFrame">{{-3, 11}, {686, 14}}</string>
+											<string key="NSFrame">{{-3, 10}, {686, 14}}</string>
 											<reference key="NSSuperview" ref="494953895"/>
 											<object class="NSShadow" key="NSViewShadow">
 												<reference key="NSShadowColor" ref="616763719"/>
@@ -2037,6 +2038,7 @@
 							<reference key="NSSuperview" ref="439893737"/>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">2</int>
+							<string key="NSAutosaveName">mainWindowSplitView</string>
 						</object>
 					</array>
 					<string key="NSFrameSize">{839, 561}</string>
@@ -4723,8 +4725,9 @@
 				<string key="533.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="534.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="535.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="536.IBEditorWindowLastContentRect">{{171, 602}, {617, 0}}</string>
+				<string key="536.IBEditorWindowLastContentRect">{{199, 593}, {617, 169}}</string>
 				<string key="536.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
+				<string key="536.designableToolbarIdentifier">MainWindowToolbar</string>
 				<string key="554.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="555.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="556.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
