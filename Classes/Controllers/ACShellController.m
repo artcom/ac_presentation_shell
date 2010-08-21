@@ -28,6 +28,12 @@ enum ACPresentationDoubleClicked {
     ACShellOpenEditWindow
 };
 
+// keep this in sync with the interface builder tags
+enum CollectionActionTags {
+    AddCollectionAction,
+    DeleteCollectionAction
+};
+
 #define AC_SHELL_TOOLBAR_ITEM_START  @"ACShellToolbarItemStart"
 #define AC_SHELL_TOOLBAR_ITEM_SYNC   @"ACShellToolbarItemSync"
 #define AC_SHELL_TOOLBAR_ITEM_UPLOAD @"ACShellToolbarItemUpload"
@@ -69,8 +75,8 @@ enum ACPresentationDoubleClicked {
 @synthesize currentPresentationList;
 @synthesize warningIcon;
 @synthesize editingEnabled;
-@synthesize removeButton;
 @synthesize editPresentationMenuItem;
+@synthesize collectionActions;
 
 + (void) initialize {
 	NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
@@ -206,6 +212,22 @@ enum ACPresentationDoubleClicked {
                 break;
         }
 	}
+}
+
+- (IBAction)collectionActionClicked: (id) sender {
+    int clickedSegment = [sender selectedSegment];
+    int clickedSegmentTag = [[sender cell] tagForSegment: clickedSegment];
+    NSLog(@"tag: %d", clickedSegmentTag);
+    switch (clickedSegmentTag) {
+        case AddCollectionAction:
+            [self addCollection: sender];
+            break;
+        case DeleteCollectionAction:
+            [self removeCollection: sender];
+            break;
+        default:
+            break;
+    }
 }
 
 - (IBAction)updatePresentationFilter: (id) sender {
@@ -503,7 +525,7 @@ enum ACPresentationDoubleClicked {
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    [removeButton setEnabled: [self isCollectionSelected]];
+    [collectionActions setEnabled: [self isCollectionSelected] forSegment: DeleteCollectionAction];
     [self updateStatusText: nil];
 }
 

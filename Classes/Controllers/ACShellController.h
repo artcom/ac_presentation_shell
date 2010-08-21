@@ -45,7 +45,7 @@
     NSImageView * warningIcon;
 	
 	BOOL editingEnabled;
-	NSButton * removeButton;
+    NSSegmentedControl * collectionActions;
     
     NSMenuItem * editPresentationMenuItem;
     SetupAssistantController * setupAssistant;
@@ -62,7 +62,7 @@
 @property (retain, nonatomic) IBOutlet NSTextField *statusLine;
 @property (retain, nonatomic) NSMutableArray * currentPresentationList;
 @property (retain, nonatomic) IBOutlet NSImageView * warningIcon;
-@property (retain, nonatomic) IBOutlet NSButton * removeButton;
+@property (retain, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
 @property (retain, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
 
 @property (readonly) NSString* libraryDirPath;
@@ -79,6 +79,7 @@
 - (IBAction)openPresentation: (id)sender;
 - (IBAction)updatePresentationFilter: (id) sender;
 - (IBAction)editPresentation: (id) sender;
+- (IBAction)collectionActionClicked: (id) sender;
 
 - (IBAction)showPreferences: (id)sender;
 
