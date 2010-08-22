@@ -384,7 +384,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)updateIndices: (NSMutableArray*) thePresentations {
-    //[thePresentations sortUsingSelector:@selector(compareByOrder)];
     int i = 0;
     for (Presentation* presentation in thePresentations) {
         presentation.order = ++i;
