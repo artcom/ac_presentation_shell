@@ -13,12 +13,13 @@
 @interface PreferenceController : NSObject {
     ACPreferenceWindowController * windowController;
     NSView * generalPreferences;
+    NSButtonCell * showEditWindowOption;
     NSView * advancedPreferences;
 }
 
 @property (retain, nonatomic) IBOutlet NSView* generalPreferences;
 @property (retain, nonatomic) IBOutlet NSView* advancedPreferences;
-
+@property (retain, nonatomic) IBOutlet NSButtonCell* showEditWindowOption;
 
 - (IBAction) showWindow: (id) sender;
 

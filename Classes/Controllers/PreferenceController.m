@@ -10,10 +10,12 @@
 
 #import "ACPreferenceWindowController.h"
 #import "ACPreferencePage.h"
+#import "default_keys.h"
 
 @implementation PreferenceController
 @synthesize generalPreferences;
 @synthesize advancedPreferences;
+@synthesize showEditWindowOption;
 
 - (id) init {
     self = [super init];
@@ -38,6 +40,7 @@
 }
 
 - (IBAction) showWindow: (id) sender {
+    [showEditWindowOption setEnabled: [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]];
     [windowController showWindow: sender];
 }
 

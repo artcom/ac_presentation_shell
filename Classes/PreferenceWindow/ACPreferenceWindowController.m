@@ -125,6 +125,7 @@
 + (NSPanel*) preferenceWindow {
     NSPanel * panel = [[NSPanel alloc] init];
     [panel setShowsToolbarButton: NO];
+    [panel setStyleMask: [panel styleMask] | NSMiniaturizableWindowMask];
     NSRect frame = [panel frame];
     frame.size.width = 600;
     [panel setFrame: frame display: NO];
