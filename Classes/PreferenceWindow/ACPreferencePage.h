@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface PreferencePage : NSViewController {
+@interface ACPreferencePage : NSViewController {
     NSString * iconName;
 }
 
 - (id) initFromNib: (NSString*) nibFilename title: (NSString*) title iconName: (NSString*) icon;
+- (id) initWithView: (NSView*) aView title: (NSString*) title iconName: (NSString*) icon;
 
 - (NSString*) toolbarItemIdentifier;
 - (NSString*) iconName;

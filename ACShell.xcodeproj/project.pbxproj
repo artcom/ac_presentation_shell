@@ -54,13 +54,11 @@
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 630D759711FE05F400EEB7F2 /* icn_upload.icns */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
-		6354256F12201650004FEC38 /* PreferencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354256E12201650004FEC38 /* PreferencePage.m */; };
-		635425B312202AD7004FEC38 /* PrefsGeneral.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635425B112202AD7004FEC38 /* PrefsGeneral.xib */; };
-		6354277812206542004FEC38 /* PrefsAdvanced.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6354277612206542004FEC38 /* PrefsAdvanced.xib */; };
+		6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354256E12201650004FEC38 /* ACPreferencePage.m */; };
 		6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6366021B11F1F02800D6DD96 /* Localizable.strings */; };
 		6366035111F2305300D6DD96 /* icn_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6366035011F2305300D6DD96 /* icn_highlight.png */; };
 		636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */; };
-		6366050411F2EF0D00D6DD96 /* PreferenceWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */; };
+		6366050411F2EF0D00D6DD96 /* PreferencePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6366050311F2EF0D00D6DD96 /* PreferencePages.xib */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
 		6379E770120C8B3F006A6FEF /* acshell_ask_ssh_add_key.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */; };
@@ -69,8 +67,9 @@
 		6390407812061A860061D215 /* SshIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390407712061A860061D215 /* SshIdentity.m */; };
 		63904153120632FE0061D215 /* LibraryServerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904152120632FE0061D215 /* LibraryServerView.m */; };
 		63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904155120633FC0061D215 /* LibraryServerCollectionItem.m */; };
-		639043321206F23E0061D215 /* PreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */; };
+		639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* ACPreferenceWindowController.m */; };
 		639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 639043EF12075DFC0061D215 /* PublicKeyDraglet.m */; };
+		6391D53812211B75009980C9 /* PreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6391D53712211B75009980C9 /* PreferenceController.m */; };
 		63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */; };
 		63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E4B311FB8B160036DBC1 /* icn_warning.png */; };
 		63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */; };
@@ -201,17 +200,15 @@
 		630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDelegateProtocol.h; sourceTree = "<group>"; };
 		630F36AC120F0B2100F89EFB /* AssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetManager.h; sourceTree = "<group>"; };
 		630F36AD120F0B2100F89EFB /* AssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetManager.m; sourceTree = "<group>"; };
-		6354256D12201650004FEC38 /* PreferencePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencePage.h; sourceTree = "<group>"; };
-		6354256E12201650004FEC38 /* PreferencePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencePage.m; sourceTree = "<group>"; };
-		635425B212202AD7004FEC38 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsGeneral.xib; sourceTree = "<group>"; };
-		6354277712206542004FEC38 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PrefsAdvanced.xib; sourceTree = "<group>"; };
+		6354256D12201650004FEC38 /* ACPreferencePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPreferencePage.h; sourceTree = "<group>"; };
+		6354256E12201650004FEC38 /* ACPreferencePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPreferencePage.m; sourceTree = "<group>"; };
 		6366021D11F1F08E00D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6366035011F2305300D6DD96 /* icn_highlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_highlight.png; path = Resources/Images/icn_highlight.png; sourceTree = "<group>"; };
 		636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightIconTransformer.h; sourceTree = "<group>"; };
 		636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightIconTransformer.m; sourceTree = "<group>"; };
-		6366050111F2EEFF00D6DD96 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PreferenceWindow.xib; sourceTree = "<group>"; };
-		6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceWindowController.h; sourceTree = "<group>"; };
-		6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceWindowController.m; sourceTree = "<group>"; };
+		6366050111F2EEFF00D6DD96 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PreferencePages.xib; sourceTree = "<group>"; };
+		6366050811F2F4A400D6DD96 /* ACPreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPreferenceWindowController.h; sourceTree = "<group>"; };
+		6366050911F2F4A400D6DD96 /* ACPreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPreferenceWindowController.m; sourceTree = "<group>"; };
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-WithUUID.h"; sourceTree = "<group>"; };
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-WithUUID.m"; sourceTree = "<group>"; };
@@ -228,6 +225,8 @@
 		639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupAssistantDelegateProtocol.h; sourceTree = "<group>"; };
 		639043EE12075DFC0061D215 /* PublicKeyDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicKeyDraglet.h; sourceTree = "<group>"; };
 		639043EF12075DFC0061D215 /* PublicKeyDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublicKeyDraglet.m; sourceTree = "<group>"; };
+		6391D53612211B75009980C9 /* PreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceController.h; sourceTree = "<group>"; };
+		6391D53712211B75009980C9 /* PreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceController.m; sourceTree = "<group>"; };
 		63A6A9F211FA10AC0057B7F5 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/RsyncProgressView.xib; sourceTree = "<group>"; };
 		63B8E4B311FB8B160036DBC1 /* icn_warning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_warning.png; path = Resources/Images/icn_warning.png; sourceTree = "<group>"; };
 		63B8E52211FBA2CD0036DBC1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
@@ -497,13 +496,11 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				6366021B11F1F02800D6DD96 /* Localizable.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
-				6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */,
-				635425B112202AD7004FEC38 /* PrefsGeneral.xib */,
+				6366050311F2EF0D00D6DD96 /* PreferencePages.xib */,
 				63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */,
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
 				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
 				63EB809E12050118008D7814 /* SetupAssistant.xib */,
-				6354277612206542004FEC38 /* PrefsAdvanced.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -520,10 +517,10 @@
 		6354256912201591004FEC38 /* PreferenceWindow */ = {
 			isa = PBXGroup;
 			children = (
-				6366050811F2F4A400D6DD96 /* PreferenceWindowController.h */,
-				6366050911F2F4A400D6DD96 /* PreferenceWindowController.m */,
-				6354256D12201650004FEC38 /* PreferencePage.h */,
-				6354256E12201650004FEC38 /* PreferencePage.m */,
+				6366050811F2F4A400D6DD96 /* ACPreferenceWindowController.h */,
+				6366050911F2F4A400D6DD96 /* ACPreferenceWindowController.m */,
+				6354256D12201650004FEC38 /* ACPreferencePage.h */,
+				6354256E12201650004FEC38 /* ACPreferencePage.m */,
 			);
 			path = PreferenceWindow;
 			sourceTree = "<group>";
@@ -553,6 +550,8 @@
 				63EB809B12050048008D7814 /* SetupAssistantController.h */,
 				63EB809C12050048008D7814 /* SetupAssistantController.m */,
 				639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */,
+				6391D53612211B75009980C9 /* PreferenceController.h */,
+				6391D53712211B75009980C9 /* PreferenceController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -662,7 +661,7 @@
 				22CE744A11EDD36D0043F3C8 /* icn_start_presentation.png in Resources */,
 				6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */,
 				6366035111F2305300D6DD96 /* icn_highlight.png in Resources */,
-				6366050411F2EF0D00D6DD96 /* PreferenceWindow.xib in Resources */,
+				6366050411F2EF0D00D6DD96 /* PreferencePages.xib in Resources */,
 				6366076B11F33F4200D6DD96 /* defaults.plist in Resources */,
 				2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */,
 				22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */,
@@ -673,8 +672,6 @@
 				63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */,
 				63EB809F12050118008D7814 /* SetupAssistant.xib in Resources */,
 				63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */,
-				635425B312202AD7004FEC38 /* PrefsGeneral.xib in Resources */,
-				6354277812206542004FEC38 /* PrefsAdvanced.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,10 +730,11 @@
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,
 				63904153120632FE0061D215 /* LibraryServerView.m in Sources */,
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
-				639043321206F23E0061D215 /* PreferenceWindowController.m in Sources */,
+				639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */,
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
 				630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */,
-				6354256F12201650004FEC38 /* PreferencePage.m in Sources */,
+				6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */,
+				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -775,22 +773,6 @@
 			name = PresentationWindow.xib;
 			sourceTree = "<group>";
 		};
-		635425B112202AD7004FEC38 /* PrefsGeneral.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				635425B212202AD7004FEC38 /* English */,
-			);
-			name = PrefsGeneral.xib;
-			sourceTree = "<group>";
-		};
-		6354277612206542004FEC38 /* PrefsAdvanced.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				6354277712206542004FEC38 /* English */,
-			);
-			name = PrefsAdvanced.xib;
-			sourceTree = "<group>";
-		};
 		6366021B11F1F02800D6DD96 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -800,12 +782,12 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		6366050311F2EF0D00D6DD96 /* PreferenceWindow.xib */ = {
+		6366050311F2EF0D00D6DD96 /* PreferencePages.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				6366050111F2EEFF00D6DD96 /* English */,
 			);
-			name = PreferenceWindow.xib;
+			name = PreferencePages.xib;
 			sourceTree = "<group>";
 		};
 		63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */ = {

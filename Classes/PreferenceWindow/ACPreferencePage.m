@@ -6,16 +6,27 @@
 //  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
-#import "PreferencePage.h"
+#import "ACPreferencePage.h"
 
 
-@implementation PreferencePage
+@implementation ACPreferencePage
 
 - (id) initFromNib: (NSString*) nibFilename title: (NSString*) title 
           iconName: (NSString*) icon 
 {
     self = [super initWithNibName: nibFilename bundle: nil];
     if (self != nil) {
+        NSLog(@"title: %@", [self title]);
+        [self setTitle: title];
+        iconName = [icon retain];
+    }
+    return self;
+}
+
+- (id) initWithView: (NSView*) aView title: (NSString*) title iconName: (NSString*) icon {
+    self = [super init];
+    if (self != nil) {
+        [self setView: aView];
         [self setTitle: title];
         iconName = [icon retain];
     }

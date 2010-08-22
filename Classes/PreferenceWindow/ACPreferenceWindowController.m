@@ -6,11 +6,11 @@
 //  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
-#import "PreferenceWindowController.h"
+#import "ACPreferenceWindowController.h"
 #import "default_keys.h"
-#import "PreferencePage.h"
+#import "ACPreferencePage.h"
 
-@interface PreferenceWindowController () 
+@interface ACPreferenceWindowController () 
 
 - (void) showPage: (id) sender;
 + (NSPanel*) preferenceWindow;
@@ -18,26 +18,26 @@
 @end
 
 
-@implementation PreferenceWindowController
+@implementation ACPreferenceWindowController
 
 - (id)initWithPages: (NSArray*) pages  {
-    self = [super initWithWindow: [PreferenceWindowController preferenceWindow]];
+    self = [super initWithWindow: [ACPreferenceWindowController preferenceWindow]];
     if (self != nil) {
         [[[self window] toolbar] setDelegate: self];
         preferencePages = [pages retain];
 
         NSMutableArray * toolbarIds = [[NSMutableArray alloc] init];
-        for (PreferencePage * page in preferencePages) {
+        for (ACPreferencePage * page in preferencePages) {
             [toolbarIds addObject: [page toolbarItemIdentifier]];
         }
         
         toolbarIdentifiers = [[NSArray alloc] initWithArray: toolbarIds];
         int i = 0;
-        for (PreferencePage * page in preferencePages) {
+        for (ACPreferencePage * page in preferencePages) {
             [[[self window] toolbar] insertItemWithItemIdentifier: [page toolbarItemIdentifier] 
                                                           atIndex: i++];
         }
-        PreferencePage * firstPage = [preferencePages objectAtIndex: 0];
+        ACPreferencePage * firstPage = [preferencePages objectAtIndex: 0];
         [[[self window] toolbar] setSelectedItemIdentifier: [firstPage toolbarItemIdentifier]];
         [self showPage: nil];
     }
@@ -53,13 +53,13 @@
     NSString * identifier = [[[self window] toolbar] selectedItemIdentifier];
     
     NSUInteger pageIndex = [preferencePages indexOfObjectPassingTest: ^(id obj, NSUInteger idx, BOOL *stop) {
-        return [[(PreferencePage*)obj toolbarItemIdentifier] isEqual: identifier];
+        return [[(ACPreferencePage*)obj toolbarItemIdentifier] isEqual: identifier];
     }];
     if (pageIndex == NSNotFound) {
         NSLog(@"failed to find preference page for id %@", identifier);
         return;
     }
-    PreferencePage * page = [preferencePages objectAtIndex: pageIndex];
+    ACPreferencePage * page = [preferencePages objectAtIndex: pageIndex];
     NSRect targetViewFrame = [[page view] frame];
     
     NSView * currentView = [[self window] contentView];
@@ -101,12 +101,12 @@
     NSToolbarItem *toolbarItem = nil;
     
     NSUInteger pageIndex = [preferencePages indexOfObjectPassingTest: ^(id obj, NSUInteger idx, BOOL *stop) {
-        return [[(PreferencePage*)obj toolbarItemIdentifier] isEqual: itemIdentifier];
+        return [[(ACPreferencePage*)obj toolbarItemIdentifier] isEqual: itemIdentifier];
     }];
     
     if (pageIndex != NSNotFound) {
         toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:itemIdentifier];
-        PreferencePage * page = [preferencePages objectAtIndex: pageIndex];
+        ACPreferencePage * page = [preferencePages objectAtIndex: pageIndex];
         [toolbarItem setLabel: [page title]];
         [toolbarItem setPaletteLabel: [page title]];
         [toolbarItem setImage:[NSImage imageNamed: [page iconName]]];

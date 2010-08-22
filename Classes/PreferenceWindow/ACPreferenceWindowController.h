@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface PreferenceWindowController : NSWindowController <NSToolbarDelegate, NSAnimationDelegate> {
+@interface ACPreferenceWindowController : NSWindowController <NSToolbarDelegate, NSAnimationDelegate> {
     NSArray * preferencePages;
     
     NSArray * toolbarIdentifiers;

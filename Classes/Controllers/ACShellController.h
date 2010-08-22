@@ -12,7 +12,7 @@
 #import "SetupAssistantDelegateProtocol.h"
 
 @class PresentationWindowController;
-@class PreferenceWindowController;
+@class PreferenceController;
 @class PresentationLibrary;
 @class ACShellCollection;
 @class EditWindowController;
@@ -25,7 +25,7 @@
 	PresentationLibrary *presentationLibrary;
 
 	PresentationWindowController *presentationWindowController;
-    PreferenceWindowController * preferenceWindowController;
+    PreferenceController * preferenceController;
     EditWindowController * editWindowController;
 	RsyncController *rsyncController;
     SetupAssistantController * setupAssistant;	

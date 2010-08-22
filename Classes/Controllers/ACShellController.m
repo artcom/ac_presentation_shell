@@ -7,17 +7,17 @@
 //
 
 #import "ACShellController.h"
+
 #import "Presentation.h"
 #import "PresentationLibrary.h"
 #import "PresentationWindowController.h"
 #import "ACShellCollection.h"
 #import "NSFileManager-DirectoryHelper.h"
-#import "PreferenceWindowController.h"
 #import "KeynoteHandler.h"
 #import "RsyncController.h"
 #import "EditWindowController.h"
 #import "SetupAssistantController.h"
-#import "PreferencePage.h"
+#import "PreferenceController.h"
 #import "default_keys.h"
 #import "localized_text_keys.h"
 
@@ -92,19 +92,9 @@ enum CollectionActionTags {
         presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
 
 		presentationWindowController = [[PresentationWindowController alloc] init];
+
+        preferenceController = [[PreferenceController alloc] init];
         
-        PreferencePage * generalPrefs = [[PreferencePage alloc] initFromNib: @"PrefsGeneral"
-                                                                      title: @"General"
-                                                                   iconName: NSImageNamePreferencesGeneral];
-        PreferencePage * advancedPrefs = [[PreferencePage alloc] initFromNib: @"PrefsAdvanced"
-                                                                       title: @"Advanced"
-                                                                    iconName: NSImageNameAdvanced];
-        
-        
-        
-        
-        NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
-        preferenceWindowController = [[PreferenceWindowController alloc] initWithPages: preferencePages];
         if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
             editWindowController = [[EditWindowController alloc] initWithShellController: self];
         }
@@ -149,7 +139,7 @@ enum CollectionActionTags {
 
 - (void) dealloc {
 	[presentationWindowController release];
-    [preferenceWindowController release];
+    [preferenceController release];
 	[presentationLibrary release];
 	[collectionView release];
 	[presentationTable release];
@@ -338,7 +328,7 @@ enum CollectionActionTags {
 }
 
 - (IBAction)showPreferences: (id) sender {
-    [preferenceWindowController showWindow: sender];
+    [preferenceController showWindow: sender];
 }
 
 -(NSMutableArray*) library {
