@@ -239,7 +239,7 @@ enum CollectionActionTags {
     NSString * searchString = [sender stringValue];
     NSPredicate * predicate = nil;
     if ((searchString != nil) && (![searchString isEqualToString:@""])) {
-        predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@", searchString];
+        predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@ or yearString contains[cd] %@", searchString, searchString];
     }
     [presentationsArrayController setFilterPredicate: predicate];
     [self updateStatusText: nil];

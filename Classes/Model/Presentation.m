@@ -78,13 +78,42 @@
 	return [[self title] stringByReplacingOccurrencesOfString:@"\n" withString:@" "]; 
 }
 
-
 - (BOOL)highlight {
 	return [[[[self xmlNode] attributeForName:@"highlight"] objectValue] boolValue];
 }
 
 - (void) setHighlight:(BOOL) flag {
     [[[self xmlNode] attributeForName: @"highlight"] setStringValue: flag ? @"true" : @"false"];
+}
+
+- (NSNumber*) year {
+    NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
+    if ([yearNodes count] == 0) {
+        return nil;
+    }
+    NSNumberFormatter * formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    return [formatter numberFromString: [[yearNodes objectAtIndex: 0] stringValue]];
+}
+
+- (void) setYear:(NSNumber*) aYear {
+    NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
+    NSXMLElement * yearNode = nil;
+    if ([yearNodes count] == 0) {
+        yearNode = [NSXMLElement elementWithName: @"year"];
+        [[self xmlNode] addChild: yearNode];
+    } else {
+        yearNode = [yearNodes objectAtIndex: 0];
+    }
+
+    [yearNode setStringValue: [NSString stringWithFormat: @"%@", aYear]];	
+}
+
+- (NSString*) yearString {
+    NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
+    if ([yearNodes count] == 0) {
+        return @"";
+    }
+    return [[yearNodes objectAtIndex: 0] stringValue];	
 }
 
 - (NSString*) directory {

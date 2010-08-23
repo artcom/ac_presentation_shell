@@ -29,6 +29,7 @@
 @synthesize keynoteFileLabel;
 @synthesize droppedThumbnail;
 @synthesize highlightCheckbox;
+@synthesize yearField;
 @synthesize editButton;
 @synthesize thumbnailFileLabel;
 @synthesize okButton;
@@ -85,6 +86,7 @@
                                                         thumbnailPath: [self.droppedThumbnail filename]
                                                           keynotePath: [self.droppedKeynote filename]
                                                           isHighlight: [self.highlightCheckbox intValue]
+                                                                 year: [self.yearField integerValue]
                                                      progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
@@ -92,6 +94,7 @@
                                                   thumbnailPath: [self.droppedThumbnail filename]
                                                     keynotePath: [self.droppedKeynote filename]
                                                     isHighlight: [self.highlightCheckbox intValue]
+                                                           year: [self.yearField integerValue]
                                                progressDelegate: self];
     }
 }
@@ -107,7 +110,7 @@
 }
 
 - (IBAction) userDidDropKeynote: (id) sender {
-    [keynoteFileLabel setStringValue: [[sender filename] lastPathComponent]];
+    [keynoteFileLabel setStringValue: [[droppedKeynote filename] lastPathComponent]];
     BOOL fileExists = droppedKeynote.fileExists;
     [editButton setEnabled: fileExists];
     [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
@@ -161,6 +164,39 @@
     [[KeynoteHandler sharedHandler] open: droppedKeynote.filename];
 }
 
+// XXX for some reason the NSOpenPanel crashes (sometimes) when generating
+// preview images for keynote files. No idea why that is. However, the stack
+// always points to foreign threads and foreign code. So, my best guess is:
+// It's an apple bug [DS]
+- (IBAction) chooseKeynoteFile: (id) sender {
+    NSOpenPanel * chooser = [NSOpenPanel openPanel];
+    [chooser setAllowsMultipleSelection: NO];
+    [chooser setCanChooseFiles: YES];
+    [chooser setCanChooseDirectories: NO];
+    [chooser setAllowedFileTypes: [NSArray arrayWithObject: @"key"]];
+    [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
+            [droppedKeynote setFilename: [fileURL path]];
+            [self userDidDropKeynote: sender];
+        }
+    }];
+}
+
+- (IBAction) chooseThumbnailFile: (id) sender {
+    NSOpenPanel * chooser = [NSOpenPanel openPanel];
+    [chooser setAllowsMultipleSelection: NO];
+    [chooser setCanChooseFiles: YES];
+    [chooser setCanChooseDirectories: NO];
+    [chooser setAllowedFileTypes: [NSArray arrayWithObjects: @"png", @"jpg", @"jpeg", @"tif", @"tiff", nil]];
+    [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
+        if (result == NSFileHandlingPanelOKButton) {
+            NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
+            [droppedThumbnail setFilename: [fileURL path]];
+            [self userDidDropThumbnail: sender];
+        }
+    }];    
+}
 
 #pragma mark -
 #pragma mark Title Text Field Delegate Methods
@@ -214,6 +250,7 @@
         thumbnailFileLabel.stringValue = presentation.relativeThumbnailPath;
         [thumbnailFileLabel setTextColor: droppedThumbnail.fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
         [highlightCheckbox setState: presentation.highlight];
+        [yearField setStringValue: presentation.year ? [presentation.year stringValue] : @""];
 
     } else {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
@@ -226,6 +263,7 @@
         [thumbnailFileLabel setTextColor: [NSColor controlTextColor]];
         [highlightCheckbox setState: FALSE];
         [editButton setEnabled: NO];
+        [yearField setStringValue: @""];
     }
     [self.deleteButton setHidden: presentation == nil];
     [self updateOkButton];

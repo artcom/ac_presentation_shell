@@ -202,8 +202,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	return [self.collections count];
 }
 
-- (void) addPresentationWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnail 
-                      keynotePath: (NSString*) keynote isHighlight: (BOOL) highlightFlag
+- (void) addPresentationWithTitle: (NSString*) title
+                    thumbnailPath: (NSString*) thumbnail 
+                      keynotePath: (NSString*) keynote
+                      isHighlight: (BOOL) highlightFlag
+                             year: (NSInteger) year
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
     
@@ -233,6 +236,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     p.title = title;
     p.highlight = highlightFlag;
+    p.year = [NSNumber numberWithInteger: year];
     p.presentationFilename = [keynote lastPathComponent];
     p.thumbnailFilename = [thumbnail lastPathComponent];
     
@@ -254,11 +258,16 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
                 isHighlight: (BOOL) highlightFlag 
+                       year: (NSInteger) year
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
     BOOL xmlChanged = NO;
     if (presentation.highlight != highlightFlag) {
         presentation.highlight = highlightFlag;
+        xmlChanged = YES;
+    }
+    if ([presentation.year integerValue] != year) {
+        presentation.year = [NSNumber numberWithInteger: year];
         xmlChanged = YES;
     }
     AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];

@@ -46,10 +46,14 @@
 - (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
                 isHighlight: (BOOL) highlightFlag 
+                       year: (NSInteger) year
            progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
-- (void) addPresentationWithTitle: (NSString*) title thumbnailPath: (NSString*) thumbnail 
-                      keynotePath: (NSString*) keynote isHighlight: (BOOL) highlightFlag
+- (void) addPresentationWithTitle: (NSString*) title
+                    thumbnailPath: (NSString*) thumbnail 
+                      keynotePath: (NSString*) keynote
+                      isHighlight: (BOOL) highlightFlag
+                             year: (NSInteger) year
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void) deletePresentation: (Presentation*) presentation

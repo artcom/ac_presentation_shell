@@ -27,6 +27,7 @@
     NSTextField * thumbnailFileLabel;
 
     NSButton * highlightCheckbox;
+    NSTextField * yearField;
     
     NSButton * okButton;
     NSButton * deleteButton;
@@ -49,6 +50,7 @@
 @property (retain, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
 @property (retain, nonatomic) IBOutlet NSButton * highlightCheckbox;
+@property (retain, nonatomic) IBOutlet NSTextField * yearField;
 
 @property (retain, nonatomic) IBOutlet NSButton * okButton;
 @property (retain, nonatomic) IBOutlet NSButton * deleteButton;
@@ -68,6 +70,10 @@
 - (IBAction) editWithKeynote: (id) sender;
 - (IBAction) userDidChangeTitle: (id) sender;
 - (IBAction) userWantsToDeletePresentation: (id) sender;
+- (IBAction) chooseKeynoteFile: (id) sender;
+- (IBAction) chooseThumbnailFile: (id) sender;
+
+
 
 - (void) edit: (Presentation*) aPresentation;
 - (void) add;

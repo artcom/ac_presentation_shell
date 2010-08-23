@@ -37,6 +37,7 @@
 @property (readonly) NSString *singleLineTitle;
 
 @property (assign) BOOL highlight;
+@property (retain) NSNumber* year;
 
 @property (retain)   NSString * directory;
 @property (readonly) NSString * absoluteDirectory;
