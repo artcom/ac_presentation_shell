@@ -566,6 +566,15 @@ enum CollectionActionTags {
     
     [leftSplitPane setFrame: leftFrame];
     [rightSplitPane setFrame: rightFrame];
+    
+}
+
+- (void)splitViewDidResizeSubviews:(NSNotification *)aNotification {
+    NSRect tableFrame = [rightSplitPane frame];
+    NSRect labelFrame = [statusLine frame];
+    labelFrame.origin.x = tableFrame.origin.x;
+    labelFrame.size.width = tableFrame.size.width;
+    [statusLine setFrame: labelFrame];
 }
 
 #pragma mark -
