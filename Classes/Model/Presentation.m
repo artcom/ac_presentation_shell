@@ -104,7 +104,6 @@
     } else {
         yearNode = [yearNodes objectAtIndex: 0];
     }
-
     [yearNode setStringValue: [NSString stringWithFormat: @"%@", aYear]];	
 }
 

@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="2"/>
 			<integer value="137"/>
+			<integer value="2"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -453,7 +453,7 @@
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="606339814">
-								<int key="NSCellFlags">-1803944383</int>
+								<int key="NSCellFlags">-1804468671</int>
 								<int key="NSCellFlags2">71304192</int>
 								<reference key="NSSupport" ref="352925939"/>
 								<object class="NSNumberFormatter" key="NSFormatter" id="616959476">
@@ -464,6 +464,8 @@
 											<string>allowsFloats</string>
 											<string>formatterBehavior</string>
 											<string>lenient</string>
+											<string>maximumFractionDigits</string>
+											<string>minimum</string>
 											<string>negativeInfinitySymbol</string>
 											<string>nilSymbol</string>
 											<string>numberStyle</string>
@@ -471,17 +473,19 @@
 										</object>
 										<object class="NSMutableArray" key="dict.values">
 											<bool key="EncodedWithXMLCoder">YES</bool>
-											<boolean value="YES"/>
+											<boolean value="NO"/>
 											<integer value="1040"/>
-											<boolean value="YES"/>
+											<boolean value="NO"/>
+											<integer value="0"/>
+											<real value="0.0"/>
 											<string>-∞</string>
 											<string/>
-											<integer value="0"/>
+											<integer value="1"/>
 											<string>+∞</string>
 										</object>
 									</object>
-									<string key="NS.positiveformat">#</string>
-									<string key="NS.negativeformat">#</string>
+									<string key="NS.positiveformat">#0</string>
+									<string key="NS.negativeformat">#0</string>
 									<nil key="NS.positiveattrs"/>
 									<nil key="NS.negativeattrs"/>
 									<nil key="NS.zero"/>
@@ -498,7 +502,8 @@
 											</object>
 										</object>
 									</object>
-									<object class="NSDecimalNumberPlaceholder" key="NS.min" id="262923751">
+									<real value="0.0" key="NS.min"/>
+									<object class="NSDecimalNumberPlaceholder" key="NS.max">
 										<int key="NS.exponent">0</int>
 										<int key="NS.length">0</int>
 										<bool key="NS.negative">YES</bool>
@@ -506,7 +511,6 @@
 										<int key="NS.mantissa.bo">1</int>
 										<bytes key="NS.mantissa">AAAAAAAAAAAAAAAAAAAAAA</bytes>
 									</object>
-									<reference key="NS.max" ref="262923751"/>
 									<object class="NSDecimalNumberHandler" key="NS.rounding">
 										<int key="NS.roundingmode">3</int>
 										<bool key="NS.raise.overflow">YES</bool>
@@ -517,7 +521,7 @@
 									<string key="NS.thousand">,</string>
 									<bool key="NS.hasthousands">NO</bool>
 									<bool key="NS.localized">YES</bool>
-									<bool key="NS.allowsfloats">YES</bool>
+									<bool key="NS.allowsfloats">NO</bool>
 								</object>
 								<reference key="NSControlView" ref="598501014"/>
 								<bool key="NSDrawsBackground">YES</bool>
@@ -1321,6 +1325,7 @@
 					<string>219.IBPluginDependency</string>
 					<string>220.IBNumberFormatterBehaviorMetadataKey</string>
 					<string>220.IBNumberFormatterLocalizesFormatMetadataKey</string>
+					<string>220.IBNumberFormatterSampleNumberKey</string>
 					<string>220.IBPluginDependency</string>
 				</object>
 				<object class="NSMutableArray" key="dict.values">
@@ -1381,8 +1386,9 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<integer value="1041"/>
+					<integer value="1040"/>
 					<boolean value="YES"/>
+					<real value="1.1234"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 				</object>
 			</object>
@@ -1402,7 +1408,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">221</int>
+			<int key="maxID">224</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
