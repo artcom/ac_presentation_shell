@@ -557,9 +557,13 @@ enum CollectionActionTags {
     [sender adjustSubviews];
     NSRect leftFrame = [leftSplitPane frame];
     NSRect rightFrame = [rightSplitPane frame];
-    
+
+    leftFrame.origin.x = 0;
     leftFrame.size.width = desiredLeftViewWidth;
-    rightFrame.size.width = [sender frame].size.width - desiredLeftViewWidth - [sender dividerThickness]; 
+    
+    rightFrame.origin.x = desiredLeftViewWidth + 1;
+    rightFrame.size.width = [sender frame].size.width - desiredLeftViewWidth - 1; 
+ 
     
     [leftSplitPane setFrame: leftFrame];
     [rightSplitPane setFrame: rightFrame];
