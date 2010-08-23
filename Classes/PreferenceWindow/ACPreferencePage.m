@@ -16,7 +16,6 @@
 {
     self = [super initWithNibName: nibFilename bundle: nil];
     if (self != nil) {
-        NSLog(@"title: %@", [self title]);
         [self setTitle: title];
         iconName = [icon retain];
     }

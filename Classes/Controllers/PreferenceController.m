@@ -26,8 +26,6 @@
 }
 
 - (void) awakeFromNib {
-    NSLog(@"awake");
-    
     ACPreferencePage * generalPrefs = [[ACPreferencePage alloc] initWithView: generalPreferences
                                                                        title: @"General"
                                                                     iconName: NSImageNamePreferencesGeneral];

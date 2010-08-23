@@ -231,7 +231,6 @@ enum CollectionActionTags {
 - (IBAction)collectionActionClicked: (id) sender {
     int clickedSegment = [sender selectedSegment];
     int clickedSegmentTag = [[sender cell] tagForSegment: clickedSegment];
-    NSLog(@"tag: %d", clickedSegmentTag);
     switch (clickedSegmentTag) {
         case AddCollectionAction:
             [self addCollection: sender];
