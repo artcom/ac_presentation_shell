@@ -63,6 +63,7 @@ enum CollectionActionTags {
 - (BOOL) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection;
 - (BOOL) isPresentationRemovable;
 
+- (void) presentationTableColumnOrderDidChange: (id) aNotification;
 @end
 
 @implementation ACShellController
@@ -132,6 +133,14 @@ enum CollectionActionTags {
         setupAssistant = [[SetupAssistantController alloc] initWithDelegate: self];
         [setupAssistant showWindow: self];
     }
+    
+    [self presentationTableColumnOrderDidChange: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self 
+                                             selector: @selector(presentationTableColumnOrderDidChange:)
+                                                 name: NSTableViewColumnDidMoveNotification
+                                               object:presentationTable];
+    
+    
     
     NSSortDescriptor* sortDescriptor = [[[NSSortDescriptor alloc] initWithKey: @"order" ascending: YES] autorelease];
     [presentationTable setSortDescriptors:[NSArray arrayWithObject: sortDescriptor]];
@@ -317,6 +326,13 @@ enum CollectionActionTags {
             p.order = order++;
         }        
     }
+}
+
+
+- (void) userDidHidePresentationColumn: (id) sender {
+    NSTableColumn * column = [sender representedObject];
+    [column setHidden: ! [column isHidden]];
+    [sender setState: [column isHidden] ? NSOffState : NSOnState];
 }
 
 - (BOOL) isPresentationRemovable {
@@ -758,6 +774,21 @@ enum CollectionActionTags {
         }
     }
     return YES;
+}
+
+
+- (void) presentationTableColumnOrderDidChange: (id) aNotification {
+    NSMenu * menu = [[[NSMenu alloc] initWithTitle: @""] autorelease];
+    NSArray * tableColumns = [presentationTable tableColumns];
+    for (NSTableColumn * c in tableColumns) {
+        NSMenuItem * item = [menu addItemWithTitle: NSLocalizedString([c identifier], nil)
+                                            action: @selector(userDidHidePresentationColumn:) 
+                                     keyEquivalent: @""];
+        [item setTarget: self];
+        [item setState: [c isHidden] ? NSOffState : NSOnState];
+        [item setRepresentedObject: c];
+    }
+    [[presentationTable headerView] setMenu: menu];
 }
 
 @end

@@ -53,3 +53,10 @@
 "WaitForActivation" = "Thank you. You can synchronize your library after your account has been activated.";
 "DeletePresentationWarning" = "Do you really want to delete the entire presentation?";
 "DeletingPresentation" = "Moving presentation to trash...";
+
+"order" = "Order";
+"selected" = "Selected";
+"title" = "Name";
+"year" = "Year";
+"highlight" = "Highlight";
+
