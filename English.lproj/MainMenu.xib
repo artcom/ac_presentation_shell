@@ -12,7 +12,7 @@
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<integer value="205"/>
-			<integer value="534"/>
+			<integer value="554"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1640,7 +1640,7 @@
 													<array class="NSMutableArray" key="NSSubviews">
 														<object class="NSOutlineView" id="451034496">
 															<reference key="NSNextResponder" ref="202894451"/>
-															<int key="NSvFlags">256</int>
+															<int key="NSvFlags">4352</int>
 															<string key="NSFrameSize">{158, 536}</string>
 															<reference key="NSSuperview" ref="202894451"/>
 															<int key="NSViewLayerContentsRedrawPolicy">2</int>
@@ -1729,7 +1729,6 @@
 													</array>
 													<string key="NSFrameSize">{158, 536}</string>
 													<reference key="NSSuperview" ref="972098163"/>
-													<reference key="NSNextKeyView" ref="451034496"/>
 													<int key="NSViewLayerContentsRedrawPolicy">2</int>
 													<reference key="NSDocView" ref="451034496"/>
 													<object class="NSColor" key="NSBGColor">
@@ -1762,7 +1761,6 @@
 											</array>
 											<string key="NSFrame">{{0, 30}, {158, 536}}</string>
 											<reference key="NSSuperview" ref="15646819"/>
-											<reference key="NSNextKeyView" ref="202894451"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<int key="NSsFlags">560</int>
 											<reference key="NSVScroller" ref="196128545"/>
@@ -1836,7 +1834,7 @@
 										</object>
 										<object class="NSScrollView" id="1026852083">
 											<reference key="NSNextResponder" ref="494953895"/>
-											<int key="NSvFlags">274</int>
+											<int key="NSvFlags">4370</int>
 											<array class="NSMutableArray" key="NSSubviews">
 												<object class="NSClipView" id="835804633">
 													<reference key="NSNextResponder" ref="1026852083"/>
@@ -2065,7 +2063,6 @@
 													</array>
 													<string key="NSFrame">{{0, 17}, {681, 520}}</string>
 													<reference key="NSSuperview" ref="1026852083"/>
-													<reference key="NSNextKeyView" ref="357031940"/>
 													<int key="NSViewLayerContentsRedrawPolicy">2</int>
 													<reference key="NSDocView" ref="357031940"/>
 													<reference key="NSBGColor" ref="89462652"/>
@@ -2100,7 +2097,6 @@
 													</array>
 													<string key="NSFrameSize">{681, 17}</string>
 													<reference key="NSSuperview" ref="1026852083"/>
-													<reference key="NSNextKeyView" ref="693188629"/>
 													<int key="NSViewLayerContentsRedrawPolicy">2</int>
 													<reference key="NSDocView" ref="693188629"/>
 													<reference key="NSBGColor" ref="89462652"/>
@@ -2110,7 +2106,6 @@
 											</array>
 											<string key="NSFrame">{{0, 30}, {681, 537}}</string>
 											<reference key="NSSuperview" ref="494953895"/>
-											<reference key="NSNextKeyView" ref="835804633"/>
 											<int key="NSViewLayerContentsRedrawPolicy">2</int>
 											<int key="NSsFlags">560</int>
 											<reference key="NSVScroller" ref="345263083"/>
@@ -2194,51 +2189,6 @@
 			</object>
 			<object class="NSUserDefaultsController" id="746890452">
 				<bool key="NSSharedInstance">YES</bool>
-			</object>
-			<object class="NSMenu" id="534920331">
-				<string key="NSTitle"/>
-				<array class="NSMutableArray" key="NSMenuItems">
-					<object class="NSMenuItem" id="95897135">
-						<reference key="NSMenu" ref="534920331"/>
-						<string key="NSTitle">Order</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
-					<object class="NSMenuItem" id="493256474">
-						<reference key="NSMenu" ref="534920331"/>
-						<string key="NSTitle">Selected</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
-					<object class="NSMenuItem" id="1034853429">
-						<reference key="NSMenu" ref="534920331"/>
-						<string key="NSTitle">Name</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
-					<object class="NSMenuItem" id="580082661">
-						<reference key="NSMenu" ref="534920331"/>
-						<string key="NSTitle">Year</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
-					<object class="NSMenuItem" id="65740760">
-						<reference key="NSMenu" ref="534920331"/>
-						<string key="NSTitle">Highlight</string>
-						<string key="NSKeyEquiv"/>
-						<int key="NSMnemonicLoc">2147483647</int>
-						<reference key="NSOnImage" ref="35465992"/>
-						<reference key="NSMixedImage" ref="502551668"/>
-					</object>
-				</array>
 			</object>
 		</array>
 		<object class="IBObjectContainer" key="IBDocument.Objects">
@@ -3395,14 +3345,6 @@
 						</object>
 					</object>
 					<int key="connectionID">843</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBOutletConnection" key="connection">
-						<string key="label">menu</string>
-						<reference key="source" ref="693188629"/>
-						<reference key="destination" ref="534920331"/>
-					</object>
-					<int key="connectionID">850</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -4716,43 +4658,6 @@
 						<reference key="object" ref="863362711"/>
 						<reference key="parent" ref="439893737"/>
 					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">844</int>
-						<reference key="object" ref="534920331"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="95897135"/>
-							<reference ref="493256474"/>
-							<reference ref="1034853429"/>
-							<reference ref="580082661"/>
-							<reference ref="65740760"/>
-						</array>
-						<reference key="parent" ref="0"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">845</int>
-						<reference key="object" ref="95897135"/>
-						<reference key="parent" ref="534920331"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">846</int>
-						<reference key="object" ref="493256474"/>
-						<reference key="parent" ref="534920331"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">847</int>
-						<reference key="object" ref="1034853429"/>
-						<reference key="parent" ref="534920331"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">848</int>
-						<reference key="object" ref="580082661"/>
-						<reference key="parent" ref="534920331"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">849</int>
-						<reference key="object" ref="65740760"/>
-						<reference key="parent" ref="534920331"/>
-					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
@@ -5065,13 +4970,6 @@
 				<reference key="842.IBViewIntegration.shadowColor" ref="705775226"/>
 				<real value="-1" key="842.IBViewIntegration.shadowOffsetHeight"/>
 				<real value="0.0" key="842.IBViewIntegration.shadowOffsetWidth"/>
-				<string key="844.IBEditorWindowLastContentRect">{{14, 742}, {115, 103}}</string>
-				<string key="844.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="845.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="846.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="847.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="848.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
-				<string key="849.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<string key="92.IBPluginDependency">com.apple.InterfaceBuilder.CocoaPlugin</string>
 				<integer value="1" key="92.ImportedFromIB2"/>
 			</dictionary>
