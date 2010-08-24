@@ -104,6 +104,7 @@
 }
 
 - (IBAction) userDidDropThumbnail: (id) sender {
+    [thumbnailFileLabel setStringValue: [[droppedThumbnail filename] lastPathComponent]];
     BOOL fileExists = droppedThumbnail.fileExists;
     [thumbnailFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
     [self updateOkButton];
@@ -241,13 +242,13 @@
         BOOL fileExists = presentation.presentationFileExists;
         [editButton setEnabled: fileExists];
         [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
-        keynoteFileLabel.stringValue = presentation.relativePresentationPath;
+        keynoteFileLabel.stringValue = presentation.presentationFilename;
         droppedKeynote.filename = presentation.absolutePresentationPath;
 
         [titleField setStringValue: presentation.title];
         
         droppedThumbnail.filename = presentation.absoluteThumbnailPath;
-        thumbnailFileLabel.stringValue = presentation.relativeThumbnailPath;
+        thumbnailFileLabel.stringValue = presentation.thumbnailFilename;
         [thumbnailFileLabel setTextColor: droppedThumbnail.fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
         [highlightCheckbox setState: presentation.highlight];
         [yearField setStringValue: presentation.year ? [presentation.year stringValue] : @""];
