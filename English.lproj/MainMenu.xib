@@ -11,8 +11,8 @@
 			<string key="NS.object.0">762</string>
 		</object>
 		<array class="NSMutableArray" key="IBDocument.EditedObjectIDs">
+			<integer value="600"/>
 			<integer value="205"/>
-			<integer value="372"/>
 		</array>
 		<array key="IBDocument.PluginDependencies">
 			<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1851,7 +1851,7 @@
 																</object>
 																<object class="NSTableColumn" id="247451344">
 																	<string key="NSIdentifier">title</string>
-																	<double key="NSWidth">516</double>
+																	<double key="NSWidth">531</double>
 																	<double key="NSMinWidth">10</double>
 																	<double key="NSMaxWidth">3.4028234663852886e+38</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -1882,7 +1882,7 @@
 																</object>
 																<object class="NSTableColumn" id="687638957">
 																	<string key="NSIdentifier">year</string>
-																	<double key="NSWidth">60</double>
+																	<double key="NSWidth">45</double>
 																	<double key="NSMinWidth">10</double>
 																	<double key="NSMaxWidth">3.4028234663852886e+38</double>
 																	<object class="NSTableHeaderCell" key="NSHeaderCell">
@@ -1987,18 +1987,18 @@
 													<int key="NSViewLayerContentsRedrawPolicy">2</int>
 													<reference key="NSTarget" ref="1026852083"/>
 													<string key="NSAction">_doScroller:</string>
-													<double key="NSPercent">0.97115384615384615</double>
+													<double key="NSPercent">0.97120921305182339</double>
 												</object>
 												<object class="NSScroller" id="138024216">
 													<reference key="NSNextResponder" ref="1026852083"/>
 													<int key="NSvFlags">-2147483392</int>
-													<string key="NSFrame">{{0, 522}, {680, 15}}</string>
+													<string key="NSFrame">{{0, 523}, {681, 15}}</string>
 													<reference key="NSSuperview" ref="1026852083"/>
 													<int key="NSViewLayerContentsRedrawPolicy">2</int>
 													<int key="NSsFlags">1</int>
 													<reference key="NSTarget" ref="1026852083"/>
 													<string key="NSAction">_doScroller:</string>
-													<double key="NSPercent">0.99853157121879588</double>
+													<double key="NSPercent">0.99853372434017595</double>
 												</object>
 												<object class="NSClipView" id="141724365">
 													<reference key="NSNextResponder" ref="1026852083"/>
