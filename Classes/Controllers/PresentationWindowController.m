@@ -90,8 +90,11 @@
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 
 	OverlayLayer *layer = [OverlayLayer layer];
-	layer.text = presentation.title;
-	
+	if (presentation.year) {
+		layer.text = [NSString stringWithFormat: @"%@, %@", presentation.title, presentation.year];
+	} else {
+		layer.text = presentation.title;
+	}
 	return layer;
 }
 
