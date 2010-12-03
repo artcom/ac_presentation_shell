@@ -54,6 +54,7 @@
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 630D759711FE05F400EEB7F2 /* icn_upload.icns */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
+		63143EF812A80D8B00B82DC3 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */; };
 		6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354256E12201650004FEC38 /* ACPreferencePage.m */; };
 		6366021C11F1F02800D6DD96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6366021B11F1F02800D6DD96 /* Localizable.strings */; };
 		6366035111F2305300D6DD96 /* icn_highlight.png in Resources */ = {isa = PBXBuildFile; fileRef = 6366035011F2305300D6DD96 /* icn_highlight.png */; };
@@ -76,7 +77,6 @@
 		63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8E52811FBACD50036DBC1 /* EditWindowController.m */; };
 		63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */ = {isa = PBXBuildFile; fileRef = 63EB804B12043663008D7814 /* icn_missing_file.icns */; };
 		63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63EB809C12050048008D7814 /* SetupAssistantController.m */; };
-		63EB809F12050118008D7814 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63EB809E12050118008D7814 /* SetupAssistant.xib */; };
 		63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */ = {isa = PBXBuildFile; fileRef = 63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
@@ -200,6 +200,10 @@
 		630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDelegateProtocol.h; sourceTree = "<group>"; };
 		630F36AC120F0B2100F89EFB /* AssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetManager.h; sourceTree = "<group>"; };
 		630F36AD120F0B2100F89EFB /* AssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetManager.m; sourceTree = "<group>"; };
+		63143EBA12A7EA0600B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		63143EDF12A7F37600B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PreferencePages.xib; sourceTree = "<group>"; };
+		63143EE112A7F42A00B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
+		63143EF912A80D9500B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SetupAssistant.xib; sourceTree = "<group>"; };
 		6354256D12201650004FEC38 /* ACPreferencePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPreferencePage.h; sourceTree = "<group>"; };
 		6354256E12201650004FEC38 /* ACPreferencePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPreferencePage.m; sourceTree = "<group>"; };
 		6366021D11F1F08E00D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -235,7 +239,7 @@
 		63EB804B12043663008D7814 /* icn_missing_file.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = icn_missing_file.icns; path = Resources/Images/icn_missing_file.icns; sourceTree = "<group>"; };
 		63EB809B12050048008D7814 /* SetupAssistantController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupAssistantController.h; sourceTree = "<group>"; };
 		63EB809C12050048008D7814 /* SetupAssistantController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupAssistantController.m; sourceTree = "<group>"; };
-		63EB809E12050118008D7814 /* SetupAssistant.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SetupAssistant.xib; path = Resources/SetupAssistant.xib; sourceTree = "<group>"; };
+		63EB809E12050118008D7814 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SetupAssistant.xib; sourceTree = "<group>"; };
 		63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_ac_logo_no_text.png; path = Resources/Images/gfx_ac_logo_no_text.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -500,7 +504,7 @@
 				63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */,
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
 				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
-				63EB809E12050118008D7814 /* SetupAssistant.xib */,
+				63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -670,7 +674,7 @@
 				63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */,
 				630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */,
 				63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */,
-				63EB809F12050118008D7814 /* SetupAssistant.xib in Resources */,
+				63143EF812A80D8B00B82DC3 /* SetupAssistant.xib in Resources */,
 				63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -761,6 +765,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				1DDD58150DA1D0A300B32029 /* English */,
+				63143EBA12A7EA0600B82DC3 /* German */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -771,6 +776,15 @@
 				22EF9E7811D8EE4600E91DF0 /* English */,
 			);
 			name = PresentationWindow.xib;
+			sourceTree = "<group>";
+		};
+		63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				63EB809E12050118008D7814 /* English */,
+				63143EF912A80D9500B82DC3 /* German */,
+			);
+			name = SetupAssistant.xib;
 			sourceTree = "<group>";
 		};
 		6366021B11F1F02800D6DD96 /* Localizable.strings */ = {
@@ -786,6 +800,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				6366050111F2EEFF00D6DD96 /* English */,
+				63143EDF12A7F37600B82DC3 /* German */,
 			);
 			name = PreferencePages.xib;
 			sourceTree = "<group>";
@@ -802,6 +817,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				63B8E52211FBA2CD0036DBC1 /* English */,
+				63143EE112A7F42A00B82DC3 /* German */,
 			);
 			name = PresentationEditWindow.xib;
 			sourceTree = "<group>";

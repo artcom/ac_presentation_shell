@@ -70,8 +70,8 @@ static NSImage * ourUploadIcon = nil;
 
 -(void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination {
     isUploading = NO;
-    NSAlert * confirm = [self confirmDialogWithMessage: @"Synchronize library now?"
-                                     informationalText: @"A good network connection and some patience is required."
+    NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_SYNC_LIB_NOW
+                                     informationalText: ACSHELL_STR_GOOD_CONNECTION
                                                  style: NSInformationalAlertStyle
                                                   icon: [self directionIcon] 
 												buttonTitles: nil];
@@ -106,7 +106,7 @@ static NSImage * ourUploadIcon = nil;
 #pragma mark RsyncTask Delegate Methods
 
 - (void)rsyncTaskDidFinish: (RsyncTask *)task; {
-    NSAlert * ack = [self acknowledgeDialogWithMessage: @"Library synchronized"
+    NSAlert * ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
                                      informationalText: nil
                                                  style: NSInformationalAlertStyle
                                                   icon: [self directionIcon]];
@@ -122,7 +122,7 @@ static NSImage * ourUploadIcon = nil;
         if ([error length] > maxLength) {
             error = [error substringToIndex: maxLength];
         }
-        NSAlert * ack = [self acknowledgeDialogWithMessage: @"Synchronization failed"
+        NSAlert * ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_SYNC_FAILED
                                          informationalText: error
                                                      style: NSWarningAlertStyle
                                                       icon: [NSImage imageNamed: NSImageNameCaution]];

@@ -1,3 +1,11 @@
+/* 
+   Localizable.strings
+   ACShell
+
+   Created by David Siegel on 7/28/10.
+   Copyright 2010 ART+COM AG. All rights reserved.
+ */
+ 
 "Library" = "BIBLIOTHEK";
 "All" = "Alle";
 "Highlights" = "Glanzlichter";
@@ -50,3 +58,10 @@
 "title" = "Name";
 "year" = "Jahr";
 "highlight" = "Glanzlicht";
+
+
+"Continue" = "Fortfahren";
+"Quit"     = "Beenden";
+"Next"     = "Weiter";
+"Back"     = "Zurück";
+"Finish"   = "Abschliessen";

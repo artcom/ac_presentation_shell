@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="137"/>
 			<integer value="2"/>
+			<integer value="137"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -47,7 +47,7 @@
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{214, 364}, {462, 432}}</string>
 				<int key="NSWTFlags">1618478080</int>
-				<string key="NSWindowTitle">Edit Presentation</string>
+				<string key="NSWindowTitle">Präsentation editieren</string>
 				<string key="NSWindowClass">NSPanel</string>
 				<nil key="NSViewClass"/>
 				<string key="NSWindowContentMaxSize">{1.79769e+308, 1.79769e+308}</string>
@@ -83,13 +83,13 @@
 						<object class="NSButton" id="16565933">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">289</int>
-							<string key="NSFrame">{{296, 12}, {82, 32}}</string>
+							<string key="NSFrame">{{276, 12}, {102, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="789413310">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Cancel</string>
+								<string key="NSContents">Abbrechen</string>
 								<reference key="NSSupport" ref="352925939"/>
 								<reference key="NSControlView" ref="16565933"/>
 								<int key="NSButtonFlags">-2038284033</int>
@@ -103,13 +103,13 @@
 						<object class="NSButton" id="783879758">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{14, 12}, {80, 32}}</string>
+							<string key="NSFrame">{{14, 12}, {92, 32}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="926084580">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134217728</int>
-								<string key="NSContents">Delete</string>
+								<string key="NSContents">Löschen</string>
 								<reference key="NSSupport" ref="352925939"/>
 								<reference key="NSControlView" ref="783879758"/>
 								<int key="NSButtonFlags">-2038284033</int>
@@ -215,13 +215,13 @@
 						<object class="NSButton" id="758736362">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{380, 280}, {66, 28}}</string>
+							<string key="NSFrame">{{380, 280}, {76, 28}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="281796211">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">134381568</int>
-								<string key="NSContents">Edit</string>
+								<string key="NSContents">Editieren</string>
 								<object class="NSFont" key="NSSupport" id="26">
 									<string key="NSName">LucidaGrande</string>
 									<double key="NSSize">11</double>
@@ -301,13 +301,13 @@
 						<object class="NSTextField" id="628215989">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{17, 395}, {80, 17}}</string>
+							<string key="NSFrame">{{17, 395}, {96, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="198634661">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Thumbnail:</string>
+								<string key="NSContents">Vorschaubild:</string>
 								<reference key="NSSupport" ref="501720227"/>
 								<reference key="NSControlView" ref="628215989"/>
 								<reference key="NSBackgroundColor" ref="230408472"/>
@@ -323,7 +323,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="349929075">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Title:</string>
+								<string key="NSContents">Titel:</string>
 								<reference key="NSSupport" ref="501720227"/>
 								<reference key="NSControlView" ref="818139760"/>
 								<reference key="NSBackgroundColor" ref="230408472"/>
@@ -333,13 +333,13 @@
 						<object class="NSTextField" id="30017892">
 							<reference key="NSNextResponder" ref="1006"/>
 							<int key="NSvFlags">268</int>
-							<string key="NSFrame">{{122, 73}, {38, 17}}</string>
+							<string key="NSFrame">{{131, 73}, {29, 17}}</string>
 							<reference key="NSSuperview" ref="1006"/>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSTextFieldCell" key="NSCell" id="34921614">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Year:</string>
+								<string key="NSContents">Jahr</string>
 								<reference key="NSSupport" ref="352925939"/>
 								<reference key="NSControlView" ref="30017892"/>
 								<reference key="NSBackgroundColor" ref="230408472"/>
@@ -570,7 +570,7 @@
 							<object class="NSTextFieldCell" key="NSCell" id="507362994">
 								<int key="NSCellFlags">68288064</int>
 								<int key="NSCellFlags2">272630784</int>
-								<string key="NSContents">Title</string>
+								<string key="NSContents">Titel</string>
 								<reference key="NSSupport" ref="501720227"/>
 								<reference key="NSControlView" ref="115502770"/>
 								<reference key="NSBackgroundColor" ref="230408472"/>
@@ -851,14 +851,14 @@
 							<reference ref="818139760"/>
 							<reference ref="743349848"/>
 							<reference ref="527707943"/>
-							<reference ref="30017892"/>
 							<reference ref="598501014"/>
 							<reference ref="428633675"/>
-							<reference ref="16565933"/>
 							<reference ref="783879758"/>
 							<reference ref="428958149"/>
 							<reference ref="132048446"/>
 							<reference ref="236174347"/>
+							<reference ref="30017892"/>
+							<reference ref="16565933"/>
 						</object>
 						<reference key="parent" ref="1005"/>
 					</object>
