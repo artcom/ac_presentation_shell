@@ -55,7 +55,7 @@ BOOL answerSSHQuestion() {
     NSArray * arguments = [[NSProcessInfo processInfo] arguments];
 
     if ([arguments count] < 2) {
-        NSLog(@"argument error: expected 2 but got %d args", [arguments count]);
+        NSLog(@"argument error: expected 2 but got %ld args", [arguments count]);
         return FALSE;
     }
     NSRange yesNoSnippet = [[arguments objectAtIndex: 1] rangeOfString: [NSString stringWithFormat: @"(yes/no)"]];

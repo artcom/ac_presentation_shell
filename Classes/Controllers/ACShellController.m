@@ -161,6 +161,7 @@ enum CollectionActionTags {
 	
 	[self willChangeValueForKey:@"library"];
     if ( ! [presentationLibrary loadXmlLibraryFromDirectory: self.libraryDirPath]) {
+        
         [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];
     }
 	[self didChangeValueForKey:@"library"];
@@ -174,6 +175,7 @@ enum CollectionActionTags {
 
 - (IBAction)sync: (id)sender {
     if ([presentationLibrary hasLibrary]) {
+        
         [rsyncController syncWithSource: self.librarySource destination: self.libraryDirPath];
     } else {
         [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];

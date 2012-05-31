@@ -118,12 +118,36 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [libraryDirPath release];
     libraryDirPath = [directory retain];
     
+    // create dir, if it does not exist
+    BOOL isDir;
+    if(![[NSFileManager defaultManager] fileExistsAtPath:directory isDirectory:&isDir]){
+        
+        [[NSFileManager defaultManager] createDirectoryAtPath:directory 
+                                  withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
     NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
     presentationData = [[NSMutableDictionary alloc] init];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
-        NSLog(@"file '%@' does not exist", libraryPath);
-        return NO;
+        NSLog(@"file '%@' does not exist -> creating it now", libraryPath);
+        
+        NSXMLElement *rootElem = [NSXMLElement elementWithName:@"presentations"];
+        
+        //TODO: create file here
+        NSXMLDocument *xmlDoc = [NSXMLDocument documentWithRootElement:rootElem];
+        
+        NSData *xmlData = [xmlDoc XMLData];
+        
+        NSURL *furl = [NSURL fileURLWithPath:libraryPath];
+        if (!furl) {
+            NSLog(@"Can't create an URL from file %@.", libraryPath);
+            return NO;
+        }    
+        
+        [xmlData writeToURL:furl atomically:YES];
+        
+        //return NO;
     }
     NSError *error = nil;
     NSXMLDocument *document = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error] autorelease];

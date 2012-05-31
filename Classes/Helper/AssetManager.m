@@ -7,7 +7,7 @@
 //
 
 #import "AssetManager.h"
-#import "Presentation.h";
+#import "Presentation.h"
 #import "localized_text_keys.h"
 
 static void fileOpStatusCallback (FSFileOperationRef fileOp,

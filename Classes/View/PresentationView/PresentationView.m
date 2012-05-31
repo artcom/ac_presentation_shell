@@ -95,7 +95,8 @@
 
 	if (layer == self.layer) {
 		[self.hoveredLayer removeFromSuperlayer];
-		self.hoveredLayer == nil;
+		self.hoveredLayer = nil;
+        
 		return;
 	}
 	
@@ -269,7 +270,7 @@
 	paginationView.activePage = 0;
 	[self addSubview:paginationView];
 	
-	pageButtons = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 32, 10)];
+	pageButtons = (NSButton*) [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 32, 10)];
 	
 	NSButton *upButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 15, 10)] autorelease];
 	[upButtons setImage: [NSImage imageNamed:@"icn_prev_page.png"]];
