@@ -78,7 +78,7 @@ static NSImage * ourUploadIcon = nil;
 												buttonTitles: nil];
     NSArray * srcDst = [[NSArray arrayWithObjects: source, destination, nil] retain];
     
-    NSLog(@"initialSyncWithSource -> srcDstArray count:%lu", [srcDst count]);
+    //NSLog(@"initialSyncWithSource -> srcDstArray count:%lu", [srcDst count]);
     
     [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: srcDst];
 }

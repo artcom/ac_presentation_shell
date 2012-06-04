@@ -10,5 +10,7 @@
 	<false/>
 	<key>rsyncSource</key>
 	<string></string>
+	<key>rsyncPreserveLocal</key>
+	<true/>
 </dict>
 </plist>

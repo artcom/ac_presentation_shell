@@ -7,6 +7,7 @@
 //
 
 #import "RsyncTask.h"
+#import "default_keys.h"
 
 #define RSYNC_EXECUTABLE @"/usr/bin/rsync"
 
@@ -42,6 +43,8 @@
 	if (self != nil) {	
 		source = [[theSource stringByAppendingSlash] retain];
         destination = [[theDestination stringByAppendingSlash] retain];
+        preserveLocalChanges = [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_RSYNC_PRESERVE_LOCAL];
+        
 	}
 	
 	return self;
@@ -65,9 +68,18 @@
 	
     task = [[NSTask alloc] init];
     [task setLaunchPath: RSYNC_EXECUTABLE];
-    [task setArguments: [NSArray arrayWithObjects: @"-urlt", @"--progress", @"--delete", 
+    NSMutableArray *taskArgs = [NSMutableArray arrayWithObjects: @"-rlt", @"--progress",
+                         @"--delete", 
                          @"--chmod=u=rwX,go=rX",
-                         source, destination, nil]];
+                         source, destination, nil];
+    
+    if(preserveLocalChanges)
+        [taskArgs addObject:@"--update"];
+    
+    [task setArguments: taskArgs];
+    
+    
+    
     pipe = [[NSPipe alloc] init];
     [task setStandardOutput: pipe];
 	

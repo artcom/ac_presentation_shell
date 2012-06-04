@@ -28,6 +28,8 @@
 	
 	NSString *source;
 	NSString *destination;
+    
+    BOOL preserveLocalChanges;
 	
 	NSUInteger targetLibrarySize;
 	
