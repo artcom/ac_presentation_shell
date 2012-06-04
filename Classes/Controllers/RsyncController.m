@@ -68,6 +68,7 @@ static NSImage * ourUploadIcon = nil;
     [self performSync: source destination: destination];
 }
 
+// TODO: not working properly! contextInfo returns scrambled data in didEnd-callback
 -(void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination {
     isUploading = NO;
     NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_SYNC_LIB_NOW
@@ -76,9 +77,9 @@ static NSImage * ourUploadIcon = nil;
                                                   icon: [self directionIcon] 
 												buttonTitles: nil];
     NSArray * srcDst = [[NSArray arrayWithObjects: source, destination, nil] retain];
+    
     NSLog(@"initialSyncWithSource -> srcDstArray count:%lu", [srcDst count]);
     
-    // TODO: not really working! , contextInfo returns scrambled data in didEnd-callback
     [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: srcDst];
 }
 

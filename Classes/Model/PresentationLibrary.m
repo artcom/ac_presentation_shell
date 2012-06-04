@@ -131,22 +131,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
         NSLog(@"file '%@' does not exist -> creating it now", libraryPath);
-        
-        NSXMLElement *rootElem = [NSXMLElement elementWithName:@"presentations"];
-        
-        //TODO: create file here
-        NSXMLDocument *xmlDoc = [NSXMLDocument documentWithRootElement:rootElem];
-        
-        NSData *xmlData = [xmlDoc XMLData];
-        
-        NSURL *furl = [NSURL fileURLWithPath:libraryPath];
-        if (!furl) {
-            NSLog(@"Can't create an URL from file %@.", libraryPath);
-            return NO;
-        }    
-        
-        [xmlData writeToURL:furl atomically:YES];
-        
+        [self saveXmlLibrary];
         //return NO;
     }
     NSError *error = nil;
@@ -164,7 +149,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     [self syncPresentations];
-    
 	[self cacheThumbnails];
     return YES;
 }
