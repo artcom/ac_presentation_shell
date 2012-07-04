@@ -168,7 +168,6 @@ static NSImage * ourUploadIcon = nil;
 -(void) userDidConfirmInitialSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
         NSArray * srcDst = (NSArray*) contextInfo;
-        NSLog(@"userDidConfirmInitialSync -> srcDstArray count:%lu", [srcDst count]);
         
         [self performSync: [srcDst objectAtIndex: 0] destination: [srcDst objectAtIndex: 1]];
     }

@@ -118,21 +118,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [libraryDirPath release];
     libraryDirPath = [directory retain];
     
-    // create dir, if it does not exist
-    BOOL isDir;
-    if(![[NSFileManager defaultManager] fileExistsAtPath:directory isDirectory:&isDir]){
-        
-        [[NSFileManager defaultManager] createDirectoryAtPath:directory 
-                                  withIntermediateDirectories:YES attributes:nil error:nil];
-    }
-    
     NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
     presentationData = [[NSMutableDictionary alloc] init];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
-        NSLog(@"file '%@' does not exist -> creating it now", libraryPath);
-        [self saveXmlLibrary];
-        //return NO;
+        NSLog(@"file '%@' does not exist", libraryPath);
+        return NO;
     }
     NSError *error = nil;
     NSXMLDocument *document = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error] autorelease];

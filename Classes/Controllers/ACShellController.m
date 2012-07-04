@@ -174,15 +174,13 @@ enum CollectionActionTags {
 }
 
 - (IBAction)sync: (id)sender {
-//    if ([presentationLibrary hasLibrary]) {
-//        
-//        [rsyncController syncWithSource: self.librarySource destination: self.libraryDirPath];
-//    } else {
-//        
-//        [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];
-//    }
-    
-    [rsyncController syncWithSource: self.librarySource destination: self.libraryDirPath];
+    if ([presentationLibrary hasLibrary]) {
+        
+        [rsyncController syncWithSource: self.librarySource destination: self.libraryDirPath];
+    } else {
+        
+        [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];
+    }
 }
 
 - (IBAction) upload: (id) sender {
