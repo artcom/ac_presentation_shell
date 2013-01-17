@@ -89,11 +89,11 @@ enum CollectionActionTags {
 
 - (id) init {
 	self = [super init];
-	if (self != nil) {		        
+	if (self != nil) {
         presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
-
+        
 		presentationWindowController = [[PresentationWindowController alloc] init];
-
+        
         preferenceController = [[PreferenceController alloc] init];
         
         if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
@@ -135,7 +135,7 @@ enum CollectionActionTags {
     }
     
     [self presentationTableColumnOrderDidChange: nil];
-    [[NSNotificationCenter defaultCenter] addObserver: self 
+    [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(presentationTableColumnOrderDidChange:)
                                                  name: NSTableViewColumnDidMoveNotification
                                                object:presentationTable];
@@ -168,7 +168,7 @@ enum CollectionActionTags {
 	[self beautifyOutlineView];
 }
 
-- (IBAction)play: (id)sender {	
+- (IBAction)play: (id)sender {
 	presentationWindowController.presentations = [self selectedPresentations];
 	[presentationWindowController showWindow:nil];
 }
@@ -189,7 +189,7 @@ enum CollectionActionTags {
 
 - (IBAction)remove: (id)sender {
 	if ([browserWindow firstResponder] == presentationTable) {
-		[self removePresentation:sender];			
+		[self removePresentation:sender];
 	} else if ([browserWindow firstResponder] == collectionView) {
 		[self removeCollection:self];
 	} else {
@@ -204,29 +204,31 @@ enum CollectionActionTags {
 
 - (IBAction)openPresentation: (id)sender {
 	if (sender == presentationTable) {
-		Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
-        int doubleClickSetting = [[[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_PRESENTATION_DOUBLE_CLICKED] intValue];
-        switch (doubleClickSetting) {
-            case ACShellOpenPresentation:
-                if (presentation.presentationFileExists) {
-                    [[KeynoteHandler sharedHandler] open: presentation.absolutePresentationPath];			
-                }
-                break;
-            case ACShellPlayPresentation:
-                if (presentation.presentationFileExists) {
-                    [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate: self];
-                }
-                break;
-            case ACShellOpenEditWindow:
-                if ( ! [[editWindowController window] isVisible]) {
-                    [editWindowController edit: presentation];
-                } else {
-                    NSBeep();
-                    [[editWindowController window] makeKeyAndOrderFront: sender];
-                }
-                break;
-            default:
-                break;
+        if ([[presentationsArrayController selectedObjects] count] > 0) {
+            Presentation *presentation = [[presentationsArrayController selectedObjects] objectAtIndex:0];
+            int doubleClickSetting = [[[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_PRESENTATION_DOUBLE_CLICKED] intValue];
+            switch (doubleClickSetting) {
+                case ACShellOpenPresentation:
+                    if (presentation.presentationFileExists) {
+                        [[KeynoteHandler sharedHandler] open: presentation.absolutePresentationPath];
+                    }
+                    break;
+                case ACShellPlayPresentation:
+                    if (presentation.presentationFileExists) {
+                        [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate: self];
+                    }
+                    break;
+                case ACShellOpenEditWindow:
+                    if ( ! [[editWindowController window] isVisible]) {
+                        [editWindowController edit: presentation];
+                    } else {
+                        NSBeep();
+                        [[editWindowController window] makeKeyAndOrderFront: sender];
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 	}
 }
@@ -268,7 +270,7 @@ enum CollectionActionTags {
 	NSUInteger indices[] = {1,[presentationLibrary collectionCount]};
 	
 	[collectionTreeController insertObject:list atArrangedObjectIndexPath:[NSIndexPath indexPathWithIndexes:indices length:2]];
-
+    
     [collectionTreeController setSelectionIndexPath: [NSIndexPath indexPathWithIndexes: indices length: 2]];
     [collectionView editColumn: 0 row: [collectionView selectedRow] withEvent:nil select:YES];
 }
@@ -315,7 +317,7 @@ enum CollectionActionTags {
         NSBeep();
 		return;
 	}
-
+    
     BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeletePresentationFromCollection"
                                                              message: ACSHELL_STR_DELETE_PRESENTATION
                                                             okButton: ACSHELL_STR_DELETE
@@ -326,7 +328,7 @@ enum CollectionActionTags {
         NSInteger order = 1;
         for (Presentation* p in items) {
             p.order = order++;
-        }        
+        }
     }
 }
 
@@ -364,11 +366,11 @@ enum CollectionActionTags {
 		
 		if ([[collectionTreeController selectedObjects] count] > 0) {
 			[[[collectionTreeController selectedObjects] objectAtIndex:0] setPresentations: currentPresentationList];
-		}		
+		}
 	}
 }
 
--(NSMutableArray*) currentPresentationList {	
+-(NSMutableArray*) currentPresentationList {
 	if (![presentationLibrary hasLibrary]) {
 		return [NSMutableArray array];
 	}
@@ -380,7 +382,7 @@ enum CollectionActionTags {
 }
 
 #pragma mark -
-#pragma mark NSTableViewDelegate Protocol Methods 
+#pragma mark NSTableViewDelegate Protocol Methods
 
 - (BOOL) tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
 	NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
@@ -394,7 +396,7 @@ enum CollectionActionTags {
 		return NSDragOperationNone;
 	}
     NSArray * sortDescriptors = [tableView sortDescriptors];
-    if ([sortDescriptors count] > 0 && 
+    if ([sortDescriptors count] > 0 &&
         [[[sortDescriptors objectAtIndex: 0] key] isEqual: @"order"] &&
         [presentationsArrayController filterPredicate] == nil)
     {
@@ -403,11 +405,11 @@ enum CollectionActionTags {
     return NSDragOperationNone;
 }
 
-- (BOOL) tableView: (NSTableView*) tableView acceptDrop: (id<NSDraggingInfo>) info 
+- (BOOL) tableView: (NSTableView*) tableView acceptDrop: (id<NSDraggingInfo>) info
                row: (NSInteger) row dropOperation: (NSTableViewDropOperation) dropOperation
 {
     NSData * rowsData = [[info draggingPasteboard] dataForType: ACSHELL_PRESENTATION];
-    NSIndexSet * indexSet = [NSKeyedUnarchiver unarchiveObjectWithData: rowsData];		
+    NSIndexSet * indexSet = [NSKeyedUnarchiver unarchiveObjectWithData: rowsData];
     [self moveObjectsInArrangedObjectsFromIndexes: indexSet toIndex: row];
     
     NSInteger rowsAbove = [self rowsAboveRow:row inIndexSet:indexSet];
@@ -423,7 +425,7 @@ enum CollectionActionTags {
         p.order = index;
         index += (isAscending ? 1 : -1);
     }
-
+    
     return YES;
 }
 
@@ -486,7 +488,7 @@ enum CollectionActionTags {
         } else {
             return NO;
         }
-
+        
     }
     return YES;
 }
@@ -507,8 +509,8 @@ enum CollectionActionTags {
     return  ! [self isToplevelGroup: item] && ! [self isStaticCategory: item];
 }
 
-- (NSDragOperation) outlineView:(NSOutlineView *)outlineView 
-				   validateDrop:(id <NSDraggingInfo>)info 
+- (NSDragOperation) outlineView:(NSOutlineView *)outlineView
+				   validateDrop:(id <NSDraggingInfo>)info
 				   proposedItem:(id)item proposedChildIndex:(NSInteger)index {
 	
 	if (index != -1 || // only allow drops on collections, not between them
@@ -516,13 +518,13 @@ enum CollectionActionTags {
     {
 		return NSDragOperationNone;
 	}
-
+    
     ACShellCollection * selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex: 0];
     ACShellCollection * droppedOnCollection = (ACShellCollection *)[item representedObject];
     if (selectedCollection == droppedOnCollection) {
         return NSDragOperationNone;
     }
-
+    
 	return NSDragOperationLink;
 }
 
@@ -534,7 +536,7 @@ enum CollectionActionTags {
     NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
     NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
     NSMutableArray * newItems = [[[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES] autorelease];
-
+    
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
     
     if ([self handleDuplicates: newItems inCollection: collection]) {
@@ -559,13 +561,13 @@ enum CollectionActionTags {
     [sender adjustSubviews];
     NSRect leftFrame = [leftSplitPane frame];
     NSRect rightFrame = [rightSplitPane frame];
-
+    
     leftFrame.origin.x = 0;
     leftFrame.size.width = desiredLeftViewWidth;
     
     rightFrame.origin.x = desiredLeftViewWidth + 1;
-    rightFrame.size.width = [sender frame].size.width - desiredLeftViewWidth - 1; 
- 
+    rightFrame.size.width = [sender frame].size.width - desiredLeftViewWidth - 1;
+    
     
     [leftSplitPane setFrame: leftFrame];
     [rightSplitPane setFrame: rightFrame];
@@ -596,7 +598,7 @@ enum CollectionActionTags {
 }
 
 - (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar {
-    return [NSArray arrayWithObjects: 
+    return [NSArray arrayWithObjects:
             NSToolbarSpaceItemIdentifier,
             AC_SHELL_TOOLBAR_ITEM_START,
             NSToolbarSpaceItemIdentifier,
@@ -652,7 +654,7 @@ enum CollectionActionTags {
 }
 
 #pragma mark -
-#pragma mark SetupAssistantDelegate Protocol Methods 
+#pragma mark SetupAssistantDelegate Protocol Methods
 - (void) setupDidFinish: (id) sender {
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
     [self beautifyOutlineView];
@@ -666,14 +668,14 @@ enum CollectionActionTags {
     if ([[item indexPath] length] == 1) {
         return YES;
     }
-	return NO;    
+	return NO;
 }
 
 - (BOOL) isStaticCategory: (id) item {
 	if ([[item indexPath] length] == 2 && [[item indexPath] indexAtPosition: 0] == 0) {
 		return YES;
 	}
-	return NO;    
+	return NO;
 }
 
 - (void)beautifyOutlineView {
@@ -688,7 +690,7 @@ enum CollectionActionTags {
 - (NSString*) librarySource {
     if ([self editingEnabled]) {
         return self.libraryTarget;
-    } 
+    }
 	[[NSUserDefaults standardUserDefaults] synchronize];
     if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER] != nil) {
         return [NSString stringWithFormat: @"%@@%@",
@@ -709,7 +711,7 @@ enum CollectionActionTags {
 }
 
 - (NSString*) libraryDirPath {
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] 
+    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]
             stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
 }
 
@@ -726,7 +728,7 @@ enum CollectionActionTags {
     if ( ! [presentationLibrary hasLibrary]) {
         [statusLine setStringValue: NSLocalizedString(ACSHELL_STR_NO_LIBRARY, nil)];
     } else if (selectedItems > 0) {
-        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_M_PRESENTATIONS, nil), 
+        [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_M_PRESENTATIONS, nil),
                                      selectedItems, [[presentationsArrayController arrangedObjects] count]]];
     } else {
         [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_PRESENTATIONS, nil),
@@ -797,7 +799,7 @@ enum CollectionActionTags {
     NSArray * tableColumns = [presentationTable tableColumns];
     for (NSTableColumn * c in tableColumns) {
         NSMenuItem * item = [menu addItemWithTitle: NSLocalizedString([c identifier], nil)
-                                            action: @selector(userDidHidePresentationColumn:) 
+                                            action: @selector(userDidHidePresentationColumn:)
                                      keyEquivalent: @""];
         [item setTarget: self];
         [item setState: [c isHidden] ? NSOffState : NSOnState];
