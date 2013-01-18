@@ -124,6 +124,7 @@
 #pragma mark Class Methods
 + (NSPanel*) preferenceWindow {
     NSPanel * panel = [[NSPanel alloc] init];
+    [panel setHidesOnDeactivate:NO];
     [panel setShowsToolbarButton: NO];
     [panel setStyleMask: [panel styleMask] | NSMiniaturizableWindowMask];
     NSRect frame = [panel frame];

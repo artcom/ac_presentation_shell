@@ -68,17 +68,19 @@
 	
     task = [[NSTask alloc] init];
     [task setLaunchPath: RSYNC_EXECUTABLE];
+    
+    NSString *deleteOrUpdate = nil;
+    if (preserveLocalChanges)
+        deleteOrUpdate = @"--update";
+    else
+        deleteOrUpdate = @"--delete";
+    
     NSMutableArray *taskArgs = [NSMutableArray arrayWithObjects: @"-rlt", @"--progress",
-                         @"--delete", 
+                         deleteOrUpdate,
                          @"--chmod=u=rwX,go=rX",
                          source, destination, nil];
     
-    if(preserveLocalChanges)
-        [taskArgs addObject:@"--update"];
-    
     [task setArguments: taskArgs];
-    
-    
     
     pipe = [[NSPipe alloc] init];
     [task setStandardOutput: pipe];
