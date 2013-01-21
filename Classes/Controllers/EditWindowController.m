@@ -282,5 +282,12 @@
     presentation = nil;
 }
 
+- (void)controlTextDidChange:(NSNotification *)obj
+{
+    NSTextView *textField = [obj.userInfo objectForKey: @"NSFieldEditor"];
+    
+    if ([textField isDescendantOf:titleField])
+        [self updateOkButton];
+}
 
 @end

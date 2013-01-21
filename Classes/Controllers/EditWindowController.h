@@ -14,7 +14,7 @@
 @class KeynoteDropper;
 @class NSImageViewWithDroppedFilename;
 
-@interface EditWindowController : NSWindowController <ProgressDelegateProtocol>
+@interface EditWindowController : NSWindowController <ProgressDelegateProtocol, NSTextFieldDelegate>
 {
     Presentation * presentation;
 
