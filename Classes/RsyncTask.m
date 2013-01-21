@@ -99,6 +99,7 @@
     [env setObject: iconPath forKey: @"ACSHELL_ICON_URL"];
     
     [task setEnvironment: env];
+    [env release];
     
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(rsyncDidUpdateProgress:)
                                                  name: NSFileHandleReadCompletionNotification object: [pipe fileHandleForReading]];
