@@ -31,11 +31,11 @@
 		[self setWantsLayer:YES];
 		
 		dots = [[NSMutableArray alloc] init];
-
+        
 		self.pages = 1;
 		self.activePage = 0;
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) 
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:)
 													 name:NSViewFrameDidChangeNotification object:self];
 	}
 	
@@ -60,7 +60,7 @@
 	pages = newPages;
 	
 	if (self.activePage >= pages) {
-		self.activePage = pages - 1;
+		self.activePage = MAX(0, pages - 1);
 	}
 	
 	[self updateView];
@@ -69,7 +69,7 @@
 
 - (void)setActivePage: (NSInteger)newActivePage {
 	activePage = newActivePage;
-
+    
 	[self calculateDotPositions];
 	[self setActiveDot];
 }
@@ -89,7 +89,7 @@
 		return;
 		//[NSException raise:@"IndexOutOfBound" format:@"PaginationView is setup for %d pages but %d was selected" arguments:self.pages, self.activePage];
 	}
-
+    
 	[CATransaction begin];
 	NSInteger i = 0;
 	for (i = 0; i < self.dotsOnTop; i++) {
@@ -99,7 +99,7 @@
 	
 	for (; i < self.pages; i++) {
 		CALayer *layer = [dots objectAtIndex:i];
-		layer.frame = CGRectMake(0, ((self.pages - i - 1) * 10), 6, 6);		
+		layer.frame = CGRectMake(0, ((self.pages - i - 1) * 10), 6, 6);
 	}
 	[CATransaction commit];
 }
@@ -109,8 +109,10 @@
 		layer.contents = self.inactiveDot;
 	}
 	
-	CALayer *layer = [dots objectAtIndex:self.activePage];
-	layer.contents = self.activeDot;
+    if (dots.count > 0) {
+        CALayer *layer = [dots objectAtIndex:self.activePage];
+        layer.contents = self.activeDot;
+    }
 }
 
 - (void)prepareDots {
@@ -139,7 +141,7 @@
 	if (activeDot == nil) {
 		self.activeDot = [NSImage imageNamed:@"icn_pagination_active.png"];
 	}
-
+    
 	return activeDot;
 }
 
