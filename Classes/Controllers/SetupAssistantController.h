@@ -43,28 +43,28 @@
     id<SetupAssistantDelegate> delegate;
 }
 
-@property (retain, nonatomic) IBOutlet NSTabView * pages;
+@property (assign, nonatomic) IBOutlet NSTabView * pages;
 
-@property (retain, nonatomic) IBOutlet NSButton * nextButton;
-@property (retain, nonatomic) IBOutlet NSButton * backButton;
+@property (assign, nonatomic) IBOutlet NSButton * nextButton;
+@property (assign, nonatomic) IBOutlet NSButton * backButton;
 
 @property (retain, nonatomic) IBOutlet NSArrayController * publicKeyArrayController;
-@property (retain, nonatomic) IBOutlet NSTableView * publicKeyTable;
-@property (retain, nonatomic) IBOutlet NSButton * generateSshKeysButton;
-@property (retain, nonatomic) IBOutlet NSProgressIndicator * sshKeygenSpinner;
+@property (assign, nonatomic) IBOutlet NSTableView * publicKeyTable;
+@property (assign, nonatomic) IBOutlet NSButton * generateSshKeysButton;
+@property (assign, nonatomic) IBOutlet NSProgressIndicator * sshKeygenSpinner;
 @property (retain, nonatomic) NSMutableArray * publicKeys;
 
-@property (retain, nonatomic) IBOutlet NSCollectionView * bonjourServerList;
-@property (retain, nonatomic) IBOutlet NSTextField * rsyncSourceEntry;
+@property (assign, nonatomic) IBOutlet NSCollectionView * bonjourServerList;
+@property (assign, nonatomic) IBOutlet NSTextField * rsyncSourceEntry;
 @property (retain, nonatomic) IBOutlet NSArrayController * bonjourLibrariesArrayController;
-@property (retain, nonatomic) IBOutlet NSMatrix * discoveryModeButtons;
+@property (assign, nonatomic) IBOutlet NSMatrix * discoveryModeButtons;
 @property (retain, nonatomic) NSMutableArray * bonjourLibraries;
 
-@property (retain, nonatomic) IBOutlet NSTextField * administratorAddressLabel;
-@property (retain, nonatomic) IBOutlet NSTextField * libraryNameLabel;
-@property (retain, nonatomic) IBOutlet NSButton * emailSendToggle;
+@property (assign, nonatomic) IBOutlet NSTextField * administratorAddressLabel;
+@property (assign, nonatomic) IBOutlet NSTextField * libraryNameLabel;
+@property (assign, nonatomic) IBOutlet NSButton * emailSendToggle;
 
-@property (retain, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
+@property (assign, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 

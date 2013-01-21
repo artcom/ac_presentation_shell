@@ -41,25 +41,25 @@
     ACShellController * shellController;
 }
 
-@property (retain, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
-@property (retain, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
-@property (retain, nonatomic) IBOutlet NSButton * editButton;
+@property (assign, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
+@property (assign, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
+@property (assign, nonatomic) IBOutlet NSButton * editButton;
 
-@property (retain, nonatomic) IBOutlet NSTextField * titleField;
-@property (retain, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
-@property (retain, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
+@property (assign, nonatomic) IBOutlet NSTextField * titleField;
+@property (assign, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
+@property (assign, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
-@property (retain, nonatomic) IBOutlet NSButton * highlightCheckbox;
-@property (retain, nonatomic) IBOutlet NSTextField * yearField;
+@property (assign, nonatomic) IBOutlet NSButton * highlightCheckbox;
+@property (assign, nonatomic) IBOutlet NSTextField * yearField;
 
-@property (retain, nonatomic) IBOutlet NSButton * okButton;
-@property (retain, nonatomic) IBOutlet NSButton * deleteButton;
+@property (assign, nonatomic) IBOutlet NSButton * okButton;
+@property (assign, nonatomic) IBOutlet NSButton * deleteButton;
 
 @property (retain, nonatomic) IBOutlet NSWindow* progressSheet;
-@property (retain, nonatomic) IBOutlet NSTextField* progressTitle;
-@property (retain, nonatomic) IBOutlet NSTextField* progressMessage;
-@property (retain, nonatomic) IBOutlet NSProgressIndicator* progressBar;
-@property (retain, nonatomic) IBOutlet NSTextField* progressText;
+@property (assign, nonatomic) IBOutlet NSTextField* progressTitle;
+@property (assign, nonatomic) IBOutlet NSTextField* progressMessage;
+@property (assign, nonatomic) IBOutlet NSProgressIndicator* progressBar;
+@property (assign, nonatomic) IBOutlet NSTextField* progressText;
 
 - (id) initWithShellController:(ACShellController *)theShellController;
 

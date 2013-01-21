@@ -56,18 +56,18 @@
 @property (retain) PresentationLibrary *presentationLibrary;
 @property (retain, nonatomic) NSMutableArray * library;
 
-@property (retain, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
-@property (retain, nonatomic) IBOutlet NSTreeController *collectionTreeController;
-@property (retain, nonatomic) IBOutlet NSWindow *browserWindow;
-@property (retain, nonatomic) IBOutlet NSOutlineView *collectionView;
-@property (retain, nonatomic) IBOutlet NSTableView *presentationTable;
-@property (retain, nonatomic) IBOutlet NSTextField *statusLine;
+@property (assign, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
+@property (assign, nonatomic) IBOutlet NSTreeController *collectionTreeController;
+@property (assign, nonatomic) IBOutlet NSWindow *browserWindow;
+@property (assign, nonatomic) IBOutlet NSOutlineView *collectionView;
+@property (assign, nonatomic) IBOutlet NSTableView *presentationTable;
+@property (assign, nonatomic) IBOutlet NSTextField *statusLine;
 @property (retain, nonatomic) NSMutableArray * currentPresentationList;
-@property (retain, nonatomic) IBOutlet NSImageView * warningIcon;
-@property (retain, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
-@property (retain, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
-@property (retain, nonatomic) IBOutlet NSView * leftSplitPane;
-@property (retain, nonatomic) IBOutlet NSView * rightSplitPane;
+@property (assign, nonatomic) IBOutlet NSImageView * warningIcon;
+@property (assign, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
+@property (assign, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
+@property (assign, nonatomic) IBOutlet NSView * leftSplitPane;
+@property (assign, nonatomic) IBOutlet NSView * rightSplitPane;
 
 @property (readonly) NSString* libraryDirPath;
 @property (readonly) BOOL editingEnabled;

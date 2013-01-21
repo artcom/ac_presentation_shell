@@ -16,6 +16,6 @@
 
 @property (readwrite) BOOL selected;
 
-@property (retain, nonatomic) IBOutlet NSTextField * titleField;
+@property (assign, nonatomic) IBOutlet NSTextField * titleField;
 
 @end
