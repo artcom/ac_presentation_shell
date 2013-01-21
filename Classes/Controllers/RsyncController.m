@@ -51,7 +51,7 @@ static NSImage * ourUploadIcon = nil;
     if (self != nil) {
         [NSBundle loadNibNamed: @"RsyncProgressView" owner: self];
     }
-    return self;   
+    return self;
 }
 
 -(void) awakeFromNib {
@@ -59,6 +59,10 @@ static NSImage * ourUploadIcon = nil;
 
 -(void) dealloc {
     [lastRsyncMessage release];
+    [rsyncTask release];
+    [currentSheet release];
+    [documentWindow release];
+    [progressView release];
     
     [super dealloc];
 }
@@ -92,6 +96,7 @@ static NSImage * ourUploadIcon = nil;
     NSAlert * progressDialog = [self progressDialog];
     [self showSheet: progressDialog didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
     terminatedByUser = NO;
+    [rsyncTask release];
 	rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
 	rsyncTask.delegate = self;
     

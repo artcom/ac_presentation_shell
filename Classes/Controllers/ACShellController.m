@@ -149,10 +149,19 @@ enum CollectionActionTags {
 - (void) dealloc {
 	[presentationWindowController release];
     [preferenceController release];
-	[presentationLibrary release];
-	[collectionView release];
-	[presentationTable release];
+	[editWindowController release];
+    [rsyncController release];
+    [setupAssistant release];
+    
+    
+    [currentPresentationList release];
+    
+    [presentationLibrary release];
 	
+    
+    //[collectionView release];
+	//[presentationTable release];
+    
 	[super dealloc];
 }
 
@@ -615,7 +624,7 @@ enum CollectionActionTags {
         [item setLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
         [item setToolTip: NSLocalizedString(ACSHELL_STR_UPLOAD_TOOLTIP, nil)];
         [item setPaletteLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
-        return item;
+        return [item autorelease];
     }
     return nil;
 }

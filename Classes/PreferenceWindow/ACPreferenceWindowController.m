@@ -32,6 +32,8 @@
         }
         
         toolbarIdentifiers = [[NSArray alloc] initWithArray: toolbarIds];
+        [toolbarIds release];
+        
         int i = 0;
         for (ACPreferencePage * page in preferencePages) {
             [[[self window] toolbar] insertItemWithItemIdentifier: [page toolbarItemIdentifier] 
@@ -46,6 +48,7 @@
 
 - (void) dealloc {
     [preferencePages release];
+    [toolbarIdentifiers release];
     [super dealloc];
 }
 
@@ -78,7 +81,9 @@
     NSRect newWindowFrame = NSMakeRect(currentWindowFrame.origin.x, currentWindowFrame.origin.y - delta,
                                        targetViewFrame.size.width, toolbarHeight + targetViewFrame.size.height);
 
-    self.window.contentView = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 0, 0)];
+    NSView *contentView = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 0, 0)];
+    self.window.contentView = contentView;
+    [contentView release];
     [[self window] setFrame: newWindowFrame display:YES animate:YES];
     self.window.contentView = [page view];
 }
@@ -111,7 +116,7 @@
         [toolbarItem setPaletteLabel: [page title]];
         [toolbarItem setImage:[NSImage imageNamed: [page iconName]]];
     }
-    return toolbarItem;
+    return [toolbarItem autorelease];
 }
 
 - (void) toolbarWillAddItem:(NSNotification *)notification {
@@ -136,10 +141,10 @@
     [panel setFrameUsingName: @"PreferenceWindow" force: YES];
     
     NSToolbar * toolbar = [[NSToolbar alloc] initWithIdentifier: @"PreferenceWindowToolbar"];
-    [panel setToolbar: toolbar];
-    
     [toolbar setVisible: YES];
     [toolbar setAllowsUserCustomization: NO];
+    [panel setToolbar: toolbar];
+    [toolbar release];
     
     return panel;
 }

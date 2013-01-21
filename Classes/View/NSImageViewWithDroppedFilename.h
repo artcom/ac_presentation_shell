@@ -13,7 +13,7 @@
     NSString * filename;
 }
 
-@property (retain) NSString * filename;
+@property (nonatomic, retain) NSString * filename;
 @property (readonly) BOOL fileExists;
 
 @end

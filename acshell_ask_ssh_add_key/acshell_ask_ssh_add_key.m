@@ -22,6 +22,8 @@ BOOL runAddKeyDialog(NSString * sshOutput) {
                                         @"Add Key", kCFUserNotificationDefaultButtonTitleKey,
                                         @"Cancel", kCFUserNotificationAlternateButtonTitleKey,
                                         nil];
+    
+    CFRelease(icon);
     SInt32 error;
     CFUserNotificationRef dialog = CFUserNotificationCreate(kCFAllocatorDefault,
                                                             0,
@@ -77,7 +79,7 @@ int main(int argc, char * argv[]) {
     
     BOOL success = answerSSHQuestion();
     
-    [pool release];
+    [pool drain];
     
     return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }

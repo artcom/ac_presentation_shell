@@ -13,6 +13,6 @@
     NSString * filename;
 }
 
-@property (retain) NSString * filename;
+@property (nonatomic, retain) NSString * filename;
 
 @end

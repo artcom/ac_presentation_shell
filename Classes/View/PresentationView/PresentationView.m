@@ -30,6 +30,7 @@
 @synthesize hoveredLayer;
 @synthesize mouseTracking;
 @synthesize layout;
+@synthesize logo;
 
 -(id) initWithFrame:(NSRect)frameRect {
 	self = [super initWithFrame:frameRect];
@@ -41,6 +42,17 @@
 
 - (void)awakeFromNib {
 	[self setupView];
+}
+
+- (void)dealloc
+{
+    [layout release];
+    [sublayers release];
+    [hoveredLayer release];
+    [logo release];
+    [pageButtons release];
+    
+    [super dealloc];
 }
 
 - (void)setupView {
@@ -260,9 +272,9 @@
 
 - (void)setUpAccessorieViews {
 	NSImage *logoImage = [NSImage imageNamed:@"gfx_ac_logo.png"];
-	logo = [[CALayer layer] retain];
-	logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
-	logo.contents = logoImage;
+	self.logo = [CALayer layer];
+	self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
+	self.logo.contents = logoImage;
 	[self.layer addSublayer: logo];
 	
 	paginationView = [[PaginationView alloc] initWithFrame:NSMakeRect(0, 0, 6, 100)];

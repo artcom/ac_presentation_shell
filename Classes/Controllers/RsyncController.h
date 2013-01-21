@@ -40,10 +40,10 @@
 @property (retain) NSWindow* documentWindow;
 
 @property (retain, nonatomic) IBOutlet NSView * progressView;
-@property (retain, nonatomic) IBOutlet NSProgressIndicator * fileProgressBar;
-@property (retain, nonatomic) IBOutlet NSTextField * fileProgressLabel;
-@property (retain, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
-@property (retain, nonatomic) IBOutlet NSTextField * totalProgressLabel;
+@property (assign, nonatomic) IBOutlet NSProgressIndicator * fileProgressBar;
+@property (assign, nonatomic) IBOutlet NSTextField * fileProgressLabel;
+@property (assign, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
+@property (assign, nonatomic) IBOutlet NSTextField * totalProgressLabel;
 
 - (void) syncWithSource: (NSString*) source destination: (NSString*) destination;
 - (void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination;

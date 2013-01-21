@@ -36,9 +36,10 @@
 @property (assign, nonatomic) id <PresentationViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
-@property (assign, getter=isMouseTracking) BOOL mouseTracking;
+@property (assign, nonatomic, getter=isMouseTracking) BOOL mouseTracking;
 @property (retain) CALayer *hoveredLayer; 
 @property (retain) GridLayout *layout;
+@property (retain) CALayer *logo;
 
 - (void)arrangeSublayer;
 - (BOOL)hasNextPage;

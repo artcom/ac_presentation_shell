@@ -104,6 +104,7 @@
 
 - (void) dealloc {
     [netService release];
+    [txtRecord release];
     
     [super dealloc];
 }

@@ -25,6 +25,14 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [windowController release];
+    [generalPreferences release];
+    [advancedPreferences release];
+    [super dealloc];
+}
+
 - (void) awakeFromNib {
     ACPreferencePage * generalPrefs = [[ACPreferencePage alloc] initWithView: generalPreferences
                                                                        title: @"General"
@@ -33,6 +41,8 @@
                                                                        title: @"Advanced"
                                                                     iconName: NSImageNameAdvanced];
     NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
+    [generalPrefs release];
+    [advancedPrefs release];
     windowController = [[ACPreferenceWindowController alloc] initWithPages: preferencePages];
     
 }

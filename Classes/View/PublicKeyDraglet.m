@@ -13,8 +13,17 @@
 @implementation PublicKeyDraglet
 @synthesize filename;
 
+- (void)dealloc
+{
+    [filename release];
+    [super dealloc];
+}
+
 - (void) setFilename: (NSString*) aFilename {
-    filename = aFilename;
+    if (filename != aFilename) {
+        [filename release];
+        filename = [aFilename retain];
+    }
     NSImage *iconImage = nil;
     if (filename != nil) {
         iconImage = [[NSWorkspace sharedWorkspace] iconForFile: aFilename];

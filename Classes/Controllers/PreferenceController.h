@@ -19,7 +19,7 @@
 
 @property (retain, nonatomic) IBOutlet NSView* generalPreferences;
 @property (retain, nonatomic) IBOutlet NSView* advancedPreferences;
-@property (retain, nonatomic) IBOutlet NSButtonCell* showEditWindowOption;
+@property (assign, nonatomic) IBOutlet NSButtonCell* showEditWindowOption;
 
 - (IBAction) showWindow: (id) sender;
 

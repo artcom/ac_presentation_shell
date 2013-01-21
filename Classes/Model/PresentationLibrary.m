@@ -23,7 +23,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (readonly) NSMutableArray* allPresentations;
 @property (readonly) NSMutableArray* highlights;
 @property (readonly) NSMutableArray* collections;
-
+@property (nonatomic, retain) NSMutableDictionary *presentationData;
 
 + (NSString*) settingsFilepath;
 
@@ -40,6 +40,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @synthesize library;
 @synthesize syncSuccessful;
 @synthesize libraryDirPath;
+@synthesize presentationData;
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
@@ -77,7 +78,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 -(void) setup {
 	thumbnailCache = [[NSMutableDictionary alloc] init];
 	
-    presentationData = nil;
+    self.presentationData = nil;
     library = [[ACShellCollection collectionWithName: @"root"] retain];
     ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_LIBRARY, nil)];
     [library.children addObject: lib];
@@ -95,6 +96,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [presentationData release];
 	[thumbnailCache release];
 	[library release];
+    [libraryDirPath release];
 
 	[super dealloc];
 }
@@ -114,7 +116,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (BOOL) loadXmlLibraryFromDirectory: (NSString*) directory {
     
 	[self flushThumbnailCache];
-	presentationData = nil;
+	self.presentationData = nil;
     [libraryDirPath release];
     libraryDirPath = [directory retain];
     
@@ -126,8 +128,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
         return NO;
     }
     NSError *error = nil;
-    NSXMLDocument *document = [[[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error] autorelease];
+    NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
     NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
+    [document release];
     
     if (error != nil) {
         NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
@@ -220,7 +223,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
     [presentationData setObject: node forKey: newId];
 
-    Presentation * p = [[Presentation alloc] initWithId: newId inContext: self];
+    Presentation * p = [[[Presentation alloc] initWithId: newId inContext: self] autorelease];
     p.directory = [self subdirectoryFromTitle: title];
     if ([[NSFileManager defaultManager] fileExistsAtPath: p.directory]) {
         p.directory = [NSString stringWithFormat: @"%@-%@", p.directory, p.presentationId];
@@ -242,7 +245,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self.allPresentations insertObject: p atIndex:0];
     [self updateIndices: self.allPresentations];
     if (p.highlight) {
-        [self.highlights insertObject: [p copy] atIndex: 0];
+        Presentation *pCopy = [p copy];
+        [self.highlights insertObject: pCopy atIndex: 0];
+        [pCopy release];
         [self updateIndices: self.highlights];
     }
     
@@ -370,6 +375,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
                 [thePresentations insertObject: newPresentation atIndex:0];
                 addedStuff = YES;
             }
+            [newPresentation release];
         }
     }
 	
@@ -417,9 +423,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [workingSet formUnionWithCharacterSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [workingSet invert];
         ourNonDirNameCharSet = [workingSet copy];
+        [workingSet release];
     }
-    NSString * str = [[[aTitle componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""] autorelease];
-    NSArray * words = [[str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]] autorelease];
+    NSString * str = [[aTitle componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""];
+    NSArray * words = [str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
     return [[words componentsJoinedByString: @"_"] lowercaseString];
 }
 

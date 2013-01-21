@@ -14,6 +14,8 @@
 	KeynoteApplication *application;
 }
 
+@property (nonatomic, retain) KeynoteApplication *application;
+
 + (KeynoteHandler *)sharedHandler;
 
 - (void) launchWithDelgate: (id<KeynoteDelegate>) delegate;
