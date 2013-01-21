@@ -25,8 +25,8 @@
 @property (readonly) NSInteger dotsOnTop;
 @property (readonly) NSInteger dotsOnBottom;
 
-@property (retain) NSImage *activeDot;
-@property (retain) NSImage *inactiveDot;
+@property (nonatomic, retain) NSImage *activeDot;
+@property (nonatomic, retain) NSImage *inactiveDot;
 
 - (void)updateView;
 
