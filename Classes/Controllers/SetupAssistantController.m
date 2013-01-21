@@ -380,7 +380,7 @@ enum PageTags {
 #pragma mark -
 #pragma mark Helpers
 NSString * sshDirString() {
-    return [[NSString stringWithString: @"~/.ssh/"] stringByExpandingTildeInPath];
+    return [@"~/.ssh/" stringByExpandingTildeInPath];
 }
 
 NSString * sshPrivateKeyFilename() {
