@@ -26,9 +26,9 @@
     if ( [[pasteboard types] containsObject: NSFilenamesPboardType] ) {
         NSArray *filenames = [pasteboard propertyListForType:NSFilenamesPboardType];
         if ([filenames count] >= 1) {
-            filename = [filenames objectAtIndex:0];
+            self.filename = [filenames objectAtIndex:0];
         } else {
-            filename = nil;   
+            self.filename = nil;
         }
         return YES;
     }
