@@ -41,6 +41,7 @@
     NSButton * emailSendToggle;
     
     id<SetupAssistantDelegate> delegate;
+    NSTask *sshKeygenTask;
 }
 
 @property (assign, nonatomic) IBOutlet NSTabView * pages;
@@ -65,6 +66,7 @@
 @property (assign, nonatomic) IBOutlet NSButton * emailSendToggle;
 
 @property (assign, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
+@property (retain, nonatomic) NSTask *sshKeygenTask;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 

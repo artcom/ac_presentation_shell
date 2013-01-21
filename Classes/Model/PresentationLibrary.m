@@ -24,6 +24,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (readonly) NSMutableArray* highlights;
 @property (readonly) NSMutableArray* collections;
 @property (nonatomic, retain) NSMutableDictionary *presentationData;
+@property (nonatomic, retain) AssetManager *assetManager;
 
 + (NSString*) settingsFilepath;
 
@@ -41,6 +42,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @synthesize syncSuccessful;
 @synthesize libraryDirPath;
 @synthesize presentationData;
+@synthesize assetManager;
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
@@ -97,6 +99,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	[thumbnailCache release];
 	[library release];
     [libraryDirPath release];
+    [assetManager release];
 
 	[super dealloc];
 }
@@ -251,10 +254,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self updateIndices: self.highlights];
     }
     
-    AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: p progressDelegate: delegate];
-    [assetManager copyAsset: thumbnail];
-    [assetManager copyAsset: keynote];
-    [assetManager run];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: p progressDelegate: delegate];
+    [assetMan copyAsset: thumbnail];
+    [assetMan copyAsset: keynote];
+    
+    self.assetManager = assetMan;
+    [assetMan release];
+    [self.assetManager run];
     
     [self saveXmlLibrary];
 }
@@ -274,12 +280,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
         presentation.year = [NSNumber numberWithInteger: year];
         xmlChanged = YES;
     }
-    AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
-            [assetManager trashAsset: presentation.absoluteThumbnailPath];
+            [assetMan trashAsset: presentation.absoluteThumbnailPath];
         }
-        [assetManager copyAsset: thumbnail];
+        [assetMan copyAsset: thumbnail];
         
         presentation.thumbnailFilename = [thumbnail lastPathComponent];
         
@@ -290,9 +297,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [keynote isEqual: presentation.absolutePresentationPath]) {
         if (presentation.presentationFileExists) {
-            [assetManager trashAsset: presentation.absolutePresentationPath];
+            [assetMan trashAsset: presentation.absolutePresentationPath];
         }
-        [assetManager copyAsset: keynote];
+        [assetMan copyAsset: keynote];
         
         presentation.presentationFilename = [keynote lastPathComponent];
         
@@ -316,7 +323,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
             presentation.directory = newDir;
         }
     }
-    [assetManager run];
+    self.assetManager = assetMan;
+    [assetMan release];
+    
+    [self.assetManager run];
+    
     if (xmlChanged) {
         [self saveXmlLibrary];
     }
@@ -325,9 +336,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void) deletePresentation: (Presentation*) presentation
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
-    AssetManager * assetManager = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
-    [assetManager trashAsset: presentation.absoluteDirectory];
-    [assetManager run];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    [assetMan trashAsset: presentation.absoluteDirectory];
+    self.assetManager = assetMan;
+    [assetMan release];
+    
+    [self.assetManager run];
+    
     [presentationData removeObjectForKey: presentation.presentationId];
     [self syncPresentations];
     [self saveXmlLibrary];

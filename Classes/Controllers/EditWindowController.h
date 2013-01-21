@@ -55,7 +55,7 @@
 @property (assign, nonatomic) IBOutlet NSButton * okButton;
 @property (assign, nonatomic) IBOutlet NSButton * deleteButton;
 
-@property (retain, nonatomic) IBOutlet NSWindow* progressSheet;
+@property (assign, nonatomic) IBOutlet NSWindow* progressSheet;
 @property (assign, nonatomic) IBOutlet NSTextField* progressTitle;
 @property (assign, nonatomic) IBOutlet NSTextField* progressMessage;
 @property (assign, nonatomic) IBOutlet NSProgressIndicator* progressBar;

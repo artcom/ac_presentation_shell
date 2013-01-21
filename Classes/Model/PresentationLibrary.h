@@ -12,11 +12,13 @@
 @class ACShellCollection;
 @class Presentation;
 @class FileCopyController;
+@class AssetManager;
 
 @interface PresentationLibrary : NSObject <NSCoding> {
 	NSMutableDictionary *presentationData;
 	NSMutableDictionary *thumbnailCache;
     
+    AssetManager *assetManager;
     ACShellCollection * library;
     NSString * libraryDirPath;
 	

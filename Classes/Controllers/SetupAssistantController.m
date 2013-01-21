@@ -63,6 +63,7 @@ enum PageTags {
 @synthesize administratorAddressLabel;
 @synthesize publicKeyDraglet;
 @synthesize emailSendToggle;
+@synthesize sshKeygenTask;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) theDelegate {
     self = [super initWithWindowNibName: @"SetupAssistant"];
@@ -81,6 +82,7 @@ enum PageTags {
     [publicKeys release];
     [bonjourBrowser release];
     [bonjourLibraries release];
+    [sshKeygenTask release];
     
     [super dealloc];
 }
@@ -299,13 +301,15 @@ enum PageTags {
         }
     }
     NSArray * args = [NSArray arrayWithObjects: @"-b", @"4096", @"-N", @"", @"-f", sshPrivateKeyFilename(), nil];
-    NSTask * sshKeygenTask = [[NSTask alloc] init];
+    NSTask * sshTask = [[NSTask alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishSshKeygen:)
-												 name:NSTaskDidTerminateNotification object:sshKeygenTask];
+												 name:NSTaskDidTerminateNotification object:sshTask];
 
-    [sshKeygenTask setLaunchPath: @"/usr/bin/ssh-keygen"];
-    [sshKeygenTask setArguments: args];
-    [sshKeygenTask launch];
+    [sshTask setLaunchPath: @"/usr/bin/ssh-keygen"];
+    [sshTask setArguments: args];
+    self.sshKeygenTask = sshTask;
+    [sshTask release];
+    [self.sshKeygenTask launch];
 }
 
 - (void) didFinishSshKeygen: (NSNotification*) notification {
