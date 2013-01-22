@@ -435,6 +435,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     if ( ! ourNonDirNameCharSet ) {
         NSMutableCharacterSet * workingSet = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
         [workingSet addCharactersInString: @"_-."];
+        [workingSet removeCharactersInString:@"äÄöÖüÜß"];
         [workingSet formUnionWithCharacterSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [workingSet invert];
         ourNonDirNameCharSet = [workingSet copy];
