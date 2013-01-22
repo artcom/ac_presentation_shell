@@ -44,7 +44,6 @@
 		source = [[theSource stringByAppendingSlash] retain];
         destination = [[theDestination stringByAppendingSlash] retain];
         preserveLocalChanges = [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_RSYNC_PRESERVE_LOCAL];
-        
 	}
 	
 	return self;
