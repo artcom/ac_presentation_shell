@@ -433,17 +433,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (NSString*) subdirectoryFromTitle: (NSString*) aTitle {
     if ( ! ourNonDirNameCharSet ) {
-        NSMutableCharacterSet * workingSet = [[NSCharacterSet alphanumericCharacterSet] mutableCopy];
+        NSMutableCharacterSet * workingSet = [[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyz01234567890"] mutableCopy];
         [workingSet addCharactersInString: @"_-."];
-        [workingSet removeCharactersInString:@"äÄöÖüÜß"];
         [workingSet formUnionWithCharacterSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [workingSet invert];
         ourNonDirNameCharSet = [workingSet copy];
-        [workingSet release];
     }
-    NSString * str = [[aTitle componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""];
+    NSString * str = [[[aTitle lowercaseString] componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""];
     NSArray * words = [str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    return [[words componentsJoinedByString: @"_"] lowercaseString];
+    return [words componentsJoinedByString: @"_"];
 }
 
 @end
