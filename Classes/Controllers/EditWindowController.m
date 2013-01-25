@@ -54,6 +54,7 @@
 
 - (void) dealloc {
     [shellController release];
+    [progressSheet release];
     
     [super dealloc];
 }
