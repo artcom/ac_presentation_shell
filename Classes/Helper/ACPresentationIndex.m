@@ -44,10 +44,10 @@ NSString * const INDEX_NAME = @"index";      // The index name used by Search Ki
 - (void)openIndex {
     [self closeIndex];
     if ([self hasIndex]) {
-        _indexRef = [self openIndexAtPath:[self indexFilePath]];
+        _indexRef = [self openIndexAtPath:[self indexPath]];
     }
     else {
-        _indexRef = [self createIndexAtPath:[self indexFilePath]];
+        _indexRef = [self createIndexAtPath:[self indexPath]];
     }
 }
 
@@ -61,9 +61,9 @@ NSString * const INDEX_NAME = @"index";      // The index name used by Search Ki
 - (void)resetIndex {
     if ([self hasIndex]) {
         [self closeIndex];
-        [self removeIndexFile];
+        [self removeIndexAtPath:[self indexPath]];
     }
-    _indexRef = [self createIndexAtPath:[self indexFilePath]];
+    _indexRef = [self createIndexAtPath:[self indexPath]];
 }
 
 - (SKIndexRef)skIndexRef {
@@ -94,19 +94,20 @@ NSString * const INDEX_NAME = @"index";      // The index name used by Search Ki
     return SKIndexOpenWithURL((CFURLRef)url, (CFStringRef)INDEX_NAME, true);
 }
 
-- (NSString *)indexFilePath {
+- (void)removeIndexAtPath:(NSString *)path {
+    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
+}
+
+- (NSString *)indexPath {
     return [self.libraryPath stringByAppendingPathComponent:INDEX_FILENAME];
 }
 
 - (BOOL)hasIndex {
-    NSString *path = [self indexFilePath];
+    NSString *path = [self indexPath];
     return [[NSFileManager defaultManager] fileExistsAtPath:path];
 }
 
-- (void)removeIndexFile {
-    NSString *path = [self indexFilePath];
-    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-}
+
 
 
 @end
