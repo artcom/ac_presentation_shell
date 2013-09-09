@@ -81,11 +81,13 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
-		CD23DB1B17DDC37D006CBBEC /* ACPresentationIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23DB1A17DDC37D006CBBEC /* ACPresentationIndex.m */; };
+		CD23DB1B17DDC37D006CBBEC /* ACPresentationLibraryIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23DB1A17DDC37D006CBBEC /* ACPresentationLibraryIndex.m */; };
 		CD23DB2217DDC4F2006CBBEC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD23DB2117DDC4F2006CBBEC /* XCTest.framework */; };
 		CD23DB2817DDC4F2006CBBEC /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CD23DB2617DDC4F2006CBBEC /* InfoPlist.strings */; };
 		CD23DB3217DDC51C006CBBEC /* ACPresentationIndexTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23DB3117DDC51C006CBBEC /* ACPresentationIndexTest.m */; };
-		CD23DB3317DDC771006CBBEC /* ACPresentationIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23DB1A17DDC37D006CBBEC /* ACPresentationIndex.m */; };
+		CD23DB3317DDC771006CBBEC /* ACPresentationLibraryIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23DB1A17DDC37D006CBBEC /* ACPresentationLibraryIndex.m */; };
+		CD23DB3717DE144E006CBBEC /* ACSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23DB3617DE144E006CBBEC /* ACSearch.m */; };
+		CD23DB3817DE144E006CBBEC /* ACSearch.m in Sources */ = {isa = PBXBuildFile; fileRef = CD23DB3617DE144E006CBBEC /* ACSearch.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,14 +257,16 @@
 		63EB80A412050A26008D7814 /* gfx_ac_logo_no_text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_ac_logo_no_text.png; path = Resources/Images/gfx_ac_logo_no_text.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD23DB1917DDC37D006CBBEC /* ACPresentationIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPresentationIndex.h; sourceTree = "<group>"; };
-		CD23DB1A17DDC37D006CBBEC /* ACPresentationIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPresentationIndex.m; sourceTree = "<group>"; };
+		CD23DB1917DDC37D006CBBEC /* ACPresentationLibraryIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACPresentationLibraryIndex.h; path = Helper/ACPresentationLibraryIndex.h; sourceTree = "<group>"; };
+		CD23DB1A17DDC37D006CBBEC /* ACPresentationLibraryIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACPresentationLibraryIndex.m; path = Helper/ACPresentationLibraryIndex.m; sourceTree = "<group>"; };
 		CD23DB2017DDC4F2006CBBEC /* ACShell Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ACShell Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD23DB2117DDC4F2006CBBEC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CD23DB2517DDC4F2006CBBEC /* ACShell Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ACShell Tests-Info.plist"; sourceTree = "<group>"; };
 		CD23DB2717DDC4F2006CBBEC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CD23DB2B17DDC4F2006CBBEC /* ACShell Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ACShell Tests-Prefix.pch"; sourceTree = "<group>"; };
 		CD23DB3117DDC51C006CBBEC /* ACPresentationIndexTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACPresentationIndexTest.m; path = ../Tests/ACPresentationIndexTest.m; sourceTree = "<group>"; };
+		CD23DB3517DE144E006CBBEC /* ACSearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACSearch.h; path = Helper/ACSearch.h; sourceTree = "<group>"; };
+		CD23DB3617DE144E006CBBEC /* ACSearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACSearch.m; path = Helper/ACSearch.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -400,6 +404,7 @@
 		22B200B611DA1F3A00C6D9ED /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				CD23DB3417DE132A006CBBEC /* Search */,
 				630F36AC120F0B2100F89EFB /* AssetManager.h */,
 				630F36AD120F0B2100F89EFB /* AssetManager.m */,
 				636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */,
@@ -408,8 +413,6 @@
 				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
 				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
-				CD23DB1917DDC37D006CBBEC /* ACPresentationIndex.h */,
-				CD23DB1A17DDC37D006CBBEC /* ACPresentationIndex.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -612,6 +615,18 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		CD23DB3417DE132A006CBBEC /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				CD23DB1917DDC37D006CBBEC /* ACPresentationLibraryIndex.h */,
+				CD23DB1A17DDC37D006CBBEC /* ACPresentationLibraryIndex.m */,
+				CD23DB3517DE144E006CBBEC /* ACSearch.h */,
+				CD23DB3617DE144E006CBBEC /* ACSearch.m */,
+			);
+			name = Search;
+			path = ..;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -810,6 +825,7 @@
 				22D5993511DDD19B0025E48F /* PaginationView.m in Sources */,
 				22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */,
 				22CE72CD11EDAD8B0043F3C8 /* OverlayLayer.m in Sources */,
+				CD23DB3717DE144E006CBBEC /* ACSearch.m in Sources */,
 				22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */,
 				636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */,
 				636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */,
@@ -823,7 +839,7 @@
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,
 				63904153120632FE0061D215 /* LibraryServerView.m in Sources */,
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
-				CD23DB1B17DDC37D006CBBEC /* ACPresentationIndex.m in Sources */,
+				CD23DB1B17DDC37D006CBBEC /* ACPresentationLibraryIndex.m in Sources */,
 				639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */,
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
 				630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */,
@@ -837,7 +853,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD23DB3217DDC51C006CBBEC /* ACPresentationIndexTest.m in Sources */,
-				CD23DB3317DDC771006CBBEC /* ACPresentationIndex.m in Sources */,
+				CD23DB3317DDC771006CBBEC /* ACPresentationLibraryIndex.m in Sources */,
+				CD23DB3817DE144E006CBBEC /* ACSearch.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

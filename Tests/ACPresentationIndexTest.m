@@ -8,10 +8,10 @@
 
 #import <XCTest/XCTest.h>
 #import "NSFileManager-DirectoryHelper.h"
-#import "ACPresentationIndex.h"
+#import "ACPresentationLibraryIndex.h"
 
 @interface ACPresentationIndexTest : XCTestCase
-@property (nonatomic, strong) ACPresentationIndex *presentationIndex;
+@property (nonatomic, strong) ACPresentationLibraryIndex *presentationIndex;
 @end
 
 @implementation ACPresentationIndexTest
@@ -22,7 +22,7 @@
     
     NSString *path = [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"demo_library"];
     
-    self.presentationIndex = [[ACPresentationIndex alloc] initWithPath:path];
+    self.presentationIndex = [[ACPresentationLibraryIndex alloc] initWithPath:path];
     [self.presentationIndex release];
 }
 
@@ -38,14 +38,14 @@
 }
 
 - (void)testOpenIndex {
-    [self.presentationIndex openIndex];
-    SKIndexRef indexRef = [self.presentationIndex skIndexRef];
+    //[self.presentationIndex openIndex];
+    SKIndexRef indexRef = [self.presentationIndex index];
     XCTAssertNotEqual(indexRef, NULL, @"SKIndexRef is null");
 }
 
 - (void)testAnalysisProperties {
-    [self.presentationIndex openIndex];
-    SKIndexRef indexRef = [self.presentationIndex skIndexRef];
+    //[self.presentationIndex openIndex];
+    SKIndexRef indexRef = [self.presentationIndex index];
     NSDictionary *dict = (NSDictionary *)SKIndexGetAnalysisProperties(indexRef);
     XCTAssertNotNil(dict, @"No text analysis properties specified");
     
@@ -55,8 +55,14 @@
     XCTAssertEqual(proximitySearching, @1, @"kSKProximitySearching not enabled");
 }
 
-//- (void)testAnalysisProperties {
-//    [self.presentationIndex openIndex];
-//}
+- (void)testIndexing {
+    [self.presentationIndex resetIndex];
+    [self.presentationIndex indexFilesWithExtension:@"key"];
+    // TODO Actually test something
+}
+
+- (void)testSearch {
+    [self.presentationIndex find:@"BMW"];
+}
 
 @end
