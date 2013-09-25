@@ -21,6 +21,8 @@
 #import "default_keys.h"
 #import "localized_text_keys.h"
 
+#import "ACSearchIndex.h"
+
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
 enum ACPresentationDoubleClicked {
@@ -102,7 +104,12 @@ enum CollectionActionTags {
 		
 		rsyncController = [[RsyncController alloc] init];
 		rsyncController.delegate = self;
-	}
+        
+//        NSString *appSupportPath = [[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain];
+//        NSString *path = [appSupportPath stringByAppendingPathComponent:@"demo_library/index"];
+//        ACSearchIndex *searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:path];
+//        NSLog(@"blablabla %@", searchIndex.indexRef);
+    }
 	
 	return self;
 }
