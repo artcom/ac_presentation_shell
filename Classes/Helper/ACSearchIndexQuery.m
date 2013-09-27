@@ -7,60 +7,74 @@
 //
 
 #import "ACSearchIndexQuery.h"
+#import "ACSearchIndexResult.h"
 
 
 @interface ACSearchIndexQuery ()
-@property (nonatomic, assign) BOOL executing;
-@property (nonatomic, assign) BOOL finished;
+@property (nonatomic, assign) SKIndexRef index;
+@property (nonatomic, retain) NSString *query;
+@property (nonatomic, assign) int maxNumResults;
+@property (nonatomic, readwrite, retain) NSMutableArray *results;
 @end
 
 
 @implementation ACSearchIndexQuery
 
-- (instancetype)initWithQuery:(NSString *)queryString usingIndex:(SKIndexRef)index
+- (void)dealloc {
+    CFRelease(_index);
+    [_query release];
+    [_results release];
+    [super dealloc];
+}
+
+- (instancetype)initWithQuery:(NSString *)query usingIndex:(SKIndexRef)index maxNumResults:(int)maxNumResults
 {
     self = [super init];
     if (self) {
-        _executing = NO;
-        _finished = NO;
+        self.query = query;
+        self.maxNumResults = maxNumResults;
+        self.index = index;
+        CFRetain(index);
     }
     return self;
 }
 
 - (void)main {
-    if (self.isCancelled) {
-        self.finished = YES;
-        return;
+    
+    if (self.isCancelled) return;
+    
+    self.results = [[NSMutableArray alloc] init];
+    
+    SKSearchOptions options = kSKSearchOptionDefault;
+    SKSearchRef     search = SKSearchCreate(_index, (CFStringRef)self.query, options);
+    
+    CFIndex         maxNumResults = self.maxNumResults;
+    CFIndex         foundCount = 0;
+    SKDocumentID    documentIds[maxNumResults];
+    float           scores[maxNumResults];
+    SKDocumentRef   documentRefs[maxNumResults];
+    BOOL            searchInProgress = YES;
+
+    while (!self.isCancelled && searchInProgress) {
+    
+        searchInProgress = SKSearchFindMatches(search, maxNumResults, documentIds, scores, 0.5, &foundCount);
+        
+        SKIndexCopyDocumentRefsForDocumentIDs (_index,
+                                               (CFIndex)foundCount,
+                                               (SKDocumentID *)documentIds,
+                                               (SKDocumentRef *)documentRefs
+                                               );
+        
+        for (CFIndex i = 0; i < foundCount; i++) {
+            SKDocumentRef doc = (SKDocumentRef)documentRefs[i];
+            ACSearchIndexResult *result = [[ACSearchIndexResult alloc] init];
+            result.score = scores[i];
+            result.documentUrl = (NSURL *)SKDocumentCopyURL(doc);
+            result.documentId = documentIds[i];
+            [self.results addObject:result];
+            [result release];
+        }
     }
-}
-
-- (BOOL)isConcurrent {
-    return YES;
-}
-
-- (void)completeOperation {
-    self.executing = NO;
-    self.finished = YES;
-}
-
-- (void)setExecuting:(BOOL)executing {
-    [self willChangeValueForKey:@"isExecuting"];
-    _executing = executing;
-    [self didChangeValueForKey:@"isExecuting"];
-}
-
-- (void)setFinished:(BOOL)finished {
-    [self willChangeValueForKey:@"isFinished"];
-    _finished = finished;
-    [self didChangeValueForKey:@"isFinished"];
-}
-
-- (BOOL)isFinished {
-    return _finished;
-}
-
-- (BOOL)isExecuting {
-    return _executing;
 }
 
 @end
