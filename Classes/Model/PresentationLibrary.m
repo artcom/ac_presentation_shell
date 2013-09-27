@@ -13,6 +13,7 @@
 #import "NSString-WithUUID.h"
 #import "localized_text_keys.h"
 #import "AssetManager.h"
+#import "ACSearchIndex.h"
 
 #define ACSHELL_SYNC_SUCCESSFUL @"syncSuccessful"
 
@@ -25,6 +26,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (readonly) NSMutableArray* collections;
 @property (nonatomic, retain) NSMutableDictionary *presentationData;
 @property (nonatomic, retain) AssetManager *assetManager;
+@property (nonatomic, retain) ACSearchIndex *searchIndex;
 
 + (NSString*) settingsFilepath;
 
@@ -100,6 +102,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	[library release];
     [libraryDirPath release];
     [assetManager release];
+    [_searchIndex release];
 
 	[super dealloc];
 }
@@ -147,6 +150,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     [self syncPresentations];
 	[self cacheThumbnails];
+    [self updateSearchIndex];
+    
     return YES;
 }
 
@@ -174,6 +179,35 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     return nil;
 }
+
+
+#pragma mark - Index
+
+
+- (void)updateSearchIndex {
+    
+    if (!self.searchIndex) {
+        NSString *indexPath = [self.libraryDirPath stringByAppendingPathComponent:@"index"];
+        self.searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:indexPath];            // Try a memory-based index
+    }
+    
+    // TODO check if there is any change before re-indexing
+    // TODO make async
+    NSLog(@"start %@", libraryDirPath);
+    [self.searchIndex addDocumentsAt:self.libraryDirPath withExtension:@"key" completion:^(NSInteger numDocuments) {
+        NSLog(@"done, %lu", numDocuments);
+    }];
+    NSLog(@"end");
+}
+
+
+- (void)searchFullText:(NSString *)queryString {
+    [self.searchIndex search:queryString completion:^(NSArray *results) {
+    }];
+}
+
+
+#pragma mark - Thumbnails
 
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation {
 	NSImage *thumbnail = [thumbnailCache objectForKey:presentation.presentationId]; 

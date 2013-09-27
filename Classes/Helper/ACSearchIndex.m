@@ -9,12 +9,13 @@
 #import "ACSearchIndex.h"
 
 
-// The index name used by Search Kit (irrelevant for our case)
+// The internal index name used by Search Kit (not the file name of the index)
 NSString * const INDEX_NAME = @"DefaultIndex";
 
 
 @interface ACSearchIndex ()
-@property (nonatomic, readwrite, assign) SKIndexRef indexRef;
+@property (nonatomic, retain) NSOperationQueue *operationQueue;
+@property (atomic, assign) SKIndexRef indexRef;
 @property (nonatomic, retain) NSString *indexFilePath;
 @end
 
@@ -25,52 +26,73 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (void)dealloc {
     if (_indexRef) SKIndexClose(_indexRef);
     [_indexFilePath release];
+    [_operationQueue cancelAllOperations];
+    [_operationQueue release];
     [super dealloc];
 }
 
 - (id)initWithFileBasedIndex:(NSString *)path {
     self = [super init];
     if (self) {
+        
         self.indexFilePath = path;
+        self.operationQueue = [[NSOperationQueue alloc] init];
+        
+        // Note to the eager developer:
+        // Keep concurrent operation count to 1, that way all operations are enqueued in
+        // a serial queue and there won't be any issues with accessing the same resource
+        // from different threads. The queue itself will be running as a whole on a
+        // separate thread though.
+        self.operationQueue.maxConcurrentOperationCount = 1;
+        
         SKLoadDefaultExtractorPlugIns();
         [self openIndex];
     }
     return self;
 }
 
-- (BOOL)addDocumentAt:(NSString *)path updateIndex:(BOOL)updateIndex {
+- (void)addDocumentAt:(NSString *)path completion:(void (^)())completionBlock {
     
-    BOOL documentAdded = false;
-    NSURL *url = [NSURL fileURLWithPath:path];
-    SKDocumentRef document = SKDocumentCreateWithURL((CFURLRef)url);
-    if (document) {
-        documentAdded = SKIndexAddDocument(_indexRef, document, (CFStringRef) NULL, true);
-        CFRelease(document);
-    }
+    __block id weakSelf = self;
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        [weakSelf syncAddDocumentAt:path updateIndex:YES];
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock();
+            });
+        }
+    }];
     
-    if (documentAdded && updateIndex) SKIndexFlush(_indexRef);
-    return documentAdded;
+    [self.operationQueue addOperation:operation];
 }
 
-- (NSInteger)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension {
+- (void)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension completion:(void (^)(NSInteger))completionBlock {
     
-    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:path];
-    NSString *filePath;
-    NSInteger numFilesAdded = 0;
-    while ((filePath = [fileEnumerator nextObject])) {
-        
-        if ([[filePath pathExtension] isEqualToString:extension]) {
-            
-            NSString *documentPath = [path stringByAppendingPathComponent:filePath];
-            if ([self addDocumentAt:documentPath updateIndex:NO]) {
-                ++numFilesAdded;
-            }
+    __block id weakSelf = self;
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        NSInteger numDocuments = [weakSelf syncAddDocumentsAt:path withExtension:extension];
+        if (completionBlock) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionBlock(numDocuments);
+            });
         }
-    }
+    }];
     
-    SKIndexFlush(_indexRef);
-    return numFilesAdded;
+    [self.operationQueue addOperation:operation];
 }
+
+
+- (ACSearchIndexQuery *)search:(NSString *)query completion:(void(^)(NSArray *results))completion {
+    
+    // Cancel existing search? Allow single search only? Add explicit second method for that?
+    
+    return nil;
+}
+
+
+
+// TODO make reset and optimize async because the need to be enqueued, otherwise there are
+
 
 - (void)reset {
     if ([self hasIndex]) {
@@ -80,17 +102,54 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     self.indexRef = [self createIndexAtPath:self.indexFilePath];
 }
 
+
+
+- (void)optimize {
+    SKIndexCompact(self.indexRef);
+}
+
+
+#pragma mark - Private synchronous methods
+
+
+- (BOOL)syncAddDocumentAt:(NSString *)path updateIndex:(BOOL)updateIndex {
+    
+    BOOL documentAdded = false;
+    NSURL *url = [NSURL fileURLWithPath:path];
+    SKDocumentRef document = SKDocumentCreateWithURL((CFURLRef)url);
+    if (document) {
+        documentAdded = SKIndexAddDocument(self.indexRef, document, (CFStringRef) NULL, true);
+        CFRelease(document);
+    }
+    
+    if (documentAdded && updateIndex) SKIndexFlush(self.indexRef);
+    return documentAdded;
+}
+
+- (NSInteger)syncAddDocumentsAt:(NSString *)path withExtension:(NSString *)extension {
+    
+    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:path];
+    NSString *filePath;
+    NSInteger numFilesAdded = 0;
+    while ((filePath = [fileEnumerator nextObject])) {
+        
+        if ([[filePath pathExtension] isEqualToString:extension]) {
+            
+            NSString *documentPath = [path stringByAppendingPathComponent:filePath];
+            if ([self syncAddDocumentAt:documentPath updateIndex:NO]) {
+                ++numFilesAdded;
+            }
+        }
+    }
+    
+    SKIndexFlush(self.indexRef);
+    return numFilesAdded;
+}
+
+
 - (NSInteger)numDocuments {
     return SKIndexGetDocumentCount(_indexRef);
 }
-
-- (void)optimize {
-    SKIndexCompact(_indexRef);
-}
-
-
-#pragma mark Private
-
 
 - (void)openIndex {
     [self closeIndex];

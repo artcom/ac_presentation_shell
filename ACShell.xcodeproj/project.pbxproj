@@ -82,9 +82,7 @@
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CD421F5917F32140006C9426 /* ACSearchIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD421F5817F32140006C9426 /* ACSearchIndex.m */; };
-		CDEAC0EC17F339BA0060D41D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CD23DB2117DDC4F2006CBBEC /* XCTest.framework */; };
-		CDEAC0F217F339BA0060D41D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CDEAC0F017F339BA0060D41D /* InfoPlist.strings */; };
-		CDEAC0FC17F339D80060D41D /* ACSearchIndexTest.m in Sources */ = {isa = PBXBuildFile; fileRef = CDEAC0FB17F339D80060D41D /* ACSearchIndexTest.m */; };
+		CD7F034F17F5DE93004F5556 /* ACSearchIndexQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7F034E17F5DE93004F5556 /* ACSearchIndexQuery.m */; };
 		CDEC08E517F32F28009EC2F6 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC08E417F32F28009EC2F6 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
@@ -95,13 +93,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 6379E76B120C8B24006A6FEF;
 			remoteInfo = acshell_askpasswd;
-		};
-		CDEAC0F617F339BA0060D41D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D1107260486CEB800E47090;
-			remoteInfo = ACShell;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -258,11 +249,9 @@
 		CD23DB2117DDC4F2006CBBEC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CD421F5717F32140006C9426 /* ACSearchIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACSearchIndex.h; path = Helper/ACSearchIndex.h; sourceTree = "<group>"; };
 		CD421F5817F32140006C9426 /* ACSearchIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACSearchIndex.m; path = Helper/ACSearchIndex.m; sourceTree = "<group>"; };
-		CDEAC0EB17F339BA0060D41D /* ACShell Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ACShell Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDEAC0EF17F339BA0060D41D /* ACShell Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ACShell Tests-Info.plist"; sourceTree = "<group>"; };
-		CDEAC0F117F339BA0060D41D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CDEAC0F517F339BA0060D41D /* ACShell Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ACShell Tests-Prefix.pch"; sourceTree = "<group>"; };
-		CDEAC0FB17F339D80060D41D /* ACSearchIndexTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACSearchIndexTest.m; sourceTree = "<group>"; };
+		CD7F034A17F5B258004F5556 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		CD7F034D17F5DE93004F5556 /* ACSearchIndexQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACSearchIndexQuery.h; path = Helper/ACSearchIndexQuery.h; sourceTree = "<group>"; };
+		CD7F034E17F5DE93004F5556 /* ACSearchIndexQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACSearchIndexQuery.m; path = Helper/ACSearchIndexQuery.m; sourceTree = "<group>"; };
 		CDEC08E417F32F28009EC2F6 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CDEC08E817F3358D009EC2F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CDEC08EA17F335DA009EC2F6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -293,14 +282,6 @@
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				22B2002711D9F33900C6D9ED /* QuartzCore.framework in Frameworks */,
 				22C7F8DF11DB406700A54494 /* ScriptingBridge.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDEAC0E817F339BA0060D41D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CDEAC0EC17F339BA0060D41D /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,7 +332,6 @@
 				8D1107320486CEB800E47090 /* ACShell.app */,
 				2295410C11E3248700E09031 /* Tests.app */,
 				6379E76C120C8B24006A6FEF /* acshell_askpasswd */,
-				CDEAC0EB17F339BA0060D41D /* ACShell Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -506,7 +486,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97315FDCFA39411CA2CEA /* OtherSources */,
 				228C73CD11E1D6E600D55C89 /* Tests */,
-				CDEAC0ED17F339BA0060D41D /* ACShell XCTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				229540CD11E3216100E09031 /* Tests-Info.plist */,
@@ -547,6 +526,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CD7F034A17F5B258004F5556 /* CoreFoundation.framework */,
 				CDEC08EA17F335DA009EC2F6 /* Cocoa.framework */,
 				CDEC08E817F3358D009EC2F6 /* Foundation.framework */,
 				CDEC08E417F32F28009EC2F6 /* CoreServices.framework */,
@@ -604,29 +584,11 @@
 			children = (
 				CD421F5717F32140006C9426 /* ACSearchIndex.h */,
 				CD421F5817F32140006C9426 /* ACSearchIndex.m */,
+				CD7F034D17F5DE93004F5556 /* ACSearchIndexQuery.h */,
+				CD7F034E17F5DE93004F5556 /* ACSearchIndexQuery.m */,
 			);
 			name = Search;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		CDEAC0ED17F339BA0060D41D /* ACShell XCTests */ = {
-			isa = PBXGroup;
-			children = (
-				CDEAC0FB17F339D80060D41D /* ACSearchIndexTest.m */,
-				CDEAC0EE17F339BA0060D41D /* Supporting Files */,
-			);
-			name = "ACShell XCTests";
-			path = "ACShell Tests";
-			sourceTree = "<group>";
-		};
-		CDEAC0EE17F339BA0060D41D /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				CDEAC0EF17F339BA0060D41D /* ACShell Tests-Info.plist */,
-				CDEAC0F017F339BA0060D41D /* InfoPlist.strings */,
-				CDEAC0F517F339BA0060D41D /* ACShell Tests-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -686,37 +648,14 @@
 			productReference = 8D1107320486CEB800E47090 /* ACShell.app */;
 			productType = "com.apple.product-type.application";
 		};
-		CDEAC0EA17F339BA0060D41D /* ACShell Tests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = CDEAC0FA17F339BA0060D41D /* Build configuration list for PBXNativeTarget "ACShell Tests" */;
-			buildPhases = (
-				CDEAC0E717F339BA0060D41D /* Sources */,
-				CDEAC0E817F339BA0060D41D /* Frameworks */,
-				CDEAC0E917F339BA0060D41D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				CDEAC0F717F339BA0060D41D /* PBXTargetDependency */,
-			);
-			name = "ACShell Tests";
-			productName = "ACShell Tests";
-			productReference = CDEAC0EB17F339BA0060D41D /* ACShell Tests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "ART+COM AG";
-				TargetAttributes = {
-					CDEAC0EA17F339BA0060D41D = {
-						TestTargetID = 8D1107260486CEB800E47090;
-					};
-				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ACShell" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -732,7 +671,6 @@
 				8D1107260486CEB800E47090 /* ACShell */,
 				2295410B11E3248700E09031 /* Tests */,
 				6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */,
-				CDEAC0EA17F339BA0060D41D /* ACShell Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -774,14 +712,6 @@
 				63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */,
 				63143EF812A80D8B00B82DC3 /* SetupAssistant.xib in Resources */,
 				63EB80A512050A26008D7814 /* gfx_ac_logo_no_text.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDEAC0E917F339BA0060D41D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CDEAC0F217F339BA0060D41D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -843,17 +773,10 @@
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
 				639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */,
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
+				CD7F034F17F5DE93004F5556 /* ACSearchIndexQuery.m in Sources */,
 				630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */,
 				6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */,
 				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		CDEAC0E717F339BA0060D41D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				CDEAC0FC17F339D80060D41D /* ACSearchIndexTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -864,11 +787,6 @@
 			isa = PBXTargetDependency;
 			target = 6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */;
 			targetProxy = 6379E79B120C8BA7006A6FEF /* PBXContainerItemProxy */;
-		};
-		CDEAC0F717F339BA0060D41D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D1107260486CEB800E47090 /* ACShell */;
-			targetProxy = CDEAC0F617F339BA0060D41D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -942,14 +860,6 @@
 			name = PresentationEditWindow.xib;
 			sourceTree = "<group>";
 		};
-		CDEAC0F017F339BA0060D41D /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CDEAC0F117F339BA0060D41D /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -957,6 +867,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -984,6 +895,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1055,6 +967,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1077,6 +990,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1097,13 +1011,12 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
@@ -1112,95 +1025,12 @@
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		CDEAC0F817F339BA0060D41D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ACShell.app/Contents/MacOS/ACShell";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ACShell Tests/ACShell Tests-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "ACShell Tests/ACShell Tests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		CDEAC0F917F339BA0060D41D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ACShell.app/Contents/MacOS/ACShell";
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "ACShell Tests/ACShell Tests-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = "ACShell Tests/ACShell Tests-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -1242,14 +1072,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		CDEAC0FA17F339BA0060D41D /* Build configuration list for PBXNativeTarget "ACShell Tests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				CDEAC0F817F339BA0060D41D /* Debug */,
-				CDEAC0F917F339BA0060D41D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

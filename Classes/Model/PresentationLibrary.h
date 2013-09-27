@@ -45,6 +45,8 @@
 - (void)flushThumbnailCache;
 - (void)flushThumbnailCacheForPresentation: (Presentation *)presentation;
 
+- (void)searchFullText:(NSString *)queryString;
+
 - (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
                 isHighlight: (BOOL) highlightFlag 

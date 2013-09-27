@@ -8,37 +8,35 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreServices/CoreServices.h>
+#import "ACSearchIndexQuery.h"
+
+
+/**
+ Asynchronous full-text search using Search Kit
+ */
 
 @interface ACSearchIndex : NSObject
 
-@property (nonatomic, readonly, assign) SKIndexRef indexRef;
-
-
 - (id)initWithFileBasedIndex:(NSString *)path;
-
 
 /**
  Add a document to the index
  @param path to the document
- @param update the index automatically after the operation or not
- @return whether adding was successful
+ @param update the index automatically after the operation
+ @param a completion block called after the operation
  */
-- (BOOL)addDocumentAt:(NSString *)path updateIndex:(BOOL)updateIndex;
-
+- (void)addDocumentAt:(NSString *)path completion:(void(^)())completionBlock;;
 
 /**
  Index all documents in a folder and its sub-folders that have a given extension
  @param path to a folder
  @param extenstion to be required
- @return number of successfully added documents
+ @param a completion block called after documents have been added
  */
-- (NSInteger)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension;
+- (void)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension completion:(void(^)(NSInteger numDocuments))completionBlock;
 
 
-/**
- @return the number of documents in the index
- */
-- (NSInteger)numDocuments;
+- (ACSearchIndexQuery *)search:(NSString *)query completion:(void(^)(NSArray *results))completion;
 
 
 /**
