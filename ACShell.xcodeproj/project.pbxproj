@@ -83,6 +83,7 @@
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
 		CD421F5917F32140006C9426 /* ACSearchIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD421F5817F32140006C9426 /* ACSearchIndex.m */; };
 		CD7F034F17F5DE93004F5556 /* ACSearchIndexQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CD7F034E17F5DE93004F5556 /* ACSearchIndexQuery.m */; };
+		CDB9D32317F5FCA200AF343D /* ACSearchIndexResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB9D32217F5FCA200AF343D /* ACSearchIndexResult.m */; };
 		CDEC08E517F32F28009EC2F6 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC08E417F32F28009EC2F6 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
@@ -252,6 +253,8 @@
 		CD7F034A17F5B258004F5556 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		CD7F034D17F5DE93004F5556 /* ACSearchIndexQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACSearchIndexQuery.h; path = Helper/ACSearchIndexQuery.h; sourceTree = "<group>"; };
 		CD7F034E17F5DE93004F5556 /* ACSearchIndexQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACSearchIndexQuery.m; path = Helper/ACSearchIndexQuery.m; sourceTree = "<group>"; };
+		CDB9D32117F5FCA200AF343D /* ACSearchIndexResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACSearchIndexResult.h; path = Helper/ACSearchIndexResult.h; sourceTree = "<group>"; };
+		CDB9D32217F5FCA200AF343D /* ACSearchIndexResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ACSearchIndexResult.m; path = Helper/ACSearchIndexResult.m; sourceTree = "<group>"; };
 		CDEC08E417F32F28009EC2F6 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CDEC08E817F3358D009EC2F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CDEC08EA17F335DA009EC2F6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -384,7 +387,7 @@
 		22B200B611DA1F3A00C6D9ED /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				CD23DB3417DE132A006CBBEC /* Search */,
+				CD23DB3417DE132A006CBBEC /* Fulltext Search */,
 				630F36AC120F0B2100F89EFB /* AssetManager.h */,
 				630F36AD120F0B2100F89EFB /* AssetManager.m */,
 				636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */,
@@ -579,15 +582,17 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		CD23DB3417DE132A006CBBEC /* Search */ = {
+		CD23DB3417DE132A006CBBEC /* Fulltext Search */ = {
 			isa = PBXGroup;
 			children = (
 				CD421F5717F32140006C9426 /* ACSearchIndex.h */,
 				CD421F5817F32140006C9426 /* ACSearchIndex.m */,
 				CD7F034D17F5DE93004F5556 /* ACSearchIndexQuery.h */,
 				CD7F034E17F5DE93004F5556 /* ACSearchIndexQuery.m */,
+				CDB9D32117F5FCA200AF343D /* ACSearchIndexResult.h */,
+				CDB9D32217F5FCA200AF343D /* ACSearchIndexResult.m */,
 			);
-			name = Search;
+			name = "Fulltext Search";
 			path = ..;
 			sourceTree = "<group>";
 		};
@@ -775,6 +780,7 @@
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
 				CD7F034F17F5DE93004F5556 /* ACSearchIndexQuery.m in Sources */,
 				630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */,
+				CDB9D32317F5FCA200AF343D /* ACSearchIndexResult.m in Sources */,
 				6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */,
 				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
 			);
