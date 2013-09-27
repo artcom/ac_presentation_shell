@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
+#import "ACSearchIndex.h"
 
 @class ACShellCollection;
 @class Presentation;
@@ -45,7 +46,7 @@
 - (void)flushThumbnailCache;
 - (void)flushThumbnailCacheForPresentation: (Presentation *)presentation;
 
-- (void)searchFullText:(NSString *)queryString;
+- (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completionBlock;
 
 - (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote

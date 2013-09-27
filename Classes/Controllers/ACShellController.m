@@ -257,20 +257,37 @@ enum CollectionActionTags {
     }
 }
 
-- (IBAction)updatePresentationFilter: (id) sender {
+- (IBAction)updatePresentationFilter:(id)sender {
     
-    NSString *searchString = [sender stringValue];
+    NSPredicate *predicate = nil;
+
+    // Prepend and append an asterisk '*' to include words that *contain* the string
+    NSString *query = [NSString stringWithFormat:@"*%@*", [sender stringValue]];
     
-    [self.presentationLibrary searchFullText:searchString];
+    __block ACShellController *weakSelf = self;
+    [self.presentationLibrary searchFullText:query maxNumResults:20 completion:^(NSArray *results) {
+        NSLog(@"-------------------------");
+        for (ACSearchIndexResult *result in results) {
+            NSLog(@"score: %f, %@", result.score, result.documentUrl);
+        }
+    }];
+    
+//    predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+//        Presentation *presentation = (Presentation *)evaluatedObject;
+//        return YES;
+//    }];
     
     
-    NSPredicate * predicate = nil;
-    if ((searchString != nil) && (![searchString isEqualToString:@""])) {
-        predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@ or yearString contains[cd] %@", searchString, searchString];
-    }
-    [presentationsArrayController setFilterPredicate: predicate];
+//    NSString *searchString = [sender stringValue];
+//    NSPredicate * predicate = nil;
+//    if ((searchString != nil) && (![searchString isEqualToString:@""])) {
+//        predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@ or yearString contains[cd] %@", searchString, searchString];
+//    }
+    
+    [presentationsArrayController setFilterPredicate:predicate];
     [self updateStatusText: nil];
 }
+
 
 - (NSArray *)selectedPresentations {
 	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES AND isComplete == YES"];

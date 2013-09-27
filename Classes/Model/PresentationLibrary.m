@@ -13,11 +13,12 @@
 #import "NSString-WithUUID.h"
 #import "localized_text_keys.h"
 #import "AssetManager.h"
-#import "ACSearchIndex.h"
+
 
 #define ACSHELL_SYNC_SUCCESSFUL @"syncSuccessful"
 
 static NSCharacterSet * ourNonDirNameCharSet;
+
 
 @interface PresentationLibrary ()
 
@@ -29,15 +30,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (nonatomic, retain) ACSearchIndex *searchIndex;
 
 + (NSString*) settingsFilepath;
-
 - (void) setup;
 - (void) syncPresentations;
 - (void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate;
 - (void) updateIndices: (NSMutableArray*) thePresentations;
-
 - (NSString*) subdirectoryFromTitle: (NSString*) aTitle;
+
 @end
+
 
 @implementation PresentationLibrary
 @synthesize library;
@@ -181,33 +182,34 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 
-#pragma mark - Index
+#pragma mark - Full-text search
 
 
 - (void)updateSearchIndex {
     
     if (!self.searchIndex) {
         NSString *indexPath = [self.libraryDirPath stringByAppendingPathComponent:@"index"];
-        self.searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:indexPath];            // Try a memory-based index
+        self.searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:indexPath];            // TODO Try a memory-based index
     }
     
     // TODO check if there is any change before re-indexing
-    // TODO make async
     NSLog(@"start %@", libraryDirPath);
     [self.searchIndex addDocumentsAt:self.libraryDirPath withExtension:@"key" completion:^(NSInteger numDocuments) {
         NSLog(@"done, %lu", numDocuments);
     }];
-    NSLog(@"end");
 }
 
-
-- (void)searchFullText:(NSString *)queryString {
-    [self.searchIndex search:queryString completion:^(NSArray *results) {
-    }];
+- (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completionBlock {
+    
+    // TODO handle ACSearchResultBlock here, transform in information that can be
+    // used by next level aka ACShellController: Find corresponding presentation
+    
+    [self.searchIndex search:query maxNumResults:maxNumResults completion:completionBlock];
 }
 
 
 #pragma mark - Thumbnails
+
 
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation {
 	NSImage *thumbnail = [thumbnailCache objectForKey:presentation.presentationId]; 
