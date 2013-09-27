@@ -14,14 +14,13 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 
 @interface ACSearchIndex ()
+@property (nonatomic, retain) NSString *indexFilePath;
 @property (nonatomic, retain) NSOperationQueue *operationQueue;
 @property (atomic, assign) SKIndexRef indexRef;
-@property (nonatomic, retain) NSString *indexFilePath;
 @end
 
 
 @implementation ACSearchIndex
-
 
 - (void)dealloc {
     if (_indexRef) SKIndexClose(_indexRef);
@@ -38,7 +37,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
         self.indexFilePath = path;
         self.operationQueue = [[NSOperationQueue alloc] init];
         
-        // Note to the eager developer:
         // Keep concurrent operation count to 1, that way all operations are enqueued in
         // a serial queue and there won't be any issues with accessing the same resource
         // from different threads. The queue itself will be running as a whole on a
@@ -82,16 +80,21 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 }
 
 
-- (ACSearchIndexQuery *)search:(NSString *)query completion:(void(^)(NSArray *results))completion {
+- (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion {
+
+    ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query usingIndex:self.indexRef maxNumResults:maxNumResults];
+    [operation setCompletionBlock:^{
+        completion(operation.results);
+    }];
     
-    // Cancel existing search? Allow single search only? Add explicit second method for that?
-    
-    return nil;
+    [self.operationQueue addOperation:operation];
+    return operation;
 }
 
 
 
-// TODO make reset and optimize async because the need to be enqueued, otherwise there are
+
+// TODO make reset and optimize async because the need to be enqueued
 
 
 - (void)reset {
@@ -102,11 +105,12 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     self.indexRef = [self createIndexAtPath:self.indexFilePath];
 }
 
-
-
 - (void)optimize {
     SKIndexCompact(self.indexRef);
 }
+
+
+
 
 
 #pragma mark - Private synchronous methods
@@ -146,7 +150,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     return numFilesAdded;
 }
 
-
 - (NSInteger)numDocuments {
     return SKIndexGetDocumentCount(_indexRef);
 }
@@ -154,14 +157,11 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (void)openIndex {
     [self closeIndex];
     if ([self hasIndex]) {
-        SKIndexRef index = [self openIndexAtPath:self.indexFilePath];
-        NSLog(@"index : %@", index);
-        self.indexRef = index;
+        self.indexRef = [self openIndexAtPath:self.indexFilePath];
     }
     else {
         self.indexRef = [self createIndexAtPath:self.indexFilePath];
     }
-    
 }
 
 - (void)closeIndex {
