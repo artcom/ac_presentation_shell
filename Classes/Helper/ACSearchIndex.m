@@ -82,9 +82,14 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion {
 
+    NSLog(@"begin in thread: %@", [NSThread currentThread]);
     ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query usingIndex:self.indexRef maxNumResults:maxNumResults];
     [operation setCompletionBlock:^{
-        completion(operation.results);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"result in thread: %@", [NSThread currentThread]);
+            completion(operation.results);
+        });
     }];
     
     [self.operationQueue addOperation:operation];
