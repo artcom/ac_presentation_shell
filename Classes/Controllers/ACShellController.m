@@ -152,13 +152,9 @@ enum CollectionActionTags {
 	[editWindowController release];
     [rsyncController release];
     [setupAssistant release];
-    
-    
     [currentPresentationList release];
-    
     [presentationLibrary release];
 	
-    
     //[collectionView release];
 	//[presentationTable release];
     
@@ -259,33 +255,28 @@ enum CollectionActionTags {
 
 - (IBAction)updatePresentationFilter:(id)sender {
     
-    NSPredicate *predicate = nil;
-
+    // Do we have a string to search?
+    NSString *searchString = [sender stringValue];
+    if ([searchString isEqualToString:@""]) {
+        [presentationsArrayController setFilterPredicate:nil];
+        return;
+    }
+    
     // Prepend and append an asterisk '*' to include words that *contain* the string
-    NSString *query = [NSString stringWithFormat:@"*%@*", [sender stringValue]];
+    NSString *query = [NSString stringWithFormat:@"*%@*", searchString];
     
     __block ACShellController *weakSelf = self;
     [self.presentationLibrary searchFullText:query maxNumResults:20 completion:^(NSArray *results) {
+        
         NSLog(@"-------------------------");
-        for (ACSearchIndexResult *result in results) {
-            NSLog(@"score: %f, %@", result.score, result.documentUrl);
-        }
+        NSLog(@"%@", results);
+        // Make classical predicate where x has to be in [n, m, ... ]
+        
+        //NSString *first = results.count > 0 ? [results objectAtIndex:0] : @"";
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@ or yearString contains[cd] %@ or directory IN %@", searchString, searchString, results];
+        [weakSelf.presentationsArrayController setFilterPredicate:predicate];
     }];
-    
-//    predicate = [NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-//        Presentation *presentation = (Presentation *)evaluatedObject;
-//        return YES;
-//    }];
-    
-    
-//    NSString *searchString = [sender stringValue];
-//    NSPredicate * predicate = nil;
-//    if ((searchString != nil) && (![searchString isEqualToString:@""])) {
-//        predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@ or yearString contains[cd] %@", searchString, searchString];
-//    }
-    
-    [presentationsArrayController setFilterPredicate:predicate];
-    [self updateStatusText: nil];
 }
 
 
