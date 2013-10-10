@@ -12,6 +12,9 @@
 #import "ACSearchIndexResult.h"
 
 
+typedef void (^ACSearchResultBlock)(NSArray *results);
+
+
 /**
  Asynchronous full-text search using Search Kit
  All method are executed asynchronously but enqueued in a single serial queue, thus calling two methods in direct
@@ -20,11 +23,6 @@
  Because of this house-keeping this class is opaque and can't hand out a reference to the internally
  used SKIndexRef.
  */
-
-
-typedef void (^ACSearchResultBlock)(NSArray *results);
-
-
 @interface ACSearchIndex : NSObject
 
 - (id)initWithFileBasedIndex:(NSString *)path;
