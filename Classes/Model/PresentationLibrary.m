@@ -187,8 +187,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (void)updateSearchIndex {
     
-    // TODO update only changed documents
-    
     if (self.searchIndex) {
         [self.searchIndex reset];
     }
@@ -207,9 +205,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completionBlock {
     
+    // Async search
     [self.searchIndex search:query maxNumResults:maxNumResults completion:^(NSArray *results) {
         
         if (completionBlock) {
+            
+//            NSLog(@"==>");
+//            for (ACSearchIndexResult *result in results) {
+//                NSLog(@"-->%@, %f", result.documentUrl, result.score);
+//            }
             
             // Sort results by their score
             NSArray *sortedResults = [results sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -227,10 +231,23 @@ static NSCharacterSet * ourNonDirNameCharSet;
             for (ACSearchIndexResult *result in sortedResults) {
                 
                 NSArray *components = result.documentUrl.pathComponents;
-                NSUInteger index = [components indexOfObject:@"demo_library"];
                 
                 // TODO this is quick'n'dirty, make more reliable
-                [sortedPresentationTitles addObject:components[index + 1]];
+                NSUInteger index = [components indexOfObject:@"demo_library"];
+                NSString *folderName = components[index+1];
+                
+                /** 
+                 Nasty detail:
+                 There are different ways of encoding an Umlaut e.g. 'ä' in UTF-8. Either as a single character (composed/NFC) or as a combination
+                 of two characters: a + diaeresis (decomposed/NFD). The OSX HFS+ filesystem requires that filenames be stored in UTF-8 and in their 
+                 fully decomposed form NFD. We will later compare these strings with the property 'directory' of the class Presentation where the 
+                 strings are stored in NFC which is the normalized form mostly used. NSString isEqualToString: will return false if you compare 
+                 two strings in different forms. On the console via NSLog they will appear to be exactly the same.
+                 To fix that, we will here at this point convert the string to the normalization form C.
+                 Read more here: http://stackoverflow.com/questions/12147410/different-utf-8-signature-for-same-diacritics-umlauts-2-binary-ways-to-write
+                */
+                NSString *nfcFolderName = [folderName precomposedStringWithCanonicalMapping];
+                [sortedPresentationTitles addObject:nfcFolderName];
             }
             
             completionBlock(sortedPresentationTitles);
