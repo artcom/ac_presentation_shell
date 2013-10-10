@@ -82,12 +82,9 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion {
 
-    NSLog(@"begin in thread: %@", [NSThread currentThread]);
     ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query usingIndex:self.indexRef maxNumResults:maxNumResults];
     [operation setCompletionBlock:^{
-        
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"result in thread: %@", [NSThread currentThread]);
             completion(operation.results);
         });
     }];
@@ -95,8 +92,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     [self.operationQueue addOperation:operation];
     return operation;
 }
-
-
 
 
 // TODO make reset and optimize async because the need to be enqueued
@@ -113,9 +108,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (void)optimize {
     SKIndexCompact(self.indexRef);
 }
-
-
-
 
 
 #pragma mark - Private synchronous methods
