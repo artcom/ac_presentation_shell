@@ -53,6 +53,7 @@
     NSView * rightSplitPane;
 }
 
+@property (retain) NSSortDescriptor *userSortDescriptor;
 @property (retain) PresentationLibrary *presentationLibrary;
 @property (retain, nonatomic) NSMutableArray * library;
 

@@ -39,6 +39,7 @@ enum CollectionActionTags {
 #define AC_SHELL_TOOLBAR_ITEM_SYNC   @"ACShellToolbarItemSync"
 #define AC_SHELL_TOOLBAR_ITEM_UPLOAD @"ACShellToolbarItemUpload"
 #define AC_SHELL_TOOLBAR_ITEM_SEARCH @"ACShellToolbarItemSearch"
+#define AC_SHELL_SEARCH_MAX_RESULTS  1000
 
 @interface ACShellController ()
 
@@ -140,10 +141,11 @@ enum CollectionActionTags {
                                                  name: NSTableViewColumnDidMoveNotification
                                                object:presentationTable];
     
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"order" ascending:YES];
+    self.userSortDescriptor = sortDescriptor;
+    [sortDescriptor release];
     
-    
-    NSSortDescriptor* sortDescriptor = [[[NSSortDescriptor alloc] initWithKey: @"order" ascending: YES] autorelease];
-    [presentationTable setSortDescriptors:[NSArray arrayWithObject: sortDescriptor]];
+    [presentationTable setSortDescriptors:@[self.userSortDescriptor]];
 }
 
 - (void) dealloc {
@@ -154,7 +156,8 @@ enum CollectionActionTags {
     [setupAssistant release];
     [currentPresentationList release];
     [presentationLibrary release];
-	
+	[_userSortDescriptor release];
+    
     //[collectionView release];
 	//[presentationTable release];
     
@@ -255,27 +258,55 @@ enum CollectionActionTags {
 
 - (IBAction)updatePresentationFilter:(id)sender {
     
-    // Do we have a string to search?
     NSString *searchString = [sender stringValue];
+    
+    // If there is no search query, remove any existing filter and sort using user-defined sort
     if ([searchString isEqualToString:@""]) {
         [presentationsArrayController setFilterPredicate:nil];
+        [presentationTable setSortDescriptors:@[self.userSortDescriptor]];
         return;
     }
     
-    // Prepend and append an asterisk '*' to include words that *contain* the string
-    NSString *query = [NSString stringWithFormat:@"*%@*", searchString];
-    
+    // Prepend and append an asterisk '*' to every word of the entered query to also get results
+    // where a word in a presentation starts or ends with a queried word,
+    // e.g. 'Hello world' becomes '*Hello* *world*' to also find 'Hello worlds'
+    NSArray *searchWords = [searchString componentsSeparatedByString:@" "];
+    NSMutableArray *wildcardedWords = [NSMutableArray arrayWithCapacity:searchWords.count];
+    for (NSString *word in searchWords) {
+        [wildcardedWords addObject:[NSString stringWithFormat:@"*%@*", word]];
+    }
+    NSString *fullTextQuery = [wildcardedWords componentsJoinedByString:@" "];
+
+    // Start async search
     __block ACShellController *weakSelf = self;
-    [self.presentationLibrary searchFullText:query maxNumResults:20 completion:^(NSArray *results) {
+    [self.presentationLibrary searchFullText:fullTextQuery maxNumResults:AC_SHELL_SEARCH_MAX_RESULTS completion:^(NSArray *results) {
         
-        NSLog(@"-------------------------");
-        NSLog(@"%@", results);
-        // Make classical predicate where x has to be in [n, m, ... ]
-        
-        //NSString *first = results.count > 0 ? [results objectAtIndex:0] : @"";
-        
+        // Filter: Entry has to be in result list or the original searchString has to be in title or year
         NSPredicate *predicate = [NSPredicate predicateWithFormat: @"title contains[cd] %@ or yearString contains[cd] %@ or directory IN %@", searchString, searchString, results];
+        //NSPredicate *predicate = [NSPredicate predicateWithFormat: @"directory IN %@", results];
         [weakSelf.presentationsArrayController setFilterPredicate:predicate];
+        
+        // Sort by position in results array
+        NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"directory" ascending:YES comparator:^NSComparisonResult(id obj1, id obj2) {
+            
+            NSUInteger index1 = [results indexOfObject:obj1];
+            NSUInteger index2 = [results indexOfObject:obj2];
+            
+            // If an index is NSNotFound it means that the entry is in the title or the year
+            // but not in the Keynote presentation itself. In this case we'll put it at the
+            // end of the list. Since NSNotFound is actually NSIntegerMax, this will work automatically.
+            if (index1 > index2) {
+                return (NSComparisonResult)NSOrderedDescending;
+            }
+            if (index1 < index2) {
+                return (NSComparisonResult)NSOrderedAscending;
+            }
+            
+            return (NSComparisonResult)NSOrderedSame;
+        }];
+        
+        [weakSelf.presentationTable setSortDescriptors:@[sortDescriptor]];
+        [sortDescriptor release];
     }];
 }
 
