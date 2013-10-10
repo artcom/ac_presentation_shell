@@ -187,24 +187,55 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (void)updateSearchIndex {
     
-    if (!self.searchIndex) {
+    // TODO update only changed documents
+    
+    if (self.searchIndex) {
+        [self.searchIndex reset];
+    }
+    else {
+        // Create file-based index if not existing
         NSString *indexPath = [self.libraryDirPath stringByAppendingPathComponent:@"index"];
-        self.searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:indexPath];            // TODO Try a memory-based index
+        self.searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:indexPath];
     }
     
-    // TODO check if there is any change before re-indexing
-    NSLog(@"start %@", libraryDirPath);
+    // Index all documents
+    NSLog(@"indexing keynote presentations..");
     [self.searchIndex addDocumentsAt:self.libraryDirPath withExtension:@"key" completion:^(NSInteger numDocuments) {
-        NSLog(@"done, %lu", numDocuments);
+        NSLog(@".. indexed %lu documents", numDocuments);
     }];
 }
 
 - (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completionBlock {
     
-    // TODO handle ACSearchResultBlock here, transform in information that can be
-    // used by next level aka ACShellController: Find corresponding presentation
-    
-    [self.searchIndex search:query maxNumResults:maxNumResults completion:completionBlock];
+    [self.searchIndex search:query maxNumResults:maxNumResults completion:^(NSArray *results) {
+        
+        if (completionBlock) {
+            
+            // Sort results by their score
+            NSArray *sortedResults = [results sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+                if ([obj1 score] < [obj2 score]) {
+                    return (NSComparisonResult)NSOrderedDescending;
+                }
+                if ([obj1 score] > [obj2 score]) {
+                    return (NSComparisonResult)NSOrderedAscending;
+                }
+                return (NSComparisonResult)NSOrderedSame;
+            }];
+            
+            // Reduce the search result to a sorted array of presentation directory names
+            NSMutableArray *sortedPresentationTitles = [NSMutableArray arrayWithCapacity:sortedResults.count];
+            for (ACSearchIndexResult *result in sortedResults) {
+                
+                NSArray *components = result.documentUrl.pathComponents;
+                NSUInteger index = [components indexOfObject:@"demo_library"];
+                
+                // TODO this is quick'n'dirty, make more reliable
+                [sortedPresentationTitles addObject:components[index + 1]];
+            }
+            
+            completionBlock(sortedPresentationTitles);
+        }
+    }];
 }
 
 
