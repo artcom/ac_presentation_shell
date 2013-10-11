@@ -84,6 +84,7 @@
 		CD349E56180740CE0028C540 /* ACSearchIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD349E51180740CE0028C540 /* ACSearchIndex.m */; };
 		CD349E57180740CE0028C540 /* ACSearchIndexQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CD349E53180740CE0028C540 /* ACSearchIndexQuery.m */; };
 		CD349E58180740CE0028C540 /* ACSearchIndexResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CD349E55180740CE0028C540 /* ACSearchIndexResult.m */; };
+		CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */; };
 		CDEC08E517F32F28009EC2F6 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC08E417F32F28009EC2F6 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
@@ -255,6 +256,8 @@
 		CD349E54180740CE0028C540 /* ACSearchIndexResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSearchIndexResult.h; sourceTree = "<group>"; };
 		CD349E55180740CE0028C540 /* ACSearchIndexResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACSearchIndexResult.m; sourceTree = "<group>"; };
 		CD7F034A17F5B258004F5556 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		CDDA4EC41808058C004723CE /* PresentationLibrarySearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationLibrarySearch.h; sourceTree = "<group>"; };
+		CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationLibrarySearch.m; sourceTree = "<group>"; };
 		CDEC08E417F32F28009EC2F6 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CDEC08E817F3358D009EC2F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CDEC08EA17F335DA009EC2F6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -591,6 +594,8 @@
 				CD349E53180740CE0028C540 /* ACSearchIndexQuery.m */,
 				CD349E54180740CE0028C540 /* ACSearchIndexResult.h */,
 				CD349E55180740CE0028C540 /* ACSearchIndexResult.m */,
+				CDDA4EC41808058C004723CE /* PresentationLibrarySearch.h */,
+				CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -781,6 +786,7 @@
 				630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */,
 				CD349E58180740CE0028C540 /* ACSearchIndexResult.m in Sources */,
 				6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */,
+				CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */,
 				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
