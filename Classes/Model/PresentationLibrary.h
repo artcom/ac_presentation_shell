@@ -8,7 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
-#import "ACSearchIndex.h"
 
 @class ACShellCollection;
 @class Presentation;
@@ -31,6 +30,7 @@
 @property (assign) BOOL syncSuccessful;
 @property (readonly) NSString * libraryDirPath;
 
+
 + (id)libraryFromSettingsFile;
 
 - (void)saveSettings;
@@ -46,7 +46,7 @@
 - (void)flushThumbnailCache;
 - (void)flushThumbnailCacheForPresentation: (Presentation *)presentation;
 
-- (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completionBlock;
+- (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(void (^)(NSArray *))completionBlock;
 
 - (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote

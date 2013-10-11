@@ -13,6 +13,8 @@
 #import "NSString-WithUUID.h"
 #import "localized_text_keys.h"
 #import "AssetManager.h"
+#import "PresentationLibrarySearch.h"
+
 
 
 #define ACSHELL_SYNC_SUCCESSFUL @"syncSuccessful"
@@ -27,7 +29,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (readonly) NSMutableArray* collections;
 @property (nonatomic, retain) NSMutableDictionary *presentationData;
 @property (nonatomic, retain) AssetManager *assetManager;
-@property (nonatomic, retain) ACSearchIndex *searchIndex;
+@property (nonatomic, retain) PresentationLibrarySearch *librarySearch;
 
 + (NSString*) settingsFilepath;
 - (void) setup;
@@ -103,7 +105,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	[library release];
     [libraryDirPath release];
     [assetManager release];
-    [_searchIndex release];
+    [_librarySearch release];
 
 	[super dealloc];
 }
@@ -120,7 +122,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 	[NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];	
 }
 
-- (BOOL) loadXmlLibraryFromDirectory: (NSString*) directory {
+- (BOOL)loadXmlLibraryFromDirectory:(NSString*) directory {
     
 	[self flushThumbnailCache];
 	self.presentationData = nil;
@@ -151,7 +153,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     [self syncPresentations];
 	[self cacheThumbnails];
-    [self updateSearchIndex];
+    
+    PresentationLibrarySearch *librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
+    self.librarySearch = librarySearch;
+    [librarySearch release];
+    
+    [self.librarySearch updateIndex];
     
     return YES;
 }
@@ -185,74 +192,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
 #pragma mark - Full-text search
 
 
-- (void)updateSearchIndex {
+- (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(void (^)(NSArray *))completionBlock {
     
-    if (self.searchIndex) {
-        [self.searchIndex reset];
-    }
-    else {
-        // Create file-based index if not existing
-        NSString *indexPath = [self.libraryDirPath stringByAppendingPathComponent:@"index"];
-        self.searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:indexPath];
-    }
-    
-    // Index all documents
-    NSLog(@"indexing keynote presentations..");
-    [self.searchIndex addDocumentsAt:self.libraryDirPath withExtension:@"key" completion:^(NSInteger numDocuments) {
-        NSLog(@".. indexed %lu documents", numDocuments);
-    }];
-}
-
-- (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completionBlock {
-    
-    // Async search
-    [self.searchIndex search:query maxNumResults:maxNumResults completion:^(NSArray *results) {
-        
-        if (completionBlock) {
-            
-//            NSLog(@"==>");
-//            for (ACSearchIndexResult *result in results) {
-//                NSLog(@"-->%@, %f", result.documentUrl, result.score);
-//            }
-            
-            // Sort results by their score
-            NSArray *sortedResults = [results sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-                if ([obj1 score] < [obj2 score]) {
-                    return (NSComparisonResult)NSOrderedDescending;
-                }
-                if ([obj1 score] > [obj2 score]) {
-                    return (NSComparisonResult)NSOrderedAscending;
-                }
-                return (NSComparisonResult)NSOrderedSame;
-            }];
-            
-            // Reduce the search result to a sorted array of presentation directory names
-            NSMutableArray *sortedPresentationTitles = [NSMutableArray arrayWithCapacity:sortedResults.count];
-            for (ACSearchIndexResult *result in sortedResults) {
-                
-                NSArray *components = result.documentUrl.pathComponents;
-                
-                // TODO this is quick'n'dirty, make more reliable
-                NSUInteger index = [components indexOfObject:@"demo_library"];
-                NSString *folderName = components[index+1];
-                
-                /** 
-                 Nasty detail:
-                 There are different ways of encoding an Umlaut e.g. 'ä' in UTF-8. Either as a single character (composed/NFC) or as a combination
-                 of two characters: a + diaeresis (decomposed/NFD). The OSX HFS+ filesystem requires that filenames be stored in UTF-8 and in their 
-                 fully decomposed form NFD. We will later compare these strings with the property 'directory' of the class Presentation where the 
-                 strings are stored in NFC which is the normalized form mostly used. NSString isEqualToString: will return false if you compare 
-                 two strings in different forms. On the console via NSLog they will appear to be exactly the same.
-                 To fix that, we will here at this point convert the string to the normalization form C.
-                 Read more here: http://stackoverflow.com/questions/12147410/different-utf-8-signature-for-same-diacritics-umlauts-2-binary-ways-to-write
-                */
-                NSString *nfcFolderName = [folderName precomposedStringWithCanonicalMapping];
-                [sortedPresentationTitles addObject:nfcFolderName];
-            }
-            
-            completionBlock(sortedPresentationTitles);
-        }
-    }];
+    [self.librarySearch searchFullText:query maxNumResults:maxNumResults completion:completionBlock];
 }
 
 
