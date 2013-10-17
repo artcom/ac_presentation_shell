@@ -14,8 +14,12 @@ typedef void (^PresentationLibrarySearchResultBlock)(NSArray *results);
 
 
 /**
- Manages a search index for a PresentationLibrary and offers full-text search
- through its associated Keynote presentations.
+ @brief Manages a search index for a PresentationLibrary and offers full-text search
+ through its associated Keynote presentations. 
+ 
+ The index is memory-based, not persisted to the disk. See the context that's 
+ using this class when exactly the index is updated.
+ @see PresentationLibrary
  */
 @interface PresentationLibrarySearch : NSObject
 

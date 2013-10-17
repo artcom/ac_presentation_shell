@@ -183,10 +183,8 @@ enum CollectionActionTags {
 
 - (IBAction)sync: (id)sender {
     if ([presentationLibrary hasLibrary]) {
-        
         [rsyncController syncWithSource: self.librarySource destination: self.libraryDirPath];
     } else {
-        
         [rsyncController initialSyncWithSource: self.librarySource destination: self.libraryDirPath];
     }
 }
@@ -287,7 +285,7 @@ enum CollectionActionTags {
         //NSPredicate *predicate = [NSPredicate predicateWithFormat: @"directory IN %@", results];
         [weakSelf.presentationsArrayController setFilterPredicate:predicate];
         
-        // Sort by position in results array
+        /** Sort descriptor for table view: Entries should be shown in the same order as the @a results array */
         NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"directory" ascending:YES comparator:^NSComparisonResult(id obj1, id obj2) {
             
             NSUInteger index1 = [results indexOfObject:obj1];

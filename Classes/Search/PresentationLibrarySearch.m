@@ -38,7 +38,6 @@
     
     // TODO update only what changed
     // TODO update when new, changed or deleted presentation
-    
     // TODO when re-indexing, can we just overwrite?
     
     if (self.searchIndex) {

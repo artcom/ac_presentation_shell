@@ -16,8 +16,8 @@
 #import "PresentationLibrarySearch.h"
 
 
-
 #define ACSHELL_SYNC_SUCCESSFUL @"syncSuccessful"
+
 
 static NSCharacterSet * ourNonDirNameCharSet;
 
@@ -154,10 +154,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self syncPresentations];
 	[self cacheThumbnails];
     
+    /** Setup full-text search index */
     PresentationLibrarySearch *librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
     self.librarySearch = librarySearch;
     [librarySearch release];
-    
     [self.librarySearch updateIndex];
     
     return YES;
