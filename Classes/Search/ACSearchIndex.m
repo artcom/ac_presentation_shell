@@ -108,11 +108,27 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     return operation;
 }
 
-
-// TODO make reset and optimize async because the need to be enqueued
-
-
 - (void)reset {
+    [self enqueueMessage:@selector(syncReset)];
+}
+
+- (void)optimize {
+    [self enqueueMessage:@selector(syncOptimize)];
+}
+
+- (void)enqueueMessage:(SEL)selector {
+    __block id weakSelf = self;
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        [weakSelf performSelector:selector];
+    }];
+    [self.operationQueue addOperation:operation];
+}
+
+
+#pragma mark - Private synchronous methods
+
+
+- (void)syncReset {
     [self closeIndex];
     if ([self hasIndexFile]) {
         [self removeIndexFileAtPath:self.indexFilePath];
@@ -120,13 +136,9 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     self.indexRef = [self createIndex];
 }
 
-- (void)optimize {
+- (void)syncOptimize {
     SKIndexCompact(self.indexRef);
 }
-
-
-#pragma mark - Private synchronous methods
-
 
 - (BOOL)syncAddDocumentAt:(NSString *)path updateIndex:(BOOL)updateIndex {
     
@@ -189,15 +201,15 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (SKIndexRef)createIndex {
     
-    NSSet *stopWords = [NSSet setWithObjects: @"and", @"the", nil]; // TODO use stopwords?
+    NSSet *stopWords = [NSSet setWithObjects: @"and", @"the", @"was", nil];
     NSDictionary *properties = @{
                                  @"kSKStartTermChars" : @"",
-                                 @"kSKTermChars" : @"-_@.'",        // TODO how many typographical cases do we have to cover?
+                                 @"kSKTermChars" : @"-_@./'",
                                  @"kSKEndTermChars" : @"",
                                  @"kSKMinTermLength" : @3,
                                  @"kSKStopWords" : stopWords,
-                                 @"kSKMaximumTerms" : @0,           // TODO Limit this?
-                                 @"kSKProximitySearching" : @1};    // Needed for phrase searching
+                                 @"kSKMaximumTerms" : @0,
+                                 @"kSKProximitySearching" : @1};
     
     // File-based index
     SKIndexRef index;
