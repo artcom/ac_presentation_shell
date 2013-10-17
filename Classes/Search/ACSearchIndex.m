@@ -14,9 +14,10 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 
 @interface ACSearchIndex ()
-@property (nonatomic, retain) NSString *indexFilePath;
 @property (nonatomic, retain) NSOperationQueue *operationQueue;
 @property (atomic, assign) SKIndexRef indexRef;
+@property (nonatomic, retain) NSMutableData *indexData;
+@property (nonatomic, retain) NSString *indexFilePath;
 @end
 
 
@@ -25,22 +26,36 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (void)dealloc {
     if (_indexRef) SKIndexClose(_indexRef);
     [_indexFilePath release];
+    [_indexData release];
     [_operationQueue cancelAllOperations];
     [_operationQueue release];
     [super dealloc];
 }
 
 - (id)initWithFileBasedIndex:(NSString *)path {
+    self = [self init];
+    if (self) {
+        self.indexFilePath = path;
+    }
+    return self;
+}
+
+- (id)initWithMemoryBasedIndex {
+    self = [self init];
+    if (self) {
+    }
+    return self;
+}
+
+- (id)init {
     self = [super init];
     if (self) {
-        
-        self.indexFilePath = path;
-        self.operationQueue = [[NSOperationQueue alloc] init];
         
         // Keep concurrent operation count to 1, that way all operations are enqueued in
         // a serial queue and there won't be any issues with accessing the same resource
         // from different threads. The queue itself will be running as a whole on a
         // separate thread though.
+        self.operationQueue = [[NSOperationQueue alloc] init];
         self.operationQueue.maxConcurrentOperationCount = 1;
         
         SKLoadDefaultExtractorPlugIns();
@@ -98,11 +113,11 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 
 - (void)reset {
-    if ([self hasIndex]) {
-        [self closeIndex];
-        [self removeIndexAtPath:self.indexFilePath];
+    [self closeIndex];
+    if ([self hasIndexFile]) {
+        [self removeIndexFileAtPath:self.indexFilePath];
     }
-    self.indexRef = [self createIndexAtPath:self.indexFilePath];
+    self.indexRef = [self createIndex];
 }
 
 - (void)optimize {
@@ -151,13 +166,17 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     return SKIndexGetDocumentCount(_indexRef);
 }
 
+
+#pragma mark - Index management
+
+
 - (void)openIndex {
     [self closeIndex];
-    if ([self hasIndex]) {
-        self.indexRef = [self openIndexAtPath:self.indexFilePath];
+    if ([self hasIndexFile]) {
+        self.indexRef = [self openIndexFileAtPath:self.indexFilePath];
     }
     else {
-        self.indexRef = [self createIndexAtPath:self.indexFilePath];
+        self.indexRef = [self createIndex];
     }
 }
 
@@ -168,8 +187,8 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     }
 }
 
-- (SKIndexRef)createIndexAtPath:(NSString *)path {
-    NSURL *url = [NSURL fileURLWithPath:path];
+- (SKIndexRef)createIndex {
+    
     NSSet *stopWords = [NSSet setWithObjects: @"and", @"the", nil]; // TODO use stopwords?
     NSDictionary *properties = @{
                                  @"kSKStartTermChars" : @"",
@@ -180,20 +199,38 @@ NSString * const INDEX_NAME = @"DefaultIndex";
                                  @"kSKMaximumTerms" : @0,           // TODO Limit this?
                                  @"kSKProximitySearching" : @1};    // Needed for phrase searching
     
+    // File-based index
+    SKIndexRef index;
+    if (self.indexFilePath) {
+        NSURL *url = [NSURL fileURLWithPath:self.indexFilePath];
+        index = SKIndexCreateWithURL((CFURLRef)url, (CFStringRef)INDEX_NAME, kSKIndexInverted, (CFDictionaryRef)properties);
+    }
     
-    return SKIndexCreateWithURL((CFURLRef)url, (CFStringRef)INDEX_NAME, kSKIndexInverted, (CFDictionaryRef)properties);
+    // Memory-based index
+    else {
+        NSMutableData *data = [[NSMutableData alloc] init];
+        index = SKIndexCreateWithMutableData((CFMutableDataRef)data, (CFStringRef)INDEX_NAME, kSKIndexInverted, (CFDictionaryRef)properties);
+        self.indexData = data;
+        [data release];
+    }
+
+    return index;
 }
 
-- (SKIndexRef)openIndexAtPath:(NSString *)path {
+
+#pragma mark - File-based index management
+
+
+- (SKIndexRef)openIndexFileAtPath:(NSString *)path {
     NSURL *url = [NSURL fileURLWithPath:path];
     return SKIndexOpenWithURL((CFURLRef)url, (CFStringRef)INDEX_NAME, true);
 }
 
-- (void)removeIndexAtPath:(NSString *)path {
+- (void)removeIndexFileAtPath:(NSString *)path {
     [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
 }
 
-- (BOOL)hasIndex {
+- (BOOL)hasIndexFile {
     return [[NSFileManager defaultManager] fileExistsAtPath:self.indexFilePath];
 }
 

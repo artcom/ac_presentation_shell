@@ -27,7 +27,16 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  */
 @interface ACSearchIndex : NSObject
 
+/**
+ ACSearchIndex using a file-based index.
+ @param path A path where the index file will be saved
+ */
 - (id)initWithFileBasedIndex:(NSString *)path;
+
+/**
+ ACSearchIndex using a memory-based index.
+ */
+- (id)initWithMemoryBasedIndex;
 
 /**
  Add a document to the index
