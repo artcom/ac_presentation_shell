@@ -36,12 +36,17 @@
 
 - (void)updateIndex {
     
+    // TODO update only what changed
+    // TODO update when new, changed or deleted presentation
+    
+    // TODO when re-indexing, can we just overwrite?
+    
     if (self.searchIndex) {
         [self.searchIndex reset];
     }
     else {
-        NSString *indexPath = [self.libraryPath stringByAppendingPathComponent:@"index"];
-        self.searchIndex = [[ACSearchIndex alloc] initWithFileBasedIndex:indexPath];
+//        NSString *indexPath = [self.libraryPath stringByAppendingPathComponent:@"index"];
+        self.searchIndex = [[ACSearchIndex alloc] initWithMemoryBasedIndex];
         [_searchIndex release];
     }
     
@@ -85,7 +90,7 @@
                 NSString *folderName = components[index+1];
                 
                 /**
-                 Nasty detail:
+                 UTF-8 detail:
                  There are different ways of encoding an Umlaut e.g. 'ä' in UTF-8. Either as a single character (composed/NFC) or as a combination
                  of two characters: a + diaeresis (decomposed/NFD). The OSX HFS+ filesystem requires that filenames be stored in UTF-8 and in their
                  fully decomposed form NFD. We will later compare these strings with the property 'directory' of the class Presentation where the

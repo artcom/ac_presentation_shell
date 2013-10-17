@@ -14,7 +14,8 @@ typedef void (^PresentationLibrarySearchResultBlock)(NSArray *results);
 
 
 /**
- Manage and offer search through an ACSearchIndex specifically for a PresentationLibrary
+ Manages a search index for a PresentationLibrary and offers full-text search
+ through its associated Keynote presentations.
  */
 @interface PresentationLibrarySearch : NSObject
 
@@ -34,7 +35,8 @@ typedef void (^PresentationLibrarySearchResultBlock)(NSArray *results);
  @param query Search Query
  @param maxNumResults The maximum number of results to collect and return
  @param completionBlock A completion block with an NSArray containing all folder names that contain a Keynote 
- presentation that contains the search query. This name corresponds to Presentation.directory
+ presentation that contains the search query. This name corresponds to Presentation.directory. The array is ordered
+ by result score.
  */
 - (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(PresentationLibrarySearchResultBlock)completionBlock;
 
