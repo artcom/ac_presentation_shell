@@ -24,11 +24,11 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 @implementation ACSearchIndex
 
 - (void)dealloc {
-    if (_indexRef) SKIndexClose(_indexRef);
-    [_indexFilePath release];
-    [_indexData release];
     [_operationQueue cancelAllOperations];
     [_operationQueue release];
+    [_indexFilePath release];
+    [_indexData release];
+    if (_indexRef) SKIndexClose(_indexRef);
     [super dealloc];
 }
 

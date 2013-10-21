@@ -16,7 +16,7 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
 
 
 /**
- Asynchronous full-text search using Search Kit
+ @brief Asynchronous full-text search using Search Kit
  
  All methods are executed asynchronously but enqueued in a single serial queue, thus calling two methods in direct
  succession is fine. E.g. addDocumentsAt: immediately followed by search: will work as expected, search will
@@ -66,12 +66,15 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  */
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion;
 
-
-
-// TODO make async:
-
+/**
+ @brief Reset index
+ */
 - (void)reset;
 
+/**
+ @brief Optimize index. 
+ Can improve performance after many changes to the index like adding and/or removing many documents.
+ */
 - (void)optimize;
 
 @end

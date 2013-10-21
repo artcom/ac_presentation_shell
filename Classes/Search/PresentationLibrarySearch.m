@@ -44,28 +44,23 @@
         [self.searchIndex reset];
     }
     else {
-//        NSString *indexPath = [self.libraryPath stringByAppendingPathComponent:@"index"];
         self.searchIndex = [[ACSearchIndex alloc] initWithMemoryBasedIndex];
         [_searchIndex release];
     }
     
     // Index all documents
-    NSLog(@"indexing keynote presentations..");
+    NSLog(@"Indexing..");
     [self.searchIndex addDocumentsAt:self.libraryPath withExtension:@"key" completion:^(NSInteger numDocuments) {
-        NSLog(@".. indexed %lu documents", numDocuments);
+        NSLog(@"..indexed %lu documents.", numDocuments);
     }];
 }
 
 - (void)searchFullText:(NSString *)query maxNumResults:(int)maxNumResults completion:(PresentationLibrarySearchResultBlock)completionBlock {
     
+    NSString *libraryFolderName = [self libraryFolderName];
     [self.searchIndex search:query maxNumResults:maxNumResults completion:^(NSArray *results) {
         
         if (completionBlock) {
-            
-            //            NSLog(@"==>");
-            //            for (ACSearchIndexResult *result in results) {
-            //                NSLog(@"-->%@, %f", result.documentUrl, result.score);
-            //            }
             
             // Sort results by their score
             NSArray *sortedResults = [results sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -85,7 +80,7 @@
                 NSArray *components = result.documentUrl.pathComponents;
                 
                 // TODO this is quick'n'dirty, make more reliable aka dynamic
-                NSUInteger index = [components indexOfObject:@"demo_library"];
+                NSUInteger index = [components indexOfObject:libraryFolderName];
                 NSString *folderName = components[index+1];
                 
                 /**
@@ -105,6 +100,13 @@
             completionBlock(sortedPresentationTitles);
         }
     }];
+}
+
+
+- (NSString *)libraryFolderName {
+    NSURL *libraryFolder = [NSURL fileURLWithPath:self.libraryPath];
+    NSArray *components = libraryFolder.pathComponents;
+    return [components lastObject];
 }
 
 
