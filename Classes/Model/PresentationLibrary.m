@@ -179,6 +179,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
 		NSXMLElement * element = [presentationData objectForKey: key];
 		[element detach];
 	}
+    
+    [self.librarySearch updateIndex];
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
