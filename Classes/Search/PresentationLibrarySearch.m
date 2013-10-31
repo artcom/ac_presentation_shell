@@ -37,8 +37,6 @@
 - (void)updateIndex {
     
     // TODO update only what changed
-    // TODO update when new, changed or deleted presentation
-    // TODO when re-indexing, can we just overwrite?
     
     if (self.searchIndex) {
         [self.searchIndex reset];
@@ -49,9 +47,9 @@
     }
     
     // Index all documents
-    NSLog(@"Indexing..");
+//    NSLog(@"Indexing..");
     [self.searchIndex addDocumentsAt:self.libraryPath withExtension:@"key" completion:^(NSInteger numDocuments) {
-        NSLog(@"..indexed %lu documents.", numDocuments);
+//        NSLog(@"..indexed %lu documents.", numDocuments);
     }];
 }
 
@@ -77,9 +75,8 @@
             NSMutableArray *sortedPresentationTitles = [NSMutableArray arrayWithCapacity:sortedResults.count];
             for (ACSearchIndexResult *result in sortedResults) {
                 
+                // Get the name of the folder right after libraryFolderName
                 NSArray *components = result.documentUrl.pathComponents;
-                
-                // TODO this is quick'n'dirty, make more reliable aka dynamic
                 NSUInteger index = [components indexOfObject:libraryFolderName];
                 NSString *folderName = components[index+1];
                 
