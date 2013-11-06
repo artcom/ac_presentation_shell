@@ -268,11 +268,11 @@ enum CollectionActionTags {
     // Prepend and append an asterisk '*' to every word of the entered query to also get results
     // where a word in a presentation starts or ends with a queried word,
     // e.g. 'Hello world' becomes '*Hello* *world*' to also find 'Hello worlds'
-    // TODO except Boolean OR, AND and phrase searches
     NSArray *searchWords = [searchString componentsSeparatedByString:@" "];
     NSMutableArray *wildcardedWords = [NSMutableArray arrayWithCapacity:searchWords.count];
     for (NSString *word in searchWords) {
-        [wildcardedWords addObject:[NSString stringWithFormat:@"*%@*", word]];
+        if ([word isEqualToString:@"AND"] || [word isEqualToString:@"OR"]) [wildcardedWords addObject:word];
+        else [wildcardedWords addObject:[NSString stringWithFormat:@"*%@*", word]];
     }
     NSString *fullTextQuery = [wildcardedWords componentsJoinedByString:@" "];
 
@@ -286,7 +286,7 @@ enum CollectionActionTags {
         [weakSelf.presentationsArrayController setFilterPredicate:predicate];
         
         /** Sort descriptor for table view: Entries should be shown in the same order as the @a results array */
-        NSSortDescriptor* sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"directory" ascending:YES comparator:^NSComparisonResult(id obj1, id obj2) {
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"directory" ascending:YES comparator:^NSComparisonResult(id obj1, id obj2) {
             
             NSUInteger index1 = [results indexOfObject:obj1];
             NSUInteger index2 = [results indexOfObject:obj2];
