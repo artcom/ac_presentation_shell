@@ -47,9 +47,9 @@
     }
     
     // Index all documents
-//    NSLog(@"Indexing..");
+    NSLog(@"Indexing..");
     [self.searchIndex addDocumentsAt:self.libraryPath withExtension:@"key" completion:^(NSInteger numDocuments) {
-//        NSLog(@"..indexed %lu documents.", numDocuments);
+        NSLog(@"..indexed %lu documents.", numDocuments);
     }];
 }
 
