@@ -66,11 +66,14 @@
             SKDocumentRef doc = (SKDocumentRef)documentRefs[i];
             ACSearchIndexResult *result = [[ACSearchIndexResult alloc] init];
             result.score = scores[i];
-            result.documentUrl = (NSURL *)CFBridgingRelease(SKDocumentCopyURL(doc));
+            result.documentUrl = (__bridge_transfer NSURL *)SKDocumentCopyURL(doc);
             result.documentId = documentIds[i];
             [self.results addObject:result];
+            CFRelease(doc);
         }
-    }    
+    }
+    
+    CFRelease(search);
 }
 
 @end
