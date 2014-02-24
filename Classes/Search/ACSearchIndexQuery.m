@@ -70,7 +70,7 @@
             result.documentId = documentIds[i];
             [self.results addObject:result];
         }
-    }
+    }    
 }
 
 @end

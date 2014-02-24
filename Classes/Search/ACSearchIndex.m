@@ -96,8 +96,9 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query usingIndex:self.indexRef maxNumResults:maxNumResults];
     __weak ACSearchIndexQuery *weakOperationRef = operation;
     [operation setCompletionBlock:^{
+        NSArray *results = [weakOperationRef.results copy];
         dispatch_async(dispatch_get_main_queue(), ^{
-            completion([weakOperationRef results]);
+            completion(results);
         });
     }];
     
@@ -160,9 +161,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     NSString *filePath;
     NSInteger numFilesAdded = 0;
     while ((filePath = [fileEnumerator nextObject])) {
-        
         if ([[filePath pathExtension] isEqualToString:extension]) {
-            
             NSString *documentPath = [path stringByAppendingPathComponent:filePath];
             if ([self syncAddDocumentAt:documentPath updateIndex:NO]) {
                 ++numFilesAdded;
