@@ -37,25 +37,20 @@
 }
 
 - (void)main {
-    
     if (self.isCancelled) return;
-    
     self.results = [[NSMutableArray alloc] init];
     
     SKSearchOptions options = kSKSearchOptionDefault;
     SKSearchRef     search = SKSearchCreate(_index, (__bridge CFStringRef)self.query, options);
-    
     CFIndex         maxNumResults = self.maxNumResults;
     CFIndex         foundCount = 0;
     SKDocumentID    documentIds[maxNumResults];
-    float           scores[maxNumResults];
     SKDocumentRef   documentRefs[maxNumResults];
+    float           scores[maxNumResults];
     BOOL            searchInProgress = YES;
 
     while (!self.isCancelled && searchInProgress) {
-    
         searchInProgress = SKSearchFindMatches(search, maxNumResults, documentIds, scores, 0.5, &foundCount);
-        
         SKIndexCopyDocumentRefsForDocumentIDs (_index,
                                                (CFIndex)foundCount,
                                                (SKDocumentID *)documentIds,

@@ -61,7 +61,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 }
 
 - (void)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension completion:(void (^)(NSInteger))completionBlock {
-    
     __weak ACSearchIndex *weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         NSInteger numDocuments = [weakSelf syncAddDocumentsAt:path withExtension:extension];
@@ -75,11 +74,12 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 }
 
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion {
-    
-    ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query usingIndex:self.indexRef maxNumResults:maxNumResults];
+    ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query
+                                                                   usingIndex:self.indexRef
+                                                                maxNumResults:maxNumResults];
     __weak ACSearchIndexQuery *weakOperationRef = operation;
     [operation setCompletionBlock:^{
-        NSArray *results = [weakOperationRef.results copy];
+        NSArray *results = [[weakOperationRef results] copy];
         dispatch_async(dispatch_get_main_queue(), ^{
             completion(results);
         });
@@ -190,14 +190,11 @@ NSString * const INDEX_NAME = @"DefaultIndex";
                                  @"kSKMaximumTerms" : @0,
                                  @"kSKProximitySearching" : @1};
     
-    // File-based index
     SKIndexRef index;
-    if (self.indexFilePath) {
+    if ([self isFileBased]) {
         NSURL *url = [NSURL fileURLWithPath:self.indexFilePath];
         index = SKIndexCreateWithURL((__bridge CFURLRef)url, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
     }
-    
-    // Memory-based index
     else {
         NSMutableData *data = [[NSMutableData alloc] init];
         index = SKIndexCreateWithMutableData((__bridge CFMutableDataRef)data, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
@@ -205,6 +202,10 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     }
 
     return index;
+}
+
+- (BOOL)isFileBased {
+    return self.indexFilePath != nil;
 }
 
 
