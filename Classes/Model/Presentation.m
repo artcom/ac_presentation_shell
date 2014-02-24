@@ -55,7 +55,7 @@
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"%d-%@", self.order, self.title];
+	return [NSString stringWithFormat:@"%ld-%@", (long)self.order, self.title];
 }
 
 - (NSImage *)thumbnail {

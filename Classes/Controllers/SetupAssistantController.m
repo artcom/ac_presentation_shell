@@ -231,7 +231,6 @@ enum PageTags {
 }
 
 - (IBAction) openMailTemplate: (id) sender {
-    NSString * libraryName = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
     NSString * adminAddress = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
     NSString * subject = [NSString stringWithFormat: @"ACShell library access"];
     NSString * body = [NSString stringWithFormat: @"Hi,\nI need to access the presentation library.\n Here is my public key:\n"];
@@ -243,7 +242,7 @@ enum PageTags {
             return;
         }
         LibraryServer * server = [bonjourLibraries objectAtIndex: [selection firstIndex]];
-        libraryName = server.name;
+        NSString *libraryName = server.name;
         adminAddress = server.administratorAddress;
         subject = [server.keyRequestEmailSubject stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];
         body = [server.keyRequestEmailBody stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];

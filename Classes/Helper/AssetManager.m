@@ -93,7 +93,6 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     clientContext.release = CFRelease;
     clientContext.copyDescription = NULL;
     
-    
     if ([opcode isEqualToNumber: copy_op]) {
         error = FSCopyObjectAsync(op, &srcRef, &destDirRef, NULL, kFSFileOperationDefaultOptions,
                                   fileOpStatusCallback, 1.0, &clientContext);
@@ -102,8 +101,7 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
         [delegate setMessage: NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
         error = FSMoveObjectToTrashAsync(op, &srcRef, kFSFileOperationDefaultOptions,
                                          fileOpStatusCallback, 1.0, &clientContext);
-    }
-	
+    }	
 }
 
 - (void) fileOp: (FSFileOperationRef) fileOp didUpdateStatus: (const FSRef*) currentItem 
