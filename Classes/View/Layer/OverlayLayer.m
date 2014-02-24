@@ -16,11 +16,11 @@
 	self = [super init];
 	if (self != nil) {
 		
-		textLayer = [[CATextLayer layer] retain];
+		textLayer = [CATextLayer layer];
 		textLayer.foregroundColor = CGColorGetConstantColor(kCGColorWhite);
 		textLayer.wrapped = YES;
 		textLayer.fontSize = 14;
-		textLayer.font = @"AC Swiss Bold";
+		textLayer.font = (__bridge CFTypeRef)(@"AC Swiss Bold");
 		
 		[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
 															relativeTo:@"superlayer"
@@ -55,10 +55,6 @@
 	textLayer.string = newText;
 }
 
-- (void) dealloc {
-	[textLayer release];
-	[super dealloc];
-}
 
 
 

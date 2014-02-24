@@ -78,14 +78,6 @@ enum PageTags {
     return self;
 }
 
-- (void) dealloc {
-    [publicKeys release];
-    [bonjourBrowser release];
-    [bonjourLibraries release];
-    [sshKeygenTask release];
-    
-    [super dealloc];
-}
 
 - (void) awakeFromNib {
     [pages selectFirstTabViewItem: nil];
@@ -273,7 +265,7 @@ enum PageTags {
     [self willChangeValueForKey: @"publicKeys"];
     for (NSString * file in publicKeyFiles) {
         NSString * path = [sshDir stringByAppendingPathComponent: file];
-        [publicKeyArrayController addObject: [[[SshIdentityFile alloc] initWithPath: path] autorelease]];
+        [publicKeyArrayController addObject: [[SshIdentityFile alloc] initWithPath: path]];
     }
     [self didChangeValueForKey: @"publicKeys"];
     
@@ -308,7 +300,6 @@ enum PageTags {
     [sshTask setLaunchPath: @"/usr/bin/ssh-keygen"];
     [sshTask setArguments: args];
     self.sshKeygenTask = sshTask;
-    [sshTask release];
     [self.sshKeygenTask launch];
 }
 
@@ -340,7 +331,7 @@ enum PageTags {
             didFindService: (NSNetService*) aNetService
                 moreComing: (BOOL) moreComing
 {
-    [bonjourLibrariesArrayController addObject: [[[LibraryServer alloc] initWithNetService: aNetService] autorelease]];
+    [bonjourLibrariesArrayController addObject: [[LibraryServer alloc] initWithNetService: aNetService]];
     NSIndexSet * selection = [bonjourServerList selectionIndexes];
     if ([selection count] == 0) {
         [bonjourServerList setSelectionIndexes: [NSIndexSet indexSetWithIndex: 0]];

@@ -57,15 +57,6 @@ static NSImage * ourUploadIcon = nil;
 -(void) awakeFromNib {
 }
 
--(void) dealloc {
-    [lastRsyncMessage release];
-    [rsyncTask release];
-    [currentSheet release];
-    [documentWindow release];
-    [progressView release];
-    
-    [super dealloc];
-}
 
 - (void) syncWithSource: (NSString*) source destination: (NSString*) destination {
     isUploading = NO;
@@ -80,11 +71,11 @@ static NSImage * ourUploadIcon = nil;
                                                  style: NSInformationalAlertStyle
                                                   icon: [self directionIcon] 
 												buttonTitles: nil];
-    NSArray * srcDst = [[NSArray arrayWithObjects: source, destination, nil] retain];
+    NSArray * srcDst = [NSArray arrayWithObjects: source, destination, nil];
     
     //NSLog(@"initialSyncWithSource -> srcDstArray count:%lu", [srcDst count]);
     
-    [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: srcDst];
+    [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: (__bridge void *)(srcDst)];
 }
 
 - (void) uploadWithSource: (NSString*) source destination: (NSString*) destination {
@@ -96,7 +87,6 @@ static NSImage * ourUploadIcon = nil;
     NSAlert * progressDialog = [self progressDialog];
     [self showSheet: progressDialog didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
     terminatedByUser = NO;
-    [rsyncTask release];
 	rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
 	rsyncTask.delegate = self;
     
@@ -163,8 +153,7 @@ static NSImage * ourUploadIcon = nil;
     [fileProgressBar setIndeterminate: NO];
     [totalProgressBar setIndeterminate: NO];
     
-    [lastRsyncMessage release];
-    lastRsyncMessage = [message retain];
+    lastRsyncMessage = message;
 }  
 
 #pragma mark -
@@ -172,7 +161,7 @@ static NSImage * ourUploadIcon = nil;
 
 -(void) userDidConfirmInitialSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        NSArray * srcDst = (NSArray*) contextInfo;
+        NSArray * srcDst = (__bridge NSArray*) contextInfo;
         
         [self performSync: [srcDst objectAtIndex: 0] destination: [srcDst objectAtIndex: 1]];
     }
@@ -228,20 +217,19 @@ static NSImage * ourUploadIcon = nil;
     if (currentSheet != nil) {
         [[currentSheet window] orderOut: self];
         [NSApp endSheet:[currentSheet window]];
-		[currentSheet release];
 		currentSheet = nil;
     }
     if (sheet != nil) {
         [sheet beginSheetModalForWindow: documentWindow modalDelegate:self didEndSelector: theEndSelector contextInfo:context];
     } 
 	
-	currentSheet = [sheet retain];
+	currentSheet = sheet;
 }
 
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles
 {
-    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
+    NSAlert * dialog = [[NSAlert alloc] init];
 
 	if (titles == nil) {
 		titles = [NSArray arrayWithObjects: ACSHELL_STR_OK, ACSHELL_STR_CANCEL, nil];
@@ -263,7 +251,7 @@ static NSImage * ourUploadIcon = nil;
 -(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                    style: (NSAlertStyle) style icon: (NSImage*) icon
 {
-    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
+    NSAlert * dialog = [[NSAlert alloc] init];
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
@@ -275,7 +263,7 @@ static NSImage * ourUploadIcon = nil;
 }
 
 -(NSAlert*) progressDialog {
-    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
+    NSAlert * dialog = [[NSAlert alloc] init];
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
     [dialog setMessageText: NSLocalizedString(ACSHELL_STR_SYNCING,nil)];
     [dialog setInformativeText: NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE,nil)];

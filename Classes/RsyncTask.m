@@ -41,25 +41,14 @@
 - (id)initWithSource: (NSString *)theSource destination: (NSString *)theDestination; {
 	self = [super init];
 	if (self != nil) {	
-		source = [[theSource stringByAppendingSlash] retain];
-        destination = [[theDestination stringByAppendingSlash] retain];
+		source = [theSource stringByAppendingSlash];
+        destination = [theDestination stringByAppendingSlash];
         preserveLocalChanges = [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_RSYNC_PRESERVE_LOCAL];
 	}
 	
 	return self;
 }
 
-- (void)dealloc {
-	[pipe release];
-	[errorPipe release];
-	
-	[source release];
-	[destination release];
-	
-	[task release];
-	
-	[super dealloc];
-}
 
 
 - (void)sync {
@@ -98,7 +87,6 @@
     [env setObject: iconPath forKey: @"ACSHELL_ICON_URL"];
     
     [task setEnvironment: env];
-    [env release];
     
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(rsyncDidUpdateProgress:)
                                                  name: NSFileHandleReadCompletionNotification object: [pipe fileHandleForReading]];
@@ -115,14 +103,14 @@
 }
 
 -(void) processRsyncOutput: (NSData*) output {
-    NSString * str = [[[NSString alloc] initWithData: output encoding:NSASCIIStringEncoding] autorelease];
+    NSString * str = [[NSString alloc] initWithData: output encoding:NSASCIIStringEncoding];
     NSArray * lines = [str componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
     for (NSString * line in lines) {
         if ([line length] == 0) {
             continue;
         }
         if ([line characterAtIndex: 0] == ' ') {
-            NSScanner * scanner = [[[NSScanner alloc] initWithString: line] autorelease];
+            NSScanner * scanner = [[NSScanner alloc] initWithString: line];
             [scanner setCharactersToBeSkipped: [NSCharacterSet whitespaceCharacterSet]];
             NSInteger maybeFileCount = -1;
             if ( ! [scanner scanInteger: &maybeFileCount]) {
@@ -184,7 +172,7 @@
 	} else {
 		if ([delegate respondsToSelector:@selector(rsyncTask:didFailWithError:)]) {
 			NSData *errorData = [[errorPipe fileHandleForReading] readDataToEndOfFile];
-			[delegate rsyncTask:self didFailWithError: [[[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding] autorelease]];
+			[delegate rsyncTask:self didFailWithError: [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding]];
 		}
 	}
 	
@@ -195,9 +183,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:task];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleReadCompletionNotification object:[pipe fileHandleForReading]];
 	
-	[task release];
 	task = nil;
-	[pipe release];
 	pipe = nil;
 }
 

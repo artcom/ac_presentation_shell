@@ -33,10 +33,10 @@
 	
 	NSUInteger targetLibrarySize;
 	
-	id <RsyncTaskDelegate> delegate;
+	id <RsyncTaskDelegate> __unsafe_unretained delegate;
 }
 
-@property (assign) id <RsyncTaskDelegate> delegate;
+@property (unsafe_unretained) id <RsyncTaskDelegate> delegate;
 
 - (id)initWithSource: (NSString *)source destination: (NSString *)destination;
 - (void)sync;

@@ -37,7 +37,7 @@
     err = FSFindFolder(domain, folderType, false, &folder);
     if (err == noErr) {
         url = CFURLCreateFromFSRef(kCFAllocatorDefault, &folder);
-        result = [(NSURL *)url path];
+        result = [(__bridge NSURL *)url path];
 		CFRelease(url);
     }
 	

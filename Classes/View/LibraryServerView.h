@@ -11,11 +11,11 @@
 
 @interface LibraryServerView : NSView {
     BOOL selected;
-    NSTextField * titleField;
+    NSTextField * __weak titleField;
 }
 
 @property (readwrite) BOOL selected;
 
-@property (assign, nonatomic) IBOutlet NSTextField * titleField;
+@property (weak, nonatomic) IBOutlet NSTextField * titleField;
 
 @end

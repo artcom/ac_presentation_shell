@@ -12,30 +12,30 @@
 @interface LibraryServer : NSObject <NSNetServiceDelegate> {
     NSNetService * netService;
     
-    NSString * hostname;
-    NSString * name;
-    NSString * administratorAddress;
-    NSString * rsyncSource;
-    NSString * rsyncPath;
-    NSString * readUser;
-    NSString * writeUser;
-    NSString * keyRequestEmailSubject;
-    NSString * keyRequestEmailBody;
+    NSString * __weak hostname;
+    NSString * __weak name;
+    NSString * __weak administratorAddress;
+    NSString * __weak rsyncSource;
+    NSString * __weak rsyncPath;
+    NSString * __weak readUser;
+    NSString * __weak writeUser;
+    NSString * __weak keyRequestEmailSubject;
+    NSString * __weak keyRequestEmailBody;
     
     NSDictionary * txtRecord;
 }
 
 - (id) initWithNetService: (NSNetService*) aNetService;
 
-@property (readonly) NSString* hostname;
-@property (readonly) NSString* name;
-@property (readonly) NSString* administratorAddress;
-@property (readonly) NSString* rsyncSource;
-@property (readonly) NSString* rsyncPath;
-@property (readonly) NSString* readUser;
-@property (readonly) NSString* writeUser;
-@property (readonly) NSString* keyRequestEmailSubject;
-@property (readonly) NSString* keyRequestEmailBody;
+@property (weak, readonly) NSString* hostname;
+@property (weak, readonly) NSString* name;
+@property (weak, readonly) NSString* administratorAddress;
+@property (weak, readonly) NSString* rsyncSource;
+@property (weak, readonly) NSString* rsyncPath;
+@property (weak, readonly) NSString* readUser;
+@property (weak, readonly) NSString* writeUser;
+@property (weak, readonly) NSString* keyRequestEmailSubject;
+@property (weak, readonly) NSString* keyRequestEmailBody;
 
 @property (readonly) NSNetService * netService;
 

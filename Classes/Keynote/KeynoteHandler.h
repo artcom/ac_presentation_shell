@@ -14,7 +14,7 @@
 	KeynoteApplication *application;
 }
 
-@property (nonatomic, retain) KeynoteApplication *application;
+@property (nonatomic, strong) KeynoteApplication *application;
 
 + (KeynoteHandler *)sharedHandler;
 

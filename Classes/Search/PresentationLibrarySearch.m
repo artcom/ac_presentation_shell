@@ -10,20 +10,14 @@
 
 
 @interface PresentationLibrarySearch ()
-@property (nonatomic, retain) ACSearchIndex *searchIndex;
-@property (nonatomic, retain) NSString *libraryPath;
+@property (nonatomic, strong) ACSearchIndex *searchIndex;
+@property (nonatomic, strong) NSString *libraryPath;
 @end
 
 
 @implementation PresentationLibrarySearch
 
 
-- (void)dealloc
-{
-    [_libraryPath release];
-    [_searchIndex release];
-    [super dealloc];
-}
 
 - (id)initWithLibraryPath:(NSString *)path
 {
@@ -43,7 +37,6 @@
     }
     else {
         self.searchIndex = [[ACSearchIndex alloc] initWithMemoryBasedIndex];
-        [_searchIndex release];
     }
     
     // Index all documents

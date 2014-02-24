@@ -10,7 +10,7 @@
 
 @interface ACSearchIndexQuery : NSOperation
 
-@property (atomic, readonly, retain) NSMutableArray *results;
+@property (atomic, readonly, strong) NSMutableArray *results;
 
 - (instancetype)initWithQuery:(NSString *)query usingIndex:(SKIndexRef)index maxNumResults:(int)maxNumResults;
 

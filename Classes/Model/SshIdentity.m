@@ -20,11 +20,6 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [path release];
-    [super dealloc];
-}
 
 - (NSString*) filename {
     return [path lastPathComponent];

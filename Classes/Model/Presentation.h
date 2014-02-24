@@ -30,30 +30,30 @@
 
 @property (assign) BOOL selected;
 @property (assign) NSInteger order;
-@property (retain) id presentationId;
-@property (retain) PresentationLibrary* context;
+@property (strong) id presentationId;
+@property (strong) PresentationLibrary* context;
 
-@property (retain) NSString *title;
-@property (readonly) NSString *singleLineTitle;
+@property (strong) NSString *title;
+@property (weak, readonly) NSString *singleLineTitle;
 
 @property (assign) BOOL highlight;
-@property (retain) NSNumber* year;
+@property (strong) NSNumber* year;
 
-@property (retain)   NSString * directory;
-@property (readonly) NSString * absoluteDirectory;
+@property (strong)   NSString * directory;
+@property (weak, readonly) NSString * absoluteDirectory;
 
-@property (retain)   NSString * thumbnailFilename;
-@property (readonly) NSString * relativeThumbnailPath;
-@property (readonly) NSString * absoluteThumbnailPath;
+@property (strong)   NSString * thumbnailFilename;
+@property (weak, readonly) NSString * relativeThumbnailPath;
+@property (weak, readonly) NSString * absoluteThumbnailPath;
 
-@property (retain)   NSString * presentationFilename;
-@property (readonly) NSString * relativePresentationPath;
-@property (readonly) NSString * absolutePresentationPath;
+@property (strong)   NSString * presentationFilename;
+@property (weak, readonly) NSString * relativePresentationPath;
+@property (weak, readonly) NSString * absolutePresentationPath;
 
 @property (readonly) BOOL presentationFileExists;
 @property (readonly) BOOL thumbnailFileExists;
 
-@property (readonly) NSImage *thumbnail;
+@property (weak, readonly) NSImage *thumbnail;
 @property (readonly) BOOL isComplete;
 
 - (id) initWithId:(id)theId inContext: (PresentationLibrary*)theContext;

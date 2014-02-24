@@ -25,7 +25,7 @@
 	BOOL syncSuccessful;
 }
 
-@property (retain, nonatomic) ACShellCollection* library;
+@property (strong, nonatomic) ACShellCollection* library;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
 @property (readonly) NSString * libraryDirPath;

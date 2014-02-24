@@ -29,19 +29,12 @@
 	return self;
 }
 
-- (void) dealloc {
-	[presentations release];
-	[presentationView release];
-	
-	[super dealloc];
-}
 
 #pragma mark -
 #pragma mark Setter Methods
 - (void) setPresentations:(NSMutableArray *)newPresentations {
 	if (presentations != newPresentations) {
-		[presentations release];
-		presentations = [newPresentations retain];		
+		presentations = newPresentations;		
 	}
 	
 	[presentationView arrangeSublayer];

@@ -20,30 +20,30 @@
     //NSAlert * alert;
 	
 	RsyncTask *rsyncTask;
-	id <RsyncControllerDelegate> delegate;
+	id <RsyncControllerDelegate> __unsafe_unretained delegate;
     
     NSAlert * currentSheet;
 	NSWindow * documentWindow;
     BOOL terminatedByUser;
     
     NSView * progressView;
-    NSProgressIndicator * fileProgressBar;
-    NSTextField * fileProgressLabel;
-    NSProgressIndicator * totalProgressBar;
-    NSTextField * totalProgressLabel;
+    NSProgressIndicator * __weak fileProgressBar;
+    NSTextField * __weak fileProgressLabel;
+    NSProgressIndicator * __weak totalProgressBar;
+    NSTextField * __weak totalProgressLabel;
     
     NSString * lastRsyncMessage;
     BOOL isUploading;
 }
 
-@property (assign) id <RsyncControllerDelegate> delegate;
-@property (retain) NSWindow* documentWindow;
+@property (unsafe_unretained) id <RsyncControllerDelegate> delegate;
+@property (strong) NSWindow* documentWindow;
 
-@property (retain, nonatomic) IBOutlet NSView * progressView;
-@property (assign, nonatomic) IBOutlet NSProgressIndicator * fileProgressBar;
-@property (assign, nonatomic) IBOutlet NSTextField * fileProgressLabel;
-@property (assign, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
-@property (assign, nonatomic) IBOutlet NSTextField * totalProgressLabel;
+@property (strong, nonatomic) IBOutlet NSView * progressView;
+@property (weak, nonatomic) IBOutlet NSProgressIndicator * fileProgressBar;
+@property (weak, nonatomic) IBOutlet NSTextField * fileProgressLabel;
+@property (weak, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
+@property (weak, nonatomic) IBOutlet NSTextField * totalProgressLabel;
 
 - (void) syncWithSource: (NSString*) source destination: (NSString*) destination;
 - (void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination;

@@ -12,9 +12,9 @@
 
 @interface ACSearchIndexQuery ()
 @property (nonatomic, assign) SKIndexRef index;
-@property (nonatomic, retain) NSString *query;
+@property (nonatomic, strong) NSString *query;
 @property (nonatomic, assign) int maxNumResults;
-@property (nonatomic, readwrite, retain) NSMutableArray *results;
+@property (nonatomic, readwrite, strong) NSMutableArray *results;
 @end
 
 
@@ -22,9 +22,6 @@
 
 - (void)dealloc {
     CFRelease(_index);
-    [_query release];
-    [_results release];
-    [super dealloc];
 }
 
 - (instancetype)initWithQuery:(NSString *)query usingIndex:(SKIndexRef)index maxNumResults:(int)maxNumResults
@@ -46,7 +43,7 @@
     self.results = [[NSMutableArray alloc] init];
     
     SKSearchOptions options = kSKSearchOptionDefault;
-    SKSearchRef     search = SKSearchCreate(_index, (CFStringRef)self.query, options);
+    SKSearchRef     search = SKSearchCreate(_index, (__bridge CFStringRef)self.query, options);
     
     CFIndex         maxNumResults = self.maxNumResults;
     CFIndex         foundCount = 0;
@@ -69,10 +66,9 @@
             SKDocumentRef doc = (SKDocumentRef)documentRefs[i];
             ACSearchIndexResult *result = [[ACSearchIndexResult alloc] init];
             result.score = scores[i];
-            result.documentUrl = (NSURL *)SKDocumentCopyURL(doc);
+            result.documentUrl = (NSURL *)CFBridgingRelease(SKDocumentCopyURL(doc));
             result.documentId = documentIds[i];
             [self.results addObject:result];
-            [result release];
         }
     }
 }

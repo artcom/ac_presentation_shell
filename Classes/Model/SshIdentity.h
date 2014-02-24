@@ -13,8 +13,8 @@
     NSString * path;
 }
 
-@property (retain) NSString * path;
-@property (readonly) NSString * filename;
+@property (strong) NSString * path;
+@property (weak, readonly) NSString * filename;
 
 
 - (id) initWithPath: (NSString*) path;

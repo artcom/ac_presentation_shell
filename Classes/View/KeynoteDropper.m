@@ -12,16 +12,10 @@
 @implementation KeynoteDropper
 @synthesize filename;
 
-- (void)dealloc
-{
-    [filename release];
-    [super dealloc];
-}
 
 -(void) setFilename: (NSString*) aFilename {
     if (filename != aFilename) {
-        [filename release];
-        filename = [aFilename retain];
+        filename = aFilename;
     }
     NSImage *iconImage = nil;
     if (filename != nil) {

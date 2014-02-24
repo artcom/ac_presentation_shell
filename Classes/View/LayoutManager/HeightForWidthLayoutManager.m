@@ -24,8 +24,8 @@
     NSDictionary *attributes = [NSDictionary dictionaryWithObject:[self fontForTextLayer:layer]
                                                            forKey:NSFontAttributeName];
     
-    return [[[NSAttributedString alloc] initWithString:layer.string
-                                            attributes:attributes] autorelease];
+    return [[NSAttributedString alloc] initWithString:layer.string
+                                            attributes:attributes];
 }
 
 - (CGSize)frameSizeForTextLayer:(CATextLayer *)layer {

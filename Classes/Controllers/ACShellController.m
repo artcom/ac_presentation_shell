@@ -43,8 +43,8 @@ enum CollectionActionTags {
 
 @interface ACShellController ()
 
-@property (readonly) NSString* librarySource;
-@property (readonly) NSString* libraryTarget;
+@property (weak, readonly) NSString* librarySource;
+@property (weak, readonly) NSString* libraryTarget;
 
 - (void)beautifyOutlineView;
 - (BOOL) isToplevelGroup: (id) item;
@@ -91,7 +91,7 @@ enum CollectionActionTags {
 - (id) init {
 	self = [super init];
 	if (self != nil) {
-        presentationLibrary = [[PresentationLibrary libraryFromSettingsFile] retain];
+        presentationLibrary = [PresentationLibrary libraryFromSettingsFile];
         
 		presentationWindowController = [[PresentationWindowController alloc] init];
         
@@ -143,26 +143,10 @@ enum CollectionActionTags {
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"order" ascending:YES];
     self.userSortDescriptor = sortDescriptor;
-    [sortDescriptor release];
     
     [presentationTable setSortDescriptors:@[self.userSortDescriptor]];
 }
 
-- (void) dealloc {
-	[presentationWindowController release];
-    [preferenceController release];
-	[editWindowController release];
-    [rsyncController release];
-    [setupAssistant release];
-    [currentPresentationList release];
-    [presentationLibrary release];
-	[_userSortDescriptor release];
-    
-    //[collectionView release];
-	//[presentationTable release];
-    
-	[super dealloc];
-}
 
 -(void) load {
 	[collectionView deselectAll:self];
@@ -277,7 +261,7 @@ enum CollectionActionTags {
     NSString *fullTextQuery = [wildcardedWords componentsJoinedByString:@" "];
 
     // Start async search
-    __block ACShellController *weakSelf = self;
+    __weak ACShellController *weakSelf = self;
     [self.presentationLibrary searchFullText:fullTextQuery maxNumResults:AC_SHELL_SEARCH_MAX_RESULTS completion:^(NSArray *results) {
         
         // Filter: Entry has to be in result list or the original searchString has to be in title or year
@@ -305,7 +289,6 @@ enum CollectionActionTags {
         }];
         
         [weakSelf.presentationTable setSortDescriptors:@[sortDescriptor]];
-        [sortDescriptor release];
     }];
 }
 
@@ -413,8 +396,7 @@ enum CollectionActionTags {
 
 - (void)setCurrentPresentationList:(NSMutableArray *)newArray {
 	if (currentPresentationList != newArray) {
-		[currentPresentationList release];
-		currentPresentationList = [newArray retain];
+		currentPresentationList = newArray;
 		
 		if ([[collectionTreeController selectedObjects] count] > 0) {
 			[[[collectionTreeController selectedObjects] objectAtIndex:0] setPresentations: currentPresentationList];
@@ -499,10 +481,9 @@ enum CollectionActionTags {
 			removeIndex = idx;
 			insertIndex -= 1;
 		}
-		object = [[objects objectAtIndex:removeIndex] retain];
+		object = [objects objectAtIndex:removeIndex];
 		[presentationsArrayController removeObjectAtArrangedObjectIndex:removeIndex];
 		[presentationsArrayController insertObject:object atArrangedObjectIndex:insertIndex];
-		[object release];
 		idx = [indexSet indexLessThanIndex:idx];
     }
 }
@@ -587,7 +568,7 @@ enum CollectionActionTags {
     
     NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
     NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
-    NSMutableArray * newItems = [[[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES] autorelease];
+    NSMutableArray * newItems = [[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES];
     
 	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
     
@@ -667,7 +648,7 @@ enum CollectionActionTags {
         [item setLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
         [item setToolTip: NSLocalizedString(ACSHELL_STR_UPLOAD_TOOLTIP, nil)];
         [item setPaletteLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
-        return [item autorelease];
+        return item;
     }
     return nil;
 }
@@ -799,7 +780,7 @@ enum CollectionActionTags {
     if (suppressAlert ) {
         reallyDoIt = YES;
     } else {
-        NSAlert *alert = [[[NSAlert alloc] init] autorelease];
+        NSAlert *alert = [[NSAlert alloc] init];
         [alert setMessageText: NSLocalizedString(message, nil)];
         [alert addButtonWithTitle: NSLocalizedString(ok, nil)];
         [alert addButtonWithTitle: NSLocalizedString(cancel, nil)];
@@ -847,7 +828,7 @@ enum CollectionActionTags {
 
 
 - (void) presentationTableColumnOrderDidChange: (id) aNotification {
-    NSMenu * menu = [[[NSMenu alloc] initWithTitle: @""] autorelease];
+    NSMenu * menu = [[NSMenu alloc] initWithTitle: @""];
     NSArray * tableColumns = [presentationTable tableColumns];
     for (NSTableColumn * c in tableColumns) {
         NSMenuItem * item = [menu addItemWithTitle: NSLocalizedString([c identifier], nil)

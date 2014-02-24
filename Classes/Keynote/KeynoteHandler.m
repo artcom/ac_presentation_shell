@@ -81,13 +81,9 @@ KeynoteHandler *sharedInstance;
 	}
 }
 
-- (void) dealloc {
-	[application release];
-	[super dealloc];
-}
 
 - (BOOL)usesSecondaryMonitorForPresentation {
-	NSUserDefaults * defaults = [[[NSUserDefaults alloc] init] autorelease];
+	NSUserDefaults * defaults = [[NSUserDefaults alloc] init];
 	[defaults addSuiteNamed:@"com.apple.iWork.Keynote"];
 	[defaults synchronize];
 	

@@ -24,7 +24,7 @@
     self = [super initWithWindow: [ACPreferenceWindowController preferenceWindow]];
     if (self != nil) {
         [[[self window] toolbar] setDelegate: self];
-        preferencePages = [pages retain];
+        preferencePages = pages;
 
         NSMutableArray * toolbarIds = [[NSMutableArray alloc] init];
         for (ACPreferencePage * page in preferencePages) {
@@ -32,7 +32,6 @@
         }
         
         toolbarIdentifiers = [[NSArray alloc] initWithArray: toolbarIds];
-        [toolbarIds release];
         
         int i = 0;
         for (ACPreferencePage * page in preferencePages) {
@@ -46,11 +45,6 @@
     return self;
 }
 
-- (void) dealloc {
-    [preferencePages release];
-    [toolbarIdentifiers release];
-    [super dealloc];
-}
 
 - (void) showPage: (id) sender {
     NSString * identifier = [[[self window] toolbar] selectedItemIdentifier];
@@ -83,7 +77,6 @@
 
     NSView *contentView = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 0, 0)];
     self.window.contentView = contentView;
-    [contentView release];
     [[self window] setFrame: newWindowFrame display:YES animate:YES];
     self.window.contentView = [page view];
 }
@@ -116,7 +109,7 @@
         [toolbarItem setPaletteLabel: [page title]];
         [toolbarItem setImage:[NSImage imageNamed: [page iconName]]];
     }
-    return [toolbarItem autorelease];
+    return toolbarItem;
 }
 
 - (void) toolbarWillAddItem:(NSNotification *)notification {
@@ -144,7 +137,6 @@
     [toolbar setVisible: YES];
     [toolbar setAllowsUserCustomization: NO];
     [panel setToolbar: toolbar];
-    [toolbar release];
     
     return panel;
 }

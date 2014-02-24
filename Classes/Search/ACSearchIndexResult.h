@@ -10,6 +10,6 @@
 
 @interface ACSearchIndexResult : NSObject
 @property (nonatomic, assign) SKDocumentID documentId;
-@property (nonatomic, retain) NSURL *documentUrl;
+@property (nonatomic, strong) NSURL *documentUrl;
 @property (nonatomic, assign) float score;
 @end

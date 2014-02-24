@@ -12,11 +12,6 @@
 @implementation NSImageViewWithDroppedFilename
 @synthesize filename;
 
-- (void)dealloc
-{
-    [filename release];
-    [super dealloc];
-}
 
 - (BOOL)performDragOperation:(id )sender {
     if ( ! [super performDragOperation:sender] ) {
@@ -37,13 +32,12 @@
 
 -(void) setFilename: (NSString*) aFilename {
     if (filename != aFilename) {
-        [filename release];
-        filename = [aFilename retain];
+        filename = aFilename;
     }
     NSImage *iconImage = nil;
     if (filename != nil) {
         if ([[NSFileManager defaultManager] fileExistsAtPath: aFilename]) {
-            iconImage = [[[NSImage alloc] initByReferencingFile: aFilename] autorelease];
+            iconImage = [[NSImage alloc] initByReferencingFile: aFilename];
         } else {
             iconImage = [NSImage imageNamed: @"icn_missing_file"];
         }

@@ -94,7 +94,7 @@
 - (id) initWithNetService: (NSNetService*) aNetService {
     self = [super init];
     if (self != nil) {
-        netService = [aNetService retain];
+        netService = aNetService;
         [netService setDelegate: self];
         [netService resolveWithTimeout: 10];
         txtRecord = nil;
@@ -102,12 +102,6 @@
     return self;
 }
 
-- (void) dealloc {
-    [netService release];
-    [txtRecord release];
-    
-    [super dealloc];
-}
 
 - (NSString*) hostname {
     return [netService hostName];
@@ -120,7 +114,7 @@
 - (NSString*) rsyncPath {
     NSData * value = [txtRecord objectForKey: @"rsyncPath"];
     if (value != nil) {
-        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+        return [[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding];
     }
     return nil;
     //return [NSString stringWithString: @""];
@@ -140,7 +134,7 @@
 - (NSString*) administratorAddress {
     NSData * value = [txtRecord objectForKey: @"administrator"];
     if (value != nil) {
-        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+        return [[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding];
     }
     return nil;
     //return [NSString stringWithString: @""];
@@ -149,7 +143,7 @@
 - (NSString*) readUser {
     NSData * value = [txtRecord objectForKey: @"readUser"];
     if (value != nil) {
-        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+        return [[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding];
     }
     return nil;
     //return [NSString stringWithString: @""];
@@ -158,7 +152,7 @@
 - (NSString*) writeUser {
     NSData * value = [txtRecord objectForKey: @"writeUser"];
     if (value != nil) {
-        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+        return [[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding];
     }
     return nil;
     //return [NSString stringWithString: @""];
@@ -167,7 +161,7 @@
 - (NSString*) keyRequestEmailSubject {
     NSData * value = [txtRecord objectForKey: @"keyRequestEmailSubject"];
     if (value != nil) {
-        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+        return [[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding];
     }
     return nil;
     //return [NSString stringWithString: @""];
@@ -176,7 +170,7 @@
 - (NSString*) keyRequestEmailBody {
     NSData * value = [txtRecord objectForKey: @"keyRequestEmailBody"];
     if (value != nil) {
-        return [[[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding] autorelease];
+        return [[NSString alloc] initWithData: value encoding: NSUTF8StringEncoding];
     }
     return nil;
     //return [NSString stringWithString: @""];
@@ -188,7 +182,7 @@
 - (void)netServiceDidResolveAddress: (NSNetService *) sender {
     NSData * txtRecordData = [netService TXTRecordData];
     if (txtRecordData != nil) {
-        txtRecord = [[NSNetService dictionaryFromTXTRecordData: txtRecordData] retain];
+        txtRecord = [NSNetService dictionaryFromTXTRecordData: txtRecordData];
     }
     
     // XXX stupid ...but works

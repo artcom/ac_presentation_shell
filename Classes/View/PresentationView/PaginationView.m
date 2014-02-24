@@ -48,13 +48,6 @@
 	[self calculateDotPositions];
 }
 
-- (void) dealloc {
-	[dots release];
-	[activeDot release];
-	[inactiveDot release];
-	
-	[super dealloc];
-}
 
 - (void)setPages: (NSInteger)newPages {
 	pages = newPages;

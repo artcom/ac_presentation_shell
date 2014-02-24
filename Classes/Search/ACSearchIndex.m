@@ -14,10 +14,10 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 
 @interface ACSearchIndex ()
-@property (nonatomic, retain) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (atomic, assign) SKIndexRef indexRef;
-@property (nonatomic, retain) NSMutableData *indexData;
-@property (nonatomic, retain) NSString *indexFilePath;
+@property (nonatomic, strong) NSMutableData *indexData;
+@property (nonatomic, strong) NSString *indexFilePath;
 @end
 
 
@@ -25,11 +25,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (void)dealloc {
     [_operationQueue cancelAllOperations];
-    [_operationQueue release];
-    [_indexFilePath release];
-    [_indexData release];
     if (_indexRef) SKIndexClose(_indexRef);
-    [super dealloc];
 }
 
 - (id)initWithFileBasedIndex:(NSString *)path {
@@ -66,7 +62,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (void)addDocumentAt:(NSString *)path completion:(void (^)())completionBlock {
     
-    __block id weakSelf = self;
+    __unsafe_unretained id weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         [weakSelf syncAddDocumentAt:path updateIndex:YES];
         if (completionBlock) {
@@ -81,7 +77,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (void)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension completion:(void (^)(NSInteger))completionBlock {
     
-    __block id weakSelf = self;
+    __unsafe_unretained id weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         NSInteger numDocuments = [weakSelf syncAddDocumentsAt:path withExtension:extension];
         if (completionBlock) {
@@ -117,7 +113,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 }
 
 - (void)enqueueMessage:(SEL)selector {
-    __block id weakSelf = self;
+    __unsafe_unretained id weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         [weakSelf performSelector:selector];
     }];
@@ -144,7 +140,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     
     BOOL documentAdded = false;
     NSURL *url = [NSURL fileURLWithPath:path];
-    SKDocumentRef document = SKDocumentCreateWithURL((CFURLRef)url);
+    SKDocumentRef document = SKDocumentCreateWithURL((__bridge CFURLRef)url);
     if (document) {
         documentAdded = SKIndexAddDocument(self.indexRef, document, (CFStringRef) NULL, true);
         CFRelease(document);
@@ -215,15 +211,14 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     SKIndexRef index;
     if (self.indexFilePath) {
         NSURL *url = [NSURL fileURLWithPath:self.indexFilePath];
-        index = SKIndexCreateWithURL((CFURLRef)url, (CFStringRef)INDEX_NAME, kSKIndexInverted, (CFDictionaryRef)properties);
+        index = SKIndexCreateWithURL((__bridge CFURLRef)url, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
     }
     
     // Memory-based index
     else {
         NSMutableData *data = [[NSMutableData alloc] init];
-        index = SKIndexCreateWithMutableData((CFMutableDataRef)data, (CFStringRef)INDEX_NAME, kSKIndexInverted, (CFDictionaryRef)properties);
+        index = SKIndexCreateWithMutableData((__bridge CFMutableDataRef)data, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
         self.indexData = data;
-        [data release];
     }
 
     return index;
@@ -235,7 +230,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (SKIndexRef)openIndexFileAtPath:(NSString *)path {
     NSURL *url = [NSURL fileURLWithPath:path];
-    return SKIndexOpenWithURL((CFURLRef)url, (CFStringRef)INDEX_NAME, true);
+    return SKIndexOpenWithURL((__bridge CFURLRef)url, (__bridge CFStringRef)INDEX_NAME, true);
 }
 
 - (void)removeIndexFileAtPath:(NSString *)path {

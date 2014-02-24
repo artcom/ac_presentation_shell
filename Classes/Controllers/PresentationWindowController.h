@@ -25,8 +25,8 @@
 //	NSInteger playingKeynote;
 }
 
-@property (nonatomic, retain) NSArray *presentations;
-@property (retain) IBOutlet PresentationView *presentationView;
+@property (nonatomic, strong) NSArray *presentations;
+@property (strong) IBOutlet PresentationView *presentationView;
 
 - (NSRect)presentationScreenFrame;
 

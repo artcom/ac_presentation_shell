@@ -18,48 +18,48 @@
 {
     Presentation * presentation;
 
-    KeynoteDropper * droppedKeynote;
-    NSTextField * keynoteFileLabel;
-    NSButton * editButton;
+    KeynoteDropper * __weak droppedKeynote;
+    NSTextField * __weak keynoteFileLabel;
+    NSButton * __weak editButton;
     
-    NSTextField * titleField;
-    NSImageViewWithDroppedFilename * droppedThumbnail;
-    NSTextField * thumbnailFileLabel;
+    NSTextField * __weak titleField;
+    NSImageViewWithDroppedFilename * __weak droppedThumbnail;
+    NSTextField * __weak thumbnailFileLabel;
 
-    NSButton * highlightCheckbox;
-    NSTextField * yearField;
+    NSButton * __weak highlightCheckbox;
+    NSTextField * __weak yearField;
     
-    NSButton * okButton;
-    NSButton * deleteButton;
+    NSButton * __weak okButton;
+    NSButton * __weak deleteButton;
 
     NSWindow *            progressSheet;
-    NSTextField *         progressTitle;
-    NSTextField *         progressMessage;
-    NSProgressIndicator * progressBar;
-    NSTextField *         progressText;
+    NSTextField *         __weak progressTitle;
+    NSTextField *         __weak progressMessage;
+    NSProgressIndicator * __weak progressBar;
+    NSTextField *         __weak progressText;
     
     ACShellController * shellController;
 }
 
-@property (assign, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
-@property (assign, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
-@property (assign, nonatomic) IBOutlet NSButton * editButton;
+@property (weak, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
+@property (weak, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
+@property (weak, nonatomic) IBOutlet NSButton * editButton;
 
-@property (assign, nonatomic) IBOutlet NSTextField * titleField;
-@property (assign, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
-@property (assign, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
+@property (weak, nonatomic) IBOutlet NSTextField * titleField;
+@property (weak, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
+@property (weak, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
-@property (assign, nonatomic) IBOutlet NSButton * highlightCheckbox;
-@property (assign, nonatomic) IBOutlet NSTextField * yearField;
+@property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;
+@property (weak, nonatomic) IBOutlet NSTextField * yearField;
 
-@property (assign, nonatomic) IBOutlet NSButton * okButton;
-@property (assign, nonatomic) IBOutlet NSButton * deleteButton;
+@property (weak, nonatomic) IBOutlet NSButton * okButton;
+@property (weak, nonatomic) IBOutlet NSButton * deleteButton;
 
-@property (retain, nonatomic) IBOutlet NSWindow* progressSheet;
-@property (assign, nonatomic) IBOutlet NSTextField* progressTitle;
-@property (assign, nonatomic) IBOutlet NSTextField* progressMessage;
-@property (assign, nonatomic) IBOutlet NSProgressIndicator* progressBar;
-@property (assign, nonatomic) IBOutlet NSTextField* progressText;
+@property (strong, nonatomic) IBOutlet NSWindow* progressSheet;
+@property (weak, nonatomic) IBOutlet NSTextField* progressTitle;
+@property (weak, nonatomic) IBOutlet NSTextField* progressMessage;
+@property (weak, nonatomic) IBOutlet NSProgressIndicator* progressBar;
+@property (weak, nonatomic) IBOutlet NSTextField* progressText;
 
 - (id) initWithShellController:(ACShellController *)theShellController;
 

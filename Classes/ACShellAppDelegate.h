@@ -13,6 +13,6 @@
 	ACShellController *shellController;
 }
 
-@property (retain) IBOutlet ACShellController *shellController;
+@property (strong) IBOutlet ACShellController *shellController;
 
 @end

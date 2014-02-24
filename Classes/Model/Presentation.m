@@ -91,7 +91,7 @@
     if ([yearNodes count] == 0) {
         return nil;
     }
-    NSNumberFormatter * formatter = [[[NSNumberFormatter alloc] init] autorelease];
+    NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
     return [formatter numberFromString: [[yearNodes objectAtIndex: 0] stringValue]];
 }
 
@@ -134,7 +134,6 @@
 
 - (void) setThumbnailFilename: (NSString*) newPath {
 	[self willChangeValueForKey:@"thumbnail"];
-	[thumbnail release];
 	thumbnail = nil;
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
@@ -187,11 +186,6 @@
     return [[NSFileManager defaultManager] fileExistsAtPath: self.absoluteThumbnailPath];
 }
 
-- (void) dealloc {
-	[thumbnail release];
-	[context release];
-	[super dealloc];
-}
 
 - (NSXMLElement*) xmlNode {
 	return [context xmlNode: presentationId];
