@@ -12,16 +12,6 @@
 @interface LibraryServer : NSObject <NSNetServiceDelegate> {
     NSNetService * netService;
     
-    NSString * __weak hostname;
-    NSString * __weak name;
-    NSString * __weak administratorAddress;
-    NSString * __weak rsyncSource;
-    NSString * __weak rsyncPath;
-    NSString * __weak readUser;
-    NSString * __weak writeUser;
-    NSString * __weak keyRequestEmailSubject;
-    NSString * __weak keyRequestEmailBody;
-    
     NSDictionary * txtRecord;
 }
 

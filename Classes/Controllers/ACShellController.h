@@ -22,35 +22,14 @@
                                             NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate,
                                             NSTableViewDataSource, NSToolbarDelegate, NSSplitViewDelegate> 
 {
-	PresentationLibrary *presentationLibrary;
-
 	PresentationWindowController *presentationWindowController;
     PreferenceController * preferenceController;
     EditWindowController * editWindowController;
 	RsyncController *rsyncController;
     SetupAssistantController * setupAssistant;	
-    
-	NSOutlineView *__weak collectionView;
-	NSTableView *__weak presentationTable;
-	
-	NSArrayController *__weak presentationsArrayController;
-	NSTreeController *__weak collectionTreeController;
-
-    NSTextField * __weak statusLine;
-
-    NSWindow *__weak browserWindow;
 	NSProgressIndicator *progressSpinner;
-	
 	NSMutableArray *currentPresentationList;
-    NSImageView * __weak warningIcon;
-	
 	BOOL editingEnabled;
-    NSSegmentedControl * __weak collectionActions;
-    
-    NSMenuItem * __weak editPresentationMenuItem;
-    
-    NSView * __weak leftSplitPane;
-    NSView * __weak rightSplitPane;
 }
 
 @property (strong) NSSortDescriptor *userSortDescriptor;

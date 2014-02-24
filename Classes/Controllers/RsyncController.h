@@ -17,26 +17,14 @@
 @end
 
 @interface RsyncController : NSObject <RsyncTaskDelegate> {
-    //NSAlert * alert;
-	
-	RsyncTask *rsyncTask;
-	id <RsyncControllerDelegate> __unsafe_unretained delegate;
-    
-    NSAlert * currentSheet;
-	NSWindow * documentWindow;
+	RsyncTask *rsyncTask;    
+    NSAlert *currentSheet;
     BOOL terminatedByUser;
-    
-    NSView * progressView;
-    NSProgressIndicator * __weak fileProgressBar;
-    NSTextField * __weak fileProgressLabel;
-    NSProgressIndicator * __weak totalProgressBar;
-    NSTextField * __weak totalProgressLabel;
-    
-    NSString * lastRsyncMessage;
+    NSString *lastRsyncMessage;
     BOOL isUploading;
 }
 
-@property (unsafe_unretained) id <RsyncControllerDelegate> delegate;
+@property (weak) id <RsyncControllerDelegate> delegate;
 @property (strong) NSWindow* documentWindow;
 
 @property (strong, nonatomic) IBOutlet NSView * progressView;

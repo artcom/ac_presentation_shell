@@ -16,29 +16,8 @@
 
 @interface EditWindowController : NSWindowController <ProgressDelegateProtocol, NSTextFieldDelegate>
 {
-    Presentation * presentation;
-
-    KeynoteDropper * __weak droppedKeynote;
-    NSTextField * __weak keynoteFileLabel;
-    NSButton * __weak editButton;
-    
-    NSTextField * __weak titleField;
-    NSImageViewWithDroppedFilename * __weak droppedThumbnail;
-    NSTextField * __weak thumbnailFileLabel;
-
-    NSButton * __weak highlightCheckbox;
-    NSTextField * __weak yearField;
-    
-    NSButton * __weak okButton;
-    NSButton * __weak deleteButton;
-
-    NSWindow *            progressSheet;
-    NSTextField *         __weak progressTitle;
-    NSTextField *         __weak progressMessage;
-    NSProgressIndicator * __weak progressBar;
-    NSTextField *         __weak progressText;
-    
-    ACShellController * shellController;
+    Presentation *presentation;
+    ACShellController *shellController;
 }
 
 @property (weak, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;

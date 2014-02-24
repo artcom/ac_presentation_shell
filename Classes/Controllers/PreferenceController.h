@@ -12,9 +12,6 @@
 
 @interface PreferenceController : NSObject {
     ACPreferenceWindowController * windowController;
-    NSView * generalPreferences;
-    NSButtonCell * __weak showEditWindowOption;
-    NSView * advancedPreferences;
 }
 
 @property (strong, nonatomic) IBOutlet NSView* generalPreferences;

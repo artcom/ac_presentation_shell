@@ -14,8 +14,6 @@
 @class PaginationView;
 
 @interface PresentationView : NSView {
-	id <PresentationViewDataSource> __unsafe_unretained dataSource;
-	id <PresentationViewDelegate> __unsafe_unretained delegate;
 
 	GridLayout *layout;
 	NSMutableArray *sublayers;
@@ -32,8 +30,8 @@
 	NSButton *pageButtons;
 }
 
-@property (unsafe_unretained, nonatomic) id <PresentationViewDataSource> dataSource;
-@property (unsafe_unretained, nonatomic) id <PresentationViewDelegate> delegate;
+@property (weak, nonatomic) id <PresentationViewDataSource> dataSource;
+@property (weak, nonatomic) id <PresentationViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
 @property (assign, nonatomic, getter=isMouseTracking) BOOL mouseTracking;

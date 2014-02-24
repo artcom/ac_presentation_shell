@@ -13,32 +13,12 @@
 
 @interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
     
-    NSTabView * __weak pages;
-    
-    NSButton * __weak nextButton;
-    NSButton * __weak backButton;
-    
     NSInteger numPages;
-    
-    NSArrayController * publicKeyArrayController;
-    NSMutableArray * publicKeys;
-    NSTableView * __weak publicKeyTable;
-    NSButton * __weak generateSshKeysButton;
-    NSProgressIndicator * __weak sshKeygenSpinner;
-    
-    NSCollectionView * __weak bonjourServerList;
-    NSTextField * __weak rsyncSourceEntry;
-    
+    NSMutableArray *publicKeys;
     BOOL bonjourBrowserRunning;
-    NSNetServiceBrowser * bonjourBrowser;
-    NSMutableArray * bonjourLibraries;
-    NSArrayController * bonjourLibrariesArrayController;
-    NSMatrix * __weak discoveryModeButtons;
-    
-    PublicKeyDraglet * __weak publicKeyDraglet;
-    NSTextField * __weak libraryNameLabel;
-    NSTextField * __weak administratorAddressLabel;
-    NSButton * __weak emailSendToggle;
+    NSNetServiceBrowser *bonjourBrowser;
+    NSMutableArray *bonjourLibraries;
+    NSArrayController *bonjourLibrariesArrayController;
     
     id<SetupAssistantDelegate> delegate;
     NSTask *sshKeygenTask;

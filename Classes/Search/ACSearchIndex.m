@@ -15,9 +15,9 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 @interface ACSearchIndex ()
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
-@property (atomic, assign) SKIndexRef indexRef;
 @property (nonatomic, strong) NSMutableData *indexData;
 @property (nonatomic, strong) NSString *indexFilePath;
+@property (atomic, assign) SKIndexRef indexRef;
 @end
 
 
@@ -62,7 +62,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (void)addDocumentAt:(NSString *)path completion:(void (^)())completionBlock {
     
-    __unsafe_unretained id weakSelf = self;
+    __weak ACSearchIndex *weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         [weakSelf syncAddDocumentAt:path updateIndex:YES];
         if (completionBlock) {
@@ -77,7 +77,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (void)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension completion:(void (^)(NSInteger))completionBlock {
     
-    __unsafe_unretained id weakSelf = self;
+    __weak ACSearchIndex *weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
         NSInteger numDocuments = [weakSelf syncAddDocumentsAt:path withExtension:extension];
         if (completionBlock) {
@@ -114,7 +114,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 }
 
 - (void)enqueueMessage:(SEL)selector {
-    __unsafe_unretained id weakSelf = self;
+    __weak ACSearchIndex *weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
