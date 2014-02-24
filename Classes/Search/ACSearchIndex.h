@@ -24,6 +24,7 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  Because of this house-keeping this class is opaque and can't hand out a reference to the internally
  used SKIndexRef.
  NOTE: Methods have to be called on the main thread.
+ TODO: Add completion queue to allow other threads/queues to use this class
  */
 @interface ACSearchIndex : NSObject
 
