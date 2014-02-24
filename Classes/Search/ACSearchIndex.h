@@ -39,13 +39,6 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
 - (id)initWithMemoryBasedIndex;
 
 /**
- Add a document to the index
- @param path File path to the document
- @param completion Block called after the operation
- */
-- (void)addDocumentAt:(NSString *)path completion:(void(^)())completionBlock;;
-
-/**
  Index all documents in a folder and its sub-folders that have a given extension
  @param path File path to a folder
  @param extension Method will add all documents using a file @a extension

@@ -60,21 +60,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     return self;
 }
 
-- (void)addDocumentAt:(NSString *)path completion:(void (^)())completionBlock {
-    
-    __weak ACSearchIndex *weakSelf = self;
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-        [weakSelf syncAddDocumentAt:path updateIndex:YES];
-        if (completionBlock) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completionBlock();
-            });
-        }
-    }];
-    
-    [self.operationQueue addOperation:operation];
-}
-
 - (void)addDocumentsAt:(NSString *)path withExtension:(NSString *)extension completion:(void (^)(NSInteger))completionBlock {
     
     __weak ACSearchIndex *weakSelf = self;
@@ -86,13 +71,11 @@ NSString * const INDEX_NAME = @"DefaultIndex";
             });
         }
     }];
-    
     [self.operationQueue addOperation:operation];
 }
 
-
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion {
-
+    
     ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query usingIndex:self.indexRef maxNumResults:maxNumResults];
     __weak ACSearchIndexQuery *weakOperationRef = operation;
     [operation setCompletionBlock:^{
@@ -101,7 +84,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
             completion(results);
         });
     }];
-    
     [self.operationQueue addOperation:operation];
     return operation;
 }
@@ -150,7 +132,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
         documentAdded = SKIndexAddDocument(self.indexRef, document, (CFStringRef) NULL, true);
         CFRelease(document);
     }
-    
     if (documentAdded && updateIndex) SKIndexFlush(self.indexRef);
     return documentAdded;
 }
@@ -168,7 +149,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
             }
         }
     }
-    
     SKIndexFlush(self.indexRef);
     return numFilesAdded;
 }
