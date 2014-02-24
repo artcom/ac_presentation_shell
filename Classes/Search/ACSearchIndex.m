@@ -94,9 +94,10 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion {
 
     ACSearchIndexQuery *operation = [[ACSearchIndexQuery alloc] initWithQuery:query usingIndex:self.indexRef maxNumResults:maxNumResults];
+    __weak ACSearchIndexQuery *weakOperationRef = operation;
     [operation setCompletionBlock:^{
         dispatch_async(dispatch_get_main_queue(), ^{
-            completion(operation.results);
+            completion([weakOperationRef results]);
         });
     }];
     
@@ -115,7 +116,10 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (void)enqueueMessage:(SEL)selector {
     __unsafe_unretained id weakSelf = self;
     NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
         [weakSelf performSelector:selector];
+#pragma clang diagnostic pop
     }];
     [self.operationQueue addOperation:operation];
 }
