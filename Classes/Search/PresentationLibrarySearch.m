@@ -36,7 +36,7 @@
         [self.searchIndex reset];
     }
     else {
-        self.searchIndex = [[ACSearchIndex alloc] initWithMemoryBasedIndex];
+        self.searchIndex = [[ACSearchIndex alloc] init];
     }
     
     // Index all documents

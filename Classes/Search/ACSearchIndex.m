@@ -9,14 +9,13 @@
 #import "ACSearchIndex.h"
 
 
-// The internal index name used by Search Kit (not the file name of the index)
+// The internal index name used by Search Kit
 NSString * const INDEX_NAME = @"DefaultIndex";
 
 
 @interface ACSearchIndex ()
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) NSMutableData *indexData;
-@property (nonatomic, strong) NSString *indexFilePath;
 @property (atomic, assign) SKIndexRef indexRef;
 @end
 
@@ -26,21 +25,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (void)dealloc {
     [_operationQueue cancelAllOperations];
     if (_indexRef) SKIndexClose(_indexRef);
-}
-
-- (id)initWithFileBasedIndex:(NSString *)path {
-    self = [self init];
-    if (self) {
-        self.indexFilePath = path;
-    }
-    return self;
-}
-
-- (id)initWithMemoryBasedIndex {
-    self = [self init];
-    if (self) {
-    }
-    return self;
 }
 
 - (id)init {
@@ -113,9 +97,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (void)syncReset {
     [self closeIndex];
-    if ([self hasIndexFile]) {
-        [self removeIndexFileAtPath:self.indexFilePath];
-    }
     self.indexRef = [self createIndex];
 }
 
@@ -163,18 +144,13 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (void)openIndex {
     [self closeIndex];
-    if ([self hasIndexFile]) {
-        self.indexRef = [self openIndexFileAtPath:self.indexFilePath];
-    }
-    else {
-        self.indexRef = [self createIndex];
-    }
+    self.indexRef = [self createIndex];
 }
 
 - (void)closeIndex {
-    if (_indexRef) {
-        SKIndexClose(_indexRef);
-        _indexRef = NULL;
+    if (self.indexRef) {
+        SKIndexClose(self.indexRef);
+        self.indexRef = NULL;
     }
 }
 
@@ -191,38 +167,11 @@ NSString * const INDEX_NAME = @"DefaultIndex";
                                  @"kSKProximitySearching" : @1};
     
     SKIndexRef index;
-    if ([self isFileBased]) {
-        NSURL *url = [NSURL fileURLWithPath:self.indexFilePath];
-        index = SKIndexCreateWithURL((__bridge CFURLRef)url, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
-    }
-    else {
-        NSMutableData *data = [[NSMutableData alloc] init];
-        index = SKIndexCreateWithMutableData((__bridge CFMutableDataRef)data, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
-        self.indexData = data;
-    }
-
+    NSMutableData *data = [[NSMutableData alloc] init];
+    index = SKIndexCreateWithMutableData((__bridge CFMutableDataRef)data, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
+    self.indexData = data;
+    
     return index;
-}
-
-- (BOOL)isFileBased {
-    return self.indexFilePath != nil;
-}
-
-
-#pragma mark - File-based index management
-
-
-- (SKIndexRef)openIndexFileAtPath:(NSString *)path {
-    NSURL *url = [NSURL fileURLWithPath:path];
-    return SKIndexOpenWithURL((__bridge CFURLRef)url, (__bridge CFStringRef)INDEX_NAME, true);
-}
-
-- (void)removeIndexFileAtPath:(NSString *)path {
-    [[NSFileManager defaultManager] removeItemAtPath:path error:nil];
-}
-
-- (BOOL)hasIndexFile {
-    return [[NSFileManager defaultManager] fileExistsAtPath:self.indexFilePath];
 }
 
 @end

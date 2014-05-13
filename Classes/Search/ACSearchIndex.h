@@ -16,7 +16,7 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
 
 
 /**
- @brief Asynchronous full-text search using Search Kit
+ @brief Asynchronous full-text search in memory-based index using Search Kit.
  
  All methods are executed asynchronously but enqueued in a single serial queue, thus calling two methods in direct
  succession is fine. E.g. addDocumentsAt: immediately followed by search: will work as expected, search will
@@ -27,17 +27,6 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  TODO: Add completion queue to allow other threads/queues to use this class
  */
 @interface ACSearchIndex : NSObject
-
-/**
- ACSearchIndex using a file-based index.
- @param path A path where the index file will be saved
- */
-- (id)initWithFileBasedIndex:(NSString *)path;
-
-/**
- ACSearchIndex using a memory-based index.
- */
-- (id)initWithMemoryBasedIndex;
 
 /**
  Index all documents in a folder and its sub-folders that have a given extension
