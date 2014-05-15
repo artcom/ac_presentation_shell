@@ -20,7 +20,7 @@
 		textLayer.foregroundColor = CGColorGetConstantColor(kCGColorWhite);
 		textLayer.wrapped = YES;
 		textLayer.fontSize = 14;
-		textLayer.font = (__bridge CFTypeRef)(@"AC Swiss Bold");
+		textLayer.font = (__bridge CFTypeRef)(@"ACSwiss-Bold");
 		
 		[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
 															relativeTo:@"superlayer"
