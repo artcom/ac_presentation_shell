@@ -177,10 +177,13 @@
 	NSInteger firstItem = [self firstItemOnPage];
 	NSInteger lastItem = [self lastItemOnPage];
 	
+    CGSize itemSize = [dataSource sizeForItemInPresentationView:self];
+    CGRect itemBounds = CGRectMake(0.0f, 0.0f, itemSize.width, itemSize.height);
 	for (int i = firstItem; i <= lastItem; i++) {
 		CALayer *layer = [dataSource presentationView:self layerForItemAtIndex:i];
 		layer.position = [layout positionForItem:i % layout.itemsOnPage];
 		layer.contentsScale = [[self window] backingScaleFactor];
+        layer.bounds = itemBounds;
 		[self.layer addSublayer:layer];	
 		[self.sublayers addObject:layer];
 	}
