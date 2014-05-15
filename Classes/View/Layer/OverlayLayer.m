@@ -36,9 +36,8 @@
 															relativeTo:@"superlayer"
 															 attribute:kCAConstraintMinY 
 																offset:10]];
-		
-		
-		self.contents = [NSImage imageNamed: @"gfx_project_overlay.png"];
+    
+        self.backgroundColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
 		self.frame = CGRectMake(0, 0, 220, 100);
 		self.layoutManager = [HeightForWidthLayoutManager layoutManager];
 		
