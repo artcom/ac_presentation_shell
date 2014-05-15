@@ -32,7 +32,6 @@
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize page;
-@synthesize hoveredLayer;
 @synthesize mouseTracking;
 @synthesize layout;
 @synthesize logo;
@@ -84,7 +83,7 @@
     for (CALayer *layer in self.sublayers) {
         layer.contentsScale = backingScaleFactor;
     }
-    [self.hoveredLayer setContentsScale:backingScaleFactor];
+    [self.hoverLayer setContentsScale:backingScaleFactor];
 }
 
 - (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
@@ -121,25 +120,19 @@
 	CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
 
 	if (layer == self.layer) {
-		[self.hoveredLayer removeFromSuperlayer];
-		self.hoveredLayer = nil;
-        
+		self.hoverLayer = nil;
 		return;
 	}
 	
-	if (![self.sublayers containsObject:layer] || layer == self.hoveredLayer) {
+	if (![self.sublayers containsObject:layer] || layer == self.hoverLayer) {
 		return;
 	}
 
-	[self.hoveredLayer removeFromSuperlayer];
-	hoveredItem = [self indexOfItemOnPage:[self.sublayers indexOfObject:layer]];
-		
-	self.hoveredLayer = [dataSource presentationView:self hoverLayerForItemAtIndex:hoveredItem];
-	self.hoveredLayer.frame = layer.frame;
-    self.hoveredLayer.delegate = self;
-    self.hoveredLayer.contentsScale = [self backingScaleFactor];
-
-	[self.layer addSublayer: self.hoveredLayer];
+    hoveredItem = [self indexOfItemOnPage:[self.sublayers indexOfObject:layer]];
+    
+    CALayer *hoverLayer = [dataSource presentationView:self hoverLayerForItemAtIndex:hoveredItem];
+    hoverLayer.frame = layer.frame;
+    self.hoverLayer = hoverLayer;
 }
 
 - (void) mouseEntered:(NSEvent *)theEvent {
@@ -148,8 +141,7 @@
 
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	[self.hoveredLayer removeFromSuperlayer];
-
+	self.hoverLayer = nil;
 	[[self window] setAcceptsMouseMovedEvents:NO];
 }
 
@@ -193,9 +185,7 @@
 
 
 - (void)setPage:(NSInteger)newPage {
-	[self.hoveredLayer removeFromSuperlayer];
-	self.hoveredLayer = nil;
-	
+	self.hoverLayer = nil;
 	[self willChangeValueForKey:@"page"];
 	page = newPage;
 	[self didChangeValueForKey:@"page"];
@@ -211,15 +201,20 @@
 	return ceil(([dataSource numberOfItemsInPresentationView:self] / (float)layout.itemsOnPage));
 }
 
-- (void)addOverlay: (CALayer *)newOverlay forItem: (NSInteger)index {
-	[self.hoveredLayer removeFromSuperlayer];
-	
+- (void)addOverlay:(CALayer *)newOverlay forItem: (NSInteger)index {
 	newOverlay.position = [layout positionForItem: index % layout.itemsOnPage];
-	self.hoveredLayer = newOverlay;
-
-	[self.layer addSublayer:self.hoveredLayer];
+    [self setHoverLayer:newOverlay];
 }
 
+- (void)setHoverLayer:(CALayer *)hoverLayer {
+    [self.hoverLayer removeFromSuperlayer];
+    if (hoverLayer) {
+        hoverLayer.contentsScale = [self backingScaleFactor];
+        hoverLayer.delegate = self;
+        [self.layer addSublayer:hoverLayer];
+    }
+    _hoverLayer = hoverLayer;
+}
 
 - (BOOL)hasNextPage {
 	return (self.page + 1 < self.pages);

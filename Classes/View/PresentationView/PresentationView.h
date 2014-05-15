@@ -15,16 +15,11 @@
 
 @interface PresentationView : NSView {
 
-	GridLayout *layout;
-
-	CALayer *hoveredLayer;
 	NSInteger hoveredItem;
 	NSTrackingRectTag mouseTrackingRectTag;
 	
-	NSInteger page;
 	BOOL mouseTracking;
 	
-	CALayer *logo;
 	PaginationView *paginationView;
 	NSButton *pageButtons;
 }
@@ -34,7 +29,7 @@
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
 @property (assign, nonatomic, getter=isMouseTracking) BOOL mouseTracking;
-@property (strong) CALayer *hoveredLayer; 
+@property (strong, nonatomic) CALayer *hoverLayer;
 @property (strong) GridLayout *layout;
 @property (strong) CALayer *logo;
 
