@@ -16,7 +16,6 @@
 @interface PresentationView : NSView {
 
 	GridLayout *layout;
-	NSMutableArray *sublayers;
 
 	CALayer *hoveredLayer;
 	NSInteger hoveredItem;
@@ -38,6 +37,7 @@
 @property (strong) CALayer *hoveredLayer; 
 @property (strong) GridLayout *layout;
 @property (strong) CALayer *logo;
+
 
 - (void)arrangeSublayer;
 - (BOOL)hasNextPage;

@@ -9,6 +9,11 @@
 #import "OverlayLayer.h"
 #import "HeightForWidthLayoutManager.h"
 
+
+@interface OverlayLayer ()
+@property (nonatomic, strong) CATextLayer *textLayer;
+@end
+
 @implementation OverlayLayer
 
 
@@ -16,11 +21,12 @@
 	self = [super init];
 	if (self != nil) {
 		
-		textLayer = [CATextLayer layer];
+		CATextLayer *textLayer = [CATextLayer layer];
 		textLayer.foregroundColor = CGColorGetConstantColor(kCGColorWhite);
 		textLayer.wrapped = YES;
 		textLayer.fontSize = 14;
 		textLayer.font = (__bridge CFTypeRef)(@"ACSwiss-Bold");
+        textLayer.delegate = self;
 		
 		[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
 															relativeTo:@"superlayer"
@@ -42,21 +48,28 @@
 		self.layoutManager = [HeightForWidthLayoutManager layoutManager];
 		
 		[self addSublayer: textLayer];
+        self.textLayer = textLayer;
 	}
 	return self;
 }
 
 - (NSString *) text {
-	return textLayer.string;
+	return self.textLayer.string;
 }
 
 - (void) setText:(NSString *) newText {
-	textLayer.string = newText;
+	self.textLayer.string = newText;
 }
 
+- (void)setContentsScale:(CGFloat)contentsScale {
+    [super setContentsScale:contentsScale];
+    self.textLayer.contentsScale = contentsScale;
+}
 
-
-
+- (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
+    NSLog(@"TEST: textLayer of OverlayLayer is calling shouldInheritContentsScale with %f", newScale);
+    return YES;
+}
 
 
 @end

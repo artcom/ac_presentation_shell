@@ -11,7 +11,11 @@
 
 #define GRID_BORDER 10
 
-@interface PresentationView () 
+
+@interface PresentationView ()
+
+@property (strong, nonatomic) NSMutableArray *sublayers;
+
 - (void)setUpAccessorieViews;
 - (void)setupView;
 - (void)updateMouseTrackingRect;
@@ -21,6 +25,7 @@
 
 - (void)viewDidResize: (NSNotification *)aNotification;
 @end
+
 
 @implementation PresentationView
 
@@ -52,7 +57,7 @@
 	[self setLayer:rootLayer];
 	[self setWantsLayer:YES];
 	
-	sublayers = [[NSMutableArray alloc] init];
+	self.sublayers = [[NSMutableArray alloc] init];
 	layout = [[GridLayout alloc] init];
 	
 	self.page = 0;	
@@ -68,11 +73,31 @@
 	return YES;
 }
 
+- (float)backingScaleFactor {
+    return [[self window] backingScaleFactor];
+}
+
+- (void)viewDidChangeBackingProperties {
+    NSLog(@"TEST: PresentationView: viewDidChangeBackingProperties");
+    float backingScaleFactor = [self backingScaleFactor];
+    self.layer.contentsScale = backingScaleFactor;
+    for (CALayer *layer in self.sublayers) {
+        layer.contentsScale = backingScaleFactor;
+    }
+    [self.hoveredLayer setContentsScale:backingScaleFactor];
+}
+
+- (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
+    NSLog(@"TEST: PresentationView: layer asking delegate for content scale...");
+    return YES;
+}
+
+
 - (void) mouseUp:(NSEvent *)theEvent {
 	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	
 	CALayer *clickedLayer = nil;
-	for (CALayer *layer in sublayers) {
+	for (CALayer *layer in self.sublayers) {
 		if ([layer hitTest:NSPointToCGPoint(location)]) {
 			clickedLayer = layer;
 		} 
@@ -82,7 +107,7 @@
 		return;
 	}
 	
-	NSInteger selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
+	NSInteger selectedItem = [self indexOfItemOnPage:[self.sublayers indexOfObject: clickedLayer]];
 	if ([self.delegate respondsToSelector:@selector(presentationView:didClickedItemAtIndex:)]) {
 		[self.delegate presentationView:self didClickedItemAtIndex:selectedItem];
 	}
@@ -102,16 +127,18 @@
 		return;
 	}
 	
-	if (![sublayers containsObject:layer] || layer == self.hoveredLayer) {
+	if (![self.sublayers containsObject:layer] || layer == self.hoveredLayer) {
 		return;
 	}
 
 	[self.hoveredLayer removeFromSuperlayer];
-	hoveredItem = [self indexOfItemOnPage:[sublayers indexOfObject:layer]];
+	hoveredItem = [self indexOfItemOnPage:[self.sublayers indexOfObject:layer]];
 		
 	self.hoveredLayer = [dataSource presentationView:self hoverLayerForItemAtIndex:hoveredItem];
 	self.hoveredLayer.frame = layer.frame;
-		
+    self.hoveredLayer.delegate = self;
+    self.hoveredLayer.contentsScale = [self backingScaleFactor];
+
 	[self.layer addSublayer: self.hoveredLayer];
 }
 
@@ -141,11 +168,11 @@
 
 - (void)arrangeSublayer {
 	[self updateLayout];
-	for (CALayer *layer in sublayers) {
+	for (CALayer *layer in self.sublayers) {
 		[layer removeFromSuperlayer];
 	}
 	
-	[sublayers removeAllObjects];
+	[self.sublayers removeAllObjects];
 	
 	NSInteger firstItem = [self firstItemOnPage];
 	NSInteger lastItem = [self lastItemOnPage];
@@ -153,9 +180,9 @@
 	for (int i = firstItem; i <= lastItem; i++) {
 		CALayer *layer = [dataSource presentationView:self layerForItemAtIndex:i];
 		layer.position = [layout positionForItem:i % layout.itemsOnPage];
-		
+		layer.contentsScale = [[self window] backingScaleFactor];
 		[self.layer addSublayer:layer];	
-		[sublayers addObject:layer];
+		[self.sublayers addObject:layer];
 	}
 
 	[self didUpdatePages];
