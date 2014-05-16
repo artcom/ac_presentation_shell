@@ -284,7 +284,7 @@
 #pragma mark Set Up Accessory Views
 
 - (void)setUpAccessorieViews {
-	NSImage *logoImage = [NSImage imageNamed:@"gfx_ac_logo.png"];
+	NSImage *logoImage = [NSImage imageNamed:@"Presentation_Logo"];
 	self.logo = [CALayer layer];
 	self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
 	self.logo.contents = logoImage;

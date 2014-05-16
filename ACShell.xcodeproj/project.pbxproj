@@ -37,7 +37,6 @@
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
 		22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
 		22D5993511DDD19B0025E48F /* PaginationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5993411DDD19B0025E48F /* PaginationView.m */; };
-		22D59A4B11DE147C0025E48F /* gfx_ac_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4611DE147C0025E48F /* gfx_ac_logo.png */; };
 		22D59A4C11DE147C0025E48F /* icn_next_page.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4711DE147C0025E48F /* icn_next_page.png */; };
 		22D59A4D11DE147C0025E48F /* icn_pagination_active.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4811DE147C0025E48F /* icn_pagination_active.png */; };
 		22D59A4E11DE147C0025E48F /* icn_pagination.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D59A4911DE147C0025E48F /* icn_pagination.png */; };
@@ -82,6 +81,7 @@
 		CD349E56180740CE0028C540 /* ACSearchIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = CD349E51180740CE0028C540 /* ACSearchIndex.m */; };
 		CD349E57180740CE0028C540 /* ACSearchIndexQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = CD349E53180740CE0028C540 /* ACSearchIndexQuery.m */; };
 		CD349E58180740CE0028C540 /* ACSearchIndexResult.m in Sources */ = {isa = PBXBuildFile; fileRef = CD349E55180740CE0028C540 /* ACSearchIndexResult.m */; };
+		CD5D24821926525B001AE16E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD5D24811926525B001AE16E /* Media.xcassets */; };
 		CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */; };
 		CDEC08E517F32F28009EC2F6 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC08E417F32F28009EC2F6 /* CoreServices.framework */; };
 /* End PBXBuildFile section */
@@ -170,7 +170,6 @@
 		22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationLibrary.m; sourceTree = "<group>"; };
 		22D5993311DDD19B0025E48F /* PaginationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaginationView.h; sourceTree = "<group>"; };
 		22D5993411DDD19B0025E48F /* PaginationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaginationView.m; sourceTree = "<group>"; };
-		22D59A4611DE147C0025E48F /* gfx_ac_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = gfx_ac_logo.png; path = Resources/Images/gfx_ac_logo.png; sourceTree = "<group>"; };
 		22D59A4711DE147C0025E48F /* icn_next_page.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_next_page.png; path = Resources/Images/icn_next_page.png; sourceTree = "<group>"; };
 		22D59A4811DE147C0025E48F /* icn_pagination_active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_pagination_active.png; path = Resources/Images/icn_pagination_active.png; sourceTree = "<group>"; };
 		22D59A4911DE147C0025E48F /* icn_pagination.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icn_pagination.png; path = Resources/Images/icn_pagination.png; sourceTree = "<group>"; };
@@ -250,6 +249,7 @@
 		CD349E53180740CE0028C540 /* ACSearchIndexQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACSearchIndexQuery.m; sourceTree = "<group>"; };
 		CD349E54180740CE0028C540 /* ACSearchIndexResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACSearchIndexResult.h; sourceTree = "<group>"; };
 		CD349E55180740CE0028C540 /* ACSearchIndexResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACSearchIndexResult.m; sourceTree = "<group>"; };
+		CD5D24811926525B001AE16E /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Media.xcassets; path = Resources/Media.xcassets; sourceTree = "<group>"; };
 		CD7F034A17F5B258004F5556 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		CDDA4EC41808058C004723CE /* PresentationLibrarySearch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationLibrarySearch.h; sourceTree = "<group>"; };
 		CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationLibrarySearch.m; sourceTree = "<group>"; };
@@ -459,7 +459,6 @@
 				6366035011F2305300D6DD96 /* icn_highlight.png */,
 				22CE744911EDD36D0043F3C8 /* icn_start_presentation.png */,
 				22CE731611EDB15B0043F3C8 /* spinner.png */,
-				22D59A4611DE147C0025E48F /* gfx_ac_logo.png */,
 				22D59A4711DE147C0025E48F /* icn_next_page.png */,
 				22D59A4811DE147C0025E48F /* icn_pagination_active.png */,
 				22D59A4911DE147C0025E48F /* icn_pagination.png */,
@@ -497,6 +496,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CD5D24811926525B001AE16E /* Media.xcassets */,
 				22A3B61711E71AA6003DE847 /* Fonts */,
 				22D59A4511DE146B0025E48F /* Images */,
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
@@ -684,7 +684,7 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */,
-				22D59A4B11DE147C0025E48F /* gfx_ac_logo.png in Resources */,
+				CD5D24821926525B001AE16E /* Media.xcassets in Resources */,
 				22D59A4C11DE147C0025E48F /* icn_next_page.png in Resources */,
 				22D59A4D11DE147C0025E48F /* icn_pagination_active.png in Resources */,
 				22D59A4E11DE147C0025E48F /* icn_pagination.png in Resources */,
