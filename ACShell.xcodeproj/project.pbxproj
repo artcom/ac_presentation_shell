@@ -23,7 +23,6 @@
 		22A3B65311E71F48003DE847 /* acswisslightit.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B64F11E71F48003DE847 /* acswisslightit.ttf */; };
 		22A3B65411E71F48003DE847 /* acswissmed.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B65011E71F48003DE847 /* acswissmed.ttf */; };
 		22A3B65511E71F48003DE847 /* acswissmedit.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B65111E71F48003DE847 /* acswissmedit.ttf */; };
-		22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A8CAB011E63B41006707E4 /* HeightForWidthLayoutManager.m */; };
 		22B2000D11D9EECE00C6D9ED /* PresentationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B2000C11D9EECE00C6D9ED /* PresentationView.m */; };
 		22B2002711D9F33900C6D9ED /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B2002611D9F33900C6D9ED /* QuartzCore.framework */; };
 		22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */; };
@@ -143,8 +142,6 @@
 		22A3B64F11E71F48003DE847 /* acswisslightit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = acswisslightit.ttf; path = Resources/Fonts/acswisslightit.ttf; sourceTree = "<group>"; };
 		22A3B65011E71F48003DE847 /* acswissmed.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = acswissmed.ttf; path = Resources/Fonts/acswissmed.ttf; sourceTree = "<group>"; };
 		22A3B65111E71F48003DE847 /* acswissmedit.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = acswissmedit.ttf; path = Resources/Fonts/acswissmedit.ttf; sourceTree = "<group>"; };
-		22A8CAAF11E63B41006707E4 /* HeightForWidthLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeightForWidthLayoutManager.h; sourceTree = "<group>"; };
-		22A8CAB011E63B41006707E4 /* HeightForWidthLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeightForWidthLayoutManager.m; sourceTree = "<group>"; };
 		22B2000B11D9EECE00C6D9ED /* PresentationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationView.h; sourceTree = "<group>"; };
 		22B2000C11D9EECE00C6D9ED /* PresentationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationView.m; sourceTree = "<group>"; };
 		22B2002611D9F33900C6D9ED /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -362,15 +359,6 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
-		22A8CA9411E63AF9006707E4 /* LayoutManager */ = {
-			isa = PBXGroup;
-			children = (
-				22A8CAAF11E63B41006707E4 /* HeightForWidthLayoutManager.h */,
-				22A8CAB011E63B41006707E4 /* HeightForWidthLayoutManager.m */,
-			);
-			path = LayoutManager;
-			sourceTree = "<group>";
-		};
 		22B2004211D9F75500C6D9ED /* PresentationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -444,7 +432,6 @@
 			isa = PBXGroup;
 			children = (
 				22CE72CA11EDAD580043F3C8 /* Layer */,
-				22A8CA9411E63AF9006707E4 /* LayoutManager */,
 				22B2004211D9F75500C6D9ED /* PresentationView */,
 				630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */,
 				630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */,
@@ -761,7 +748,6 @@
 				22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */,
 				225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */,
 				22D5993511DDD19B0025E48F /* PaginationView.m in Sources */,
-				22A8CAB111E63B41006707E4 /* HeightForWidthLayoutManager.m in Sources */,
 				22CE72CD11EDAD8B0043F3C8 /* OverlayLayer.m in Sources */,
 				22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */,
 				636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */,

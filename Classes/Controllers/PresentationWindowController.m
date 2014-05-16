@@ -11,7 +11,6 @@
 #import "KeynoteHandler.h"
 #import "PresentationView.h"
 #import "PaginationView.h"
-#import "HeightForWidthLayoutManager.h"
 #import "OverlayLayer.h"
 #import "ProgressOverlayLayer.h"
 

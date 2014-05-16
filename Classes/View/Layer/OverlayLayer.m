@@ -7,11 +7,13 @@
 //
 
 #import "OverlayLayer.h"
-#import "HeightForWidthLayoutManager.h"
 
+const float kLabelPaddingLeftRight = 10.0f;
+const float kLabelPaddingBottom = 8.0f;
 
 @interface OverlayLayer ()
-@property (nonatomic, strong) CATextLayer *textLayer;
+@property (nonatomic, strong) CATextLayer *titleLayer;
+@property (nonatomic, strong) NSDictionary *titleAttribs;
 @end
 
 @implementation OverlayLayer
@@ -21,49 +23,50 @@
 	self = [super init];
 	if (self != nil) {
 		
-		CATextLayer *textLayer = [CATextLayer layer];
-		textLayer.foregroundColor = CGColorGetConstantColor(kCGColorWhite);
-		textLayer.wrapped = YES;
-		textLayer.fontSize = 14;
-		textLayer.font = (__bridge CFTypeRef)(@"ACSwiss-Bold");
-        textLayer.delegate = self;
-		
-		[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMaxX
-															relativeTo:@"superlayer"
-															 attribute:kCAConstraintMaxX
-																offset:-10]];
-		
-		[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinX
-															relativeTo:@"superlayer"
-															 attribute:kCAConstraintMinX
-																offset:10]];
-		
-		[textLayer addConstraint:[CAConstraint constraintWithAttribute:kCAConstraintMinY
-															relativeTo:@"superlayer"
-															 attribute:kCAConstraintMinY 
-																offset:10]];
-    
+		self.titleLayer = [CATextLayer layer];
+		_titleLayer.wrapped = YES;
+        _titleLayer.delegate = self;
+		[self addSublayer:_titleLayer];
+        
+        NSFont *font = [NSFont fontWithName:@"ACSwiss-Bold" size:14.0f];
+        NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
+        style.lineSpacing = 1.5f;
+        style.lineBreakMode = NSLineBreakByWordWrapping;
+        self.titleAttribs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : [NSColor whiteColor], NSParagraphStyleAttributeName : style };
+
         self.backgroundColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
 		self.frame = CGRectMake(0, 0, 220, 100);
-		self.layoutManager = [HeightForWidthLayoutManager layoutManager];
-		
-		[self addSublayer: textLayer];
-        self.textLayer = textLayer;
 	}
 	return self;
 }
 
-- (NSString *) text {
-	return self.textLayer.string;
+- (NSString *)text {
+	return self.titleLayer.string;
 }
 
-- (void) setText:(NSString *) newText {
-	self.textLayer.string = newText;
+- (CGSize)suggestedSizeForString:(NSAttributedString *)attrString constraints:(CGSize)constraints {
+    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
+    CGSize fitSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [attrString length]), NULL, constraints, NULL);
+    CFRelease(framesetter);
+    return fitSize;
+}
+
+- (void)layoutSublayers {
+    [super layoutSublayers];
+    
+    // Size and position text label
+    float textLabelWidth = CGRectGetWidth(self.bounds) - kLabelPaddingLeftRight * 2;
+    CGSize fitSize = [self suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(textLabelWidth, CGFLOAT_MAX)];
+    self.titleLayer.frame = CGRectMake(kLabelPaddingLeftRight, kLabelPaddingBottom, textLabelWidth, fitSize.height);
+}
+
+- (void)setText:(NSString *)newText {
+	self.titleLayer.string = [[NSAttributedString alloc] initWithString:newText attributes:self.titleAttribs];;
 }
 
 - (void)setContentsScale:(CGFloat)contentsScale {
     [super setContentsScale:contentsScale];
-    self.textLayer.contentsScale = contentsScale;
+    self.titleLayer.contentsScale = contentsScale;
 }
 
 - (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
