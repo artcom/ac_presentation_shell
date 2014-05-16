@@ -284,7 +284,7 @@
 #pragma mark Set Up Accessory Views
 
 - (void)setUpAccessorieViews {
-	NSImage *logoImage = [NSImage imageNamed:@"Presentation_Logo"];
+	NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
 	self.logo = [CALayer layer];
 	self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
 	self.logo.contents = logoImage;
@@ -298,14 +298,14 @@
 	pageButtons = (NSButton*) [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 32, 10)];
 	
 	NSButton *upButtons = [[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 15, 10)];
-	[upButtons setImage: [NSImage imageNamed:@"icn_prev_page.png"]];
+	[upButtons setImage:[NSImage imageNamed:@"presentation_icon_prev_page"]];
 	[upButtons setBordered:NO];
 	[upButtons setTarget:self];
 	[upButtons setAction:@selector(moveUp:)];
 	[pageButtons addSubview:upButtons];
 	
 	NSButton *downButtons = [[NSButton alloc] initWithFrame: NSMakeRect(17, 0, 15, 10)];
-	[downButtons setImage:[NSImage imageNamed:@"icn_next_page.png"]];
+	[downButtons setImage:[NSImage imageNamed:@"presentation_icon_next_page"]];
 	[downButtons setBordered:NO];
 	[downButtons setTarget:self];
 	[downButtons setAction:@selector(moveDown:)];
