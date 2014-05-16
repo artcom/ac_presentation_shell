@@ -77,7 +77,6 @@
 }
 
 - (void)viewDidChangeBackingProperties {
-    NSLog(@"TEST: PresentationView: viewDidChangeBackingProperties");
     float backingScaleFactor = [self backingScaleFactor];
     self.layer.contentsScale = backingScaleFactor;
     for (CALayer *layer in self.sublayers) {
@@ -87,7 +86,6 @@
 }
 
 - (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
-    NSLog(@"TEST: PresentationView: layer asking delegate for content scale...");
     return YES;
 }
 
@@ -283,7 +281,7 @@
 }
 
 #pragma mark -
-#pragma mark Set Up Accessorie Views
+#pragma mark Set Up Accessory Views
 
 - (void)setUpAccessorieViews {
 	NSImage *logoImage = [NSImage imageNamed:@"gfx_ac_logo.png"];

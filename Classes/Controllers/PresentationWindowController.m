@@ -42,7 +42,6 @@
 - (void) showWindow:(id)sender {
 	NSRect frame = [self presentationScreenFrame];
 	[self.window setFrame:frame display:YES animate: NO];
-	
 	[self.window makeKeyAndOrderFront:nil];
 	
 	@try {

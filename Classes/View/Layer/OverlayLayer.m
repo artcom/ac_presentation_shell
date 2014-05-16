@@ -70,7 +70,6 @@ const float kLabelPaddingBottom = 8.0f;
 }
 
 - (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
-    NSLog(@"TEST: textLayer of OverlayLayer is calling shouldInheritContentsScale with %f", newScale);
     return YES;
 }
 

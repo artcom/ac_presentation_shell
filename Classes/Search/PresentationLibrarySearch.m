@@ -40,8 +40,9 @@
     }
     
     // Index all documents
+    NSLog(@"Indexing Keynote presentations..");
     [self.searchIndex addDocumentsAt:self.libraryPath withExtension:@"key" completion:^(NSInteger numDocuments) {
-        NSLog(@"Indexed %lu Keynote presentations", numDocuments);
+        NSLog(@"Indexing done");
     }];
 }
 
