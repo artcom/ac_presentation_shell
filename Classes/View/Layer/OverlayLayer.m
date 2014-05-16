@@ -32,7 +32,7 @@ const float kLabelPaddingBottom = 8.0f;
         self.titleFont = [NSFont fontWithName:@"ACSwiss-Bold" size:14.0f];
         self.titleAttribs = @{ NSFontAttributeName : _titleFont, NSForegroundColorAttributeName : [NSColor whiteColor] };
 
-        self.backgroundColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
+        self.backgroundColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.75f].CGColor;
 		self.frame = CGRectMake(0, 0, 220, 100);
 	}
 	return self;
