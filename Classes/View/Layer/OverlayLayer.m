@@ -14,6 +14,7 @@ const float kLabelPaddingBottom = 8.0f;
 @interface OverlayLayer ()
 @property (nonatomic, strong) CATextLayer *titleLayer;
 @property (nonatomic, strong) NSDictionary *titleAttribs;
+@property (nonatomic, strong) NSFont *titleFont;
 @end
 
 @implementation OverlayLayer
@@ -28,11 +29,8 @@ const float kLabelPaddingBottom = 8.0f;
         _titleLayer.delegate = self;
 		[self addSublayer:_titleLayer];
         
-        NSFont *font = [NSFont fontWithName:@"ACSwiss-Bold" size:14.0f];
-        NSMutableParagraphStyle *style = [NSMutableParagraphStyle new];
-        style.lineSpacing = 1.5f;
-        style.lineBreakMode = NSLineBreakByWordWrapping;
-        self.titleAttribs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : [NSColor whiteColor], NSParagraphStyleAttributeName : style };
+        self.titleFont = [NSFont fontWithName:@"ACSwiss-Bold" size:14.0f];
+        self.titleAttribs = @{ NSFontAttributeName : _titleFont, NSForegroundColorAttributeName : [NSColor whiteColor] };
 
         self.backgroundColor = [NSColor colorWithRed:0.0f green:0.0f blue:0.0f alpha:0.5f].CGColor;
 		self.frame = CGRectMake(0, 0, 220, 100);
@@ -57,7 +55,7 @@ const float kLabelPaddingBottom = 8.0f;
     // Size and position text label
     float textLabelWidth = CGRectGetWidth(self.bounds) - kLabelPaddingLeftRight * 2;
     CGSize fitSize = [self suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(textLabelWidth, CGFLOAT_MAX)];
-    self.titleLayer.frame = CGRectMake(kLabelPaddingLeftRight, kLabelPaddingBottom, textLabelWidth, fitSize.height);
+    self.titleLayer.frame = CGRectMake(kLabelPaddingLeftRight, kLabelPaddingBottom, textLabelWidth, fitSize.height - self.titleFont.descender);
 }
 
 - (void)setText:(NSString *)newText {
