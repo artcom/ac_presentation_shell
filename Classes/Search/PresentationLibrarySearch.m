@@ -30,19 +30,10 @@
 
 - (void)updateIndex {
     
-    // TODO update only what changed
-    
-    if (self.searchIndex) {
-        [self.searchIndex reset];
-    }
-    else {
-        self.searchIndex = [[ACSearchIndex alloc] init];
-    }
-    
-    // Index all documents
-    NSLog(@"Indexing Keynote presentations..");
+    self.searchIndex = [[ACSearchIndex alloc] init];
+    NSLog(@"Indexing..");
     [self.searchIndex addDocumentsAt:self.libraryPath withExtension:@"key" completion:^(NSInteger numDocuments) {
-        NSLog(@"Indexing done");
+        NSLog(@"Indexed %lu Keynote files", numDocuments);
     }];
 }
 

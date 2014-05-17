@@ -72,37 +72,9 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     return operation;
 }
 
-- (void)reset {
-    [self enqueueMessage:@selector(syncReset)];
-}
-
-- (void)optimize {
-    [self enqueueMessage:@selector(syncOptimize)];
-}
-
-- (void)enqueueMessage:(SEL)selector {
-    __weak ACSearchIndex *weakSelf = self;
-    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [weakSelf performSelector:selector];
-#pragma clang diagnostic pop
-    }];
-    [self.operationQueue addOperation:operation];
-}
-
 
 #pragma mark - Private synchronous methods
 
-
-- (void)syncReset {
-    [self closeIndex];
-    self.indexRef = [self createIndex];
-}
-
-- (void)syncOptimize {
-    SKIndexCompact(self.indexRef);
-}
 
 - (BOOL)syncAddDocumentAt:(NSString *)path updateIndex:(BOOL)updateIndex {
     
@@ -132,10 +104,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     }
     SKIndexFlush(self.indexRef);
     return numFilesAdded;
-}
-
-- (NSInteger)numDocuments {
-    return SKIndexGetDocumentCount(_indexRef);
 }
 
 
@@ -170,7 +138,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     NSMutableData *data = [[NSMutableData alloc] init];
     index = SKIndexCreateWithMutableData((__bridge CFMutableDataRef)data, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
     self.indexData = data;
-    
     return index;
 }
 

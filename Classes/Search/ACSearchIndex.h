@@ -49,15 +49,5 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  */
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion;
 
-/**
- @brief Reset index
- */
-- (void)reset;
-
-/**
- @brief Optimize index. 
- Can improve performance after many changes to the index like adding and/or removing many documents.
- */
-- (void)optimize;
 
 @end
