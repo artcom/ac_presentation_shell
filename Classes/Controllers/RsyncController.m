@@ -116,7 +116,7 @@ static NSImage * ourUploadIcon = nil;
         [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
     }];
     
-	[delegate rsync:self didFinishSyncingSuccesful: YES];
+	[delegate rsync:self didFinishSyncSuccessfully: YES];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didFailWithError: (NSString *)error {
@@ -134,7 +134,7 @@ static NSImage * ourUploadIcon = nil;
             [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
         }];
     }
-	[delegate rsync:self didFinishSyncingSuccesful: NO];
+	[delegate rsync:self didFinishSyncSuccessfully: NO];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)fileProgress

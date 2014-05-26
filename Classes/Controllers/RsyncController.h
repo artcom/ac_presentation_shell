@@ -12,7 +12,7 @@
 
 @protocol RsyncControllerDelegate <NSObject>
 
-- (void)rsync: (RsyncController *)controller didFinishSyncingSuccesful: (BOOL)successFlag; 
+- (void)rsync: (RsyncController *)controller didFinishSyncSuccessfully: (BOOL)successFlag; 
 
 @end
 

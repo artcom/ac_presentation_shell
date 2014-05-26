@@ -678,7 +678,7 @@ enum CollectionActionTags {
 
 #pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
-- (void)rsync:(RsyncController *) controller didFinishSyncingSuccesful:(BOOL)successFlag {
+- (void)rsync:(RsyncController *) controller didFinishSyncSuccessfully:(BOOL)successFlag {
     self.presentationLibrary.syncSuccessful = successFlag;
     [self updateSyncFailedWarning];
 	if (successFlag) {
