@@ -29,7 +29,6 @@
                                style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles;
 - (NSAlert*)acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
 
-
 @end
 
 static NSImage * ourSyncIcon = nil;
@@ -38,7 +37,6 @@ static NSImage * ourUploadIcon = nil;
 @implementation RsyncController
 @synthesize delegate;
 @synthesize documentWindow;
-
 @synthesize progressView;
 @synthesize fileProgressBar;
 @synthesize fileProgressLabel;
@@ -83,7 +81,7 @@ static NSImage * ourUploadIcon = nil;
 
 -(void) performSync: (NSString*) source destination: (NSString*) destination {
     
-    NSAlert * progressDialog = [self progressDialog];
+    NSAlert *progressDialog = [self progressDialog];
     [self showSheet:progressDialog completionHandler:^(NSModalResponse returnCode) {
         [self userDidAbortSync:progressDialog returnCode:returnCode contextInfo:nil];
     }];
@@ -106,17 +104,23 @@ static NSImage * ourUploadIcon = nil;
 #pragma mark -
 #pragma mark RsyncTask Delegate Methods
 
-- (void)rsyncTaskDidFinish: (RsyncTask *)task; {
-    NSAlert *ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
-                                     informationalText: nil
-                                                 style: NSInformationalAlertStyle
-                                                  icon: [self directionIcon]];
+- (void)rsyncTaskDidFinish:(RsyncTask *)task; {
     
-    [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
-        [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
-    }];
+    // TODO If this dialog is shown after syncing, a bug with modal sheets occurs:
+    // ProgressSheet while syncing -> Done (here) -> Show AckSheet -> User clicks okay -> ProgressSheet
+    // is shown again (and not initiated by code in this class!)
+    // Disabling for now
+//    NSAlert *ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
+//                                     informationalText: nil
+//                                                 style: NSInformationalAlertStyle
+//                                                  icon: [self directionIcon]];
+//    
+//    [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
+//        [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
+//    }];
     
-	[delegate rsync:self didFinishSyncSuccessfully: YES];
+    [self showSheet:nil completionHandler:nil];
+	[delegate rsync:self didFinishSyncSuccessfully:YES];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didFailWithError: (NSString *)error {
@@ -223,9 +227,10 @@ static NSImage * ourUploadIcon = nil;
 
 - (void)showSheet:(NSAlert *)sheet completionHandler:(void (^)(NSModalResponse returnCode))handler {
     if (self.currentSheet != nil) {
-        [[self.currentSheet window] orderOut: self];
+        [[self.currentSheet window] orderOut:self];
         [NSApp endSheet:[self.currentSheet window]];
     }
+    self.currentSheet = nil;
     [sheet beginSheetModalForWindow:documentWindow completionHandler:handler];
     self.currentSheet = sheet;
 }
