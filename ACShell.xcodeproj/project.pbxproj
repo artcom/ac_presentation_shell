@@ -10,7 +10,6 @@
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 222781E811F88AD2007C1B6C /* RsyncTask.m */; };
 		225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */; };
-		2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2289820611F73701000D0983 /* AC-Shell-Icon.icns */; };
 		2295411011E3249500E09031 /* GHUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
 		2295411411E3259800E09031 /* GHUnit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 229540BD11E3213300E09031 /* GHUnit.framework */; };
 		2295412B11E3263100E09031 /* GridLayoutTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2295412A11E3263100E09031 /* GridLayoutTest.m */; };
@@ -126,7 +125,6 @@
 		222781E811F88AD2007C1B6C /* RsyncTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RsyncTask.m; sourceTree = "<group>"; };
 		225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACShellCollection.h; sourceTree = "<group>"; };
 		225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACShellCollection.m; sourceTree = "<group>"; };
-		2289820611F73701000D0983 /* AC-Shell-Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = "AC-Shell-Icon.icns"; path = "Resources/Images/AC-Shell-Icon.icns"; sourceTree = "<group>"; };
 		229540BD11E3213300E09031 /* GHUnit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnit.framework; path = libs/GHUnit.framework; sourceTree = "<group>"; };
 		229540CD11E3216100E09031 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		229540D611E3223100E09031 /* GHUnitTestMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHUnitTestMain.m; sourceTree = "<group>"; };
@@ -441,7 +439,6 @@
 			isa = PBXGroup;
 			children = (
 				63EB804B12043663008D7814 /* icn_missing_file.icns */,
-				2289820611F73701000D0983 /* AC-Shell-Icon.icns */,
 				630D759711FE05F400EEB7F2 /* icn_upload.icns */,
 				63B8E4B311FB8B160036DBC1 /* icn_warning.png */,
 				22F2B97D11F7541F00EE4717 /* icn_sync.icns */,
@@ -681,7 +678,6 @@
 				6366035111F2305300D6DD96 /* icn_highlight.png in Resources */,
 				6366050411F2EF0D00D6DD96 /* PreferencePages.xib in Resources */,
 				6366076B11F33F4200D6DD96 /* defaults.plist in Resources */,
-				2289820711F73701000D0983 /* AC-Shell-Icon.icns in Resources */,
 				22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */,
 				63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */,
 				63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */,
@@ -945,6 +941,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
@@ -970,6 +967,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
