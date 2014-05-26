@@ -11,18 +11,10 @@
 @class RsyncController;
 
 @protocol RsyncControllerDelegate <NSObject>
-
-- (void)rsync: (RsyncController *)controller didFinishSyncSuccessfully: (BOOL)successFlag; 
-
+- (void)rsync: (RsyncController *)controller didFinishSyncSuccessfully: (BOOL)successFlag;
 @end
 
-@interface RsyncController : NSObject <RsyncTaskDelegate> {
-	RsyncTask *rsyncTask;    
-    NSAlert *currentSheet;
-    BOOL terminatedByUser;
-    NSString *lastRsyncMessage;
-    BOOL isUploading;
-}
+@interface RsyncController : NSObject <RsyncTaskDelegate>
 
 @property (weak) id <RsyncControllerDelegate> delegate;
 @property (strong) NSWindow* documentWindow;
@@ -33,8 +25,8 @@
 @property (weak, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
 @property (weak, nonatomic) IBOutlet NSTextField * totalProgressLabel;
 
-- (void) syncWithSource: (NSString*) source destination: (NSString*) destination;
-- (void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination;
+- (void)syncWithSource: (NSString*) source destination: (NSString*) destination;
+- (void)initialSyncWithSource: (NSString*) source destination: (NSString*) destination;
 
-- (void) uploadWithSource: (NSString*) source destination: (NSString*) destination;
+- (void)uploadWithSource: (NSString*) source destination: (NSString*) destination;
 @end
