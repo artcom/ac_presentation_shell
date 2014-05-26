@@ -194,13 +194,12 @@ static NSImage * ourUploadIcon = nil;
         self.terminatedByUser = YES;
     } else if (returnCode == NSAlertSecondButtonReturn) {
         NSAlert * progress = [self progressDialog];
-        [progress setInformativeText:self.lastRsyncMessage];
+        if (self.lastRsyncMessage) [progress setInformativeText:self.lastRsyncMessage];
         [self showSheet:progress completionHandler:^(NSModalResponse returnCode) {
             [self userDidAbortSync:progress returnCode:returnCode contextInfo:nil];
         }];
         [fileProgressBar setIndeterminate: NO];
         [totalProgressBar setIndeterminate: NO];
-        
     }
 }
 
