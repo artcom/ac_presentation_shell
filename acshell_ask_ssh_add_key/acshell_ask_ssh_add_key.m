@@ -8,22 +8,16 @@
 
 
 BOOL runAddKeyDialog(NSString * sshOutput) {
-    NSDictionary * env = [[NSProcessInfo processInfo] environment];
-    NSString * iconURL = [env objectForKey: @"ACSHELL_ICON_URL"];
-    CFURLRef icon = CFURLCreateWithString (
-                                    kCFAllocatorDefault,
-                                    (CFStringRef)iconURL,
-                                    NULL
-                                    );
+    NSDictionary *env = [[NSProcessInfo processInfo] environment];
+    NSURL *iconUrl = [env objectForKey:@"ACSHELL_ICON_URL"];
     NSDictionary * dialogDescription = [NSDictionary dictionaryWithObjectsAndKeys:
                                         @"Add SSH Key", kCFUserNotificationAlertHeaderKey,
                                         sshOutput, kCFUserNotificationAlertMessageKey,
-                                        icon, kCFUserNotificationIconURLKey,
+                                        iconUrl, kCFUserNotificationIconURLKey,
                                         @"Add Key", kCFUserNotificationDefaultButtonTitleKey,
                                         @"Cancel", kCFUserNotificationAlternateButtonTitleKey,
                                         nil];
     
-    CFRelease(icon);
     SInt32 error;
     CFUserNotificationRef dialog = CFUserNotificationCreate(kCFAllocatorDefault,
                                                             0,

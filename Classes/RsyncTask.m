@@ -93,9 +93,8 @@
     NSMutableDictionary * env = [[[NSProcessInfo processInfo] environment] mutableCopy];
     [env setObject: askpasswdPath forKey: @"SSH_ASKPASS"];
     [env setObject: @"NONE" forKey: @"DISPLAY"];
-    NSString * iconPath = [[NSBundle mainBundle] pathForResource: @"AC-Shell-Icon" ofType: @"icns"];
-    [env setObject: iconPath forKey: @"ACSHELL_ICON_URL"];
-    
+    NSURL *iconUrl = [[NSBundle mainBundle] URLForResource:@"dialog_app_icon" withExtension:@"png"];
+    [env setObject:iconUrl forKey:@"ACSHELL_ICON_URL"];
     [self.task setEnvironment: env];
     
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(rsyncDidUpdateProgress:)

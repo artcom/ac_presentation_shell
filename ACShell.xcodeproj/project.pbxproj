@@ -78,6 +78,7 @@
 		CD5D24821926525B001AE16E /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD5D24811926525B001AE16E /* Media.xcassets */; };
 		CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */ = {isa = PBXBuildFile; fileRef = CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */; };
 		CDEC08E517F32F28009EC2F6 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CDEC08E417F32F28009EC2F6 /* CoreServices.framework */; };
+		CDFE4C1D19373CC00013F894 /* dialog_app_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = CDFE4C1C19373CC00013F894 /* dialog_app_icon.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,6 +245,7 @@
 		CDEC08E417F32F28009EC2F6 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CDEC08E817F3358D009EC2F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CDEC08EA17F335DA009EC2F6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		CDFE4C1C19373CC00013F894 /* dialog_app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialog_app_icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -438,6 +440,7 @@
 		22D59A4511DE146B0025E48F /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				CDFE4C1C19373CC00013F894 /* dialog_app_icon.png */,
 				63EB804B12043663008D7814 /* icn_missing_file.icns */,
 				630D759711FE05F400EEB7F2 /* icn_upload.icns */,
 				63B8E4B311FB8B160036DBC1 /* icn_warning.png */,
@@ -680,6 +683,7 @@
 				6366076B11F33F4200D6DD96 /* defaults.plist in Resources */,
 				22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */,
 				63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */,
+				CDFE4C1D19373CC00013F894 /* dialog_app_icon.png in Resources */,
 				63B8E4B411FB8B160036DBC1 /* icn_warning.png in Resources */,
 				63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */,
 				630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */,
