@@ -554,14 +554,14 @@
 		CD349E4F180740CE0028C540 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				CDDA4EC41808058C004723CE /* PresentationLibrarySearch.h */,
+				CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */,
 				CD349E50180740CE0028C540 /* ACSearchIndex.h */,
 				CD349E51180740CE0028C540 /* ACSearchIndex.m */,
 				CD349E52180740CE0028C540 /* ACSearchIndexQuery.h */,
 				CD349E53180740CE0028C540 /* ACSearchIndexQuery.m */,
 				CD349E54180740CE0028C540 /* ACSearchIndexResult.h */,
 				CD349E55180740CE0028C540 /* ACSearchIndexResult.m */,
-				CDDA4EC41808058C004723CE /* PresentationLibrarySearch.h */,
-				CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -943,7 +943,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -969,7 +968,6 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (

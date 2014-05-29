@@ -27,9 +27,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (weak, readonly) NSMutableArray* allPresentations;
 @property (weak, readonly) NSMutableArray* highlights;
 @property (weak, readonly) NSMutableArray* collections;
-@property (nonatomic, strong) NSMutableDictionary *presentationData;
-@property (nonatomic, strong) AssetManager *assetManager;
-@property (nonatomic, strong) PresentationLibrarySearch *librarySearch;
+@property (strong) NSMutableDictionary *presentationData;
+@property (strong) AssetManager *assetManager;
+@property (strong) PresentationLibrarySearch *librarySearch;
+@property (strong) NSMutableDictionary *thumbnailCache;
 
 + (NSString*) settingsFilepath;
 - (void) setup;
@@ -43,11 +44,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 
 @implementation PresentationLibrary
-@synthesize library;
-@synthesize syncSuccessful;
-@synthesize libraryDirPath;
-@synthesize presentationData;
-@synthesize assetManager;
+//@synthesize library;
+//@synthesize syncSuccessful;
+//@synthesize libraryDirPath;
+//@synthesize presentationData;
+//@synthesize assetManager;
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
@@ -76,19 +77,19 @@ static NSCharacterSet * ourNonDirNameCharSet;
         
         self.syncSuccessful = [aDecoder decodeBoolForKey: ACSHELL_SYNC_SUCCESSFUL];
         
-        [library assignContext: self];
+        [self.library assignContext: self];
     }
 
 	return self;
 }
 
 -(void) setup {
-	thumbnailCache = [[NSMutableDictionary alloc] init];
+	self.thumbnailCache = [[NSMutableDictionary alloc] init];
 	
     self.presentationData = nil;
-    library = [ACShellCollection collectionWithName: @"root"];
+    self.library = [ACShellCollection collectionWithName: @"root"];
     ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_LIBRARY, nil)];
-    [library.children addObject: lib];
+    [self.library.children addObject: lib];
     
     ACShellCollection *all = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_ALL, nil)];
     [lib.children addObject: all];
@@ -96,7 +97,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [lib.children addObject: highlights];
     
     ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_STR_COLLECTIONS, nil)];
-    [library.children addObject: collections];
+    [self.library.children addObject: collections];
 }
 
 
@@ -116,10 +117,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
 	[self flushThumbnailCache];
 	self.presentationData = nil;
-    libraryDirPath = directory;
+    self.libraryDirPath = directory;
     
     NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
-    presentationData = [[NSMutableDictionary alloc] init];
+    self.presentationData = [[NSMutableDictionary alloc] init];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
         NSLog(@"file '%@' does not exist", libraryPath);
@@ -135,7 +136,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     for (NSXMLElement * element in xmlPresentations) {
-		[presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
+		[self.presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
 		[element detach];
     }
     
@@ -151,19 +152,20 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void) saveXmlLibrary {
-    NSXMLElement * root = [[NSXMLElement alloc] initWithName: @"presentations"];
-    NSXMLDocument * document = [[NSXMLDocument alloc] initWithRootElement: root];
+    NSXMLElement *root = [[NSXMLElement alloc] initWithName: @"presentations"];
+    NSXMLDocument *document = [[NSXMLDocument alloc] initWithRootElement:root];
+    [document setCharacterEncoding:@"UTF-8"];
     for (Presentation* p in self.allPresentations) {
-        [root addChild: [presentationData objectForKey: p.presentationId]];
+        [root addChild:[self.presentationData objectForKey: p.presentationId]];
     }
 
-    NSData *xmlData = [document XMLDataWithOptions: NSXMLNodePrettyPrint];
+    NSData *xmlData = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
     if (![xmlData writeToFile: [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"] atomically:YES]) {
         NSLog(@"Failed to save xml file.");
     }
 	
-	for (id key in presentationData) {
-		NSXMLElement * element = [presentationData objectForKey: key];
+	for (id key in self.presentationData) {
+		NSXMLElement * element = [self.presentationData objectForKey: key];
 		[element detach];
 	}
     
@@ -172,7 +174,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (NSXMLElement *) xmlNode: (id)aId {
 	if ([self hasLibrary]) {
-        return [presentationData objectForKey: aId];
+        return [self.presentationData objectForKey: aId];
     }
     return nil;
 }
@@ -191,13 +193,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation {
-	NSImage *thumbnail = [thumbnailCache objectForKey:presentation.presentationId]; 
+	NSImage *thumbnail = [self.thumbnailCache objectForKey:presentation.presentationId];
 
 	if (thumbnail == nil) {
 		NSString *filepath = [[self libraryDirPath] stringByAppendingPathComponent: presentation.relativeThumbnailPath];
 		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
 		if (thumbnail != nil) {
-            [thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
+            [self.thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
         }
 	}
 	
@@ -205,7 +207,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)flushThumbnailCache {
-	[thumbnailCache removeAllObjects];
+	[self.thumbnailCache removeAllObjects];
 }
 
 - (void)cacheThumbnails {
@@ -215,7 +217,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)flushThumbnailCacheForPresentation: (Presentation *)presentation {
-	[thumbnailCache removeObjectForKey:presentation.presentationId];
+	[self.thumbnailCache removeObjectForKey:presentation.presentationId];
 }
 
 - (NSUInteger)collectionCount {
@@ -239,7 +241,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [node addChild: [NSXMLElement elementWithName: @"file"]];
     [node addChild: [NSXMLElement elementWithName: @"thumbnail"]];
 
-    [presentationData setObject: node forKey: newId];
+    [self.presentationData setObject: node forKey: newId];
 
     Presentation * p = [[Presentation alloc] initWithId: newId inContext: self];
     p.directory = [self subdirectoryFromTitle: title];
@@ -354,7 +356,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     [self.assetManager run];
     
-    [presentationData removeObjectForKey: presentation.presentationId];
+    [self.presentationData removeObjectForKey: presentation.presentationId];
     [self syncPresentations];
     [self saveXmlLibrary];
 }
@@ -362,15 +364,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
 #pragma mark -
 #pragma mark Private Methods
 - (NSMutableArray*) allPresentations {
-    return (NSMutableArray*)[[[[library.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
+    return (NSMutableArray*)[[[[self.library.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
 }
 
 - (NSMutableArray*) highlights {
-    return (NSMutableArray*)[[[[library.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
+    return (NSMutableArray*)[[[[self.library.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
 }
 
 - (NSMutableArray*) collections {
-    return (NSMutableArray*)[[library.children objectAtIndex: 1] children];
+    return (NSMutableArray*)[[self.library.children objectAtIndex: 1] children];
 }
 
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate {
@@ -394,7 +396,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [presentIds addObject: presentation.presentationId];
     }
     BOOL addedStuff = NO;
-    for (NSNumber * key in presentationData) {
+    for (NSNumber * key in self.presentationData) {
         if (NSNotFound == [presentIds indexOfObject: key]) {
             Presentation * newPresentation = [[Presentation alloc] initWithId: key inContext:self];
             if (thePredicate == nil || [thePredicate evaluateWithObject:newPresentation]) {
@@ -430,7 +432,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL) hasLibrary {
-    return [presentationData count] > 0;
+    return [self.presentationData count] > 0;
 }
 
 - (NSString*) buildLibDir: (NSString*) libraryDir {

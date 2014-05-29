@@ -20,20 +20,7 @@
 
 @end
 
-@interface RsyncTask : NSObject {
-	NSTask *task;
-
-	NSPipe *pipe;
-	NSPipe *errorPipe;
-	
-	NSString *source;
-	NSString *destination;
-    
-    BOOL preserveLocalChanges;
-	
-	NSUInteger targetLibrarySize;
-	
-}
+@interface RsyncTask : NSObject
 
 @property (weak, atomic) id <RsyncTaskDelegate> delegate;
 

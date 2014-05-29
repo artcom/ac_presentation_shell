@@ -9,14 +9,12 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface SshIdentityFile : NSObject {
-    NSString * path;
-}
+@interface SshIdentityFile : NSObject
 
 @property (strong) NSString * path;
 @property (weak, readonly) NSString * filename;
 
 
-- (id) initWithPath: (NSString*) path;
+- (id)initWithPath:(NSString*) path;
 
 @end
