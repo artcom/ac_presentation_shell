@@ -163,12 +163,17 @@ static NSCharacterSet * ourNonDirNameCharSet;
 		NSXMLElement * element = [self.presentationData objectForKey: key];
 		[element detach];
 	}
-    
-    // Ideally, this would be a possible place to add:
+
+    // TODO: Ideally, this would be a possible place to add:
     // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
     // this method is called when an ongoing copy operation of the AssetManager is still ongoing and the
-    // indexing process would use incomplete file data. So we don't. To update the index one has to
-    // sync again or restart the app.
+    // indexing process would use incomplete file data. To fix this one has to cleanup the mess
+    // in addPresentation and updatePresentation where AssetManager is initiated but its progress not
+    // tracked within this same class. (Progress might be tracked by whoever called the methods) Right now,
+    // this PresentationLibrary does not know when it's is in a valid state after file operations.
+    // Now, because updateIndex will not crash the app if it's running across incomplete files, I'll keep it in.
+    
+    [self.librarySearch updateIndex];
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
