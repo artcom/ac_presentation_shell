@@ -83,7 +83,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     SKDocumentRef document = SKDocumentCreateWithURL((__bridge CFURLRef)url);
     if (document) {
         documentAdded = SKIndexAddDocument(self.indexRef, document, (CFStringRef) NULL, true);
-        CFRelease(document);
     }
     if (documentAdded && updateIndex) SKIndexFlush(self.indexRef);
     return documentAdded;
@@ -91,11 +90,13 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (NSInteger)syncAddDocumentsAt:(NSString *)path withExtension:(NSString *)extension {
     
-    NSDirectoryEnumerator *fileEnumerator = [[NSFileManager defaultManager] enumeratorAtPath:path];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDirectoryEnumerator *fileEnumerator = [fileManager enumeratorAtPath:path];
     NSString *filePath;
     NSInteger numFilesAdded = 0;
     while ((filePath = [fileEnumerator nextObject])) {
-        if ([[filePath pathExtension] isEqualToString:extension]) {
+        BOOL ignore = [[filePath lastPathComponent] hasPrefix:@"."];
+        if (!ignore && [[filePath pathExtension] isEqualToString:extension]) {
             NSString *documentPath = [path stringByAppendingPathComponent:filePath];
             if ([self syncAddDocumentAt:documentPath updateIndex:NO]) {
                 ++numFilesAdded;

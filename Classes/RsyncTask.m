@@ -76,6 +76,7 @@
     NSMutableArray *taskArgs = [NSMutableArray arrayWithObjects: @"-rlt", @"--progress",
                          deleteOrUpdate,
                          @"--chmod=u=rwX,go=rX",
+                         @"-O",
                          self.source, self.destination, nil];
     
     [self.task setArguments: taskArgs];
