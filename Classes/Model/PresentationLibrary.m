@@ -44,11 +44,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 
 @implementation PresentationLibrary
-//@synthesize library;
-//@synthesize syncSuccessful;
-//@synthesize libraryDirPath;
-//@synthesize presentationData;
-//@synthesize assetManager;
+
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
@@ -143,9 +139,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self syncPresentations];
 	[self cacheThumbnails];
     
-    /** Setup full-text search index */
-    PresentationLibrarySearch *librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
-    self.librarySearch = librarySearch;
+    // Setup full-text search index
+    self.librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
     [self.librarySearch updateIndex];
     
     return YES;
@@ -169,7 +164,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
 		[element detach];
 	}
     
-    [self.librarySearch updateIndex];
+    // Ideally, this would be a possible place to add:
+    // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
+    // this method is called when an ongoing copy operation of the AssetManager is still ongoing and the
+    // indexing process would use incomplete file data. So we don't. To update the index one has to
+    // sync again or restart the app.
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
@@ -231,7 +230,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
                              year: (NSInteger) year
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
-    
     NSString * newId = [NSString stringWithUUID];
     NSXMLElement * node = [NSXMLElement elementWithName: @"presentation"];
     [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
@@ -299,7 +297,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
-            [assetMan trashAsset: presentation.absoluteThumbnailPath];
+            //[assetMan trashAsset: presentation.absoluteThumbnailPath];
+            [[NSFileManager defaultManager] removeItemAtPath:presentation.absoluteThumbnailPath error:nil];
         }
         [assetMan copyAsset: thumbnail];
         
@@ -312,7 +311,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [keynote isEqual: presentation.absolutePresentationPath]) {
         if (presentation.presentationFileExists) {
-            [assetMan trashAsset: presentation.absolutePresentationPath];
+            [[NSFileManager defaultManager] removeItemAtPath:presentation.absolutePresentationPath error:nil];
+            //[assetMan trashAsset: presentation.absolutePresentationPath];
         }
         [assetMan copyAsset: keynote];
         
@@ -339,7 +339,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
         }
     }
     self.assetManager = assetMan;
-    
     [self.assetManager run];
     
     if (xmlChanged) {
