@@ -45,7 +45,7 @@
 	[self.window makeKeyAndOrderFront:nil];
 	
 	@try {
-		NSApplicationPresentationOptions options = NSApplicationPresentationHideDock + NSApplicationPresentationHideMenuBar;
+		NSApplicationPresentationOptions options = NSApplicationPresentationHideDock | NSApplicationPresentationHideMenuBar;
 		[NSApp setPresentationOptions:options];
 	}
 	@catch(NSException * exception) {
