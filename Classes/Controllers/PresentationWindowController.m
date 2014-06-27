@@ -92,7 +92,7 @@
 
 #pragma mark -
 #pragma mark PresentationView Delegate
-- (void)presentationView:(PresentationView *)aView didClickedItemAtIndex:(NSInteger)index {
+- (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
 	Presentation *presentation = [self.presentations objectAtIndex:index];
 	
 	[keynote play: presentation.absolutePresentationPath withDelegate: self];

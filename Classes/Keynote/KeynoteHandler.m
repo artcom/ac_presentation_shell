@@ -32,9 +32,13 @@ KeynoteHandler *sharedInstance;
 - (void) launchWithDelgate: (id<KeynoteDelegate>) delegate {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.application = [SBApplication applicationWithBundleIdentifier:@"com.apple.iWork.Keynote"];
+        
+        // To trigger startup of application we need to retrieve some values.
+        NSString *version = self.application.version;
+        BOOL isRunning = self.application.isRunning;
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([delegate respondsToSelector:@selector(keynoteAppDidLaunch:)]) {
-                [delegate keynoteAppDidLaunch: application != nil];
+            if ([delegate respondsToSelector:@selector(keynoteAppDidLaunch:version:)]) {
+                [delegate keynoteAppDidLaunch:isRunning version:version];
             }
         });          
         

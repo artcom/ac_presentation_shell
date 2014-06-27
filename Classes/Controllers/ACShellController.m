@@ -668,11 +668,13 @@ enum CollectionActionTags {
 #pragma mark -
 #pragma mark KeynoteDelegate Protocol Methods
 
-- (void) keynoteAppDidLaunch: (BOOL) success {
+- (void) keynoteAppDidLaunch: (BOOL) success version:(NSString *)version {
     if (success) {
+        NSLog(@"Running Keynote application Version %@", version);
         //run prefs checks
     } else {
         // issue warning
+        NSLog(@"Failed to run Keynote application Version %@", version);
     }
 }
 

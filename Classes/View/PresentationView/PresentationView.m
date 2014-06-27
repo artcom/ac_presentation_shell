@@ -105,8 +105,8 @@
 	}
 	
 	NSInteger selectedItem = [self indexOfItemOnPage:[self.sublayers indexOfObject: clickedLayer]];
-	if ([self.delegate respondsToSelector:@selector(presentationView:didClickedItemAtIndex:)]) {
-		[self.delegate presentationView:self didClickedItemAtIndex:selectedItem];
+	if ([self.delegate respondsToSelector:@selector(presentationView:didClickItemAtIndex:)]) {
+		[self.delegate presentationView:self didClickItemAtIndex:selectedItem];
 	}
 }
 

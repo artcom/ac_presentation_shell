@@ -83,8 +83,11 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     SKDocumentRef document = SKDocumentCreateWithURL((__bridge CFURLRef)url);
     if (document) {
         documentAdded = SKIndexAddDocument(self.indexRef, document, (CFStringRef) NULL, true);
+        CFRelease(document);
     }
-    if (documentAdded && updateIndex) SKIndexFlush(self.indexRef);
+    if (documentAdded && updateIndex) {
+        SKIndexFlush(self.indexRef);
+    }
     return documentAdded;
 }
 
