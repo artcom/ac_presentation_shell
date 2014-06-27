@@ -121,7 +121,8 @@
 	NSArray *screens = [NSScreen screens];
 	NSUInteger monitorIndex = 0;
 	
-	if ([screens count] > 1 && [[KeynoteHandler sharedHandler] usesSecondaryMonitorForPresentation]) {
+    // XXX: Keynote <= 6.2 does not offer this setting anymore - reactivate later
+	if ([screens count] > 1) { //  && [[KeynoteHandler sharedHandler] usesSecondaryMonitorForPresentation]) {
 		monitorIndex = 1;
 	};
 	
