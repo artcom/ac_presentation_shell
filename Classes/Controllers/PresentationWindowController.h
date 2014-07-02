@@ -16,7 +16,7 @@
 @class PresentationView;
 @class PaginationView;
 
-@interface PresentationWindowController : NSWindowController <PresentationViewDataSource, PresentationViewDelegate, KeynoteDelegate> {
+@interface PresentationWindowController : NSWindowController <PresentationViewDataSource, PresentationViewDelegate, KeynoteDelegate, NSWindowDelegate> {
 	KeynoteHandler *keynote;
 	NSMutableArray *presentations;
 	

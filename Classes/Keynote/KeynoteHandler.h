@@ -10,9 +10,7 @@
 #import "Keynote.h"
 #import "KeynoteDelegate.h"
 
-@interface KeynoteHandler : NSObject {
-	KeynoteApplication *application;
-}
+@interface KeynoteHandler : NSObject
 
 @property (nonatomic, strong) KeynoteApplication *application;
 
