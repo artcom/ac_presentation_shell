@@ -114,9 +114,13 @@
      
      Current solution: Use the ideal level when using a secondary screen or set the level to normal when using
      a single window. This solution is problematic, since the reason for the issue is not known, only its symptom.
-     It will be left in for now because most if the users will are using a secondary screen the presentation
-     experience should be visually flawless. This is further backed by the experiential data that it never did
-     not work correctly when using a secondary monitor for presentation.
+     It will be left in for now because users are mostly using a secondary screen for the presentation and in
+     that case the experience should be visually flawless. This is further backed by experiential data
+     that it never did not work correctly when using a secondary monitor for presentation.
+     
+     Using NSNormalWindowLevel in single-monitor use has another benefit: It gives the user control over your
+     screen back - you can open other applications and/or bring other windows to the front. The only drawback:
+     When presenting on single monitor, you will see Keynote document windows.
      */
     
     NSInteger windowLevel = [self usingSecondaryScreen] ? NSStatusWindowLevel : NSNormalWindowLevel;
