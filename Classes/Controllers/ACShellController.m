@@ -678,6 +678,14 @@ enum CollectionActionTags {
     }
 }
 
+- (void)didFinishStartingKeynote:(KeynoteHandler *)keynote {
+    // Do nothing
+}
+
+- (void)keynoteDidStopPresentation:(KeynoteHandler *)keynote {
+    // Do nothing
+}
+
 #pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
 - (void)rsync:(RsyncController *) controller didFinishSyncSuccessfully:(BOOL)successFlag {

@@ -140,6 +140,7 @@
 
 - (void)windowWillClose:(NSNotification *)notification {
     [self.keynote stop];
+    [self keynoteDidStopPresentation:nil];
     [self stopObservingChangingScreens];
 }
 
@@ -194,19 +195,23 @@
 #pragma mark - Keynote Handler Delegate
 
 
--(void) didFinishStartingKeynote:(KeynoteHandler *)keynote {
+-(void)didFinishStartingKeynote:(KeynoteHandler *)keynote {
     [self.presentationView mouseExited:nil];
     CALayer *oldHoveredLayer = [self presentationView:self.presentationView hoverLayerForItemAtIndex:self.selectedPresentationIndex];
 	[self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
 }
 
-- (void) keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
+- (void)keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
 
     [self.presentationView mouseEntered:nil];
 	self.presentationView.mouseTracking = YES;
 
  	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[[self window] makeKeyAndOrderFront:nil];
+}
+
+- (void)keynoteAppDidLaunch:(BOOL)success version:(NSString *)version {
+    // Do nothing
 }
 
 @end
