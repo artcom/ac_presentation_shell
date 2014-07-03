@@ -14,6 +14,7 @@ KeynoteHandler *sharedInstance;
 @property (atomic, assign, readwrite) BOOL presenting;
 @property (atomic, assign) int currentPresentationTicket;
 @property (atomic, assign) dispatch_queue_t presentationQueue;
+@property (atomic, strong) NSTimer *timer;
 @property (atomic, strong) KeynoteDocument *presentation;
 @end
 
@@ -66,10 +67,12 @@ KeynoteHandler *sharedInstance;
 }
 
 - (void)stop {
+    [self.timer invalidate];
     [self.presentation stop];
     [self nextPresentationTicket];
     self.presenting = NO;
     self.presentation = nil;
+    self.timer = nil;
 }
 
 - (void)play:(NSString *)file withDelegate:(id<KeynoteDelegate>)delegate {
@@ -82,19 +85,25 @@ KeynoteHandler *sharedInstance;
     
 	dispatch_async(self.presentationQueue, ^{
         
+        NSLog(@"Loading: %@", url);
         KeynoteDocument *presentation =  [self.application open:url];
         KeynoteSlide *firstSlide = [[presentation slides] firstObject];
+        NSLog(@"  loaded..");
         
         if ([self validPresentationTicket:ticket]) {
             self.presentation = presentation;
             [presentation startFrom:firstSlide];
+            NSLog(@"  start to play..");
             dispatch_async(dispatch_get_main_queue(), ^{
-                [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorPresentationState:) userInfo:delegate repeats:YES];
+                
+                NSLog(@"  start monitoring..");
+                self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorPresentationState:) userInfo:delegate repeats:YES];
                 [delegate didFinishStartingKeynote:self];
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"  abort, ticket invalid.");
                 [delegate didFinishStartingKeynote:self];
                 [delegate keynoteDidStopPresentation:self];
             });
@@ -116,14 +125,15 @@ KeynoteHandler *sharedInstance;
 - (void)monitorPresentationState:(NSTimer *)timer {
     
     if ([self keynoteIsPlaying]) {
+        //NSLog(@"playing");
     }
     else {
 		id<KeynoteDelegate> delegate = [timer userInfo];
         [timer invalidate];
+        self.timer = nil;
         self.presenting = NO;
-		if ([delegate respondsToSelector:@selector(keynoteDidStopPresentation:)]) {
-			[delegate keynoteDidStopPresentation:self];
-		}
+        NSLog(@"  finished, stop monitoring.");
+        [delegate keynoteDidStopPresentation:self];
 	}
 }
 
