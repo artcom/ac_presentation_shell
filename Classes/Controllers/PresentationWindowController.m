@@ -16,33 +16,26 @@
 
 @implementation PresentationWindowController
 
-@synthesize presentations;
-@synthesize presentationView;
-
 
 - (id)init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
 	if (self != nil) {
-		keynote = [KeynoteHandler sharedHandler];
+		self.keynote = [KeynoteHandler sharedHandler];
         self.window.delegate = self;
 	}
 	return self;
 }
 
-
-- (void) setPresentations:(NSMutableArray *)newPresentations {
-	if (presentations != newPresentations) {
-		presentations = newPresentations;		
-	}
-	
-	[presentationView arrangeSublayer];
+- (void)setPresentations:(NSMutableArray *)newPresentations {
+	_presentations = newPresentations;
+	[self.presentationView arrangeSublayer];
 }
 
 
 #pragma mark - Handle screen environments
 
 
-- (void)observeChangingScreens {
+- (void)startObservingChangingScreens {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(applicationDidChangeScreenParameters:)
                                                  name:NSApplicationDidChangeScreenParametersNotification
@@ -79,18 +72,17 @@
 
 - (void)showWindow:(id)sender {
     
-    [self observeChangingScreens];
-    
+    [self startObservingChangingScreens];
     [self updateWindowState];
-	[self.window makeKeyAndOrderFront:nil];
     [self.window setMovable:NO];
+	[self.window makeKeyAndOrderFront:nil];
 	
+    NSApplicationPresentationOptions options = NSApplicationPresentationHideDock | NSApplicationPresentationHideMenuBar;
 	@try {
-		NSApplicationPresentationOptions options = NSApplicationPresentationHideDock | NSApplicationPresentationHideMenuBar;
 		[NSApp setPresentationOptions:options];
 	}
-	@catch(NSException * exception) {
-		NSLog(@"Error.  Make sure you have a valid combination of options.");
+	@catch(NSException *exception) {
+		NSLog(@"Error setting NSApplicationPresentationOptions: %lu", options);
 	}
 	
 	[super showWindow:sender];
@@ -177,7 +169,7 @@
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
     Presentation *presentation = [self.presentations objectAtIndex:index];
 	
-	[keynote play: presentation.absolutePresentationPath withDelegate: self];
+	[self.keynote play: presentation.absolutePresentationPath withDelegate: self];
 	
 	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 	self.presentationView.mouseTracking = NO;

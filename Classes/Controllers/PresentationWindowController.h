@@ -16,19 +16,12 @@
 @class PresentationView;
 @class PaginationView;
 
-@interface PresentationWindowController : NSWindowController <PresentationViewDataSource, PresentationViewDelegate, KeynoteDelegate, NSWindowDelegate> {
-	KeynoteHandler *keynote;
-	NSMutableArray *presentations;
-	
-	PresentationView *presentationView;
-	
-//	NSInteger playingKeynote;
-}
+@interface PresentationWindowController : NSWindowController <PresentationViewDataSource, PresentationViewDelegate, KeynoteDelegate, NSWindowDelegate>
 
+@property (nonatomic, strong) KeynoteHandler *keynote;
 @property (nonatomic, strong) NSArray *presentations;
 @property (strong) IBOutlet PresentationView *presentationView;
 
 - (NSRect)presentationScreenFrame;
-
 
 @end
