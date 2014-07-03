@@ -10,6 +10,10 @@
 
 KeynoteHandler *sharedInstance;
 
+@interface KeynoteHandler ()
+@property (nonatomic, strong) KeynoteDocument *currentDocument;
+@end
+
 @implementation KeynoteHandler
 
 + (KeynoteHandler *)sharedHandler {
@@ -44,13 +48,13 @@ KeynoteHandler *sharedInstance;
     });
 }
 
-- (void)play: (NSString *)file withDelegate: (id<KeynoteDelegate>) delegate {
+- (void)play:(NSString *)file withDelegate:(id<KeynoteDelegate>)delegate {
 	NSURL *url = [NSURL fileURLWithPath: file];
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		KeynoteSlideshow *slideshow =  [self.application open:url];
-		[[[slideshow slides] firstObject] startFrom];
-        [self.application activate];
+		KeynoteDocument *slideshow =  [self.application open:url];
+        KeynoteSlide *firstSlide = [[slideshow slides] firstObject];
+		[slideshow startFrom:firstSlide];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(isKeynotePlaying:) userInfo: delegate repeats:YES];
             
@@ -71,11 +75,31 @@ KeynoteHandler *sharedInstance;
 	});	
 }
 
+- (BOOL)keynoteIsPlaying {
+    
+    /**
+     Originally, ACShell used [self.application playing] to ask about this state.
+     
+     But, the API to ask a keynote application whether it is playing a presentation through
+     'playing' does not officially exist anymore, see
+     http://stackoverflow.com/questions/19543368/monitoring-keynote-6-presentation-using-scriptingbridge
+     
+     Looking at the latest generated header (sdef /Applications/Keynote.app/ | sdp -fh --basename Keynote)
+     there is no official way at all to ask about that state anymore.
+    
+     The currently least stupid solution is to ask the following question:
+     - Does Keynote have a window without a close-button?
+     */
+    
+    NSArray *windows = [[self.application windows] get];
+    for (KeynoteWindow *window in windows) {
+        if (!window.closeable) return YES;
+    }
+    return NO;
+}
 
-- (void)isKeynotePlaying: (NSTimer *)timer {
-	BOOL playing = [self.application playing];
-	
-	if (!playing) {
+- (void)isKeynotePlaying:(NSTimer *)timer {
+	if (![self keynoteIsPlaying]) {
 		id<KeynoteDelegate> delegate = [timer userInfo];
 		[timer invalidate];
 		if ([delegate respondsToSelector:@selector(keynoteDidStopPresentation:)]) {
