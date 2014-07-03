@@ -127,7 +127,7 @@ enum CollectionActionTags {
     [self updateSyncFailedWarning];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
-        [[KeynoteHandler sharedHandler] launchWithDelgate: self];
+        [[KeynoteHandler sharedHandler] launchWithDelegate: self];
         [[self browserWindow] makeKeyAndOrderFront: self];
         [self load];
     } else {
@@ -694,7 +694,7 @@ enum CollectionActionTags {
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
     [self beautifyOutlineView];
     [[self browserWindow] makeKeyAndOrderFront: self];
-    [[KeynoteHandler sharedHandler] launchWithDelgate: self];
+    [[KeynoteHandler sharedHandler] launchWithDelegate: self];
 }
 
 #pragma mark -
