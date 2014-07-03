@@ -13,13 +13,15 @@
 @interface KeynoteHandler : NSObject
 
 @property (strong) KeynoteApplication *application;
+@property (atomic, assign, readonly) BOOL presenting;
 
 + (KeynoteHandler *)sharedHandler;
 
-- (void) launchWithDelgate: (id<KeynoteDelegate>) delegate;
+- (void)launchWithDelegate: (id<KeynoteDelegate>) delegate;
+- (void)open:(NSString *)file;
 
-- (void)play: (NSString *)file withDelegate: (id<KeynoteDelegate>) delegate;
-- (void)open: (NSString *)file;
+- (void)play:(NSString *)file withDelegate: (id<KeynoteDelegate>) delegate;
+- (void)stop;
 
 - (BOOL)usesSecondaryMonitorForPresentation;
 

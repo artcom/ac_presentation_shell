@@ -14,8 +14,12 @@
 #import "OverlayLayer.h"
 #import "ProgressOverlayLayer.h"
 
-@implementation PresentationWindowController
 
+@interface PresentationWindowController()
+@property (assign) NSInteger selectedPresentationIndex;
+@end
+
+@implementation PresentationWindowController
 
 - (id)init {
 	self = [super initWithWindowNibName:@"PresentationWindow"];
@@ -122,11 +126,20 @@
     [self.window setLevel:windowLevel];
 }
 
+- (void)cancelOperation:(id)sender {
+    if (self.keynote.presenting) [self.keynote stop];
+    else {
+        [self close];
+        [NSApp setPresentationOptions:NSApplicationPresentationDefault];
+    }
+}
+
 
 #pragma mark - NSWindowDelegate
 
 
 - (void)windowWillClose:(NSNotification *)notification {
+    [self.keynote stop];
     [self stopObservingChangingScreens];
 }
 
@@ -171,13 +184,10 @@
 
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
     Presentation *presentation = [self.presentations objectAtIndex:index];
-	
 	[self.keynote play: presentation.absolutePresentationPath withDelegate: self];
-	
 	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 	self.presentationView.mouseTracking = NO;
-	
-	// playingKeynote = index;
+	self.selectedPresentationIndex = index;
 }
 
 
@@ -185,13 +195,16 @@
 
 
 -(void) didFinishStartingKeynote:(KeynoteHandler *)keynote {
-	self.presentationView.mouseTracking = YES;
+    [self.presentationView mouseExited:nil];
+    CALayer *oldHoveredLayer = [self presentationView:self.presentationView hoverLayerForItemAtIndex:self.selectedPresentationIndex];
+	[self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
 }
 
 - (void) keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
-	// CALayer *oldHoveredLayer = [self presentationView: presentationView hoverLayerForItemAtIndex: playingKeynote];
-	// [presentationView addOverlay: oldHoveredLayer forItem: playingKeynote];
-	
+
+    [self.presentationView mouseEntered:nil];
+	self.presentationView.mouseTracking = YES;
+
  	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 	[[self window] makeKeyAndOrderFront:nil];
 }

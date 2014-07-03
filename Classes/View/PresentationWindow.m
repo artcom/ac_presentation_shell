@@ -21,8 +21,7 @@
 }
 
 - (void)cancelOperation:(id)sender {
-    [self close];
-	[NSApp setPresentationOptions:NSApplicationPresentationDefault];
+    [self.windowController cancelOperation:self];
 }
 
 @end

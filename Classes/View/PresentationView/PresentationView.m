@@ -91,6 +91,8 @@
 
 
 - (void) mouseUp:(NSEvent *)theEvent {
+    if (!mouseTracking) return;
+    
 	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	
 	CALayer *clickedLayer = nil;
