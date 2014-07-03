@@ -11,7 +11,7 @@
 KeynoteHandler *sharedInstance;
 
 @interface KeynoteHandler ()
-@property (nonatomic, strong) KeynoteDocument *currentDocument;
+@property (strong) KeynoteDocument *currentDocument;
 @end
 
 @implementation KeynoteHandler
@@ -52,11 +52,11 @@ KeynoteHandler *sharedInstance;
 	NSURL *url = [NSURL fileURLWithPath: file];
 	
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		KeynoteDocument *slideshow =  [self.application open:url];
+        KeynoteDocument *slideshow =  [self.application open:url];
         KeynoteSlide *firstSlide = [[slideshow slides] firstObject];
 		[slideshow startFrom:firstSlide];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(isKeynotePlaying:) userInfo: delegate repeats:YES];
+			[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorPresentationState:) userInfo: delegate repeats:YES];
             
 			if ([delegate respondsToSelector:@selector(didFinishStartingKeynote:)]) {
 				[delegate didFinishStartingKeynote: self];
@@ -98,7 +98,7 @@ KeynoteHandler *sharedInstance;
     return NO;
 }
 
-- (void)isKeynotePlaying:(NSTimer *)timer {
+- (void)monitorPresentationState:(NSTimer *)timer {
 	if (![self keynoteIsPlaying]) {
 		id<KeynoteDelegate> delegate = [timer userInfo];
 		[timer invalidate];

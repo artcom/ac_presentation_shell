@@ -12,7 +12,7 @@
 
 @interface KeynoteHandler : NSObject
 
-@property (nonatomic, strong) KeynoteApplication *application;
+@property (strong) KeynoteApplication *application;
 
 + (KeynoteHandler *)sharedHandler;
 
