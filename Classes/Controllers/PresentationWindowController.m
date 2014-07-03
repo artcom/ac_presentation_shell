@@ -43,7 +43,9 @@
 }
 
 - (void)stopObservingChangingScreens {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:NSApplicationDidChangeScreenParametersNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSApplicationDidChangeScreenParametersNotification
+                                                  object:nil];
 }
 
 - (void)applicationDidChangeScreenParameters:(NSNotification *)notification {
@@ -58,7 +60,7 @@
 - (NSRect)presentationScreenFrame {
 	NSUInteger monitorIndex = [self usingSecondaryScreen] ? 1 : 0;
 	NSArray *screens = [NSScreen screens];
-	return [[screens objectAtIndex: monitorIndex] frame];
+	return [screens[monitorIndex] frame];
 }
 
 
@@ -69,8 +71,6 @@
     
     [self startObservingChangingScreens];
     [self updateWindowState];
-    [self.window setMovable:NO];
-	[self.window makeKeyAndOrderFront:nil];
 	
     NSApplicationPresentationOptions options = NSApplicationPresentationHideDock | NSApplicationPresentationHideMenuBar;
 	@try {
@@ -86,31 +86,39 @@
 - (void)updateWindowState {
 	NSRect frame = [self presentationScreenFrame];
 	[self.window setFrame:frame display:YES animate:NO];
+    [self.window setMovable:NO];
+	[self.window makeKeyAndOrderFront:nil];
     
     // FIX Issue with window levels
     /*
      See https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/WinPanel/Concepts/WindowLevel.html
      
-     Originally, ACShell always used NSStatusWindowLevel for its presentation window in order to sandwich it
+     Originally, ACShell always used NSStatusWindowLevel for this presentation window in order to sandwich it
      between any Keynote document window and the Keynote presentation mode. That way, the only things you'll ever
-     see are the presentation window and the playing Keynote presentation. (Without this, you see the Keynote
+     see are this presentation window and a playing Keynote presentation. (Without this, you see the Keynote
      application and all its documents popping up when starting or stopping any presentation from ACShell)
      
      This doesn't seem to work correctly when using a single monitor. The Keynote playback window stays stuck
-     behind the ACShell presentation window.
+     behind the ACShell presentation window. It's unclear why, the Keynote playback window does not seem to 
+     use the same level as with two monitors.
      
-     Current solution: Use the ideal level when using a secondary screen or set the level to normal when using
-     a single window. This solution is problematic, since the reason for the issue is not known, only its symptom.
-     It will be left in for now because users are mostly using a secondary screen for the presentation and in
-     that case the experience should be visually flawless. This is further backed by experiential data
-     that it never did not work correctly when using a secondary monitor for presentation.
+     Ideally, we would now just choose a lower level for this presentation window. The issue we now face is that
+     when transitioning between ACShell and Keynote, we *will* see other elements pop up (the menu bar of 
+     the Keynote application, Keynote document windows).
      
-     Using NSNormalWindowLevel in single-monitor use has another benefit: It gives the user control over your
-     screen back - you can open other applications and/or bring other windows to the front. The only drawback:
-     When presenting on single monitor, you will see Keynote document windows.
+     This is okay when using one monitor only: In this case the presenter is showing something on his machine,
+     the setting there is often a casual one, so no big deal, when we see the menu bar of Keynote for a short 
+     time. Therefore, we choose NSTornOffMenuWindowLevel which is low enough for Keynote and high enough to hide
+     as much as possible.
+     
+     If a secondary screen is used, the presentation is less casual and should appear flawless. Therefore, we
+     keep the NSStatusWindowLevel for this case.
+     
+     This long comment is here because the reason for this issue is not clear and behaviour of Keynote is
+     strange and thus might change.
      */
     
-    NSInteger windowLevel = [self usingSecondaryScreen] ? NSStatusWindowLevel : NSNormalWindowLevel;
+    NSInteger windowLevel = [self usingSecondaryScreen] ? NSStatusWindowLevel : NSTornOffMenuWindowLevel;
     [self.window setLevel:windowLevel];
 }
 
