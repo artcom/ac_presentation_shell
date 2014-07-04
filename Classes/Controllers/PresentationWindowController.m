@@ -112,17 +112,24 @@
      
      This is okay when using one monitor only: In this case the presenter is showing something on his machine,
      the setting there is often a casual one, so no big deal, when we see the menu bar of Keynote for a short 
-     time. Therefore, we choose NSTornOffMenuWindowLevel which is low enough for Keynote and high enough to hide
-     as much as possible.
+     time.
      
      If a secondary screen is used, the presentation is less casual and should appear flawless. Therefore, we
      keep the NSStatusWindowLevel for this case.
      
-     This long comment is here because the reason for this issue is not clear and behaviour of Keynote is
-     strange and thus might change.
+     NSNormalWindowLevel = 0
+     NSFloatingWindowLevel = 3
+     NSSubmenuWindowLevel = 3
+     NSTornOffMenuWindowLevel = 3
+     ---> single-monitor keynote presentation probably here, higher than 4 <---
+     NSModalPanelWindowLevel = 8
+     NSMainMenuWindowLevel = 24
+     NSStatusWindowLevel = 25
+     NSPopUpMenuWindowLevel = 101
+     NSScreenSaverWindowLevel = 1000
      */
     
-    NSInteger windowLevel = [self usingSecondaryScreen] ? NSStatusWindowLevel : NSTornOffMenuWindowLevel;
+    NSInteger windowLevel = [self usingSecondaryScreen] ? NSStatusWindowLevel : NSFloatingWindowLevel + 1;
     [self.window setLevel:windowLevel];
 }
 
