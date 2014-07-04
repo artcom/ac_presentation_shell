@@ -74,7 +74,7 @@ KeynoteHandler *sharedInstance;
     [self nextPresentationTicket];
     [self stopObservingPresentation];
     [self.presentation stop];
-    [self didStopPresentation];
+    [self presentationDidStop];
 }
 
 - (void)play:(NSString *)file withDelegate:(id<KeynoteDelegate>)delegate {
@@ -88,17 +88,17 @@ KeynoteHandler *sharedInstance;
     
 	dispatch_async(self.presentationQueue, ^{
         
-        NSLog(@"Loading: %@", url);
+        NSLog(@"Loading presentation: %@", url);
         KeynoteDocument *presentation = [self.application open:url];
-        NSLog(@"  loaded.. (%@)", presentation.name);
+        NSLog(@"  loaded.. (%@)", [presentation name]);
         KeynoteSlide *firstSlide = [[presentation slides] firstObject];
         NSLog(@"  picked first slide.. (%lu)", [firstSlide slideNumber]);
         
-        // Loading the presentation is the most time consuming task and can take
+        // Loading the presentation can take
         // several seconds. The ScriptingBridge calls above are synchronous,
         // and after their execution we have to check whether this asynchronously
         // run block should still continue to run:
-        if ([self presentationShouldStillRun:ticket]) {
+        if (presentation && [self presentationShouldStillRun:ticket]) {
             self.presentation = presentation;
             [presentation startFrom:firstSlide];
             NSLog(@"  started to play..");
@@ -108,7 +108,7 @@ KeynoteHandler *sharedInstance;
             });
         }
         else {
-            NSLog(@"  abort, ticket invalid.");
+            NSLog(@"  cancelled.");
             dispatch_async(dispatch_get_main_queue(), ^{
                 [delegate keynoteDidStartPresentation:self];
                 [delegate keynoteDidStopPresentation:self];
@@ -142,25 +142,24 @@ KeynoteHandler *sharedInstance;
 - (void)monitorPresentationState:(NSTimer *)timer {
     if (![self keynoteIsPlaying]) {
         [self stopObservingPresentation];
-        [self didStopPresentation];
+        [self presentationDidStop];
     }
 }
 
-- (void)didStopPresentation {
+- (void)presentationDidStop {
+    NSLog(@"  stopped.");
     self.presenting = NO;
     self.presentation = nil;
     [self.delegate keynoteDidStopPresentation:self];
 }
 
 - (BOOL)keynoteIsPlaying {
-    
     /**
      There is no official way to ask Keynote via Scripting Bridge whether it
-     is playing a presentation or not.
-     The currently least stupid solution is to ask the following question:
-     - Does Keynote have a window without a close-button?
+     is currently playing a presentation or not.
+     Today's least stupid solution is to ask the following question:
+     - Does Keynote have a window without a close-button? (Because that would be a presentation window)
      */
-    
     NSArray *closeables = [[self.application windows] arrayByApplyingSelector:@selector(closeable)];
     for (NSNumber *closeable in closeables) {
         if (![closeable boolValue]) return YES;
