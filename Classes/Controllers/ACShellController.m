@@ -141,9 +141,8 @@ enum CollectionActionTags {
                                                  name: NSTableViewColumnDidMoveNotification
                                                object:presentationTable];
     
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"order" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey: @"year" ascending:NO];
     self.userSortDescriptor = sortDescriptor;
-    
     [presentationTable setSortDescriptors:@[self.userSortDescriptor]];
 }
 
