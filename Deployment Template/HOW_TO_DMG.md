@@ -10,4 +10,6 @@
 8. Encryption should be `none`
 9. After creation, open the DMG and in the Finder select `Show View Options`
 10. Change the settings following the screenshot dmg_settings. `Always open in icon view` and `Browse in icon view`. `Adjust Icon Size` and as background add the `installer_background.png`. Move the application and application folder icon until it pleases your eye.
-11. Settings should be saved automatically, you're done!
+11. Settings should be saved automatically.
+12. Select this DMG in Disk Utility and in the Tab Bar, choose `Convert`
+13. Save this now as `compressed`. Now, when a user double-clicks your DMG, it will automatically open in a new Finder window. Leave away this last step if you don't care about this.
