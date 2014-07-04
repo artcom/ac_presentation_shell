@@ -75,8 +75,11 @@ KeynoteHandler *sharedInstance;
     self.timer = nil;
 }
 
+
 - (void)play:(NSString *)file withDelegate:(id<KeynoteDelegate>)delegate {
-	
+    
+    // TODO this whole method is terrible
+    
     if (self.presenting) return;
     self.presenting = YES;
     self.presentation = nil;
@@ -86,26 +89,33 @@ KeynoteHandler *sharedInstance;
 	dispatch_async(self.presentationQueue, ^{
         
         NSLog(@"Loading: %@", url);
-        KeynoteDocument *presentation =  [self.application open:url];
+        KeynoteDocument *presentation = [self.application open:url];
+        self.presentation = presentation;
+        NSLog(@"  loaded.. (%@)", presentation.name);
         KeynoteSlide *firstSlide = [[presentation slides] firstObject];
-        NSLog(@"  loaded..");
+        if (!firstSlide) {
+            NSLog(@"  NO FIRST SLIDE?!?!?!");
+            return;
+        }
+        NSLog(@"  picked first slide..");
         
         if ([self validPresentationTicket:ticket]) {
-            self.presentation = presentation;
+            
             [presentation startFrom:firstSlide];
-            NSLog(@"  start to play..");
+            
+            NSLog(@"  started to play..");
+
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 NSLog(@"  start monitoring..");
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorPresentationState:) userInfo:delegate repeats:YES];
-                [delegate didFinishStartingKeynote:self];
+                [delegate keynoteDidStartPresentation:self];
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"  abort, ticket invalid.");
-                [delegate didFinishStartingKeynote:self];
-                [delegate keynoteDidStopPresentation:self];
+//                [delegate didFinishStartingKeynote:self];
+//                [delegate keynoteDidStopPresentation:self];
             });
         }
 	});
@@ -153,9 +163,11 @@ KeynoteHandler *sharedInstance;
      - Does Keynote have a window without a close-button?
      */
     
-    NSArray *windows = [[self.application windows] get];
-    for (KeynoteWindow *window in windows) {
-        if (!window.closeable) return YES;
+    NSArray *closeables = [[self.application windows] arrayByApplyingSelector:@selector(closeable)];
+    for (NSNumber *closeable in closeables) {
+        if (![closeable boolValue]) {
+            return YES;
+        }
     }
     return NO;
 }

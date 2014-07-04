@@ -677,7 +677,7 @@ enum CollectionActionTags {
     }
 }
 
-- (void)didFinishStartingKeynote:(KeynoteHandler *)keynote {
+- (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {
     // Do nothing
 }
 

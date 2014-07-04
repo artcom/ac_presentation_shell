@@ -11,8 +11,8 @@
 
 @protocol KeynoteDelegate <NSObject>
 
-- (void)didFinishStartingKeynote: (KeynoteHandler *)keynote;
-- (void)keynoteDidStopPresentation: (KeynoteHandler *)keynote;
-- (void)keynoteAppDidLaunch: (BOOL) success version:(NSString *)version;
+- (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote;
+- (void)keynoteDidStopPresentation:(KeynoteHandler *)keynote;
+- (void)keynoteAppDidLaunch:(BOOL)success version:(NSString *)version;
 
 @end

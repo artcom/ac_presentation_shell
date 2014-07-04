@@ -134,7 +134,11 @@
 }
 
 - (void)cancelOperation:(id)sender {
-    if (self.keynote.presenting) [self.keynote stop];
+    if (self.keynote.presenting) {
+        [self.keynote stop];
+        [self keynoteDidStartPresentation:nil];
+        [self keynoteDidStopPresentation:nil];
+    }
     else {
         [self close];
         [NSApp setPresentationOptions:NSApplicationPresentationDefault];
@@ -202,7 +206,7 @@
 #pragma mark - Keynote Handler Delegate
 
 
--(void)didFinishStartingKeynote:(KeynoteHandler *)keynote {
+-(void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {
     [self.presentationView mouseExited:nil];
     CALayer *oldHoveredLayer = [self presentationView:self.presentationView hoverLayerForItemAtIndex:self.selectedPresentationIndex];
 	[self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
