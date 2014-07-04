@@ -245,7 +245,7 @@
 		CDEC08E417F32F28009EC2F6 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		CDEC08E817F3358D009EC2F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CDEC08EA17F335DA009EC2F6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		CDFE4C1C19373CC00013F894 /* dialog_app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dialog_app_icon.png; sourceTree = "<group>"; };
+		CDFE4C1C19373CC00013F894 /* dialog_app_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dialog_app_icon.png; path = Resources/Images/dialog_app_icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
