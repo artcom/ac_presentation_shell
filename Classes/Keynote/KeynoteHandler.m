@@ -88,22 +88,22 @@ KeynoteHandler *sharedInstance;
         NSLog(@"Loading: %@", url);
         KeynoteDocument *presentation =  [self.application open:url];
         KeynoteSlide *firstSlide = [[presentation slides] firstObject];
-//        NSLog(@"  loaded..");
+        NSLog(@"  loaded..");
         
         if ([self validPresentationTicket:ticket]) {
             self.presentation = presentation;
             [presentation startFrom:firstSlide];
-//            NSLog(@"  start to play..");
+            NSLog(@"  start to play..");
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-//                NSLog(@"  start monitoring..");
+                NSLog(@"  start monitoring..");
                 self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorPresentationState:) userInfo:delegate repeats:YES];
                 [delegate didFinishStartingKeynote:self];
             });
         }
         else {
             dispatch_async(dispatch_get_main_queue(), ^{
-//                NSLog(@"  abort, ticket invalid.");
+                NSLog(@"  abort, ticket invalid.");
                 [delegate didFinishStartingKeynote:self];
                 [delegate keynoteDidStopPresentation:self];
             });
@@ -132,7 +132,7 @@ KeynoteHandler *sharedInstance;
         [timer invalidate];
         self.timer = nil;
         self.presenting = NO;
-//        NSLog(@"  finished, stop monitoring.");
+        NSLog(@"  finished, stop monitoring.");
         [delegate keynoteDidStopPresentation:self];
 	}
 }
