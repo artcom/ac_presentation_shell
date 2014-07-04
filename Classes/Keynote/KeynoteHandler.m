@@ -11,11 +11,13 @@
 KeynoteHandler *sharedInstance;
 
 @interface KeynoteHandler ()
+@property (atomic, strong, readwrite) KeynoteApplication *application;
 @property (atomic, assign, readwrite) BOOL presenting;
-@property (atomic, assign) int currentPresentationTicket;
 @property (atomic, assign) dispatch_queue_t presentationQueue;
-@property (atomic, strong) NSTimer *timer;
+@property (atomic, assign) int currentPresentationTicket;
+@property (atomic, strong) NSTimer *timerObservePresentation;
 @property (atomic, strong) KeynoteDocument *presentation;
+@property (atomic, weak) id<KeynoteDelegate> delegate;
 @end
 
 @implementation KeynoteHandler
@@ -66,23 +68,21 @@ KeynoteHandler *sharedInstance;
 	});
 }
 
+#pragma mark - Manage Keynote presentation
+
 - (void)stop {
-    [self.timer invalidate];
-    [self.presentation stop];
     [self nextPresentationTicket];
-    self.presenting = NO;
-    self.presentation = nil;
-    self.timer = nil;
+    [self stopObservingPresentation];
+    [self.presentation stop];
+    [self didStopPresentation];
 }
 
-
 - (void)play:(NSString *)file withDelegate:(id<KeynoteDelegate>)delegate {
-    
-    // TODO this whole method is terrible
     
     if (self.presenting) return;
     self.presenting = YES;
     self.presentation = nil;
+    self.delegate = delegate;
     int ticket = [self nextPresentationTicket];
     NSURL *url = [NSURL fileURLWithPath: file];
     
@@ -90,38 +90,34 @@ KeynoteHandler *sharedInstance;
         
         NSLog(@"Loading: %@", url);
         KeynoteDocument *presentation = [self.application open:url];
-        self.presentation = presentation;
         NSLog(@"  loaded.. (%@)", presentation.name);
         KeynoteSlide *firstSlide = [[presentation slides] firstObject];
-        if (!firstSlide) {
-            NSLog(@"  NO FIRST SLIDE?!?!?!");
-            return;
-        }
-        NSLog(@"  picked first slide..");
+        NSLog(@"  picked first slide.. (%lu)", [firstSlide slideNumber]);
         
-        if ([self validPresentationTicket:ticket]) {
-            
+        // Loading the presentation is the most time consuming task and can take
+        // several seconds. The ScriptingBridge calls above are synchronous,
+        // and after their execution we have to check whether this asynchronously
+        // run block should still continue to run:
+        if ([self presentationShouldStillRun:ticket]) {
+            self.presentation = presentation;
             [presentation startFrom:firstSlide];
-            
             NSLog(@"  started to play..");
-
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"  start monitoring..");
-                self.timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(monitorPresentationState:) userInfo:delegate repeats:YES];
+                [self startObservingPresentation];
                 [delegate keynoteDidStartPresentation:self];
             });
         }
         else {
+            NSLog(@"  abort, ticket invalid.");
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"  abort, ticket invalid.");
-//                [delegate didFinishStartingKeynote:self];
-//                [delegate keynoteDidStopPresentation:self];
+                [delegate keynoteDidStartPresentation:self];
+                [delegate keynoteDidStopPresentation:self];
             });
         }
 	});
 }
 
-- (BOOL)validPresentationTicket:(int)ticket {
+- (BOOL)presentationShouldStillRun:(int)ticket {
     return ticket == self.currentPresentationTicket;
 }
 
@@ -129,49 +125,50 @@ KeynoteHandler *sharedInstance;
     return ++self.currentPresentationTicket;
 }
 
-/**
- Called by timer set up in play:withDelegate while a presentation is playing
- */
+#pragma mark - Observing state of running presentation
+
+- (void)startObservingPresentation {
+    self.timerObservePresentation = [NSTimer scheduledTimerWithTimeInterval:0.2
+                                                                     target:self
+                                                                   selector:@selector(monitorPresentationState:)
+                                                                   userInfo:nil repeats:YES];
+}
+
+- (void)stopObservingPresentation {
+    [self.timerObservePresentation invalidate];
+    self.timerObservePresentation = nil;
+}
+
 - (void)monitorPresentationState:(NSTimer *)timer {
-    
-    if ([self keynoteIsPlaying]) {
-        //NSLog(@"playing");
+    if (![self keynoteIsPlaying]) {
+        [self stopObservingPresentation];
+        [self didStopPresentation];
     }
-    else {
-		id<KeynoteDelegate> delegate = [timer userInfo];
-        [timer invalidate];
-        self.timer = nil;
-        self.presenting = NO;
-        NSLog(@"  finished, stop monitoring.");
-        [delegate keynoteDidStopPresentation:self];
-	}
+}
+
+- (void)didStopPresentation {
+    self.presenting = NO;
+    self.presentation = nil;
+    [self.delegate keynoteDidStopPresentation:self];
 }
 
 - (BOOL)keynoteIsPlaying {
     
     /**
-     Originally, ACShell used [self.application playing] to ask about this state.
-     
-     But, the API to ask a keynote application whether it is playing a presentation through
-     'playing' does not officially exist anymore, see
-     http://stackoverflow.com/questions/19543368/monitoring-keynote-6-presentation-using-scriptingbridge
-     
-     Looking at the latest generated header (sdef /Applications/Keynote.app/ | sdp -fh --basename Keynote)
-     there is no official way at all to ask about that state.
-    
+     There is no official way to ask Keynote via Scripting Bridge whether it
+     is playing a presentation or not.
      The currently least stupid solution is to ask the following question:
      - Does Keynote have a window without a close-button?
      */
     
     NSArray *closeables = [[self.application windows] arrayByApplyingSelector:@selector(closeable)];
     for (NSNumber *closeable in closeables) {
-        if (![closeable boolValue]) {
-            return YES;
-        }
+        if (![closeable boolValue]) return YES;
     }
     return NO;
 }
 
+#pragma mark - DEPRECATED
 
 // DEPRECATED
 - (BOOL)usesSecondaryMonitorForPresentation {

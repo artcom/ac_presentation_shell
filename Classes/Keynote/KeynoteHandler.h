@@ -12,7 +12,7 @@
 
 @interface KeynoteHandler : NSObject
 
-@property (strong) KeynoteApplication *application;
+@property (atomic, strong, readonly) KeynoteApplication *application;
 @property (atomic, assign, readonly) BOOL presenting;
 
 + (KeynoteHandler *)sharedHandler;
