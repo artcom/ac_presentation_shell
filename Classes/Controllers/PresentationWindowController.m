@@ -129,13 +129,13 @@
      NSScreenSaverWindowLevel = 1000
      */
     
-    NSInteger windowLevel = [self usingSecondaryScreen] ? NSStatusWindowLevel : NSFloatingWindowLevel + 1;
+    NSInteger windowLevel = [self usingSecondaryScreen] ? NSStatusWindowLevel : NSFloatingWindowLevel + 1;  // +1 to be above floating windows of Keynote
     [self.window setLevel:windowLevel];
 }
 
 - (void)cancelOperation:(id)sender {
     if (self.keynote.presenting) {
-        [self keynoteDidStartPresentation:nil];
+        [self highlightItemAtIndex:self.selectedPresentationIndex];
         [self.keynote stop];
     }
     else {
@@ -193,21 +193,27 @@
 
 
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
-    Presentation *presentation = [self.presentations objectAtIndex:index];
-	[self.keynote play: presentation.absolutePresentationPath withDelegate: self];
-	[aView addOverlay:[ProgressOverlayLayer layer] forItem:index];
-	self.presentationView.mouseTracking = NO;
 	self.selectedPresentationIndex = index;
+    Presentation *presentation = [self.presentations objectAtIndex:index];
+	[self.keynote play:presentation.absolutePresentationPath withDelegate: self];
+    [self showActivityForItemAtIndex:index];
+	self.presentationView.mouseTracking = NO;
 }
 
+- (void)showActivityForItemAtIndex:(NSInteger)index {
+	[self.presentationView addOverlay:[ProgressOverlayLayer layer] forItem:index];
+}
+
+- (void)highlightItemAtIndex:(NSInteger)index {
+    CALayer *oldHoveredLayer = [self presentationView:self.presentationView hoverLayerForItemAtIndex:self.selectedPresentationIndex];
+	[self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
+}
 
 #pragma mark - Keynote Handler Delegate
 
 
--(void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {
-    [self.presentationView mouseExited:nil];
-    CALayer *oldHoveredLayer = [self presentationView:self.presentationView hoverLayerForItemAtIndex:self.selectedPresentationIndex];
-	[self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
+- (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {
+    [self highlightItemAtIndex:self.selectedPresentationIndex];
 }
 
 - (void)keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
