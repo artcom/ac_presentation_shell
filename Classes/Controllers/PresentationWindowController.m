@@ -135,9 +135,8 @@
 
 - (void)cancelOperation:(id)sender {
     if (self.keynote.presenting) {
-        [self.keynote stop];
         [self keynoteDidStartPresentation:nil];
-        [self keynoteDidStopPresentation:nil];
+        [self.keynote stop];
     }
     else {
         [self close];
@@ -151,7 +150,6 @@
 
 - (void)windowWillClose:(NSNotification *)notification {
     [self.keynote stop];
-    [self keynoteDidStopPresentation:nil];
     [self stopObservingChangingScreens];
 }
 
