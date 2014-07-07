@@ -13,7 +13,6 @@ KeynoteHandler *sharedInstance;
 @interface KeynoteHandler ()
 @property (atomic, strong, readwrite) KeynoteApplication *application;
 @property (atomic, assign, readwrite) BOOL presenting;
-@property (atomic, assign) dispatch_queue_t presentationQueue;
 @property (atomic, assign) int currentPresentationTicket;
 @property (atomic, strong) NSTimer *timerObservePresentation;
 @property (atomic, strong) KeynoteDocument *presentation;
@@ -30,17 +29,11 @@ KeynoteHandler *sharedInstance;
 	return sharedInstance;
 }
 
-- (void)dealloc
-{
-    dispatch_release(_presentationQueue);
-}
-
 - (id)init {
 	self = [super init];
 	if (self != nil) {
         self.presenting = NO;
         self.currentPresentationTicket = 0;
-        self.presentationQueue = dispatch_queue_create("de.artcom.acshell.presentation", NULL);
 	}
 	return self;
 }
@@ -86,7 +79,7 @@ KeynoteHandler *sharedInstance;
     int ticket = [self nextPresentationTicket];
     NSURL *url = [NSURL fileURLWithPath: file];
     
-	dispatch_async(self.presentationQueue, ^{
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSLog(@"Loading presentation: %@", url);
         KeynoteDocument *presentation = [self.application open:url];
@@ -94,9 +87,9 @@ KeynoteHandler *sharedInstance;
         KeynoteSlide *firstSlide = [[presentation slides] firstObject];
         NSLog(@"  picked first slide.. (%lu)", [firstSlide slideNumber]);
         
-        // Loading the presentation can take
-        // several seconds. The ScriptingBridge calls above are synchronous,
-        // and after their execution we have to check whether this asynchronously
+        // Loading the presentation can take several seconds.
+        // The ScriptingBridge calls above are synchronous, and after
+        // their execution we have to check whether this asynchronously
         // run block should still continue to run:
         if (presentation && [self presentationShouldStillRun:ticket]) {
             self.presentation = presentation;
@@ -109,10 +102,6 @@ KeynoteHandler *sharedInstance;
         }
         else {
             NSLog(@"  cancelled.");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [delegate keynoteDidStartPresentation:self];
-                [delegate keynoteDidStopPresentation:self];
-            });
         }
 	});
 }
