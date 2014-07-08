@@ -84,13 +84,17 @@ KeynoteHandler *sharedInstance;
         NSLog(@"Loading presentation: %@", url);
         KeynoteDocument *presentation = [self.application open:url];
         NSLog(@"  loaded.. (%@)", [presentation name]);
-        KeynoteSlide *firstSlide = [[presentation slides] firstObject];
-        NSLog(@"  picked first slide.. (%lu)", [firstSlide slideNumber]);
         
-        // Loading the presentation can take several seconds.
-        // The ScriptingBridge calls above are synchronous, and after
+        // Loading the presentation as well as picking the first slide can take several seconds.
+        // While these ScriptingBridge calls are synchronous, after
         // their execution we have to check whether this asynchronously
-        // run block should still continue to run:
+        // run block as a whole should still continue to run:
+        KeynoteSlide *firstSlide;
+        if (presentation && [self presentationShouldStillRun:ticket]) {
+            firstSlide = [[presentation slides] firstObject];
+            NSLog(@"  picked first slide.. (%lu)", [firstSlide slideNumber]);
+        }
+
         if (presentation && [self presentationShouldStillRun:ticket]) {
             self.presentation = presentation;
             [presentation startFrom:firstSlide];
@@ -148,6 +152,8 @@ KeynoteHandler *sharedInstance;
      is currently playing a presentation or not.
      Today's least stupid solution is to ask the following question:
      - Does Keynote have a window without a close-button? (Because that would be a presentation window)
+     About why we use arrayByApplyingSelector see ScriptingBridge documentation on how to iterate
+     over SBArrays ideally.
      */
     NSArray *closeables = [[self.application windows] arrayByApplyingSelector:@selector(closeable)];
     for (NSNumber *closeable in closeables) {
