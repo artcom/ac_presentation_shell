@@ -95,6 +95,7 @@ KeynoteHandler *sharedInstance;
             NSLog(@"  picked first slide.. (%lu)", [firstSlide slideNumber]);
         }
 
+        // Check again after picking first slide
         if (presentation && [self presentationShouldStillRun:ticket]) {
             self.presentation = presentation;
             [presentation startFrom:firstSlide];
