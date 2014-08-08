@@ -22,7 +22,7 @@
 	collection.presentations = thePresentations;
 	collection.children = theChildren;
 	
-	return [collection autorelease];
+	return collection;
 }
 
 + (ACShellCollection *) collectionWithName: (NSString *)theName {
@@ -32,7 +32,7 @@
 	collection.presentations = [NSMutableArray  array];
 	collection.children = [NSMutableArray array];
 	
-	return [collection autorelease];
+	return collection;
 }
 
 - (id) initWithCoder:(NSCoder *)aDecoder {
@@ -57,13 +57,6 @@
 
 }
 
-- (void)dealloc {
-	[name release];
-	[presentations release];
-	[children release];
-	
-	[super dealloc];
-}
 
 - (void) assignContext: (id) context {
     for (ACShellCollection * c in children) {

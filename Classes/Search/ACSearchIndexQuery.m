@@ -12,9 +12,9 @@
 
 @interface ACSearchIndexQuery ()
 @property (nonatomic, assign) SKIndexRef index;
-@property (nonatomic, retain) NSString *query;
+@property (nonatomic, strong) NSString *query;
 @property (nonatomic, assign) int maxNumResults;
-@property (nonatomic, readwrite, retain) NSMutableArray *results;
+@property (nonatomic, readwrite, strong) NSMutableArray *results;
 @end
 
 
@@ -22,9 +22,6 @@
 
 - (void)dealloc {
     CFRelease(_index);
-    [_query release];
-    [_results release];
-    [super dealloc];
 }
 
 - (instancetype)initWithQuery:(NSString *)query usingIndex:(SKIndexRef)index maxNumResults:(int)maxNumResults
@@ -40,25 +37,20 @@
 }
 
 - (void)main {
-    
     if (self.isCancelled) return;
-    
     self.results = [[NSMutableArray alloc] init];
     
     SKSearchOptions options = kSKSearchOptionDefault;
-    SKSearchRef     search = SKSearchCreate(_index, (CFStringRef)self.query, options);
-    
+    SKSearchRef     search = SKSearchCreate(_index, (__bridge CFStringRef)self.query, options);
     CFIndex         maxNumResults = self.maxNumResults;
     CFIndex         foundCount = 0;
     SKDocumentID    documentIds[maxNumResults];
-    float           scores[maxNumResults];
     SKDocumentRef   documentRefs[maxNumResults];
+    float           scores[maxNumResults];
     BOOL            searchInProgress = YES;
 
     while (!self.isCancelled && searchInProgress) {
-    
         searchInProgress = SKSearchFindMatches(search, maxNumResults, documentIds, scores, 0.5, &foundCount);
-        
         SKIndexCopyDocumentRefsForDocumentIDs (_index,
                                                (CFIndex)foundCount,
                                                (SKDocumentID *)documentIds,
@@ -69,12 +61,14 @@
             SKDocumentRef doc = (SKDocumentRef)documentRefs[i];
             ACSearchIndexResult *result = [[ACSearchIndexResult alloc] init];
             result.score = scores[i];
-            result.documentUrl = (NSURL *)SKDocumentCopyURL(doc);
+            result.documentUrl = (__bridge_transfer NSURL *)SKDocumentCopyURL(doc);
             result.documentId = documentIds[i];
             [self.results addObject:result];
-            [result release];
+            CFRelease(doc);
         }
     }
+    
+    CFRelease(search);
 }
 
 @end

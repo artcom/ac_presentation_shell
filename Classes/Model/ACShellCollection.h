@@ -16,8 +16,8 @@
 }
 
 @property (copy) NSString *name;
-@property (retain, nonatomic) NSMutableArray *presentations;
-@property (retain, nonatomic) NSMutableArray *children;
+@property (strong, nonatomic) NSMutableArray *presentations;
+@property (strong, nonatomic) NSMutableArray *children;
 + (ACShellCollection *) collectionWithName: (NSString *)theName;
 + (ACShellCollection *) collectionWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren;
 

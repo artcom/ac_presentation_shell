@@ -22,55 +22,34 @@
                                             NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate,
                                             NSTableViewDataSource, NSToolbarDelegate, NSSplitViewDelegate> 
 {
-	PresentationLibrary *presentationLibrary;
-
 	PresentationWindowController *presentationWindowController;
     PreferenceController * preferenceController;
     EditWindowController * editWindowController;
 	RsyncController *rsyncController;
     SetupAssistantController * setupAssistant;	
-    
-	NSOutlineView *collectionView;
-	NSTableView *presentationTable;
-	
-	NSArrayController *presentationsArrayController;
-	NSTreeController *collectionTreeController;
-
-    NSTextField * statusLine;
-
-    NSWindow *browserWindow;
 	NSProgressIndicator *progressSpinner;
-	
 	NSMutableArray *currentPresentationList;
-    NSImageView * warningIcon;
-	
 	BOOL editingEnabled;
-    NSSegmentedControl * collectionActions;
-    
-    NSMenuItem * editPresentationMenuItem;
-    
-    NSView * leftSplitPane;
-    NSView * rightSplitPane;
 }
 
-@property (retain) NSSortDescriptor *userSortDescriptor;
-@property (retain) PresentationLibrary *presentationLibrary;
-@property (retain, nonatomic) NSMutableArray * library;
+@property (strong) NSSortDescriptor *userSortDescriptor;
+@property (strong) PresentationLibrary *presentationLibrary;
+@property (strong, nonatomic) NSMutableArray * library;
 
-@property (assign, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
-@property (assign, nonatomic) IBOutlet NSTreeController *collectionTreeController;
-@property (assign, nonatomic) IBOutlet NSWindow *browserWindow;
-@property (assign, nonatomic) IBOutlet NSOutlineView *collectionView;
-@property (assign, nonatomic) IBOutlet NSTableView *presentationTable;
-@property (assign, nonatomic) IBOutlet NSTextField *statusLine;
-@property (retain, nonatomic) NSMutableArray * currentPresentationList;
-@property (assign, nonatomic) IBOutlet NSImageView * warningIcon;
-@property (assign, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
-@property (assign, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
-@property (assign, nonatomic) IBOutlet NSView * leftSplitPane;
-@property (assign, nonatomic) IBOutlet NSView * rightSplitPane;
+@property (weak, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
+@property (weak, nonatomic) IBOutlet NSTreeController *collectionTreeController;
+@property (weak, nonatomic) IBOutlet NSWindow *browserWindow;
+@property (weak, nonatomic) IBOutlet NSOutlineView *collectionView;
+@property (weak, nonatomic) IBOutlet NSTableView *presentationTable;
+@property (weak, nonatomic) IBOutlet NSTextField *statusLine;
+@property (strong, nonatomic) NSMutableArray * currentPresentationList;
+@property (weak, nonatomic) IBOutlet NSImageView * warningIcon;
+@property (weak, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
+@property (weak, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
+@property (weak, nonatomic) IBOutlet NSView * leftSplitPane;
+@property (weak, nonatomic) IBOutlet NSView * rightSplitPane;
 
-@property (readonly) NSString* libraryDirPath;
+@property (weak, readonly) NSString* libraryDirPath;
 @property (readonly) BOOL editingEnabled;
 
 - (IBAction)play: (id)sender;

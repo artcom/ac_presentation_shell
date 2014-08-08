@@ -14,22 +14,12 @@
 @class FileCopyController;
 @class AssetManager;
 
-@interface PresentationLibrary : NSObject <NSCoding> {
-	NSMutableDictionary *presentationData;
-	NSMutableDictionary *thumbnailCache;
-    
-    AssetManager *assetManager;
-    ACShellCollection * library;
-    NSString * libraryDirPath;
-	
-	BOOL syncSuccessful;
-}
+@interface PresentationLibrary : NSObject <NSCoding>
 
-@property (retain, nonatomic) ACShellCollection* library;
+@property (strong) ACShellCollection *library;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
-@property (readonly) NSString * libraryDirPath;
-
+@property (strong) NSString *libraryDirPath;
 
 + (id)libraryFromSettingsFile;
 

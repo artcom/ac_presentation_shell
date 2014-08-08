@@ -16,7 +16,7 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
 
 
 /**
- @brief Asynchronous full-text search using Search Kit
+ @brief Asynchronous full-text search in memory-based index using Search Kit.
  
  All methods are executed asynchronously but enqueued in a single serial queue, thus calling two methods in direct
  succession is fine. E.g. addDocumentsAt: immediately followed by search: will work as expected, search will
@@ -24,26 +24,9 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  Because of this house-keeping this class is opaque and can't hand out a reference to the internally
  used SKIndexRef.
  NOTE: Methods have to be called on the main thread.
+ TODO: Add completion queue to allow other threads/queues to use this class
  */
 @interface ACSearchIndex : NSObject
-
-/**
- ACSearchIndex using a file-based index.
- @param path A path where the index file will be saved
- */
-- (id)initWithFileBasedIndex:(NSString *)path;
-
-/**
- ACSearchIndex using a memory-based index.
- */
-- (id)initWithMemoryBasedIndex;
-
-/**
- Add a document to the index
- @param path File path to the document
- @param completion Block called after the operation
- */
-- (void)addDocumentAt:(NSString *)path completion:(void(^)())completionBlock;;
 
 /**
  Index all documents in a folder and its sub-folders that have a given extension
@@ -66,15 +49,5 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  */
 - (ACSearchIndexQuery *)search:(NSString *)query maxNumResults:(int)maxNumResults completion:(ACSearchResultBlock)completion;
 
-/**
- @brief Reset index
- */
-- (void)reset;
-
-/**
- @brief Optimize index. 
- Can improve performance after many changes to the index like adding and/or removing many documents.
- */
-- (void)optimize;
 
 @end

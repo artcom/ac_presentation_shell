@@ -9,13 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface LibraryServerView : NSView {
-    BOOL selected;
-    NSTextField * titleField;
-}
+@interface LibraryServerView : NSView
 
-@property (readwrite) BOOL selected;
+@property (assign) BOOL selected;
 
-@property (assign, nonatomic) IBOutlet NSTextField * titleField;
+@property (weak, nonatomic) IBOutlet NSTextField * titleField;
 
 @end

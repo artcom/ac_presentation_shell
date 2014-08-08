@@ -49,11 +49,6 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     return self;
 }
 
-- (void) dealloc {
-    [assets release];
-    
-    [super dealloc];
-}
 
 - (void) copyAsset: (NSString*) assetPath {
     [assets addObject: [NSArray arrayWithObjects: copy_op, assetPath, nil]];
@@ -93,11 +88,10 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     FSFileOperationClientContext	clientContext;
 
     clientContext.version = 0;
-    clientContext.info = (void *) self;
+    clientContext.info = (__bridge void *) self;
     clientContext.retain = CFRetain;
     clientContext.release = CFRelease;
     clientContext.copyDescription = NULL;
-    
     
     if ([opcode isEqualToNumber: copy_op]) {
         error = FSCopyObjectAsync(op, &srcRef, &destDirRef, NULL, kFSFileOperationDefaultOptions,
@@ -107,8 +101,7 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
         [delegate setMessage: NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
         error = FSMoveObjectToTrashAsync(op, &srcRef, kFSFileOperationDefaultOptions,
                                          fileOpStatusCallback, 1.0, &clientContext);
-    }
-	
+    }	
 }
 
 - (void) fileOp: (FSFileOperationRef) fileOp didUpdateStatus: (const FSRef*) currentItem 
@@ -147,7 +140,7 @@ static void fileOpStatusCallback (FSFileOperationRef fileOp,
                             CFDictionaryRef statusDictionary,
                             void *info )
 {
-    AssetManager * importer = (AssetManager*) info;
+    AssetManager * importer = (__bridge AssetManager*) info;
     [importer fileOp: fileOp didUpdateStatus: currentItem stage: stage error: error statusDictionary: statusDictionary];
     
 }

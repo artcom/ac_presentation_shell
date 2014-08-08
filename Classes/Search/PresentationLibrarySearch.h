@@ -30,7 +30,7 @@ typedef void (^PresentationLibrarySearchResultBlock)(NSArray *results);
 - (id)initWithLibraryPath:(NSString *)path;
 
 /**
- Update the index
+ Fully update the index
  */
 - (void)updateIndex;
 

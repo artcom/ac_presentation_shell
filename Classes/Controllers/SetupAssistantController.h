@@ -13,60 +13,40 @@
 
 @interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
     
-    NSTabView * pages;
-    
-    NSButton * nextButton;
-    NSButton * backButton;
-    
     NSInteger numPages;
-    
-    NSArrayController * publicKeyArrayController;
-    NSMutableArray * publicKeys;
-    NSTableView * publicKeyTable;
-    NSButton * generateSshKeysButton;
-    NSProgressIndicator * sshKeygenSpinner;
-    
-    NSCollectionView * bonjourServerList;
-    NSTextField * rsyncSourceEntry;
-    
+    NSMutableArray *publicKeys;
     BOOL bonjourBrowserRunning;
-    NSNetServiceBrowser * bonjourBrowser;
-    NSMutableArray * bonjourLibraries;
-    NSArrayController * bonjourLibrariesArrayController;
-    NSMatrix * discoveryModeButtons;
-    
-    PublicKeyDraglet * publicKeyDraglet;
-    NSTextField * libraryNameLabel;
-    NSTextField * administratorAddressLabel;
-    NSButton * emailSendToggle;
+    NSNetServiceBrowser *bonjourBrowser;
+    NSMutableArray *bonjourLibraries;
+    NSArrayController *bonjourLibrariesArrayController;
     
     id<SetupAssistantDelegate> delegate;
     NSTask *sshKeygenTask;
 }
 
-@property (assign, nonatomic) IBOutlet NSTabView * pages;
+@property (weak, nonatomic) IBOutlet NSTabView * pages;
 
-@property (assign, nonatomic) IBOutlet NSButton * nextButton;
-@property (assign, nonatomic) IBOutlet NSButton * backButton;
+@property (weak, nonatomic) IBOutlet NSButton * nextButton;
+@property (weak, nonatomic) IBOutlet NSButton * backButton;
 
-@property (retain, nonatomic) IBOutlet NSArrayController * publicKeyArrayController;
-@property (assign, nonatomic) IBOutlet NSTableView * publicKeyTable;
-@property (assign, nonatomic) IBOutlet NSButton * generateSshKeysButton;
-@property (assign, nonatomic) IBOutlet NSProgressIndicator * sshKeygenSpinner;
-@property (retain, nonatomic) NSMutableArray * publicKeys;
+@property (strong, nonatomic) IBOutlet NSArrayController * publicKeyArrayController;
+@property (weak, nonatomic) IBOutlet NSTableView * publicKeyTable;
+@property (weak, nonatomic) IBOutlet NSButton * generateSshKeysButton;
+@property (weak, nonatomic) IBOutlet NSProgressIndicator * sshKeygenSpinner;
+@property (strong, nonatomic) NSMutableArray * publicKeys;
 
-@property (assign, nonatomic) IBOutlet NSCollectionView * bonjourServerList;
-@property (assign, nonatomic) IBOutlet NSTextField * rsyncSourceEntry;
-@property (retain, nonatomic) IBOutlet NSArrayController * bonjourLibrariesArrayController;
-@property (assign, nonatomic) IBOutlet NSMatrix * discoveryModeButtons;
-@property (retain, nonatomic) NSMutableArray * bonjourLibraries;
+@property (weak, nonatomic) IBOutlet NSCollectionView * bonjourServerList;
+@property (weak, nonatomic) IBOutlet NSTextField * rsyncSourceEntry;
+@property (strong, nonatomic) IBOutlet NSArrayController * bonjourLibrariesArrayController;
+@property (weak, nonatomic) IBOutlet NSMatrix * discoveryModeButtons;
+@property (strong, nonatomic) NSMutableArray * bonjourLibraries;
 
-@property (assign, nonatomic) IBOutlet NSTextField * administratorAddressLabel;
-@property (assign, nonatomic) IBOutlet NSTextField * libraryNameLabel;
-@property (assign, nonatomic) IBOutlet NSButton * emailSendToggle;
+@property (weak, nonatomic) IBOutlet NSTextField * administratorAddressLabel;
+@property (weak, nonatomic) IBOutlet NSTextField * libraryNameLabel;
+@property (weak, nonatomic) IBOutlet NSButton * emailSendToggle;
 
-@property (assign, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
-@property (retain, nonatomic) NSTask *sshKeygenTask;
+@property (weak, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
+@property (strong, nonatomic) NSTask *sshKeygenTask;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 

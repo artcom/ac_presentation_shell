@@ -24,12 +24,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 @interface PresentationLibrary ()
 
-@property (readonly) NSMutableArray* allPresentations;
-@property (readonly) NSMutableArray* highlights;
-@property (readonly) NSMutableArray* collections;
-@property (nonatomic, retain) NSMutableDictionary *presentationData;
-@property (nonatomic, retain) AssetManager *assetManager;
-@property (nonatomic, retain) PresentationLibrarySearch *librarySearch;
+@property (weak, readonly) NSMutableArray* allPresentations;
+@property (weak, readonly) NSMutableArray* highlights;
+@property (weak, readonly) NSMutableArray* collections;
+@property (strong) NSMutableDictionary *presentationData;
+@property (strong) AssetManager *assetManager;
+@property (strong) PresentationLibrarySearch *librarySearch;
+@property (strong) NSMutableDictionary *thumbnailCache;
 
 + (NSString*) settingsFilepath;
 - (void) setup;
@@ -43,18 +44,14 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 
 @implementation PresentationLibrary
-@synthesize library;
-@synthesize syncSuccessful;
-@synthesize libraryDirPath;
-@synthesize presentationData;
-@synthesize assetManager;
+
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
     if (lib != nil) {
         return lib;
     }
-    return [[[PresentationLibrary alloc] init] autorelease];
+    return [[PresentationLibrary alloc] init];
 }
 
 -(id) init {
@@ -76,19 +73,19 @@ static NSCharacterSet * ourNonDirNameCharSet;
         
         self.syncSuccessful = [aDecoder decodeBoolForKey: ACSHELL_SYNC_SUCCESSFUL];
         
-        [library assignContext: self];
+        [self.library assignContext: self];
     }
 
 	return self;
 }
 
 -(void) setup {
-	thumbnailCache = [[NSMutableDictionary alloc] init];
+	self.thumbnailCache = [[NSMutableDictionary alloc] init];
 	
     self.presentationData = nil;
-    library = [[ACShellCollection collectionWithName: @"root"] retain];
+    self.library = [ACShellCollection collectionWithName: @"root"];
     ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_LIBRARY, nil)];
-    [library.children addObject: lib];
+    [self.library.children addObject: lib];
     
     ACShellCollection *all = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_ALL, nil)];
     [lib.children addObject: all];
@@ -96,19 +93,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [lib.children addObject: highlights];
     
     ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_STR_COLLECTIONS, nil)];
-    [library.children addObject: collections];
+    [self.library.children addObject: collections];
 }
 
-- (void) dealloc {
-    [presentationData release];
-	[thumbnailCache release];
-	[library release];
-    [libraryDirPath release];
-    [assetManager release];
-    [_librarySearch release];
-
-	[super dealloc];
-}
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {	
 	[aCoder encodeObject: self.allPresentations forKey:ACSHELL_STR_ALL];
@@ -126,11 +113,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
 	[self flushThumbnailCache];
 	self.presentationData = nil;
-    [libraryDirPath release];
-    libraryDirPath = [directory retain];
+    self.libraryDirPath = directory;
     
     NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
-    presentationData = [[NSMutableDictionary alloc] init];
+    self.presentationData = [[NSMutableDictionary alloc] init];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
         NSLog(@"file '%@' does not exist", libraryPath);
@@ -139,7 +125,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     NSError *error = nil;
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
     NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
-    [document release];
     
     if (error != nil) {
         NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
@@ -147,45 +132,53 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     for (NSXMLElement * element in xmlPresentations) {
-		[presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
+		[self.presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
 		[element detach];
     }
     
     [self syncPresentations];
 	[self cacheThumbnails];
     
-    /** Setup full-text search index */
-    PresentationLibrarySearch *librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
-    self.librarySearch = librarySearch;
-    [librarySearch release];
+    // Setup full-text search index
+    self.librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
     [self.librarySearch updateIndex];
     
     return YES;
 }
 
 - (void) saveXmlLibrary {
-    NSXMLElement * root = [[[NSXMLElement alloc] initWithName: @"presentations"] autorelease];
-    NSXMLDocument * document = [[[NSXMLDocument alloc] initWithRootElement: root] autorelease];
+    NSXMLElement *root = [[NSXMLElement alloc] initWithName: @"presentations"];
+    NSXMLDocument *document = [[NSXMLDocument alloc] initWithRootElement:root];
+    [document setCharacterEncoding:@"UTF-8"];
     for (Presentation* p in self.allPresentations) {
-        [root addChild: [presentationData objectForKey: p.presentationId]];
+        [root addChild:[self.presentationData objectForKey: p.presentationId]];
     }
 
-    NSData *xmlData = [document XMLDataWithOptions: NSXMLNodePrettyPrint];
+    NSData *xmlData = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
     if (![xmlData writeToFile: [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"] atomically:YES]) {
         NSLog(@"Failed to save xml file.");
     }
 	
-	for (id key in presentationData) {
-		NSXMLElement * element = [presentationData objectForKey: key];
+	for (id key in self.presentationData) {
+		NSXMLElement * element = [self.presentationData objectForKey: key];
 		[element detach];
 	}
+
+    // TODO: Ideally, this would be a possible place to add:
+    // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
+    // this method is called when an ongoing copy operation of the AssetManager is still ongoing and the
+    // indexing process would use incomplete file data. To fix this one has to cleanup the mess
+    // in addPresentation and updatePresentation where AssetManager is initiated but its progress not
+    // tracked within this same class. (Progress might be tracked by whoever called the methods) Right now,
+    // this PresentationLibrary does not know when it's is in a valid state after file operations.
+    // Now, because updateIndex will not crash the app if it's running across incomplete files, I'll keep it in.
     
     [self.librarySearch updateIndex];
 }
 
 - (NSXMLElement *) xmlNode: (id)aId {
 	if ([self hasLibrary]) {
-        return [presentationData objectForKey: aId];
+        return [self.presentationData objectForKey: aId];
     }
     return nil;
 }
@@ -204,13 +197,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation {
-	NSImage *thumbnail = [thumbnailCache objectForKey:presentation.presentationId]; 
+	NSImage *thumbnail = [self.thumbnailCache objectForKey:presentation.presentationId];
 
 	if (thumbnail == nil) {
 		NSString *filepath = [[self libraryDirPath] stringByAppendingPathComponent: presentation.relativeThumbnailPath];
-		thumbnail =  [[[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]] autorelease];
+		thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
 		if (thumbnail != nil) {
-            [thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
+            [self.thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
         }
 	}
 	
@@ -218,7 +211,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)flushThumbnailCache {
-	[thumbnailCache removeAllObjects];
+	[self.thumbnailCache removeAllObjects];
 }
 
 - (void)cacheThumbnails {
@@ -228,7 +221,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)flushThumbnailCacheForPresentation: (Presentation *)presentation {
-	[thumbnailCache removeObjectForKey:presentation.presentationId];
+	[self.thumbnailCache removeObjectForKey:presentation.presentationId];
 }
 
 - (NSUInteger)collectionCount {
@@ -242,7 +235,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
                              year: (NSInteger) year
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
-    
     NSString * newId = [NSString stringWithUUID];
     NSXMLElement * node = [NSXMLElement elementWithName: @"presentation"];
     [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
@@ -252,9 +244,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [node addChild: [NSXMLElement elementWithName: @"file"]];
     [node addChild: [NSXMLElement elementWithName: @"thumbnail"]];
 
-    [presentationData setObject: node forKey: newId];
+    [self.presentationData setObject: node forKey: newId];
 
-    Presentation * p = [[[Presentation alloc] initWithId: newId inContext: self] autorelease];
+    Presentation * p = [[Presentation alloc] initWithId: newId inContext: self];
     p.directory = [self subdirectoryFromTitle: title];
     if ([[NSFileManager defaultManager] fileExistsAtPath: p.directory]) {
         p.directory = [NSString stringWithFormat: @"%@-%@", p.directory, p.presentationId];
@@ -278,7 +270,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     if (p.highlight) {
         Presentation *pCopy = [p copy];
         [self.highlights insertObject: pCopy atIndex: 0];
-        [pCopy release];
         [self updateIndices: self.highlights];
     }
     
@@ -287,7 +278,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [assetMan copyAsset: keynote];
     
     self.assetManager = assetMan;
-    [assetMan release];
     [self.assetManager run];
     
     [self saveXmlLibrary];
@@ -312,7 +302,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
-            [assetMan trashAsset: presentation.absoluteThumbnailPath];
+            //[assetMan trashAsset: presentation.absoluteThumbnailPath];
+            [[NSFileManager defaultManager] removeItemAtPath:presentation.absoluteThumbnailPath error:nil];
         }
         [assetMan copyAsset: thumbnail];
         
@@ -325,7 +316,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [keynote isEqual: presentation.absolutePresentationPath]) {
         if (presentation.presentationFileExists) {
-            [assetMan trashAsset: presentation.absolutePresentationPath];
+            [[NSFileManager defaultManager] removeItemAtPath:presentation.absolutePresentationPath error:nil];
+            //[assetMan trashAsset: presentation.absolutePresentationPath];
         }
         [assetMan copyAsset: keynote];
         
@@ -352,8 +344,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
         }
     }
     self.assetManager = assetMan;
-    [assetMan release];
-    
     [self.assetManager run];
     
     if (xmlChanged) {
@@ -367,11 +357,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
     [assetMan trashAsset: presentation.absoluteDirectory];
     self.assetManager = assetMan;
-    [assetMan release];
     
     [self.assetManager run];
     
-    [presentationData removeObjectForKey: presentation.presentationId];
+    [self.presentationData removeObjectForKey: presentation.presentationId];
     [self syncPresentations];
     [self saveXmlLibrary];
 }
@@ -379,15 +368,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
 #pragma mark -
 #pragma mark Private Methods
 - (NSMutableArray*) allPresentations {
-    return (NSMutableArray*)[[[[library.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
+    return (NSMutableArray*)[[[[self.library.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
 }
 
 - (NSMutableArray*) highlights {
-    return (NSMutableArray*)[[[[library.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
+    return (NSMutableArray*)[[[[self.library.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
 }
 
 - (NSMutableArray*) collections {
-    return (NSMutableArray*)[[library.children objectAtIndex: 1] children];
+    return (NSMutableArray*)[[self.library.children objectAtIndex: 1] children];
 }
 
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate {
@@ -406,19 +395,18 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)addNewPresentations: (NSMutableArray*) thePresentations withPredicate: (NSPredicate *) thePredicate {
-    NSMutableArray * presentIds = [[[NSMutableArray alloc] init] autorelease];
+    NSMutableArray * presentIds = [[NSMutableArray alloc] init];
     for (Presentation* presentation in thePresentations) {
         [presentIds addObject: presentation.presentationId];
     }
     BOOL addedStuff = NO;
-    for (NSNumber * key in presentationData) {
+    for (NSNumber * key in self.presentationData) {
         if (NSNotFound == [presentIds indexOfObject: key]) {
             Presentation * newPresentation = [[Presentation alloc] initWithId: key inContext:self];
             if (thePredicate == nil || [thePredicate evaluateWithObject:newPresentation]) {
                 [thePresentations insertObject: newPresentation atIndex:0];
                 addedStuff = YES;
             }
-            [newPresentation release];
         }
     }
 	
@@ -448,7 +436,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL) hasLibrary {
-    return [presentationData count] > 0;
+    return [self.presentationData count] > 0;
 }
 
 - (NSString*) buildLibDir: (NSString*) libraryDir {
@@ -466,7 +454,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [workingSet formUnionWithCharacterSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
         [workingSet invert];
         ourNonDirNameCharSet = [workingSet copy];
-        [workingSet release];
     }
     NSString * str = [[[aTitle lowercaseString] componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""];
     NSArray * words = [str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];

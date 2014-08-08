@@ -17,7 +17,7 @@
     self = [super initWithNibName: nibFilename bundle: nil];
     if (self != nil) {
         [self setTitle: title];
-        iconName = [icon retain];
+        iconName = icon;
     }
     return self;
 }
@@ -27,7 +27,7 @@
     if (self != nil) {
         [self setView: aView];
         [self setTitle: title];
-        iconName = [icon retain];
+        iconName = icon;
     }
     return self;
 }
@@ -40,10 +40,5 @@
     return iconName;
 }
 
-- (void) dealloc {
-    [iconName release];
-    
-    [super dealloc];
-}
 
 @end

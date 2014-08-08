@@ -9,10 +9,8 @@
 #import <Cocoa/Cocoa.h>
 @class ACShellController;
 
-@interface ACShellAppDelegate : NSObject <NSApplicationDelegate> {
-	ACShellController *shellController;
-}
+@interface ACShellAppDelegate : NSObject <NSApplicationDelegate>
 
-@property (retain) IBOutlet ACShellController *shellController;
+@property (strong) IBOutlet ACShellController *shellController;
 
 @end

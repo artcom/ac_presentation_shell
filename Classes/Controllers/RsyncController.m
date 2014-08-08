@@ -12,23 +12,22 @@
 
 @interface RsyncController ()
 
--(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
--(void) userDidConfirmAbort:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
--(void) userDidConfirmInitialSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
--(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+@property (strong) RsyncTask *rsyncTask;
+@property (strong) NSAlert *currentSheet;
+@property (copy) NSString *lastRsyncMessage;
+@property (assign) BOOL terminatedByUser;
+@property (assign) BOOL isUploading;
 
--(NSImage*) syncIcon;
--(NSImage*) uploadIcon;
--(NSImage*) directionIcon;
--(void) performSync: (NSString*) source destination: (NSString*) destination;
--(void) setFileProgress: (double) percent;
+- (NSImage *)syncIcon;
+- (NSImage *)uploadIcon;
+- (NSImage *)directionIcon;
+- (void)performSync:(NSString *) source destination:(NSString *)destination;
+- (void)setFileProgress:(double) percent;
 
--(NSAlert*) progressDialog;
--(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
+- (NSAlert*)progressDialog;
+- (NSAlert*)confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles;
--(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
--(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector context: (void*) context;
-
+- (NSAlert*)acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
 
 @end
 
@@ -38,7 +37,6 @@ static NSImage * ourUploadIcon = nil;
 @implementation RsyncController
 @synthesize delegate;
 @synthesize documentWindow;
-
 @synthesize progressView;
 @synthesize fileProgressBar;
 @synthesize fileProgressLabel;
@@ -57,53 +55,45 @@ static NSImage * ourUploadIcon = nil;
 -(void) awakeFromNib {
 }
 
--(void) dealloc {
-    [lastRsyncMessage release];
-    [rsyncTask release];
-    [currentSheet release];
-    [documentWindow release];
-    [progressView release];
-    
-    [super dealloc];
-}
 
 - (void) syncWithSource: (NSString*) source destination: (NSString*) destination {
-    isUploading = NO;
+    self.isUploading = NO;
     [self performSync: source destination: destination];
 }
 
-// TODO: not working properly! contextInfo returns scrambled data in didEnd-callback
--(void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination {
-    isUploading = NO;
+- (void)initialSyncWithSource:(NSString *)source destination:(NSString *)destination {
+    self.isUploading = NO;
     NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_SYNC_LIB_NOW
                                      informationalText: ACSHELL_STR_GOOD_CONNECTION
                                                  style: NSInformationalAlertStyle
                                                   icon: [self directionIcon] 
 												buttonTitles: nil];
-    NSArray * srcDst = [[NSArray arrayWithObjects: source, destination, nil] retain];
-    
-    //NSLog(@"initialSyncWithSource -> srcDstArray count:%lu", [srcDst count]);
-    
-    [self showSheet: confirm didEndSelector: @selector(userDidConfirmInitialSync:returnCode:contextInfo:) context: srcDst];
+
+    [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
+        [self userDidConfirmInitialSync:confirm returnCode:returnCode source:source destination:destination];
+    }];
 }
 
-- (void) uploadWithSource: (NSString*) source destination: (NSString*) destination {
-    isUploading = YES;
+- (void)uploadWithSource: (NSString*) source destination: (NSString*) destination {
+    self.isUploading = YES;
     [self performSync: source destination: destination];
 }
 
 -(void) performSync: (NSString*) source destination: (NSString*) destination {
-    NSAlert * progressDialog = [self progressDialog];
-    [self showSheet: progressDialog didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
-    terminatedByUser = NO;
-    [rsyncTask release];
-	rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
-	rsyncTask.delegate = self;
+    
+    NSAlert *progressDialog = [self progressDialog];
+    [self showSheet:progressDialog completionHandler:^(NSModalResponse returnCode) {
+        [self userDidAbortSync:progressDialog returnCode:returnCode contextInfo:nil];
+    }];
+    
+    self.terminatedByUser = NO;
+	self.rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
+	self.rsyncTask.delegate = self;
     
     fileProgressLabel.stringValue = [NSString stringWithFormat: @"%3.1f%%", 0.0];
     totalProgressLabel.stringValue = @"";
 
-	[rsyncTask sync];
+	[self.rsyncTask sync];
 };
 
 -(void) setFileProgress: (double) percent {
@@ -114,18 +104,27 @@ static NSImage * ourUploadIcon = nil;
 #pragma mark -
 #pragma mark RsyncTask Delegate Methods
 
-- (void)rsyncTaskDidFinish: (RsyncTask *)task; {
-    NSAlert * ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
-                                     informationalText: nil
-                                                 style: NSInformationalAlertStyle
-                                                  icon: [self directionIcon]];
-    [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:) context: nil];
-
-	[delegate rsync:self didFinishSyncingSuccesful: YES];
+- (void)rsyncTaskDidFinish:(RsyncTask *)task; {
+    
+    // TODO If this dialog is shown after syncing, a bug with modal sheets occurs:
+    // ProgressSheet while syncing -> Done (here) -> Show AckSheet -> User clicks okay -> ProgressSheet
+    // is shown again (and not initiated by code in this class!)
+    // Disabling for now
+//    NSAlert *ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
+//                                     informationalText: nil
+//                                                 style: NSInformationalAlertStyle
+//                                                  icon: [self directionIcon]];
+//    
+//    [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
+//        [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
+//    }];
+    
+    [self showSheet:nil completionHandler:nil];
+	[delegate rsync:self didFinishSyncSuccessfully:YES];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didFailWithError: (NSString *)error {
-    if ( ! terminatedByUser) {
+    if (!self.terminatedByUser) {
         NSLog(@"sync error: %@", error);
         const int maxLength = 6 * 80;
         if ([error length] > maxLength) {
@@ -135,9 +134,11 @@ static NSImage * ourUploadIcon = nil;
                                          informationalText: error
                                                      style: NSWarningAlertStyle
                                                       icon: [NSImage imageNamed: NSImageNameCaution]];
-        [self showSheet: ack didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:) context: nil];
+        [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
+            [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
+        }];
     }
-	[delegate rsync:self didFinishSyncingSuccesful: NO];
+	[delegate rsync:self didFinishSyncSuccessfully: NO];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)fileProgress
@@ -156,25 +157,22 @@ static NSImage * ourUploadIcon = nil;
 }
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateMessage: (NSString *)message {    
-	if ([currentSheet accessoryView] == progressView) {        
-        [currentSheet setInformativeText: message];
+	if ([self.currentSheet accessoryView] == progressView) {
+        [self.currentSheet setInformativeText: message];
     }
     
     [fileProgressBar setIndeterminate: NO];
     [totalProgressBar setIndeterminate: NO];
     
-    [lastRsyncMessage release];
-    lastRsyncMessage = [message retain];
+    self.lastRsyncMessage = message;
 }  
 
 #pragma mark -
 #pragma mark Private Methods
 
--(void) userDidConfirmInitialSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void)userDidConfirmInitialSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode source:(NSString *)source destination:(NSString *)destination {
     if (returnCode == NSAlertFirstButtonReturn) {
-        NSArray * srcDst = (NSArray*) contextInfo;
-        
-        [self performSync: [srcDst objectAtIndex: 0] destination: [srcDst objectAtIndex: 1]];
+        [self performSync:source destination:destination];
     }
 }
 
@@ -184,21 +182,24 @@ static NSImage * ourUploadIcon = nil;
                                          informationalText: ACSHELL_STR_ABORT_SYNC_WARNING 
                                                      style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution] 
 											  buttonTitles: [NSArray arrayWithObjects: ACSHELL_STR_ABORT, ACSHELL_STR_CONTINUE_SYNC, nil]];
-        [self showSheet: confirm didEndSelector: @selector(userDidConfirmAbort:returnCode:contextInfo:) context: nil];
+        [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
+            [self userDidConfirmAbort:confirm returnCode:returnCode contextInfo:nil];
+        }];
     }
 }
 
 -(void) userDidConfirmAbort:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        [rsyncTask terminate];
-        terminatedByUser = YES;
+        [self.rsyncTask terminate];
+        self.terminatedByUser = YES;
     } else if (returnCode == NSAlertSecondButtonReturn) {
         NSAlert * progress = [self progressDialog];
-        [progress setInformativeText: lastRsyncMessage];
-        [self showSheet: [self progressDialog] didEndSelector: @selector(userDidAbortSync:returnCode:contextInfo:) context: nil];
+        if (self.lastRsyncMessage) [progress setInformativeText:self.lastRsyncMessage];
+        [self showSheet:progress completionHandler:^(NSModalResponse returnCode) {
+            [self userDidAbortSync:progress returnCode:returnCode contextInfo:nil];
+        }];
         [fileProgressBar setIndeterminate: NO];
         [totalProgressBar setIndeterminate: NO];
-        
     }
 }
 
@@ -220,28 +221,23 @@ static NSImage * ourUploadIcon = nil;
 }
 
 -(NSImage*) directionIcon {
-    return isUploading ? [self uploadIcon] : [self syncIcon];
+    return self.isUploading ? [self uploadIcon] : [self syncIcon];
 }
 
-
--(void)showSheet: (NSAlert*) sheet didEndSelector: (SEL)theEndSelector context: (void*) context {
-    if (currentSheet != nil) {
-        [[currentSheet window] orderOut: self];
-        [NSApp endSheet:[currentSheet window]];
-		[currentSheet release];
-		currentSheet = nil;
+- (void)showSheet:(NSAlert *)sheet completionHandler:(void (^)(NSModalResponse returnCode))handler {
+    if (self.currentSheet != nil) {
+        [[self.currentSheet window] orderOut:self];
+        [NSApp endSheet:[self.currentSheet window]];
     }
-    if (sheet != nil) {
-        [sheet beginSheetModalForWindow: documentWindow modalDelegate:self didEndSelector: theEndSelector contextInfo:context];
-    } 
-	
-	currentSheet = [sheet retain];
+    self.currentSheet = nil;
+    [sheet beginSheetModalForWindow:documentWindow completionHandler:handler];
+    self.currentSheet = sheet;
 }
 
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles
 {
-    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
+    NSAlert * dialog = [[NSAlert alloc] init];
 
 	if (titles == nil) {
 		titles = [NSArray arrayWithObjects: ACSHELL_STR_OK, ACSHELL_STR_CANCEL, nil];
@@ -263,7 +259,7 @@ static NSImage * ourUploadIcon = nil;
 -(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                    style: (NSAlertStyle) style icon: (NSImage*) icon
 {
-    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
+    NSAlert * dialog = [[NSAlert alloc] init];
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
@@ -275,7 +271,7 @@ static NSImage * ourUploadIcon = nil;
 }
 
 -(NSAlert*) progressDialog {
-    NSAlert * dialog = [[[NSAlert alloc] init] autorelease];
+    NSAlert * dialog = [[NSAlert alloc] init];
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
     [dialog setMessageText: NSLocalizedString(ACSHELL_STR_SYNCING,nil)];
     [dialog setInformativeText: NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE,nil)];

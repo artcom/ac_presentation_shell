@@ -43,7 +43,7 @@
 - (id) initWithShellController: (ACShellController*) theShellController {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
-        shellController = [theShellController retain];
+        shellController = theShellController;
     }
     return self;
 }
@@ -52,15 +52,9 @@
     [self setGuiValues];
 }
 
-- (void) dealloc {
-    [shellController release];
-    [progressSheet release];
-    
-    [super dealloc];
-}
 
 - (void) edit: (Presentation*) aPresentation {
-    presentation = [aPresentation retain];
+    presentation = aPresentation;
     [self setGuiValues];
     [self showWindow: nil];
     [self updateOkButton];
@@ -279,7 +273,6 @@
 
 - (void) postEditCleanUp {
     [self close];
-    [presentation release];
     presentation = nil;
 }
 

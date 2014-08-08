@@ -12,7 +12,7 @@
 @protocol PresentationViewDelegate <NSObject>
 
 @optional
-- (void)presentationView:(PresentationView *)aView didClickedItemAtIndex: (NSInteger)index; 
+- (void)presentationView:(PresentationView *)aView didClickItemAtIndex: (NSInteger)index; 
 - (void)didUpdatePresentationView: (PresentationView *)aView;
 
 @end

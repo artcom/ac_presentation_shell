@@ -10,18 +10,18 @@
 #import "Keynote.h"
 #import "KeynoteDelegate.h"
 
-@interface KeynoteHandler : NSObject {
-	KeynoteApplication *application;
-}
+@interface KeynoteHandler : NSObject
 
-@property (nonatomic, retain) KeynoteApplication *application;
+@property (atomic, strong, readonly) KeynoteApplication *application;
+@property (atomic, assign, readonly) BOOL presenting;
 
 + (KeynoteHandler *)sharedHandler;
 
-- (void) launchWithDelgate: (id<KeynoteDelegate>) delegate;
+- (void)launchWithDelegate: (id<KeynoteDelegate>) delegate;
+- (void)open:(NSString *)file;
 
-- (void)play: (NSString *)file withDelegate: (id<KeynoteDelegate>) delegate;
-- (void)open: (NSString *)file;
+- (void)play:(NSString *)file withDelegate: (id<KeynoteDelegate>) delegate;
+- (void)stop;
 
 - (BOOL)usesSecondaryMonitorForPresentation;
 

@@ -11,7 +11,11 @@
 
 #define GRID_BORDER 10
 
-@interface PresentationView () 
+
+@interface PresentationView ()
+
+@property (strong, nonatomic) NSMutableArray *sublayers;
+
 - (void)setUpAccessorieViews;
 - (void)setupView;
 - (void)updateMouseTrackingRect;
@@ -22,12 +26,12 @@
 - (void)viewDidResize: (NSNotification *)aNotification;
 @end
 
+
 @implementation PresentationView
 
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize page;
-@synthesize hoveredLayer;
 @synthesize mouseTracking;
 @synthesize layout;
 @synthesize logo;
@@ -44,16 +48,6 @@
 	[self setupView];
 }
 
-- (void)dealloc
-{
-    [layout release];
-    [sublayers release];
-    [hoveredLayer release];
-    [logo release];
-    [pageButtons release];
-    
-    [super dealloc];
-}
 
 - (void)setupView {
 	CALayer *rootLayer=[CALayer layer];
@@ -62,7 +56,7 @@
 	[self setLayer:rootLayer];
 	[self setWantsLayer:YES];
 	
-	sublayers = [[NSMutableArray alloc] init];
+	self.sublayers = [[NSMutableArray alloc] init];
 	layout = [[GridLayout alloc] init];
 	
 	self.page = 0;	
@@ -78,11 +72,31 @@
 	return YES;
 }
 
+- (float)backingScaleFactor {
+    return [[self window] backingScaleFactor];
+}
+
+- (void)viewDidChangeBackingProperties {
+    float backingScaleFactor = [self backingScaleFactor];
+    self.layer.contentsScale = backingScaleFactor;
+    for (CALayer *layer in self.sublayers) {
+        layer.contentsScale = backingScaleFactor;
+    }
+    [self.hoverLayer setContentsScale:backingScaleFactor];
+}
+
+- (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
+    return YES;
+}
+
+
 - (void) mouseUp:(NSEvent *)theEvent {
+    if (!mouseTracking) return;
+    
 	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
 	
 	CALayer *clickedLayer = nil;
-	for (CALayer *layer in sublayers) {
+	for (CALayer *layer in self.sublayers) {
 		if ([layer hitTest:NSPointToCGPoint(location)]) {
 			clickedLayer = layer;
 		} 
@@ -92,9 +106,9 @@
 		return;
 	}
 	
-	NSInteger selectedItem = [self indexOfItemOnPage:[sublayers indexOfObject: clickedLayer]];
-	if ([self.delegate respondsToSelector:@selector(presentationView:didClickedItemAtIndex:)]) {
-		[self.delegate presentationView:self didClickedItemAtIndex:selectedItem];
+	NSInteger selectedItem = [self indexOfItemOnPage:[self.sublayers indexOfObject: clickedLayer]];
+	if ([self.delegate respondsToSelector:@selector(presentationView:didClickItemAtIndex:)]) {
+		[self.delegate presentationView:self didClickItemAtIndex:selectedItem];
 	}
 }
 
@@ -106,23 +120,19 @@
 	CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
 
 	if (layer == self.layer) {
-		[self.hoveredLayer removeFromSuperlayer];
-		self.hoveredLayer = nil;
-        
+		self.hoverLayer = nil;
 		return;
 	}
 	
-	if (![sublayers containsObject:layer] || layer == self.hoveredLayer) {
+	if (![self.sublayers containsObject:layer] || layer == self.hoverLayer) {
 		return;
 	}
 
-	[self.hoveredLayer removeFromSuperlayer];
-	hoveredItem = [self indexOfItemOnPage:[sublayers indexOfObject:layer]];
-		
-	self.hoveredLayer = [dataSource presentationView:self hoverLayerForItemAtIndex:hoveredItem];
-	self.hoveredLayer.frame = layer.frame;
-		
-	[self.layer addSublayer: self.hoveredLayer];
+    hoveredItem = [self indexOfItemOnPage:[self.sublayers indexOfObject:layer]];
+    
+    CALayer *hoverLayer = [dataSource presentationView:self hoverLayerForItemAtIndex:hoveredItem];
+    hoverLayer.frame = layer.frame;
+    self.hoverLayer = hoverLayer;
 }
 
 - (void) mouseEntered:(NSEvent *)theEvent {
@@ -131,8 +141,7 @@
 
 
 - (void)mouseExited:(NSEvent *)theEvent {
-	[self.hoveredLayer removeFromSuperlayer];
-
+	self.hoverLayer = nil;
 	[[self window] setAcceptsMouseMovedEvents:NO];
 }
 
@@ -151,21 +160,24 @@
 
 - (void)arrangeSublayer {
 	[self updateLayout];
-	for (CALayer *layer in sublayers) {
+	for (CALayer *layer in self.sublayers) {
 		[layer removeFromSuperlayer];
 	}
 	
-	[sublayers removeAllObjects];
+	[self.sublayers removeAllObjects];
 	
 	NSInteger firstItem = [self firstItemOnPage];
 	NSInteger lastItem = [self lastItemOnPage];
 	
+    CGSize itemSize = [dataSource sizeForItemInPresentationView:self];
+    CGRect itemBounds = CGRectMake(0.0f, 0.0f, itemSize.width, itemSize.height);
 	for (int i = firstItem; i <= lastItem; i++) {
 		CALayer *layer = [dataSource presentationView:self layerForItemAtIndex:i];
 		layer.position = [layout positionForItem:i % layout.itemsOnPage];
-		
+		layer.contentsScale = [[self window] backingScaleFactor];
+        layer.bounds = itemBounds;
 		[self.layer addSublayer:layer];	
-		[sublayers addObject:layer];
+		[self.sublayers addObject:layer];
 	}
 
 	[self didUpdatePages];
@@ -173,9 +185,7 @@
 
 
 - (void)setPage:(NSInteger)newPage {
-	[self.hoveredLayer removeFromSuperlayer];
-	self.hoveredLayer = nil;
-	
+	self.hoverLayer = nil;
 	[self willChangeValueForKey:@"page"];
 	page = newPage;
 	[self didChangeValueForKey:@"page"];
@@ -191,15 +201,20 @@
 	return ceil(([dataSource numberOfItemsInPresentationView:self] / (float)layout.itemsOnPage));
 }
 
-- (void)addOverlay: (CALayer *)newOverlay forItem: (NSInteger)index {
-	[self.hoveredLayer removeFromSuperlayer];
-	
+- (void)addOverlay:(CALayer *)newOverlay forItem: (NSInteger)index {
 	newOverlay.position = [layout positionForItem: index % layout.itemsOnPage];
-	self.hoveredLayer = newOverlay;
-
-	[self.layer addSublayer:self.hoveredLayer];
+    [self setHoverLayer:newOverlay];
 }
 
+- (void)setHoverLayer:(CALayer *)hoverLayer {
+    [self.hoverLayer removeFromSuperlayer];
+    if (hoverLayer) {
+        hoverLayer.contentsScale = [self backingScaleFactor];
+        hoverLayer.delegate = self;
+        [self.layer addSublayer:hoverLayer];
+    }
+    _hoverLayer = hoverLayer;
+}
 
 - (BOOL)hasNextPage {
 	return (self.page + 1 < self.pages);
@@ -268,10 +283,10 @@
 }
 
 #pragma mark -
-#pragma mark Set Up Accessorie Views
+#pragma mark Set Up Accessory Views
 
 - (void)setUpAccessorieViews {
-	NSImage *logoImage = [NSImage imageNamed:@"gfx_ac_logo.png"];
+	NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
 	self.logo = [CALayer layer];
 	self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
 	self.logo.contents = logoImage;
@@ -284,15 +299,15 @@
 	
 	pageButtons = (NSButton*) [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 32, 10)];
 	
-	NSButton *upButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 15, 10)] autorelease];
-	[upButtons setImage: [NSImage imageNamed:@"icn_prev_page.png"]];
+	NSButton *upButtons = [[NSButton alloc] initWithFrame: NSMakeRect(0, 0, 15, 10)];
+	[upButtons setImage:[NSImage imageNamed:@"presentation_icon_prev_page"]];
 	[upButtons setBordered:NO];
 	[upButtons setTarget:self];
 	[upButtons setAction:@selector(moveUp:)];
 	[pageButtons addSubview:upButtons];
 	
-	NSButton *downButtons = [[[NSButton alloc] initWithFrame: NSMakeRect(17, 0, 15, 10)] autorelease];
-	[downButtons setImage:[NSImage imageNamed:@"icn_next_page.png"]];
+	NSButton *downButtons = [[NSButton alloc] initWithFrame: NSMakeRect(17, 0, 15, 10)];
+	[downButtons setImage:[NSImage imageNamed:@"presentation_icon_next_page"]];
 	[downButtons setBordered:NO];
 	[downButtons setTarget:self];
 	[downButtons setAction:@selector(moveDown:)];

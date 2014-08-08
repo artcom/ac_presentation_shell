@@ -17,7 +17,7 @@
 	if (self != nil) {
 		self.text = @"Projekt wird geladen...";
 
-		spinner = [[CALayer layer] retain];
+		spinner = [CALayer layer];
 		spinner.frame = CGRectMake(0, 0, 32, 32);
 		spinner.position = CGPointMake(self.frame.size.width / 2, 60);
 		spinner.contents = [NSImage imageNamed:@"spinner.png"];
@@ -37,10 +37,6 @@
 	[CATransaction commit];
 }
 
-- (void)dealloc {
-	[spinner release];
-	[super dealloc];
-}
 
 
 @end

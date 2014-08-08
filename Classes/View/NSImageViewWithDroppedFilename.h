@@ -9,11 +9,9 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NSImageViewWithDroppedFilename : NSImageView {
-    NSString * filename;
-}
+@interface NSImageViewWithDroppedFilename : NSImageView
 
-@property (nonatomic, retain) NSString * filename;
+@property (nonatomic, strong) NSString * filename;
 @property (readonly) BOOL fileExists;
 
 @end

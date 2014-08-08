@@ -14,32 +14,25 @@
 @class PaginationView;
 
 @interface PresentationView : NSView {
-	id <PresentationViewDataSource> dataSource;
-	id <PresentationViewDelegate> delegate;
 
-	GridLayout *layout;
-	NSMutableArray *sublayers;
-
-	CALayer *hoveredLayer;
 	NSInteger hoveredItem;
 	NSTrackingRectTag mouseTrackingRectTag;
 	
-	NSInteger page;
 	BOOL mouseTracking;
 	
-	CALayer *logo;
 	PaginationView *paginationView;
 	NSButton *pageButtons;
 }
 
-@property (assign, nonatomic) id <PresentationViewDataSource> dataSource;
-@property (assign, nonatomic) id <PresentationViewDelegate> delegate;
+@property (weak, nonatomic) id <PresentationViewDataSource> dataSource;
+@property (weak, nonatomic) id <PresentationViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
 @property (assign, nonatomic, getter=isMouseTracking) BOOL mouseTracking;
-@property (retain) CALayer *hoveredLayer; 
-@property (retain) GridLayout *layout;
-@property (retain) CALayer *logo;
+@property (strong, nonatomic) CALayer *hoverLayer;
+@property (strong) GridLayout *layout;
+@property (strong) CALayer *logo;
+
 
 - (void)arrangeSublayer;
 - (BOOL)hasNextPage;

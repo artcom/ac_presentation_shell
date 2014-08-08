@@ -12,8 +12,6 @@
 
 - (void)awakeFromNib {
 	[self setStyleMask:NSBorderlessWindowMask];
-	[self setLevel:NSStatusWindowLevel];
-	
 	[self setAcceptsMouseMovedEvents:YES];
 	[self makeFirstResponder:self];
 }
@@ -23,8 +21,7 @@
 }
 
 - (void)cancelOperation:(id)sender {
-	[self orderOut:nil];
-	[NSApp setPresentationOptions:NSApplicationPresentationDefault];
+    [self.windowController cancelOperation:self];
 }
 
 @end

@@ -11,42 +11,22 @@
 @class RsyncController;
 
 @protocol RsyncControllerDelegate <NSObject>
-
-- (void)rsync: (RsyncController *)controller didFinishSyncingSuccesful: (BOOL)successFlag; 
-
+- (void)rsync: (RsyncController *)controller didFinishSyncSuccessfully: (BOOL)successFlag;
 @end
 
-@interface RsyncController : NSObject <RsyncTaskDelegate> {
-    //NSAlert * alert;
-	
-	RsyncTask *rsyncTask;
-	id <RsyncControllerDelegate> delegate;
-    
-    NSAlert * currentSheet;
-	NSWindow * documentWindow;
-    BOOL terminatedByUser;
-    
-    NSView * progressView;
-    NSProgressIndicator * fileProgressBar;
-    NSTextField * fileProgressLabel;
-    NSProgressIndicator * totalProgressBar;
-    NSTextField * totalProgressLabel;
-    
-    NSString * lastRsyncMessage;
-    BOOL isUploading;
-}
+@interface RsyncController : NSObject <RsyncTaskDelegate>
 
-@property (assign) id <RsyncControllerDelegate> delegate;
-@property (retain) NSWindow* documentWindow;
+@property (weak) id <RsyncControllerDelegate> delegate;
+@property (strong) NSWindow* documentWindow;
 
-@property (retain, nonatomic) IBOutlet NSView * progressView;
-@property (assign, nonatomic) IBOutlet NSProgressIndicator * fileProgressBar;
-@property (assign, nonatomic) IBOutlet NSTextField * fileProgressLabel;
-@property (assign, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
-@property (assign, nonatomic) IBOutlet NSTextField * totalProgressLabel;
+@property (strong, nonatomic) IBOutlet NSView * progressView;
+@property (weak, nonatomic) IBOutlet NSProgressIndicator * fileProgressBar;
+@property (weak, nonatomic) IBOutlet NSTextField * fileProgressLabel;
+@property (weak, nonatomic) IBOutlet NSProgressIndicator * totalProgressBar;
+@property (weak, nonatomic) IBOutlet NSTextField * totalProgressLabel;
 
-- (void) syncWithSource: (NSString*) source destination: (NSString*) destination;
-- (void) initialSyncWithSource: (NSString*) source destination: (NSString*) destination;
+- (void)syncWithSource: (NSString*) source destination: (NSString*) destination;
+- (void)initialSyncWithSource: (NSString*) source destination: (NSString*) destination;
 
-- (void) uploadWithSource: (NSString*) source destination: (NSString*) destination;
+- (void)uploadWithSource: (NSString*) source destination: (NSString*) destination;
 @end

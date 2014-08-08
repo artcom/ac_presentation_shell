@@ -11,7 +11,6 @@
 @class PresentationView;
 
 
-@interface PresentationWindow : NSWindow {
-}
+@interface PresentationWindow : NSWindow
 
 @end

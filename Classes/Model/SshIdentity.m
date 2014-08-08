@@ -10,7 +10,6 @@
 
 
 @implementation SshIdentityFile
-@synthesize path;
 
 - (id) initWithPath: (NSString*) aPath {
     self = [super init];
@@ -20,14 +19,9 @@
     return self;
 }
 
-- (void)dealloc
-{
-    [path release];
-    [super dealloc];
-}
 
 - (NSString*) filename {
-    return [path lastPathComponent];
+    return [self.path lastPathComponent];
 }
 
 @end

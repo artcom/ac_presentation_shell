@@ -48,13 +48,6 @@
 	[self calculateDotPositions];
 }
 
-- (void) dealloc {
-	[dots release];
-	[activeDot release];
-	[inactiveDot release];
-	
-	[super dealloc];
-}
 
 - (void)setPages: (NSInteger)newPages {
 	pages = newPages;
@@ -139,7 +132,7 @@
 
 - (NSImage *)activeDot {
 	if (activeDot == nil) {
-		self.activeDot = [NSImage imageNamed:@"icn_pagination_active.png"];
+		self.activeDot = [NSImage imageNamed:@"presentation_icon_pagination_active"];
 	}
     
 	return activeDot;
@@ -147,7 +140,7 @@
 
 - (NSImage *)inactiveDot {
 	if (inactiveDot == nil) {
-		self.inactiveDot = [NSImage imageNamed:@"icn_pagination.png"];
+		self.inactiveDot = [NSImage imageNamed:@"presentation_icon_pagination"];
 	}
 	
 	return inactiveDot;

@@ -9,10 +9,8 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface PublicKeyDraglet : NSImageView {
-    NSString * filename;
-}
+@interface PublicKeyDraglet : NSImageView
 
-@property (nonatomic, retain) NSString * filename;
+@property (nonatomic, strong) NSString * filename;
 
 @end

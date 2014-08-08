@@ -28,6 +28,14 @@
 
 @interface RsyncTask ()
 
+@property (strong) NSTask *task;
+@property (strong) NSPipe *pipe;
+@property (strong) NSPipe *errorPipe;
+@property (copy) NSString *source;
+@property (copy) NSString *destination;
+@property (assign) BOOL preserveLocalChanges;
+@property (assign) NSUInteger targetLibrarySize;
+
 - (void) cleanup;
 - (void) processRsyncOutput: (NSData*) output;
 
@@ -41,88 +49,78 @@
 - (id)initWithSource: (NSString *)theSource destination: (NSString *)theDestination; {
 	self = [super init];
 	if (self != nil) {	
-		source = [[theSource stringByAppendingSlash] retain];
-        destination = [[theDestination stringByAppendingSlash] retain];
-        preserveLocalChanges = [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_RSYNC_PRESERVE_LOCAL];
+		self.source = [theSource stringByAppendingSlash];
+        self.destination = [theDestination stringByAppendingSlash];
+        self.preserveLocalChanges = [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_RSYNC_PRESERVE_LOCAL];
 	}
 	
 	return self;
 }
 
-- (void)dealloc {
-	[pipe release];
-	[errorPipe release];
-	
-	[source release];
-	[destination release];
-	
-	[task release];
-	
-	[super dealloc];
-}
 
 
 - (void)sync {
-	NSLog(@"syncing from %@ to %@", source, destination);
+	NSLog(@"syncing from %@ to %@", self.source, self.destination);
 	
-    task = [[NSTask alloc] init];
-    [task setLaunchPath: RSYNC_EXECUTABLE];
+    self.task = [[NSTask alloc] init];
+    [self.task setLaunchPath: RSYNC_EXECUTABLE];
     
     NSString *deleteOrUpdate = nil;
-    if (preserveLocalChanges)
+    if (self.preserveLocalChanges) {
         deleteOrUpdate = @"--update";
-    else
+    }
+    else {
         deleteOrUpdate = @"--delete";
+    }
     
     NSMutableArray *taskArgs = [NSMutableArray arrayWithObjects: @"-rlt", @"--progress",
                          deleteOrUpdate,
                          @"--chmod=u=rwX,go=rX",
-                         source, destination, nil];
+                         @"-O",
+                         self.source, self.destination, nil];
     
-    [task setArguments: taskArgs];
+    [self.task setArguments: taskArgs];
     
-    pipe = [[NSPipe alloc] init];
-    [task setStandardOutput: pipe];
+    self.pipe = [[NSPipe alloc] init];
+    [self.task setStandardOutput:self.pipe];
 	
-	errorPipe = [[NSPipe alloc] init];
-	[task setStandardError:errorPipe];
+	self.errorPipe = [[NSPipe alloc] init];
+	[self.task setStandardError:self.errorPipe];
     
     // required to make the askpass magic work
-    [task setStandardInput: [NSFileHandle fileHandleWithNullDevice]];
+    [self.task setStandardInput: [NSFileHandle fileHandleWithNullDevice]];
     NSString * askpasswdPath = [[NSBundle mainBundle] pathForResource: @"acshell_askpasswd" ofType: @""];
 	
     NSMutableDictionary * env = [[[NSProcessInfo processInfo] environment] mutableCopy];
     [env setObject: askpasswdPath forKey: @"SSH_ASKPASS"];
     [env setObject: @"NONE" forKey: @"DISPLAY"];
-    NSString * iconPath = [[NSBundle mainBundle] pathForResource: @"AC-Shell-Icon" ofType: @"icns"];
-    [env setObject: iconPath forKey: @"ACSHELL_ICON_URL"];
-    
-    [task setEnvironment: env];
-    [env release];
+    NSURL *iconUrl = [[NSBundle mainBundle] URLForResource:@"dialog_app_icon" withExtension:@"png"];
+    [env setObject:iconUrl forKey:@"ACSHELL_ICON_URL"];
+    [self.task setEnvironment: env];
     
 	[[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(rsyncDidUpdateProgress:)
-                                                 name: NSFileHandleReadCompletionNotification object: [pipe fileHandleForReading]];
+                                                 name: NSFileHandleReadCompletionNotification object:[self.pipe fileHandleForReading]];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishRsync:)
-												 name:NSTaskDidTerminateNotification object:task];
+												 name:NSTaskDidTerminateNotification object:self.task];
 	
-	[[pipe fileHandleForReading] readInBackgroundAndNotify];
-    [task launch];
+	[[self.pipe fileHandleForReading] readInBackgroundAndNotify];
+    [self.task launch];
 }
 
 - (void)terminate {
-	[task terminate];
+	[self.task terminate];
 }
 
 -(void) processRsyncOutput: (NSData*) output {
-    NSString * str = [[[NSString alloc] initWithData: output encoding:NSASCIIStringEncoding] autorelease];
+    NSString * str = [[NSString alloc] initWithData: output encoding:NSASCIIStringEncoding];
     NSArray * lines = [str componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
     for (NSString * line in lines) {
         if ([line length] == 0) {
             continue;
         }
         if ([line characterAtIndex: 0] == ' ') {
-            NSScanner * scanner = [[[NSScanner alloc] initWithString: line] autorelease];
+            NSScanner * scanner = [[NSScanner alloc] initWithString: line];
             [scanner setCharactersToBeSkipped: [NSCharacterSet whitespaceCharacterSet]];
             NSInteger maybeFileCount = -1;
             if ( ! [scanner scanInteger: &maybeFileCount]) {
@@ -171,11 +169,11 @@
     }
     
 	[self processRsyncOutput: data];
-    [[pipe fileHandleForReading] readInBackgroundAndNotify];
+    [[self.pipe fileHandleForReading] readInBackgroundAndNotify];
 }
 
 - (void)didFinishRsync: (NSNotification *)aNotification {	
-	NSInteger terminationStatus = [task terminationStatus];
+	NSInteger terminationStatus = [self.task terminationStatus];
 	
 	if (terminationStatus == 0) {
 		if ([delegate respondsToSelector:@selector(rsyncTaskDidFinish:)]) {
@@ -183,22 +181,19 @@
 		}
 	} else {
 		if ([delegate respondsToSelector:@selector(rsyncTask:didFailWithError:)]) {
-			NSData *errorData = [[errorPipe fileHandleForReading] readDataToEndOfFile];
-			[delegate rsyncTask:self didFailWithError: [[[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding] autorelease]];
+			NSData *errorData = [[self.errorPipe fileHandleForReading] readDataToEndOfFile];
+			[delegate rsyncTask:self didFailWithError: [[NSString alloc] initWithData:errorData encoding:NSASCIIStringEncoding]];
 		}
 	}
 	
 	[self cleanup];
 }
 
--(void) cleanup {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:task];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleReadCompletionNotification object:[pipe fileHandleForReading]];
-	
-	[task release];
-	task = nil;
-	[pipe release];
-	pipe = nil;
+- (void)cleanup {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSTaskDidTerminateNotification object:self.task];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:NSFileHandleReadCompletionNotification object:[self.pipe fileHandleForReading]];
+	self.task = nil;
+	self.pipe = nil;
 }
 
 
