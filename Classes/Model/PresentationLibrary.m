@@ -368,11 +368,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
 #pragma mark -
 #pragma mark Private Methods
 - (NSMutableArray*) allPresentations {
-    return (NSMutableArray*)[[[[self.library.children objectAtIndex: 0] children] objectAtIndex: 0] presentations];
+    ACShellCollection *collection = self.library.children[0];
+    ACShellCollection *child = collection.children[0];
+    return child.presentations;
 }
 
 - (NSMutableArray*) highlights {
-    return (NSMutableArray*)[[[[self.library.children objectAtIndex: 0] children] objectAtIndex: 1] presentations];
+    ACShellCollection *collection = self.library.children[0];
+    ACShellCollection *child = collection.children[1];
+    return child.presentations;
 }
 
 - (NSMutableArray*) collections {
