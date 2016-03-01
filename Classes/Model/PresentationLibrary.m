@@ -457,7 +457,16 @@ static NSCharacterSet * ourNonDirNameCharSet;
         LibraryCategory *category = [[LibraryCategory alloc] initWithId:ID inContext:self];
         [categories addObject:category];
     }
-    _categories = categories;
+    
+    _categories = [categories sortedArrayUsingComparator:^NSComparisonResult(LibraryCategory *category1, LibraryCategory *category2) {
+        if (category1.index > category2.index) {
+            return NSOrderedDescending;
+        }
+        if (category1.index < category2.index) {
+            return NSOrderedAscending;
+        }
+        return NSOrderedSame;
+    }];
 }
 
 -(void) syncPresentations {
