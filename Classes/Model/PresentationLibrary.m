@@ -8,6 +8,7 @@
 
 #import "ACShellCollection.h"
 #import "PresentationLibrary.h"
+#import "LibraryCategory.h"
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
 #import "NSString-WithUUID.h"
@@ -27,6 +28,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (weak, readonly) NSMutableArray* allPresentations;
 @property (weak, readonly) NSMutableArray* highlights;
 @property (weak, readonly) NSMutableArray* collections;
+@property (strong) NSMutableDictionary *categoryData;
 @property (strong) NSMutableDictionary *presentationData;
 @property (strong) AssetManager *assetManager;
 @property (strong) PresentationLibrarySearch *librarySearch;
@@ -82,6 +84,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 -(void) setup {
 	self.thumbnailCache = [[NSMutableDictionary alloc] init];
 	
+    self.categoryData = nil;
     self.presentationData = nil;
     self.library = [ACShellCollection collectionWithName: @"root"];
     ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_LIBRARY, nil)];
@@ -112,11 +115,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (BOOL)loadXmlLibraryFromDirectory:(NSString*) directory {
     
 	[self flushThumbnailCache];
+    self.categoryData = nil;
 	self.presentationData = nil;
     self.libraryDirPath = directory;
     
     NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
-    self.presentationData = [[NSMutableDictionary alloc] init];
+    self.categoryData = [NSMutableDictionary new];
+    self.presentationData = [NSMutableDictionary new];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
         NSLog(@"file '%@' does not exist", libraryPath);
@@ -124,11 +129,22 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     NSError *error = nil;
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
-    NSArray *xmlPresentations = [document nodesForXPath:@"./presentations/presentation" error:&error];
+    NSArray *xmlCategories = [document nodesForXPath:@"./library/categories/category" error:&error];
     
     if (error != nil) {
         NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
         return NO;
+    }
+    
+    NSArray *xmlPresentations = [document nodesForXPath:@"./library/presentations/presentation" error:&error];
+    
+    if (error != nil) {
+        NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
+        return NO;
+    }
+    
+    for (NSXMLElement *element in xmlCategories) {
+        [self.categoryData setObject:element forKey: [[element attributeForName:@"index"]objectValue]];
     }
     
     for (NSXMLElement * element in xmlPresentations) {
@@ -136,6 +152,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 		[element detach];
     }
     
+    [self createCategories];
     [self syncPresentations];
 	[self cacheThumbnails];
     
@@ -176,7 +193,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self.librarySearch updateIndex];
 }
 
-- (NSXMLElement *) xmlNode: (id)aId {
+- (NSXMLElement *) xmlNodeForCategory: (NSString *)aId
+{
+    return [self.categoryData objectForKey: aId];
+}
+
+- (NSXMLElement *) xmlNodeForPresentation: (id)aId {
 	if ([self hasLibrary]) {
         return [self.presentationData objectForKey: aId];
     }
@@ -385,9 +407,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate {
     BOOL droppedStuff = NO;
-    for (int i = [thePresentations count] - 1; i >= 0; i--) {
+    for (NSInteger i = [thePresentations count] - 1; i >= 0; i--) {
         Presentation* presentation = (Presentation*) [thePresentations objectAtIndex: i];
-        if ([self xmlNode: presentation.presentationId] == nil || (thePredicate != nil && ![thePredicate evaluateWithObject:presentation])) {
+        if ([self xmlNodeForPresentation: presentation.presentationId] == nil || (thePredicate != nil && ![thePredicate evaluateWithObject:presentation])) {
 
 			[thePresentations removeObjectAtIndex: i];
             droppedStuff = YES;
@@ -417,6 +439,16 @@ static NSCharacterSet * ourNonDirNameCharSet;
     if (addedStuff) {
         [self updateIndices: thePresentations];
     }
+}
+
+- (void)createCategories
+{
+    NSMutableArray *categories = [NSMutableArray new];
+    for (NSString *ID in self.categoryData) {
+        LibraryCategory *category = [[LibraryCategory alloc] initWithId:ID inContext:self];
+        [categories addObject:category];
+    }
+    _categories = categories;
 }
 
 -(void) syncPresentations {

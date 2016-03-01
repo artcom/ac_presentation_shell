@@ -8,9 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+@class PresentationLibrary;
 @interface LibraryCategory : NSObject <NSCoding, NSCopying>
 
-@property (nonatomic) NSUInteger index;
-@property (nonatomic) NSString *title;
-@property (nonatomic) NSString *directory;
+@property (nonatomic, readonly) NSString *ID;
+@property (nonatomic, readonly) NSUInteger index;
+@property (nonatomic) PresentationLibrary* context;
+
+- (NSString *)title;
+- (NSString *)directory;
+
+- (instancetype)initWithId:(NSString *)ID inContext:(PresentationLibrary*)context;
 @end

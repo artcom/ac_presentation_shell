@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <library>
   <categories directory="_categories">
-    <category index="0" title="art" directory="art"/>
-    <category index="1" title="communication" directory="communication"/>
-    <category index="2" title="research" directory="research"/>
+    <category index="0" title="art" directory="000/art"/>
+    <category index="1" title="communication" directory="001/communication"/>
+    <category index="2" title="research" directory="002/research"/>
   </categories>
   <presentations>
       <presentation directory="rgbcmy_kinetic" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">

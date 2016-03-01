@@ -17,6 +17,7 @@
 @interface PresentationLibrary : NSObject <NSCoding>
 
 @property (strong) ACShellCollection *library;
+@property (strong) NSArray *categories;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
 @property (strong) NSString *libraryDirPath;
@@ -29,8 +30,9 @@
    
 - (NSUInteger)collectionCount;
 
-- (NSXMLElement*) xmlNode:(id)aId;
-- (void) syncPresentations;
+- (NSXMLElement *) xmlNodeForCategory: (NSString *)aId;
+- (NSXMLElement *)xmlNodeForPresentation:(id)aId;
+- (void)syncPresentations;
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation;
 - (void)cacheThumbnails;
 - (void)flushThumbnailCache;

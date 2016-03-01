@@ -192,7 +192,7 @@
 
 
 - (NSXMLElement*) xmlNode {
-	return [context xmlNode: presentationId];
+	return [context xmlNodeForPresentation: presentationId];
 }
 
 - (NSComparisonResult) compareByOrder: (Presentation*) other {
