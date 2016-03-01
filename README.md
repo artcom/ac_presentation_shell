@@ -1,10 +1,10 @@
-h1. ART+COM Presentation Shell
+# ART+COM Presentation Shell
 
-The ART+COM presentation shell is a frontend to manage, organize and launch a pool of Apple Keynote presentations. The presentation library is synchronized with a central server using @rsync@. Presentations are grouped in collections, similar to playlists in iTunes. In presentation mode a slick menu screen is used to navigate and launch presentations.
+The ART+COM presentation shell is a frontend to manage, organize and launch a pool of Apple Keynote presentations. The presentation library is synchronized with a central server using `rsync`. Presentations are grouped in collections, similar to playlists in iTunes. In presentation mode a slick menu screen is used to navigate and launch presentations.
 
-How to setup the Application is described in the "ACShell Wiki.":https://github.com/artcom/ac_presentation_shell/wiki
+How to setup the Application is described in the [ACShell Wiki](https://github.com/artcom/ac_presentation_shell/wiki).
 
-h2. License (MIT)
+## License (MIT)
 
 Copyright (c) ART+COM AG, Berlin Germany 2010
 
