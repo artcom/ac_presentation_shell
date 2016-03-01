@@ -53,9 +53,9 @@
     return [[self xmlNode] attributeForName:@"title"].stringValue;
 }
 
-- (NSString *)directory
+- (NSString *)assets
 {
-    return [[self xmlNode] attributeForName:@"directory"].stringValue;
+    return [[self xmlNode] attributeForName:@"assets"].stringValue;
 }
 
 @end

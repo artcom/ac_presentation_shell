@@ -42,7 +42,7 @@
 @property (strong)   NSString * directory;
 @property (weak, readonly) NSString * absoluteDirectory;
 
-@property (strong) NSArray *categories;
+@property (strong, readonly) NSArray *categories;
 
 @property (strong)   NSString * thumbnailFilename;
 @property (weak, readonly) NSString * relativeThumbnailPath;

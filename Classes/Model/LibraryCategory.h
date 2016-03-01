@@ -16,7 +16,7 @@
 @property (nonatomic) PresentationLibrary* context;
 
 - (NSString *)title;
-- (NSString *)directory;
+- (NSString *)assets;
 
 - (instancetype)initWithId:(NSString *)ID inContext:(PresentationLibrary*)context;
 @end
