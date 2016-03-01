@@ -3,7 +3,7 @@
   <categories>
     <category index="2" title="two" assets="002/two"/>
     <category index="0" title="zero" assets="000/zero"/>
-    <category index="1" title="one" asssets="001/one"/>
+    <category index="1" title="one" assets="001/one"/>
   </categories>
   <presentations>
       <presentation directory="museum_exibition" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">
@@ -30,7 +30,9 @@
           <thumbnail>hteaser_thumb.jpg</thumbnail>
           <year>2011</year>
           <categories>
+            <category>0</category>
             <category>1</category>
+            <category>2</category>
           </categories>
       </presentation>
       <presentation directory="technical_communication_a38" highlight="false" id="C4DA8EF8-3469-48ED-9124-79F3271C5366">

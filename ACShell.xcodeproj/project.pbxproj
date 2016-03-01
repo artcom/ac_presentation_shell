@@ -35,7 +35,7 @@
 		22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */ = {isa = PBXBuildFile; fileRef = 22F2B97D11F7541F00EE4717 /* icn_sync.icns */; };
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
 		3B9FA6CA1C85C07E003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
-		3B9FA6EB1C85C46A003D7EE0 /* ACShellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6EA1C85C46A003D7EE0 /* ACShellTests.m */; };
+		3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */; };
 		3B9FA6F01C85C478003D7EE0 /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
 		3B9FA6F11C85C47B003D7EE0 /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
 		3B9FA6F31C85C481003D7EE0 /* ACShellCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */; };
@@ -171,7 +171,7 @@
 		3B9FA6C81C85C07E003D7EE0 /* LibraryCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryCategory.h; sourceTree = "<group>"; };
 		3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryCategory.m; sourceTree = "<group>"; };
 		3B9FA6E81C85C46A003D7EE0 /* ACShellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACShellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3B9FA6EA1C85C46A003D7EE0 /* ACShellTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACShellTests.m; sourceTree = "<group>"; };
+		3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentationLibraryTests.m; sourceTree = "<group>"; };
 		3B9FA6EC1C85C46A003D7EE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B9FA6FA1C85C62E003D7EE0 /* library.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = library.xml; path = Fixtures/library.xml; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
@@ -502,7 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				3B9FA6FC1C85C634003D7EE0 /* Fixtures */,
-				3B9FA6EA1C85C46A003D7EE0 /* ACShellTests.m */,
+				3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */,
 				3B9FA6EC1C85C46A003D7EE0 /* Info.plist */,
 			);
 			path = ACShellTests;
@@ -708,7 +708,7 @@
 			files = (
 				3B9FA6F51C85C579003D7EE0 /* ACSearchIndex.m in Sources */,
 				3B9FA6F71C85C57E003D7EE0 /* ACSearchIndexResult.m in Sources */,
-				3B9FA6EB1C85C46A003D7EE0 /* ACShellTests.m in Sources */,
+				3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */,
 				3B9FA6F11C85C47B003D7EE0 /* Presentation.m in Sources */,
 				3B9FA6F61C85C57C003D7EE0 /* ACSearchIndexQuery.m in Sources */,
 				3B9FA6F81C85C58E003D7EE0 /* AssetManager.m in Sources */,
@@ -1068,6 +1068,7 @@
 				3B9FA6EF1C85C46A003D7EE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6379E79A120C8B46006A6FEF /* Build configuration list for PBXNativeTarget "acshell_ask_ssh_add_key" */ = {
 			isa = XCConfigurationList;
