@@ -24,7 +24,6 @@
 }
 
 - (void)tearDown {
-	[layout release];
 }
 
 - (void)testCalculate {

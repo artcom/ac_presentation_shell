@@ -61,8 +61,6 @@
 }
 
 - (void)tearDown {
-	[dataSource release];
-	[view release];
 }
 
 - (void)testPageCalculation {	
