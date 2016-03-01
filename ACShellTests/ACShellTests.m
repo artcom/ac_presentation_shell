@@ -13,7 +13,9 @@
 #import "Presentation.h"
 
 @interface ACShellTests : XCTestCase
+@property (nonatomic) NSString *libraryXML;
 @property (nonatomic) NSString *libraryPath;
+@property (nonatomic) NSString *storageLibraryPath;
 @property (nonatomic) PresentationLibrary *library;
 
 @end
@@ -24,13 +26,19 @@
 {
     [super setUp];
     
-    _libraryPath = [[[NSBundle bundleForClass:self.class] pathForResource:@"library" ofType:@"xml"] stringByDeletingLastPathComponent];
+    _libraryXML = [[NSBundle bundleForClass:self.class] pathForResource:@"library" ofType:@"xml"];
+    _libraryPath = [self.libraryXML stringByDeletingLastPathComponent];
+    _storageLibraryPath = [NSString stringWithFormat:@"%@/acshelltests/library", NSTemporaryDirectory()];
+    [[NSFileManager defaultManager] createDirectoryAtPath:self.storageLibraryPath withIntermediateDirectories:YES attributes:nil error:nil];
+    
     _library = [PresentationLibrary new];
     [self.library loadXmlLibraryFromDirectory:self.libraryPath];
 }
 
 - (void)tearDown
 {
+    self.library = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:self.storageLibraryPath error:nil];
     
     [super tearDown];
 }
@@ -65,7 +73,35 @@
 
 - (void)testSerializeLibrary
 {
-    //XCTFail(@"implement me.");
+    ACShellCollection *root = self.library.library;
+    ACShellCollection *library = root.children.firstObject;
+    ACShellCollection *all = library.children.firstObject;
+    Presentation *presentation = all.presentations.lastObject;
+    
+    presentation.title = @"THE NEW TITLE OF HAMBURG";
+    presentation.categories = @[@1, @2];
+    
+    self.library.libraryDirPath = self.storageLibraryPath;
+    [self.library saveXmlLibrary];
+    
+    
+    _library = [PresentationLibrary new];
+    [self.library loadXmlLibraryFromDirectory:self.storageLibraryPath];
+    
+    XCTAssertEqual(self.library.categories.count, 3, @"Library shoul contain 3 categories.");
+    
+    LibraryCategory *category = self.library.categories.lastObject;
+    XCTAssertEqual(category.index, 2, @"Category should have index of 2");
+    XCTAssertEqualObjects(category.title, @"research", @"Category should have valid title.");
+    XCTAssertEqualObjects(category.assets, @"002/research", @"Category should have valid asset directory path.");
+    
+    root = self.library.library;
+    library = root.children.firstObject;
+    all = library.children.firstObject;
+    presentation = all.presentations.lastObject;
+    
+    XCTAssertEqualObjects(presentation.title, @"THE NEW TITLE OF HAMBURG", @"Presentation should have valid title.");
+    XCTAssertEqual(presentation.categories.count, 2, @"Presentation should have categories set.");
 }
 
 @end

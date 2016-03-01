@@ -16,7 +16,6 @@
 @synthesize context;
 @synthesize thumbnailFilename;
 @synthesize title;
-@synthesize categories;
 
 - (id)initWithId:(id)theId inContext: (PresentationLibrary*) theContext {
 	self = [super init];
@@ -167,8 +166,22 @@
 	return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
 }
 
+- (void)setCategories:(NSArray *)categories
+{
+    NSArray *categoryNodes = [[self xmlNode] nodesForXPath:@"categories" error:nil];
+    NSXMLElement *categoryNode = categoryNodes.lastObject;
+    
+    NSMutableArray *children = [NSMutableArray new];
+    for (NSNumber *category in categories) {
+        NSXMLElement *child = [NSXMLElement elementWithName: @"category"];
+        [child setStringValue:category.stringValue];
+        [children addObject:child];
+    }
+    [categoryNode setChildren:children];
+}
+
 - (NSArray *)categories {
-    NSXMLNode *root = [[self.xmlNode nodesForXPath:@"categories" error:nil] firstObject];
+    NSXMLNode *root = [[self.xmlNode nodesForXPath:@"categories" error:nil] lastObject];
     return [root.children valueForKeyPath:@"stringValue"];
 }
 

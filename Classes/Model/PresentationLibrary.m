@@ -164,11 +164,22 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void) saveXmlLibrary {
-    NSXMLElement *root = [[NSXMLElement alloc] initWithName: @"presentations"];
+    NSXMLElement *root = [[NSXMLElement alloc] initWithName: @"library"];
+
+    NSXMLElement *categories = [[NSXMLElement alloc] initWithName:@"categories"];
+    NSXMLElement *presentations = [[NSXMLElement alloc] initWithName:@"presentations"];
+    [root addChild:categories];
+    [root addChild:presentations];
+    
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithRootElement:root];
     [document setCharacterEncoding:@"UTF-8"];
+    
+    for (LibraryCategory *c in self.categories) {
+        [categories addChild:self.categoryData[c.ID]];
+    }
+    
     for (Presentation* p in self.allPresentations) {
-        [root addChild:[self.presentationData objectForKey: p.presentationId]];
+        [presentations addChild:self.presentationData[p.presentationId]];
     }
 
     NSData *xmlData = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
@@ -176,10 +187,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
         NSLog(@"Failed to save xml file.");
     }
 	
-	for (id key in self.presentationData) {
-		NSXMLElement * element = [self.presentationData objectForKey: key];
-		[element detach];
-	}
+    [self.categoryData.allValues makeObjectsPerformSelector:@selector(detach)];
+    [self.presentationData.allValues makeObjectsPerformSelector:@selector(detach)];
 
     // TODO: Ideally, this would be a possible place to add:
     // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
