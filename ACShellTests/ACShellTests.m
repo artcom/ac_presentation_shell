@@ -10,6 +10,7 @@
 #import "PresentationLibrary.h"
 #import "LibraryCategory.h"
 #import "ACShellCollection.h"
+#import "Presentation.h"
 
 @interface ACShellTests : XCTestCase
 @property (nonatomic) NSString *libraryPath;
@@ -56,6 +57,10 @@
     ACShellCollection *all = library.children.firstObject;
     XCTAssertEqual(all.name, @"All", @"Collection should be named 'All'.");
     XCTAssertEqual(all.presentations.count, 46, @"Collection should contain 46 presentations.");
+    
+    Presentation *presentation = all.presentations.lastObject;
+    XCTAssertEqualObjects(presentation.title, @"THE FORMATION OF HAMBURG", @"Presentation should have valid title.");
+    XCTAssertEqual(presentation.categories.count, 1, @"Presentation should have categories set.");
 }
 
 - (void)testSerializeLibrary

@@ -16,6 +16,7 @@
 @synthesize context;
 @synthesize thumbnailFilename;
 @synthesize title;
+@synthesize categories;
 
 - (id)initWithId:(id)theId inContext: (PresentationLibrary*) theContext {
 	self = [super init];
