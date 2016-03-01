@@ -69,11 +69,8 @@ BOOL answerSSHQuestion() {
 }
 
 int main(int argc, char * argv[]) {
-    NSAutoreleasePool * pool = [NSAutoreleasePool new];
-    
-    BOOL success = answerSSHQuestion();
-    
-    [pool drain];
-    
-    return success ? EXIT_SUCCESS : EXIT_FAILURE;
+    @autoreleasepool {
+        BOOL success = answerSSHQuestion();
+        return success ? EXIT_SUCCESS : EXIT_FAILURE;
+    }
 }
