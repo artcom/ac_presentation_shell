@@ -25,7 +25,6 @@
 		self.presentationId = theId;
         self.order = -1;
 	}
-	
 	return self;
 }
 
@@ -165,6 +164,11 @@
 
 - (NSString *)absolutePresentationPath {
 	return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
+}
+
+- (NSArray *)categories {
+    NSXMLNode *root = [[self.xmlNode nodesForXPath:@"categories" error:nil] firstObject];
+    return [root.children valueForKeyPath:@"stringValue"];
 }
 
 - (BOOL) isEqual:(id)object {
