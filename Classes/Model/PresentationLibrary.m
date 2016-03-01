@@ -459,10 +459,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     _categories = [categories sortedArrayUsingComparator:^NSComparisonResult(LibraryCategory *category1, LibraryCategory *category2) {
-        if (category1.index > category2.index) {
+        if ([category1.index isGreaterThan:category2.index]) {
             return NSOrderedDescending;
         }
-        if (category1.index < category2.index) {
+        if ([category1.index isLessThan:category2.index]) {
             return NSOrderedAscending;
         }
         return NSOrderedSame;

@@ -48,9 +48,9 @@
     XCTAssertEqual(self.library.categories.count, 3, @"Library shoul contain 3 categories.");
     
     LibraryCategory *category = self.library.categories.lastObject;
-    XCTAssertEqual(category.index, 2, @"Category should have index of 2");
     XCTAssertEqualObjects(category.title, @"research", @"Category should have valid title.");
     XCTAssertEqualObjects(category.assets, @"002/research", @"Category should have valid asset directory path.");
+    XCTAssertEqual(category.index.integerValue, 2, @"Category should have index of 2");
     
     XCTAssertNotNil(self.library.library, @"Library should not be nil.");
     XCTAssertEqual(self.library.library.children.count, 2, @"Count should be 2.");
@@ -91,9 +91,9 @@
     XCTAssertEqual(self.library.categories.count, 3, @"Library shoul contain 3 categories.");
     
     LibraryCategory *category = self.library.categories.lastObject;
-    XCTAssertEqual(category.index, 2, @"Category should have index of 2");
     XCTAssertEqualObjects(category.title, @"research", @"Category should have valid title.");
     XCTAssertEqualObjects(category.assets, @"002/research", @"Category should have valid asset directory path.");
+    XCTAssertEqual(category.index.integerValue, 2, @"Category should have index of 2");
     
     root = self.library.library;
     library = root.children.firstObject;

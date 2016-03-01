@@ -16,7 +16,7 @@
     self = [super init];
     if (self) {
         _ID = ID.copy;
-        _index = ID.integerValue;
+        _index = @(ID.integerValue);
         _context = context;
     }
     return self;
@@ -27,7 +27,7 @@
     self = [super init];
     if (self) {
         _ID = [aDecoder decodeObjectForKey:@"ID"];
-        _index = _ID.integerValue;
+        _index = @(_ID.integerValue);
         _context = nil;
     }
     return self;

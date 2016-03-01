@@ -12,7 +12,7 @@
 @interface LibraryCategory : NSObject <NSCoding, NSCopying>
 
 @property (nonatomic, readonly) NSString *ID;
-@property (nonatomic, readonly) NSUInteger index;
+@property (nonatomic, readonly) NSNumber *index;
 @property (nonatomic) PresentationLibrary* context;
 
 - (NSString *)title;
