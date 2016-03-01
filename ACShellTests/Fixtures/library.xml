@@ -1,426 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <library>
   <categories>
-    <category index="2" title="research" assets="002/research"/>
-    <category index="0" title="art" assets="000/art"/>
-    <category index="1" title="communication" asssets="001/communication"/>
+    <category index="2" title="two" assets="002/two"/>
+    <category index="0" title="zero" assets="000/zero"/>
+    <category index="1" title="one" asssets="001/one"/>
   </categories>
   <presentations>
-      <presentation directory="rgbcmy_kinetic" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">
-          <title>RGB|CMY KINETIC</title>
-          <file>RGBCMYK_shell_js.key</file>
-          <thumbnail>RGBCYM_Kinetic_thumb.jpg</thumbnail>
+      <presentation directory="museum_exibition" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">
+          <title>Museum exibition</title>
+          <file>2016_01_exib_muse.key</file>
+          <thumbnail>2016_01_exib_muse.jpg</thumbnail>
           <year>2015</year>
-          <categories>
-            <category>0</category>
-          </categories>
-      </presentation>
-      <presentation directory="experience_centre_royal_jelling" highlight="true" id="7183D806-1FE9-4311-B431-01E61A499A58">
-          <title>EXPERIENCE CENTRE ROYAL JELLING</title>
-          <file>151005_Jelling.key</file>
-          <thumbnail>jelling_start.jpg</thumbnail>
-          <year>2015</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="interactive_floors" highlight="false" id="72794C9F-1188-4B88-A285-4D547D099578">
-          <title>INTERACTIVE FLOORS</title>
-          <file>150212_Interactive_Floors_09.key</file>
-          <thumbnail>thumb_interactive_floors.jpg</thumbnail>
-          <year>2000</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="micropia" highlight="true" id="50E3B1B2-DF0D-4F83-A842-D9FFCE35AF41">
-          <title>MICROPIA</title>
-          <file>150130_micropia.key</file>
-          <thumbnail>micropia_thumb.png</thumbnail>
-          <year>2014</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="evolutionary_stairs" highlight="false" id="50A9EBD9-E176-465B-9A3C-A05D6378508D">
-          <title>EVOLUTIONARY STAIRS</title>
-          <file>150130_Evolutionary_Stairs.key</file>
-          <thumbnail>moesgard_thumb.png</thumbnail>
-          <year>2014</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="terravision_vs._google" highlight="false" id="8E70D1AB-CB30-4545-A4BB-AA7D781F4504">
-          <title>TERRAVISION VS. GOOGLE</title>
-          <file>Terra_HD.key</file>
-          <thumbnail>terra_teaser_thumb.jpg</thumbnail>
-          <year>1994</year>
-          <categories>
-            <category>2</category>
-          </categories>
-      </presentation>
-      <presentation directory="tetrascopes" highlight="true" id="E6DA6A08-C7B1-43D4-8105-19305DED584A">
-          <title>TETRASCOPES</title>
-          <file>Tsvetnoy_Tetrascopes.key</file>
-          <thumbnail>tsvetnoy_teaser_thumbnail.jpg</thumbnail>
-          <year>2013</year>
-          <categories>
-            <category>0</category>
-          </categories>
-      </presentation>
-      <presentation directory="symphonie_cintique" highlight="true" id="DE4E3F5F-8AD3-4609-A24D-E395B336F82F">
-          <title>SYMPHONIE CINÉTIQUE</title>
-          <file>SymphonieCinetique.key</file>
-          <thumbnail>made_teaser_thumb_2.jpg</thumbnail>
-          <year>2013</year>
-          <categories>
-            <category>0</category>
-          </categories>
-      </presentation>
-      <presentation directory="augmented_3d-exhibits" highlight="false" id="8F370D85-40BA-4662-8FB2-0B53B89712A8">
-          <title>AUGMENTED 3D-EXHIBITS</title>
-          <file>RH_presentation.key</file>
-          <thumbnail>rh_teaser_thumb.jpg</thumbnail>
-          <year>2013</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="parametrische_traumgestaltung" highlight="true" id="0D604EAC-39A9-4277-8832-B80D8716228E">
-          <title>PARAMETRISCHE (T)RAUMGESTALTUNG</title>
-          <file>140730_parametrische-traumgestaltung.key</file>
-          <thumbnail>traumgestaltung_teaser_thumb_01.jpg</thumbnail>
-          <year>2013</year>
-          <categories>
-            <category>2</category>
-          </categories>
-      </presentation>
-      <presentation directory="manta_rhei" highlight="true" id="8058D60B-8E9A-43FC-B5EB-2B7E321C1B9A">
-          <title>MANTA RHEI</title>
-          <file>manta_shell_dvw.key</file>
-          <thumbnail>manta_rhei_teaser_thumb.jpg</thumbnail>
-          <year>2012</year>
-          <categories>
-            <category>0</category>
-            <category>2</category>
-          </categories>
-      </presentation>
-      <presentation directory="interactive_tables" highlight="true" id="91E57E4D-BCDE-4972-AAAE-964E2468AAA3">
-          <title>INTERACTIVE TABLES</title>
-          <file>150212_Interactive_Tables09.key</file>
-          <thumbnail>_0005_Ebene 10.jpg</thumbnail>
-          <year>2003</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="river_is_" highlight="false" id="2908D314-7908-4945-B134-EF7B3EA0A516">
-          <title>RIVER IS… </title>
-          <file>River_is.key</file>
-          <thumbnail>four_rivers_teaser_thumb.jpg</thumbnail>
-          <year>2012</year>
-          <categories>
-            <category>0</category>
-          </categories>
-      </presentation>
-      <presentation directory="otto_bock_showroom" highlight="false" id="4D779B64-0DE2-4D4B-87B9-CD3B27BF3D58">
-          <title>OTTO BOCK SHOWROOM</title>
-          <file>Neu_Otto_Bock_Duderstadt.key</file>
-          <thumbnail>chudowski_ottobock_duderstadt-19_thumb.png</thumbnail>
-          <year>2010</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="kinetic_rain" highlight="true" id="352A8E89-A5F4-4C9B-A7AE-40273E629EB6">
-          <title>KINETIC RAIN</title>
-          <file>120724_KineticRain.key</file>
-          <thumbnail>kinetic_rain_teaser_thumb.jpg</thumbnail>
-          <year>2012</year>
-          <categories>
-            <category>0</category>
-          </categories>
-      </presentation>
-      <presentation directory="reykjavik_871-2_" highlight="false" id="896A4972-086D-46B5-AC21-4A56406DC9E3">
-          <title>REYKJAVIK 871+/-2 </title>
-          <file>reykjavik_settlement_exhibition.key</file>
-          <thumbnail>settlement_teaser_thumb_01.jpg</thumbnail>
-          <year>2006</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="grouse_experience" highlight="false" id="84440B27-E13E-4FAE-90C1-2A451D9F6883">
-          <title>GROUSE EXPERIENCE</title>
-          <file>140528_the_famous_grouse_experience.key</file>
-          <thumbnail>grouse_teaser_thumb.jpg</thumbnail>
-          <year>2002</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="bmw_welt_pic" highlight="false" id="7DA6973A-E0F5-4EE4-AC8A-01BD4F916713">
-          <title>BMW WELT PIC</title>
-          <file>bmw_welt.key</file>
-          <thumbnail>bmw_welt.jpg</thumbnail>
-          <year>2007</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="duderstadt_-_the_town_hall_" highlight="false" id="0C93D0B3-1ACD-4493-9CA4-C85560B93A95">
-          <title>DUDERSTADT - THE TOWN HALL </title>
-          <file>120716_Duderstadt_Rathaus_Fin.key</file>
-          <thumbnail>rathaus_teaser_thumb.jpg</thumbnail>
-          <year>2012</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="museum_of_marksmanship" highlight="false" id="BA607D7A-9503-461F-9D71-E25B603D18E4">
-          <title>MUSEUM OF MARKSMANSHIP</title>
-          <file>Schuetzenmuseum.key</file>
-          <thumbnail>schuetzenmuseum_teaser_thumb.jpg</thumbnail>
-          <year>2011</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="the_formation_of_hamburg" highlight="false" id="7174C1AA-F109-441C-BEE5-D27991D59F7C">
-          <title>THE FORMATION OF HAMBURG</title>
-          <file>MHG_HD.key</file>
-          <thumbnail>mhg_teaser_thumb.jpg</thumbnail>
-          <year>2012</year>
           <categories>
             <category>0</category>
           </categories>
       </presentation>
       <presentation directory="kinetic_sculpture" highlight="true" id="C4FBFA73-27E3-44BB-AA31-99656A750418">
           <title>KINETIC SCULPTURE</title>
-          <file>BMW_Kinetik_Neu_Notizen_KopieSJ.key</file>
-          <thumbnail>_0010_Ebene 8.jpg</thumbnail>
+          <file>001_kinetic_5678.key</file>
+          <thumbnail>_0010_Ebene_Stage.jpg</thumbnail>
           <year>2008</year>
           <categories>
             <category>1</category>
           </categories>
       </presentation>
-      <presentation directory="observation_deck_dock_b" highlight="false" id="B2EE53BC-85E3-4024-B232-21A5C04AD8CA">
-          <title>OBSERVATION DECK, DOCK B</title>
-          <file>ZRH_Zuschauerterrasse.key</file>
-          <thumbnail>zrh_teaser_thumb.jpg</thumbnail>
+      <presentation directory="observation_deck" highlight="false" id="B2EE53BC-85E3-4024-B232-21A5C04AD8CA">
+          <title>OBSERVATION DECK</title>
+          <file>deck_with_a_view.key</file>
+          <thumbnail>hteaser_thumb.jpg</thumbnail>
           <year>2011</year>
           <categories>
             <category>1</category>
           </categories>
       </presentation>
-      <presentation directory="the_bmw_1-class_-_technical_communication_e87" highlight="false" id="C4DA8EF8-3469-48ED-9124-79F3271C5366">
-          <title>THE BMW 1-CLASS - TECHNICAL COMMUNICATION E87</title>
-          <file>BMW_1er_neu.key</file>
-          <thumbnail>max_06_bmw1er.png</thumbnail>
+      <presentation directory="technical_communication_a38" highlight="false" id="C4DA8EF8-3469-48ED-9124-79F3271C5366">
+          <title>Form A38</title>
+          <file>Car_XXL.key</file>
+          <thumbnail>max_06_limo_01.png</thumbnail>
           <year>2004</year>
           <categories>
             <category>1</category>
           </categories>
       </presentation>
-      <presentation directory="anamorphic_logos" highlight="true" id="066D3C0D-F65A-41DB-B132-EC021A54180A">
-          <title>ANAMORPHIC LOGOS</title>
-          <file>DB_BrandSpace_Neu_Notizen.key</file>
-          <thumbnail>acbuch_teaser_thumb.jpg</thumbnail>
-          <year>2011</year>
+      <presentation directory="presentation_promo" highlight="false" id="AAAB6EF8-5830-FD21-9124-79F3271C5366">
+          <title>Promo Title</title>
+          <file>Final_Master.key</file>
+          <thumbnail>final_master_preview.png</thumbnail>
+          <year>2016</year>
           <categories>
-            <category>0</category>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="grasp_pendulum" highlight="true" id="C2320747-8A45-437B-B8C6-5581BB56D3E5">
-          <title>GRASP PENDULUM</title>
-          <file>greifpendel.key</file>
-          <thumbnail>greifpendel_teaser_thumb.jpg</thumbnail>
-          <year>2009</year>
-          <categories>
-            <category>0</category>
-          </categories>
-      </presentation>
-      <presentation directory="t-gallery" highlight="false" id="AFA9E209-2990-4894-8606-A88FAF9FD41C">
-          <title>T-GALLERY</title>
-          <file>140730_T_Gallery.key</file>
-          <thumbnail>tgallery_teaser_thumb.jpg</thumbnail>
-          <year>2010</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="wall_showroom" highlight="false" id="91468D7C-E4E7-413F-9208-913902D0E1F3">
-          <title>WALL SHOWROOM</title>
-          <file>wall_showroom.key</file>
-          <thumbnail>wallshowroom_teaser_thumb.jpg</thumbnail>
-          <year>2002</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="the_architecture_of_daniel_libeskind" highlight="false" id="0C86967E-5C1A-40A5-809C-4077AACDDA16">
-          <title>THE ARCHITECTURE OF DANIEL LIBESKIND</title>
-          <file>110228_libeskind_doku.key</file>
-          <thumbnail>libeskind_3_220x100.tif</thumbnail>
-          <year>2003</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="museum_of_natural_history" highlight="false" id="1FB7FA41-392D-412F-8C04-5CC35771E901">
-          <title>MUSEUM OF NATURAL HISTORY</title>
-          <file>MfN_Neu_Notizen.key</file>
-          <thumbnail>mfn_teaser_thumb.jpg</thumbnail>
-          <year>2007</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="the_player" highlight="false" id="D89C4F0B-A5D9-42A5-958A-73C664D3CB59">
-          <title>THE PLAYER</title>
-          <file>140602_The_Football_Experience.key</file>
-          <thumbnail>football_2_220x100.jpg</thumbnail>
-          <year>2007</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="documenta_mobil" highlight="true" id="0CB95288-33C8-4CEE-96A1-C2ADA6BEB88B">
-          <title>DOCUMENTA MOBIL</title>
-          <file>110216_documenta_doku_NEW.key</file>
-          <thumbnail>_0011_Ebene 7.jpg</thumbnail>
-          <year>2005</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="bmw_company_sculpture" highlight="false" id="C044F10F-9E4E-4ECB-9C5E-DC2EA22923D2">
-          <title>BMW COMPANY SCULPTURE</title>
-          <file>110217_bmw_tisch.key</file>
-          <thumbnail>bmw_220x100_2.tif</thumbnail>
-          <year>2008</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="duality" highlight="true" id="93B06C83-EC7F-4B3E-B63A-E4A404910F84">
-          <title>DUALITY</title>
-          <file>110217_osaki_doku.key</file>
-          <thumbnail>duality_1_220x100.tif</thumbnail>
-          <year>2007</year>
-          <categories>
-            <category>0</category>
-          </categories>
-      </presentation>
-      <presentation directory="science_center_medical_technology" highlight="" id="7C657BAC-E8D0-4B62-8BB4-60384185F0FE">
-          <title>SCIENCE CENTER MEDICAL TECHNOLOGY</title>
-          <file>110215_ottobock_doku.key</file>
-          <thumbnail>Projektbilder_0004_Ebene 16.jpg</thumbnail>
-          <year>2009</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="mobility" highlight="true" id="EB5740CB-DAE9-4139-BCBE-9D68362E7233">
-          <title>MOBILITY</title>
-          <file>140304_OB_Mobility_neu_sj.key</file>
-          <thumbnail>Otto Bock Spiegel Kinetik.jpg</thumbnail>
-          <year>2010</year>
-          <categories>
-            <category>0</category>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="meteocolonnades" highlight="false" id="843E715E-D643-472D-B27A-BFFD10728C8C">
-          <title>METEOCOLONNADES</title>
-          <file>101015_Bregenz_Abschlusspraese_neu.key</file>
-          <thumbnail>Bregenz.jpg</thumbnail>
-          <year>2010</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="living_carthography" highlight="false" id="9F37927E-2C1A-44C8-9B4C-2C969E9204EE">
-          <title>LIVING CARTHOGRAPHY</title>
-          <file>110221_vatna_doku.key</file>
-          <thumbnail>Vatna.jpg</thumbnail>
-          <year>2010</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="level_green" highlight="true" id="7">
-          <title>LEVEL GREEN</title>
-          <file>140730_Level_Green.key</file>
-          <thumbnail>_0008_Ebene 3.jpg</thumbnail>
-          <year>2009</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="boulevard_of_stars" highlight="" id="5F1746B1-F2ED-453A-BE40-8EEE2E39F832">
-          <title>BOULEVARD OF STARS</title>
-          <file>Boulevard_of_Stars.key</file>
-          <thumbnail>Projektbilder_0001_Ebene 21.jpg</thumbnail>
-          <year>2010</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="salt_worldwide" highlight="true" id="594A8869-01FB-40A5-9219-65936C71E644">
-          <title>SALT WORLDWIDE</title>
-          <file>140730_Salz_Weltweit.key</file>
-          <thumbnail>_0000_Ebene 15.jpg</thumbnail>
-          <year>2010</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="bombardier" highlight="" id="4D5C4100-9B6E-4114-9C1C-4D7CD94D3E66">
-          <title>BOMBARDIER</title>
-          <file>140709_Bombardier.key</file>
-          <thumbnail>Projektbilder_19.jpg</thumbnail>
-          <year>2008</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="statistic_strip" highlight="true" id="11">
-          <title>STATISTIC STRIP</title>
-          <file>140606_Statistikband.key</file>
-          <thumbnail>_0006_Ebene 5.jpg</thumbnail>
-          <year>2009</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="the_new_austria" highlight="true" id="5CBF329E-2876-4E09-A075-563FD077BD7F">
-          <title>THE NEW AUSTRIA</title>
-          <file>JS_Belvedere_keynote.key</file>
-          <thumbnail>_0007_Ebene 4.jpg</thumbnail>
-          <year>2005</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="60_years._60_works_of_art" highlight="" id="609FF7F6-BF53-4314-B6AB-0746C124DB5A">
-          <title>60 YEARS. 60 WORKS OF ART</title>
-          <file>60_Jahre.key</file>
-          <thumbnail>Projektbilder 18.jpg</thumbnail>
-          <year>2009</year>
-          <categories>
-            <category>1</category>
-          </categories>
-      </presentation>
-      <presentation directory="spheres" highlight="true" id="12C5DEE5-C120-4177-A708-2C158D2B9F05">
-          <title>SPHERES</title>
-          <file>JS_BMW_mediatektur_keynote.key</file>
-          <thumbnail>BMW_Mediatecture.jpg</thumbnail>
-          <year>2008</year>
-          <categories>
-            <category>0</category>
             <category>1</category>
           </categories>
       </presentation>

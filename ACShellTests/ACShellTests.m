@@ -48,9 +48,9 @@
     XCTAssertEqual(self.library.categories.count, 3, @"Library shoul contain 3 categories.");
     
     LibraryCategory *category = self.library.categories.lastObject;
-    XCTAssertEqualObjects(category.title, @"research", @"Category should have valid title.");
-    XCTAssertEqualObjects(category.assets, @"002/research", @"Category should have valid asset directory path.");
     XCTAssertEqual(category.index.integerValue, 2, @"Category should have index of 2");
+    XCTAssertEqualObjects(category.title, @"two", @"Category should have valid title.");
+    XCTAssertEqualObjects(category.assets, @"002/two", @"Category should have valid asset directory path.");
     
     XCTAssertNotNil(self.library.library, @"Library should not be nil.");
     XCTAssertEqual(self.library.library.children.count, 2, @"Count should be 2.");
@@ -64,10 +64,10 @@
     
     ACShellCollection *all = library.children.firstObject;
     XCTAssertEqual(all.name, @"All", @"Collection should be named 'All'.");
-    XCTAssertEqual(all.presentations.count, 46, @"Collection should contain 46 presentations.");
+    XCTAssertEqual(all.presentations.count, 5, @"Collection should contain 46 presentations.");
     
     Presentation *presentation = all.presentations.lastObject;
-    XCTAssertEqualObjects(presentation.title, @"THE FORMATION OF HAMBURG", @"Presentation should have valid title.");
+    XCTAssertEqualObjects(presentation.title, @"OBSERVATION DECK", @"Presentation should have valid title.");
     XCTAssertEqual(presentation.categories.count, 1, @"Presentation should have categories set.");
 }
 
@@ -78,7 +78,8 @@
     ACShellCollection *all = library.children.firstObject;
     Presentation *presentation = all.presentations.lastObject;
     
-    presentation.title = @"THE NEW TITLE OF HAMBURG";
+    NSString *ID = presentation.presentationId;
+    presentation.title = @"THE NEW TITLE";
     presentation.categories = @[@1, @2];
     
     self.library.libraryDirPath = self.storageLibraryPath;
@@ -91,16 +92,16 @@
     XCTAssertEqual(self.library.categories.count, 3, @"Library shoul contain 3 categories.");
     
     LibraryCategory *category = self.library.categories.lastObject;
-    XCTAssertEqualObjects(category.title, @"research", @"Category should have valid title.");
-    XCTAssertEqualObjects(category.assets, @"002/research", @"Category should have valid asset directory path.");
     XCTAssertEqual(category.index.integerValue, 2, @"Category should have index of 2");
+    XCTAssertEqualObjects(category.title, @"two", @"Category should have valid title.");
+    XCTAssertEqualObjects(category.assets, @"002/two", @"Category should have valid asset directory path.");
     
     root = self.library.library;
     library = root.children.firstObject;
     all = library.children.firstObject;
-    presentation = all.presentations.lastObject;
+    presentation = [all.presentations filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"presentationId = %@", ID]].firstObject;
     
-    XCTAssertEqualObjects(presentation.title, @"THE NEW TITLE OF HAMBURG", @"Presentation should have valid title.");
+    XCTAssertEqualObjects(presentation.title, @"THE NEW TITLE", @"Presentation should have valid title.");
     XCTAssertEqual(presentation.categories.count, 2, @"Presentation should have categories set.");
 }
 
