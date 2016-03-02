@@ -338,7 +338,7 @@ CA
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="presentationTable" headerView="600" id="557">
-                                                    <rect key="frame" x="0.0" y="0.0" width="753" height="506"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="753" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -440,16 +440,16 @@ CA
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="categories"/>
+                                                            <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="categoriesTitles"/>
                                                             <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                             <connections>
-                                                                <binding destination="568" name="enabled" keyPath="arrangedObjects.isComplete" id="NSh-QQ-DdC"/>
                                                                 <binding destination="568" name="value" keyPath="arrangedObjects.categoriesTitles" id="LR4-Bn-wxh">
                                                                     <dictionary key="options">
                                                                         <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                         <bool key="NSConditionallySetsEnabled" value="YES"/>
                                                                     </dictionary>
                                                                 </binding>
+                                                                <binding destination="568" name="enabled" keyPath="arrangedObjects.isComplete" id="NSh-QQ-DdC"/>
                                                             </connections>
                                                         </tableColumn>
                                                         <tableColumn identifier="highlight" editable="NO" width="36" minWidth="10" maxWidth="3.4028234663852886e+38" id="684">
@@ -618,7 +618,6 @@ CA
                 <string>order</string>
                 <string>year</string>
                 <string>yearString</string>
-                <string>categories</string>
                 <string>categoriesTitles</string>
             </declaredKeys>
             <connections>
