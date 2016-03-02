@@ -25,12 +25,12 @@
 @implementation PresentationWindowController
 
 - (id)init {
-	self = [super initWithWindowNibName:@"PresentationWindow"];
-	if (self != nil) {
-		self.keynote = [KeynoteHandler sharedHandler];
+    self = [super initWithWindowNibName:@"PresentationWindow"];
+    if (self != nil) {
+        self.keynote = [KeynoteHandler sharedHandler];
         self.window.delegate = self;
-	}
-	return self;
+    }
+    return self;
 }
 
 - (void)setCategories:(NSArray *)categories
@@ -40,17 +40,17 @@
 }
 
 - (void)setPresentations:(NSMutableArray *)newPresentations {
-	_presentations = newPresentations;
-	[self.presentationView arrangeSublayer];
+    _presentations = newPresentations;
+    [self.presentationView arrangeSublayer];
 }
 
 - (NSArray *)presentationsForSelectedCategory
 {
-    if (self.selectedCategory == nil) {
-        return self.presentations;
+    if (self.selectedCategory) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN categories", self.selectedCategory.ID];
+        return [self.presentations filteredArrayUsingPredicate:predicate];
     }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN categories", self.selectedCategory.ID];
-    return [self.presentations filteredArrayUsingPredicate:predicate];
+    return self.presentations;
 }
 
 #pragma mark - Handle screen environments
@@ -79,9 +79,9 @@
 }
 
 - (NSRect)presentationScreenFrame {
-	NSUInteger monitorIndex = [self usingSecondaryScreen] ? 1 : 0;
-	NSArray *screens = [NSScreen screens];
-	return [screens[monitorIndex] frame];
+    NSUInteger monitorIndex = [self usingSecondaryScreen] ? 1 : 0;
+    NSArray *screens = [NSScreen screens];
+    return [screens[monitorIndex] frame];
 }
 
 
@@ -92,23 +92,23 @@
     
     [self startObservingChangingScreens];
     [self updateWindowState];
-	
+    
     NSApplicationPresentationOptions options = NSApplicationPresentationHideDock | NSApplicationPresentationHideMenuBar;
-	@try {
-		[NSApp setPresentationOptions:options];
-	}
-	@catch(NSException *exception) {
-		NSLog(@"Error setting NSApplicationPresentationOptions: %lu", options);
-	}
-	
-	[super showWindow:sender];
+    @try {
+        [NSApp setPresentationOptions:options];
+    }
+    @catch(NSException *exception) {
+        NSLog(@"Error setting NSApplicationPresentationOptions: %lu", options);
+    }
+    
+    [super showWindow:sender];
 }
 
 - (void)updateWindowState {
-	NSRect frame = [self presentationScreenFrame];
-	[self.window setFrame:frame display:YES animate:NO];
+    NSRect frame = [self presentationScreenFrame];
+    [self.window setFrame:frame display:YES animate:NO];
     [self.window setMovable:NO];
-	[self.window makeKeyAndOrderFront:nil];
+    [self.window makeKeyAndOrderFront:nil];
     
     // FIX Issue with window levels
     /*
@@ -120,15 +120,15 @@
      application and all its documents popping up when starting or stopping any presentation from ACShell)
      
      This doesn't seem to work correctly when using a single monitor. The Keynote playback window stays stuck
-     behind the ACShell presentation window. It's unclear why, the Keynote playback window does not seem to 
+     behind the ACShell presentation window. It's unclear why, the Keynote playback window does not seem to
      use the same level as with two monitors.
      
      Ideally, we would now just choose a lower level for this presentation window. The issue we now face is that
-     when transitioning between ACShell and Keynote, we *will* see other elements pop up (the menu bar of 
+     when transitioning between ACShell and Keynote, we *will* see other elements pop up (the menu bar of
      the Keynote application, Keynote document windows).
      
      This is okay when using one monitor only: In this case the presenter is showing something on his machine,
-     the setting there is often a casual one, so no big deal, when we see the menu bar of Keynote for a short 
+     the setting there is often a casual one, so no big deal, when we see the menu bar of Keynote for a short
      time.
      
      If a secondary screen is used, the presentation is less casual and should appear flawless. Therefore, we
@@ -179,64 +179,66 @@
 }
 
 - (NSInteger)numberOfItemsInPresentationView:(PresentationView *)aPresentationView {
-	return [self.presentationsForSelectedCategory count];
+    return [self.presentationsForSelectedCategory count];
 }
 
 - (CGSize)sizeForItemInPresentationView: (PresentationView *)aPresentationView {
-	return CGSizeMake(220, 100);
+    return CGSizeMake(220, 100);
 }
 
 - (CALayer *)presentationView:(PresentationView *)aPresentationView layerForItemAtIndex:(NSInteger)index {
-	Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
-	NSImage *image = presentation.thumbnail;
-
-	CALayer *layer = [CALayer layer];
-	layer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-	layer.contents = image;
-	
-	return layer;
+    Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
+    NSImage *image = presentation.thumbnail;
+    
+    CALayer *layer = [CALayer layer];
+    layer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+    layer.contents = image;
+    
+    return layer;
 }
 
 - (CALayer *)presentationView:(PresentationView *)aPresentationView hoverLayerForItemAtIndex:(NSInteger)index {
-	Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
-
-	OverlayLayer *layer = [OverlayLayer layer];
-	if (presentation.year) {
-		layer.text = [NSString stringWithFormat: @"%@, %@", presentation.title, presentation.year];
-	} else {
-		layer.text = presentation.title;
-	}
-	return layer;
+    Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
+    
+    OverlayLayer *layer = [OverlayLayer layer];
+    if (presentation.year) {
+        layer.text = [NSString stringWithFormat: @"%@, %@", presentation.title, presentation.year];
+    } else {
+        layer.text = presentation.title;
+    }
+    return layer;
 }
 
 #pragma mark - PresentationView Delegate
 
 
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
-	self.selectedPresentationIndex = index;
+    self.selectedPresentationIndex = index;
     Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
-	[self.keynote play:presentation.absolutePresentationPath withDelegate: self];
+    [self.keynote play:presentation.absolutePresentationPath withDelegate: self];
     [self showActivityForItemAtIndex:index];
-	self.presentationView.mouseTracking = NO;
+    self.presentationView.mouseTracking = NO;
 }
 
 - (void)showActivityForItemAtIndex:(NSInteger)index {
-	[self.presentationView addOverlay:[ProgressOverlayLayer layer] forItem:index];
+    [self.presentationView addOverlay:[ProgressOverlayLayer layer] forItem:index];
 }
 
 - (void)highlightItemAtIndex:(NSInteger)index {
     CALayer *oldHoveredLayer = [self presentationView:self.presentationView hoverLayerForItemAtIndex:self.selectedPresentationIndex];
-	[self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
+    [self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
 }
 
 - (void)presentationView:(PresentationView *)aView didSelectCategoryAtIndex:(NSInteger)index
 {
-    NSLog(@"clicked category index: %ld", (long)index);
+    self.selectedCategory = self.categories[index];
+    [self.presentationView arrangeSublayer];
 }
 
 - (void)presentationViewDidClickResetButton:(PresentationView *)aView
 {
-    NSLog(@"clicked reset button");
+    self.selectedCategory = nil;
+    [self.presentationView arrangeSublayer];
 }
 
 #pragma mark - Keynote Handler Delegate
@@ -247,12 +249,12 @@
 }
 
 - (void)keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
-
+    
     [self.presentationView mouseEntered:nil];
-	self.presentationView.mouseTracking = YES;
-
- 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
-	[[self window] makeKeyAndOrderFront:nil];
+    self.presentationView.mouseTracking = YES;
+    
+    [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
+    [[self window] makeKeyAndOrderFront:nil];
 }
 
 - (void)keynoteAppDidLaunch:(BOOL)success version:(NSString *)version {
