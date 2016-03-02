@@ -35,6 +35,8 @@
 		22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */ = {isa = PBXBuildFile; fileRef = 22F2B97D11F7541F00EE4717 /* icn_sync.icns */; };
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
 		3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */; };
+		3B8ACC301C8750F0005D7F7A /* HeaderLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2F1C8750F0005D7F7A /* HeaderLayer.m */; };
+		3B8ACC331C875706005D7F7A /* CATextLayer+Calculations.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC321C875706005D7F7A /* CATextLayer+Calculations.m */; };
 		3B9FA6CA1C85C07E003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
 		3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */; };
 		3B9FA6F01C85C478003D7EE0 /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
@@ -173,6 +175,10 @@
 		3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationHeaderView.m; sourceTree = "<group>"; };
 		3B8ACC2C1C872B83005D7F7A /* PresentationHeaderViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationHeaderViewDataSource.h; sourceTree = "<group>"; };
 		3B8ACC2D1C872B91005D7F7A /* PresentationHeaderViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationHeaderViewDelegate.h; sourceTree = "<group>"; };
+		3B8ACC2E1C8750F0005D7F7A /* HeaderLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeaderLayer.h; sourceTree = "<group>"; };
+		3B8ACC2F1C8750F0005D7F7A /* HeaderLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeaderLayer.m; sourceTree = "<group>"; };
+		3B8ACC311C875706005D7F7A /* CATextLayer+Calculations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CATextLayer+Calculations.h"; sourceTree = "<group>"; };
+		3B8ACC321C875706005D7F7A /* CATextLayer+Calculations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CATextLayer+Calculations.m"; sourceTree = "<group>"; };
 		3B9FA6C81C85C07E003D7EE0 /* LibraryCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryCategory.h; sourceTree = "<group>"; };
 		3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryCategory.m; sourceTree = "<group>"; };
 		3B9FA6E81C85C46A003D7EE0 /* ACShellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACShellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -368,6 +374,8 @@
 				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
 				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
+				3B8ACC311C875706005D7F7A /* CATextLayer+Calculations.h */,
+				3B8ACC321C875706005D7F7A /* CATextLayer+Calculations.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -390,6 +398,8 @@
 				22CE72CC11EDAD8B0043F3C8 /* OverlayLayer.m */,
 				22CE72EF11EDAFE80043F3C8 /* ProgressOverlayLayer.h */,
 				22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */,
+				3B8ACC2E1C8750F0005D7F7A /* HeaderLayer.h */,
+				3B8ACC2F1C8750F0005D7F7A /* HeaderLayer.m */,
 			);
 			path = Layer;
 			sourceTree = "<group>";
@@ -740,6 +750,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B8ACC331C875706005D7F7A /* CATextLayer+Calculations.m in Sources */,
 				CD349E56180740CE0028C540 /* ACSearchIndex.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */,
@@ -777,6 +788,7 @@
 				CD349E58180740CE0028C540 /* ACSearchIndexResult.m in Sources */,
 				6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */,
 				CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */,
+				3B8ACC301C8750F0005D7F7A /* HeaderLayer.m in Sources */,
 				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

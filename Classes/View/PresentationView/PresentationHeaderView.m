@@ -16,12 +16,12 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setupView];
+        [self setupLayers];
     }
     return self;
 }
 
-- (void)setupView
+- (void)setupLayers
 {
     NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
     self.logo = [CALayer layer];
@@ -29,72 +29,66 @@
     self.logo.contents = logoImage;
     
     self.layer = [CALayer layer];
-    [self setWantsLayer:YES];
+    self.wantsLayer = YES;
     [self.layer addSublayer:self.logo];
     
-    _categoryButtons = [NSMutableArray new];
-    _resetButton = [NSButton new];
-    [self.resetButton setTitle:@"All"];
-    [self.resetButton setTarget:self];
-    [self.resetButton setAction:@selector(resetButtonClicked:)];
-    [self addSubview:self.resetButton];
+    self.resetLayer = [HeaderLayer layer];
+    self.resetLayer.title = @"All";
+    
+    _categoryLayers = [NSMutableArray new];
 }
 
 - (void)updateLayout
 {
-    [self configureButtons];
-    [self layoutButtons];
-}
-
-- (void)configureButtons
-{
-    [_categoryButtons makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    [_categoryButtons removeAllObjects];
+    [self.categoryLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+    [self.categoryLayers removeAllObjects];
     
     _categoryTitles = [self.dataSource titlesForCategoriesInPresentationHeaderView:self];
     for (NSString *title in self.categoryTitles) {
-        NSButton *button = [NSButton new];
-        [button setTitle:title];
-        [button setTarget:self];
-        [button setAction:@selector(categoryButtonClicked:)];
-        [self.categoryButtons addObject:button];
-        [self addSubview:button];
+        
+        HeaderLayer *layer = [HeaderLayer layer];
+        [self.categoryLayers addObject:layer];
+        [self.layer addSublayer:layer];
+        
+        layer.title = title;
+        layer.highlighted = NO;
     }
-}
-
-- (void)layoutButtons
-{
-    [self.resetButton sizeToFit];
-    NSRect frame = self.resetButton.frame;
-    frame.origin.x = self.bounds.size.width - frame.size.width;
-    self.resetButton.frame = frame;
     
-    [self.categoryButtons makeObjectsPerformSelector:@selector(sizeToFit)];
-    for (NSInteger i=self.categoryButtons.count-1; i >= 0; i--) {
-        NSButton *button = self.categoryButtons[i];
-        CGFloat offset = 0.0;
-        if (i == self.categoryButtons.count-1) {
-            offset = self.resetButton.frame.origin.x - BUTTON_SPACING;
-            offset -= button.frame.size.width;
-        } else {
-            NSButton *previousButton = self.categoryButtons[i+1];
-            offset = previousButton.frame.origin.x - BUTTON_SPACING;
-            offset -= button.frame.size.width;
+    [self layoutSublayersOfLayer:self.layer];
+}
+
+- (void)layoutSublayersOfLayer:(CALayer *)layer
+{
+    if (layer == self.layer) {
+        NSRect frame = self.resetLayer.frame;
+        frame.origin.x = self.layer.bounds.size.width - frame.size.width;
+        self.resetLayer.frame = frame;
+        
+        for (NSInteger i=self.categoryLayers.count-1; i >= 0; i--) {
+            HeaderLayer *layer = self.categoryLayers[i];
+            CGFloat offset = 0.0;
+            if (i == self.categoryLayers.count-1) {
+                offset = self.resetLayer.frame.origin.x - BUTTON_SPACING;
+                offset -= layer.frame.size.width;
+            } else {
+                NSButton *previousLayer = self.categoryLayers[i+1];
+                offset = previousLayer.frame.origin.x - BUTTON_SPACING;
+                offset -= layer.frame.size.width;
+            }
+            CGRect frame = layer.frame;
+            frame.origin.x = offset;
+            layer.frame = frame;
         }
-        NSRect frame = button.frame;
-        frame.origin.x = offset;
-        button.frame = frame;
     }
 }
 
-- (void)categoryButtonClicked:(id)sender
+- (void)categoryLayerClicked:(HeaderLayer *)layer
 {
-    NSButton *button = (NSButton *)sender;
-    NSInteger index = [self.categoryTitles indexOfObject:button.title];
+    NSInteger index = [self.categoryLayers indexOfObject:layer];
     [self.delegate presentationHeaderView:self didSelectCategoryAtIndex:index];
 }
 
-- (void)resetButtonClicked:(id)sender
+- (void)resetLayerClicked:(HeaderLayer *)layer
 {
     [self.delegate presentationHeaderViewDidClickResetButton:self];
 }

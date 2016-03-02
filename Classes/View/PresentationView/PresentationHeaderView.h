@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "PresentationHeaderViewDataSource.h"
 #import "PresentationHeaderViewDelegate.h"
+#import "HeaderLayer.h"
 
 @interface PresentationHeaderView : NSView
 
@@ -17,8 +18,8 @@
 
 @property (nonatomic, strong) CALayer *logo;
 @property (nonatomic, strong) NSArray *categoryTitles;
-@property (nonatomic, strong) NSMutableArray *categoryButtons;
-@property (nonatomic, strong) NSButton *resetButton;
+@property (nonatomic, strong) NSMutableArray *categoryLayers;
+@property (nonatomic, strong) HeaderLayer *resetLayer;
 
 - (void)updateLayout;
 @end
