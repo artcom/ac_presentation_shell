@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "LibraryCategory.h"
 #import "Presentation.h"
 #import "PresentationViewDataSource.h"
 #import "PresentationViewDelegate.h"
@@ -16,12 +17,14 @@
 @class PresentationView;
 @class PaginationView;
 
-@interface PresentationWindowController : NSWindowController <PresentationViewDataSource, PresentationViewDelegate, KeynoteDelegate, NSWindowDelegate>
+@interface PresentationWindowController : NSWindowController
+<PresentationViewDataSource, PresentationViewDelegate, KeynoteDelegate, NSWindowDelegate>
 
 @property (nonatomic, strong) KeynoteHandler *keynote;
+@property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) NSArray *presentations;
-@property (strong) IBOutlet PresentationView *presentationView;
+
+@property (weak) IBOutlet PresentationView *presentationView;
 
 - (NSRect)presentationScreenFrame;
-
 @end

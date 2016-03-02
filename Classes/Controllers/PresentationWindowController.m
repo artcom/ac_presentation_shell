@@ -17,6 +17,9 @@
 
 @interface PresentationWindowController()
 @property (assign) NSInteger selectedPresentationIndex;
+@property (weak) LibraryCategory *selectedCategory;
+
+- (NSArray *)presentationsForSelectedCategory;
 @end
 
 @implementation PresentationWindowController
@@ -30,11 +33,25 @@
 	return self;
 }
 
+- (void)setCategories:(NSArray *)categories
+{
+    _categories = categories;
+    self.selectedCategory = _categories.firstObject;
+}
+
 - (void)setPresentations:(NSMutableArray *)newPresentations {
 	_presentations = newPresentations;
 	[self.presentationView arrangeSublayer];
 }
 
+- (NSArray *)presentationsForSelectedCategory
+{
+    if (self.selectedCategory == nil) {
+        return self.presentations;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%@ IN categories", self.selectedCategory.ID];
+    return [self.presentations filteredArrayUsingPredicate:predicate];
+}
 
 #pragma mark - Handle screen environments
 
@@ -156,9 +173,13 @@
 
 #pragma mark - PresentationView DataSource
 
+- (NSArray *)titlesForCategoriesInPresentationView:(PresentationView *)aPresentationView
+{
+    return [self.categories valueForKeyPath:@"title"];
+}
 
 - (NSInteger)numberOfItemsInPresentationView:(PresentationView *)aPresentationView {
-	return [self.presentations count];
+	return [self.presentationsForSelectedCategory count];
 }
 
 - (CGSize)sizeForItemInPresentationView: (PresentationView *)aPresentationView {
@@ -166,7 +187,7 @@
 }
 
 - (CALayer *)presentationView:(PresentationView *)aPresentationView layerForItemAtIndex:(NSInteger)index {
-	Presentation *presentation = [self.presentations objectAtIndex:index];
+	Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
 	NSImage *image = presentation.thumbnail;
 
 	CALayer *layer = [CALayer layer];
@@ -177,7 +198,7 @@
 }
 
 - (CALayer *)presentationView:(PresentationView *)aPresentationView hoverLayerForItemAtIndex:(NSInteger)index {
-	Presentation *presentation = [self.presentations objectAtIndex:index];
+	Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
 
 	OverlayLayer *layer = [OverlayLayer layer];
 	if (presentation.year) {
@@ -188,13 +209,12 @@
 	return layer;
 }
 
-
 #pragma mark - PresentationView Delegate
 
 
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
 	self.selectedPresentationIndex = index;
-    Presentation *presentation = [self.presentations objectAtIndex:index];
+    Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
 	[self.keynote play:presentation.absolutePresentationPath withDelegate: self];
     [self showActivityForItemAtIndex:index];
 	self.presentationView.mouseTracking = NO;
@@ -207,6 +227,16 @@
 - (void)highlightItemAtIndex:(NSInteger)index {
     CALayer *oldHoveredLayer = [self presentationView:self.presentationView hoverLayerForItemAtIndex:self.selectedPresentationIndex];
 	[self.presentationView addOverlay:oldHoveredLayer forItem:self.selectedPresentationIndex];
+}
+
+- (void)presentationView:(PresentationView *)aView didSelectCategoryAtIndex:(NSInteger)index
+{
+    NSLog(@"clicked category index: %ld", (long)index);
+}
+
+- (void)presentationViewDidClickResetButton:(PresentationView *)aView
+{
+    NSLog(@"clicked reset button");
 }
 
 #pragma mark - Keynote Handler Delegate

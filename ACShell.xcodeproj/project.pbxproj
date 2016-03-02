@@ -34,6 +34,7 @@
 		22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B8DF11F73EC100EE4717 /* RsyncController.m */; };
 		22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */ = {isa = PBXBuildFile; fileRef = 22F2B97D11F7541F00EE4717 /* icn_sync.icns */; };
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
+		3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */; };
 		3B9FA6CA1C85C07E003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
 		3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */; };
 		3B9FA6F01C85C478003D7EE0 /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
@@ -168,6 +169,10 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3B8ACC291C87236C005D7F7A /* PresentationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationHeaderView.h; sourceTree = "<group>"; };
+		3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationHeaderView.m; sourceTree = "<group>"; };
+		3B8ACC2C1C872B83005D7F7A /* PresentationHeaderViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationHeaderViewDataSource.h; sourceTree = "<group>"; };
+		3B8ACC2D1C872B91005D7F7A /* PresentationHeaderViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationHeaderViewDelegate.h; sourceTree = "<group>"; };
 		3B9FA6C81C85C07E003D7EE0 /* LibraryCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryCategory.h; sourceTree = "<group>"; };
 		3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryCategory.m; sourceTree = "<group>"; };
 		3B9FA6E81C85C46A003D7EE0 /* ACShellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACShellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -338,12 +343,16 @@
 			children = (
 				22B2019711DA365B00C6D9ED /* GridLayout.h */,
 				22B2019811DA365B00C6D9ED /* GridLayout.m */,
+				22D5993311DDD19B0025E48F /* PaginationView.h */,
+				22D5993411DDD19B0025E48F /* PaginationView.m */,
+				3B8ACC291C87236C005D7F7A /* PresentationHeaderView.h */,
+				3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */,
+				3B8ACC2C1C872B83005D7F7A /* PresentationHeaderViewDataSource.h */,
+				3B8ACC2D1C872B91005D7F7A /* PresentationHeaderViewDelegate.h */,
 				22B2000B11D9EECE00C6D9ED /* PresentationView.h */,
 				22B2000C11D9EECE00C6D9ED /* PresentationView.m */,
 				22B2011E11DA28A100C6D9ED /* PresentationViewDataSource.h */,
 				22B2027711DA53C900C6D9ED /* PresentationViewDelegate.h */,
-				22D5993311DDD19B0025E48F /* PaginationView.h */,
-				22D5993411DDD19B0025E48F /* PaginationView.m */,
 			);
 			path = PresentationView;
 			sourceTree = "<group>";
@@ -740,6 +749,7 @@
 				22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */,
 				22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */,
 				22B2000D11D9EECE00C6D9ED /* PresentationView.m in Sources */,
+				3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */,
 				22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */,
 				22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */,
 				22C7F8D311DB3E7E00A54494 /* KeynoteHandler.m in Sources */,

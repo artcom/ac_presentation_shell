@@ -34,7 +34,6 @@
 @synthesize page;
 @synthesize mouseTracking;
 @synthesize layout;
-@synthesize logo;
 
 -(id) initWithFrame:(NSRect)frameRect {
 	self = [super initWithFrame:frameRect];
@@ -159,6 +158,7 @@
 }
 
 - (void)arrangeSublayer {
+    
 	[self updateLayout];
 	for (CALayer *layer in self.sublayers) {
 		[layer removeFromSuperlayer];
@@ -179,7 +179,6 @@
 		[self.layer addSublayer:layer];	
 		[self.sublayers addObject:layer];
 	}
-
 	[self didUpdatePages];
 }
 
@@ -269,8 +268,11 @@
 	[CATransaction begin];
 	[CATransaction setDisableActions:YES];
 	CGFloat verticalMargin = (screenFrame.size.height - layout.viewPort.size.height) * 0.5;
-	CGFloat logoYOrigin = (verticalMargin * 1.5) + layout.viewPort.size.height - logo.frame.size.height / 2;
-	logo.frame = CGRectMake(layout.viewPort.origin.x, logoYOrigin, logo.frame.size.width, logo.frame.size.height);
+	
+    CGFloat headerYOrigin = (verticalMargin * 1.5) + layout.viewPort.size.height - self.headerView.frame.size.height / 2;
+    
+	self.headerView.frame = CGRectMake(layout.viewPort.origin.x, headerYOrigin, layout.viewPort.size.width, 32.0);
+    [self.headerView updateLayout];
 	[CATransaction commit];	
 
 	CGFloat pagerButtonsXOrigin = layout.viewPort.origin.x + layout.viewPort.size.width - pageButtons.frame.size.width;
@@ -283,14 +285,35 @@
 }
 
 #pragma mark -
+#pragma mark PresentationHeaderViewDataSource
+
+- (NSArray *)titlesForCategoriesInPresentationHeaderView:(PresentationHeaderView *)presentationHeaderView
+{
+    return [self.dataSource titlesForCategoriesInPresentationView:self];
+}
+
+#pragma mark -
+#pragma mark PresentationHeaderViewDelegate
+
+- (void)presentationHeaderView:(PresentationHeaderView *)headerView didSelectCategoryAtIndex:(NSInteger)index
+{
+    [self.delegate presentationView:self didSelectCategoryAtIndex:index];
+}
+
+- (void)presentationHeaderViewDidClickResetButton:(PresentationHeaderView *)headerView
+{
+    [self.delegate presentationViewDidClickResetButton:self];
+}
+
+#pragma mark -
 #pragma mark Set Up Accessory Views
 
 - (void)setUpAccessorieViews {
-	NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
-	self.logo = [CALayer layer];
-	self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
-	self.logo.contents = logoImage;
-	[self.layer addSublayer: logo];
+	
+    self.headerView = [[PresentationHeaderView alloc] initWithFrame:NSMakeRect(0, 0, 240, 32)];
+    self.headerView.dataSource = self;
+    self.headerView.delegate = self;
+    [self addSubview:self.headerView];
 	
 	paginationView = [[PaginationView alloc] initWithFrame:NSMakeRect(0, 0, 6, 100)];
 	paginationView.pages = 1;
@@ -348,14 +371,14 @@
 }
 
 - (void)updateLayout {
+    
 	layout.viewFrame = NSRectToCGRect(self.frame);
-	layout.border = GRID_BORDER;	
-	
+	layout.border = GRID_BORDER;
+    
 	if ([dataSource respondsToSelector:@selector(sizeForItemInPresentationView:)]) {
 		layout.itemSize = [dataSource sizeForItemInPresentationView:self];		
 	}
 	
 	[layout calculate];
 }
-
 @end

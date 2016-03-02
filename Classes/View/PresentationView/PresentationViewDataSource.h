@@ -12,6 +12,7 @@
 
 @protocol PresentationViewDataSource <NSObject>
 
+- (NSArray *)titlesForCategoriesInPresentationView:(PresentationView *)aPresentationView;
 - (NSInteger)numberOfItemsInPresentationView: (PresentationView *)aPresentationView;
 - (CALayer *)presentationView: (PresentationView *)aPresentationView layerForItemAtIndex: (NSInteger)index;
 
