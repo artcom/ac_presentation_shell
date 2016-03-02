@@ -22,7 +22,7 @@
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
 @property (strong) NSString *libraryDirPath;
-@property (strong) NSString *categoryAssetsPath;
+@property (strong) NSString *categoriesDirectory;
 
 + (id)libraryFromSettingsFile;
 

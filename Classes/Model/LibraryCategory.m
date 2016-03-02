@@ -53,9 +53,26 @@
     return [[self xmlNode] attributeForName:@"title"].stringValue;
 }
 
-- (NSString *)assets
+- (NSString *)directory
 {
-    return [[self xmlNode] attributeForName:@"assets"].stringValue;
+    return [[self xmlNode] attributeForName:@"directory"].stringValue;
+}
+
+- (NSString *)directoryPath
+{
+    return [[self.context.libraryDirPath stringByAppendingPathComponent:self.context.categoriesDirectory]
+            stringByAppendingPathComponent:self.directory];
+}
+
+- (NSArray *)backgroundImages
+{
+    NSXMLNode *assets = [[self xmlNode] nodesForXPath:@"assets" error:nil].firstObject;
+    return [[assets nodesForXPath:@"background" error:nil] valueForKey:@"stringValue"];
+}
+
+- (NSArray *)backgroundImagePaths
+{
+    return [[self directoryPath] stringsByAppendingPaths:self.backgroundImages];
 }
 
 @end

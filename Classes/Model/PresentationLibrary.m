@@ -129,6 +129,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     NSError *error = nil;
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithContentsOfURL:[NSURL fileURLWithPath:libraryPath] options:0 error:&error];
+    
+    NSXMLElement *categoriesElement = [document nodesForXPath:@"./library/categories" error:&error].firstObject;
+    self.categoriesDirectory = [[categoriesElement attributeForName:@"directory"] stringValue];
+    
+    if (error != nil) {
+        NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
+        return NO;
+    }
+    
     NSArray *xmlCategories = [document nodesForXPath:@"./library/categories/category" error:&error];
     
     if (error != nil) {
@@ -149,14 +158,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     for (NSXMLElement * element in xmlPresentations) {
         [self.presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
-        [element detach];
     }
+    
+    [xmlCategories makeObjectsPerformSelector:@selector(detach)];
+    [xmlPresentations makeObjectsPerformSelector:@selector(detach)];
     
     [self createCategories];
     [self syncPresentations];
     [self cacheThumbnails];
     
-    // Setup full-text search index
     self.librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
     [self.librarySearch updateIndex];
     
@@ -165,7 +175,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (void) saveXmlLibrary {
     NSXMLElement *root = [[NSXMLElement alloc] initWithName: @"library"];
-    
     NSXMLElement *categories = [[NSXMLElement alloc] initWithName:@"categories"];
     NSXMLElement *presentations = [[NSXMLElement alloc] initWithName:@"presentations"];
     [root addChild:categories];
@@ -173,6 +182,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithRootElement:root];
     [document setCharacterEncoding:@"UTF-8"];
+    
+    [categories addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue:self.categoriesDirectory]];
     
     for (LibraryCategory *c in self.categories) {
         [categories addChild:self.categoryData[c.ID]];

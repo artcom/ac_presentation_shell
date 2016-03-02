@@ -47,6 +47,7 @@
 
 - (void)testLibraryHasCategories
 {
+    XCTAssertEqualObjects(self.library.categoriesDirectory, @"_categories", @"Library should have a valid path for category assets.");
     XCTAssertEqual(self.library.categories.count, 3, @"Library should contain 3 categories.");
     
     LibraryCategory *categoryZero = self.library.categories[0];
@@ -55,15 +56,26 @@
     
     XCTAssertEqual(categoryZero.index.integerValue, 0, @"Category zero should have index of 0");
     XCTAssertEqualObjects(categoryZero.title, @"zero", @"Category zero should have valid a title.");
-    XCTAssertEqualObjects(categoryZero.assets, @"000/zero", @"Category zero should have a valid asset directory path.");
+    XCTAssertEqualObjects(categoryZero.directory, @"000", @"Category zero should have a valid directory.");
     
     XCTAssertEqual(categoryOne.index.integerValue, 1, @"Category one should have index of 1");
     XCTAssertEqualObjects(categoryOne.title, @"one", @"Category one should have valid a title.");
-    XCTAssertEqualObjects(categoryOne.assets, @"001/one", @"Category one should have a valid asset directory path.");
+    XCTAssertEqualObjects(categoryOne.directory, @"001", @"Category one should have a valid directory.");
     
     XCTAssertEqual(categoryTwo.index.integerValue, 2, @"Category two should have index of 2");
     XCTAssertEqualObjects(categoryTwo.title, @"two", @"Category two should have valid a title.");
-    XCTAssertEqualObjects(categoryTwo.assets, @"002/two", @"Category two should have a valid asset directory path.");
+    XCTAssertEqualObjects(categoryTwo.directory, @"002", @"Category two should have a valid directory.");
+    
+    NSString *directoryPath = [self.libraryPath stringByAppendingPathComponent:@"_categories/002"];
+    XCTAssertEqualObjects(categoryTwo.directoryPath, directoryPath, @"Category two should return a valid directory path.");
+    
+    NSArray *backgroundImages = @[@"picture_1.jpeg", @"picture_2.jpeg"];
+    XCTAssertEqualObjects(categoryTwo.backgroundImages, backgroundImages, @"Category two should contain background images.");
+    
+    NSString *pictureOne = [self.libraryPath stringByAppendingPathComponent:@"_categories/002/picture_1.jpeg"];
+    NSString *pictureTwo = [self.libraryPath stringByAppendingPathComponent:@"_categories/002/picture_2.jpeg"];
+    NSArray *backgroundImagePaths = @[pictureOne, pictureTwo];
+    XCTAssertEqualObjects(categoryTwo.backgroundImagePaths, backgroundImagePaths, @"Category two should return valid background image paths.");
 }
 
 - (void)testLibraryHasPresentations
@@ -123,6 +135,7 @@
     _library = [PresentationLibrary new];
     [self.library loadXmlLibraryFromDirectory:self.storageLibraryPath];
     
+    XCTAssertEqualObjects(self.library.categoriesDirectory, @"_categories", @"Library should have a valid path for category assets.");
     XCTAssertEqual(self.library.categories.count, 3, @"Library should contain 3 categories.");
     
     LibraryCategory *categoryZero = self.library.categories[0];
@@ -131,15 +144,26 @@
     
     XCTAssertEqual(categoryZero.index.integerValue, 0, @"Category zero should have index of 0");
     XCTAssertEqualObjects(categoryZero.title, @"zero", @"Category zero should have valid a title.");
-    XCTAssertEqualObjects(categoryZero.assets, @"000/zero", @"Category zero should have a valid asset directory path.");
+    XCTAssertEqualObjects(categoryZero.directory, @"000", @"Category zero should have a valid directory.");
     
     XCTAssertEqual(categoryOne.index.integerValue, 1, @"Category one should have index of 1");
     XCTAssertEqualObjects(categoryOne.title, @"one", @"Category one should have valid a title.");
-    XCTAssertEqualObjects(categoryOne.assets, @"001/one", @"Category one should have a valid asset directory path.");
+    XCTAssertEqualObjects(categoryOne.directory, @"001", @"Category one should have a valid directory.");
     
     XCTAssertEqual(categoryTwo.index.integerValue, 2, @"Category two should have index of 2");
     XCTAssertEqualObjects(categoryTwo.title, @"two", @"Category two should have valid a title.");
-    XCTAssertEqualObjects(categoryTwo.assets, @"002/two", @"Category two should have a valid asset directory path.");
+    XCTAssertEqualObjects(categoryTwo.directory, @"002", @"Category two should have a valid directory.");
+    
+    NSString *directoryPath = [self.storageLibraryPath stringByAppendingPathComponent:@"_categories/002"];
+    XCTAssertEqualObjects(categoryTwo.directoryPath, directoryPath, @"Category two should return a valid directory path.");
+    
+    NSArray *backgroundImages = @[@"picture_1.jpeg", @"picture_2.jpeg"];
+    XCTAssertEqualObjects(categoryTwo.backgroundImages, backgroundImages, @"Category two should contain background images.");
+    
+    NSString *pictureOne = [self.storageLibraryPath stringByAppendingPathComponent:@"_categories/002/picture_1.jpeg"];
+    NSString *pictureTwo = [self.storageLibraryPath stringByAppendingPathComponent:@"_categories/002/picture_2.jpeg"];
+    NSArray *backgroundImagePaths = @[pictureOne, pictureTwo];
+    XCTAssertEqualObjects(categoryTwo.backgroundImagePaths, backgroundImagePaths, @"Category two should return valid background image paths.");
     
     root = self.library.library;
     library = root.children.firstObject;

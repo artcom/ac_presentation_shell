@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <library>
-  <categories>
-    <category index="2" title="two" assets="002/two"/>
-    <category index="0" title="zero" assets="000/zero"/>
-    <category index="1" title="one" assets="001/one"/>
+  <categories directory="_categories">
+    <category index="2" title="two" directory="002">
+      <assets>
+        <background>picture_1.jpeg</background>
+        <background>picture_2.jpeg</background>
+      </assets>
+    </category>
+    <category index="0" title="zero" directory="000">
+      <assets>
+        <background>picture_1.jpeg</background>
+        <background>picture_2.jpeg</background>
+      </assets>
+    </category>
+    <category index="1" title="one" directory="001">
+      <assets>
+        <background>picture_1.jpeg</background>
+        <background>picture_2.jpeg</background>
+      </assets>
+    </category>
   </categories>
   <presentations>
       <presentation directory="museum_exibition" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">
