@@ -147,6 +147,7 @@
     presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
     XCTAssertEqualObjects(presentation.title, @"THE NEW TITLE", @"Presentation should have a valid title.");
     XCTAssertEqual(presentation.categories.count, 2, @"Presentation should have 2 categories set.");
+    XCTAssertEqualObjects(presentation.categoriesTitles, @"one, two", @"Presentation should return valid category titles.");
 }
 
 @end

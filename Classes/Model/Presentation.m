@@ -168,6 +168,7 @@
 
 - (void)setCategories:(NSArray *)categories
 {
+    [self willChangeValueForKey:@"categories"];
     NSArray *categoryNodes = [[self xmlNode] nodesForXPath:@"categories" error:nil];
     NSXMLElement *categoryNode = categoryNodes.lastObject;
     
@@ -178,11 +179,23 @@
         [children addObject:child];
     }
     [categoryNode setChildren:children];
+    [self didChangeValueForKey:@"categories"];
 }
 
 - (NSArray *)categories {
     NSXMLNode *root = [[self.xmlNode nodesForXPath:@"categories" error:nil] lastObject];
     return [root.children valueForKeyPath:@"stringValue"];
+}
+
+- (NSString *)categoriesTitles
+{
+    NSMutableArray *titles = [NSMutableArray new];
+    for (LibraryCategory *category in self.context.categories) {
+        if ([self.categories containsObject:category.ID]) {
+            [titles addObject:category.title];
+        }
+    }
+    return [titles componentsJoinedByString:@", "];
 }
 
 - (BOOL) isEqual:(id)object {

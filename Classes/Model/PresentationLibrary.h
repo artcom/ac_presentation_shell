@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
+#import "LibraryCategory.h"
 
 @class ACShellCollection;
 @class Presentation;

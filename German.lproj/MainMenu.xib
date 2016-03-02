@@ -334,11 +334,11 @@ CA
                                         <rect key="frame" x="0.0" y="0.0" width="681" height="538"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" id="6dj-E1-GW3">
-                                            <rect key="frame" x="0.0" y="17" width="681" height="521"/>
+                                            <rect key="frame" x="0.0" y="17" width="681" height="506"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="presentationTable" headerView="600" id="557">
-                                                    <rect key="frame" x="0.0" y="0.0" width="681" height="19"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="753" height="506"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -383,7 +383,7 @@ CA
                                                                 <binding destination="568" name="value" keyPath="arrangedObjects.selected" id="750"/>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="title" editable="NO" width="531" minWidth="10" maxWidth="3.4028234663852886e+38" id="583">
+                                                        <tableColumn identifier="title" editable="NO" width="500" minWidth="10" maxWidth="3.4028234663852886e+38" id="583">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -429,6 +429,29 @@ CA
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
+                                                        <tableColumn identifier="categories" editable="NO" width="100" minWidth="100" maxWidth="3.4028234663852886e+38" id="j6U-MI-hxj" userLabel="Kategorien">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Kategorien">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="EVt-JT-qi5">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="categories"/>
+                                                            <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
+                                                            <connections>
+                                                                <binding destination="568" name="enabled" keyPath="arrangedObjects.isComplete" id="NSh-QQ-DdC"/>
+                                                                <binding destination="568" name="value" keyPath="arrangedObjects.categoriesTitles" id="LR4-Bn-wxh">
+                                                                    <dictionary key="options">
+                                                                        <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                        <bool key="NSConditionallySetsEnabled" value="YES"/>
+                                                                    </dictionary>
+                                                                </binding>
+                                                            </connections>
+                                                        </tableColumn>
                                                         <tableColumn identifier="highlight" editable="NO" width="36" minWidth="10" maxWidth="3.4028234663852886e+38" id="684">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -457,7 +480,7 @@ CA
                                             </subviews>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </clipView>
-                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="556">
+                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="556">
                                             <rect key="frame" x="0.0" y="523" width="681" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -466,7 +489,7 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="600">
-                                            <rect key="frame" x="0.0" y="0.0" width="681" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="753" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
@@ -595,6 +618,8 @@ CA
                 <string>order</string>
                 <string>year</string>
                 <string>yearString</string>
+                <string>categories</string>
+                <string>categoriesTitles</string>
             </declaredKeys>
             <connections>
                 <binding destination="564" name="contentArray" keyPath="currentPresentationList" id="748">
