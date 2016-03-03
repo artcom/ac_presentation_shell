@@ -28,10 +28,10 @@
         
         NSFont *font = [NSFont fontWithName:@"ACSwiss" size:13.0f];
         _defaultFontAttributes = @{NSFontAttributeName:font,
-                                 NSForegroundColorAttributeName:self.defaultFontColor};
+                                   NSForegroundColorAttributeName:self.defaultFontColor};
         
         _highlightedFontAttributes = @{NSFontAttributeName:font,
-                                NSForegroundColorAttributeName:self.highlightedFontColor};
+                                       NSForegroundColorAttributeName:self.highlightedFontColor};
         
         [self setupLayers];
     }
@@ -51,10 +51,10 @@
 - (void)setTitle:(NSString *)title
 {
     _title = title;
-    [self setLightTitle:title];
+    [self setDefaultTitle:title];
 }
 
-- (void)setLightTitle:(NSString *)title
+- (void)setDefaultTitle:(NSString *)title
 {
     self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.defaultFontAttributes];
     CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
@@ -62,7 +62,7 @@
     [self setNeedsLayout];
 }
 
-- (void)setDarkTitle:(NSString *)title
+- (void)setHighlightedTitle:(NSString *)title
 {
     self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.highlightedFontAttributes];
     CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
@@ -93,9 +93,9 @@
         return;
     }
     if (highlighted) {
-        [self setDarkTitle:self.title];
+        [self setHighlightedTitle:self.title];
     } else {
-        [self setLightTitle:self.title];
+        [self setDefaultTitle:self.title];
     }
 }
 
@@ -105,10 +105,10 @@
     _highlighted = NO;
     
     if (selected) {
-        [self setDarkTitle:self.title];
+        [self setHighlightedTitle:self.title];
         self.bottomEdgeLayer.backgroundColor = self.highlightedFontColor.CGColor;
     } else {
-        [self setLightTitle:self.title];
+        [self setDefaultTitle:self.title];
         self.bottomEdgeLayer.backgroundColor = self.backgroundColor;
     }
 }
