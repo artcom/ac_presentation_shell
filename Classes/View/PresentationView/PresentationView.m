@@ -36,39 +36,39 @@
 @synthesize layout;
 
 -(id) initWithFrame:(NSRect)frameRect {
-	self = [super initWithFrame:frameRect];
-	if (self != nil) {
-		[self setupView];
-	}
-	return self;
+    self = [super initWithFrame:frameRect];
+    if (self != nil) {
+        [self setupView];
+    }
+    return self;
 }
 
 - (void)awakeFromNib {
-	[self setupView];
+    [self setupView];
 }
 
 
 - (void)setupView {
-	CALayer *rootLayer=[CALayer layer];
-	rootLayer.frame = NSRectToCGRect(self.frame);
-	rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorWhite);
-	[self setLayer:rootLayer];
-	[self setWantsLayer:YES];
-	
-	self.sublayers = [[NSMutableArray alloc] init];
-	layout = [[GridLayout alloc] init];
-	
-	self.page = 0;	
-	self.mouseTracking = YES;
-	
-	[self setUpAccessorieViews];
-	
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:) 
-												 name:NSViewFrameDidChangeNotification object:self];	
+    CALayer *rootLayer=[CALayer layer];
+    rootLayer.frame = NSRectToCGRect(self.frame);
+    rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorWhite);
+    [self setLayer:rootLayer];
+    [self setWantsLayer:YES];
+    
+    self.sublayers = [[NSMutableArray alloc] init];
+    layout = [[GridLayout alloc] init];
+    
+    self.page = 0;
+    self.mouseTracking = YES;
+    
+    [self setUpAccessorieViews];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:)
+                                                 name:NSViewFrameDidChangeNotification object:self];
 }
 
 - (BOOL)acceptsFirstResponder {
-	return YES;
+    return YES;
 }
 
 - (float)backingScaleFactor {
@@ -92,41 +92,41 @@
 - (void) mouseUp:(NSEvent *)theEvent {
     if (!mouseTracking) return;
     
-	NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
-	
-	CALayer *clickedLayer = nil;
-	for (CALayer *layer in self.sublayers) {
-		if ([layer hitTest:NSPointToCGPoint(location)]) {
-			clickedLayer = layer;
-		} 
-	}
-	
-	if (clickedLayer == nil) {
-		return;
-	}
-	
-	NSInteger selectedItem = [self indexOfItemOnPage:[self.sublayers indexOfObject: clickedLayer]];
-	if ([self.delegate respondsToSelector:@selector(presentationView:didClickItemAtIndex:)]) {
-		[self.delegate presentationView:self didClickItemAtIndex:selectedItem];
-	}
+    NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    
+    CALayer *clickedLayer = nil;
+    for (CALayer *layer in self.sublayers) {
+        if ([layer hitTest:NSPointToCGPoint(location)]) {
+            clickedLayer = layer;
+        }
+    }
+    
+    if (clickedLayer == nil) {
+        return;
+    }
+    
+    NSInteger selectedItem = [self indexOfItemOnPage:[self.sublayers indexOfObject: clickedLayer]];
+    if ([self.delegate respondsToSelector:@selector(presentationView:didClickItemAtIndex:)]) {
+        [self.delegate presentationView:self didClickItemAtIndex:selectedItem];
+    }
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-	if (!self.mouseTracking || ![dataSource respondsToSelector: @selector(presentationView:hoverLayerForItemAtIndex:)]) {
-		return;
-	}
-	
-	CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
-
-	if (layer == self.layer) {
-		self.hoverLayer = nil;
-		return;
-	}
-	
-	if (![self.sublayers containsObject:layer] || layer == self.hoverLayer) {
-		return;
-	}
-
+    if (!self.mouseTracking || ![dataSource respondsToSelector: @selector(presentationView:hoverLayerForItemAtIndex:)]) {
+        return;
+    }
+    
+    CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
+    
+    if (layer == self.layer) {
+        self.hoverLayer = nil;
+        return;
+    }
+    
+    if (![self.sublayers containsObject:layer] || layer == self.hoverLayer) {
+        return;
+    }
+    
     hoveredItem = [self indexOfItemOnPage:[self.sublayers indexOfObject:layer]];
     
     CALayer *hoverLayer = [dataSource presentationView:self hoverLayerForItemAtIndex:hoveredItem];
@@ -159,16 +159,16 @@
 
 - (void)arrangeSublayer {
     
-	[self updateLayout];
-	for (CALayer *layer in self.sublayers) {
-		[layer removeFromSuperlayer];
-	}
-	
-	[self.sublayers removeAllObjects];
-	
-	NSInteger firstItem = [self firstItemOnPage];
-	NSInteger lastItem = [self lastItemOnPage];
-	
+    [self updateLayout];
+    for (CALayer *layer in self.sublayers) {
+        [layer removeFromSuperlayer];
+    }
+    
+    [self.sublayers removeAllObjects];
+    
+    NSInteger firstItem = [self firstItemOnPage];
+    NSInteger lastItem = [self lastItemOnPage];
+    
     CGSize itemSize = [dataSource sizeForItemInPresentationView:self];
     CGRect itemBounds = CGRectMake(0.0f, 0.0f, itemSize.width, itemSize.height);
 	for (int i = firstItem; i <= lastItem; i++) {
