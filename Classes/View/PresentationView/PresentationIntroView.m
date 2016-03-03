@@ -28,6 +28,7 @@
 @property (nonatomic, strong) NSArray *backgroundImages;
 @property (nonatomic, assign) NSInteger slideShowIndex;
 @property (nonatomic, strong) NSTimer *slideShowTimer;
+@property (nonatomic, strong) NSString *currentBackgroundImage;
 @end
 
 @implementation PresentationIntroView
@@ -98,8 +99,8 @@
 {
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    
     self.backgroundLayer.frame = self.bounds;
+    [CATransaction commit];
     
     CGFloat itemSetWidth = (self.categoryLayers.count * ITEM_WIDTH_LARGE) + (ITEM_SPACING * self.categoryLayers.count - 1);
     CGFloat x = (self.bounds.size.width - itemSetWidth) / 2.0;
@@ -113,17 +114,12 @@
     x = (self.bounds.size.width - self.logo.bounds.size.width) / 2.0;
     y += ITEM_HEIGHT_LARGE + LOGO_BOTTOM_PADDING;
     self.logo.frame = CGRectMake(x, y, self.logo.bounds.size.width, self.logo.bounds.size.height);
-    
-    [CATransaction commit];
 }
 
 #pragma mark - Highlighting
 
 - (void)highlightCategoryLayer:(IntroLayer *)layer
 {
-    if (layer.isHighlighted) {
-        return;
-    }
     [self dehighlightAllLayers];
     layer.highlighted = YES;
 }
@@ -152,9 +148,18 @@
 {
     [self stopTimer];
     [self pickBackgroundImages];
-    self.slideShowIndex = -1;
-    [self showNextSlide:nil];
-    [self startTimer];
+    
+    self.slideShowIndex = 0;
+    self.currentBackgroundImage = self.backgroundImages[self.slideShowIndex];
+    [self highlightCategoryLayer:self.categoryLayers[self.slideShowIndex]];
+    [self updateBackgroundImageAtCurrentIndexAnimated:NO];
+    
+    [self startFastTimer];
+}
+
+- (void)stopSlideShow
+{
+    [self stopTimer];
 }
 
 - (void)pickBackgroundImages
@@ -170,31 +175,44 @@
 
 - (void)showNextSlide:(id)userInfo
 {
+    [self stopTimer];
     self.slideShowIndex++;
     if (self.slideShowIndex >= self.categoryTitles.count) {
         self.slideShowIndex = 0;
     }
     [self highlightCategoryLayer:self.categoryLayers[self.slideShowIndex]];
-    [self updateBackgroundImageAtCurrentIndex];
+    [self updateBackgroundImageAtCurrentIndexAnimated:YES];
+    [self startTimer];
 }
 
 - (void)showSlideForLayer:(IntroLayer *)layer
 {
+    NSInteger index = [self.categoryLayers indexOfObject:layer];
+    if (self.slideShowIndex == index) {
+        return;
+    }
+    
+    self.slideShowIndex = index;
     [self stopTimer];
     [self highlightCategoryLayer:layer];
-    
-    NSInteger index = [self.categoryLayers indexOfObject:layer];
-    self.slideShowIndex = index;
-    [self updateBackgroundImageAtCurrentIndex];
-    
+    [self updateBackgroundImageAtCurrentIndexAnimated:YES];
     [self startTimer];
 }
 
-- (void)updateBackgroundImageAtCurrentIndex
+- (void)updateBackgroundImageAtCurrentIndexAnimated:(BOOL)animated
 {
-    NSString *imagePath = self.backgroundImages[self.slideShowIndex];
-    NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
-    self.backgroundLayer.contents = image;
+    _currentBackgroundImage = self.backgroundImages[self.slideShowIndex];
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:self.currentBackgroundImage];
+    
+    if (animated) {
+        [CATransaction begin];
+        [CATransaction setAnimationDuration:1.0];
+        [CATransaction setAnimationTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut]];
+        self.backgroundLayer.contents = image;
+        [CATransaction commit];
+    } else {
+        self.backgroundLayer.contents = image;
+    }
 }
 
 - (void)startTimer
@@ -203,7 +221,16 @@
                                                            target:self
                                                          selector:@selector(showNextSlide:)
                                                          userInfo:nil
-                                                          repeats:YES];
+                                                          repeats:NO];
+}
+
+- (void)startFastTimer
+{
+    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
+                                                           target:self
+                                                         selector:@selector(showNextSlide:)
+                                                         userInfo:nil
+                                                          repeats:NO];
 }
 
 - (void)stopTimer

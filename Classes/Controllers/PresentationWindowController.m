@@ -87,6 +87,7 @@
 
 - (void)showPresentationView
 {
+    [self.presentationIntroView stopSlideShow];
     self.presentationView.hidden = NO;
     self.presentationIntroView.hidden = YES;
     [self.presentationView arrangeSublayer];
@@ -173,6 +174,7 @@
 
 - (void)windowWillClose:(NSNotification *)notification {
     [self.keynote stop];
+    [self.presentationIntroView stopSlideShow];
     [self showIntroView];
     [self stopObservingChangingScreens];
 }
