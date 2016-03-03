@@ -33,12 +33,6 @@
     return self;
 }
 
-- (void)setCategories:(NSArray *)categories
-{
-    _categories = categories;
-    self.selectedCategory = _categories.lastObject;
-}
-
 - (void)setPresentations:(NSMutableArray *)newPresentations {
     _presentations = newPresentations;
     [self.presentationView arrangeSublayer];
