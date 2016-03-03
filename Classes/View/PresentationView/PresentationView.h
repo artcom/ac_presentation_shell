@@ -17,7 +17,6 @@
 @interface PresentationView : NSView <PresentationHeaderViewDataSource, PresentationHeaderViewDelegate> {
 
 	NSInteger hoveredItem;
-	NSTrackingRectTag mouseTrackingRectTag;
 	
 	BOOL mouseTracking;
 	

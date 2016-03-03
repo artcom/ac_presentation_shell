@@ -79,13 +79,13 @@
     return [screens[monitorIndex] frame];
 }
 
-- (void)showIntro
+- (void)showIntroView
 {
     self.presentationView.hidden = YES;
     self.presentationIntroView.hidden = NO;
 }
 
-- (void)hideIntro
+- (void)showPresentationView
 {
     self.presentationView.hidden = NO;
     self.presentationIntroView.hidden = YES;
@@ -94,13 +94,11 @@
 
 #pragma mark - Manage window
 
-
 - (void)showWindow:(id)sender {
     
     [self startObservingChangingScreens];
     [self updateWindowState];
-    
-    [self showIntro];
+    [self showIntroView];
     
     NSApplicationPresentationOptions options = NSApplicationPresentationHideDock | NSApplicationPresentationHideMenuBar;
     @try {
@@ -173,9 +171,9 @@
 
 #pragma mark - NSWindowDelegate
 
-
 - (void)windowWillClose:(NSNotification *)notification {
     [self.keynote stop];
+    [self showIntroView];
     [self stopObservingChangingScreens];
 }
 
@@ -198,7 +196,7 @@
 {
     self.selectedCategory = self.categories[index];
     [self.presentationView arrangeSublayer];
-    [self hideIntro];
+    [self showPresentationView];
 }
 
 #pragma mark - PresentationView DataSource
@@ -278,7 +276,7 @@
 
 - (void)presentationViewDidClickBackButton:(PresentationView *)aView
 {
-    [self showIntro];
+    [self showIntroView];
 }
 
 #pragma mark - Keynote Handler Delegate

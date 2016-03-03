@@ -14,11 +14,11 @@
 
 @interface PresentationView ()
 
+@property (nonatomic, strong) NSTrackingArea *trackingArea;
 @property (strong, nonatomic) NSMutableArray *sublayers;
 
 - (void)setUpAccessorieViews;
 - (void)setupView;
-- (void)updateMouseTrackingRect;
 - (void)updateLayout;
 - (NSInteger)lastItemOnPage;
 - (void)didUpdatePages;
@@ -247,13 +247,6 @@
     [self updateLayout];
 }
 
-- (void) setMouseTracking:(BOOL)newMouseTracking {
-    mouseTracking = newMouseTracking;
-    
-    [self updateMouseTrackingRect];
-}
-
-
 #pragma mark -
 #pragma mark Resizing
 - (void)resizeWithOldSuperviewSize:(NSSize)oldBoundsSize {
@@ -280,8 +273,6 @@
     
     [paginationView setFrameOrigin:NSMakePoint(layout.viewPort.origin.x + layout.viewPort.size.width + 20, layout.viewPort.origin.y)];
     [paginationView setFrameSize:NSMakeSize(paginationView.frame.size.width, layout.viewPort.size.height)];
-    
-    [self updateMouseTrackingRect];
 }
 
 #pragma mark -
@@ -371,13 +362,15 @@
     
 }
 
-- (void)updateMouseTrackingRect {
-    [self removeTrackingRect:mouseTrackingRectTag];
-    
-    if (mouseTracking) {
-        NSRect trackingRect = NSRectFromCGRect(self.layout.viewPort);
-        mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
-    }
+- (void)updateTrackingAreas
+{
+    [self removeTrackingArea:self.trackingArea];
+    self.trackingArea = [[NSTrackingArea alloc] initWithRect:self.bounds
+                                                     options: (NSTrackingMouseEnteredAndExited |
+                                                               NSTrackingMouseMoved |
+                                                               NSTrackingActiveInKeyWindow)
+                                                       owner:self userInfo:nil];
+    [self addTrackingArea:self.trackingArea];
 }
 
 - (void)updateLayout {
