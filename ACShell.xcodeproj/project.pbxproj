@@ -49,6 +49,9 @@
 		3B9FA6F81C85C58E003D7EE0 /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
 		3B9FA6F91C85C5B8003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
 		3B9FA6FB1C85C62E003D7EE0 /* library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FA6FA1C85C62E003D7EE0 /* library.xml */; };
+		3BE52F811C886E3400F1D2B7 /* PresentationIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */; };
+		3BE52F851C8873F400F1D2B7 /* PresentationIntroView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BE52F841C8873F400F1D2B7 /* PresentationIntroView.xib */; };
+		3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F891C8875B300F1D2B7 /* IntroLayer.m */; };
 		630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */; };
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630D759811FE05F400EEB7F2 /* icn_upload.icns in Resources */ = {isa = PBXBuildFile; fileRef = 630D759711FE05F400EEB7F2 /* icn_upload.icns */; };
@@ -185,6 +188,13 @@
 		3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentationLibraryTests.m; sourceTree = "<group>"; };
 		3B9FA6EC1C85C46A003D7EE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B9FA6FA1C85C62E003D7EE0 /* library.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = library.xml; path = Fixtures/library.xml; sourceTree = "<group>"; };
+		3BE52F7F1C886E3400F1D2B7 /* PresentationIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationIntroView.h; sourceTree = "<group>"; };
+		3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationIntroView.m; sourceTree = "<group>"; };
+		3BE52F841C8873F400F1D2B7 /* PresentationIntroView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PresentationIntroView.xib; path = Classes/View/PresentationView/PresentationIntroView.xib; sourceTree = "<group>"; };
+		3BE52F861C88742F00F1D2B7 /* PresentationIntroViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationIntroViewDataSource.h; sourceTree = "<group>"; };
+		3BE52F871C88744200F1D2B7 /* PresentationIntroViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationIntroViewDelegate.h; sourceTree = "<group>"; };
+		3BE52F881C8875B300F1D2B7 /* IntroLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
+		3BE52F891C8875B300F1D2B7 /* IntroLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
 		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localized_text_keys.h; sourceTree = "<group>"; };
 		630D57851200CD60009D4CAE /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -355,6 +365,10 @@
 				3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */,
 				3B8ACC2C1C872B83005D7F7A /* PresentationHeaderViewDataSource.h */,
 				3B8ACC2D1C872B91005D7F7A /* PresentationHeaderViewDelegate.h */,
+				3BE52F7F1C886E3400F1D2B7 /* PresentationIntroView.h */,
+				3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */,
+				3BE52F861C88742F00F1D2B7 /* PresentationIntroViewDataSource.h */,
+				3BE52F871C88744200F1D2B7 /* PresentationIntroViewDelegate.h */,
 				22B2000B11D9EECE00C6D9ED /* PresentationView.h */,
 				22B2000C11D9EECE00C6D9ED /* PresentationView.m */,
 				22B2011E11DA28A100C6D9ED /* PresentationViewDataSource.h */,
@@ -400,6 +414,8 @@
 				22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */,
 				3B8ACC2E1C8750F0005D7F7A /* HeaderLayer.h */,
 				3B8ACC2F1C8750F0005D7F7A /* HeaderLayer.m */,
+				3BE52F881C8875B300F1D2B7 /* IntroLayer.h */,
+				3BE52F891C8875B300F1D2B7 /* IntroLayer.m */,
 			);
 			path = Layer;
 			sourceTree = "<group>";
@@ -499,6 +515,7 @@
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
 				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
 				63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */,
+				3BE52F841C8873F400F1D2B7 /* PresentationIntroView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -697,6 +714,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6379E79D120C8CAA006A6FEF /* acshell_askpasswd in Resources */,
+				3BE52F851C8873F400F1D2B7 /* PresentationIntroView.xib in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */,
@@ -751,10 +769,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B8ACC331C875706005D7F7A /* CATextLayer+Calculations.m in Sources */,
+				3BE52F811C886E3400F1D2B7 /* PresentationIntroView.m in Sources */,
 				CD349E56180740CE0028C540 /* ACSearchIndex.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */,
 				22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */,
+				3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */,
 				22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */,
 				22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */,
 				22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */,

@@ -7,7 +7,20 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "PresentationIntroViewDataSource.h"
+#import "PresentationIntroViewDelegate.h"
+#import "IntroLayer.h"
 
 @interface PresentationIntroView : NSView
 
+@property (nonatomic, weak) id <PresentationIntroViewDataSource> dataSource;
+@property (nonatomic, weak) id <PresentationIntroViewDelegate> delegate;
+
+@property (nonatomic, strong) CALayer *logo;
+@property (nonatomic, strong) NSArray *categoryTitles;
+@property (nonatomic, strong) NSMutableArray *categoryLayers;
+
+@property (nonatomic, strong) NSTrackingArea *trackingArea;
+
+- (void)updateLayout;
 @end
