@@ -21,5 +21,8 @@
 @property (nonatomic, strong) NSMutableArray *categoryLayers;
 @property (nonatomic, strong) HeaderLayer *resetLayer;
 
+@property (nonatomic, strong) NSTrackingArea *trackingArea;
+@property (nonatomic, assign) NSTrackingRectTag mouseTrackingRectTag;
+
 - (void)updateLayout;
 @end

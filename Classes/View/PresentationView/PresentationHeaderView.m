@@ -23,63 +23,175 @@
 
 - (void)setupLayers
 {
+    self.layer = [CALayer layer];
+    self.wantsLayer = YES;
+    
+    self.layer.backgroundColor = [NSColor whiteColor].CGColor;
+    
     NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
     self.logo = [CALayer layer];
     self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
     self.logo.contents = logoImage;
-    
-    self.layer = [CALayer layer];
-    self.wantsLayer = YES;
     [self.layer addSublayer:self.logo];
-    
-    self.resetLayer = [HeaderLayer layer];
-    self.resetLayer.title = @"All";
     
     _categoryLayers = [NSMutableArray new];
 }
 
 - (void)updateLayout
 {
+    [self.resetLayer removeFromSuperlayer];
+    
+    self.resetLayer = [HeaderLayer layer];
+    self.resetLayer.title = @"All";
+    [self.layer addSublayer:self.resetLayer];
+    
     [self.categoryLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [self.categoryLayers removeAllObjects];
     
     _categoryTitles = [self.dataSource titlesForCategoriesInPresentationHeaderView:self];
     for (NSString *title in self.categoryTitles) {
-        
         HeaderLayer *layer = [HeaderLayer layer];
+        layer.title = title;
+        layer.selected = NO;
         [self.categoryLayers addObject:layer];
         [self.layer addSublayer:layer];
-        
-        layer.title = title;
-        layer.highlighted = NO;
     }
+    [self layoutLayers];
     
-    [self layoutSublayersOfLayer:self.layer];
+    [self removeTrackingRect:self.mouseTrackingRectTag];
+    NSRect trackingRect = NSRectFromCGRect(self.bounds);
+    self.mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
 }
 
-- (void)layoutSublayersOfLayer:(CALayer *)layer
+- (void)layoutLayers
 {
-    if (layer == self.layer) {
-        NSRect frame = self.resetLayer.frame;
-        frame.origin.x = self.layer.bounds.size.width - frame.size.width;
-        self.resetLayer.frame = frame;
+    CGRect frame = CGRectMake(0.0, 0.0, self.resetLayer.preferredFrameSize.width, self.resetLayer.preferredFrameSize.height);
+    frame.origin.x = self.layer.frame.size.width - frame.size.width;
+    frame.origin.y = 0.0;
+    frame.size.height = self.layer.frame.size.height;
+    self.resetLayer.frame = frame;
+    
+    for (NSInteger i=self.categoryLayers.count-1; i >= 0; i--) {
+        HeaderLayer *layer = self.categoryLayers[i];
+        layer.bounds = CGRectMake(0.0, 0.0, layer.preferredFrameSize.width, layer.preferredFrameSize.height);
         
-        for (NSInteger i=self.categoryLayers.count-1; i >= 0; i--) {
-            HeaderLayer *layer = self.categoryLayers[i];
-            CGFloat offset = 0.0;
-            if (i == self.categoryLayers.count-1) {
-                offset = self.resetLayer.frame.origin.x - BUTTON_SPACING;
-                offset -= layer.frame.size.width;
-            } else {
-                NSButton *previousLayer = self.categoryLayers[i+1];
-                offset = previousLayer.frame.origin.x - BUTTON_SPACING;
-                offset -= layer.frame.size.width;
+        CGFloat offset = 0.0;
+        if (i == self.categoryLayers.count-1) {
+            offset = self.resetLayer.frame.origin.x - BUTTON_SPACING;
+            offset -= layer.frame.size.width;
+        } else {
+            NSButton *previousLayer = self.categoryLayers[i+1];
+            offset = previousLayer.frame.origin.x - BUTTON_SPACING;
+            offset -= layer.frame.size.width;
+        }
+        frame = layer.frame;
+        frame.origin.x = offset;
+        frame.origin.y = 0.0;
+        frame.size.height = self.layer.frame.size.height;
+        layer.frame = frame;
+    }
+}
+
+- (void)updateTrackingAreas
+{
+    [self removeTrackingArea:self.trackingArea];
+    self.trackingArea = [[NSTrackingArea alloc] initWithRect:self.bounds
+                                                     options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow )
+                                                       owner:self userInfo:nil];
+    [self addTrackingArea:self.trackingArea];
+}
+
+- (void) mouseEntered:(NSEvent *)theEvent
+{
+    [[self window] setAcceptsMouseMovedEvents:YES];
+}
+
+- (void)mouseExited:(NSEvent *)theEvent
+{
+    [[self window] setAcceptsMouseMovedEvents:NO];
+}
+
+- (void)mouseMoved:(NSEvent *)theEvent
+{
+    CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
+    
+    if (layer == self.layer) {
+        [self dehighlightAllLayers];
+        return;
+    }
+    
+    if ([layer isKindOfClass:CATextLayer.class]) {
+        if (self.resetLayer.titleLayer == layer) {
+            [self highlightResetLayer];
+            return;
+        }
+        for (HeaderLayer *headerLayer in self.categoryLayers) {
+            if (headerLayer.titleLayer == layer) {
+                [self highlightCategoryLayer:headerLayer];
+                break;
             }
-            CGRect frame = layer.frame;
-            frame.origin.x = offset;
-            layer.frame = frame;
         }
     }
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
+    
+    if ([layer isKindOfClass:CATextLayer.class]) {
+        if (self.resetLayer.titleLayer == layer) {
+            [self selectResetLayer];
+            return;
+        }
+        for (HeaderLayer *headerLayer in self.categoryLayers) {
+            if (headerLayer.titleLayer == layer) {
+                [self selectCategoryLayer:headerLayer];
+                break;
+            }
+        }
+    }
+}
+
+#pragma mark - Highlighting
+
+- (void)highlightCategoryLayer:(HeaderLayer *)layer
+{
+    [self dehighlightAllLayers];
+    layer.highlighted = YES;
+}
+
+- (void)highlightResetLayer
+{
+    [self dehighlightAllLayers];
+    self.resetLayer.highlighted = YES;
+}
+
+- (void)dehighlightAllLayers
+{
+    self.resetLayer.highlighted = NO;
+    [self.categoryLayers makeObjectsPerformSelector:@selector(setHighlighted:) withObject:nil];
+}
+
+#pragma mark - Selecting
+
+- (void)selectCategoryLayer:(HeaderLayer *)layer
+{
+    [self deselectAllLayers];
+    layer.selected = YES;
+    [self categoryLayerClicked:layer];
+}
+
+- (void)selectResetLayer
+{
+    [self deselectAllLayers];
+    self.resetLayer.selected = YES;
+    [self resetLayerClicked];
+}
+
+- (void)deselectAllLayers
+{
+    self.resetLayer.selected = NO;
+    [self.categoryLayers makeObjectsPerformSelector:@selector(setSelected:) withObject:nil];
 }
 
 - (void)categoryLayerClicked:(HeaderLayer *)layer
@@ -88,7 +200,7 @@
     [self.delegate presentationHeaderView:self didSelectCategoryAtIndex:index];
 }
 
-- (void)resetLayerClicked:(HeaderLayer *)layer
+- (void)resetLayerClicked
 {
     [self.delegate presentationHeaderViewDidClickResetButton:self];
 }

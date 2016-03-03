@@ -10,6 +10,8 @@
 #import "CATextLayer+Calculations.h"
 
 @interface HeaderLayer ()
+@property (nonatomic, strong) NSColor *lightColor;
+@property (nonatomic, strong) NSColor *darkColor;
 @property (nonatomic, strong) NSDictionary *lightFontAttributes;
 @property (nonatomic, strong) NSDictionary *darkFontAttributes;
 @end
@@ -37,12 +39,18 @@
 
 - (NSColor *)lightColor
 {
-    return [NSColor colorWithCalibratedRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
+    if (_lightColor == nil) {
+        _lightColor = [NSColor colorWithCalibratedRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
+    }
+    return _lightColor;
 }
 
 - (NSColor *)darkColor
 {
-    return [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
+    if (_darkColor == nil) {
+        _darkColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
+    }
+    return _darkColor;
 }
 
 - (NSDictionary *)lightFontAttributes
