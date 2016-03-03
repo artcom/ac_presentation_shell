@@ -23,9 +23,8 @@
 
 - (void)setupLayers
 {
-    self.layer = [CALayer layer];
     self.wantsLayer = YES;
-    
+    self.layer = [CALayer layer];
     self.layer.backgroundColor = [NSColor whiteColor].CGColor;
     
     NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
@@ -39,12 +38,21 @@
 
 - (void)updateLayout
 {
+    [self layoutResetLayer];
+    [self layoutCategoryLayers];
+    [self alignLayers];
+}
+
+- (void)layoutResetLayer
+{
     [self.resetLayer removeFromSuperlayer];
-    
     self.resetLayer = [HeaderLayer layer];
     self.resetLayer.title = @"All";
     [self.layer addSublayer:self.resetLayer];
-    
+}
+
+- (void)layoutCategoryLayers
+{
     [self.categoryLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [self.categoryLayers removeAllObjects];
     
@@ -56,14 +64,9 @@
         [self.categoryLayers addObject:layer];
         [self.layer addSublayer:layer];
     }
-    [self layoutLayers];
-    
-    [self removeTrackingRect:self.mouseTrackingRectTag];
-    NSRect trackingRect = NSRectFromCGRect(self.bounds);
-    self.mouseTrackingRectTag = [self addTrackingRect:trackingRect owner:self userData:nil assumeInside:YES];
 }
 
-- (void)layoutLayers
+- (void)alignLayers
 {
     CGRect frame = CGRectMake(0.0, 0.0, self.resetLayer.preferredFrameSize.width, self.resetLayer.preferredFrameSize.height);
     frame.origin.x = self.layer.frame.size.width - frame.size.width;
@@ -96,7 +99,9 @@
 {
     [self removeTrackingArea:self.trackingArea];
     self.trackingArea = [[NSTrackingArea alloc] initWithRect:self.bounds
-                                                     options: (NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingActiveInKeyWindow )
+                                                     options: (NSTrackingMouseEnteredAndExited |
+                                                               NSTrackingMouseMoved |
+                                                               NSTrackingActiveInKeyWindow)
                                                        owner:self userInfo:nil];
     [self addTrackingArea:self.trackingArea];
 }
@@ -114,12 +119,10 @@
 - (void)mouseMoved:(NSEvent *)theEvent
 {
     CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
-    
     if (layer == self.layer) {
         [self dehighlightAllLayers];
         return;
     }
-    
     if ([layer isKindOfClass:CATextLayer.class]) {
         if (self.resetLayer.titleLayer == layer) {
             [self highlightResetLayer];
@@ -137,7 +140,6 @@
 - (void)mouseUp:(NSEvent *)theEvent
 {
     CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
-    
     if ([layer isKindOfClass:CATextLayer.class]) {
         if (self.resetLayer.titleLayer == layer) {
             [self selectResetLayer];
