@@ -9,15 +9,18 @@
 #import "PresentationIntroView.h"
 
 #define LOGO_BOTTOM_PADDING 75.0
-#define ITEM_SPACING 20.0
+
+#define VIEW_PORT_WIDTH_LARGE  1400.0
+#define VIEW_PORT_WIDTH_SMALL  1250.0
+#define VIEW_PORT_HEIGHT_LARGE 1025.0
 
 #define ITEM_WIDTH_LARGE 440.0
 #define ITEM_WIDTH_MEDIUM 300.0
 #define ITEM_WIDTH_SMALL 225.0
-
 #define ITEM_HEIGHT_LARGE 130.0
-#define ITEM_HEIGHT_MEDIUM 130.0
 #define ITEM_HEIGHT_SMALL 46.0
+
+#define ITEM_SPACING 20.0
 
 @interface PresentationIntroView ()
 @property (nonatomic, strong) CALayer *logo;
@@ -102,18 +105,34 @@
     self.backgroundLayer.frame = self.bounds;
     [CATransaction commit];
     
-    CGFloat itemSetWidth = (self.categoryLayers.count * ITEM_WIDTH_LARGE) + (ITEM_SPACING * self.categoryLayers.count - 1);
+    CGSize itemSize = [self preferredItemSize];
+    CGFloat itemSetWidth = (self.categoryLayers.count * itemSize.width) + (ITEM_SPACING * self.categoryLayers.count - 1);
     CGFloat x = (self.bounds.size.width - itemSetWidth) / 2.0;
-    CGFloat y = (self.bounds.size.height - ITEM_HEIGHT_LARGE) / 2.0;
+    CGFloat y = (self.bounds.size.height - itemSize.height) / 2.0;
     
     for (IntroLayer *layer in self.categoryLayers) {
-        layer.frame = CGRectMake(x, y, ITEM_WIDTH_LARGE, ITEM_HEIGHT_LARGE);
-        x += ITEM_WIDTH_LARGE + ITEM_SPACING;
+        layer.frame = CGRectMake(x, y, itemSize.width, itemSize.height);
+        x += itemSize.width + ITEM_SPACING;
     }
     
     x = (self.bounds.size.width - self.logo.bounds.size.width) / 2.0;
-    y += ITEM_HEIGHT_LARGE + LOGO_BOTTOM_PADDING;
+    y += itemSize.height + LOGO_BOTTOM_PADDING;
     self.logo.frame = CGRectMake(x, y, self.logo.bounds.size.width, self.logo.bounds.size.height);
+}
+
+- (CGSize)preferredItemSize
+{
+    CGFloat width = ITEM_WIDTH_SMALL;
+    if (self.bounds.size.width > VIEW_PORT_WIDTH_LARGE) {
+        width = ITEM_WIDTH_LARGE;
+    } else if (self.bounds.size.width > VIEW_PORT_WIDTH_SMALL) {
+        width = ITEM_WIDTH_MEDIUM;
+    }
+    CGFloat height = ITEM_HEIGHT_SMALL;
+    if (self.bounds.size.height > VIEW_PORT_HEIGHT_LARGE) {
+        height = ITEM_HEIGHT_LARGE;
+    }
+    return CGSizeMake(width, height);
 }
 
 #pragma mark - Highlighting
