@@ -9,6 +9,7 @@
 #import "PresentationWindowController.h"
 #import "Presentation.h"
 #import "KeynoteHandler.h"
+#import "PresentationIntroView.h"
 #import "PresentationView.h"
 #import "PaginationView.h"
 #import "OverlayLayer.h"
@@ -78,6 +79,17 @@
     return [screens[monitorIndex] frame];
 }
 
+- (void)showIntro
+{
+    self.presentationView.hidden = YES;
+    self.presentationIntroView.hidden = NO;
+}
+
+- (void)hideIntro
+{
+    self.presentationView.hidden = NO;
+    self.presentationIntroView.hidden = YES;
+}
 
 #pragma mark - Manage window
 
@@ -86,6 +98,8 @@
     
     [self startObservingChangingScreens];
     [self updateWindowState];
+    
+    [self showIntro];
     
     NSApplicationPresentationOptions options = NSApplicationPresentationHideDock | NSApplicationPresentationHideMenuBar;
     @try {
@@ -164,6 +178,21 @@
     [self stopObservingChangingScreens];
 }
 
+#pragma mark - PresentationIntroView DataSource
+
+- (NSArray *)titlesForCategoriesInPresentationIntroView:(PresentationIntroView *)presentationIntroView
+{
+    return [self.categories valueForKeyPath:@"title"];
+}
+
+#pragma mark - PresentationIntroView Delegate
+
+- (void)presentationIntroView:(PresentationIntroView *)headerView didSelectCategoryAtIndex:(NSInteger)index
+{
+    self.selectedCategory = self.categories[index];
+    [self.presentationView arrangeSublayer];
+    // TODO: hide intro view and show presentation view
+}
 
 #pragma mark - PresentationView DataSource
 

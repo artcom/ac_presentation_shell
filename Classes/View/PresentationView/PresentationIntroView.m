@@ -10,8 +10,33 @@
 
 @implementation PresentationIntroView
 
+- (instancetype)initWithFrame:(NSRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self setupLayers];
+    }
+    return self;
+}
+
+- (void)setupLayers
+{
+    self.wantsLayer = YES;
+    self.layer = [CALayer layer];
+    self.layer.backgroundColor = [NSColor whiteColor].CGColor;
+    
+    NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
+    self.logo = [CALayer layer];
+    self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
+    self.logo.contents = logoImage;
+    [self.layer addSublayer:self.logo];
+}
+
 - (void)updateLayout
 {
+    // layout logo
+    
+    // layout category layers
     
 }
 

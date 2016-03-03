@@ -49,12 +49,6 @@
     self.borderColor = self.defaultBackgroundColor.CGColor;
     self.borderWidth = 3.0;
     
-    NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
-    self.logo = [CALayer layer];
-    self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
-    self.logo.contents = logoImage;
-    [self addSublayer:self.logo];
-    
     self.titleLayer = [CATextLayer layer];
     [self addSublayer:self.titleLayer];
 }
