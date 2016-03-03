@@ -286,6 +286,11 @@
 #pragma mark -
 #pragma mark PresentationHeaderViewDataSource
 
+- (NSInteger)indexForSelectedCategoryInPresentationHeaderView:(PresentationHeaderView *)presentationHeaderView
+{
+    return [self.dataSource indexForSelectedCategoryInPresentationView:self];
+}
+
 - (NSArray *)titlesForCategoriesInPresentationHeaderView:(PresentationHeaderView *)presentationHeaderView
 {
     return [self.dataSource titlesForCategoriesInPresentationView:self];

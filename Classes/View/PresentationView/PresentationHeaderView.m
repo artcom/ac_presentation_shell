@@ -41,6 +41,7 @@
     [self layoutResetLayer];
     [self layoutCategoryLayers];
     [self alignLayers];
+    [self selectLayer];
 }
 
 - (void)layoutResetLayer
@@ -94,6 +95,19 @@
         layer.frame = frame;
     }
 }
+
+- (void)selectLayer
+{
+    NSInteger index = [self.dataSource indexForSelectedCategoryInPresentationHeaderView:self];
+    if (index < self.categoryLayers.count) {
+        HeaderLayer *layer = self.categoryLayers[index];
+        layer.selected = YES;
+    } else {
+        self.resetLayer.selected = YES;
+    }
+}
+
+#pragma mark - Mouse handling
 
 - (void)updateTrackingAreas
 {

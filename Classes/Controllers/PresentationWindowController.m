@@ -36,7 +36,7 @@
 - (void)setCategories:(NSArray *)categories
 {
     _categories = categories;
-    self.selectedCategory = _categories.firstObject;
+    self.selectedCategory = _categories.lastObject;
 }
 
 - (void)setPresentations:(NSMutableArray *)newPresentations {
@@ -176,6 +176,11 @@
 - (NSArray *)titlesForCategoriesInPresentationView:(PresentationView *)aPresentationView
 {
     return [self.categories valueForKeyPath:@"title"];
+}
+
+- (NSInteger)indexForSelectedCategoryInPresentationView:(PresentationView *)aPresentationView
+{
+    return [self.categories indexOfObject:self.selectedCategory];
 }
 
 - (NSInteger)numberOfItemsInPresentationView:(PresentationView *)aPresentationView {

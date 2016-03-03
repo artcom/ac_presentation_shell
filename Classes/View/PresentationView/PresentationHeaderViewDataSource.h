@@ -12,4 +12,5 @@
 @protocol PresentationHeaderViewDataSource <NSObject>
 
 - (NSArray *)titlesForCategoriesInPresentationHeaderView:(PresentationHeaderView *)presentationHeaderView;
+- (NSInteger)indexForSelectedCategoryInPresentationHeaderView:(PresentationHeaderView *)presentationHeaderView;
 @end
