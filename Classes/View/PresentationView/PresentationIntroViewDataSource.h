@@ -12,4 +12,5 @@
 @protocol PresentationIntroViewDataSource <NSObject>
 
 - (NSArray *)titlesForCategoriesInPresentationIntroView:(PresentationIntroView *)presentationIntroView;
+- (NSArray *)presentationIntroView:(PresentationIntroView *)presentationIntroView imagesForCategoryAtIndex:(NSInteger)index;
 @end

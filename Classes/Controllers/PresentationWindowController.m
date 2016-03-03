@@ -89,6 +89,7 @@
 {
     self.presentationView.hidden = NO;
     self.presentationIntroView.hidden = YES;
+    [self.presentationView arrangeSublayer];
 }
 
 #pragma mark - Manage window
@@ -185,13 +186,19 @@
     return [self.categories valueForKeyPath:@"title"];
 }
 
+- (NSArray *)presentationIntroView:(PresentationIntroView *)presentationIntroView imagesForCategoryAtIndex:(NSInteger)index
+{
+    LibraryCategory *category = self.categories[index];
+    return category.backgroundImagePaths;
+}
+
 #pragma mark - PresentationIntroView Delegate
 
 - (void)presentationIntroView:(PresentationIntroView *)headerView didSelectCategoryAtIndex:(NSInteger)index
 {
     self.selectedCategory = self.categories[index];
     [self.presentationView arrangeSublayer];
-    // TODO: hide intro view and show presentation view
+    [self hideIntro];
 }
 
 #pragma mark - PresentationView DataSource
@@ -267,6 +274,11 @@
 {
     self.selectedCategory = nil;
     [self.presentationView arrangeSublayer];
+}
+
+- (void)presentationViewDidClickBackButton:(PresentationView *)aView
+{
+    [self showIntro];
 }
 
 #pragma mark - Keynote Handler Delegate

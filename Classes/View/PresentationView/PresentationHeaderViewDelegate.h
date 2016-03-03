@@ -13,4 +13,5 @@
 
 - (void)presentationHeaderView:(PresentationHeaderView *)headerView didSelectCategoryAtIndex:(NSInteger)index;
 - (void)presentationHeaderViewDidClickResetButton:(PresentationHeaderView *)headerView;
+- (void)presentationHeaderViewDidClickBackButton:(PresentationHeaderView *)headerView;
 @end

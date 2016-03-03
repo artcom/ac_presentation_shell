@@ -35,6 +35,10 @@
                     <customView wantsLayer="YES" id="hI6-SE-I4f" customClass="PresentationIntroView">
                         <rect key="frame" x="0.0" y="0.0" width="882" height="516"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <connections>
+                            <outlet property="dataSource" destination="-2" id="pxp-tD-IGe"/>
+                            <outlet property="delegate" destination="-2" id="6dq-4W-jRv"/>
+                        </connections>
                     </customView>
                 </subviews>
             </view>

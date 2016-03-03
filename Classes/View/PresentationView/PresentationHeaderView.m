@@ -8,7 +8,7 @@
 
 #import "PresentationHeaderView.h"
 
-#define BUTTON_SPACING 40.0;
+#define ITEM_SPACING 40.0;
 
 @implementation PresentationHeaderView
 
@@ -81,11 +81,11 @@
         
         CGFloat offset = 0.0;
         if (i == self.categoryLayers.count-1) {
-            offset = self.resetLayer.frame.origin.x - BUTTON_SPACING;
+            offset = self.resetLayer.frame.origin.x - ITEM_SPACING;
             offset -= layer.frame.size.width;
         } else {
             NSButton *previousLayer = self.categoryLayers[i+1];
-            offset = previousLayer.frame.origin.x - BUTTON_SPACING;
+            offset = previousLayer.frame.origin.x - ITEM_SPACING;
             offset -= layer.frame.size.width;
         }
         frame = layer.frame;
@@ -154,6 +154,9 @@
 - (void)mouseUp:(NSEvent *)theEvent
 {
     CALayer *layer = [self.layer hitTest:NSPointToCGPoint([theEvent locationInWindow])];
+    if (layer == self.logo) {
+        [self backLayerClicked];
+    }
     if ([layer isKindOfClass:CATextLayer.class]) {
         if (self.resetLayer.titleLayer == layer) {
             [self selectResetLayer];
@@ -172,12 +175,18 @@
 
 - (void)highlightCategoryLayer:(HeaderLayer *)layer
 {
+    if (layer.isHighlighted) {
+        return;
+    }
     [self dehighlightAllLayers];
     layer.highlighted = YES;
 }
 
 - (void)highlightResetLayer
 {
+    if (self.resetLayer.isHighlighted) {
+        return;
+    }
     [self dehighlightAllLayers];
     self.resetLayer.highlighted = YES;
 }
@@ -219,6 +228,11 @@
 - (void)resetLayerClicked
 {
     [self.delegate presentationHeaderViewDidClickResetButton:self];
+}
+
+- (void)backLayerClicked
+{
+    [self.delegate presentationHeaderViewDidClickBackButton:self];
 }
 
 @end

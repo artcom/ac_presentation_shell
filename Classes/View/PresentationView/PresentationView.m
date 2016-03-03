@@ -159,6 +159,7 @@
 
 - (void)arrangeSublayer {
     
+    [self.headerView updateLayout];
     [self updateLayout];
     for (CALayer *layer in self.sublayers) {
         [layer removeFromSuperlayer];
@@ -307,6 +308,11 @@
 - (void)presentationHeaderViewDidClickResetButton:(PresentationHeaderView *)headerView
 {
     [self.delegate presentationViewDidClickResetButton:self];
+}
+
+- (void)presentationHeaderViewDidClickBackButton:(PresentationHeaderView *)headerView
+{
+    [self.delegate presentationViewDidClickBackButton:self];
 }
 
 #pragma mark -

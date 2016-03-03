@@ -18,8 +18,7 @@
 
 @property (nonatomic, strong) CALayer *logo;
 @property (nonatomic, strong) NSArray *categoryTitles;
-@property (nonatomic, strong) NSMutableArray *categoryLayers;
-@property (nonatomic, strong) NSTrackingArea *trackingArea;
 
 - (void)updateLayout;
+- (void)showNextSlide:(id)userInfo;
 @end

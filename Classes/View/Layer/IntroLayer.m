@@ -31,7 +31,7 @@
         _defaultFontColor = [NSColor whiteColor];
         _highlightedFontColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
         
-        NSFont *font = [NSFont fontWithName:@"ACSwiss" size:13.0f];
+        NSFont *font = [NSFont fontWithName:@"ACSwiss" size:21.0f];
         _defaultFontAttributes = @{NSFontAttributeName:font,
                                    NSForegroundColorAttributeName:self.defaultFontColor};
         
@@ -45,8 +45,8 @@
 
 - (void)setupLayers
 {
-    self.backgroundColor = NSColor.clearColor.CGColor;
-    self.borderColor = self.defaultBackgroundColor.CGColor;
+    self.backgroundColor = self.defaultBackgroundColor.CGColor;
+    self.borderColor = self.highlightedBackgroundColor.CGColor;
     self.borderWidth = 3.0;
     
     self.titleLayer = [CATextLayer layer];
@@ -62,25 +62,23 @@
 - (void)setDefaultTitle:(NSString *)title
 {
     self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.defaultFontAttributes];
-    CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
-    self.titleLayer.frame = CGRectMake(3.0, 3.0, size.width, size.height);
     [self setNeedsLayout];
 }
 
 - (void)setHighlightedTitle:(NSString *)title
 {
     self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.highlightedFontAttributes];
-    CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
-    self.titleLayer.frame = CGRectMake(3.0, 3.0, size.width, size.height);
     [self setNeedsLayout];
 }
 
-- (CGSize)preferredFrameSize
+- (void)layoutSublayers
 {
-    CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
-    size.width += 6.0;
-    size.height += 6.0;
-    return size;
+    [super layoutSublayers];
+    
+    CGSize titleSize = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
+    CGFloat x = (self.bounds.size.width - titleSize.width) / 2.0;
+    CGFloat y = (self.bounds.size.height - titleSize.height) / 2.0;
+    self.titleLayer.frame = CGRectMake(x, y, titleSize.width, titleSize.height);
 }
 
 - (void)setDefaultBackground
