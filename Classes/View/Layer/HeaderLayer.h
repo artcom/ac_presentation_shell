@@ -11,5 +11,8 @@
 @interface HeaderLayer : CALayer
 
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) CATextLayer *titleLayer;
+@property (nonatomic, strong) CALayer *bottomEdgeLayer;
 @property (nonatomic, assign, getter=isHighlighted) BOOL highlighted;
+@property (nonatomic, assign, getter=isSelected) BOOL selected;
 @end
