@@ -41,7 +41,7 @@
     [self layoutResetLayer];
     [self layoutCategoryLayers];
     [self alignLayers];
-    [self selectLayer];
+    [self updateSelectedLayer];
 }
 
 - (void)layoutResetLayer
@@ -96,7 +96,7 @@
     }
 }
 
-- (void)selectLayer
+- (void)updateSelectedLayer
 {
     NSInteger index = [self.dataSource indexForSelectedCategoryInPresentationHeaderView:self];
     if (index < self.categoryLayers.count) {
