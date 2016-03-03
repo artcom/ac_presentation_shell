@@ -181,12 +181,12 @@
 
 #pragma mark - PresentationIntroView DataSource
 
-- (NSArray *)titlesForCategoriesInPresentationIntroView:(PresentationIntroView *)presentationIntroView
+- (NSArray *)titlesForCategoriesInPresentationIntroView:(PresentationIntroView *)introView
 {
     return [self.categories valueForKeyPath:@"title"];
 }
 
-- (NSArray *)presentationIntroView:(PresentationIntroView *)presentationIntroView imagesForCategoryAtIndex:(NSInteger)index
+- (NSArray *)presentationIntroView:(PresentationIntroView *)introView imagesForCategoryAtIndex:(NSInteger)index
 {
     LibraryCategory *category = self.categories[index];
     return category.backgroundImagePaths;
@@ -194,7 +194,7 @@
 
 #pragma mark - PresentationIntroView Delegate
 
-- (void)presentationIntroView:(PresentationIntroView *)headerView didSelectCategoryAtIndex:(NSInteger)index
+- (void)presentationIntroView:(PresentationIntroView *)introView didSelectCategoryAtIndex:(NSInteger)index
 {
     self.selectedCategory = self.categories[index];
     [self.presentationView arrangeSublayer];

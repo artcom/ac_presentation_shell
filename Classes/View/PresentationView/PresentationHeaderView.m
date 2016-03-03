@@ -57,7 +57,7 @@
     [self.categoryLayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     [self.categoryLayers removeAllObjects];
     
-    _categoryTitles = [self.dataSource titlesForCategoriesInPresentationHeaderView:self];
+    _categoryTitles = [self.dataSource titlesForCategoriesInHeaderView:self];
     for (NSString *title in self.categoryTitles) {
         HeaderLayer *layer = [HeaderLayer layer];
         layer.title = title;
@@ -98,7 +98,7 @@
 
 - (void)updateSelectedLayer
 {
-    NSInteger index = [self.dataSource indexForSelectedCategoryInPresentationHeaderView:self];
+    NSInteger index = [self.dataSource indexForSelectedCategoryInHeaderView:self];
     if (index < self.categoryLayers.count) {
         HeaderLayer *layer = self.categoryLayers[index];
         layer.selected = YES;

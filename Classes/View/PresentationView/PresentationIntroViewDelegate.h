@@ -11,5 +11,5 @@
 @class PresentationIntroView;
 @protocol PresentationIntroViewDelegate <NSObject>
 
-- (void)presentationIntroView:(PresentationIntroView *)headerView didSelectCategoryAtIndex:(NSInteger)index;
+- (void)presentationIntroView:(PresentationIntroView *)introView didSelectCategoryAtIndex:(NSInteger)index;
 @end
