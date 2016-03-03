@@ -10,10 +10,10 @@
 #import "CATextLayer+Calculations.h"
 
 @interface HeaderLayer ()
-@property (nonatomic, strong) NSColor *lightColor;
-@property (nonatomic, strong) NSColor *darkColor;
-@property (nonatomic, strong) NSDictionary *lightFontAttributes;
-@property (nonatomic, strong) NSDictionary *darkFontAttributes;
+@property (nonatomic, strong) NSColor *defaultFontColor;
+@property (nonatomic, strong) NSColor *highlightedFontColor;
+@property (nonatomic, strong) NSDictionary *defaultFontAttributes;
+@property (nonatomic, strong) NSDictionary *highlightedFontAttributes;
 @end
 
 @implementation HeaderLayer
@@ -22,6 +22,17 @@
 {
     self = [super init];
     if (self) {
+        
+        _defaultFontColor = [NSColor colorWithCalibratedRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
+        _highlightedFontColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
+        
+        NSFont *font = [NSFont fontWithName:@"ACSwiss" size:13.0f];
+        _defaultFontAttributes = @{NSFontAttributeName:font,
+                                 NSForegroundColorAttributeName:self.defaultFontColor};
+        
+        _highlightedFontAttributes = @{NSFontAttributeName:font,
+                                NSForegroundColorAttributeName:self.highlightedFontColor};
+        
         [self setupLayers];
     }
     return self;
@@ -37,42 +48,6 @@
     [self addSublayer:self.bottomEdgeLayer];
 }
 
-- (NSColor *)lightColor
-{
-    if (_lightColor == nil) {
-        _lightColor = [NSColor colorWithCalibratedRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
-    }
-    return _lightColor;
-}
-
-- (NSColor *)darkColor
-{
-    if (_darkColor == nil) {
-        _darkColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
-    }
-    return _darkColor;
-}
-
-- (NSDictionary *)lightFontAttributes
-{
-    if (_lightFontAttributes == nil) {
-        NSFont *font = [NSFont fontWithName:@"ACSwiss" size:13.0f];
-        _lightFontAttributes = @{NSFontAttributeName:font,
-                                 NSForegroundColorAttributeName:self.lightColor};
-    }
-    return _lightFontAttributes;
-}
-
-- (NSDictionary *)darkFontAttributes
-{
-    if (_darkFontAttributes == nil) {
-        NSFont *font = [NSFont fontWithName:@"ACSwiss" size:13.0f];
-        _darkFontAttributes = @{NSFontAttributeName:font,
-                                NSForegroundColorAttributeName:self.darkColor};
-    }
-    return _darkFontAttributes;
-}
-
 - (void)setTitle:(NSString *)title
 {
     _title = title;
@@ -81,7 +56,7 @@
 
 - (void)setLightTitle:(NSString *)title
 {
-    self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.lightFontAttributes];
+    self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.defaultFontAttributes];
     CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
     self.titleLayer.frame = CGRectMake(3.0, 3.0, size.width, size.height);
     [self setNeedsLayout];
@@ -89,7 +64,7 @@
 
 - (void)setDarkTitle:(NSString *)title
 {
-    self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.darkFontAttributes];
+    self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.highlightedFontAttributes];
     CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
     self.titleLayer.frame = CGRectMake(3.0, 3.0, size.width, size.height);
     [self setNeedsLayout];
@@ -131,7 +106,7 @@
     
     if (selected) {
         [self setDarkTitle:self.title];
-        self.bottomEdgeLayer.backgroundColor = self.darkColor.CGColor;
+        self.bottomEdgeLayer.backgroundColor = self.highlightedFontColor.CGColor;
     } else {
         [self setLightTitle:self.title];
         self.bottomEdgeLayer.backgroundColor = self.backgroundColor;
