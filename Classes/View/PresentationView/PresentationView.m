@@ -32,7 +32,6 @@
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize page;
-@synthesize mouseTracking;
 @synthesize layout;
 
 -(id) initWithFrame:(NSRect)frameRect {
@@ -59,7 +58,6 @@
     layout = [[GridLayout alloc] init];
     
     self.page = 0;
-    self.mouseTracking = YES;
     
     [self setUpAccessorieViews];
     
@@ -90,7 +88,6 @@
 
 
 - (void) mouseUp:(NSEvent *)theEvent {
-    if (!mouseTracking) return;
     
     NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
     
@@ -112,7 +109,7 @@
 }
 
 - (void)mouseMoved:(NSEvent *)theEvent {
-    if (!self.mouseTracking || ![dataSource respondsToSelector: @selector(presentationView:hoverLayerForItemAtIndex:)]) {
+    if (![dataSource respondsToSelector: @selector(presentationView:hoverLayerForItemAtIndex:)]) {
         return;
     }
     

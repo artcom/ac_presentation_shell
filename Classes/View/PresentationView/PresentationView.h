@@ -17,9 +17,6 @@
 @interface PresentationView : NSView <PresentationHeaderViewDataSource, PresentationHeaderViewDelegate> {
 
 	NSInteger hoveredItem;
-	
-	BOOL mouseTracking;
-	
 	PaginationView *paginationView;
 	NSButton *pageButtons;
 }
@@ -28,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet id <PresentationViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
-@property (assign, nonatomic, getter=isMouseTracking) BOOL mouseTracking;
 @property (strong, nonatomic) CALayer *hoverLayer;
 @property (strong) GridLayout *layout;
 @property (nonatomic, strong) PresentationHeaderView *headerView;

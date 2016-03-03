@@ -250,7 +250,6 @@
     Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
     [self.keynote play:presentation.absolutePresentationPath withDelegate: self];
     [self showActivityForItemAtIndex:index];
-    self.presentationView.mouseTracking = NO;
 }
 
 - (void)showActivityForItemAtIndex:(NSInteger)index {
@@ -287,10 +286,6 @@
 }
 
 - (void)keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
-    
-    [self.presentationView mouseEntered:nil];
-    self.presentationView.mouseTracking = YES;
-    
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     [[self window] makeKeyAndOrderFront:nil];
 }
