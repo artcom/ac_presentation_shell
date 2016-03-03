@@ -16,7 +16,6 @@
 @property (nonatomic, weak) IBOutlet id <PresentationIntroViewDataSource> dataSource;
 @property (nonatomic, weak) IBOutlet id <PresentationIntroViewDelegate> delegate;
 
-@property (nonatomic, strong) CALayer *logo;
 @property (nonatomic, strong) NSArray *categoryTitles;
 
 - (void)updateLayout;

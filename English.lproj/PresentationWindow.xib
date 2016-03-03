@@ -24,7 +24,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="882" height="516"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <customView hidden="YES" wantsLayer="YES" id="sfk-Ce-2yE" customClass="PresentationView">
+                    <customView hidden="YES" id="sfk-Ce-2yE" customClass="PresentationView">
                         <rect key="frame" x="0.0" y="0.0" width="882" height="516"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>
@@ -32,7 +32,7 @@
                             <outlet property="delegate" destination="-2" id="Nnl-I1-F3f"/>
                         </connections>
                     </customView>
-                    <customView wantsLayer="YES" id="hI6-SE-I4f" customClass="PresentationIntroView">
+                    <customView id="hI6-SE-I4f" customClass="PresentationIntroView">
                         <rect key="frame" x="0.0" y="0.0" width="882" height="516"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <connections>

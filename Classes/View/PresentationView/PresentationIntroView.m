@@ -20,6 +20,9 @@
 #define ITEM_HEIGHT_SMALL 46.0
 
 @interface PresentationIntroView ()
+@property (nonatomic, strong) CALayer *logo;
+@property (nonatomic, strong) CALayer *backgroundLayer;
+
 @property (nonatomic, strong) NSMutableArray *categoryLayers;
 @property (nonatomic, strong) NSTrackingArea *trackingArea;
 @property (nonatomic, strong) NSArray *backgroundImages;
@@ -52,9 +55,13 @@
 
 - (void)setupLayers
 {
-    self.wantsLayer = YES;
     self.layer = [CALayer layer];
+    self.wantsLayer = YES;
     self.layer.backgroundColor = [NSColor blackColor].CGColor;
+    
+    self.backgroundLayer = [CALayer layer];
+    self.backgroundLayer.backgroundColor = [NSColor blackColor].CGColor;
+    [self.layer addSublayer:self.backgroundLayer];
     
     NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
     self.logo = [CALayer layer];
@@ -69,8 +76,7 @@
 {
     [self layoutCategoryLayers];
     [self alignLayers];
-    
-    [self startSlideShow];
+    [self setupSlideShow];
 }
 
 - (void)layoutCategoryLayers
@@ -90,6 +96,11 @@
 
 - (void)alignLayers
 {
+    [CATransaction begin];
+    [CATransaction setDisableActions:YES];
+    
+    self.backgroundLayer.frame = self.bounds;
+    
     CGFloat itemSetWidth = (self.categoryLayers.count * ITEM_WIDTH_LARGE) + (ITEM_SPACING * self.categoryLayers.count - 1);
     CGFloat x = (self.bounds.size.width - itemSetWidth) / 2.0;
     CGFloat y = (self.bounds.size.height - ITEM_HEIGHT_LARGE) / 2.0;
@@ -102,6 +113,8 @@
     x = (self.bounds.size.width - self.logo.bounds.size.width) / 2.0;
     y += ITEM_HEIGHT_LARGE + LOGO_BOTTOM_PADDING;
     self.logo.frame = CGRectMake(x, y, self.logo.bounds.size.width, self.logo.bounds.size.height);
+    
+    [CATransaction commit];
 }
 
 #pragma mark - Highlighting
@@ -111,14 +124,8 @@
     if (layer.isHighlighted) {
         return;
     }
-    
     [self dehighlightAllLayers];
     layer.highlighted = YES;
-    
-    NSInteger index = [self.categoryLayers indexOfObject:layer];
-    self.slideShowIndex = index;
-    
-    [self updateBackgroundImageAtCurrentIndex];
 }
 
 - (void)highlightResetLayer
@@ -141,25 +148,24 @@
 
 #pragma mark - Slide show
 
-- (void)startSlideShow
+- (void)setupSlideShow
 {
-    [self.slideShowTimer invalidate];
-    
+    [self stopTimer];
+    [self pickBackgroundImages];
+    self.slideShowIndex = -1;
+    [self showNextSlide:nil];
+    [self startTimer];
+}
+
+- (void)pickBackgroundImages
+{
     NSMutableArray *backgroundImages = [NSMutableArray new];
-    
     for (NSInteger i=0; i < self.categoryTitles.count; i++) {
         NSArray *images = [self.dataSource presentationIntroView:self imagesForCategoryAtIndex:i];
-        [backgroundImages addObject:images.lastObject];
+        NSInteger index = random() % images.count;
+        [backgroundImages addObject:images[index]];
     }
     _backgroundImages = backgroundImages;
-    self.slideShowIndex = 0;
-    [self updateBackgroundImageAtCurrentIndex];
-    
-    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
-                                                           target:self
-                                                         selector:@selector(showNextSlide:)
-                                                         userInfo:nil
-                                                          repeats:YES];
 }
 
 - (void)showNextSlide:(id)userInfo
@@ -168,14 +174,42 @@
     if (self.slideShowIndex >= self.categoryTitles.count) {
         self.slideShowIndex = 0;
     }
+    [self highlightCategoryLayer:self.categoryLayers[self.slideShowIndex]];
     [self updateBackgroundImageAtCurrentIndex];
+}
+
+- (void)showSlideForLayer:(IntroLayer *)layer
+{
+    [self stopTimer];
+    [self highlightCategoryLayer:layer];
+    
+    NSInteger index = [self.categoryLayers indexOfObject:layer];
+    self.slideShowIndex = index;
+    [self updateBackgroundImageAtCurrentIndex];
+    
+    [self startTimer];
 }
 
 - (void)updateBackgroundImageAtCurrentIndex
 {
     NSString *imagePath = self.backgroundImages[self.slideShowIndex];
     NSImage *image = [[NSImage alloc] initWithContentsOfFile:imagePath];
-    self.layer.contents = image;
+    self.backgroundLayer.contents = image;
+}
+
+- (void)startTimer
+{
+    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+                                                           target:self
+                                                         selector:@selector(showNextSlide:)
+                                                         userInfo:nil
+                                                          repeats:YES];
+}
+
+- (void)stopTimer
+{
+    [self.slideShowTimer invalidate];
+    self.slideShowTimer = nil;
 }
 
 #pragma mark - View handling
@@ -220,7 +254,7 @@
         [self dehighlightAllLayers];
     }
     if ([self.categoryLayers containsObject:layer]) {
-        [self highlightCategoryLayer:(IntroLayer *)layer];
+        [self showSlideForLayer:(IntroLayer *)layer];
     }
 }
 
