@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSArray *categoryTitles;
 
 - (void)updateLayout;
+- (void)startSlideShow;
 - (void)stopSlideShow;
 @end

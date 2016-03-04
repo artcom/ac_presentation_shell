@@ -172,7 +172,10 @@
     self.currentBackgroundImage = self.backgroundImages[self.slideShowIndex];
     [self highlightCategoryLayer:self.categoryLayers[self.slideShowIndex]];
     [self updateBackgroundImageAtCurrentIndexAnimated:NO];
-    
+}
+
+- (void)startSlideShow
+{
     [self startFastTimer];
 }
 
