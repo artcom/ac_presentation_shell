@@ -41,7 +41,8 @@
 @synthesize progressBar;
 @synthesize progressText;
 
-- (id) initWithShellController: (ACShellController*) theShellController {
+- (id) initWithShellController: (ACShellController*) theShellController
+{
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
         _shellController = theShellController;
@@ -49,13 +50,10 @@
     return self;
 }
 
-- (void) awakeFromNib {
-    
+- (void)windowDidLoad
+{
     [self.categoryTable registerNib:[[NSNib alloc] initWithNibNamed:@"CategoryCell" bundle:nil] forIdentifier:@"CategoryCell"];
-    
-    [self setGuiValues];
 }
-
 
 - (void) edit: (Presentation*) aPresentation {
     _presentation = aPresentation;
@@ -82,19 +80,19 @@
     if (self.presentation == nil) {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
         [self.shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
-                                                        thumbnailPath: [self.droppedThumbnail filename]
-                                                          keynotePath: [self.droppedKeynote filename]
-                                                          isHighlight: [self.highlightCheckbox intValue]
-                                                                 year: [self.yearField integerValue]
-                                                     progressDelegate: self];
+                                                             thumbnailPath: [self.droppedThumbnail filename]
+                                                               keynotePath: [self.droppedKeynote filename]
+                                                               isHighlight: [self.highlightCheckbox intValue]
+                                                                      year: [self.yearField integerValue]
+                                                          progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
         [self.shellController.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
-                                                  thumbnailPath: [self.droppedThumbnail filename]
-                                                    keynotePath: [self.droppedKeynote filename]
-                                                    isHighlight: [self.highlightCheckbox intValue]
-                                                           year: [self.yearField integerValue]
-                                               progressDelegate: self];
+                                                       thumbnailPath: [self.droppedThumbnail filename]
+                                                         keynotePath: [self.droppedKeynote filename]
+                                                         isHighlight: [self.highlightCheckbox intValue]
+                                                                year: [self.yearField integerValue]
+                                                    progressDelegate: self];
     }
 }
 
@@ -151,7 +149,7 @@
             
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
             [self.shellController.presentationLibrary deletePresentation:self.presentation
-                                                   progressDelegate: self];
+                                                        progressDelegate: self];
             break;
         case NSAlertAlternateReturn:
             break;
@@ -290,6 +288,7 @@
         [editButton setEnabled: NO];
         [yearField setStringValue: @""];
     }
+    [self.categoryTable reloadData];
     [self.deleteButton setHidden: self.presentation == nil];
     [self updateOkButton];
 }
