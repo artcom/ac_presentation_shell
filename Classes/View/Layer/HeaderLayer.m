@@ -26,7 +26,7 @@
         _defaultFontColor = [NSColor colorWithCalibratedRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
         _highlightedFontColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
         
-        NSFont *font = [NSFont fontWithName:@"ACSwiss" size:13.0f];
+        NSFont *font = [NSFont fontWithName:@"OpenSans-Light" size:14.0f];
         _defaultFontAttributes = @{NSFontAttributeName:font,
                                    NSForegroundColorAttributeName:self.defaultFontColor};
         
@@ -58,7 +58,7 @@
 {
     self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.defaultFontAttributes];
     CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
-    self.titleLayer.frame = CGRectMake(3.0, 3.0, size.width, size.height);
+    self.titleLayer.frame = CGRectMake(3.0, 5.0, size.width, size.height);
     [self setNeedsLayout];
 }
 
@@ -66,7 +66,7 @@
 {
     self.titleLayer.string = [[NSAttributedString alloc] initWithString:title.uppercaseString attributes:self.highlightedFontAttributes];
     CGSize size = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(0, CGFLOAT_MAX)];
-    self.titleLayer.frame = CGRectMake(3.0, 3.0, size.width, size.height);
+    self.titleLayer.frame = CGRectMake(3.0, 5.0, size.width, size.height);
     [self setNeedsLayout];
 }
 
@@ -81,8 +81,7 @@
 - (void)layoutSublayers
 {
     [super layoutSublayers];
-    self.bottomEdgeLayer.frame = CGRectMake(0.0, 0.0, self.preferredFrameSize.width, 2.0);
-    self.bounds = CGRectMake(0.0, 0.0, self.preferredFrameSize.width, self.preferredFrameSize.height);
+    self.bottomEdgeLayer.frame = CGRectMake(3.0, 0.0, self.titleLayer.bounds.size.width, 2.0);
 }
 
 - (void)setHighlighted:(BOOL)highlighted
