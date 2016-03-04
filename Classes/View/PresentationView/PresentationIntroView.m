@@ -250,7 +250,7 @@
 
 - (void)startTimer
 {
-    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:3.0
+    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
                                                            target:self
                                                          selector:@selector(showNextSlide:)
                                                          userInfo:nil
