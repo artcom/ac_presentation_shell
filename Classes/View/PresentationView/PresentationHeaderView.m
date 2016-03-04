@@ -27,7 +27,7 @@
     self.layer = [CALayer layer];
     self.layer.backgroundColor = [NSColor whiteColor].CGColor;
     
-    NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
+    NSImage *logoImage = [NSImage imageNamed:@"ac_logo_black"];
     self.logo = [CALayer layer];
     self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
     self.logo.contents = logoImage;

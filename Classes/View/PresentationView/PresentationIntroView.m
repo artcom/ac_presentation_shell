@@ -67,10 +67,7 @@
     self.backgroundLayer.backgroundColor = [NSColor blackColor].CGColor;
     [self.layer addSublayer:self.backgroundLayer];
     
-    NSImage *logoImage = [NSImage imageNamed:@"presentation_logo"];
     self.logo = [CALayer layer];
-    self.logo.frame = CGRectMake(100.0, 100.0, logoImage.size.width, logoImage.size.height);
-    self.logo.contents = logoImage;
     [self.layer addSublayer:self.logo];
     
     _categoryLayers = [NSMutableArray new];
@@ -106,18 +103,32 @@
     [CATransaction commit];
     
     CGSize itemSize = [self preferredItemSize];
-    CGFloat itemSetWidth = (self.categoryLayers.count * itemSize.width) + (ITEM_SPACING * self.categoryLayers.count - 1);
+    CGFloat itemSetWidth = (self.categoryLayers.count * itemSize.width) + (ITEM_SPACING * (self.categoryLayers.count - 1));
     CGFloat x = (self.bounds.size.width - itemSetWidth) / 2.0;
     CGFloat y = (self.bounds.size.height - itemSize.height) / 2.0;
     
     for (IntroLayer *layer in self.categoryLayers) {
         layer.frame = CGRectMake(x, y, itemSize.width, itemSize.height);
-        x += itemSize.width + ITEM_SPACING;
+        x += ITEM_SPACING + itemSize.width;
     }
     
-    x = (self.bounds.size.width - self.logo.bounds.size.width) / 2.0;
+    NSString *logoName = [self logoNameForItemSize:itemSize];
+    NSImage *logoImage = [NSImage imageNamed:logoName];
+    self.logo.contents = logoImage;
+    x = (self.bounds.size.width - logoImage.size.width) / 2.0;
     y += itemSize.height + LOGO_BOTTOM_PADDING;
-    self.logo.frame = CGRectMake(x, y, self.logo.bounds.size.width, self.logo.bounds.size.height);
+    self.logo.frame = CGRectMake(x, y, logoImage.size.width, logoImage.size.height);
+}
+
+- (NSString *)logoNameForItemSize:(CGSize)size
+{
+    NSString *name = @"ac_logo_white_small";
+    if (size.width == ITEM_WIDTH_LARGE) {
+        name = @"ac_logo_white_large";
+    } else if (size.width == ITEM_WIDTH_MEDIUM) {
+        name = @"ac_logo_white_medium";
+    }
+    return name;
 }
 
 - (CGSize)preferredItemSize
