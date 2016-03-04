@@ -67,8 +67,8 @@
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
-    [NSApp beginSheet: progressSheet modalForWindow: [self window] 
-        modalDelegate: self 
+    [NSApp beginSheet: progressSheet modalForWindow: [self window]
+        modalDelegate: self
        didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
           contextInfo: nil];
     [progressBar setIndeterminate: YES];
@@ -120,7 +120,7 @@
 - (IBAction) userWantsToDeletePresentation: (id) sender {
     NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil)
                                       defaultButton: NSLocalizedString(ACSHELL_STR_DELETE, nil)
-                                    alternateButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil) 
+                                    alternateButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil)
                                         otherButton: nil
                           informativeTextWithFormat: @""];
     [alert beginSheetModalForWindow: [self window]
@@ -136,8 +136,8 @@
     
     switch (returnCode) {
         case NSAlertDefaultReturn:
-            [NSApp beginSheet: progressSheet modalForWindow: [self window] 
-                modalDelegate: self 
+            [NSApp beginSheet: progressSheet modalForWindow: [self window]
+                modalDelegate: self
                didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
                   contextInfo: nil];
             [progressBar setIndeterminate: YES];
@@ -147,7 +147,7 @@
             
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
             [shellController.presentationLibrary deletePresentation: presentation
-                                                   progressDelegate: self];            
+                                                   progressDelegate: self];
             break;
         case NSAlertAlternateReturn:
             break;
@@ -191,7 +191,7 @@
             [droppedThumbnail setFilename: [fileURL path]];
             [self userDidDropThumbnail: sender];
         }
-    }];    
+    }];
 }
 
 #pragma mark -
@@ -239,7 +239,7 @@
         [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
         keynoteFileLabel.stringValue = presentation.presentationFilename;
         droppedKeynote.filename = presentation.absolutePresentationPath;
-
+        
         [titleField setStringValue: presentation.title];
         
         droppedThumbnail.filename = presentation.absoluteThumbnailPath;
@@ -247,7 +247,7 @@
         [thumbnailFileLabel setTextColor: droppedThumbnail.fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
         [highlightCheckbox setState: presentation.highlight];
         [yearField setStringValue: presentation.year ? [presentation.year stringValue] : @""];
-
+        
     } else {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
         keynoteFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil);
@@ -266,9 +266,9 @@
 }
 
 - (void) updateOkButton {
-    [okButton setEnabled: [[titleField stringValue] length] > 0 && 
-                          droppedKeynote.fileExists && 
-                          droppedThumbnail.fileExists];
+    [okButton setEnabled: [[titleField stringValue] length] > 0 &&
+     droppedKeynote.fileExists &&
+     droppedThumbnail.fileExists];
 }
 
 - (void) postEditCleanUp {
