@@ -171,6 +171,10 @@
     [self willChangeValueForKey:@"categories"];
     NSArray *categoryNodes = [[self xmlNode] nodesForXPath:@"categories" error:nil];
     NSXMLElement *categoryNode = categoryNodes.lastObject;
+    if (categoryNode == nil) {
+        categoryNode = [NSXMLElement elementWithName: @"categories"];
+        [[self xmlNode] addChild:categoryNode];
+    }
     
     NSMutableArray *children = [NSMutableArray new];
     for (NSString *category in categories) {
