@@ -64,6 +64,19 @@
 		3B9FA6F81C85C58E003D7EE0 /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
 		3B9FA6F91C85C5B8003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
 		3B9FA6FB1C85C62E003D7EE0 /* library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FA6FA1C85C62E003D7EE0 /* library.xml */; };
+		3BAD4FF41C89D9BF00D0CDC7 /* OpenSans-Bold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B38651C89995C00C34D4E /* OpenSans-Bold.ttf */; };
+		3BAD4FF51C89D9BF00D0CDC7 /* OpenSans-BoldItalic.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B38661C89995C00C34D4E /* OpenSans-BoldItalic.ttf */; };
+		3BAD4FF61C89D9BF00D0CDC7 /* OpenSans-CondBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B38671C89995C00C34D4E /* OpenSans-CondBold.ttf */; };
+		3BAD4FF71C89D9BF00D0CDC7 /* OpenSans-CondLight.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B38681C89995C00C34D4E /* OpenSans-CondLight.ttf */; };
+		3BAD4FF81C89D9BF00D0CDC7 /* OpenSans-CondLightItalic.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B38691C89995C00C34D4E /* OpenSans-CondLightItalic.ttf */; };
+		3BAD4FF91C89D9BF00D0CDC7 /* OpenSans-ExtraBold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B386A1C89995C00C34D4E /* OpenSans-ExtraBold.ttf */; };
+		3BAD4FFA1C89D9BF00D0CDC7 /* OpenSans-ExtraBoldItalic.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B386B1C89995C00C34D4E /* OpenSans-ExtraBoldItalic.ttf */; };
+		3BAD4FFB1C89D9BF00D0CDC7 /* OpenSans-Italic.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B386C1C89995C00C34D4E /* OpenSans-Italic.ttf */; };
+		3BAD4FFC1C89D9BF00D0CDC7 /* OpenSans-Light.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B386D1C89995C00C34D4E /* OpenSans-Light.ttf */; };
+		3BAD4FFD1C89D9BF00D0CDC7 /* OpenSans-LightItalic.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B386E1C89995C00C34D4E /* OpenSans-LightItalic.ttf */; };
+		3BAD4FFE1C89D9BF00D0CDC7 /* OpenSans-Regular.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B386F1C89995C00C34D4E /* OpenSans-Regular.ttf */; };
+		3BAD4FFF1C89D9BF00D0CDC7 /* OpenSans-Semibold.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B38701C89995C00C34D4E /* OpenSans-Semibold.ttf */; };
+		3BAD50001C89D9BF00D0CDC7 /* OpenSans-SemiboldItalic.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3B9B38711C89995C00C34D4E /* OpenSans-SemiboldItalic.ttf */; };
 		3BE52F811C886E3400F1D2B7 /* PresentationIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */; };
 		3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F891C8875B300F1D2B7 /* IntroLayer.m */; };
 		630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */; };
@@ -122,6 +135,19 @@
 			dstPath = Fonts;
 			dstSubfolderSpec = 7;
 			files = (
+				3BAD4FF41C89D9BF00D0CDC7 /* OpenSans-Bold.ttf in CopyFiles */,
+				3BAD4FF51C89D9BF00D0CDC7 /* OpenSans-BoldItalic.ttf in CopyFiles */,
+				3BAD4FF61C89D9BF00D0CDC7 /* OpenSans-CondBold.ttf in CopyFiles */,
+				3BAD4FF71C89D9BF00D0CDC7 /* OpenSans-CondLight.ttf in CopyFiles */,
+				3BAD4FF81C89D9BF00D0CDC7 /* OpenSans-CondLightItalic.ttf in CopyFiles */,
+				3BAD4FF91C89D9BF00D0CDC7 /* OpenSans-ExtraBold.ttf in CopyFiles */,
+				3BAD4FFA1C89D9BF00D0CDC7 /* OpenSans-ExtraBoldItalic.ttf in CopyFiles */,
+				3BAD4FFB1C89D9BF00D0CDC7 /* OpenSans-Italic.ttf in CopyFiles */,
+				3BAD4FFC1C89D9BF00D0CDC7 /* OpenSans-Light.ttf in CopyFiles */,
+				3BAD4FFD1C89D9BF00D0CDC7 /* OpenSans-LightItalic.ttf in CopyFiles */,
+				3BAD4FFE1C89D9BF00D0CDC7 /* OpenSans-Regular.ttf in CopyFiles */,
+				3BAD4FFF1C89D9BF00D0CDC7 /* OpenSans-Semibold.ttf in CopyFiles */,
+				3BAD50001C89D9BF00D0CDC7 /* OpenSans-SemiboldItalic.ttf in CopyFiles */,
 				22A3B65211E71F48003DE847 /* acswisslight.ttf in CopyFiles */,
 				22A3B65311E71F48003DE847 /* acswisslightit.ttf in CopyFiles */,
 				22A3B65411E71F48003DE847 /* acswissmed.ttf in CopyFiles */,
