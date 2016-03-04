@@ -27,9 +27,10 @@ fi
 
 # Remove old TMP_PACKAGE_DIR, leave out 'f' to be safe
 rm -Rf $TMP_PACKAGE_DIR
+mkdir $TMP_PACKAGE_DIR
 
 # Copy product to temp package destination
-ditto $2 $TMP_PACKAGE_DIR/ACShell.app
+ditto '$2' $TMP_PACKAGE_DIR/ACShell.app
 
 # Create DMG
 ./dmg_utils/create-dmg --window-size 550 350 --background installer_background.png --icon-size 96 --volname $1 --app-drop-link 430 168 --icon "ACShell" 130 168 $1.dmg $TMP_PACKAGE_DIR/
