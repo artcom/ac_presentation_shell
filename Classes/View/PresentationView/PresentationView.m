@@ -34,18 +34,9 @@
 @synthesize page;
 @synthesize layout;
 
--(id) initWithFrame:(NSRect)frameRect {
-    self = [super initWithFrame:frameRect];
-    if (self != nil) {
-        [self setupView];
-    }
-    return self;
-}
-
 - (void)awakeFromNib {
     [self setupView];
 }
-
 
 - (void)setupView {
     CALayer *rootLayer=[CALayer layer];
