@@ -14,11 +14,11 @@
 @class KeynoteDropper;
 @class NSImageViewWithDroppedFilename;
 
-@interface EditWindowController : NSWindowController <ProgressDelegateProtocol, NSTextFieldDelegate>
-{
-    Presentation *presentation;
-    ACShellController *shellController;
-}
+@interface EditWindowController : NSWindowController
+<ProgressDelegateProtocol, NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
+
+@property (nonatomic, strong) Presentation *presentation;
+@property (nonatomic, strong) ACShellController *shellController;
 
 @property (weak, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
 @property (weak, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet NSButton * editButton;
 
 @property (weak, nonatomic) IBOutlet NSTextField * titleField;
+@property (weak, nonatomic) IBOutlet NSTableView *categoryTable;
 
 @property (weak, nonatomic) IBOutlet NSTextField * yearField;
 @property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;

@@ -50,6 +50,8 @@
 		3B9B387C1C89995C00C34D4E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B386F1C89995C00C34D4E /* OpenSans-Regular.ttf */; };
 		3B9B387D1C89995C00C34D4E /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B38701C89995C00C34D4E /* OpenSans-Semibold.ttf */; };
 		3B9B387E1C89995C00C34D4E /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B38711C89995C00C34D4E /* OpenSans-SemiboldItalic.ttf */; };
+		3B9B38811C89B2FD00C34D4E /* CategoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9B38801C89B2FD00C34D4E /* CategoryCell.m */; };
+		3B9B38841C89B6B600C34D4E /* CategoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B38821C89B6B600C34D4E /* CategoryCell.xib */; };
 		3B9FA6CA1C85C07E003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
 		3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */; };
 		3B9FA6F01C85C478003D7EE0 /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
@@ -207,6 +209,9 @@
 		3B9B386F1C89995C00C34D4E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Regular.ttf"; path = "Resources/Fonts/OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		3B9B38701C89995C00C34D4E /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-Semibold.ttf"; path = "Resources/Fonts/OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
 		3B9B38711C89995C00C34D4E /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "OpenSans-SemiboldItalic.ttf"; path = "Resources/Fonts/OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		3B9B387F1C89B2FD00C34D4E /* CategoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryCell.h; sourceTree = "<group>"; };
+		3B9B38801C89B2FD00C34D4E /* CategoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryCell.m; sourceTree = "<group>"; };
+		3B9B38831C89B6B600C34D4E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CategoryCell.xib; sourceTree = "<group>"; };
 		3B9FA6C81C85C07E003D7EE0 /* LibraryCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryCategory.h; sourceTree = "<group>"; };
 		3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryCategory.m; sourceTree = "<group>"; };
 		3B9FA6E81C85C46A003D7EE0 /* ACShellTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ACShellTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -491,6 +496,8 @@
 				22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */,
 				639043EE12075DFC0061D215 /* PublicKeyDraglet.h */,
 				639043EF12075DFC0061D215 /* PublicKeyDraglet.m */,
+				3B9B387F1C89B2FD00C34D4E /* CategoryCell.h */,
+				3B9B38801C89B2FD00C34D4E /* CategoryCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -552,6 +559,7 @@
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
 				63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */,
 				63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */,
+				3B9B38821C89B6B600C34D4E /* CategoryCell.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -724,6 +732,7 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				en,
+				English,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* ACShell */;
 			projectDirPath = "";
@@ -768,6 +777,7 @@
 				3B9B387E1C89995C00C34D4E /* OpenSans-SemiboldItalic.ttf in Resources */,
 				3B9B38751C89995C00C34D4E /* OpenSans-CondLight.ttf in Resources */,
 				6366035111F2305300D6DD96 /* icn_highlight.png in Resources */,
+				3B9B38841C89B6B600C34D4E /* CategoryCell.xib in Resources */,
 				6366050411F2EF0D00D6DD96 /* PreferencePages.xib in Resources */,
 				3B9B38771C89995C00C34D4E /* OpenSans-ExtraBold.ttf in Resources */,
 				3B9B387B1C89995C00C34D4E /* OpenSans-LightItalic.ttf in Resources */,
@@ -828,6 +838,7 @@
 				22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */,
 				22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */,
 				22B2000D11D9EECE00C6D9ED /* PresentationView.m in Sources */,
+				3B9B38811C89B2FD00C34D4E /* CategoryCell.m in Sources */,
 				3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */,
 				22B200B911DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m in Sources */,
 				22B2019911DA365B00C6D9ED /* GridLayout.m in Sources */,
@@ -895,6 +906,14 @@
 				22EF9E7811D8EE4600E91DF0 /* English */,
 			);
 			name = PresentationWindow.xib;
+			sourceTree = "<group>";
+		};
+		3B9B38821C89B6B600C34D4E /* CategoryCell.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3B9B38831C89B6B600C34D4E /* English */,
+			);
+			name = CategoryCell.xib;
 			sourceTree = "<group>";
 		};
 		63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */ = {

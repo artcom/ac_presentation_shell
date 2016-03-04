@@ -12,6 +12,7 @@
 #import "PresentationLibrary.h"
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
+#import "CategoryCell.h"
 #import "localized_text_keys.h"
 
 @interface EditWindowController ()
@@ -43,18 +44,21 @@
 - (id) initWithShellController: (ACShellController*) theShellController {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
-        shellController = theShellController;
+        _shellController = theShellController;
     }
     return self;
 }
 
 - (void) awakeFromNib {
+    
+    [self.categoryTable registerNib:[[NSNib alloc] initWithNibNamed:@"CategoryCell" bundle:nil] forIdentifier:@"CategoryCell"];
+    
     [self setGuiValues];
 }
 
 
 - (void) edit: (Presentation*) aPresentation {
-    presentation = aPresentation;
+    _presentation = aPresentation;
     [self setGuiValues];
     [self showWindow: nil];
     [self updateOkButton];
@@ -75,9 +79,9 @@
     [progressBar startAnimation: nil];
     [progressText setStringValue: @""];
     [progressMessage setStringValue: @""];
-    if (presentation == nil) {
+    if (self.presentation == nil) {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
-        [shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
+        [self.shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
                                                         thumbnailPath: [self.droppedThumbnail filename]
                                                           keynotePath: [self.droppedKeynote filename]
                                                           isHighlight: [self.highlightCheckbox intValue]
@@ -85,7 +89,7 @@
                                                      progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
-        [shellController.presentationLibrary updatePresentation: presentation title: [self.titleField stringValue]
+        [self.shellController.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
                                                   thumbnailPath: [self.droppedThumbnail filename]
                                                     keynotePath: [self.droppedKeynote filename]
                                                     isHighlight: [self.highlightCheckbox intValue]
@@ -146,7 +150,7 @@
             [progressMessage setStringValue: @""];
             
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
-            [shellController.presentationLibrary deletePresentation: presentation
+            [self.shellController.presentationLibrary deletePresentation:self.presentation
                                                    progressDelegate: self];
             break;
         case NSAlertAlternateReturn:
@@ -206,6 +210,31 @@
 }
 
 #pragma mark -
+#pragma mark NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return self.shellController.presentationLibrary.categories.count;
+}
+
+#pragma mark -
+#pragma mark NSTableViewDelegate
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    LibraryCategory *category = self.shellController.presentationLibrary.categories[row];
+    CategoryCell *cell = [tableView makeViewWithIdentifier:@"CategoryCell" owner:self];
+    cell.checkbox.title = category.title;
+    
+    if ([self.presentation.categories containsObject:category]) {
+        [cell.checkbox setState:NSOnState];
+    } else {
+        [cell.checkbox setState:NSOffState];
+    }
+    return cell;
+}
+
+#pragma mark -
 #pragma mark Progress Sheet Methods
 
 - (void) operationDidFinish {
@@ -232,21 +261,21 @@
 #pragma mark Private Methods
 
 - (void) setGuiValues {
-    if (presentation) {
+    if (self.presentation) {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_EDIT_WIN_TITLE, nil)];
-        BOOL fileExists = presentation.presentationFileExists;
+        BOOL fileExists = self.presentation.presentationFileExists;
         [editButton setEnabled: fileExists];
         [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
-        keynoteFileLabel.stringValue = presentation.presentationFilename;
-        droppedKeynote.filename = presentation.absolutePresentationPath;
+        keynoteFileLabel.stringValue = self.presentation.presentationFilename;
+        droppedKeynote.filename = self.presentation.absolutePresentationPath;
         
-        [titleField setStringValue: presentation.title];
+        [titleField setStringValue: self.presentation.title];
         
-        droppedThumbnail.filename = presentation.absoluteThumbnailPath;
-        thumbnailFileLabel.stringValue = presentation.thumbnailFilename;
+        droppedThumbnail.filename = self.presentation.absoluteThumbnailPath;
+        thumbnailFileLabel.stringValue = self.presentation.thumbnailFilename;
         [thumbnailFileLabel setTextColor: droppedThumbnail.fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
-        [highlightCheckbox setState: presentation.highlight];
-        [yearField setStringValue: presentation.year ? [presentation.year stringValue] : @""];
+        [highlightCheckbox setState: self.presentation.highlight];
+        [yearField setStringValue: self.presentation.year ? [self.presentation.year stringValue] : @""];
         
     } else {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
@@ -261,7 +290,7 @@
         [editButton setEnabled: NO];
         [yearField setStringValue: @""];
     }
-    [self.deleteButton setHidden: presentation == nil];
+    [self.deleteButton setHidden: self.presentation == nil];
     [self updateOkButton];
 }
 
@@ -273,7 +302,7 @@
 
 - (void) postEditCleanUp {
     [self close];
-    presentation = nil;
+    self.presentation = nil;
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj
