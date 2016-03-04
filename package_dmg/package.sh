@@ -4,7 +4,7 @@
 # This script can't position icons correctly
 # if the Finder is showing hidden files.
 
-TMP_PACKAGE_DIR="src"
+TMP_PACKAGE_DIR="./tmp_package_dir"
 
 function printHelp
 {
