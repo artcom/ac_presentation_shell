@@ -12,10 +12,11 @@
 #import "PresentationLibrary.h"
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
-#import "CategoryCell.h"
 #import "localized_text_keys.h"
 
 @interface EditWindowController ()
+
+@property (nonatomic) NSMutableArray *selectedCategories;
 
 - (void) postEditCleanUp;
 - (void) setGuiValues;
@@ -46,6 +47,7 @@
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
         _shellController = theShellController;
+        _selectedCategories = [NSMutableArray new];
     }
     return self;
 }
@@ -84,6 +86,7 @@
                                                                keynotePath: [self.droppedKeynote filename]
                                                                isHighlight: [self.highlightCheckbox intValue]
                                                                       year: [self.yearField integerValue]
+                                                                categories: self.selectedCategories
                                                           progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
@@ -92,6 +95,7 @@
                                                          keynotePath: [self.droppedKeynote filename]
                                                          isHighlight: [self.highlightCheckbox intValue]
                                                                 year: [self.yearField integerValue]
+                                                          categories: self.selectedCategories
                                                     progressDelegate: self];
     }
 }
@@ -222,14 +226,30 @@
 {
     LibraryCategory *category = self.shellController.presentationLibrary.categories[row];
     CategoryCell *cell = [tableView makeViewWithIdentifier:@"CategoryCell" owner:self];
+    cell.delegate = self;
     cell.checkbox.title = category.title;
-    
-    if ([self.presentation.categories containsObject:category]) {
+    cell.index = row;
+    if ([self.presentation.categories containsObject:category.ID]) {
         [cell.checkbox setState:NSOnState];
     } else {
         [cell.checkbox setState:NSOffState];
     }
     return cell;
+}
+
+#pragma mark -
+#pragma mark - CategoryCellDelegate
+
+- (void)categoryCellDidCheck:(CategoryCell *)cell withIndex:(NSInteger)index
+{
+    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    [self.selectedCategories addObject:category];
+}
+
+- (void)categoryCellDidUncheck:(CategoryCell *)cell withIndex:(NSInteger)index
+{
+    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    [self.selectedCategories removeObject:category];
 }
 
 #pragma mark -
@@ -260,6 +280,12 @@
 
 - (void) setGuiValues {
     if (self.presentation) {
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.categories];
+        NSArray *categories = [self.shellController.presentationLibrary.categories filteredArrayUsingPredicate:predicate];
+        [self.selectedCategories removeAllObjects];
+        [self.selectedCategories addObjectsFromArray:categories];
+        
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_EDIT_WIN_TITLE, nil)];
         BOOL fileExists = self.presentation.presentationFileExists;
         [editButton setEnabled: fileExists];
@@ -277,6 +303,7 @@
         
     } else {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
+        [self.selectedCategories removeAllObjects];
         keynoteFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil);
         [keynoteFileLabel setTextColor: [NSColor controlTextColor]];
         droppedKeynote.filename = nil;

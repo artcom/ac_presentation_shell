@@ -127,7 +127,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"presentationId = %@", self.presentationId];
     Presentation *presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
     presentation.title = @"THE NEW TITLE";
-    presentation.categories = @[@2, @1];
+    presentation.categories = @[@"2", @"1"];
     
     self.library.libraryDirPath = self.storageLibraryPath;
     [self.library saveXmlLibrary];

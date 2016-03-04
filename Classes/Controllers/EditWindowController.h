@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
+#import "CategoryCell.h"
 
 @class Presentation;
 @class ACShellController;
@@ -15,7 +16,8 @@
 @class NSImageViewWithDroppedFilename;
 
 @interface EditWindowController : NSWindowController
-<ProgressDelegateProtocol, NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
+<ProgressDelegateProtocol, CategoryCellDelegate,
+NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) Presentation *presentation;
 @property (nonatomic, strong) ACShellController *shellController;

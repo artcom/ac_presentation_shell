@@ -8,7 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol CategoryCellDelegate;
 @interface CategoryCell : NSTableCellView
 
-@property (weak) IBOutlet NSButton *checkbox;
+@property (nonatomic, weak) IBOutlet NSButton *checkbox;
+@property (nonatomic, weak) id <CategoryCellDelegate> delegate;
+@property (nonatomic, assign) NSInteger index;
+@end
+
+@protocol CategoryCellDelegate <NSObject>
+
+- (void)categoryCellDidCheck:(CategoryCell *)cell withIndex:(NSInteger)index;
+- (void)categoryCellDidUncheck:(CategoryCell *)cell withIndex:(NSInteger)index;
 @end

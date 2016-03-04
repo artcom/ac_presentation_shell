@@ -29,7 +29,7 @@
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;
-   
+
 - (NSUInteger)collectionCount;
 
 - (NSXMLElement *) xmlNodeForCategory: (NSString *)aId;
@@ -44,15 +44,17 @@
 
 - (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
-                isHighlight: (BOOL) highlightFlag 
+                isHighlight: (BOOL) highlightFlag
                        year: (NSInteger) year
+                 categories: (NSArray *) categories
            progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void) addPresentationWithTitle: (NSString*) title
-                    thumbnailPath: (NSString*) thumbnail 
+                    thumbnailPath: (NSString*) thumbnail
                       keynotePath: (NSString*) keynote
                       isHighlight: (BOOL) highlightFlag
                              year: (NSInteger) year
+                       categories: (NSArray *) categories
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void) deletePresentation: (Presentation*) presentation

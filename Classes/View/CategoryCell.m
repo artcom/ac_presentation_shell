@@ -10,4 +10,22 @@
 
 @implementation CategoryCell
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.checkbox.target = self;
+    self.checkbox.action = @selector(buttonClicked:);
+}
+
+- (void)buttonClicked:(id)sender
+{
+    if (self.checkbox.state == NSOffState) {
+        [self.delegate categoryCellDidUncheck:self withIndex:self.index];
+    }
+    if (self.checkbox.state == NSOnState) {
+        [self.delegate categoryCellDidCheck:self withIndex:self.index];
+    }
+}
+
 @end

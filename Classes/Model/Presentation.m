@@ -173,9 +173,9 @@
     NSXMLElement *categoryNode = categoryNodes.lastObject;
     
     NSMutableArray *children = [NSMutableArray new];
-    for (NSNumber *category in categories) {
+    for (NSString *category in categories) {
         NSXMLElement *child = [NSXMLElement elementWithName: @"category"];
-        [child setStringValue:category.stringValue];
+        [child setStringValue:category];
         [children addObject:child];
     }
     [categoryNode setChildren:children];

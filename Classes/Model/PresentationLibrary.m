@@ -275,6 +275,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
                       keynotePath: (NSString*) keynote
                       isHighlight: (BOOL) highlightFlag
                              year: (NSInteger) year
+                       categories: (NSArray *) categories
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
     NSString * newId = [NSString stringWithUUID];
@@ -306,6 +307,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     p.year = [NSNumber numberWithInteger: year];
     p.presentationFilename = [keynote lastPathComponent];
     p.thumbnailFilename = [thumbnail lastPathComponent];
+    p.categories = [categories valueForKeyPath:@"ID"];
     
     [self.allPresentations insertObject: p atIndex:0];
     [self updateIndices: self.allPresentations];
@@ -329,6 +331,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
                 isHighlight: (BOOL) highlightFlag
                        year: (NSInteger) year
+                 categories: (NSArray *) categories
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
     BOOL xmlChanged = NO;
@@ -384,6 +387,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
                                                      error: &error];
             presentation.directory = newDir;
         }
+    }
+    if ( ![categories isEqual: presentation.categories]) {
+        presentation.categories = [categories valueForKeyPath:@"ID"];
+        xmlChanged = YES;
     }
     self.assetManager = assetMan;
     [self.assetManager run];
