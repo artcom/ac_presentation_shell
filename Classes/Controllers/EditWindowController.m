@@ -16,6 +16,8 @@
 
 @interface EditWindowController ()
 
+@property (nonatomic) NSMutableArray *selectedCategories;
+
 - (void) postEditCleanUp;
 - (void) setGuiValues;
 - (void) updateOkButton;
@@ -40,21 +42,23 @@
 @synthesize progressBar;
 @synthesize progressText;
 
-- (id) initWithShellController: (ACShellController*) theShellController {
+- (id) initWithShellController: (ACShellController*) theShellController
+{
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
-        shellController = theShellController;
+        _shellController = theShellController;
+        _selectedCategories = [NSMutableArray new];
     }
     return self;
 }
 
-- (void) awakeFromNib {
-    [self setGuiValues];
+- (void)windowDidLoad
+{
+    [self.categoryTable registerNib:[[NSNib alloc] initWithNibNamed:@"CategoryCell" bundle:nil] forIdentifier:@"CategoryCell"];
 }
 
-
 - (void) edit: (Presentation*) aPresentation {
-    presentation = aPresentation;
+    _presentation = aPresentation;
     [self setGuiValues];
     [self showWindow: nil];
     [self updateOkButton];
@@ -67,30 +71,32 @@
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
-    [NSApp beginSheet: progressSheet modalForWindow: [self window] 
-        modalDelegate: self 
+    [NSApp beginSheet: progressSheet modalForWindow: [self window]
+        modalDelegate: self
        didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
           contextInfo: nil];
     [progressBar setIndeterminate: YES];
     [progressBar startAnimation: nil];
     [progressText setStringValue: @""];
     [progressMessage setStringValue: @""];
-    if (presentation == nil) {
+    if (self.presentation == nil) {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
-        [shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
-                                                        thumbnailPath: [self.droppedThumbnail filename]
-                                                          keynotePath: [self.droppedKeynote filename]
-                                                          isHighlight: [self.highlightCheckbox intValue]
-                                                                 year: [self.yearField integerValue]
-                                                     progressDelegate: self];
+        [self.shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
+                                                             thumbnailPath: [self.droppedThumbnail filename]
+                                                               keynotePath: [self.droppedKeynote filename]
+                                                               isHighlight: [self.highlightCheckbox intValue]
+                                                                      year: [self.yearField integerValue]
+                                                                categories: self.selectedCategories
+                                                          progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
-        [shellController.presentationLibrary updatePresentation: presentation title: [self.titleField stringValue]
-                                                  thumbnailPath: [self.droppedThumbnail filename]
-                                                    keynotePath: [self.droppedKeynote filename]
-                                                    isHighlight: [self.highlightCheckbox intValue]
-                                                           year: [self.yearField integerValue]
-                                               progressDelegate: self];
+        [self.shellController.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
+                                                       thumbnailPath: [self.droppedThumbnail filename]
+                                                         keynotePath: [self.droppedKeynote filename]
+                                                         isHighlight: [self.highlightCheckbox intValue]
+                                                                year: [self.yearField integerValue]
+                                                          categories: self.selectedCategories
+                                                    progressDelegate: self];
     }
 }
 
@@ -120,7 +126,7 @@
 - (IBAction) userWantsToDeletePresentation: (id) sender {
     NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil)
                                       defaultButton: NSLocalizedString(ACSHELL_STR_DELETE, nil)
-                                    alternateButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil) 
+                                    alternateButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil)
                                         otherButton: nil
                           informativeTextWithFormat: @""];
     [alert beginSheetModalForWindow: [self window]
@@ -136,8 +142,8 @@
     
     switch (returnCode) {
         case NSAlertDefaultReturn:
-            [NSApp beginSheet: progressSheet modalForWindow: [self window] 
-                modalDelegate: self 
+            [NSApp beginSheet: progressSheet modalForWindow: [self window]
+                modalDelegate: self
                didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
                   contextInfo: nil];
             [progressBar setIndeterminate: YES];
@@ -146,8 +152,8 @@
             [progressMessage setStringValue: @""];
             
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
-            [shellController.presentationLibrary deletePresentation: presentation
-                                                   progressDelegate: self];            
+            [self.shellController.presentationLibrary deletePresentation:self.presentation
+                                                        progressDelegate: self];
             break;
         case NSAlertAlternateReturn:
             break;
@@ -191,7 +197,7 @@
             [droppedThumbnail setFilename: [fileURL path]];
             [self userDidDropThumbnail: sender];
         }
-    }];    
+    }];
 }
 
 #pragma mark -
@@ -203,6 +209,47 @@
         [fieldEditor insertNewlineIgnoringFieldEditor:nil];
     }
     return retval;
+}
+
+#pragma mark -
+#pragma mark NSTableViewDataSource
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return self.shellController.presentationLibrary.categories.count;
+}
+
+#pragma mark -
+#pragma mark NSTableViewDelegate
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    LibraryCategory *category = self.shellController.presentationLibrary.categories[row];
+    CategoryCell *cell = [tableView makeViewWithIdentifier:@"CategoryCell" owner:self];
+    cell.delegate = self;
+    cell.checkbox.title = category.title;
+    cell.index = row;
+    if ([self.presentation.categories containsObject:category.ID]) {
+        [cell.checkbox setState:NSOnState];
+    } else {
+        [cell.checkbox setState:NSOffState];
+    }
+    return cell;
+}
+
+#pragma mark -
+#pragma mark - CategoryCellDelegate
+
+- (void)categoryCellDidCheck:(CategoryCell *)cell withIndex:(NSInteger)index
+{
+    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    [self.selectedCategories addObject:category];
+}
+
+- (void)categoryCellDidUncheck:(CategoryCell *)cell withIndex:(NSInteger)index
+{
+    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    [self.selectedCategories removeObject:category];
 }
 
 #pragma mark -
@@ -232,24 +279,31 @@
 #pragma mark Private Methods
 
 - (void) setGuiValues {
-    if (presentation) {
+    if (self.presentation) {
+        
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.categories];
+        NSArray *categories = [self.shellController.presentationLibrary.categories filteredArrayUsingPredicate:predicate];
+        [self.selectedCategories removeAllObjects];
+        [self.selectedCategories addObjectsFromArray:categories];
+        
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_EDIT_WIN_TITLE, nil)];
-        BOOL fileExists = presentation.presentationFileExists;
+        BOOL fileExists = self.presentation.presentationFileExists;
         [editButton setEnabled: fileExists];
         [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
-        keynoteFileLabel.stringValue = presentation.presentationFilename;
-        droppedKeynote.filename = presentation.absolutePresentationPath;
-
-        [titleField setStringValue: presentation.title];
+        keynoteFileLabel.stringValue = self.presentation.presentationFilename;
+        droppedKeynote.filename = self.presentation.absolutePresentationPath;
         
-        droppedThumbnail.filename = presentation.absoluteThumbnailPath;
-        thumbnailFileLabel.stringValue = presentation.thumbnailFilename;
+        [titleField setStringValue: self.presentation.title];
+        
+        droppedThumbnail.filename = self.presentation.absoluteThumbnailPath;
+        thumbnailFileLabel.stringValue = self.presentation.thumbnailFilename;
         [thumbnailFileLabel setTextColor: droppedThumbnail.fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
-        [highlightCheckbox setState: presentation.highlight];
-        [yearField setStringValue: presentation.year ? [presentation.year stringValue] : @""];
-
+        [highlightCheckbox setState: self.presentation.highlight];
+        [yearField setStringValue: self.presentation.year ? [self.presentation.year stringValue] : @""];
+        
     } else {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
+        [self.selectedCategories removeAllObjects];
         keynoteFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil);
         [keynoteFileLabel setTextColor: [NSColor controlTextColor]];
         droppedKeynote.filename = nil;
@@ -261,19 +315,20 @@
         [editButton setEnabled: NO];
         [yearField setStringValue: @""];
     }
-    [self.deleteButton setHidden: presentation == nil];
+    [self.categoryTable reloadData];
+    [self.deleteButton setHidden: self.presentation == nil];
     [self updateOkButton];
 }
 
 - (void) updateOkButton {
-    [okButton setEnabled: [[titleField stringValue] length] > 0 && 
-                          droppedKeynote.fileExists && 
-                          droppedThumbnail.fileExists];
+    [okButton setEnabled: [[titleField stringValue] length] > 0 &&
+     droppedKeynote.fileExists &&
+     droppedThumbnail.fileExists];
 }
 
 - (void) postEditCleanUp {
     [self close];
-    presentation = nil;
+    self.presentation = nil;
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj

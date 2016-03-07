@@ -8,31 +8,26 @@
 
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/QuartzCore.h>
+#import "PresentationHeaderView.h"
 #import "PresentationViewDataSource.h"
 #import "PresentationViewDelegate.h"
 @class GridLayout;
 @class PaginationView;
 
-@interface PresentationView : NSView {
+@interface PresentationView : NSView <PresentationHeaderViewDataSource, PresentationHeaderViewDelegate> {
 
 	NSInteger hoveredItem;
-	NSTrackingRectTag mouseTrackingRectTag;
-	
-	BOOL mouseTracking;
-	
 	PaginationView *paginationView;
 	NSButton *pageButtons;
 }
 
-@property (weak, nonatomic) id <PresentationViewDataSource> dataSource;
-@property (weak, nonatomic) id <PresentationViewDelegate> delegate;
+@property (weak, nonatomic) IBOutlet id <PresentationViewDataSource> dataSource;
+@property (weak, nonatomic) IBOutlet id <PresentationViewDelegate> delegate;
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
-@property (assign, nonatomic, getter=isMouseTracking) BOOL mouseTracking;
 @property (strong, nonatomic) CALayer *hoverLayer;
 @property (strong) GridLayout *layout;
-@property (strong) CALayer *logo;
-
+@property (nonatomic, strong) PresentationHeaderView *headerView;
 
 - (void)arrangeSublayer;
 - (BOOL)hasNextPage;

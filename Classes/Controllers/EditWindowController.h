@@ -8,31 +8,35 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
+#import "CategoryCell.h"
 
 @class Presentation;
 @class ACShellController;
 @class KeynoteDropper;
 @class NSImageViewWithDroppedFilename;
 
-@interface EditWindowController : NSWindowController <ProgressDelegateProtocol, NSTextFieldDelegate>
-{
-    Presentation *presentation;
-    ACShellController *shellController;
-}
+@interface EditWindowController : NSWindowController
+<ProgressDelegateProtocol, CategoryCellDelegate,
+NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
+
+@property (nonatomic, strong) Presentation *presentation;
+@property (nonatomic, strong) ACShellController *shellController;
+
+@property (weak, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
+@property (weak, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
 @property (weak, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
 @property (weak, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
 @property (weak, nonatomic) IBOutlet NSButton * editButton;
 
 @property (weak, nonatomic) IBOutlet NSTextField * titleField;
-@property (weak, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
-@property (weak, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
+@property (weak, nonatomic) IBOutlet NSTableView *categoryTable;
 
-@property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;
 @property (weak, nonatomic) IBOutlet NSTextField * yearField;
+@property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;
 
-@property (weak, nonatomic) IBOutlet NSButton * okButton;
 @property (weak, nonatomic) IBOutlet NSButton * deleteButton;
+@property (weak, nonatomic) IBOutlet NSButton * okButton;
 
 @property (strong, nonatomic) IBOutlet NSWindow* progressSheet;
 @property (weak, nonatomic) IBOutlet NSTextField* progressTitle;
@@ -52,10 +56,7 @@
 - (IBAction) chooseKeynoteFile: (id) sender;
 - (IBAction) chooseThumbnailFile: (id) sender;
 
-
-
 - (void) edit: (Presentation*) aPresentation;
 - (void) add;
-
 
 @end

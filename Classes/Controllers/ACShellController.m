@@ -160,6 +160,7 @@ enum CollectionActionTags {
 }
 
 - (IBAction)play: (id)sender {
+    presentationWindowController.categories = self.presentationLibrary.categories;
 	presentationWindowController.presentations = [self selectedPresentations];
 	[presentationWindowController showWindow:nil];
 }

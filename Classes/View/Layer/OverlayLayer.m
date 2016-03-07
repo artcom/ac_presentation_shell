@@ -7,6 +7,7 @@
 //
 
 #import "OverlayLayer.h"
+#import "CATextLayer+Calculations.h"
 
 const float kLabelPaddingLeftRight = 10.0f;
 const float kLabelPaddingBottom = 8.0f;
@@ -42,19 +43,12 @@ const float kLabelPaddingBottom = 8.0f;
 	return self.titleLayer.string;
 }
 
-- (CGSize)suggestedSizeForString:(NSAttributedString *)attrString constraints:(CGSize)constraints {
-    CTFramesetterRef framesetter = CTFramesetterCreateWithAttributedString((__bridge CFAttributedStringRef)attrString);
-    CGSize fitSize = CTFramesetterSuggestFrameSizeWithConstraints(framesetter, CFRangeMake(0, [attrString length]), NULL, constraints, NULL);
-    CFRelease(framesetter);
-    return fitSize;
-}
-
 - (void)layoutSublayers {
     [super layoutSublayers];
     
     // Size and position text label
     float textLabelWidth = CGRectGetWidth(self.bounds) - kLabelPaddingLeftRight * 2;
-    CGSize fitSize = [self suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(textLabelWidth, CGFLOAT_MAX)];
+    CGSize fitSize = [CATextLayer suggestedSizeForString:self.titleLayer.string constraints:NSMakeSize(textLabelWidth, CGFLOAT_MAX)];
     self.titleLayer.frame = CGRectMake(kLabelPaddingLeftRight, kLabelPaddingBottom, textLabelWidth, fitSize.height - self.titleFont.descender);
 }
 
@@ -70,6 +64,5 @@ const float kLabelPaddingBottom = 8.0f;
 - (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
     return YES;
 }
-
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
+#import "LibraryCategory.h"
 
 @class ACShellCollection;
 @class Presentation;
@@ -17,20 +18,23 @@
 @interface PresentationLibrary : NSObject <NSCoding>
 
 @property (strong) ACShellCollection *library;
+@property (strong) NSArray *categories;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
 @property (strong) NSString *libraryDirPath;
+@property (strong) NSString *categoriesDirectory;
 
 + (id)libraryFromSettingsFile;
 
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;
-   
+
 - (NSUInteger)collectionCount;
 
-- (NSXMLElement*) xmlNode:(id)aId;
-- (void) syncPresentations;
+- (NSXMLElement *) xmlNodeForCategory: (NSString *)aId;
+- (NSXMLElement *)xmlNodeForPresentation:(id)aId;
+- (void)syncPresentations;
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation;
 - (void)cacheThumbnails;
 - (void)flushThumbnailCache;
@@ -40,15 +44,17 @@
 
 - (void) updatePresentation: (Presentation*) presentation title: (NSString*) title
               thumbnailPath: (NSString*) thumbnail keynotePath: (NSString*) keynote
-                isHighlight: (BOOL) highlightFlag 
+                isHighlight: (BOOL) highlightFlag
                        year: (NSInteger) year
+                 categories: (NSArray *) categories
            progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void) addPresentationWithTitle: (NSString*) title
-                    thumbnailPath: (NSString*) thumbnail 
+                    thumbnailPath: (NSString*) thumbnail
                       keynotePath: (NSString*) keynote
                       isHighlight: (BOOL) highlightFlag
                              year: (NSInteger) year
+                       categories: (NSArray *) categories
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void) deletePresentation: (Presentation*) presentation

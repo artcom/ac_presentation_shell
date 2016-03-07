@@ -14,5 +14,7 @@
 @optional
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex: (NSInteger)index; 
 - (void)didUpdatePresentationView: (PresentationView *)aView;
-
+- (void)presentationView:(PresentationView *)aView didSelectCategoryAtIndex:(NSInteger)index;
+- (void)presentationViewDidClickResetButton:(PresentationView *)aView;
+- (void)presentationViewDidClickBackButton:(PresentationView *)aView;
 @end

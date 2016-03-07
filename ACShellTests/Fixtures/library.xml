@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<library>
+  <categories directory="_categories">
+    <category index="2" title="two" directory="002">
+      <assets>
+        <background>picture_1.jpeg</background>
+        <background>picture_2.jpeg</background>
+      </assets>
+    </category>
+    <category index="0" title="zero" directory="000">
+      <assets>
+        <background>picture_1.jpeg</background>
+        <background>picture_2.jpeg</background>
+      </assets>
+    </category>
+    <category index="1" title="one" directory="001">
+      <assets>
+        <background>picture_1.jpeg</background>
+        <background>picture_2.jpeg</background>
+      </assets>
+    </category>
+  </categories>
+  <presentations>
+      <presentation directory="museum_exibition" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">
+          <title>Museum exibition</title>
+          <file>2016_01_exib_muse.key</file>
+          <thumbnail>2016_01_exib_muse.jpg</thumbnail>
+          <year>2015</year>
+          <categories>
+            <category>0</category>
+          </categories>
+      </presentation>
+      <presentation directory="kinetic_sculpture" highlight="true" id="C4FBFA73-27E3-44BB-AA31-99656A750418">
+          <title>KINETIC SCULPTURE</title>
+          <file>001_kinetic_5678.key</file>
+          <thumbnail>_0010_Ebene_Stage.jpg</thumbnail>
+          <year>2008</year>
+          <categories>
+            <category>1</category>
+          </categories>
+      </presentation>
+      <presentation directory="observation_deck" highlight="false" id="B2EE53BC-85E3-4024-B232-21A5C04AD8CA">
+          <title>OBSERVATION DECK</title>
+          <file>deck_with_a_view.key</file>
+          <thumbnail>hteaser_thumb.jpg</thumbnail>
+          <year>2011</year>
+          <categories>
+            <category>0</category>
+            <category>1</category>
+            <category>2</category>
+          </categories>
+      </presentation>
+      <presentation directory="technical_communication_a38" highlight="false" id="C4DA8EF8-3469-48ED-9124-79F3271C5366">
+          <title>Form A38</title>
+          <file>Car_XXL.key</file>
+          <thumbnail>max_06_limo_01.png</thumbnail>
+          <year>2004</year>
+          <categories>
+            <category>1</category>
+          </categories>
+      </presentation>
+      <presentation directory="presentation_promo" highlight="false" id="AAAB6EF8-5830-FD21-9124-79F3271C5366">
+          <title>Promo Title</title>
+          <file>Final_Master.key</file>
+          <thumbnail>final_master_preview.png</thumbnail>
+          <year>2016</year>
+          <categories>
+            <category>1</category>
+          </categories>
+      </presentation>
+  </presentations>
+</library>

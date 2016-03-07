@@ -25,7 +25,6 @@
 		self.presentationId = theId;
         self.order = -1;
 	}
-	
 	return self;
 }
 
@@ -167,6 +166,42 @@
 	return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
 }
 
+- (void)setCategories:(NSArray *)categories
+{
+    [self willChangeValueForKey:@"categories"];
+    NSArray *categoryNodes = [[self xmlNode] nodesForXPath:@"categories" error:nil];
+    NSXMLElement *categoryNode = categoryNodes.lastObject;
+    if (categoryNode == nil) {
+        categoryNode = [NSXMLElement elementWithName: @"categories"];
+        [[self xmlNode] addChild:categoryNode];
+    }
+    
+    NSMutableArray *children = [NSMutableArray new];
+    for (NSString *category in categories) {
+        NSXMLElement *child = [NSXMLElement elementWithName: @"category"];
+        [child setStringValue:category];
+        [children addObject:child];
+    }
+    [categoryNode setChildren:children];
+    [self didChangeValueForKey:@"categories"];
+}
+
+- (NSArray *)categories {
+    NSXMLNode *root = [[self.xmlNode nodesForXPath:@"categories" error:nil] lastObject];
+    return [root.children valueForKeyPath:@"stringValue"];
+}
+
+- (NSString *)categoriesTitles
+{
+    NSMutableArray *titles = [NSMutableArray new];
+    for (LibraryCategory *category in self.context.categories) {
+        if ([self.categories containsObject:category.ID]) {
+            [titles addObject:category.title];
+        }
+    }
+    return [titles componentsJoinedByString:@", "];
+}
+
 - (BOOL) isEqual:(id)object {
 	if (![object isKindOfClass:[self class]]) {
 		return NO;
@@ -188,7 +223,7 @@
 
 
 - (NSXMLElement*) xmlNode {
-	return [context xmlNode: presentationId];
+	return [context xmlNodeForPresentation: presentationId];
 }
 
 - (NSComparisonResult) compareByOrder: (Presentation*) other {
