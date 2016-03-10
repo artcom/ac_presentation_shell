@@ -107,4 +107,15 @@
     }
 }
 
+- (void)setContentsScale:(CGFloat)contentsScale
+{
+    [super setContentsScale:contentsScale];
+    self.titleLayer.contentsScale = contentsScale;
+}
+
+- (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window
+{
+    return YES;
+}
+
 @end

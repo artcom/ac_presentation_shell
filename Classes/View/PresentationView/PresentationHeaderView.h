@@ -16,8 +16,8 @@
 @property (nonatomic, weak) id <PresentationHeaderViewDataSource> dataSource;
 @property (nonatomic, weak) id <PresentationHeaderViewDelegate> delegate;
 
-@property (nonatomic, strong) CALayer *logo;
 @property (nonatomic, strong) NSArray *categoryTitles;
+@property (nonatomic, strong) CALayer *logo;
 @property (nonatomic, strong) NSMutableArray *categoryLayers;
 @property (nonatomic, strong) HeaderLayer *resetLayer;
 

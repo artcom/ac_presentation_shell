@@ -60,12 +60,12 @@
     return YES;
 }
 
-- (float)backingScaleFactor {
+- (CGFloat)backingScaleFactor {
     return [[self window] backingScaleFactor];
 }
 
 - (void)viewDidChangeBackingProperties {
-    float backingScaleFactor = [self backingScaleFactor];
+    CGFloat backingScaleFactor = [self backingScaleFactor];
     self.layer.contentsScale = backingScaleFactor;
     for (CALayer *layer in self.sublayers) {
         layer.contentsScale = backingScaleFactor;
@@ -163,7 +163,7 @@
     for (int i = firstItem; i <= lastItem; i++) {
         CALayer *layer = [dataSource presentationView:self layerForItemAtIndex:i];
         layer.position = [layout positionForItem:i % layout.itemsOnPage];
-        layer.contentsScale = [[self window] backingScaleFactor];
+        layer.contentsScale = [self backingScaleFactor];
         layer.bounds = itemBounds;
         [self.layer addSublayer:layer];
         [self.sublayers addObject:layer];

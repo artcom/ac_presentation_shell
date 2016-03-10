@@ -26,11 +26,13 @@
     self.wantsLayer = YES;
     self.layer = [CALayer layer];
     self.layer.backgroundColor = [NSColor whiteColor].CGColor;
+    self.layer.contentsScale = self.window.backingScaleFactor;
     
     NSImage *logoImage = [NSImage imageNamed:@"ac_logo_black"];
     self.logo = [CALayer layer];
     self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
     self.logo.contents = logoImage;
+    self.logo.contentsScale = self.window.backingScaleFactor;
     [self.layer addSublayer:self.logo];
     
     _categoryLayers = [NSMutableArray new];
@@ -48,6 +50,7 @@
 {
     [self.resetLayer removeFromSuperlayer];
     self.resetLayer = [HeaderLayer layer];
+    self.resetLayer.contentsScale = self.window.backingScaleFactor;
     self.resetLayer.title = @"All";
     [self.layer addSublayer:self.resetLayer];
 }
@@ -62,6 +65,7 @@
         HeaderLayer *layer = [HeaderLayer layer];
         layer.title = title;
         layer.selected = NO;
+        layer.contentsScale = self.window.backingScaleFactor;
         [self.categoryLayers addObject:layer];
         [self.layer addSublayer:layer];
     }
@@ -105,6 +109,22 @@
     } else {
         self.resetLayer.selected = YES;
     }
+}
+
+- (void)viewDidChangeBackingProperties
+{
+    CGFloat backingScaleFactor = self.window.backingScaleFactor;
+    self.layer.contentsScale = backingScaleFactor;
+    self.logo.contentsScale = backingScaleFactor;
+    self.resetLayer.contentsScale = backingScaleFactor;
+    for (CALayer *layer in self.categoryLayers) {
+        layer.contentsScale = backingScaleFactor;
+    }
+}
+
+- (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window
+{
+    return YES;
 }
 
 #pragma mark - Mouse handling

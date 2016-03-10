@@ -62,12 +62,15 @@
     self.layer = [CALayer layer];
     self.wantsLayer = YES;
     self.layer.backgroundColor = [NSColor blackColor].CGColor;
+    self.layer.contentsScale = self.window.backingScaleFactor;
     
     self.backgroundLayer = [CALayer layer];
     self.backgroundLayer.backgroundColor = [NSColor blackColor].CGColor;
+    self.backgroundLayer.contentsScale = self.window.backingScaleFactor;
     [self.layer addSublayer:self.backgroundLayer];
     
     self.logo = [CALayer layer];
+    self.logo.contentsScale = self.window.backingScaleFactor;
     [self.layer addSublayer:self.logo];
     
     _categoryLayers = [NSMutableArray new];
@@ -88,6 +91,7 @@
     _categoryTitles = [self.dataSource titlesForCategoriesInPresentationIntroView:self];
     for (NSString *title in self.categoryTitles) {
         IntroLayer *layer = [IntroLayer layer];
+        layer.contentsScale = self.window.backingScaleFactor;
         layer.title = title;
         layer.highlighted = NO;
         [self.categoryLayers addObject:layer];
@@ -283,6 +287,22 @@
 {
     [self updateLayout];
 }
+
+- (void)viewDidChangeBackingProperties
+{
+    CGFloat backingScaleFactor = self.window.backingScaleFactor;
+    self.layer.contentsScale = backingScaleFactor;
+    self.logo.contentsScale = backingScaleFactor;
+    self.backgroundLayer.contentsScale = backingScaleFactor;
+    for (CALayer *layer in self.categoryLayers) {
+        layer.contentsScale = backingScaleFactor;
+    }
+}
+
+- (BOOL)layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
+    return YES;
+}
+
 
 #pragma mark - Mouse handling
 
