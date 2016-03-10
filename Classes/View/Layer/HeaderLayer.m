@@ -26,7 +26,7 @@
         _defaultFontColor = [NSColor colorWithCalibratedRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
         _highlightedFontColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
         
-        NSFont *font = [NSFont fontWithName:@"OpenSans-Light" size:14.0f];
+        NSFont *font = [NSFont fontWithName:@"LMSansQuot8-Regular" size:13.0f];
         _defaultFontAttributes = @{NSFontAttributeName:font,
                                    NSForegroundColorAttributeName:self.defaultFontColor};
         

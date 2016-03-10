@@ -31,15 +31,15 @@
         _defaultFontColor = [NSColor whiteColor];
         _highlightedFontColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
         
-        NSFont *defaultFont = [NSFont fontWithName:@"OpenSans-Semibold" size:21.0];
+        NSFont *defaultFont = [NSFont fontWithName:@"LMSansQuot8-Regular" size:22.0];
         _defaultFontAttributes = @{NSFontAttributeName:defaultFont,
                                    NSForegroundColorAttributeName:self.defaultFontColor,
-                                   NSKernAttributeName:@2.0};
+                                   NSKernAttributeName:@2.5};
         
-        NSFont *highlightedFont = [NSFont fontWithName:@"OpenSans" size:21.0];
+        NSFont *highlightedFont = [NSFont fontWithName:@"LMSansQuot8-Regular" size:22.0];
         _highlightedFontAttributes = @{NSFontAttributeName:highlightedFont,
                                        NSForegroundColorAttributeName:self.highlightedFontColor,
-                                       NSKernAttributeName:@2.0};
+                                       NSKernAttributeName:@2.5};
         
         [self setupLayers];
     }
