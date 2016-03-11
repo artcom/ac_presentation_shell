@@ -34,12 +34,12 @@
         NSFont *defaultFont = [NSFont fontWithName:@"LMSansQuot8-Regular" size:22.0];
         _defaultFontAttributes = @{NSFontAttributeName:defaultFont,
                                    NSForegroundColorAttributeName:self.defaultFontColor,
-                                   NSKernAttributeName:@2.5};
+                                   NSKernAttributeName:@2.0};
         
         NSFont *highlightedFont = [NSFont fontWithName:@"LMSansQuot8-Regular" size:22.0];
         _highlightedFontAttributes = @{NSFontAttributeName:highlightedFont,
                                        NSForegroundColorAttributeName:self.highlightedFontColor,
-                                       NSKernAttributeName:@2.5};
+                                       NSKernAttributeName:@2.0};
         
         [self setupLayers];
     }
@@ -82,6 +82,7 @@
     CGFloat x = (self.bounds.size.width - titleSize.width) / 2.0;
     CGFloat y = (self.bounds.size.height - titleSize.height) / 2.0;
     self.titleLayer.frame = CGRectMake(x, y, titleSize.width, titleSize.height);
+    self.titleLayer.transform = CATransform3DMakeScale(1.0f, 1.05f, 1.0f);
 }
 
 - (void)setDefaultBackground

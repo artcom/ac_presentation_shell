@@ -26,7 +26,7 @@
         _defaultFontColor = [NSColor colorWithCalibratedRed:0.5725 green:0.5725 blue:0.5725 alpha:1.0];
         _highlightedFontColor = [NSColor colorWithCalibratedRed:0.1372 green:0.1372 blue:0.1372 alpha:1.0];
         
-        NSFont *font = [NSFont fontWithName:@"LMSansQuot8-Regular" size:13.0f];
+        NSFont *font = [NSFont fontWithName:@"LMSansQuot8-Regular" size:14.0f];
         _defaultFontAttributes = @{NSFontAttributeName:font,
                                    NSForegroundColorAttributeName:self.defaultFontColor};
         
@@ -82,6 +82,7 @@
 {
     [super layoutSublayers];
     self.bottomEdgeLayer.frame = CGRectMake(3.0, 0.0, self.titleLayer.bounds.size.width, 2.0);
+    self.titleLayer.transform = CATransform3DMakeScale(1.0f, 1.05f, 1.0f);
 }
 
 - (void)setHighlighted:(BOOL)highlighted
