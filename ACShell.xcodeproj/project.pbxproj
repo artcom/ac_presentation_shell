@@ -34,6 +34,7 @@
 		22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B8DF11F73EC100EE4717 /* RsyncController.m */; };
 		22F2B97E11F7541F00EE4717 /* icn_sync.icns in Resources */ = {isa = PBXBuildFile; fileRef = 22F2B97D11F7541F00EE4717 /* icn_sync.icns */; };
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
+		3B5AD50B1CA3F794001CFFA2 /* lmsansquot8-regular.otf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */; };
 		3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */; };
 		3B8ACC301C8750F0005D7F7A /* HeaderLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2F1C8750F0005D7F7A /* HeaderLayer.m */; };
 		3B8ACC331C875706005D7F7A /* CATextLayer+Calculations.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC321C875706005D7F7A /* CATextLayer+Calculations.m */; };
@@ -51,7 +52,6 @@
 		3B9FA6F81C85C58E003D7EE0 /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
 		3B9FA6F91C85C5B8003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
 		3B9FA6FB1C85C62E003D7EE0 /* library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FA6FA1C85C62E003D7EE0 /* library.xml */; };
-		3BDF55001C91D45E00B2EC6F /* lmsansquot8-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */; };
 		3BE52F811C886E3400F1D2B7 /* PresentationIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */; };
 		3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F891C8875B300F1D2B7 /* IntroLayer.m */; };
 		630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */; };
@@ -110,6 +110,7 @@
 			dstPath = Fonts;
 			dstSubfolderSpec = 7;
 			files = (
+				3B5AD50B1CA3F794001CFFA2 /* lmsansquot8-regular.otf in CopyFiles */,
 				22A3B65211E71F48003DE847 /* acswisslight.ttf in CopyFiles */,
 				22A3B65311E71F48003DE847 /* acswisslightit.ttf in CopyFiles */,
 				22A3B65411E71F48003DE847 /* acswissmed.ttf in CopyFiles */,
@@ -725,7 +726,6 @@
 				6379E79D120C8CAA006A6FEF /* acshell_askpasswd in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				3BDF55001C91D45E00B2EC6F /* lmsansquot8-regular.otf in Resources */,
 				22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */,
 				CD5D24821926525B001AE16E /* Media.xcassets in Resources */,
 				22CE731711EDB15B0043F3C8 /* spinner.png in Resources */,
