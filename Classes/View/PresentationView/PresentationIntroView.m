@@ -191,7 +191,7 @@
 
 - (void)startSlideShow
 {
-    [self startFastTimer];
+    [self startTimer];
 }
 
 - (void)stopSlideShow
@@ -255,15 +255,6 @@
 - (void)startTimer
 {
     self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
-                                                           target:self
-                                                         selector:@selector(showNextSlide:)
-                                                         userInfo:nil
-                                                          repeats:NO];
-}
-
-- (void)startFastTimer
-{
-    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                            target:self
                                                          selector:@selector(showNextSlide:)
                                                          userInfo:nil
