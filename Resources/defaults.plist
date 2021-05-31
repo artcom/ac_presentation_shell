@@ -12,5 +12,7 @@
 	<string></string>
 	<key>rsyncPreserveLocal</key>
 	<false/>
+    <key>rsyncDestination</key>
+    <string></string>
 </dict>
 </plist>

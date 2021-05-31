@@ -754,6 +754,9 @@ enum CollectionActionTags {
 }
 
 - (NSString*) libraryDirPath {
+    if (![[[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION] isEqualToString:@""]) {
+        return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    }
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]
             stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
 }
