@@ -680,7 +680,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "ART+COM AG";
 				TargetAttributes = {
 					3B9FA6E71C85C46A003D7EE0 = {
@@ -698,6 +698,7 @@
 			knownRegions = (
 				en,
 				English,
+				German,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* ACShell */;
 			projectDirPath = "";
