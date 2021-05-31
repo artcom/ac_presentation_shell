@@ -15,3 +15,4 @@
 #define ACSHELL_DEFAULT_KEY_SETUP_DONE @"setupDone"
 #define ACSHELL_DEFAULT_KEY_RSYNC_READ_USER @"rsyncReadUser"
 #define ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER @"rsyncWriteUser"
+#define ACShellLibraryConfigDidChange @"ACShellLibraryConfigDidChange"

@@ -122,6 +122,9 @@ enum CollectionActionTags {
 	
 	[self bind: @"currentPresentationList" toObject:collectionTreeController withKeyPath:@"selection.presentations" options:nil];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(load) name:ACShellLibraryConfigDidChange object:nil];
+    
     rsyncController.documentWindow = self.browserWindow;
     
     [self updateSyncFailedWarning];
@@ -145,7 +148,6 @@ enum CollectionActionTags {
     self.userSortDescriptor = sortDescriptor;
     [presentationTable setSortDescriptors:@[self.userSortDescriptor]];
 }
-
 
 -(void) load {
 	[collectionView deselectAll:self];

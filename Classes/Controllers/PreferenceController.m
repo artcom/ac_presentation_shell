@@ -57,6 +57,8 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
             [[NSUserDefaults standardUserDefaults] setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:ACShellLibraryConfigDidChange object:nil];
         }
     }
 }
