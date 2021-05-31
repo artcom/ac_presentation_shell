@@ -14,7 +14,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="23"/>
         <customView id="67" userLabel="Advanced Preferences">
             <rect key="frame" x="0.0" y="0.0" width="500" height="162"/>
@@ -71,7 +71,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JsQ-6q-jVZ" userLabel="Ziel">
-                    <rect key="frame" x="85" y="20" width="395" height="22"/>
+                    <rect key="frame" x="85" y="20" width="310" height="22"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="UEu-qN-EXo">
                         <font key="font" metaFont="system"/>
@@ -82,6 +82,17 @@
                         <binding destination="23" name="value" keyPath="values.rsyncDestination" id="Z5K-ky-TB1"/>
                     </connections>
                 </textField>
+                <button verticalHuggingPriority="750" id="BK8-Zz-nuk">
+                    <rect key="frame" x="397" y="14" width="96" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="push" title="Ändern..." bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Isd-xe-Unr">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="changeDestination:" target="-2" id="dh3-9Z-95q"/>
+                    </connections>
+                </button>
             </subviews>
             <point key="canvasLocation" x="132" y="163"/>
         </customView>

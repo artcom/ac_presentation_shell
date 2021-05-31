@@ -19,5 +19,6 @@
 @property (weak, nonatomic) IBOutlet NSButtonCell* showEditWindowOption;
 
 - (IBAction) showWindow: (id) sender;
+- (IBAction)changeDestination:(id)sender;
 
 @end

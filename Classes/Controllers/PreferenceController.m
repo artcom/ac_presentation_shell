@@ -43,4 +43,22 @@
     [windowController showWindow: sender];
 }
 
+- (IBAction)changeDestination:(id)sender {
+    NSOpenPanel *dialog = [NSOpenPanel new];
+    dialog.showsResizeIndicator = YES;
+    dialog.showsHiddenFiles = YES;
+    dialog.allowsMultipleSelection = NO;
+    dialog.canChooseFiles = NO;
+    dialog.canChooseDirectories = YES;
+
+    if ([dialog runModal] ==  NSModalResponseOK) {
+        NSString *path = dialog.URL.path;
+        if (path != nil) {
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [[NSUserDefaults standardUserDefaults] setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    }
+}
+
 @end
