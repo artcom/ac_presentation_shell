@@ -80,7 +80,6 @@
 {
     [self layoutCategoryLayers];
     [self alignLayers];
-    [self setupSlideShow];
 }
 
 - (void)layoutCategoryLayers
@@ -191,7 +190,8 @@
 
 - (void)startSlideShow
 {
-    [self startFastTimer];
+    [self setupSlideShow];
+    [self startTimer];
 }
 
 - (void)stopSlideShow
@@ -204,7 +204,7 @@
     NSMutableArray *backgroundImages = [NSMutableArray new];
     for (NSInteger i=0; i < self.categoryTitles.count; i++) {
         NSArray *images = [self.dataSource presentationIntroView:self imagesForCategoryAtIndex:i];
-        NSInteger index = random() % images.count;
+        NSInteger index = arc4random_uniform(images.count);
         [backgroundImages addObject:images[index]];
     }
     _backgroundImages = backgroundImages;
@@ -255,15 +255,6 @@
 - (void)startTimer
 {
     self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:5.0
-                                                           target:self
-                                                         selector:@selector(showNextSlide:)
-                                                         userInfo:nil
-                                                          repeats:NO];
-}
-
-- (void)startFastTimer
-{
-    self.slideShowTimer = [NSTimer scheduledTimerWithTimeInterval:0.5
                                                            target:self
                                                          selector:@selector(showNextSlide:)
                                                          userInfo:nil
