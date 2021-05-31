@@ -14,7 +14,7 @@
 @property (nonatomic, assign) SKIndexRef index;
 @property (nonatomic, strong) NSString *query;
 @property (nonatomic, assign) int maxNumResults;
-@property (nonatomic, readwrite, strong) NSMutableArray *results;
+@property (atomic, readwrite, strong) NSMutableArray *results;
 @end
 
 

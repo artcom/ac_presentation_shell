@@ -14,7 +14,7 @@
 @class GridLayout;
 @class PaginationView;
 
-@interface PresentationView : NSView <PresentationHeaderViewDataSource, PresentationHeaderViewDelegate> {
+@interface PresentationView : NSView <PresentationHeaderViewDataSource, PresentationHeaderViewDelegate, CALayerDelegate> {
 
 	NSInteger hoveredItem;
 	PaginationView *paginationView;

@@ -10,7 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 
-@interface OverlayLayer : CALayer
+@interface OverlayLayer : CALayer<CALayerDelegate>
 
 @property (copy) NSString *text;
 
