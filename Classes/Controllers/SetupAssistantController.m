@@ -362,6 +362,8 @@ enum PageTags {
         [[NSUserDefaults standardUserDefaults] setValue: server.writeUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];        
     } else {
         rsyncSource = [rsyncSourceEntry stringValue];
+        [[NSUserDefaults standardUserDefaults] setValue: ACShellRsyncReadUserDefault forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
+        [[NSUserDefaults standardUserDefaults] setValue: ACShellRsyncWriteUserDefault forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];
     }
     
     [[NSUserDefaults standardUserDefaults] setValue: rsyncSource forKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
