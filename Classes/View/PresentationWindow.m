@@ -11,7 +11,7 @@
 @implementation PresentationWindow
 
 - (void)awakeFromNib {
-	[self setStyleMask:NSBorderlessWindowMask];
+    [self setStyleMask:NSWindowStyleMaskBorderless];
 	[self setAcceptsMouseMovedEvents:YES];
 	[self makeFirstResponder:self];
 }

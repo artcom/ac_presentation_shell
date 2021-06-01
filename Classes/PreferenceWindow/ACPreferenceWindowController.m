@@ -124,7 +124,7 @@
     NSPanel * panel = [[NSPanel alloc] init];
     [panel setHidesOnDeactivate:NO];
     [panel setShowsToolbarButton: NO];
-    [panel setStyleMask: [panel styleMask] | NSMiniaturizableWindowMask];
+    [panel setStyleMask: [panel styleMask] | NSWindowStyleMaskMiniaturizable];
     NSRect frame = [panel frame];
     frame.size.width = 600;
     [panel setFrame: frame display: NO];

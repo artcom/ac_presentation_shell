@@ -373,7 +373,7 @@ enum CollectionActionTags {
 - (void) userDidHidePresentationColumn: (id) sender {
     NSTableColumn * column = [sender representedObject];
     [column setHidden: ! [column isHidden]];
-    [sender setState: [column isHidden] ? NSOffState : NSOnState];
+    [sender setState: [column isHidden] ? NSControlStateValueOff : NSControlStateValueOn];
 }
 
 - (BOOL) isPresentationRemovable {
@@ -850,7 +850,7 @@ enum CollectionActionTags {
                                             action: @selector(userDidHidePresentationColumn:)
                                      keyEquivalent: @""];
         [item setTarget: self];
-        [item setState: [c isHidden] ? NSOffState : NSOnState];
+        [item setState: [c isHidden] ? NSControlStateValueOff : NSControlStateValueOn];
         [item setRepresentedObject: c];
     }
     [[presentationTable headerView] setMenu: menu];

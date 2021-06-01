@@ -65,7 +65,7 @@ static NSImage * ourUploadIcon = nil;
     self.isUploading = NO;
     NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_SYNC_LIB_NOW
                                      informationalText: ACSHELL_STR_GOOD_CONNECTION
-                                                 style: NSInformationalAlertStyle
+                                                 style: NSAlertStyleInformational
                                                   icon: [self directionIcon] 
 												buttonTitles: nil];
 
@@ -132,7 +132,7 @@ static NSImage * ourUploadIcon = nil;
         }
         NSAlert * ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_SYNC_FAILED
                                          informationalText: error
-                                                     style: NSWarningAlertStyle
+                                                     style: NSAlertStyleWarning
                                                       icon: [NSImage imageNamed: NSImageNameCaution]];
         [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
             [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
@@ -180,7 +180,7 @@ static NSImage * ourUploadIcon = nil;
     if (returnCode == NSAlertFirstButtonReturn) {
         NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_ABORT_SYNC 
                                          informationalText: ACSHELL_STR_ABORT_SYNC_WARNING 
-                                                     style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution] 
+                                                     style: NSAlertStyleWarning icon: [NSImage imageNamed: NSImageNameCaution] 
 											  buttonTitles: [NSArray arrayWithObjects: ACSHELL_STR_ABORT, ACSHELL_STR_CONTINUE_SYNC, nil]];
         [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
             [self userDidConfirmAbort:confirm returnCode:returnCode contextInfo:nil];
@@ -275,7 +275,7 @@ static NSImage * ourUploadIcon = nil;
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
     [dialog setMessageText: NSLocalizedString(ACSHELL_STR_SYNCING,nil)];
     [dialog setInformativeText: NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE,nil)];
-    [dialog setAlertStyle: NSWarningAlertStyle];
+    [dialog setAlertStyle: NSAlertStyleWarning];
     [dialog setIcon: [self directionIcon]];
     
     [dialog setAccessoryView: progressView];

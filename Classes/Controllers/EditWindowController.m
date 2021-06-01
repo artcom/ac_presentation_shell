@@ -177,7 +177,7 @@
     [chooser setCanChooseDirectories: NO];
     [chooser setAllowedFileTypes: [NSArray arrayWithObject: @"key"]];
     [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
             [droppedKeynote setFilename: [fileURL path]];
             [self userDidDropKeynote: sender];
@@ -192,7 +192,7 @@
     [chooser setCanChooseDirectories: NO];
     [chooser setAllowedFileTypes: [NSArray arrayWithObjects: @"png", @"jpg", @"jpeg", @"tif", @"tiff", nil]];
     [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
             [droppedThumbnail setFilename: [fileURL path]];
             [self userDidDropThumbnail: sender];
@@ -230,9 +230,9 @@
     cell.checkbox.title = category.title;
     cell.index = row;
     if ([self.presentation.categories containsObject:category.ID]) {
-        [cell.checkbox setState:NSOnState];
+        [cell.checkbox setState:NSControlStateValueOn];
     } else {
-        [cell.checkbox setState:NSOffState];
+        [cell.checkbox setState:NSControlStateValueOff];
     }
     return cell;
 }

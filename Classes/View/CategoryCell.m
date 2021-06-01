@@ -20,10 +20,10 @@
 
 - (void)buttonClicked:(id)sender
 {
-    if (self.checkbox.state == NSOffState) {
+    if (self.checkbox.state == NSControlStateValueOff) {
         [self.delegate categoryCellDidUncheck:self withIndex:self.index];
     }
-    if (self.checkbox.state == NSOnState) {
+    if (self.checkbox.state == NSControlStateValueOn) {
         [self.delegate categoryCellDidCheck:self withIndex:self.index];
     }
 }
