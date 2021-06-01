@@ -47,7 +47,7 @@ static NSImage * ourUploadIcon = nil;
 - (id) init {
     self = [super init];
     if (self != nil) {
-        [NSBundle loadNibNamed: @"RsyncProgressView" owner: self];
+        [[NSBundle mainBundle] loadNibNamed:@"RsyncProgressView" owner:self topLevelObjects:nil];
     }
     return self;
 }

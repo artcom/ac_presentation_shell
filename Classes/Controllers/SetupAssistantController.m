@@ -34,7 +34,7 @@ NSString * sshPublicKeyFilename();
 - (void) setupSendMailPage;
 - (void) writeUserDefaults;
 
--(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+-(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode;
 
 @end
 
@@ -93,15 +93,11 @@ enum PageTags {
     // TODO: find a better way to check for the last page
     if ([nextButton.title isEqual: NSLocalizedString(ACSHELL_STR_FINISH, nil)]) {
         [self writeUserDefaults];
-        NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_WAIT_FOR_ACTIVATION, nil)
-                                           defaultButton: NSLocalizedString(ACSHELL_STR_OK, nil)
-                                         alternateButton: nil 
-                                             otherButton: nil
-                              informativeTextWithFormat: @""];
-        [alert beginSheetModalForWindow: [self window]
-                          modalDelegate: self
-                         didEndSelector: @selector(userDidAcknowledge:returnCode:contextInfo:)
-                            contextInfo: nil];
+        NSAlert * alert = [NSAlert new];
+        alert.messageText = NSLocalizedString(ACSHELL_STR_WAIT_FOR_ACTIVATION, nil);
+        [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+            [self userDidAcknowledge:alert returnCode:returnCode];
+        }];
     } else {
         [pages selectNextTabViewItem: sender];
     }
@@ -136,7 +132,7 @@ enum PageTags {
     [nextButton setEnabled: [sender state]];
 }
 
--(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+-(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode {
     [delegate setupDidFinish: self];
     [self close];
 }
@@ -250,8 +246,8 @@ enum PageTags {
         
     NSString * mailToURL = [NSString stringWithFormat: @"mailto:%@?subject=%@&body=%@",
                             adminAddress,
-                            [subject stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding],
-                            [body stringByAddingPercentEscapesUsingEncoding: NSUTF8StringEncoding]];
+                            [subject stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet],
+                            [body stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet]];
     [[NSWorkspace sharedWorkspace] openURL: [NSURL URLWithString: mailToURL]];
     
 }

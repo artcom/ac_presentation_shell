@@ -20,7 +20,7 @@
 - (id) init {
     self = [super init];
     if (self != nil) {
-        [NSBundle loadNibNamed: @"PreferencePages" owner: self];
+        [[NSBundle mainBundle] loadNibNamed:@"PreferencePages" owner:self topLevelObjects:nil];
     }
     return self;
 }

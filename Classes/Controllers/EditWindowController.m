@@ -21,7 +21,7 @@
 - (void) postEditCleanUp;
 - (void) setGuiValues;
 - (void) updateOkButton;
-- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode;
 
 @end
 
@@ -71,10 +71,10 @@
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
-    [NSApp beginSheet: progressSheet modalForWindow: [self window]
-        modalDelegate: self
-       didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
-          contextInfo: nil];
+    [self.window beginSheet:progressSheet completionHandler:^(NSModalResponse returnCode) {
+        [self didEndSheet:progressSheet returnCode:returnCode];
+    }];
+    
     [progressBar setIndeterminate: YES];
     [progressBar startAnimation: nil];
     [progressText setStringValue: @""];
@@ -124,38 +124,35 @@
 }
 
 - (IBAction) userWantsToDeletePresentation: (id) sender {
-    NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil)
-                                      defaultButton: NSLocalizedString(ACSHELL_STR_DELETE, nil)
-                                    alternateButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil)
-                                        otherButton: nil
-                          informativeTextWithFormat: @""];
-    [alert beginSheetModalForWindow: [self window]
-                      modalDelegate: self
-                     didEndSelector: @selector(userDidDecideDelete:returnCode:contextInfo:)
-                        contextInfo: nil];
+    NSAlert * alert = [NSAlert new];
+    alert.messageText = NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil);
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_DELETE, nil)];
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
     
+    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+        [self userDidDecideDelete:alert returnCode:returnCode];
+    }];
 }
 
-- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode {
     [[sheet window] orderOut: self];
     [NSApp endSheet:[sheet window]];
     
     switch (returnCode) {
-        case NSAlertDefaultReturn:
-            [NSApp beginSheet: progressSheet modalForWindow: [self window]
-                modalDelegate: self
-               didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
-                  contextInfo: nil];
+        case NSAlertFirstButtonReturn:{
+            [self.window beginSheet:progressSheet completionHandler:^(NSModalResponse returnCode) {
+                [self didEndSheet:progressSheet returnCode:returnCode];
+            }];
             [progressBar setIndeterminate: YES];
             [progressBar startAnimation: nil];
             [progressText setStringValue: @""];
             [progressMessage setStringValue: @""];
             
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
-            [self.shellController.presentationLibrary deletePresentation:self.presentation
-                                                        progressDelegate: self];
+            [self.shellController.presentationLibrary deletePresentation:self.presentation progressDelegate: self];
+        }
             break;
-        case NSAlertAlternateReturn:
+        case NSAlertSecondButtonReturn:
             break;
         default:
             break;
@@ -259,7 +256,7 @@
     [NSApp endSheet: progressSheet];
 }
 
-- (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode contextInfo: (void*) contextInfo {
+- (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode {
     [sheet orderOut:self];
     [self postEditCleanUp];
 }

@@ -818,24 +818,26 @@ enum CollectionActionTags {
         }
     }
     if (hasDuplicates) {
-        NSAlert *alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_WARN_DUPLICATES, nil)
-                                         defaultButton: NSLocalizedString(ACSHELL_STR_ADD, nil)
-                                       alternateButton: NSLocalizedString(ACSHELL_STR_SKIP, nil)
-                                           otherButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil)
-                             informativeTextWithFormat: @""];
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = NSLocalizedString(ACSHELL_STR_WARN_DUPLICATES, nil);
+        
+        [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_ADD, nil)];
+        [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_SKIP, nil)];
+        [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
+        
         NSInteger result = [alert runModal];
         switch (result) {
-            case NSAlertOtherReturn:
-                return NO;
-            case NSAlertDefaultReturn: /* add them anyway */
+            case NSAlertFirstButtonReturn: /* add them anyway */
                 break;
-            case NSAlertAlternateReturn: /* skip duplicates */
+            case NSAlertSecondButtonReturn: /* skip duplicates */
                 for (Presentation * p in [newItems reverseObjectEnumerator]) {
                     if ([collection.presentations containsObject: p]) {
                         [newItems removeObject: p];
                     }
                 }
                 break;
+            case NSAlertThirdButtonReturn:
+                return NO;
         }
     }
     return YES;
