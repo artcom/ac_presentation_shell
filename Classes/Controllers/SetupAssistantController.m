@@ -15,7 +15,8 @@
 
 #define ACSHELL_BONJOUR_TYPE @"_acshell._tcp"
 
-
+#define ACSHELL_RSYNC_READ_USER_DEFAULT @"pr-reader"
+#define ACSHELL_RSYNC_WRITE_USER_DEFAULT @"pr-editor"
 
 //=== Prototypes ===============================================================
 
@@ -362,8 +363,8 @@ enum PageTags {
         [[NSUserDefaults standardUserDefaults] setValue: server.writeUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];        
     } else {
         rsyncSource = [rsyncSourceEntry stringValue];
-        [[NSUserDefaults standardUserDefaults] setValue: ACShellRsyncReadUserDefault forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
-        [[NSUserDefaults standardUserDefaults] setValue: ACShellRsyncWriteUserDefault forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];
+        [[NSUserDefaults standardUserDefaults] setValue: ACSHELL_RSYNC_READ_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
+        [[NSUserDefaults standardUserDefaults] setValue: ACSHELL_RSYNC_WRITE_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];
     }
     
     [[NSUserDefaults standardUserDefaults] setValue: rsyncSource forKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];

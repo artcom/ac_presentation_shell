@@ -9,9 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "SetupAssistantDelegateProtocol.h"
 
-#define ACShellRsyncWriteUserDefault @"pr-reader"
-#define ACShellRsyncReadUserDefault @"pr-editor"
-
 @class PublicKeyDraglet;
 
 @interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
