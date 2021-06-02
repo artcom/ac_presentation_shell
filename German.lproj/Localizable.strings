@@ -26,7 +26,7 @@
 "ContinueSync" = "Fortsetzen";
 "CheckedNofMFiles" = "%d von %d Dateien überprüft (%3.1f%%)";
 "CheckingNFiles" = "Überprüfe %d Dateien";
-"LastSyncFailed" = "Letzte Synchronisation fehlgeschlagen. Erneuter sync ist erfordelich.";
+"LastSyncFailed" = "Letzte Synchronisation fehlgeschlagen. Erneuter sync ist erforderlich.";
 "UpdatePresentation" = "Aktualisiere Präsentation";
 "DeleteCollection" = "Willst Du die ausgewählte Sammlung wirklich löschen?";
 "Delete" = "Löschen";
