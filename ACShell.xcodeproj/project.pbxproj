@@ -680,7 +680,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "ART+COM AG";
 				TargetAttributes = {
 					3B9FA6E71C85C46A003D7EE0 = {

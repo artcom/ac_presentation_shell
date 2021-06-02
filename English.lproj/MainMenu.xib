@@ -269,7 +269,7 @@ CA
                         <rect key="frame" x="0.0" y="24" width="840" height="537"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="534">
-                                <rect key="frame" x="0.0" y="0.0" width="158" height="537"/>
+                                <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="590">
                                         <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
@@ -333,7 +333,7 @@ CA
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="535">
-                                <rect key="frame" x="159" y="0.0" width="681" height="537"/>
+                                <rect key="frame" x="157" y="0.0" width="683" height="537"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="554">
                                         <rect key="frame" x="0.0" y="0.0" width="683" height="537"/>
@@ -574,7 +574,7 @@ CA
                         <nil key="toolTip"/>
                         <searchField key="view" verticalHuggingPriority="750" id="716">
                             <rect key="frame" x="0.0" y="14" width="186" height="22"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Name" usesSingleLineMode="YES" bezelStyle="round" recentsAutosaveName="recentPrensentationSearches" id="717">
                                 <font key="font" metaFont="system"/>
                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
