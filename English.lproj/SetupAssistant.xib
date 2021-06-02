@@ -140,7 +140,7 @@ DQ
                                             <rect key="frame" x="157" y="171" width="241" height="135"/>
                                             <clipView key="contentView" id="EZF-6t-0jC">
                                                 <rect key="frame" x="1" y="1" width="239" height="133"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="53">
                                                         <rect key="frame" x="0.0" y="0.0" width="239" height="133"/>
@@ -149,7 +149,7 @@ DQ
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn width="227" minWidth="40" maxWidth="1000" id="55">
+                                                            <tableColumn width="198" minWidth="40" maxWidth="1000" id="55">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -266,9 +266,9 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86">
-                                            <rect key="frame" x="87" y="111" width="405" height="260"/>
+                                            <rect key="frame" x="87" y="91" width="405" height="280"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="cellSize" width="405" height="15"/>
+                                            <size key="cellSize" width="405" height="25"/>
                                             <size key="intercellSpacing" width="0.0" height="230"/>
                                             <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="89">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -291,7 +291,7 @@ DQ
                                             </connections>
                                         </matrix>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                                            <rect key="frame" x="125" y="81" width="305" height="22"/>
+                                            <rect key="frame" x="125" y="53" width="305" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="305" id="KW5-DC-o72"/>
                                                 <constraint firstAttribute="height" constant="22" id="qN2-2s-fGU"/>
@@ -306,13 +306,13 @@ DQ
                                             </connections>
                                         </textField>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                                            <rect key="frame" x="125" y="151" width="305" height="194"/>
+                                            <rect key="frame" x="125" y="123" width="305" height="222"/>
                                             <clipView key="contentView" id="bV8-8O-32u">
-                                                <rect key="frame" x="1" y="1" width="303" height="192"/>
+                                                <rect key="frame" x="1" y="1" width="303" height="220"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <collectionView selectable="YES" maxNumberOfColumns="1" id="116">
-                                                        <rect key="frame" x="0.0" y="0.0" width="303" height="192"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="303" height="220"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <connections>
@@ -347,7 +347,7 @@ DQ
                                         <constraint firstItem="113" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="u6b-db-oSa"/>
                                         <constraint firstItem="113" firstAttribute="top" secondItem="82" secondAttribute="bottom" constant="20" id="u77-Et-aUw"/>
                                         <constraint firstItem="82" firstAttribute="top" secondItem="83" secondAttribute="bottom" constant="37" id="wZi-Xn-gEm"/>
-                                        <constraint firstItem="99" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="8" symbolic="YES" id="yYT-O1-Lwl"/>
+                                        <constraint firstItem="99" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="16" id="yYT-O1-Lwl"/>
                                     </constraints>
                                 </view>
                             </tabViewItem>
@@ -519,7 +519,7 @@ DQ
                     <constraint firstItem="31" firstAttribute="trailing" secondItem="26" secondAttribute="trailing" id="qKc-60-7gD"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="64" y="385"/>
+            <point key="canvasLocation" x="63.5" y="385"/>
         </window>
         <arrayController objectClassName="SshIdentity" id="59" userLabel="Public Keys">
             <declaredKeys>

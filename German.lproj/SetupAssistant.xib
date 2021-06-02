@@ -140,7 +140,7 @@ DQ
                                             <rect key="frame" x="157" y="171" width="210" height="135"/>
                                             <clipView key="contentView" id="Zsk-Df-utB">
                                                 <rect key="frame" x="1" y="1" width="208" height="133"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="53">
                                                         <rect key="frame" x="0.0" y="0.0" width="208" height="133"/>
@@ -149,7 +149,7 @@ DQ
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                         <tableColumns>
-                                                            <tableColumn width="196" minWidth="40" maxWidth="1000" id="55">
+                                                            <tableColumn width="167" minWidth="40" maxWidth="1000" id="55">
                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                     <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -266,9 +266,9 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" translatesAutoresizingMaskIntoConstraints="NO" id="86">
-                                            <rect key="frame" x="107" y="111" width="405" height="260"/>
+                                            <rect key="frame" x="107" y="91" width="405" height="280"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                            <size key="cellSize" width="405" height="15"/>
+                                            <size key="cellSize" width="405" height="25"/>
                                             <size key="intercellSpacing" width="0.0" height="230"/>
                                             <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="89">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -291,7 +291,7 @@ DQ
                                             </connections>
                                         </matrix>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99">
-                                            <rect key="frame" x="129" y="81" width="302" height="22"/>
+                                            <rect key="frame" x="129" y="53" width="302" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="22" id="gK0-LY-iBc"/>
                                             </constraints>
@@ -305,13 +305,13 @@ DQ
                                             </connections>
                                         </textField>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="113">
-                                            <rect key="frame" x="129" y="151" width="302" height="194"/>
+                                            <rect key="frame" x="129" y="123" width="302" height="222"/>
                                             <clipView key="contentView" id="jWo-6G-0cH">
-                                                <rect key="frame" x="1" y="1" width="300" height="192"/>
+                                                <rect key="frame" x="1" y="1" width="300" height="220"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <collectionView selectable="YES" maxNumberOfColumns="1" id="116">
-                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="192"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="220"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                         <connections>
@@ -344,7 +344,7 @@ DQ
                                         <constraint firstItem="113" firstAttribute="trailing" secondItem="99" secondAttribute="trailing" id="Pab-9c-BUb"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="82" secondAttribute="trailing" constant="20" symbolic="YES" id="Qu3-zA-VJd"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="83" secondAttribute="trailing" constant="20" symbolic="YES" id="Vua-8x-dWw"/>
-                                        <constraint firstItem="99" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="8" symbolic="YES" id="eYS-V7-7cF"/>
+                                        <constraint firstItem="99" firstAttribute="top" secondItem="86" secondAttribute="bottom" constant="16" id="eYS-V7-7cF"/>
                                         <constraint firstItem="86" firstAttribute="top" secondItem="83" secondAttribute="bottom" constant="85" id="fdF-Og-y6i"/>
                                         <constraint firstItem="83" firstAttribute="leading" secondItem="81" secondAttribute="leading" constant="1" id="gKI-eY-yUw"/>
                                         <constraint firstAttribute="trailing" secondItem="113" secondAttribute="trailing" constant="93" id="gih-Ce-pY5"/>
