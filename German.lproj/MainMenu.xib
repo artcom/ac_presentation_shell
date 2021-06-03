@@ -263,14 +263,14 @@ CA
                         <rect key="frame" x="0.0" y="24" width="840" height="537"/>
                         <subviews>
                             <customView fixedFrame="YES" id="534">
-                                <rect key="frame" x="0.0" y="0.0" width="158" height="537"/>
+                                <rect key="frame" x="0.0" y="0.0" width="157" height="537"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" id="590">
-                                        <rect key="frame" x="0.0" y="0.0" width="158" height="537"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="157" height="537"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="Hpu-vF-orT">
-                                            <rect key="frame" x="0.0" y="0.0" width="158" height="537"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="157" height="537"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" indentationPerLevel="14" autoresizesOutlineColumn="YES" outlineTableColumn="595" id="593">
@@ -280,7 +280,7 @@ CA
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="126" minWidth="16" maxWidth="1000" id="595">
+                                                        <tableColumn width="125" minWidth="16" maxWidth="1000" id="595">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -323,7 +323,7 @@ CA
                                 </subviews>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="535">
-                                <rect key="frame" x="159" y="0.0" width="681" height="537"/>
+                                <rect key="frame" x="158" y="0.0" width="682" height="537"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="554">
                                         <rect key="frame" x="0.0" y="0.0" width="682" height="537"/>

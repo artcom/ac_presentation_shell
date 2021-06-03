@@ -277,7 +277,7 @@ CA
                                             <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" indentationPerLevel="14" autoresizesOutlineColumn="YES" outlineTableColumn="595" id="593">
+                                                <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" autoresizesOutlineColumn="YES" outlineTableColumn="595" id="593">
                                                     <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>

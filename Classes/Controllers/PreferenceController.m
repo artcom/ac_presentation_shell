@@ -11,6 +11,7 @@
 #import "ACPreferenceWindowController.h"
 #import "ACPreferencePage.h"
 #import "default_keys.h"
+#import "localized_text_keys.h"
 
 @implementation PreferenceController
 @synthesize generalPreferences;
@@ -35,10 +36,10 @@
         iconAdvanced = @"gearshape.2";
     }
     ACPreferencePage * generalPrefs = [[ACPreferencePage alloc] initWithView: generalPreferences
-                                                                       title: @"General"
+                                                                       title: NSLocalizedString(ACSHELL_STR_GENERAL, nil)
                                                                     iconName: iconGeneral];
     ACPreferencePage * advancedPrefs = [[ACPreferencePage alloc] initWithView:advancedPreferences
-                                                                       title: @"Advanced"
+                                                                        title: NSLocalizedString(ACSHELL_STR_ADVANCED, nil)
                                                                     iconName: iconAdvanced];
     NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
     windowController = [[ACPreferenceWindowController alloc] initWithPages: preferencePages];
