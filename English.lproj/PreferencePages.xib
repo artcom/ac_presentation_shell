@@ -175,7 +175,7 @@
                 <constraint firstAttribute="trailing" secondItem="78" secondAttribute="trailing" constant="20" symbolic="YES" id="UmB-Cc-D3y"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="75" secondAttribute="leading" constant="59" id="gf5-cL-xJ7"/>
                 <constraint firstItem="77" firstAttribute="leading" secondItem="75" secondAttribute="leading" constant="19" id="iOp-fh-Zia"/>
-                <constraint firstItem="78" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" symbolic="YES" id="kqW-oo-d8h"/>
+                <constraint firstItem="78" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="8" symbolic="YES" id="kqW-oo-d8h"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="78" secondAttribute="top" id="qKM-UG-fPA"/>
                 <constraint firstAttribute="bottom" secondItem="78" secondAttribute="bottom" constant="8" id="wyU-00-chr"/>
             </constraints>

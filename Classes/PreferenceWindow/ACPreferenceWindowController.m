@@ -23,7 +23,11 @@
 - (id)initWithPages: (NSArray*) pages  {
     self = [super initWithWindow: [ACPreferenceWindowController preferenceWindow]];
     if (self != nil) {
-        [[[self window] toolbar] setDelegate: self];
+        self.window.toolbar.delegate = self;
+        if (@available(macOS 11.0, *)) {
+            self.window.toolbarStyle = NSWindowToolbarStylePreference;
+        }
+        // TODO: check on 10.14
         preferencePages = pages;
 
         NSMutableArray * toolbarIds = [[NSMutableArray alloc] init];
@@ -107,7 +111,11 @@
         ACPreferencePage * page = [preferencePages objectAtIndex: pageIndex];
         [toolbarItem setLabel: [page title]];
         [toolbarItem setPaletteLabel: [page title]];
-        [toolbarItem setImage:[NSImage imageNamed: [page iconName]]];
+        if (@available(macOS 11.0, *)) {
+            [toolbarItem setImage:[NSImage imageWithSystemSymbolName:page.iconName accessibilityDescription:nil]];
+        } else {
+            [toolbarItem setImage:[NSImage imageNamed:page.iconName]];
+        }
     }
     return toolbarItem;
 }

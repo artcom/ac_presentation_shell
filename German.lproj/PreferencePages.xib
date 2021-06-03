@@ -119,11 +119,11 @@
             <rect key="frame" x="0.0" y="0.0" width="500" height="123"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="37" y="61" width="178" height="17"/>
+                    <rect key="frame" x="37" y="61" width="182" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="yV3-Wa-vh0"/>
                     </constraints>
-                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Doppelklick auf Präsentation" id="84">
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Doppelklick auf Präsentation:" id="84">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -171,7 +171,7 @@
                 </matrix>
             </subviews>
             <constraints>
-                <constraint firstItem="78" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" symbolic="YES" id="7R1-yF-07l"/>
+                <constraint firstItem="78" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="8" symbolic="YES" id="7R1-yF-07l"/>
                 <constraint firstItem="76" firstAttribute="leading" secondItem="75" secondAttribute="leading" constant="39" id="CWQ-E8-a7B"/>
                 <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="77" secondAttribute="trailing" symbolic="YES" id="PA7-KK-52g"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="77" secondAttribute="bottom" constant="8" symbolic="YES" id="cWX-qW-gTF"/>

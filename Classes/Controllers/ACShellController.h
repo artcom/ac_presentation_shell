@@ -20,7 +20,7 @@
 
 @interface ACShellController : NSObject <KeynoteDelegate, RsyncControllerDelegate, SetupAssistantDelegate,
                                             NSOutlineViewDelegate, NSOutlineViewDataSource, NSTableViewDelegate,
-                                            NSTableViewDataSource, NSToolbarDelegate, NSSplitViewDelegate> 
+                                            NSTableViewDataSource, NSToolbarDelegate, NSToolbarItemValidation, NSSplitViewDelegate> 
 {
 	PresentationWindowController *presentationWindowController;
     PreferenceController * preferenceController;

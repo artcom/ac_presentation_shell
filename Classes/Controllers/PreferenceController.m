@@ -29,10 +29,10 @@
 - (void) awakeFromNib {
     ACPreferencePage * generalPrefs = [[ACPreferencePage alloc] initWithView: generalPreferences
                                                                        title: @"General"
-                                                                    iconName: NSImageNamePreferencesGeneral];
+                                                                    iconName: @"gearshape"];
     ACPreferencePage * advancedPrefs = [[ACPreferencePage alloc] initWithView:advancedPreferences
                                                                        title: @"Advanced"
-                                                                    iconName: NSImageNameAdvanced];
+                                                                    iconName: @"gearshape.2"]; // TODO: check on 10.14
     NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
     windowController = [[ACPreferenceWindowController alloc] initWithPages: preferencePages];
     

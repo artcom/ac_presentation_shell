@@ -555,9 +555,14 @@ CA
                             <action selector="play:" target="564" id="589"/>
                         </connections>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="E4827680-9674-400C-AF80-518EC7F65923" explicitItemIdentifier="ACShellToolbarItemSync" label="Sync" paletteLabel="Synchronisieren" toolTip="Mit Server synchronisieren" tag="-1" image="arrow.2.circlepath" catalog="system" sizingBehavior="auto" id="638">
+                    <toolbarItem implicitItemIdentifier="E4827680-9674-400C-AF80-518EC7F65923" explicitItemIdentifier="ACShellToolbarItemSync" label="Sync" paletteLabel="Synchronisieren" toolTip="Mit Server synchronisieren" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" sizingBehavior="auto" id="638">
                         <connections>
                             <action selector="sync:" target="564" id="642"/>
+                        </connections>
+                    </toolbarItem>
+                    <toolbarItem implicitItemIdentifier="05D76AA5-8F9A-456B-9138-D3F8FADCD3EF" explicitItemIdentifier="ACShellToolbarItemUpload" label="Upload" paletteLabel="Hochladen" toolTip="Mit Server synchronisieren" tag="-1" image="arrow.up" catalog="system" sizingBehavior="auto" id="BTV-bh-PB6" userLabel="Hochladen">
+                        <connections>
+                            <action selector="upload:" target="564" id="nXT-MW-AS4"/>
                         </connections>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="ECB819B9-5CE2-454F-A32F-42767BAF9152" explicitItemIdentifier="ACShellToolbarItemSearch" label="Suchen" paletteLabel="Suchen" sizingBehavior="auto" id="718">
@@ -584,6 +589,8 @@ CA
                     <toolbarItem reference="588"/>
                     <toolbarItem reference="641"/>
                     <toolbarItem reference="638"/>
+                    <toolbarItem reference="641"/>
+                    <toolbarItem reference="BTV-bh-PB6"/>
                     <toolbarItem reference="639"/>
                     <toolbarItem reference="718"/>
                 </defaultToolbarItems>
@@ -657,7 +664,8 @@ CA
     <resources>
         <image name="NSAddTemplate" width="14" height="13"/>
         <image name="NSRemoveTemplate" width="14" height="4"/>
-        <image name="arrow.2.circlepath" catalog="system" width="18" height="15"/>
+        <image name="arrow.triangle.2.circlepath" catalog="system" width="18" height="15"/>
+        <image name="arrow.up" catalog="system" width="13" height="14"/>
         <image name="icn_warning" width="27.391304016113281" height="25"/>
         <image name="play.rectangle" catalog="system" width="18" height="14"/>
         <image name="presentation_icon_pagination" width="6" height="6"/>

@@ -638,33 +638,19 @@ enum CollectionActionTags {
             AC_SHELL_TOOLBAR_ITEM_START,
             NSToolbarSpaceItemIdentifier,
             AC_SHELL_TOOLBAR_ITEM_SYNC,
+            NSToolbarSpaceItemIdentifier,
+            AC_SHELL_TOOLBAR_ITEM_UPLOAD,
             NSToolbarFlexibleSpaceItemIdentifier,
             AC_SHELL_TOOLBAR_ITEM_SEARCH,
             nil];
 }
 
-- (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
-    if ([itemIdentifier isEqual: AC_SHELL_TOOLBAR_ITEM_UPLOAD] && [self editingEnabled]) {
-        NSToolbarItem * item = [[NSToolbarItem alloc] initWithItemIdentifier: itemIdentifier];
-        [item setImage: [NSImage imageNamed: @"icn_upload"]];
-        [item setLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
-        [item setToolTip: NSLocalizedString(ACSHELL_STR_UPLOAD_TOOLTIP, nil)];
-        [item setPaletteLabel: NSLocalizedString(ACSHELL_STR_UPLOAD, nil)];
-        return item;
+- (BOOL)validateToolbarItem:(NSToolbarItem *)item
+{
+    if ([item.itemIdentifier isEqualToString:AC_SHELL_TOOLBAR_ITEM_UPLOAD]) {
+        return self.editingEnabled;
     }
-    return nil;
-}
-
-- (void) toolbarWillAddItem:(NSNotification *)notification {
-    NSToolbarItem *addedItem = [[notification userInfo] objectForKey: @"item"];
-    if ([[addedItem itemIdentifier] isEqual: AC_SHELL_TOOLBAR_ITEM_UPLOAD]) {
-        if (self.editingEnabled) {
-            [addedItem setTarget:self];
-            [addedItem setAction:@selector(upload:)];
-        } else {
-            [addedItem setEnabled: NO];
-        }
-    }
+    return YES;
 }
 
 #pragma mark -
