@@ -15,8 +15,11 @@ static NSImage * highlightIcon = nil;
 
 + (NSImage*) icon {
     if (highlightIcon == nil) {
-        NSString* filepath = [[NSBundle mainBundle] pathForResource:@"icn_highlight" ofType:@"png"];
-        highlightIcon =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
+        if (@available(macOS 11.0, *)) {
+            highlightIcon =  [NSImage imageWithSystemSymbolName:@"star.fill" accessibilityDescription:nil];
+        } else {
+            highlightIcon = [NSImage imageNamed:@"star.fill"];
+        }
     }
     return highlightIcon; 
 }

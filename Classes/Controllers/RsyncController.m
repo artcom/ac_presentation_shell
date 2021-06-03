@@ -249,9 +249,9 @@ static NSImage * ourUploadIcon = nil;
 
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
-    if (icon != nil) {
-        [dialog setIcon: icon];
-    }
+//    if (icon != nil) {
+//        [dialog setIcon: icon];
+//    }
     [dialog setAlertStyle: style];
     return dialog;
 }
@@ -263,9 +263,9 @@ static NSImage * ourUploadIcon = nil;
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
-    if (icon != nil) {
-        [dialog setIcon: icon];
-    }
+//    if (icon != nil) {
+//        [dialog setIcon: icon];
+//    }
     [dialog setAlertStyle: style];
     return dialog;    
 }
@@ -276,7 +276,7 @@ static NSImage * ourUploadIcon = nil;
     [dialog setMessageText: NSLocalizedString(ACSHELL_STR_SYNCING,nil)];
     [dialog setInformativeText: NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE,nil)];
     [dialog setAlertStyle: NSAlertStyleWarning];
-    [dialog setIcon: [self directionIcon]];
+//    [dialog setIcon: [self directionIcon]];
     
     [dialog setAccessoryView: progressView];
     

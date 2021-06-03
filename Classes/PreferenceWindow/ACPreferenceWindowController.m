@@ -60,15 +60,14 @@
         NSLog(@"failed to find preference page for id %@", identifier);
         return;
     }
-    ACPreferencePage * page = [preferencePages objectAtIndex: pageIndex];
-    NSRect targetViewFrame = [[page view] frame];
+    ACPreferencePage * page = [preferencePages objectAtIndex:pageIndex];
+    NSRect targetViewFrame = page.view.frame;
     
-    NSView * currentView = [[self window] contentView];
-    NSRect currentViewFrame = [currentView frame];
+    NSView * currentView = self.window.contentView;
+    NSRect currentViewFrame = currentView.frame;
     
     if (targetViewFrame.size.width == currentViewFrame.size.width &&
-        targetViewFrame.size.height == currentViewFrame.size.height)
-    {
+        targetViewFrame.size.height == currentViewFrame.size.height) {
         return;
     }
     
@@ -81,8 +80,9 @@
 
     NSView *contentView = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 0, 0)];
     self.window.contentView = contentView;
-    [[self window] setFrame: newWindowFrame display:YES animate:YES];
-    self.window.contentView = [page view];
+    [self.window setFrame: newWindowFrame display:YES animate:YES];
+    self.window.contentView = page.view;
+    self.window.title = page.title;
 }
 
 #pragma mark -
@@ -133,9 +133,6 @@
     [panel setHidesOnDeactivate:NO];
     [panel setShowsToolbarButton: NO];
     [panel setStyleMask: [panel styleMask] | NSWindowStyleMaskMiniaturizable];
-    NSRect frame = [panel frame];
-    frame.size.width = 600;
-    [panel setFrame: frame display: NO];
     [panel center];
     // TODO: fix me
     [panel setFrameAutosaveName: @"PreferenceWindow"];

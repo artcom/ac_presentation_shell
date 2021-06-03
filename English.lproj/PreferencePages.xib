@@ -17,7 +17,7 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <userDefaultsController representsSharedInstance="YES" id="23"/>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="67" userLabel="Advanced Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="500" height="138"/>
+            <rect key="frame" x="0.0" y="0.0" width="498" height="138"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="68">
                     <rect key="frame" x="44" y="99" width="51" height="16"/>
@@ -28,7 +28,7 @@
                     </textFieldCell>
                 </textField>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="69" userLabel="Source">
-                    <rect key="frame" x="101" y="96" width="379" height="22"/>
+                    <rect key="frame" x="101" y="96" width="377" height="22"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="72">
                         <font key="font" metaFont="system"/>
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -81,7 +81,7 @@
             </subviews>
             <constraints>
                 <constraint firstItem="69" firstAttribute="top" secondItem="67" secondAttribute="top" constant="20" symbolic="YES" id="Awd-pp-pb9"/>
-                <constraint firstAttribute="trailing" secondItem="XPT-1j-wWm" secondAttribute="trailing" constant="22" id="F2M-VG-Br8"/>
+                <constraint firstAttribute="trailing" secondItem="XPT-1j-wWm" secondAttribute="trailing" constant="20" symbolic="YES" id="F2M-VG-Br8"/>
                 <constraint firstItem="69" firstAttribute="baseline" secondItem="68" secondAttribute="firstBaseline" id="Ke0-Ai-vex"/>
                 <constraint firstItem="68" firstAttribute="baseline" secondItem="69" secondAttribute="baseline" id="LG7-ja-KaD"/>
                 <constraint firstItem="idv-PE-as3" firstAttribute="firstBaseline" secondItem="XPT-1j-wWm" secondAttribute="baseline" id="OpN-1K-MGN"/>
@@ -104,10 +104,10 @@
             <point key="canvasLocation" x="139" y="149"/>
         </customView>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="75" userLabel="General Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="501" height="80"/>
+            <rect key="frame" x="0.0" y="0.0" width="420" height="104"/>
             <subviews>
                 <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="57" y="55" width="165" height="17"/>
+                    <rect key="frame" x="18" y="67" width="165" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="lfe-rx-Z5r"/>
                     </constraints>
@@ -118,9 +118,9 @@
                     </textFieldCell>
                 </textField>
                 <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78">
-                    <rect key="frame" x="228" y="8" width="253" height="64"/>
+                    <rect key="frame" x="189" y="20" width="211" height="64"/>
                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    <size key="cellSize" width="253" height="20"/>
+                    <size key="cellSize" width="211" height="20"/>
                     <size key="intercellSpacing" width="4" height="2"/>
                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="80">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -148,14 +148,14 @@
                 </matrix>
             </subviews>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="78" secondAttribute="bottom" constant="8" id="PPw-wa-PnR"/>
+                <constraint firstAttribute="bottom" secondItem="78" secondAttribute="bottom" constant="20" symbolic="YES" id="PPw-wa-PnR"/>
                 <constraint firstAttribute="trailing" secondItem="78" secondAttribute="trailing" constant="20" symbolic="YES" id="UmB-Cc-D3y"/>
-                <constraint firstItem="76" firstAttribute="leading" secondItem="75" secondAttribute="leading" constant="59" id="gf5-cL-xJ7"/>
-                <constraint firstItem="76" firstAttribute="top" secondItem="75" secondAttribute="top" constant="8" id="kij-4n-Lms"/>
-                <constraint firstItem="78" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="76" secondAttribute="trailing" constant="8" symbolic="YES" id="kqW-oo-d8h"/>
+                <constraint firstItem="76" firstAttribute="leading" secondItem="75" secondAttribute="leading" constant="20" symbolic="YES" id="gf5-cL-xJ7"/>
+                <constraint firstItem="76" firstAttribute="top" secondItem="75" secondAttribute="top" constant="20" symbolic="YES" id="kij-4n-Lms"/>
+                <constraint firstItem="78" firstAttribute="leading" secondItem="76" secondAttribute="trailing" constant="8" symbolic="YES" id="kqW-oo-d8h"/>
                 <constraint firstItem="76" firstAttribute="top" secondItem="78" secondAttribute="top" id="qKM-UG-fPA"/>
             </constraints>
-            <point key="canvasLocation" x="139" y="417.5"/>
+            <point key="canvasLocation" x="98" y="417"/>
         </customView>
     </objects>
 </document>

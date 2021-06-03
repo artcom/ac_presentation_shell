@@ -248,43 +248,43 @@ CA
             </items>
             <point key="canvasLocation" x="137" y="789"/>
         </menu>
-        <window title="ART+COM Presentation Shell" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="ACShell" animationBehavior="default" toolbarStyle="compact" id="371">
+        <window title="ART+COM Presentation Shell" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="ACShell" animationBehavior="default" toolbarStyle="unified" id="371">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" texturedBackground="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="31" y="286" width="840" height="561"/>
+            <rect key="contentRect" x="31" y="286" width="1040" height="561"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <value key="minSize" type="size" width="400" height="-1"/>
             <view key="contentView" wantsLayer="YES" id="372">
-                <rect key="frame" x="0.0" y="0.0" width="840" height="561"/>
+                <rect key="frame" x="0.0" y="0.0" width="1040" height="561"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <box wantsLayer="YES" verticalHuggingPriority="750" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="842">
-                        <rect key="frame" x="0.0" y="22" width="840" height="5"/>
+                        <rect key="frame" x="0.0" y="22" width="1040" height="5"/>
                         <shadow key="shadow">
                             <size key="offset" width="0.0" height="-1"/>
                             <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </shadow>
                     </box>
                     <splitView focusRingType="none" autosaveName="mainWindowSplitView" dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="533">
-                        <rect key="frame" x="0.0" y="24" width="840" height="537"/>
+                        <rect key="frame" x="0.0" y="24" width="1040" height="537"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="534">
-                                <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
+                                <rect key="frame" x="0.0" y="0.0" width="193" height="537"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="590">
-                                        <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="196" height="537"/>
                                         <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="elb-Mv-VFx">
-                                            <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="196" height="537"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" autoresizesOutlineColumn="YES" outlineTableColumn="595" id="593">
-                                                    <rect key="frame" x="0.0" y="0.0" width="156" height="537"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="196" height="537"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="124" minWidth="16" maxWidth="1000" id="595">
+                                                        <tableColumn width="164" minWidth="16" maxWidth="1000" id="595">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
@@ -316,7 +316,7 @@ CA
                                             <nil key="backgroundColor"/>
                                         </clipView>
                                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="592">
-                                            <rect key="frame" x="1" y="119" width="238" height="15"/>
+                                            <rect key="frame" x="0.0" y="522" width="0.0" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="591">
@@ -333,16 +333,16 @@ CA
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="535">
-                                <rect key="frame" x="157" y="0.0" width="683" height="537"/>
+                                <rect key="frame" x="194" y="0.0" width="846" height="537"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="554">
-                                        <rect key="frame" x="0.0" y="0.0" width="683" height="537"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="843" height="537"/>
                                         <clipView key="contentView" translatesAutoresizingMaskIntoConstraints="NO" id="WzP-eV-ucg">
-                                            <rect key="frame" x="0.0" y="0.0" width="683" height="522"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="843" height="537"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" autosaveName="presentationTable" headerView="600" id="557">
-                                                    <rect key="frame" x="0.0" y="0.0" width="782" height="505"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="843" height="520"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -359,7 +359,7 @@ CA
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
-                                                            <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
                                                                 <binding destination="568" name="enabled" keyPath="arrangedObjects.isComplete" id="752"/>
                                                                 <binding destination="568" name="value" keyPath="arrangedObjects.order" id="820">
@@ -379,7 +379,7 @@ CA
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="miniSystem"/>
                                                             </buttonCell>
-                                                            <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
                                                                 <binding destination="568" name="enabled" keyPath="arrangedObjects.isComplete" id="737"/>
                                                                 <binding destination="568" name="value" keyPath="arrangedObjects.selected" id="750"/>
@@ -408,17 +408,17 @@ CA
                                                             </connections>
                                                         </tableColumn>
                                                         <tableColumn identifier="year" editable="NO" width="45" minWidth="10" maxWidth="3.4028234663852886e+38" id="834">
-                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center" title="Year">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Year">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                             </tableHeaderCell>
-                                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="center" title="Text Cell" id="835">
+                                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="835">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                             <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="year"/>
-                                                            <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <connections>
                                                                 <binding destination="568" name="enabled" keyPath="arrangedObjects.isComplete" id="837"/>
                                                                 <binding destination="568" name="value" keyPath="arrangedObjects.yearString" id="843">
@@ -429,7 +429,7 @@ CA
                                                                 </binding>
                                                             </connections>
                                                         </tableColumn>
-                                                        <tableColumn identifier="categories" editable="NO" width="100" minWidth="100" maxWidth="3.4028234663852886e+38" id="q41-Sl-QDb" userLabel="Categories">
+                                                        <tableColumn identifier="categories" editable="NO" width="161" minWidth="100" maxWidth="3.4028234663852886e+38" id="q41-Sl-QDb" userLabel="Categories">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Categories">
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -458,7 +458,6 @@ CA
                                                             </tableHeaderCell>
                                                             <imageCell key="dataCell" controlSize="small" refusesFirstResponder="YES" alignment="left" image="presentation_icon_pagination" id="687"/>
                                                             <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="highlight"/>
-                                                            <tableColumnResizingMask key="resizingMask" userResizable="YES"/>
                                                             <connections>
                                                                 <binding destination="568" name="value" keyPath="arrangedObjects.highlight" id="700">
                                                                     <dictionary key="options">
@@ -477,7 +476,7 @@ CA
                                                 </tableView>
                                             </subviews>
                                         </clipView>
-                                        <scroller key="horizontalScroller" verticalHuggingPriority="750" horizontal="YES" id="556">
+                                        <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="556">
                                             <rect key="frame" x="0.0" y="522" width="683" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -486,7 +485,7 @@ CA
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                         <tableHeaderView key="headerView" id="600">
-                                            <rect key="frame" x="0.0" y="0.0" width="782" height="17"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="843" height="17"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableHeaderView>
                                     </scrollView>
@@ -508,7 +507,7 @@ CA
                         </connections>
                     </splitView>
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="681">
-                        <rect key="frame" x="155" y="5" width="687" height="14"/>
+                        <rect key="frame" x="195" y="5" width="847" height="14"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="683" id="pa8-W5-L4h"/>
                         </constraints>
@@ -519,7 +518,7 @@ CA
                         </textFieldCell>
                     </textField>
                     <imageView toolTip="Shit hit the fan." translatesAutoresizingMaskIntoConstraints="NO" id="768">
-                        <rect key="frame" x="797" y="0.0" width="27" height="24"/>
+                        <rect key="frame" x="997" y="0.0" width="27" height="24"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="27" id="Je8-Ye-jwo"/>
                         </constraints>
@@ -608,7 +607,7 @@ CA
                     <outlet property="delegate" destination="564" id="788"/>
                 </connections>
             </toolbar>
-            <point key="canvasLocation" x="129" y="393.5"/>
+            <point key="canvasLocation" x="229" y="393.5"/>
         </window>
         <customObject id="420" customClass="NSFontManager"/>
         <customObject id="494" customClass="ACShellAppDelegate">
