@@ -15,11 +15,7 @@ static NSImage * highlightIcon = nil;
 
 + (NSImage*) icon {
     if (highlightIcon == nil) {
-        if (@available(macOS 11.0, *)) {
-            highlightIcon =  [NSImage imageWithSystemSymbolName:@"star.fill" accessibilityDescription:nil];
-        } else {
-            highlightIcon = [NSImage imageNamed:@"star.fill"];
-        }
+        highlightIcon =  [NSImage imageWithSystemSymbolName:@"star.fill" accessibilityDescription:nil];
     }
     return highlightIcon; 
 }

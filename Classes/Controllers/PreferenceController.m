@@ -28,19 +28,12 @@
 
 
 - (void) awakeFromNib {
-    // TODO: check on 10.14
-    NSString *iconGeneral = NSImageNamePreferencesGeneral;
-    NSString *iconAdvanced = NSImageNameAdvanced;
-    if (@available(macOS 11.0, *)) {
-        iconGeneral = @"gearshape";
-        iconAdvanced = @"gearshape.2";
-    }
     ACPreferencePage * generalPrefs = [[ACPreferencePage alloc] initWithView: generalPreferences
                                                                        title: NSLocalizedString(ACSHELL_STR_GENERAL, nil)
-                                                                    iconName: iconGeneral];
+                                                                    iconName: @"gearshape"];
     ACPreferencePage * advancedPrefs = [[ACPreferencePage alloc] initWithView:advancedPreferences
                                                                         title: NSLocalizedString(ACSHELL_STR_ADVANCED, nil)
-                                                                    iconName: iconAdvanced];
+                                                                    iconName: @"gearshape.2"];
     NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
     windowController = [[ACPreferenceWindowController alloc] initWithPages: preferencePages];
     
