@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -269,7 +268,7 @@ CA
                         <rect key="frame" x="0.0" y="24" width="1040" height="537"/>
                         <subviews>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="534">
-                                <rect key="frame" x="0.0" y="0.0" width="193" height="537"/>
+                                <rect key="frame" x="0.0" y="0.0" width="196" height="537"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="590">
                                         <rect key="frame" x="0.0" y="0.0" width="196" height="537"/>
@@ -333,7 +332,7 @@ CA
                                 </constraints>
                             </customView>
                             <customView translatesAutoresizingMaskIntoConstraints="NO" id="535">
-                                <rect key="frame" x="194" y="0.0" width="846" height="537"/>
+                                <rect key="frame" x="197" y="0.0" width="843" height="537"/>
                                 <subviews>
                                     <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="554">
                                         <rect key="frame" x="0.0" y="0.0" width="843" height="537"/>

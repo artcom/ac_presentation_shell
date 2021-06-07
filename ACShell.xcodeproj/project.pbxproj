@@ -52,6 +52,8 @@
 		3B9FA6FB1C85C62E003D7EE0 /* library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FA6FA1C85C62E003D7EE0 /* library.xml */; };
 		3BE52F811C886E3400F1D2B7 /* PresentationIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */; };
 		3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F891C8875B300F1D2B7 /* IntroLayer.m */; };
+		3BF8C193266E23D9004BC26B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BF8C192266E23D9004BC26B /* Main.storyboard */; };
+		3BF8C196266E25EA004BC26B /* ShellWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C195266E25EA004BC26B /* ShellWindowController.m */; };
 		630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */; };
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
@@ -194,6 +196,9 @@
 		3BE52F871C88744200F1D2B7 /* PresentationIntroViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationIntroViewDelegate.h; sourceTree = "<group>"; };
 		3BE52F881C8875B300F1D2B7 /* IntroLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		3BE52F891C8875B300F1D2B7 /* IntroLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		3BF8C192266E23D9004BC26B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3BF8C194266E25EA004BC26B /* ShellWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShellWindowController.h; sourceTree = "<group>"; };
+		3BF8C195266E25EA004BC26B /* ShellWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShellWindowController.m; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
 		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localized_text_keys.h; sourceTree = "<group>"; };
 		630D57851200CD60009D4CAE /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -502,6 +507,7 @@
 				8D1107310486CEB800E47090 /* ACShell-Info.plist */,
 				6366076A11F33F4200D6DD96 /* defaults.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				3BF8C192266E23D9004BC26B /* Main.storyboard */,
 				6366021B11F1F02800D6DD96 /* Localizable.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				6366050311F2EF0D00D6DD96 /* PreferencePages.xib */,
@@ -584,6 +590,8 @@
 				639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */,
 				6391D53612211B75009980C9 /* PreferenceController.h */,
 				6391D53712211B75009980C9 /* PreferenceController.m */,
+				3BF8C194266E25EA004BC26B /* ShellWindowController.h */,
+				3BF8C195266E25EA004BC26B /* ShellWindowController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -720,6 +728,7 @@
 				6366050411F2EF0D00D6DD96 /* PreferencePages.xib in Resources */,
 				6366076B11F33F4200D6DD96 /* defaults.plist in Resources */,
 				63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */,
+				3BF8C193266E23D9004BC26B /* Main.storyboard in Resources */,
 				CDFE4C1D19373CC00013F894 /* dialog_app_icon.png in Resources */,
 				63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */,
 				63EB804C12043663008D7814 /* icn_missing_file.icns in Resources */,
@@ -793,6 +802,7 @@
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,
 				63904153120632FE0061D215 /* LibraryServerView.m in Sources */,
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
+				3BF8C196266E25EA004BC26B /* ShellWindowController.m in Sources */,
 				639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */,
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
 				CD349E57180740CE0028C540 /* ACSearchIndexQuery.m in Sources */,
