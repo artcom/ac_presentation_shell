@@ -466,10 +466,10 @@ CA
             </objects>
             <point key="canvasLocation" x="-9.5" y="2086"/>
         </scene>
-        <!--Presentation Table View Controller-->
+        <!--Library Table View Controller-->
         <scene sceneID="Iu6-Dm-OUb">
             <objects>
-                <viewController id="vet-PA-LaD" customClass="PresentationTableViewController" sceneMemberID="viewController">
+                <viewController id="vet-PA-LaD" customClass="LibraryTableViewController" sceneMemberID="viewController">
                     <view key="view" id="ZCn-a7-OE4">
                         <rect key="frame" x="0.0" y="0.0" width="883" height="610"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -580,13 +580,13 @@ CA
                                                     <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="categoriesTitles"/>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <connections>
-                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="FWa-C0-CFq"/>
                                                         <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.categoriesTitles" id="Ukz-EV-wdW">
                                                             <dictionary key="options">
                                                                 <bool key="NSConditionallySetsEditable" value="YES"/>
                                                                 <bool key="NSConditionallySetsEnabled" value="YES"/>
                                                             </dictionary>
                                                         </binding>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="FWa-C0-CFq"/>
                                                     </connections>
                                                 </tableColumn>
                                                 <tableColumn identifier="highlight" editable="NO" width="36" minWidth="10" maxWidth="3.4028234663852886e+38" id="HMU-8M-220">
@@ -597,13 +597,13 @@ CA
                                                     <imageCell key="dataCell" controlSize="small" refusesFirstResponder="YES" alignment="left" image="presentation_icon_pagination" id="46S-zF-Fah"/>
                                                     <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="highlight"/>
                                                     <connections>
-                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="jIV-Q3-S6i"/>
                                                         <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.highlight" id="Phg-f5-yOA">
                                                             <dictionary key="options">
                                                                 <bool key="NSConditionallySetsEnabled" value="NO"/>
                                                                 <string key="NSValueTransformerName">HighlightIconTransformer</string>
                                                             </dictionary>
                                                         </binding>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="jIV-Q3-S6i"/>
                                                     </connections>
                                                 </tableColumn>
                                             </tableColumns>
@@ -651,6 +651,7 @@ CA
                         <string>yearString</string>
                         <string>categoriesTitles</string>
                     </declaredKeys>
+                    <classReference key="objectClass" className="Presentation"/>
                     <connections>
                         <binding destination="vet-PA-LaD" name="contentArray" keyPath="currentPresentationList" id="z8z-yM-9Dn">
                             <dictionary key="options">

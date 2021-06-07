@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSImageView *warningIcon;
 
 - (IBAction)collectionActionClicked: (id) sender;
+- (void) updateSyncFailedWarning;
 
 @end
 

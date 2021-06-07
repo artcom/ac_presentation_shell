@@ -1,5 +1,5 @@
 //
-//  PresentationTableViewController.h
+//  LibraryTableViewController.h
 //  ACShell
 //
 //  Created by Julian Krumow on 07.06.21.
@@ -11,9 +11,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PresentationTableViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
+@interface LibraryTableViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *currentPresentationList;
+@property (strong, readonly) NSArray *selectedPresentations;
 
 @property (weak, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (weak) IBOutlet NSTableView *presentationTable;

@@ -55,7 +55,7 @@
 		3BF8C193266E23D9004BC26B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BF8C192266E23D9004BC26B /* Main.storyboard */; };
 		3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C195266E25EA004BC26B /* ACShellWindowController.m */; };
 		3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19B266E7E85004BC26B /* LibraryViewController.m */; };
-		3BF8C1A0266E940A004BC26B /* PresentationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19E266E940A004BC26B /* PresentationTableViewController.m */; };
+		3BF8C1A0266E940A004BC26B /* LibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */; };
 		630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */; };
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
@@ -203,8 +203,8 @@
 		3BF8C195266E25EA004BC26B /* ACShellWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACShellWindowController.m; sourceTree = "<group>"; };
 		3BF8C19A266E7E85004BC26B /* LibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		3BF8C19B266E7E85004BC26B /* LibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
-		3BF8C19D266E940A004BC26B /* PresentationTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresentationTableViewController.h; sourceTree = "<group>"; };
-		3BF8C19E266E940A004BC26B /* PresentationTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentationTableViewController.m; sourceTree = "<group>"; };
+		3BF8C19D266E940A004BC26B /* LibraryTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryTableViewController.h; sourceTree = "<group>"; };
+		3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTableViewController.m; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
 		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localized_text_keys.h; sourceTree = "<group>"; };
 		630D57851200CD60009D4CAE /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -567,8 +567,8 @@
 				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
 				3BF8C19A266E7E85004BC26B /* LibraryViewController.h */,
 				3BF8C19B266E7E85004BC26B /* LibraryViewController.m */,
-				3BF8C19D266E940A004BC26B /* PresentationTableViewController.h */,
-				3BF8C19E266E940A004BC26B /* PresentationTableViewController.m */,
+				3BF8C19D266E940A004BC26B /* LibraryTableViewController.h */,
+				3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */,
 			);
 			path = PresentationLibrary;
 			sourceTree = "<group>";
@@ -847,7 +847,7 @@
 				CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */,
 				3B8ACC301C8750F0005D7F7A /* HeaderLayer.m in Sources */,
 				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
-				3BF8C1A0266E940A004BC26B /* PresentationTableViewController.m in Sources */,
+				3BF8C1A0266E940A004BC26B /* LibraryTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

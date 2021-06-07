@@ -9,25 +9,26 @@
 #import <Cocoa/Cocoa.h>
 #import "ACShellController.h"
 #import "RsyncController.h"
+#import "KeynoteDelegate.h"
 #import "EditWindowController.h"
 #import "PresentationWindowController.h"
 #import "PresentationLibrary.h"
 #import "LibraryViewController.h"
-#import "PresentationTableViewController.h"
+#import "LibraryTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ACShellWindowController : NSWindowController <NSToolbarItemValidation, RsyncControllerDelegate>
+@interface ACShellWindowController : NSWindowController <NSToolbarItemValidation, KeynoteDelegate, RsyncControllerDelegate>
 
 @property (strong) LibraryViewController *libraryViewController;
-@property (strong) PresentationTableViewController *presentationTableViewController;
+@property (strong) LibraryTableViewController *presentationTableViewController;
 @property(strong) PresentationWindowController *presentationWindowController;
 @property(strong) EditWindowController * editWindowController;
 @property(strong) RsyncController *rsyncController;
 
-@property (strong, nonatomic) NSMutableArray * library;
+@property (strong, nonatomic) NSMutableArray *currentPresentationList;
+
 @property(strong) PresentationLibrary *presentationLibrary;
-@property (weak, readonly) NSString* libraryDirPath;
 @property (readonly) BOOL editingEnabled;
 
 - (IBAction)toggleSidebar:(id)sender;

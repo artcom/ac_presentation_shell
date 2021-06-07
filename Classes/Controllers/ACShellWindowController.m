@@ -8,6 +8,7 @@
 
 #import "ACShellWindowController.h"
 #import "ACShellAppDelegate.h"
+#import "KeynoteHandler.h"
 #import "default_keys.h"
 #import "localized_text_keys.h"
 #import "NSFileManager-DirectoryHelper.h"
@@ -61,14 +62,17 @@
     
     self.rsyncController = [[RsyncController alloc] init];
     self.rsyncController.delegate = self;
-}
-
-
-- (void)setupViews
-{
     
+    
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
+        [[KeynoteHandler sharedHandler] launchWithDelegate:self];
+//        [[self browserWindow] makeKeyAndOrderFront: self];
+//        [self load];
+    } else {
+//        setupAssistant = [[SetupAssistantController alloc] initWithDelegate: self];
+//        [setupAssistant showWindow: self];
+    }
 }
-
 
 -(NSMutableArray*) library {
     return self.presentationLibrary.library.children;
@@ -78,16 +82,10 @@
     self.presentationLibrary.library.children = array;
 }
 
-
 - (BOOL) editingEnabled {
 
     return [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
 }
-
-
-
-
-
 
 
 
@@ -100,11 +98,9 @@
 - (IBAction)play:(id)sender
 {
     NSLog(@"play");
-    /*
     self.presentationWindowController.categories = self.presentationLibrary.categories;
-    self.presentationWindowController.presentations = [self selectedPresentations];
+    self.presentationWindowController.presentations = self.presentationTableViewController.selectedPresentations;
     [self.presentationWindowController showWindow:nil];
-    */
 }
 
 - (IBAction)sync:(id)sender
@@ -138,6 +134,16 @@
         return self.editingEnabled;
     }
     return YES;
+}
+
+#pragma mark -
+#pragma mark RsyncControllerDelegate Protocol Methods
+- (void)rsync:(RsyncController *) controller didFinishSyncSuccessfully:(BOOL)successFlag {
+    self.presentationLibrary.syncSuccessful = successFlag;
+    [self.libraryViewController updateSyncFailedWarning];
+    if (successFlag) {
+//        [self load];
+    }
 }
 
 @end
