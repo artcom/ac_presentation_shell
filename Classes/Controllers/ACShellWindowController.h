@@ -12,12 +12,15 @@
 #import "EditWindowController.h"
 #import "PresentationWindowController.h"
 #import "PresentationLibrary.h"
-
+#import "LibraryViewController.h"
+#import "PresentationTableViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ACShellWindowController : NSWindowController <NSToolbarItemValidation, RsyncControllerDelegate>
 
+@property (strong) LibraryViewController *libraryViewController;
+@property (strong) PresentationTableViewController *presentationTableViewController;
 @property(strong) PresentationWindowController *presentationWindowController;
 @property(strong) EditWindowController * editWindowController;
 @property(strong) RsyncController *rsyncController;

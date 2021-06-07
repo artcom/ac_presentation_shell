@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PresentationTableViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 
-@property (strong, nonatomic) NSMutableArray * currentPresentationList;
+@property (strong, nonatomic) NSMutableArray *currentPresentationList;
 
 @property (weak, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (weak) IBOutlet NSTableView *presentationTable;

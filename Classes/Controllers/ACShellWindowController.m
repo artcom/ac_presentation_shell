@@ -46,6 +46,13 @@
 
 - (void)setupControllers
 {
+    
+    self.libraryViewController = self.contentViewController.childViewControllers[0];
+    self.presentationTableViewController = self.contentViewController.childViewControllers[1];
+    
+    [self.presentationTableViewController bind: @"currentPresentationList" toObject:self.libraryViewController.collectionTreeController withKeyPath:@"selection.presentations" options:nil];
+    
+    
     self.presentationWindowController = [[PresentationWindowController alloc] init];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
