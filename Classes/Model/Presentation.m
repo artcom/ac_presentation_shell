@@ -10,12 +10,21 @@
 #import "PresentationLibrary.h"
 
 @implementation Presentation
+@synthesize title;
+@synthesize singleLineTitle;
+@synthesize highlight;
+@synthesize year;
+@synthesize yearString;
+@synthesize directory;
+@synthesize presentationFilename;
+@synthesize categories;
+
 @synthesize selected;
 @synthesize presentationId;
 @synthesize order;
 @synthesize context;
+@synthesize thumbnail;
 @synthesize thumbnailFilename;
-@synthesize title;
 
 - (id)initWithId:(id)theId inContext: (PresentationLibrary*) theContext {
 	self = [super init];
@@ -61,12 +70,16 @@
 	return [context thumbnailForPresentation:self];
 }
 
-- (NSString*) title {     	
-    NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
-    return [[titleNodes objectAtIndex: 0] stringValue];	
+- (NSString*) title {
+    if (title == nil) {
+        NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
+        title = [[titleNodes objectAtIndex: 0] stringValue];
+    }
+    return title;
 }
 
 - (void) setTitle: (NSString*) newTitle {
+    title = nil;
     NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
     [self willChangeValueForKey:@"singleLineTitle"];
     [[titleNodes objectAtIndex: 0] setStringValue: newTitle];	
@@ -74,27 +87,37 @@
 }
 
 - (NSString*) singleLineTitle {
-	return [[self title] stringByReplacingOccurrencesOfString:@"\n" withString:@" "]; 
+    if (singleLineTitle == nil) {
+        singleLineTitle = [[self title] stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    }
+    return singleLineTitle;
 }
 
 - (BOOL)highlight {
-	return [[[[self xmlNode] attributeForName:@"highlight"] objectValue] boolValue];
+    if (_highlightObj == nil) {
+        _highlightObj = [[[self xmlNode] attributeForName:@"highlight"] objectValue];
+    }
+    return _highlightObj.boolValue;
 }
 
 - (void) setHighlight:(BOOL) flag {
+    highlight = NO;
     [[[self xmlNode] attributeForName: @"highlight"] setStringValue: flag ? @"true" : @"false"];
 }
 
 - (NSNumber*) year {
-    NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
-    if ([yearNodes count] == 0) {
-        return nil;
+    if (year == nil) {
+        NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
+        if ([yearNodes count] > 0) {
+            NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+            year = [formatter numberFromString: [[yearNodes objectAtIndex: 0] stringValue]];
+        }
     }
-    NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
-    return [formatter numberFromString: [[yearNodes objectAtIndex: 0] stringValue]];
+    return year;
 }
 
 - (void) setYear:(NSNumber*) aYear {
+    year = nil;
     NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
     NSXMLElement * yearNode = nil;
     if ([yearNodes count] == 0) {
@@ -107,18 +130,25 @@
 }
 
 - (NSString*) yearString {
-    NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
-    if ([yearNodes count] == 0) {
-        return @"";
+    if (yearString == nil) {
+        NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
+        if ([yearNodes count] == 0) {
+            return @"";
+        }
+        yearString = [[yearNodes objectAtIndex: 0] stringValue];
     }
-    return [[yearNodes objectAtIndex: 0] stringValue];	
+    return yearString;
 }
 
 - (NSString*) directory {
-	return [[[self xmlNode] attributeForName:@"directory"] stringValue];
+    if (directory == nil) {
+        directory = [[[self xmlNode] attributeForName:@"directory"] stringValue];
+    }
+    return directory;
 }
 
 - (void) setDirectory:(NSString*) dir {
+    directory = nil;
     [[[self xmlNode] attributeForName: @"directory"] setStringValue: dir];
 }
 
@@ -127,13 +157,17 @@
 }
 
 - (NSString *) thumbnailFilename {
-	NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
-	return [[thumbnailNodes objectAtIndex: 0] stringValue];	
+    if (thumbnailFilename == nil) {
+        NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
+        thumbnailFilename = [[thumbnailNodes objectAtIndex: 0] stringValue];
+    }
+    return thumbnailFilename;
 }
 
 - (void) setThumbnailFilename: (NSString*) newPath {
 	[self willChangeValueForKey:@"thumbnail"];
 	thumbnail = nil;
+    thumbnailFilename = nil;
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
 	[self didChangeValueForKey:@"thumbnail"];
@@ -149,11 +183,15 @@
 
 
 - (NSString *) presentationFilename {
-	NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
-	return [[nodes objectAtIndex: 0] stringValue];	
+    if (presentationFilename == nil) {
+        NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
+        presentationFilename =  [[nodes objectAtIndex: 0] stringValue];
+    }
+    return presentationFilename;
 }
 
 - (void) setPresentationFilename: (NSString*) newPath {
+    presentationFilename = nil;
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
 }
@@ -163,7 +201,7 @@
 }
 
 - (NSString *)absolutePresentationPath {
-	return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
+    return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
 }
 
 - (void)setCategories:(NSArray *)categories
@@ -187,8 +225,11 @@
 }
 
 - (NSArray *)categories {
-    NSXMLNode *root = [[self.xmlNode nodesForXPath:@"categories" error:nil] lastObject];
-    return [root.children valueForKeyPath:@"stringValue"];
+    if (categories == nil) {
+        NSXMLNode *root = [[self.xmlNode nodesForXPath:@"categories" error:nil] lastObject];
+        categories = [root.children valueForKeyPath:@"stringValue"];
+    }
+    return categories;
 }
 
 - (NSString *)categoriesTitles
@@ -210,7 +251,7 @@
 }
 
 - (BOOL)isComplete {
-	return self.presentationFileExists && self.thumbnailFileExists;
+    return self.presentationFileExists && self.thumbnailFileExists;
 }
 
 - (BOOL) presentationFileExists {

@@ -12,22 +12,7 @@
 @class PresentationLibrary;
 @class FileCopyController;
 
-@interface Presentation : NSObject <NSCoding, NSCopying> {
-	BOOL selected;
-	id presentationId;
-	NSInteger order;
-	
-	PresentationLibrary* context;
-	NSImage *thumbnail;
-    NSImage *highlight_icon;
-	
-	FileCopyController *copyController;
-	
-    NSString * title;
-	NSString * presentationFilename;
-	NSString * thumbnailFilename;
-}
-
+@interface Presentation : NSObject <NSCoding, NSCopying>
 @property (assign) BOOL selected;
 @property (assign) NSInteger order;
 @property (strong) id presentationId;
@@ -37,7 +22,9 @@
 @property (weak, readonly) NSString *singleLineTitle;
 
 @property (assign) BOOL highlight;
+@property (strong) NSNumber *highlightObj;
 @property (strong) NSNumber* year;
+@property (strong, readonly) NSString *yearString;
 
 @property (strong)   NSString * directory;
 @property (weak, readonly) NSString * absoluteDirectory;
