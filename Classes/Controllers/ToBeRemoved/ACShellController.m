@@ -17,7 +17,6 @@
 #import "RsyncController.h"
 #import "EditWindowController.h"
 #import "SetupAssistantController.h"
-#import "PreferenceController.h"
 #import "default_keys.h"
 #import "localized_text_keys.h"
 
@@ -80,35 +79,16 @@ enum CollectionActionTags {
 @synthesize editingEnabled;
 @synthesize editPresentationMenuItem;
 @synthesize collectionActions;
-@synthesize leftSplitPane;
-@synthesize rightSplitPane;
 
 + (void) initialize {
 	NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
 	[[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
 }
 
-- (id) init {
-	self = [super init];
-	if (self != nil) {
-        presentationLibrary = [PresentationLibrary libraryFromSettingsFile];
-        
-		presentationWindowController = [[PresentationWindowController alloc] init];
-        
-        preferenceController = [[PreferenceController alloc] init];
-        
-        if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
-            editWindowController = [[EditWindowController alloc] initWithShellController: self];
-        }
-		
-		rsyncController = [[RsyncController alloc] init];
-		rsyncController.delegate = self;
-    }
-	
-	return self;
-}
+
 
 - (void) awakeFromNib {
+    return;
 	[presentationTable registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
 	[presentationTable setTarget:self];
 	[presentationTable setDoubleAction:@selector(openPresentation:)];
@@ -161,11 +141,6 @@ enum CollectionActionTags {
 	[self beautifyOutlineView];
 }
 
-- (IBAction)play: (id)sender {
-    presentationWindowController.categories = self.presentationLibrary.categories;
-	presentationWindowController.presentations = [self selectedPresentations];
-	[presentationWindowController showWindow:nil];
-}
 
 - (IBAction)sync: (id)sender {
     if ([presentationLibrary hasLibrary]) {
@@ -225,21 +200,6 @@ enum CollectionActionTags {
 	}
 }
 
-- (IBAction)collectionActionClicked: (id) sender {
-    int clickedSegment = [sender selectedSegment];
-    int clickedSegmentTag = [[sender cell] tagForSegment: clickedSegment];
-    switch (clickedSegmentTag) {
-        case AddCollectionAction:
-            [self addCollection: sender];
-            break;
-        case DeleteCollectionAction:
-            [self removeCollection: sender];
-            break;
-        default:
-            break;
-    }
-}
-
 - (IBAction)updatePresentationFilter:(id)sender {
     
     NSString *searchString = [sender stringValue];
@@ -295,10 +255,7 @@ enum CollectionActionTags {
 }
 
 
-- (NSArray *)selectedPresentations {
-	NSPredicate *selected = [NSPredicate predicateWithFormat:@"selected == YES AND isComplete == YES"];
-	return [[presentationsArrayController arrangedObjects] filteredArrayUsingPredicate:selected];
-}
+
 
 - (IBAction)addCollection: (id)sender {
 	ACShellCollection *list = [ACShellCollection collectionWithName:NSLocalizedString(ACSHELL_STR_NEW_COLLECTION, nil)
@@ -318,34 +275,6 @@ enum CollectionActionTags {
         [editWindowController edit: presentation];
     } else {
         NSBeep();
-    }
-}
-
-- (BOOL) isCollectionSelected {
-	NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
-	if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
-		return NO;
-	}
-    return YES;
-}
-
-- (IBAction)removeCollection: (id)sender {
-	NSIndexPath *selectedPath = [collectionTreeController selectionIndexPath];
-	if (! [self isCollectionSelected]) {
-        NSBeep();
-		return;
-	}
-    
-    BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeleteCollection"
-                                                             message: ACSHELL_STR_DELETE_COLLECTION
-                                                            okButton: ACSHELL_STR_DELETE
-                                                        cancelButton: ACSHELL_STR_CANCEL];
-    if (deleteIt) {
-        [collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
-        
-        if ([presentationLibrary collectionCount] == 0) {
-            [collectionView deselectAll: self];
-        }
     }
 }
 
@@ -384,17 +313,6 @@ enum CollectionActionTags {
     return YES;
 }
 
-- (IBAction)showPreferences: (id) sender {
-    [preferenceController showWindow: sender];
-}
-
--(NSMutableArray*) library {
-    return presentationLibrary.library.children;
-}
-
--(void) setLibrary:(NSMutableArray *) array {
-    presentationLibrary.library.children = array;
-}
 
 - (void)setCurrentPresentationList:(NSMutableArray *)newArray {
 	if (currentPresentationList != newArray) {
@@ -528,130 +446,8 @@ enum CollectionActionTags {
     return YES;
 }
 
-#pragma mark -
-#pragma mark  NSOutlineViewDelegate Protocol Methods
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-    return ! [self isToplevelGroup: item];
-}
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
-    return [self isToplevelGroup: item];
-}
-
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
-{
-    return  ! [self isToplevelGroup: item] && ! [self isStaticCategory: item];
-}
-
-- (NSDragOperation) outlineView:(NSOutlineView *)outlineView
-				   validateDrop:(id <NSDraggingInfo>)info
-				   proposedItem:(id)item proposedChildIndex:(NSInteger)index {
-	
-	if (index != -1 || // only allow drops on collections, not between them
-        [self isToplevelGroup: item] || [self isStaticCategory:item]) // keep static stuff static
-    {
-		return NSDragOperationNone;
-	}
-    
-    ACShellCollection * selectedCollection = [[collectionTreeController selectedObjects] objectAtIndex: 0];
-    ACShellCollection * droppedOnCollection = (ACShellCollection *)[item representedObject];
-    if (selectedCollection == droppedOnCollection) {
-        return NSDragOperationNone;
-    }
-    
-	return NSDragOperationLink;
-}
-
-- (BOOL) outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
-	NSPasteboard* pboard = [info draggingPasteboard];
-    NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
-    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
-    
-    NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
-    NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
-    NSMutableArray * newItems = [[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES];
-    
-	ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-    
-    if ([self handleDuplicates: newItems inCollection: collection]) {
-        int order = [collection.presentations count] + 1;
-        for (Presentation* p in newItems) {
-            p.order = order++;
-        }
-        [collection.presentations addObjectsFromArray: newItems];
-    }
-	return YES;
-}
-
-- (void)outlineViewSelectionDidChange:(NSNotification *)notification {
-    [collectionActions setEnabled: [self isCollectionSelected] forSegment: DeleteCollectionAction];
-    [self updateStatusText: nil];
-}
-
-#pragma mark -
-#pragma mark NSSplitViewDelegate Protocol Methods
-- (void)splitView:(NSSplitView *)sender resizeSubviewsWithOldSize: (NSSize)oldSize {
-    float desiredLeftViewWidth = [leftSplitPane frame].size.width;
-    [sender adjustSubviews];
-    NSRect leftFrame = [leftSplitPane frame];
-    NSRect rightFrame = [rightSplitPane frame];
-    
-    leftFrame.origin.x = 0;
-    leftFrame.size.width = desiredLeftViewWidth;
-    
-    rightFrame.origin.x = desiredLeftViewWidth + 1;
-    rightFrame.size.width = [sender frame].size.width - desiredLeftViewWidth - 1;
-    
-    
-    [leftSplitPane setFrame: leftFrame];
-    [rightSplitPane setFrame: rightFrame];
-    
-}
-
-- (void)splitViewDidResizeSubviews:(NSNotification *)aNotification {
-    NSRect tableFrame = [rightSplitPane frame];
-    NSRect labelFrame = [statusLine frame];
-    labelFrame.origin.x = tableFrame.origin.x;
-    labelFrame.size.width = tableFrame.size.width;
-    [statusLine setFrame: labelFrame];
-}
-
-#pragma mark -
-#pragma mark NSToolbarDelegate Protocol Methods
-- (NSArray *) toolbarAllowedItemIdentifiers: (NSToolbar *) toolbar {
-    return [NSArray arrayWithObjects:
-            AC_SHELL_TOOLBAR_ITEM_START,
-            AC_SHELL_TOOLBAR_ITEM_SYNC,
-            AC_SHELL_TOOLBAR_ITEM_UPLOAD,
-            AC_SHELL_TOOLBAR_ITEM_SEARCH,
-            NSToolbarCustomizeToolbarItemIdentifier,
-            NSToolbarFlexibleSpaceItemIdentifier,
-            NSToolbarSpaceItemIdentifier,
-            NSToolbarSeparatorItemIdentifier,
-            nil];
-}
-
-- (NSArray *) toolbarDefaultItemIdentifiers: (NSToolbar *) toolbar {
-    return [NSArray arrayWithObjects:
-            NSToolbarSpaceItemIdentifier,
-            AC_SHELL_TOOLBAR_ITEM_START,
-            NSToolbarSpaceItemIdentifier,
-            AC_SHELL_TOOLBAR_ITEM_SYNC,
-            NSToolbarSpaceItemIdentifier,
-            AC_SHELL_TOOLBAR_ITEM_UPLOAD,
-            NSToolbarFlexibleSpaceItemIdentifier,
-            AC_SHELL_TOOLBAR_ITEM_SEARCH,
-            nil];
-}
-
-- (BOOL)validateToolbarItem:(NSToolbarItem *)item
-{
-    if ([item.itemIdentifier isEqualToString:AC_SHELL_TOOLBAR_ITEM_UPLOAD]) {
-        return self.editingEnabled;
-    }
-    return YES;
-}
 
 #pragma mark -
 #pragma mark KeynoteDelegate Protocol Methods
@@ -695,19 +491,6 @@ enum CollectionActionTags {
 
 #pragma mark -
 #pragma mark Private Methods
-- (BOOL) isToplevelGroup: (id) item {
-    if ([[item indexPath] length] == 1) {
-        return YES;
-    }
-	return NO;
-}
-
-- (BOOL) isStaticCategory: (id) item {
-	if ([[item indexPath] length] == 2 && [[item indexPath] indexAtPosition: 0] == 0) {
-		return YES;
-	}
-	return NO;
-}
 
 - (void)beautifyOutlineView {
 	[collectionView expandItem:nil expandChildren:YES];
@@ -718,36 +501,6 @@ enum CollectionActionTags {
 	[collectionView selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
 }
 
-- (NSString*) librarySource {
-    if ([self editingEnabled]) {
-        return self.libraryTarget;
-    }
-	[[NSUserDefaults standardUserDefaults] synchronize];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER] != nil) {
-        return [NSString stringWithFormat: @"%@@%@",
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER],
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
-    }
-    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
-}
-
-- (NSString*) libraryTarget {
-	[[NSUserDefaults standardUserDefaults] synchronize];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER] != nil) {
-        return [NSString stringWithFormat: @"%@@%@",
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER],
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
-    }
-    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
-}
-
-- (NSString*) libraryDirPath {
-    if (![[[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION] isEqualToString:@""]) {
-        return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-    }
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]
-            stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
-}
 
 - (void) updateSyncFailedWarning {
     BOOL lastSyncOk = presentationLibrary.syncSuccessful;
@@ -768,31 +521,6 @@ enum CollectionActionTags {
         [statusLine setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_PRESENTATIONS, nil),
                                      [[presentationsArrayController arrangedObjects] count]]];
     }
-}
-
-- (BOOL) runSuppressableBooleanDialogWithIdentifier: (NSString*) identifier
-                                            message: (NSString*) message
-                                           okButton: (NSString*) ok
-                                       cancelButton: (NSString*) cancel
-{
-    BOOL reallyDoIt = NO;
-    NSString * userDefaultsKey = [NSString stringWithFormat: @"supress%@Dialog", identifier];
-    BOOL suppressAlert = [[NSUserDefaults standardUserDefaults] boolForKey: userDefaultsKey];
-    if (suppressAlert ) {
-        reallyDoIt = YES;
-    } else {
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText: NSLocalizedString(message, nil)];
-        [alert addButtonWithTitle: NSLocalizedString(ok, nil)];
-        [alert addButtonWithTitle: NSLocalizedString(cancel, nil)];
-        [alert setShowsSuppressionButton: YES];
-        
-        if ([alert runModal] == NSAlertFirstButtonReturn) {
-            reallyDoIt = YES;
-        }
-        [[NSUserDefaults standardUserDefaults] setBool: alert.suppressionButton.state forKey: userDefaultsKey];
-    }
-    return reallyDoIt;
 }
 
 - (BOOL) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection {

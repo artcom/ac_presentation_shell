@@ -36,7 +36,6 @@
                                                                     iconName: @"gearshape.2"];
     NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
     windowController = [[ACPreferenceWindowController alloc] initWithPages: preferencePages];
-    
 }
 
 - (IBAction) showWindow: (id) sender {

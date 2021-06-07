@@ -26,7 +26,7 @@
                                         </menuItem>
                                         <menuItem title="Preferences…" keyEquivalent="," id="Kuk-Kd-y35">
                                             <connections>
-                                                <action selector="showPreferences:" target="gRd-Dq-aHE" id="co6-Lb-paT"/>
+                                                <action selector="showPreferences:" target="Voe-Tx-rLC" id="pB9-dg-PSQ"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="cV1-Gl-GhF">
@@ -68,17 +68,8 @@
                             <menuItem title="File" id="Sfs-YY-Rv4">
                                 <menu key="submenu" title="File" id="YhX-bN-cY3">
                                     <items>
-                                        <menuItem title="New Collection" keyEquivalent="n" id="u8j-N7-kSr">
-                                            <connections>
-                                                <action selector="addCollection:" target="gRd-Dq-aHE" id="orC-w9-kcT"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="New Presentation" keyEquivalent="N" id="54Y-FN-nXS">
-                                            <connections>
-                                                <action selector="addPresentation:" target="gRd-Dq-aHE" id="fns-3b-qw5"/>
-                                                <binding destination="gRd-Dq-aHE" name="enabled" keyPath="editingEnabled" id="6gW-Qg-3ZS"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem title="New Collection" keyEquivalent="n" id="u8j-N7-kSr"/>
+                                        <menuItem title="New Presentation" keyEquivalent="N" id="54Y-FN-nXS"/>
                                         <menuItem isSeparatorItem="YES" id="jWc-Yw-tK7">
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
@@ -89,18 +80,20 @@
                                                     <menuItem title="Synchronize" id="qlS-iJ-CeT">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="sync:" target="gRd-Dq-aHE" id="oQh-Pj-A4s"/>
+                                                            <action selector="sync:" target="Ady-hI-5gd" id="Qho-jn-ZIi"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Upload" id="NsA-4q-X2T">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
                                                         <connections>
-                                                            <action selector="upload:" target="gRd-Dq-aHE" id="dIr-vg-8Az"/>
-                                                            <binding destination="gRd-Dq-aHE" name="enabled" keyPath="editingEnabled" id="wJ4-gf-7gd"/>
+                                                            <action selector="upload:" target="Ady-hI-5gd" id="OrP-vW-ugz"/>
                                                         </connections>
                                                     </menuItem>
                                                     <menuItem title="Delete" enabled="NO" id="tee-p1-Qgd">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
+                                                        <connections>
+                                                            <action selector="deletePresentation:" target="Ady-hI-5gd" id="lYd-a9-qhv"/>
+                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
@@ -145,7 +138,7 @@
                                         <menuItem title="Edit Presentation..." id="FoB-7a-Ozb">
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
-                                                <action selector="editPresentation:" target="gRd-Dq-aHE" id="LYe-CX-QgZ"/>
+                                                <action selector="editPresentation:" target="Ady-hI-5gd" id="cB1-KM-y0W"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem isSeparatorItem="YES" id="ed6-KW-pPw">
@@ -177,9 +170,6 @@
 CA
 </string>
                                             <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="remove:" target="gRd-Dq-aHE" id="b8G-Yg-Ksl"/>
-                                            </connections>
                                         </menuItem>
                                         <menuItem title="Select All" keyEquivalent="a" id="2iq-Sg-IrR">
                                             <connections>
@@ -248,55 +238,8 @@ CA
                         <outlet property="delegate" destination="Voe-Tx-rLC" id="PrD-fu-P6m"/>
                     </connections>
                 </application>
-                <customObject id="Voe-Tx-rLC" customClass="ACShellAppDelegate">
-                    <connections>
-                        <outlet property="shellController" destination="gRd-Dq-aHE" id="95Z-rZ-OZp"/>
-                    </connections>
-                </customObject>
-                <customObject id="gRd-Dq-aHE" customClass="ACShellController">
-                    <connections>
-                        <outlet property="collectionTreeController" destination="bKl-pO-gse" id="P3l-jD-Rgv"/>
-                        <outlet property="editPresentationMenuItem" destination="FoB-7a-Ozb" id="8n2-2K-qBi"/>
-                        <outlet property="presentationsArrayController" destination="pHf-Zi-6gS" id="mRz-gK-7Rf"/>
-                    </connections>
-                </customObject>
                 <customObject id="KqM-sS-PlR" customClass="NSFontManager"/>
-                <arrayController objectClassName="Presentation" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="pHf-Zi-6gS" userLabel="Presentations">
-                    <declaredKeys>
-                        <string>title</string>
-                        <string>isComplete</string>
-                        <string>singleLineTitle</string>
-                        <string>order</string>
-                        <string>year</string>
-                        <string>yearString</string>
-                        <string>categoriesTitles</string>
-                    </declaredKeys>
-                    <connections>
-                        <binding destination="gRd-Dq-aHE" name="contentArray" keyPath="currentPresentationList" id="TKg-x3-8i8">
-                            <dictionary key="options">
-                                <bool key="NSDeletesObjectsOnRemove" value="YES"/>
-                            </dictionary>
-                        </binding>
-                    </connections>
-                </arrayController>
-                <treeController objectClassName="ACShellCollection" childrenKeyPath="children" id="bKl-pO-gse">
-                    <declaredKeys>
-                        <string>name</string>
-                        <string>presentations</string>
-                    </declaredKeys>
-                    <connections>
-                        <binding destination="gRd-Dq-aHE" name="contentArray" keyPath="library" id="Kkr-gG-nur"/>
-                    </connections>
-                </treeController>
-                <objectController id="Q49-cL-JFE" userLabel="ControllerAlias">
-                    <declaredKeys>
-                        <string>presentations</string>
-                        <string>isComplete</string>
-                    </declaredKeys>
-                    <connections>
-                        <outlet property="content" destination="gRd-Dq-aHE" id="DGn-r1-UHo"/>
-                    </connections>
-                </objectController>
+                <customObject id="Voe-Tx-rLC" customClass="ACShellAppDelegate"/>
                 <userDefaultsController representsSharedInstance="YES" id="X30-Mf-q4B"/>
                 <customObject id="Ady-hI-5gd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -305,7 +248,7 @@ CA
         <!--Window Controller-->
         <scene sceneID="R2V-B0-nI4">
             <objects>
-                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="ShellWindowController" sceneMemberID="viewController">
+                <windowController showSeguePresentationStyle="single" id="B8D-0N-5wS" customClass="ACShellWindowController" sceneMemberID="viewController">
                     <window key="window" title="AC Presentation Shell" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" toolbarStyle="unified" titleVisibility="hidden" id="IQv-IB-iLA">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES" fullSizeContentView="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -333,6 +276,7 @@ CA
                                 <toolbarItem implicitItemIdentifier="34F5E731-7A0C-4684-A679-33C6473FED77" explicitItemIdentifier="ACShellToolbarItemUpload" label="Upload" paletteLabel="Upload" toolTip="Synchronize with server" tag="-1" image="arrow.up" catalog="system" sizingBehavior="auto" id="ohL-OZ-O6d" userLabel="Upload">
                                     <connections>
                                         <action selector="upload:" target="B8D-0N-5wS" id="VKa-8o-i0U"/>
+                                        <binding destination="B8D-0N-5wS" name="enabled" keyPath="editingEnabled" id="3F6-Ys-XhC"/>
                                     </connections>
                                 </toolbarItem>
                                 <searchToolbarItem implicitItemIdentifier="459B09BB-64FC-4919-BB8E-474F090EA869" explicitItemIdentifier="ACShellToolbarItemSearch" label="Search" paletteLabel="Search" visibilityPriority="1001" id="MY3-CN-wMk">
@@ -371,8 +315,17 @@ CA
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <objectController id="Q49-cL-JFE" userLabel="ControllerAlias">
+                    <declaredKeys>
+                        <string>presentations</string>
+                        <string>isComplete</string>
+                    </declaredKeys>
+                    <connections>
+                        <outlet property="content" destination="B8D-0N-5wS" id="wAn-IE-fnb"/>
+                    </connections>
+                </objectController>
             </objects>
-            <point key="canvasLocation" x="270.5" y="414.5"/>
+            <point key="canvasLocation" x="321" y="411"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="ndz-c3-ApI">
@@ -383,7 +336,7 @@ CA
                         <splitViewItem holdingPriority="255" behavior="contentList" id="5J4-nH-B1L"/>
                     </splitViewItems>
                     <splitView key="splitView" dividerStyle="thin" vertical="YES" id="uw1-7E-bFs">
-                        <rect key="frame" x="-365" y="0.0" width="806" height="591"/>
+                        <rect key="frame" x="-365" y="0.0" width="959" height="591"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>
                             <outlet property="delegate" destination="lDV-WZ-cxx" id="9hf-rH-9hN"/>
@@ -397,30 +350,30 @@ CA
                 </splitViewController>
                 <customObject id="Ns6-7f-Kzt" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="270" y="1231"/>
+            <point key="canvasLocation" x="346.5" y="1230.5"/>
         </scene>
-        <!--View Controller-->
+        <!--Library View Controller-->
         <scene sceneID="EBq-Sz-anO">
             <objects>
-                <viewController id="DR6-ys-bPV" sceneMemberID="viewController">
+                <viewController id="DR6-ys-bPV" customClass="LibraryViewController" sceneMemberID="viewController">
                     <view key="view" id="SdU-Ev-2ZG">
                         <rect key="frame" x="0.0" y="0.0" width="249" height="516"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqX-ZM-wSk">
-                                <rect key="frame" x="0.0" y="0.0" width="249" height="518"/>
+                            <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="17" horizontalPageScroll="10" verticalLineScroll="17" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqX-ZM-wSk">
+                                <rect key="frame" x="0.0" y="37" width="249" height="481"/>
                                 <clipView key="contentView" id="tVX-1f-ZZ5">
-                                    <rect key="frame" x="0.0" y="0.0" width="249" height="518"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="249" height="481"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" indentationPerLevel="13" autoresizesOutlineColumn="YES" outlineTableColumn="zvp-os-FWZ" id="Qtk-xH-5KA">
-                                            <rect key="frame" x="0.0" y="0.0" width="249" height="518"/>
+                                        <outlineView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="systemDefault" indentationPerLevel="1" autoresizesOutlineColumn="YES" outlineTableColumn="zvp-os-FWZ" id="Qtk-xH-5KA">
+                                            <rect key="frame" x="0.0" y="0.0" width="249" height="481"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <size key="intercellSpacing" width="17" height="0.0"/>
+                                            <size key="intercellSpacing" width="8" height="0.0"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="217" minWidth="40" maxWidth="1000" id="zvp-os-FWZ">
+                                                <tableColumn width="241" minWidth="40" maxWidth="1000" id="zvp-os-FWZ">
                                                     <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -431,8 +384,22 @@ CA
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <connections>
+                                                        <binding destination="1fy-rw-i8c" name="value" keyPath="arrangedObjects.name" id="jOj-XN-tFe">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                                <bool key="NSConditionallySetsEnabled" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <binding destination="1fy-rw-i8c" name="content" keyPath="arrangedObjects" id="IYK-MX-4vc"/>
+                                                <binding destination="1fy-rw-i8c" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="IYK-MX-4vc" id="SmT-N1-l97"/>
+                                                <outlet property="dataSource" destination="DR6-ys-bPV" id="pzv-7z-PqA"/>
+                                                <outlet property="delegate" destination="DR6-ys-bPV" id="gWM-Gi-Jrl"/>
+                                            </connections>
                                         </outlineView>
                                     </subviews>
                                 </clipView>
@@ -445,23 +412,65 @@ CA
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <imageView toolTip="Shit hit the fan." translatesAutoresizingMaskIntoConstraints="NO" id="Cag-Br-XvR">
+                                <rect key="frame" x="202" y="2.5" width="27.5" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="27" id="5ie-hf-cLh"/>
+                                    <constraint firstAttribute="height" constant="24" id="bob-wI-KrY"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="exclamationmark.triangle.fill" catalog="system" id="6kq-lc-NHM"/>
+                            </imageView>
+                            <segmentedControl horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="BbM-PW-t6W">
+                                <rect key="frame" x="19" y="7" width="80" height="19"/>
+                                <segmentedCell key="cell" controlSize="small" state="on" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="cbz-XF-5P0">
+                                    <font key="font" metaFont="smallSystem"/>
+                                    <segments>
+                                        <segment image="NSAddTemplate" width="35"/>
+                                        <segment image="NSRemoveTemplate" width="34" tag="1"/>
+                                    </segments>
+                                </segmentedCell>
+                                <connections>
+                                    <action selector="collectionActionClicked:" target="DR6-ys-bPV" id="Xsq-h7-QAG"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="BbM-PW-t6W" firstAttribute="leading" secondItem="SdU-Ev-2ZG" secondAttribute="leading" constant="20" symbolic="YES" id="Dru-CR-EJ7"/>
+                            <constraint firstItem="Cag-Br-XvR" firstAttribute="centerY" secondItem="BbM-PW-t6W" secondAttribute="centerY" id="N1b-Oy-EeO"/>
                             <constraint firstAttribute="trailing" secondItem="rqX-ZM-wSk" secondAttribute="trailing" id="ZOk-Hf-hfh"/>
+                            <constraint firstAttribute="trailing" secondItem="Cag-Br-XvR" secondAttribute="trailing" constant="20" symbolic="YES" id="fYY-u2-8oH"/>
+                            <constraint firstAttribute="bottom" secondItem="BbM-PW-t6W" secondAttribute="bottom" constant="9" id="kft-zK-7ER"/>
                             <constraint firstItem="rqX-ZM-wSk" firstAttribute="leading" secondItem="SdU-Ev-2ZG" secondAttribute="leading" id="nuv-Vb-tmt"/>
                             <constraint firstItem="rqX-ZM-wSk" firstAttribute="top" secondItem="SdU-Ev-2ZG" secondAttribute="top" constant="-2" id="pZU-7o-FqO"/>
-                            <constraint firstAttribute="bottom" secondItem="rqX-ZM-wSk" secondAttribute="bottom" id="yb4-tU-B3C"/>
+                            <constraint firstAttribute="bottom" secondItem="rqX-ZM-wSk" secondAttribute="bottom" constant="37" id="yb4-tU-B3C"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionActions" destination="BbM-PW-t6W" id="6v8-xK-XTY"/>
+                        <outlet property="collectionTreeController" destination="1fy-rw-i8c" id="vjk-ml-MyS"/>
+                        <outlet property="collectionView" destination="Qtk-xH-5KA" id="2Yn-lK-DzB"/>
+                        <outlet property="warningIcon" destination="Cag-Br-XvR" id="3Zh-3e-QoY"/>
+                    </connections>
                 </viewController>
                 <customObject id="hKH-dU-8FV" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController id="7yT-Ym-XFT"/>
+                <treeController objectClassName="ACShellCollection" childrenKeyPath="children" id="1fy-rw-i8c">
+                    <declaredKeys>
+                        <string>name</string>
+                        <string>presentations</string>
+                    </declaredKeys>
+                    <classReference key="objectClass" className="ACShellCollection"/>
+                    <connections>
+                        <binding destination="DR6-ys-bPV" name="contentArray" keyPath="library" id="jyy-n3-7gP"/>
+                    </connections>
+                </treeController>
             </objects>
             <point key="canvasLocation" x="-9.5" y="2039"/>
         </scene>
-        <!--View Controller-->
+        <!--Presentation Table View Controller-->
         <scene sceneID="Iu6-Dm-OUb">
             <objects>
-                <viewController id="vet-PA-LaD" sceneMemberID="viewController">
+                <viewController id="vet-PA-LaD" customClass="PresentationTableViewController" sceneMemberID="viewController">
                     <view key="view" id="ZCn-a7-OE4">
                         <rect key="frame" x="0.0" y="0.0" width="645" height="516"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -479,36 +488,134 @@ CA
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                             <tableColumns>
-                                                <tableColumn width="116" minWidth="40" maxWidth="1000" id="jho-rh-oVN">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                <tableColumn identifier="order" editable="NO" width="246" minWidth="10" maxWidth="3.4028234663852886e+38" id="Fd2-ec-9au">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="Kzs-IH-Cfv">
-                                                        <font key="font" metaFont="system"/>
+                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="right" title="Text Cell" id="JeY-C5-ED0">
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <connections>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="JeO-rk-IbN"/>
+                                                        <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.order" id="kfq-CJ-287">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                <bool key="NSConditionallySetsEnabled" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
                                                 </tableColumn>
-                                                <tableColumn width="480" minWidth="40" maxWidth="1000" id="umC-m5-gRQ">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
+                                                <tableColumn identifier="selected" width="18" minWidth="18" maxWidth="1000" id="v8p-hg-AQ5">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </tableHeaderCell>
+                                                    <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="left" alignment="left" controlSize="mini" inset="2" id="wmR-MV-hcx">
+                                                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                        <font key="font" metaFont="miniSystem"/>
+                                                    </buttonCell>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <connections>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="0Uc-8o-rYW"/>
+                                                        <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.selected" id="afT-H3-2Eb"/>
+                                                    </connections>
+                                                </tableColumn>
+                                                <tableColumn identifier="title" editable="NO" width="70" minWidth="10" maxWidth="3.4028234663852886e+38" id="pmO-T5-xhK">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Name">
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
                                                     </tableHeaderCell>
-                                                    <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" title="Text Cell" id="2yV-ed-Uw1">
-                                                        <font key="font" metaFont="system"/>
+                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="0tE-g7-cD2">
+                                                        <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
+                                                    <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="title"/>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <connections>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="5Un-hw-1Jc"/>
+                                                        <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.singleLineTitle" id="9r7-Fz-lBZ">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                <bool key="NSConditionallySetsEnabled" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </tableColumn>
+                                                <tableColumn identifier="year" editable="NO" width="56.5" minWidth="10" maxWidth="3.4028234663852886e+38" id="ZGz-zN-8EQ">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Year">
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="AAh-TS-xbF">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="year"/>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <connections>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="IZ6-jk-HH7"/>
+                                                        <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.yearString" id="Ulr-6f-NU4">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                <bool key="NSConditionallySetsEnabled" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </tableColumn>
+                                                <tableColumn identifier="categories" editable="NO" width="101" minWidth="100" maxWidth="3.4028234663852886e+38" id="VCt-iB-U71" userLabel="Categories">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Categories">
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="bXo-G5-d1x">
+                                                        <font key="font" metaFont="smallSystem"/>
+                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                    </textFieldCell>
+                                                    <sortDescriptor key="sortDescriptorPrototype" selector="caseInsensitiveCompare:" sortKey="categoriesTitles"/>
+                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                    <connections>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="FWa-C0-CFq"/>
+                                                        <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.categoriesTitles" id="Ukz-EV-wdW">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEditable" value="YES"/>
+                                                                <bool key="NSConditionallySetsEnabled" value="YES"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
+                                                </tableColumn>
+                                                <tableColumn identifier="highlight" editable="NO" width="36" minWidth="10" maxWidth="3.4028234663852886e+38" id="HMU-8M-220">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                        <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                        <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
+                                                    </tableHeaderCell>
+                                                    <imageCell key="dataCell" controlSize="small" refusesFirstResponder="YES" alignment="left" image="presentation_icon_pagination" id="46S-zF-Fah"/>
+                                                    <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="highlight"/>
+                                                    <connections>
+                                                        <binding destination="pHf-Zi-6gS" name="enabled" keyPath="arrangedObjects.isComplete" id="jIV-Q3-S6i"/>
+                                                        <binding destination="pHf-Zi-6gS" name="value" keyPath="arrangedObjects.highlight" id="iaL-bi-FNo">
+                                                            <dictionary key="options">
+                                                                <bool key="NSConditionallySetsEnabled" value="NO"/>
+                                                            </dictionary>
+                                                        </binding>
+                                                    </connections>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="vet-PA-LaD" id="Mlt-r4-MWP"/>
+                                                <outlet property="delegate" destination="vet-PA-LaD" id="8Uj-h3-v0b"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                 </clipView>
-                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="zhP-uP-Gxp">
-                                    <rect key="frame" x="1" y="119" width="223" height="15"/>
+                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="0.5" horizontal="YES" id="zhP-uP-Gxp">
+                                    <rect key="frame" x="0.0" y="501" width="645" height="15"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                                 <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="zJ4-mK-Hpw">
@@ -528,16 +635,42 @@ CA
                             <constraint firstAttribute="bottom" secondItem="3vc-n0-Ljd" secondAttribute="bottom" id="K9N-M5-XFM"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="presentationTable" destination="wzi-kS-XMG" id="NnX-zw-eXa"/>
+                        <outlet property="presentationsArrayController" destination="pHf-Zi-6gS" id="V1A-Wl-Lru"/>
+                    </connections>
                 </viewController>
                 <customObject id="TNT-xI-2Ll" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <arrayController objectClassName="Presentation" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="pHf-Zi-6gS" userLabel="Presentations">
+                    <declaredKeys>
+                        <string>title</string>
+                        <string>isComplete</string>
+                        <string>singleLineTitle</string>
+                        <string>order</string>
+                        <string>year</string>
+                        <string>yearString</string>
+                        <string>categoriesTitles</string>
+                    </declaredKeys>
+                    <connections>
+                        <binding destination="vet-PA-LaD" name="contentArray" keyPath="currentPresentationList" id="z8z-yM-9Dn">
+                            <dictionary key="options">
+                                <bool key="NSDeletesObjectsOnRemove" value="YES"/>
+                            </dictionary>
+                        </binding>
+                    </connections>
+                </arrayController>
             </objects>
             <point key="canvasLocation" x="453.5" y="2039"/>
         </scene>
     </scenes>
     <resources>
+        <image name="NSAddTemplate" width="14" height="13"/>
+        <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="18" height="15"/>
         <image name="arrow.up" catalog="system" width="13" height="14"/>
+        <image name="exclamationmark.triangle.fill" catalog="system" width="17" height="15"/>
         <image name="play.rectangle" catalog="system" width="18" height="14"/>
+        <image name="presentation_icon_pagination" width="6" height="6"/>
         <image name="sidebar.left" catalog="system" width="18" height="14"/>
     </resources>
 </document>

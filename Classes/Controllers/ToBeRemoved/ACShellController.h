@@ -12,7 +12,6 @@
 #import "SetupAssistantDelegateProtocol.h"
 
 @class PresentationWindowController;
-@class PreferenceController;
 @class PresentationLibrary;
 @class ACShellCollection;
 @class EditWindowController;
@@ -23,7 +22,6 @@
                                             NSTableViewDataSource, NSToolbarDelegate, NSToolbarItemValidation, NSSplitViewDelegate> 
 {
 	PresentationWindowController *presentationWindowController;
-    PreferenceController * preferenceController;
     EditWindowController * editWindowController;
 	RsyncController *rsyncController;
     SetupAssistantController * setupAssistant;	
@@ -46,8 +44,6 @@
 @property (weak, nonatomic) IBOutlet NSImageView * warningIcon;
 @property (weak, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
 @property (weak, nonatomic) IBOutlet NSMenuItem * editPresentationMenuItem;
-@property (weak, nonatomic) IBOutlet NSView * leftSplitPane;
-@property (weak, nonatomic) IBOutlet NSView * rightSplitPane;
 
 @property (weak, readonly) NSString* libraryDirPath;
 @property (readonly) BOOL editingEnabled;
@@ -64,8 +60,6 @@
 - (IBAction)updatePresentationFilter: (id) sender;
 - (IBAction)editPresentation: (id) sender;
 - (IBAction)collectionActionClicked: (id) sender;
-
-- (IBAction)showPreferences: (id)sender;
 
 - (IBAction)load;
 

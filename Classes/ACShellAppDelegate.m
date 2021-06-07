@@ -9,21 +9,25 @@
 #import "ACShellAppDelegate.h"
 #import "NSFileManager-DirectoryHelper.h"
 #import "ACShellController.h"
-#import "PresentationLibrary.h"
+
 
 @implementation ACShellAppDelegate
 
-@synthesize shellController;
-
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    
+    self.preferenceController = [[PreferenceController alloc] init];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
-	return YES;
+    return YES;
 }
 
 - (void) applicationWillTerminate:(NSNotification *)notification {
-	[shellController.presentationLibrary saveSettings];
+    [[PresentationLibrary sharedInstance] saveSettings];
+}
+
+- (IBAction)showPreferences:(id)sender {
+    [self.preferenceController showWindow:nil];
 }
 
 @end

@@ -7,10 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class ACShellController;
+#import "PreferenceController.h"
+#import "ACShellWindowController.h"
 
 @interface ACShellAppDelegate : NSObject <NSApplicationDelegate>
+@property (strong) PreferenceController *preferenceController;
 
-@property (strong) IBOutlet ACShellController *shellController;
-
+- (IBAction)showPreferences:(id)sender;
 @end

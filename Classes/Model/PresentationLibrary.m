@@ -13,6 +13,7 @@
 #import "NSFileManager-DirectoryHelper.h"
 #import "NSString-WithUUID.h"
 #import "localized_text_keys.h"
+#import "default_keys.h"
 #import "AssetManager.h"
 #import "PresentationLibrarySearch.h"
 
@@ -47,6 +48,17 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 @implementation PresentationLibrary
 
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t once;
+    static PresentationLibrary *_sharedInstance = nil;
+    dispatch_once(&once, ^{
+        _sharedInstance = [self libraryFromSettingsFile];
+        [_sharedInstance loadXmlLibraryFromDirectory: _sharedInstance.libraryDirPath];
+    });
+    
+    return _sharedInstance;
+}
 
 + (id) libraryFromSettingsFile {
     PresentationLibrary * lib = [NSKeyedUnarchiver unarchiveObjectWithFile: [PresentationLibrary settingsFilepath]];
@@ -171,6 +183,41 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self.librarySearch updateIndex];
     
     return YES;
+}
+
+- (BOOL)editingEnabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
+}
+
+- (NSString*) librarySource {
+    if ([self editingEnabled]) {
+        return self.libraryTarget;
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER] != nil) {
+        return [NSString stringWithFormat: @"%@@%@",
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER],
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
+    }
+    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+}
+
+- (NSString*) libraryTarget {
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER] != nil) {
+        return [NSString stringWithFormat: @"%@@%@",
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER],
+                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
+    }
+    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+}
+
+- (NSString*) libraryDirPath {
+    if (![[[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION] isEqualToString:@""]) {
+        return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    }
+    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]
+            stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
 }
 
 - (void) saveXmlLibrary {

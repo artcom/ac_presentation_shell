@@ -24,6 +24,10 @@
 @property (strong) NSString *libraryDirPath;
 @property (strong) NSString *categoriesDirectory;
 
+@property (weak, readonly) NSString* librarySource;
+@property (weak, readonly) NSString* libraryTarget;
+
++ (instancetype)sharedInstance;
 + (id)libraryFromSettingsFile;
 
 - (void)saveSettings;

@@ -53,7 +53,9 @@
 		3BE52F811C886E3400F1D2B7 /* PresentationIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */; };
 		3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F891C8875B300F1D2B7 /* IntroLayer.m */; };
 		3BF8C193266E23D9004BC26B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BF8C192266E23D9004BC26B /* Main.storyboard */; };
-		3BF8C196266E25EA004BC26B /* ShellWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C195266E25EA004BC26B /* ShellWindowController.m */; };
+		3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C195266E25EA004BC26B /* ACShellWindowController.m */; };
+		3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19B266E7E85004BC26B /* LibraryViewController.m */; };
+		3BF8C1A0266E940A004BC26B /* PresentationTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19E266E940A004BC26B /* PresentationTableViewController.m */; };
 		630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */; };
 		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
@@ -197,8 +199,12 @@
 		3BE52F881C8875B300F1D2B7 /* IntroLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		3BE52F891C8875B300F1D2B7 /* IntroLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
 		3BF8C192266E23D9004BC26B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		3BF8C194266E25EA004BC26B /* ShellWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShellWindowController.h; sourceTree = "<group>"; };
-		3BF8C195266E25EA004BC26B /* ShellWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShellWindowController.m; sourceTree = "<group>"; };
+		3BF8C194266E25EA004BC26B /* ACShellWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACShellWindowController.h; sourceTree = "<group>"; };
+		3BF8C195266E25EA004BC26B /* ACShellWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACShellWindowController.m; sourceTree = "<group>"; };
+		3BF8C19A266E7E85004BC26B /* LibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
+		3BF8C19B266E7E85004BC26B /* LibraryViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
+		3BF8C19D266E940A004BC26B /* PresentationTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PresentationTableViewController.h; sourceTree = "<group>"; };
+		3BF8C19E266E940A004BC26B /* PresentationTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentationTableViewController.m; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
 		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localized_text_keys.h; sourceTree = "<group>"; };
 		630D57851200CD60009D4CAE /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -552,6 +558,47 @@
 			name = Fixtures;
 			sourceTree = "<group>";
 		};
+		3BF8C1A2266E98D2004BC26B /* PresentationLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				63B8E52711FBACD50036DBC1 /* EditWindowController.h */,
+				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
+				22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */,
+				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
+				3BF8C19A266E7E85004BC26B /* LibraryViewController.h */,
+				3BF8C19B266E7E85004BC26B /* LibraryViewController.m */,
+				3BF8C19D266E940A004BC26B /* PresentationTableViewController.h */,
+				3BF8C19E266E940A004BC26B /* PresentationTableViewController.m */,
+			);
+			path = PresentationLibrary;
+			sourceTree = "<group>";
+		};
+		3BF8C1A3266E9913004BC26B /* Auxillary */ = {
+			isa = PBXGroup;
+			children = (
+				6391D53612211B75009980C9 /* PreferenceController.h */,
+				6391D53712211B75009980C9 /* PreferenceController.m */,
+				63904154120633FC0061D215 /* LibraryServerCollectionItem.h */,
+				63904155120633FC0061D215 /* LibraryServerCollectionItem.m */,
+				630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */,
+				22F2B8DE11F73EC100EE4717 /* RsyncController.h */,
+				22F2B8DF11F73EC100EE4717 /* RsyncController.m */,
+				63EB809B12050048008D7814 /* SetupAssistantController.h */,
+				63EB809C12050048008D7814 /* SetupAssistantController.m */,
+				639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */,
+			);
+			path = Auxillary;
+			sourceTree = "<group>";
+		};
+		3BF8C1A4266E9930004BC26B /* ToBeRemoved */ = {
+			isa = PBXGroup;
+			children = (
+				22D2F76411D8AFF90030AFBD /* ACShellController.h */,
+				22D2F76511D8AFF90030AFBD /* ACShellController.m */,
+			);
+			path = ToBeRemoved;
+			sourceTree = "<group>";
+		};
 		6354256912201591004FEC38 /* PreferenceWindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,24 +621,11 @@
 		63AE0E4B1204241800FD8172 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				22D2F76411D8AFF90030AFBD /* ACShellController.h */,
-				22D2F76511D8AFF90030AFBD /* ACShellController.m */,
-				63B8E52711FBACD50036DBC1 /* EditWindowController.h */,
-				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
-				63904154120633FC0061D215 /* LibraryServerCollectionItem.h */,
-				63904155120633FC0061D215 /* LibraryServerCollectionItem.m */,
-				22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */,
-				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
-				630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */,
-				22F2B8DE11F73EC100EE4717 /* RsyncController.h */,
-				22F2B8DF11F73EC100EE4717 /* RsyncController.m */,
-				63EB809B12050048008D7814 /* SetupAssistantController.h */,
-				63EB809C12050048008D7814 /* SetupAssistantController.m */,
-				639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */,
-				6391D53612211B75009980C9 /* PreferenceController.h */,
-				6391D53712211B75009980C9 /* PreferenceController.m */,
-				3BF8C194266E25EA004BC26B /* ShellWindowController.h */,
-				3BF8C195266E25EA004BC26B /* ShellWindowController.m */,
+				3BF8C1A3266E9913004BC26B /* Auxillary */,
+				3BF8C1A2266E98D2004BC26B /* PresentationLibrary */,
+				3BF8C1A4266E9930004BC26B /* ToBeRemoved */,
+				3BF8C194266E25EA004BC26B /* ACShellWindowController.h */,
+				3BF8C195266E25EA004BC26B /* ACShellWindowController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -798,11 +832,12 @@
 				630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */,
 				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
 				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
+				3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */,
 				63904053120617EE0061D215 /* LibraryServer.m in Sources */,
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,
 				63904153120632FE0061D215 /* LibraryServerView.m in Sources */,
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
-				3BF8C196266E25EA004BC26B /* ShellWindowController.m in Sources */,
+				3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */,
 				639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */,
 				639043F012075DFC0061D215 /* PublicKeyDraglet.m in Sources */,
 				CD349E57180740CE0028C540 /* ACSearchIndexQuery.m in Sources */,
@@ -812,6 +847,7 @@
 				CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */,
 				3B8ACC301C8750F0005D7F7A /* HeaderLayer.m in Sources */,
 				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
+				3BF8C1A0266E940A004BC26B /* PresentationTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
