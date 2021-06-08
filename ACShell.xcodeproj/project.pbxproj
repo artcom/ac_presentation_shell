@@ -30,6 +30,7 @@
 		22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */; };
 		22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B8DF11F73EC100EE4717 /* RsyncController.m */; };
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
+		3B5675B22670090800241327 /* VerticalAlignedTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */; };
 		3B5AD50B1CA3F794001CFFA2 /* lmsansquot8-regular.otf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */; };
 		3B62316A266FBF5D00C17CF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B62316C266FBF5D00C17CF2 /* Main.storyboard */; };
 		3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */; };
@@ -168,6 +169,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3B5675B02670090800241327 /* VerticalAlignedTextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerticalAlignedTextFieldCell.h; sourceTree = "<group>"; };
+		3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerticalAlignedTextFieldCell.m; sourceTree = "<group>"; };
 		3B62316E266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3B62316F266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencePages.xib; sourceTree = "<group>"; };
 		3B623170266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
@@ -459,6 +462,8 @@
 				639043EF12075DFC0061D215 /* PublicKeyDraglet.m */,
 				3B9B387F1C89B2FD00C34D4E /* CategoryCell.h */,
 				3B9B38801C89B2FD00C34D4E /* CategoryCell.m */,
+				3B5675B02670090800241327 /* VerticalAlignedTextFieldCell.h */,
+				3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -818,6 +823,7 @@
 				3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */,
 				63904053120617EE0061D215 /* LibraryServer.m in Sources */,
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,
+				3B5675B22670090800241327 /* VerticalAlignedTextFieldCell.m in Sources */,
 				63904153120632FE0061D215 /* LibraryServerView.m in Sources */,
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
 				3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */,
