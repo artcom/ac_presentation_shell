@@ -164,12 +164,6 @@
                                                 <action selector="paste:" target="Ady-hI-5gd" id="nlP-OV-lWV"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem title="Paste and Match Style" keyEquivalent="V" id="X83-SO-hO7">
-                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="pasteAsPlainText:" target="Ady-hI-5gd" id="0Dd-SI-M8T"/>
-                                            </connections>
-                                        </menuItem>
                                         <menuItem title="Delete" id="5W8-Zn-lcW">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 CA
