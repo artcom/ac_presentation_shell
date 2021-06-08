@@ -22,7 +22,6 @@
 @property (weak, readonly) NSString *singleLineTitle;
 
 @property (assign) BOOL highlight;
-@property (strong) NSNumber *highlightObj;
 @property (strong) NSNumber* year;
 @property (strong, readonly) NSString *yearString;
 

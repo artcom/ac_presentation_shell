@@ -12,7 +12,6 @@
 @implementation Presentation
 @synthesize title;
 @synthesize singleLineTitle;
-@synthesize highlight;
 @synthesize year;
 @synthesize yearString;
 @synthesize directory;
@@ -94,15 +93,11 @@
 }
 
 - (BOOL)highlight {
-    if (_highlightObj == nil) {
-        _highlightObj = [[[self xmlNode] attributeForName:@"highlight"] objectValue];
-    }
-    return _highlightObj.boolValue;
+    return [[[[self xmlNode] attributeForName:@"highlight"] objectValue] boolValue];
 }
 
 - (void) setHighlight:(BOOL) flag {
-    _highlightObj = @(flag);
-    [[[self xmlNode] attributeForName: @"highlight"] setStringValue: flag ? @"true" : @"false"];
+    [[[self xmlNode] attributeForName: @"highlight"] setStringValue:flag ? @"true" : @"false"];
 }
 
 - (NSNumber*) year {
