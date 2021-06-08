@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 222781E811F88AD2007C1B6C /* RsyncTask.m */; };
 		225C7E7F11DBA4B200EF3009 /* ACShellCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */; };
 		22A3B65211E71F48003DE847 /* acswisslight.ttf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 22A3B64E11E71F48003DE847 /* acswisslight.ttf */; };
@@ -122,7 +121,6 @@
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
-		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		222781E711F88AD2007C1B6C /* RsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RsyncTask.h; sourceTree = "<group>"; };
 		222781E811F88AD2007C1B6C /* RsyncTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RsyncTask.m; sourceTree = "<group>"; };
 		225C7E7D11DBA4B200EF3009 /* ACShellCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACShellCollection.h; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 		630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDelegateProtocol.h; sourceTree = "<group>"; };
 		630F36AC120F0B2100F89EFB /* AssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetManager.h; sourceTree = "<group>"; };
 		630F36AD120F0B2100F89EFB /* AssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetManager.m; sourceTree = "<group>"; };
-		63143EBA12A7EA0600B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		63143EDF12A7F37600B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PreferencePages.xib; sourceTree = "<group>"; };
 		63143EE112A7F42A00B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
 		63143EF912A80D9500B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SetupAssistant.xib; sourceTree = "<group>"; };
@@ -512,7 +509,6 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				6366021B11F1F02800D6DD96 /* Localizable.strings */,
 				3BF8C192266E23D9004BC26B /* Main.storyboard */,
-				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 				6366050311F2EF0D00D6DD96 /* PreferencePages.xib */,
 				63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */,
 				22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */,
@@ -740,7 +736,6 @@
 			files = (
 				6379E79D120C8CAA006A6FEF /* acshell_askpasswd in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
-				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */,
 				CD5D24821926525B001AE16E /* Media.xcassets in Resources */,
 				22CE731711EDB15B0043F3C8 /* spinner.png in Resources */,
@@ -854,15 +849,6 @@
 				089C165DFE840E0CC02AAC07 /* English */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1DDD58150DA1D0A300B32029 /* English */,
-				63143EBA12A7EA0600B82DC3 /* German */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 		22EF9E7711D8EE4600E91DF0 /* PresentationWindow.xib */ = {
