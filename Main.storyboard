@@ -287,6 +287,9 @@ CA
                                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                         </searchFieldCell>
+                                        <connections>
+                                            <action selector="updatePresentationFilter:" target="B8D-0N-5wS" id="k6u-zd-bJU"/>
+                                        </connections>
                                     </searchField>
                                 </searchToolbarItem>
                                 <toolbarItem implicitItemIdentifier="NSToolbarFlexibleSpaceItem" id="cC8-Kq-U4B"/>
@@ -398,6 +401,7 @@ CA
                                             </connections>
                                         </outlineView>
                                     </subviews>
+                                    <nil key="backgroundColor"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="ZIO-2Q-0WK">
                                     <rect key="frame" x="0.0" y="595" width="249" height="15"/>

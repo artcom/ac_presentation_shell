@@ -25,16 +25,16 @@
 
 @implementation ACShellWindowController
 
-- (void)windowDidLoad {
+- (void)windowDidLoad
+{
     [super windowDidLoad];
     
     self.presentationLibrary = [PresentationLibrary sharedInstance];
     [self setupControllers];
-    [self bindMenuItem];
+    [self bindMenuItems];
 }
 
-
-- (void)bindMenuItem
+- (void)bindMenuItems
 {
     NSMenuItem *file = [NSApplication.sharedApplication.menu itemAtIndex:1];
     NSMenuItem *library = [file.submenu itemAtIndex:3];
@@ -47,12 +47,10 @@
 
 - (void)setupControllers
 {
-    
     self.libraryViewController = self.contentViewController.childViewControllers[0];
-    self.presentationTableViewController = self.contentViewController.childViewControllers[1];
-    
-    [self.presentationTableViewController bind: @"currentPresentationList" toObject:self.libraryViewController.collectionTreeController withKeyPath:@"selection.presentations" options:nil];
-    
+    self.libraryTableViewController = self.contentViewController.childViewControllers[1];
+    self.libraryTableViewController.presentationLibrary = self.presentationLibrary;
+    [self.libraryTableViewController bind: @"currentPresentationList" toObject:self.libraryViewController.collectionTreeController withKeyPath:@"selection.presentations" options:nil];
     
     self.presentationWindowController = [[PresentationWindowController alloc] init];
     
@@ -62,7 +60,6 @@
     
     self.rsyncController = [[RsyncController alloc] init];
     self.rsyncController.delegate = self;
-    
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
         [[KeynoteHandler sharedHandler] launchWithDelegate:self];
@@ -74,20 +71,25 @@
     }
 }
 
--(NSMutableArray*) library {
+- (NSMutableArray*) library
+{
     return self.presentationLibrary.library.children;
 }
 
--(void) setLibrary:(NSMutableArray *) array {
+- (void) setLibrary:(NSMutableArray *) array
+{
     self.presentationLibrary.library.children = array;
 }
 
-- (BOOL) editingEnabled {
-
+- (BOOL) editingEnabled
+{
     return [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
 }
 
-
+- (IBAction)updatePresentationFilter:(id)sender
+{
+    [self.libraryTableViewController updatePresentationFilter:sender];
+}
 
 - (IBAction)toggleSidebar:(id)sender
 {
@@ -99,7 +101,7 @@
 {
     NSLog(@"play");
     self.presentationWindowController.categories = self.presentationLibrary.categories;
-    self.presentationWindowController.presentations = self.presentationTableViewController.selectedPresentations;
+    self.presentationWindowController.presentations = self.libraryTableViewController.selectedPresentations;
     [self.presentationWindowController showWindow:nil];
 }
 

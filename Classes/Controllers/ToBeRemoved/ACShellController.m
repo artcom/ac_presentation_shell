@@ -200,6 +200,7 @@ enum CollectionActionTags {
 	}
 }
 
+/* DONE
 - (IBAction)updatePresentationFilter:(id)sender {
     
     NSString *searchString = [sender stringValue];
@@ -231,7 +232,7 @@ enum CollectionActionTags {
         //NSPredicate *predicate = [NSPredicate predicateWithFormat: @"directory IN %@", results];
         [weakSelf.presentationsArrayController setFilterPredicate:predicate];
         
-        /** Sort descriptor for table view: Entries should be shown in the same order as the @a results array */
+        // Sort descriptor for table view: Entries should be shown in the same order as the @a results array
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"directory" ascending:YES comparator:^NSComparisonResult(id obj1, id obj2) {
             
             NSUInteger index1 = [results indexOfObject:obj1];
@@ -253,7 +254,7 @@ enum CollectionActionTags {
         [weakSelf.presentationTable setSortDescriptors:@[sortDescriptor]];
     }];
 }
-
+*/
 
 
 

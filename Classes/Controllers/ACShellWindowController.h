@@ -21,7 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface ACShellWindowController : NSWindowController <NSToolbarItemValidation, KeynoteDelegate, RsyncControllerDelegate>
 
 @property (strong) LibraryViewController *libraryViewController;
-@property (strong) LibraryTableViewController *presentationTableViewController;
+@property (strong) LibraryTableViewController *libraryTableViewController;
 @property(strong) PresentationWindowController *presentationWindowController;
 @property(strong) EditWindowController * editWindowController;
 @property(strong) RsyncController *rsyncController;
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)upload:(id)sender;
 - (IBAction)editPresentation:(id)sender;
 - (IBAction)deletePresentation:(id)sender;
-
+- (IBAction)updatePresentationFilter:(id)sender;
 @end
 
 NS_ASSUME_NONNULL_END
