@@ -30,6 +30,7 @@
 + (instancetype)sharedInstance;
 + (id)libraryFromSettingsFile;
 
+- (BOOL)libraryExistsAtPath;
 - (void)reload;
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;

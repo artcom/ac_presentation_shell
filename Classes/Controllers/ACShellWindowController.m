@@ -86,11 +86,16 @@
     [[PresentationLibrary sharedInstance] reload];
     
     [self.libraryViewController willChangeValueForKey:@"library"];
-    if (![self.presentationLibrary loadXmlLibraryFromDirectory: self.presentationLibrary.libraryDirPath]) {
-        [self.rsyncController initialSyncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
-    }
+    [self.presentationLibrary loadXmlLibraryFromDirectory: self.presentationLibrary.libraryDirPath];
     [self.libraryViewController didChangeValueForKey:@"library"];
     [self.libraryViewController beautifyOutlineView];
+}
+
+- (void)start
+{
+    if (![self.presentationLibrary libraryExistsAtPath]) {
+        [self.rsyncController initialSyncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
+    }
 }
 
 - (BOOL) editingEnabled

@@ -13,7 +13,7 @@
 #import "ACShellWindowController.h"
 
 @interface ACShellAppDelegate : NSObject <NSApplicationDelegate, SetupAssistantDelegate>
-@property (strong) NSWindowController *mainWindowController;
+@property (strong) ACShellWindowController *mainWindowController;
 @property (strong) PreferenceController *preferenceController;
 @property(strong) SetupAssistantController *setupAssistantController;
 

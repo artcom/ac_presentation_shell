@@ -193,6 +193,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
 }
 
+- (BOOL)libraryExistsAtPath
+{
+    return [[NSFileManager defaultManager] fileExistsAtPath: self.libraryDirPath];
+}
+
 - (NSString*) librarySource {
     if ([self editingEnabled]) {
         return self.libraryTarget;

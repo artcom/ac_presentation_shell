@@ -33,6 +33,7 @@ KeynoteDelegate, RsyncControllerDelegate, LibraryTableViewControllerDelegate>
 @property(strong) PresentationLibrary *presentationLibrary;
 @property (readonly) BOOL editingEnabled;
 
+- (void)start;
 - (IBAction)toggleSidebar:(id)sender;
 - (IBAction)play:(id)sender;
 - (IBAction)sync:(id)sender;
@@ -42,8 +43,6 @@ KeynoteDelegate, RsyncControllerDelegate, LibraryTableViewControllerDelegate>
 - (IBAction)addPresentation:(id)sender;
 - (IBAction)editPresentation:(id)sender;
 - (IBAction)updatePresentationFilter:(id)sender;
-
-- (void) load;
 @end
 
 NS_ASSUME_NONNULL_END

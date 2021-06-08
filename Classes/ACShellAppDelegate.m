@@ -22,11 +22,16 @@
     
     NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
     [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
-    if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
         [self.mainWindowController showWindow:nil];
     } else {
         [self.setupAssistantController showWindow:nil];
     }
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+    [self.mainWindowController start];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
@@ -52,6 +57,8 @@
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
     [self.setupAssistantController close];
     [self.mainWindowController showWindow:nil];
+    [self.mainWindowController.window makeKeyWindow];
+    [self.mainWindowController start];
 }
 
 @end
