@@ -16,6 +16,7 @@
 @property (strong) ACShellWindowController *mainWindowController;
 @property (strong) PreferenceController *preferenceController;
 @property(strong) SetupAssistantController *setupAssistantController;
+@property (assign) BOOL isStartup;
 
 - (IBAction)showPreferences:(id)sender;
 @end

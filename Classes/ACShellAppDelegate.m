@@ -31,7 +31,10 @@
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
-    [self.mainWindowController start];
+    if (!self.isStartup) {
+        [self.mainWindowController start];
+        self.isStartup = YES;
+    }
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender

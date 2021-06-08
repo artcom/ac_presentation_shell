@@ -189,19 +189,19 @@
 "tee-p1-Qgd.title" = "Löschen";
 
 /* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "trW-6L-16H"; */
-"trW-6L-16H.title" = "Toolbar anzeigen";
+"trW-6L-16H.title" = "Symbolleiste anzeigen";
 
 /* Class = "NSMenuItem"; title = "New Collection"; ObjectID = "u8j-N7-kSr"; */
 "u8j-N7-kSr.title" = "Neue Sammlung";
 
 /* Class = "NSMenuItem"; title = "Customize Toolbar…"; ObjectID = "vy9-fI-BBg"; */
-"vy9-fI-BBg.title" = "Toolbar anpassen…";
+"vy9-fI-BBg.title" = "Symbolleiste anpassen…";
 
 /* Class = "NSMenuItem"; title = "Redo"; ObjectID = "w9F-oU-Ggs"; */
 "w9F-oU-Ggs.title" = "Widerholen";
 
 /* Class = "NSMenuItem"; title = "ACShell Help"; ObjectID = "wIs-MB-OxP"; */
-"wIs-MB-OxP.title" = "ACShell hilfe";
+"wIs-MB-OxP.title" = "ACShell Hilfe";
 
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "x62-ji-PPT"; */
 "x62-ji-PPT.title" = "Minimieren";
