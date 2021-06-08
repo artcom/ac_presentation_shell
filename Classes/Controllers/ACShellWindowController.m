@@ -278,23 +278,16 @@
     
     if (theAction == @selector(editPresentation:)) {
         if ([[self.libraryTableViewController.presentationTable selectedRowIndexes] count] == 1) {
-            NSLog(@"selected presentation");
             return YES;
         }
-        NSLog(@"no selected presentations");
         return NO;
     } else if (theAction == @selector(remove:)) {
         if (self.window.firstResponder == self.libraryTableViewController.presentationTable) {
-            NSLog(@"focus presentation table %hhd", self.libraryViewController.isPresentationRemovable);
             return self.libraryViewController.isPresentationRemovable;
         } else if (self.window.firstResponder == self.libraryViewController.collectionView) {
-            NSLog(@"focus collection outline");
             return self.libraryViewController.isCollectionSelected;
-        } else {
-            NSLog(@"no focus");
-            return NO;
         }
-        
+        return NO;
     }
     return YES;
 }
