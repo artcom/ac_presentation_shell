@@ -83,10 +83,8 @@
 - (void) load {
     [self.libraryViewController.collectionView deselectAll:self];
     
-    [[PresentationLibrary sharedInstance] reload];
-    
     [self.libraryViewController willChangeValueForKey:@"library"];
-    [self.presentationLibrary loadXmlLibraryFromDirectory: self.presentationLibrary.libraryDirPath];
+    [[PresentationLibrary sharedInstance] reload];
     [self.libraryViewController didChangeValueForKey:@"library"];
     [self.libraryViewController beautifyOutlineView];
 }
