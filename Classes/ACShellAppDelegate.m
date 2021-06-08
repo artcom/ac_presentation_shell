@@ -8,13 +8,14 @@
 
 #import "ACShellAppDelegate.h"
 #import "NSFileManager-DirectoryHelper.h"
-#import "ACShellController.h"
 
 
 @implementation ACShellAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
+    NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
+    [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
     self.preferenceController = [[PreferenceController alloc] init];
 }
 

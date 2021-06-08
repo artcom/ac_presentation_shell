@@ -8,7 +8,6 @@
 
 #import "EditWindowController.h"
 #import "Presentation.h"
-#import "ACShellController.h"
 #import "PresentationLibrary.h"
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
@@ -42,12 +41,12 @@
 @synthesize progressBar;
 @synthesize progressText;
 
-- (id) initWithShellController: (ACShellController*) theShellController
+- (id) initWithPresentationLibrary: (PresentationLibrary *) thePresentationLibrary
 {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
-        _shellController = theShellController;
         _selectedCategories = [NSMutableArray new];
+        _presentationLibrary = thePresentationLibrary;
     }
     return self;
 }
@@ -81,7 +80,7 @@
     [progressMessage setStringValue: @""];
     if (self.presentation == nil) {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
-        [self.shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
+        [self.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
                                                              thumbnailPath: [self.droppedThumbnail filename]
                                                                keynotePath: [self.droppedKeynote filename]
                                                                isHighlight: [self.highlightCheckbox intValue]
@@ -90,7 +89,7 @@
                                                           progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
-        [self.shellController.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
+        [self.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
                                                        thumbnailPath: [self.droppedThumbnail filename]
                                                          keynotePath: [self.droppedKeynote filename]
                                                          isHighlight: [self.highlightCheckbox intValue]
@@ -149,7 +148,7 @@
             [progressMessage setStringValue: @""];
             
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
-            [self.shellController.presentationLibrary deletePresentation:self.presentation progressDelegate: self];
+            [self.presentationLibrary deletePresentation:self.presentation progressDelegate: self];
         }
             break;
         case NSAlertSecondButtonReturn:
@@ -213,7 +212,7 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return self.shellController.presentationLibrary.categories.count;
+    return self.presentationLibrary.categories.count;
 }
 
 #pragma mark -
@@ -221,7 +220,7 @@
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    LibraryCategory *category = self.shellController.presentationLibrary.categories[row];
+    LibraryCategory *category = self.presentationLibrary.categories[row];
     CategoryCell *cell = [tableView makeViewWithIdentifier:@"CategoryCell" owner:self];
     cell.delegate = self;
     cell.checkbox.title = category.title;
@@ -239,13 +238,13 @@
 
 - (void)categoryCellDidCheck:(CategoryCell *)cell withIndex:(NSInteger)index
 {
-    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    LibraryCategory *category = self.presentationLibrary.categories[index];
     [self.selectedCategories addObject:category];
 }
 
 - (void)categoryCellDidUncheck:(CategoryCell *)cell withIndex:(NSInteger)index
 {
-    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    LibraryCategory *category = self.presentationLibrary.categories[index];
     [self.selectedCategories removeObject:category];
 }
 
@@ -279,7 +278,7 @@
     if (self.presentation) {
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.categories];
-        NSArray *categories = [self.shellController.presentationLibrary.categories filteredArrayUsingPredicate:predicate];
+        NSArray *categories = [self.presentationLibrary.categories filteredArrayUsingPredicate:predicate];
         [self.selectedCategories removeAllObjects];
         [self.selectedCategories addObjectsFromArray:categories];
         

@@ -54,7 +54,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     static PresentationLibrary *_sharedInstance = nil;
     dispatch_once(&once, ^{
         _sharedInstance = [self libraryFromSettingsFile];
-        [_sharedInstance loadXmlLibraryFromDirectory: _sharedInstance.libraryDirPath];
+        [_sharedInstance reload];
     });
     
     return _sharedInstance;
@@ -91,6 +91,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     return self;
+}
+
+- (void)reload {
+    [self loadXmlLibraryFromDirectory: self.libraryDirPath];
 }
 
 -(void) setup {

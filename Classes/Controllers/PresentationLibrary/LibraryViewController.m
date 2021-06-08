@@ -11,6 +11,8 @@
 #import "ACShellCollection.h"
 #import "localized_text_keys.h"
 
+#define ACSHELL_PRESENTATION @"ACShell_Presentation"
+
 // keep this in sync with the interface builder tags
 enum CollectionActionTags {
     AddCollectionAction,
@@ -27,16 +29,34 @@ enum CollectionActionTags {
     [super viewDidLoad];
     
     self.presentationLibrary = [PresentationLibrary sharedInstance];
+    
+    [self.collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
+    
     [self beautifyOutlineView];
     [self updateSyncFailedWarning];
 }
 
--(NSMutableArray*) library {
+- (NSMutableArray*) library {
     return [PresentationLibrary sharedInstance].library.children;
 }
 
--(void) setLibrary:(NSMutableArray *) array {
+- (void) setLibrary:(NSMutableArray *) array {
     [PresentationLibrary sharedInstance].library.children = array;
+}
+
+- (void)setPresentationList:(NSMutableArray *)presentationList
+{
+    if ([[self.collectionTreeController selectedObjects] count] > 0) {
+        [[[self.collectionTreeController selectedObjects] objectAtIndex:0] setPresentations:presentationList];
+    }
+}
+
+- (BOOL) isPresentationRemovable {
+    NSIndexPath *selectedPath = [self.collectionTreeController selectionIndexPath];
+    if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void) updateSyncFailedWarning {
@@ -145,7 +165,6 @@ enum CollectionActionTags {
 - (NSDragOperation) outlineView:(NSOutlineView *)outlineView
                    validateDrop:(id <NSDraggingInfo>)info
                    proposedItem:(id)item proposedChildIndex:(NSInteger)index {
-    
     if (index != -1 || // only allow drops on collections, not between them
         [self isToplevelGroup: item] || [self isStaticCategory:item]) // keep static stuff static
     {
@@ -162,26 +181,23 @@ enum CollectionActionTags {
 }
 
 - (BOOL) outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
-    /*
-     NSPasteboard* pboard = [info draggingPasteboard];
-     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
-     NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
-     
-     NSArray * arrangedItems = [presentationsArrayController arrangedObjects];
-     NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
-     NSMutableArray * newItems = [[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES];
-     
-     ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-     
-     if ([self handleDuplicates: newItems inCollection: collection]) {
-     int order = [collection.presentations count] + 1;
-     for (Presentation* p in newItems) {
-     p.order = order++;
-     }
-     [collection.presentations addObjectsFromArray: newItems];
-     }
-     */
-    // TODO: reactivate later
+    NSPasteboard* pboard = [info draggingPasteboard];
+    NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
+    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+    
+    NSArray * arrangedItems = [self.presentationsArrayController arrangedObjects];
+    NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
+    NSMutableArray * newItems = [[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES];
+    
+    ACShellCollection *collection = (ACShellCollection *)[item representedObject];
+    
+    if ([self handleDuplicates: newItems inCollection: collection]) {
+        int order = [collection.presentations count] + 1;
+        for (Presentation* p in newItems) {
+            p.order = order++;
+        }
+        [collection.presentations addObjectsFromArray: newItems];
+    }
     return YES;
 }
 
@@ -213,6 +229,40 @@ enum CollectionActionTags {
         return YES;
     }
     return NO;
+}
+
+- (BOOL) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection {
+    BOOL hasDuplicates = NO;
+    for (Presentation * p in newItems) {
+        if ([collection.presentations containsObject: p]) {
+            hasDuplicates = YES;
+            break;
+        }
+    }
+    if (hasDuplicates) {
+        NSAlert *alert = [NSAlert new];
+        alert.messageText = NSLocalizedString(ACSHELL_STR_WARN_DUPLICATES, nil);
+        
+        [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_ADD, nil)];
+        [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_SKIP, nil)];
+        [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
+        
+        NSInteger result = [alert runModal];
+        switch (result) {
+            case NSAlertFirstButtonReturn: /* add them anyway */
+                break;
+            case NSAlertSecondButtonReturn: /* skip duplicates */
+                for (Presentation * p in [newItems reverseObjectEnumerator]) {
+                    if ([collection.presentations containsObject: p]) {
+                        [newItems removeObject: p];
+                    }
+                }
+                break;
+            case NSAlertThirdButtonReturn:
+                return NO;
+        }
+    }
+    return YES;
 }
 
 @end

@@ -7,9 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ACShellController.h"
 #import "RsyncController.h"
 #import "KeynoteDelegate.h"
+#import "SetupAssistantController.h"
 #import "EditWindowController.h"
 #import "PresentationWindowController.h"
 #import "PresentationLibrary.h"
@@ -18,13 +18,16 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ACShellWindowController : NSWindowController <NSToolbarItemValidation, KeynoteDelegate, RsyncControllerDelegate>
+@interface ACShellWindowController : NSWindowController <NSToolbarItemValidation,
+KeynoteDelegate, RsyncControllerDelegate, SetupAssistantDelegate, LibraryTableViewControllerDelegate>
 
 @property (strong) LibraryViewController *libraryViewController;
 @property (strong) LibraryTableViewController *libraryTableViewController;
 @property(strong) PresentationWindowController *presentationWindowController;
 @property(strong) EditWindowController * editWindowController;
 @property(strong) RsyncController *rsyncController;
+@property(strong) SetupAssistantController *setupAssistant;
+@property (weak, readonly) NSString* libraryDirPath;
 
 @property (strong, nonatomic) NSMutableArray *currentPresentationList;
 
@@ -35,9 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)play:(id)sender;
 - (IBAction)sync:(id)sender;
 - (IBAction)upload:(id)sender;
+
+- (IBAction)addCollection:(id)sender;
+- (IBAction)addPresentation:(id)sender;
 - (IBAction)editPresentation:(id)sender;
-- (IBAction)deletePresentation:(id)sender;
 - (IBAction)updatePresentationFilter:(id)sender;
+
+- (void) load;
 @end
 
 NS_ASSUME_NONNULL_END

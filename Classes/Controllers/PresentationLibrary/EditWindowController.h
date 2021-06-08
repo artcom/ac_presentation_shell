@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
 #import "CategoryCell.h"
+#import "PresentationLibrary.h"
 
 @class Presentation;
-@class ACShellController;
 @class KeynoteDropper;
 @class NSImageViewWithDroppedFilename;
 
@@ -19,8 +19,8 @@
 <ProgressDelegateProtocol, CategoryCellDelegate,
 NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
+@property (nonatomic, strong) PresentationLibrary *presentationLibrary;
 @property (nonatomic, strong) Presentation *presentation;
-@property (nonatomic, strong) ACShellController *shellController;
 
 @property (weak, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
 @property (weak, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
@@ -44,7 +44,7 @@ NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
 @property (weak, nonatomic) IBOutlet NSProgressIndicator* progressBar;
 @property (weak, nonatomic) IBOutlet NSTextField* progressText;
 
-- (id) initWithShellController:(ACShellController *)theShellController;
+- (id) initWithPresentationLibrary: (PresentationLibrary *) thePresentationLibrary;
 
 - (IBAction) userDidConfirmEdit: (id) sender;
 - (IBAction) userDidCancelEdit: (id) sender;

@@ -23,7 +23,6 @@
 		22CE72CD11EDAD8B0043F3C8 /* OverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CE72CC11EDAD8B0043F3C8 /* OverlayLayer.m */; };
 		22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */; };
 		22CE731711EDB15B0043F3C8 /* spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = 22CE731611EDB15B0043F3C8 /* spinner.png */; };
-		22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F76511D8AFF90030AFBD /* ACShellController.m */; };
 		22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F77311D8B5E10030AFBD /* Presentation.m */; };
 		22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */; };
 		22D5993511DDD19B0025E48F /* PaginationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22D5993411DDD19B0025E48F /* PaginationView.m */; };
@@ -153,8 +152,6 @@
 		22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressOverlayLayer.m; sourceTree = "<group>"; };
 		22CE731611EDB15B0043F3C8 /* spinner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = spinner.png; path = Resources/Images/spinner.png; sourceTree = "<group>"; };
 		22CE742511EDCD070043F3C8 /* KeynoteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteDelegate.h; sourceTree = "<group>"; };
-		22D2F76411D8AFF90030AFBD /* ACShellController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACShellController.h; sourceTree = "<group>"; };
-		22D2F76511D8AFF90030AFBD /* ACShellController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ACShellController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		22D2F77211D8B5E10030AFBD /* Presentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Presentation.h; sourceTree = "<group>"; };
 		22D2F77311D8B5E10030AFBD /* Presentation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Presentation.m; sourceTree = "<group>"; };
 		22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationLibrary.h; sourceTree = "<group>"; };
@@ -590,15 +587,6 @@
 			path = Auxillary;
 			sourceTree = "<group>";
 		};
-		3BF8C1A4266E9930004BC26B /* ToBeRemoved */ = {
-			isa = PBXGroup;
-			children = (
-				22D2F76411D8AFF90030AFBD /* ACShellController.h */,
-				22D2F76511D8AFF90030AFBD /* ACShellController.m */,
-			);
-			path = ToBeRemoved;
-			sourceTree = "<group>";
-		};
 		6354256912201591004FEC38 /* PreferenceWindow */ = {
 			isa = PBXGroup;
 			children = (
@@ -623,7 +611,6 @@
 			children = (
 				3BF8C1A3266E9913004BC26B /* Auxillary */,
 				3BF8C1A2266E98D2004BC26B /* PresentationLibrary */,
-				3BF8C1A4266E9930004BC26B /* ToBeRemoved */,
 				3BF8C194266E25EA004BC26B /* ACShellWindowController.h */,
 				3BF8C195266E25EA004BC26B /* ACShellWindowController.m */,
 			);
@@ -807,7 +794,6 @@
 				CD349E56180740CE0028C540 /* ACSearchIndex.m in Sources */,
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */,
-				22D2F76611D8AFF90030AFBD /* ACShellController.m in Sources */,
 				3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */,
 				22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */,
 				22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */,

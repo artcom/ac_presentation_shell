@@ -68,8 +68,16 @@
                             <menuItem title="File" id="Sfs-YY-Rv4">
                                 <menu key="submenu" title="File" id="YhX-bN-cY3">
                                     <items>
-                                        <menuItem title="New Collection" keyEquivalent="n" id="u8j-N7-kSr"/>
-                                        <menuItem title="New Presentation" keyEquivalent="N" id="54Y-FN-nXS"/>
+                                        <menuItem title="New Collection" keyEquivalent="n" id="u8j-N7-kSr">
+                                            <connections>
+                                                <action selector="addCollection:" target="Ady-hI-5gd" id="yN0-2k-OHZ"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="New Presentation" keyEquivalent="N" id="54Y-FN-nXS">
+                                            <connections>
+                                                <action selector="addPresentation:" target="Ady-hI-5gd" id="74e-rl-QD7"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem isSeparatorItem="YES" id="jWc-Yw-tK7">
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
@@ -91,9 +99,6 @@
                                                     </menuItem>
                                                     <menuItem title="Delete" enabled="NO" id="tee-p1-Qgd">
                                                         <modifierMask key="keyEquivalentModifierMask"/>
-                                                        <connections>
-                                                            <action selector="deletePresentation:" target="Ady-hI-5gd" id="lYd-a9-qhv"/>
-                                                        </connections>
                                                     </menuItem>
                                                 </items>
                                             </menu>
@@ -170,6 +175,9 @@
 CA
 </string>
                                             <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="remove:" target="Ady-hI-5gd" id="wQN-jy-xoe"/>
+                                            </connections>
                                         </menuItem>
                                         <menuItem title="Select All" keyEquivalent="a" id="2iq-Sg-IrR">
                                             <connections>
@@ -482,7 +490,7 @@ CA
                                     <rect key="frame" x="0.0" y="0.0" width="883" height="610"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" autosaveName="presentationTable" rowHeight="24" rowSizeStyle="systemDefault" headerView="pt2-nU-wYG" id="wzi-kS-XMG">
+                                        <tableView focusRingType="none" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="fullWidth" alternatingRowBackgroundColors="YES" autosaveName="presentationTable" rowHeight="24" rowSizeStyle="systemDefault" headerView="pt2-nU-wYG" id="wzi-kS-XMG">
                                             <rect key="frame" x="0.0" y="0.0" width="883" height="582"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <size key="intercellSpacing" width="17" height="0.0"/>

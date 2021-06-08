@@ -32,6 +32,8 @@
     self.presentationLibrary = [PresentationLibrary sharedInstance];
     [self setupControllers];
     [self bindMenuItems];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(load) name:ACShellLibraryConfigDidChange object:nil];
 }
 
 - (void)bindMenuItems
@@ -39,35 +41,38 @@
     NSMenuItem *file = [NSApplication.sharedApplication.menu itemAtIndex:1];
     NSMenuItem *library = [file.submenu itemAtIndex:3];
     NSMenuItem *upload = [library.submenu itemAtIndex:1];
-    NSMenuItem *delete = [library.submenu itemAtIndex:2];
-    
     [upload bind:@"enabled" toObject:self withKeyPath:@"editingEnabled" options:nil];
-    [delete bind:@"enabled" toObject:self withKeyPath:@"editingEnabled" options:nil];
 }
 
 - (void)setupControllers
 {
-    self.libraryViewController = self.contentViewController.childViewControllers[0];
+    
     self.libraryTableViewController = self.contentViewController.childViewControllers[1];
     self.libraryTableViewController.presentationLibrary = self.presentationLibrary;
+    self.libraryTableViewController.delegate = self;
+    
+    self.libraryViewController = self.contentViewController.childViewControllers[0];
+    self.libraryViewController.presentationsArrayController = self.libraryTableViewController.presentationsArrayController;
+    
     [self.libraryTableViewController bind: @"currentPresentationList" toObject:self.libraryViewController.collectionTreeController withKeyPath:@"selection.presentations" options:nil];
     
     self.presentationWindowController = [[PresentationWindowController alloc] init];
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
-        self.editWindowController = [[EditWindowController alloc] initWithShellController: self];
+        self.editWindowController = [[EditWindowController alloc] initWithPresentationLibrary:self.presentationLibrary];
     }
     
     self.rsyncController = [[RsyncController alloc] init];
+    self.rsyncController.documentWindow = self.window;
     self.rsyncController.delegate = self;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
         [[KeynoteHandler sharedHandler] launchWithDelegate:self];
-//        [[self browserWindow] makeKeyAndOrderFront: self];
-//        [self load];
+        //        [[self browserWindow] makeKeyAndOrderFront: self];
+        //        [self load];
     } else {
-//        setupAssistant = [[SetupAssistantController alloc] initWithDelegate: self];
-//        [setupAssistant showWindow: self];
+        //        setupAssistant = [[SetupAssistantController alloc] initWithDelegate: self];
+        //        [setupAssistant showWindow: self];
     }
 }
 
@@ -79,6 +84,19 @@
 - (void) setLibrary:(NSMutableArray *) array
 {
     self.presentationLibrary.library.children = array;
+}
+
+- (void) load {
+    [self.libraryViewController.collectionView deselectAll:self];
+    
+    [[PresentationLibrary sharedInstance] reload];
+    
+    [self.libraryViewController willChangeValueForKey:@"library"];
+    if (![self.presentationLibrary loadXmlLibraryFromDirectory: self.presentationLibrary.libraryDirPath]) {
+        [self.rsyncController initialSyncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
+    }
+    [self.libraryViewController didChangeValueForKey:@"library"];
+    [self.libraryViewController beautifyOutlineView];
 }
 
 - (BOOL) editingEnabled
@@ -99,7 +117,6 @@
 
 - (IBAction)play:(id)sender
 {
-    NSLog(@"play");
     self.presentationWindowController.categories = self.presentationLibrary.categories;
     self.presentationWindowController.presentations = self.libraryTableViewController.selectedPresentations;
     [self.presentationWindowController showWindow:nil];
@@ -107,24 +124,65 @@
 
 - (IBAction)sync:(id)sender
 {
-    NSLog(@"sync");
-    //    [self.shellController sync:nil];
+    if ([self.presentationLibrary hasLibrary]) {
+        [self.rsyncController syncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
+    } else {
+        [self.rsyncController initialSyncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
+    }
 }
 
 - (IBAction)upload:(id)sender
 {
-    NSLog(@"upload");
-    //    [self.shellController upload:nil];
+    [self.rsyncController uploadWithSource: self.presentationLibrary.libraryDirPath destination: self.presentationLibrary.libraryTarget];
 }
 
-- (IBAction)deletePresentation:(id)sender
+- (IBAction)addCollection:(id)sender
 {
-    NSLog(@"deletePresentation");
+    [self.libraryViewController addCollection];
 }
 
-- (IBAction)editPresentation:(id)sender
-{
-    NSLog(@"editPresentation");
+- (IBAction)addPresentation: sender {
+    [self.libraryViewController beautifyOutlineView];
+    [self.editWindowController add];
+}
+
+- (IBAction)editPresentation: (id) sender {
+    if ( ! [[self.editWindowController window] isVisible]) {
+        Presentation *presentation = [[self.libraryTableViewController.presentationsArrayController selectedObjects] objectAtIndex:0];
+        [self.editWindowController edit: presentation];
+    } else {
+        NSBeep();
+    }
+}
+
+- (IBAction)remove: (id)sender {
+    if (self.window.firstResponder == self.libraryTableViewController.presentationTable) {
+        [self removePresentation:sender];
+    } else if (self.window.firstResponder  == self.libraryViewController.collectionView) {
+        [self.libraryViewController removeCollection];
+    } else {
+        NSBeep();
+    }
+}
+
+- (void)removePresentation: (id) sender {
+    if ( ! [self.libraryViewController isPresentationRemovable]) {
+        NSBeep();
+        return;
+    }
+    
+    BOOL deleteIt = [self.libraryViewController runSuppressableBooleanDialogWithIdentifier: @"DeletePresentationFromCollection"
+                                                                                   message: ACSHELL_STR_DELETE_PRESENTATION
+                                                                                  okButton: ACSHELL_STR_DELETE
+                                                                              cancelButton: ACSHELL_STR_CANCEL];
+    if (deleteIt) {
+        [self.libraryTableViewController.presentationsArrayController removeObjectsAtArrangedObjectIndexes:self.libraryTableViewController.presentationsArrayController.selectionIndexes];
+        NSArray * items = [[[self.libraryViewController.collectionTreeController selectedObjects] objectAtIndex:0] presentations];
+        NSInteger order = 1;
+        for (Presentation* p in items) {
+            p.order = order++;
+        }
+    }
 }
 
 #pragma mark -
@@ -138,14 +196,108 @@
     return YES;
 }
 
+
+#pragma mark -
+#pragma mark KeynoteDelegate Protocol Methods
+
+- (void) keynoteAppDidLaunch: (BOOL) success version:(NSString *)version {
+    if (success) {
+        NSLog(@"Running Keynote application Version %@", version);
+        //run prefs checks
+    } else {
+        // issue warning
+        NSLog(@"Failed to run Keynote application Version %@", version);
+    }
+}
+
+- (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {
+    // Do nothing
+}
+
+- (void)keynoteDidStopPresentation:(KeynoteHandler *)keynote {
+    // Do nothing
+}
+
 #pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
+
 - (void)rsync:(RsyncController *) controller didFinishSyncSuccessfully:(BOOL)successFlag {
     self.presentationLibrary.syncSuccessful = successFlag;
     [self.libraryViewController updateSyncFailedWarning];
     if (successFlag) {
-//        [self load];
+        [self load];
     }
 }
+
+#pragma mark -
+#pragma mark SetupAssistantDelegate Protocol Methods
+
+- (void) setupDidFinish: (id) sender {
+    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
+    [self.libraryViewController beautifyOutlineView];
+    //    [[self browserWindow] makeKeyAndOrderFront: self];
+    [[KeynoteHandler sharedHandler] launchWithDelegate: self];
+}
+
+#pragma mark -
+#pragma mark LibraryTableDelegate Protocol Methods
+
+- (void)libraryTableViewController:(LibraryTableViewController *)controller openPresentation:(nonnull Presentation *)presentation
+{
+    if (presentation.presentationFileExists) {
+        [[KeynoteHandler sharedHandler] open: presentation.absolutePresentationPath];
+    }
+}
+
+
+- (void)libraryTableViewController:(LibraryTableViewController *)controller playPresentation:(nonnull Presentation *)presentation
+{
+    if (presentation.presentationFileExists) {
+        [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate: self];
+    }
+}
+
+- (void)libraryTableViewController:(LibraryTableViewController *)controller editPresentation:(nonnull Presentation *)presentation
+{
+    if (!self.editWindowController.window.isVisible) {
+        [self.editWindowController edit:presentation];
+    } else {
+        NSBeep();
+        [[self.editWindowController window] makeKeyAndOrderFront:nil];
+    }
+}
+
+- (void)libraryTableViewController:(LibraryTableViewController *)controller updatePresentationList:(NSMutableArray *)presentationList
+{
+    [self.libraryViewController setPresentationList:presentationList];
+}
+
+- (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
+{
+    SEL theAction = [anItem action];
+    
+    if (theAction == @selector(editPresentation:)) {
+        if ([[self.libraryTableViewController.presentationTable selectedRowIndexes] count] == 1) {
+            NSLog(@"selected presentation");
+            return YES;
+        }
+        NSLog(@"no selected presentations");
+        return NO;
+    } else if (theAction == @selector(remove:)) {
+        if (self.window.firstResponder == self.libraryTableViewController.presentationTable) {
+            NSLog(@"focus presentation table %hhd", self.libraryViewController.isPresentationRemovable);
+            return self.libraryViewController.isPresentationRemovable;
+        } else if (self.window.firstResponder == self.libraryViewController.collectionView) {
+            NSLog(@"focus collection outline");
+            return self.libraryViewController.isCollectionSelected;
+        } else {
+            NSLog(@"no focus");
+            return NO;
+        }
+        
+    }
+    return YES;
+}
+
 
 @end
