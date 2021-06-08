@@ -6,10 +6,10 @@
    Copyright 2010 ART+COM AG. All rights reserved.
  */
  
-"Library" = "BIBLIOTHEK";
+"Library" = "Bibliothek";
 "All" = "Alle";
 "Highlights" = "Glanzlichter";
-"Collections" = "SAMMLUNGEN";
+"Collections" = "Sammlungen";
 "NofMPresentations" = "%d von %d Präsentationen";
 "NPresentations" = "%d Präsentationen";
 "NewCollection" = "Neue Sammlung";

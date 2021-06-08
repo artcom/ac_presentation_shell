@@ -7,10 +7,10 @@
  */
  
  
-"Library" = "LIBRARY";
+"Library" = "Library";
 "All" = "All";
 "Highlights" = "Highlights";
-"Collections" = "COLLECTIONS";
+"Collections" = "Collections";
 "NofMPresentations" = "%d of %d presentations";
 "NPresentations" = "%d presentations";
 "NewCollection" = "new collection";
