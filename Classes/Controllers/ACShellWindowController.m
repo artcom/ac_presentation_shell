@@ -66,14 +66,8 @@
     self.rsyncController.documentWindow = self.window;
     self.rsyncController.delegate = self;
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
-        [[KeynoteHandler sharedHandler] launchWithDelegate:self];
-        //        [[self browserWindow] makeKeyAndOrderFront: self];
-        //        [self load];
-    } else {
-        //        setupAssistant = [[SetupAssistantController alloc] initWithDelegate: self];
-        //        [setupAssistant showWindow: self];
-    }
+    [[KeynoteHandler sharedHandler] launchWithDelegate:self];
+    [self load];
 }
 
 - (NSMutableArray*) library
@@ -227,16 +221,6 @@
     if (successFlag) {
         [self load];
     }
-}
-
-#pragma mark -
-#pragma mark SetupAssistantDelegate Protocol Methods
-
-- (void) setupDidFinish: (id) sender {
-    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
-    [self.libraryViewController beautifyOutlineView];
-    //    [[self browserWindow] makeKeyAndOrderFront: self];
-    [[KeynoteHandler sharedHandler] launchWithDelegate: self];
 }
 
 #pragma mark -

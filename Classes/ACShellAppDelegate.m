@@ -8,27 +8,50 @@
 
 #import "ACShellAppDelegate.h"
 #import "NSFileManager-DirectoryHelper.h"
+#import "default_keys.h"
 
 
 @implementation ACShellAppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
+{
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    self.mainWindowController = [storyboard instantiateControllerWithIdentifier:@"MainWindowController"];
+    self.setupAssistantController = [[SetupAssistantController alloc] initWithDelegate: self];
+    self.preferenceController = [PreferenceController new];
     
     NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
     [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
-    self.preferenceController = [[PreferenceController alloc] init];
+    if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
+        [self.mainWindowController showWindow:nil];
+    } else {
+        [self.setupAssistantController showWindow:nil];
+    }
 }
 
-- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+{
     return YES;
 }
 
-- (void) applicationWillTerminate:(NSNotification *)notification {
+- (void) applicationWillTerminate:(NSNotification *)notification
+{
     [[PresentationLibrary sharedInstance] saveSettings];
 }
 
-- (IBAction)showPreferences:(id)sender {
+- (IBAction)showPreferences:(id)sender
+{
     [self.preferenceController showWindow:nil];
+}
+
+#pragma mark -
+#pragma mark SetupAssistantDelegate Protocol Methods
+
+- (void) setupDidFinish: (id) sender
+{
+    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
+    [self.setupAssistantController close];
+    [self.mainWindowController showWindow:nil];
 }
 
 @end

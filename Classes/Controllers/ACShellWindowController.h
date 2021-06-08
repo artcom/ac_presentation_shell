@@ -9,7 +9,6 @@
 #import <Cocoa/Cocoa.h>
 #import "RsyncController.h"
 #import "KeynoteDelegate.h"
-#import "SetupAssistantController.h"
 #import "EditWindowController.h"
 #import "PresentationWindowController.h"
 #import "PresentationLibrary.h"
@@ -19,14 +18,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ACShellWindowController : NSWindowController <NSToolbarItemValidation,
-KeynoteDelegate, RsyncControllerDelegate, SetupAssistantDelegate, LibraryTableViewControllerDelegate>
+KeynoteDelegate, RsyncControllerDelegate, LibraryTableViewControllerDelegate>
 
 @property (strong) LibraryViewController *libraryViewController;
 @property (strong) LibraryTableViewController *libraryTableViewController;
 @property(strong) PresentationWindowController *presentationWindowController;
 @property(strong) EditWindowController * editWindowController;
 @property(strong) RsyncController *rsyncController;
-@property(strong) SetupAssistantController *setupAssistant;
+
 @property (weak, readonly) NSString* libraryDirPath;
 
 @property (strong, nonatomic) NSMutableArray *currentPresentationList;
