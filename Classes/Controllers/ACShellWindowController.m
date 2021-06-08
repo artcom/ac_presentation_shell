@@ -33,6 +33,7 @@
     [self setupControllers];
     [self bindMenuItems];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(load) name:ACShellLibraryDidUpdate object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(load) name:ACShellLibraryConfigDidChange object:nil];
 }
 

@@ -257,6 +257,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self.categoryData.allValues makeObjectsPerformSelector:@selector(detach)];
     [self.presentationData.allValues makeObjectsPerformSelector:@selector(detach)];
     
+    [[NSNotificationCenter defaultCenter] postNotificationName:ACShellLibraryDidUpdate object:nil];
+    
     // TODO: Ideally, this would be a possible place to add:
     // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
     // this method is called when an ongoing copy operation of the AssetManager is still ongoing and the

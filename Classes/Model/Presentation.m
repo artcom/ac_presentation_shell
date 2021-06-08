@@ -79,7 +79,7 @@
 }
 
 - (void) setTitle: (NSString*) newTitle {
-    title = nil;
+    title = newTitle;
     NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
     [self willChangeValueForKey:@"singleLineTitle"];
     [[titleNodes objectAtIndex: 0] setStringValue: newTitle];	
@@ -101,7 +101,7 @@
 }
 
 - (void) setHighlight:(BOOL) flag {
-    highlight = NO;
+    _highlightObj = @(flag);
     [[[self xmlNode] attributeForName: @"highlight"] setStringValue: flag ? @"true" : @"false"];
 }
 
@@ -117,7 +117,7 @@
 }
 
 - (void) setYear:(NSNumber*) aYear {
-    year = nil;
+    year = aYear;
     NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
     NSXMLElement * yearNode = nil;
     if ([yearNodes count] == 0) {
@@ -130,14 +130,7 @@
 }
 
 - (NSString*) yearString {
-    if (yearString == nil) {
-        NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
-        if ([yearNodes count] == 0) {
-            return @"";
-        }
-        yearString = [[yearNodes objectAtIndex: 0] stringValue];
-    }
-    return yearString;
+    return self.year.stringValue;
 }
 
 - (NSString*) directory {
@@ -148,7 +141,7 @@
 }
 
 - (void) setDirectory:(NSString*) dir {
-    directory = nil;
+    directory = dir;
     [[[self xmlNode] attributeForName: @"directory"] setStringValue: dir];
 }
 
@@ -166,8 +159,7 @@
 
 - (void) setThumbnailFilename: (NSString*) newPath {
 	[self willChangeValueForKey:@"thumbnail"];
-	thumbnail = nil;
-    thumbnailFilename = nil;
+    thumbnailFilename = newPath;
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
 	[self didChangeValueForKey:@"thumbnail"];
@@ -191,7 +183,7 @@
 }
 
 - (void) setPresentationFilename: (NSString*) newPath {
-    presentationFilename = nil;
+    presentationFilename = newPath;
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
 }
@@ -204,8 +196,9 @@
     return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
 }
 
-- (void)setCategories:(NSArray *)categories
+- (void)setCategories:(NSArray *)theCategories
 {
+    categories = theCategories;
     [self willChangeValueForKey:@"categories"];
     NSArray *categoryNodes = [[self xmlNode] nodesForXPath:@"categories" error:nil];
     NSXMLElement *categoryNode = categoryNodes.lastObject;
