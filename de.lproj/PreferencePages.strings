@@ -1,0 +1,27 @@
+
+/* Class = "NSTextFieldCell"; title = "Source:"; ObjectID = "73"; */
+"73.title" = "Quelle:";
+
+/* Class = "NSButtonCell"; title = "Open presentation in Keynote "; ObjectID = "79"; */
+"79.title" = "Präsentation in Keynote öffnen";
+
+/* Class = "NSButtonCell"; title = "Radio"; ObjectID = "80"; */
+"80.title" = "Radio";
+
+/* Class = "NSButtonCell"; title = "Play presentation in Keynote"; ObjectID = "81"; */
+"81.title" = "Präsentation in Keynote abspielen";
+
+/* Class = "NSButtonCell"; title = "Open edit window"; ObjectID = "82"; */
+"82.title" = "In ACShell bearbeiten";
+
+/* Class = "NSTextFieldCell"; title = "Double-click presentation:"; ObjectID = "84"; */
+"84.title" = "Doppelklick auf Präsentation:";
+
+/* Class = "NSButtonCell"; title = "Preserve local modifications"; ObjectID = "102"; */
+"102.title" = "Lokale Änderungen erhalten";
+
+/* Class = "NSButtonCell"; title = "Change..."; ObjectID = "U1l-ni-ml7"; */
+"U1l-ni-ml7.title" = "Ändern...";
+
+/* Class = "NSTextFieldCell"; title = "Destination:"; ObjectID = "cOh-L1-Mw1"; */
+"cOh-L1-Mw1.title" = "Ziel:";

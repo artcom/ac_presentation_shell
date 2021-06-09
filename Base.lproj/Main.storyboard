@@ -517,7 +517,7 @@ CA
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                                     </tableHeaderCell>
-                                                    <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" imageScaling="proportionallyUpOrDown" inset="2" id="lWN-lQ-QKl">
+                                                    <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" alignment="center" controlSize="mini" lineBreakMode="truncatingTail" inset="2" id="lWN-lQ-QKl">
                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                         <font key="font" metaFont="miniSystem"/>
                                                     </buttonCell>

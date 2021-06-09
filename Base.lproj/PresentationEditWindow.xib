@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -209,7 +208,7 @@ Gw
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="CategoryCell" width="379" minWidth="40" maxWidth="1000" id="ci6-hG-MFS">
+                                        <tableColumn identifier="CategoryCell" width="350" minWidth="40" maxWidth="1000" id="ci6-hG-MFS">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="headerColor" catalog="System" colorSpace="catalog"/>
@@ -222,7 +221,7 @@ Gw
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                             <prototypeCellViews>
                                                 <customView identifier="CategoryCell" id="UDc-ez-VvH" customClass="CategoryCell">
-                                                    <rect key="frame" x="1" y="1" width="388" height="30"/>
+                                                    <rect key="frame" x="11" y="1" width="359" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                 </customView>
                                             </prototypeCellViews>
@@ -257,7 +256,7 @@ Gw
                     </textField>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="180" secondAttribute="trailing" constant="99" id="3b7-Zx-dM8"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="180" secondAttribute="trailing" constant="99" id="3b7-Zx-dM8"/>
                     <constraint firstItem="185" firstAttribute="leading" secondItem="157" secondAttribute="leading" id="5ux-7n-Lwr"/>
                     <constraint firstItem="163" firstAttribute="top" secondItem="157" secondAttribute="bottom" constant="74" id="7VF-un-raF"/>
                     <constraint firstItem="153" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="21" id="7kk-j5-f7U"/>
@@ -286,7 +285,7 @@ Gw
                     <constraint firstItem="12" firstAttribute="centerY" secondItem="10" secondAttribute="centerY" id="cSb-WP-Zep"/>
                     <constraint firstAttribute="bottom" secondItem="10" secondAttribute="bottom" constant="19" id="drC-zb-7pP"/>
                     <constraint firstItem="185" firstAttribute="top" secondItem="180" secondAttribute="top" id="ejv-cF-NAb"/>
-                    <constraint firstItem="180" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="160" secondAttribute="leading" id="fLI-Gg-8c6"/>
+                    <constraint firstItem="180" firstAttribute="leading" secondItem="160" secondAttribute="leading" id="fLI-Gg-8c6"/>
                     <constraint firstItem="162" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="218" secondAttribute="trailing" symbolic="YES" id="gYP-rZ-OS1"/>
                     <constraint firstItem="161" firstAttribute="leading" secondItem="160" secondAttribute="trailing" constant="5" id="iYt-Mz-JRD"/>
                     <constraint firstItem="200" firstAttribute="centerY" secondItem="218" secondAttribute="centerY" id="nrf-lY-u5f"/>
@@ -304,7 +303,7 @@ Gw
                     <constraint firstItem="185" firstAttribute="top" secondItem="2" secondAttribute="top" constant="20" symbolic="YES" id="zO6-FZ-6TC"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="190.5" y="348.5"/>
+            <point key="canvasLocation" x="-165" y="336"/>
         </window>
         <window title="Progress Sheet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="136" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>

@@ -127,7 +127,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="530" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                                            <rect key="frame" x="10" y="369" width="512" height="55"/>
+                                            <rect key="frame" x="10" y="392" width="512" height="32"/>
                                             <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="49">
                                                 <font key="font" metaFont="system"/>
                                                 <string key="title">To provide secure communication with the server a ssh identity is required. You can either select an existing public key from the list or generate one.</string>
@@ -136,13 +136,13 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="50">
-                                            <rect key="frame" x="157" y="171" width="241" height="135"/>
+                                            <rect key="frame" x="157" y="171" width="241" height="140"/>
                                             <clipView key="contentView" id="EZF-6t-0jC">
-                                                <rect key="frame" x="1" y="1" width="239" height="133"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <rect key="frame" x="1" y="1" width="239" height="138"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="53">
-                                                        <rect key="frame" x="0.0" y="0.0" width="239" height="133"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="239" height="138"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -180,7 +180,7 @@ DQ
                                             </scroller>
                                         </scrollView>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="68">
-                                            <rect key="frame" x="156" y="314" width="94" height="14"/>
+                                            <rect key="frame" x="156" y="319" width="94" height="14"/>
                                             <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="SSH Public Keys:" id="69">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -188,7 +188,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="70">
-                                            <rect key="frame" x="10" y="362" width="346" height="17"/>
+                                            <rect key="frame" x="10" y="367" width="346" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="17" id="jJw-E2-M0e"/>
                                             </constraints>
@@ -214,10 +214,9 @@ DQ
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="45" firstAttribute="top" secondItem="34" secondAttribute="top" constant="14" id="1yj-tG-4XT"/>
-                                        <constraint firstItem="68" firstAttribute="top" secondItem="48" secondAttribute="bottom" constant="41" id="2NV-YU-qPC"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="68" secondAttribute="trailing" constant="20" symbolic="YES" id="2xj-ew-EqK"/>
                                         <constraint firstItem="50" firstAttribute="centerX" secondItem="34" secondAttribute="centerX" id="6Q1-eO-68G"/>
-                                        <constraint firstItem="70" firstAttribute="top" secondItem="45" secondAttribute="bottom" constant="77" id="6pn-M1-uS1"/>
+                                        <constraint firstItem="70" firstAttribute="top" secondItem="48" secondAttribute="bottom" constant="8" symbolic="YES" id="6Wd-fV-Fu1"/>
                                         <constraint firstItem="72" firstAttribute="top" secondItem="50" secondAttribute="bottom" constant="21" id="85c-6I-Y7y"/>
                                         <constraint firstItem="76" firstAttribute="top" secondItem="50" secondAttribute="bottom" constant="22" id="8hX-pp-ag3"/>
                                         <constraint firstItem="68" firstAttribute="leading" secondItem="53" secondAttribute="leading" id="ChD-Nv-pgW"/>

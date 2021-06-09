@@ -16,7 +16,6 @@
     CGFloat minimumHeight = [self cellSizeForBounds:rect].height;
     titleRect.origin.y += (titleRect.size.height - minimumHeight) / 2;
     titleRect.size.height = minimumHeight;
-    
     return titleRect;
 }
 

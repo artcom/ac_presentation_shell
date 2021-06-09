@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -80,12 +79,14 @@
                 </button>
             </subviews>
             <constraints>
+                <constraint firstItem="68" firstAttribute="trailing" secondItem="gwS-ta-fE4" secondAttribute="trailing" id="1rR-QJ-UCw"/>
                 <constraint firstItem="69" firstAttribute="top" secondItem="67" secondAttribute="top" constant="20" symbolic="YES" id="Awd-pp-pb9"/>
                 <constraint firstAttribute="trailing" secondItem="XPT-1j-wWm" secondAttribute="trailing" constant="20" symbolic="YES" id="F2M-VG-Br8"/>
                 <constraint firstItem="69" firstAttribute="baseline" secondItem="68" secondAttribute="firstBaseline" id="Ke0-Ai-vex"/>
                 <constraint firstItem="68" firstAttribute="baseline" secondItem="69" secondAttribute="baseline" id="LG7-ja-KaD"/>
                 <constraint firstItem="idv-PE-as3" firstAttribute="firstBaseline" secondItem="XPT-1j-wWm" secondAttribute="baseline" id="OpN-1K-MGN"/>
                 <constraint firstItem="gwS-ta-fE4" firstAttribute="leading" secondItem="67" secondAttribute="leading" constant="20" symbolic="YES" id="PoM-0f-Fdl"/>
+                <constraint firstItem="68" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="67" secondAttribute="leading" constant="20" symbolic="YES" id="Rum-WN-fFx"/>
                 <constraint firstItem="101" firstAttribute="top" secondItem="idv-PE-as3" secondAttribute="bottom" constant="21" id="VnD-Jj-m0c"/>
                 <constraint firstItem="XPT-1j-wWm" firstAttribute="leading" secondItem="idv-PE-as3" secondAttribute="trailing" constant="8" symbolic="YES" id="Wi7-Ut-xcA"/>
                 <constraint firstItem="69" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="68" secondAttribute="trailing" constant="8" symbolic="YES" id="cBC-va-JMs"/>
@@ -94,7 +95,6 @@
                 <constraint firstItem="idv-PE-as3" firstAttribute="leading" secondItem="101" secondAttribute="leading" id="fDP-ln-GS8"/>
                 <constraint firstItem="gwS-ta-fE4" firstAttribute="firstBaseline" secondItem="XPT-1j-wWm" secondAttribute="baseline" id="gDq-Kr-HiM"/>
                 <constraint firstItem="69" firstAttribute="leading" secondItem="idv-PE-as3" secondAttribute="leading" id="jwU-CB-Fes"/>
-                <constraint firstItem="68" firstAttribute="leading" secondItem="67" secondAttribute="leading" constant="46" id="lkk-VA-mD1"/>
                 <constraint firstAttribute="trailing" secondItem="69" secondAttribute="trailing" constant="20" symbolic="YES" id="nz7-Ki-IPQ"/>
                 <constraint firstAttribute="bottom" secondItem="101" secondAttribute="bottom" constant="20" symbolic="YES" id="t1l-15-xKZ"/>
                 <constraint firstItem="idv-PE-as3" firstAttribute="centerY" secondItem="XPT-1j-wWm" secondAttribute="centerY" id="thN-Vt-XC4"/>
@@ -104,10 +104,10 @@
             <point key="canvasLocation" x="139" y="149"/>
         </customView>
         <customView translatesAutoresizingMaskIntoConstraints="NO" id="75" userLabel="General Preferences">
-            <rect key="frame" x="0.0" y="0.0" width="420" height="104"/>
+            <rect key="frame" x="0.0" y="0.0" width="420" height="98"/>
             <subviews>
-                <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="76">
-                    <rect key="frame" x="18" y="67" width="165" height="17"/>
+                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                    <rect key="frame" x="18" y="61" width="165" height="17"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="17" id="lfe-rx-Z5r"/>
                     </constraints>
@@ -117,10 +117,10 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <matrix verticalHuggingPriority="750" allowsEmptySelection="NO" translatesAutoresizingMaskIntoConstraints="NO" id="78">
-                    <rect key="frame" x="189" y="20" width="211" height="64"/>
+                <matrix horizontalHuggingPriority="249" verticalHuggingPriority="750" allowsEmptySelection="NO" autorecalculatesCellSize="YES" translatesAutoresizingMaskIntoConstraints="NO" id="78">
+                    <rect key="frame" x="189" y="20" width="211" height="58"/>
                     <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                    <size key="cellSize" width="211" height="20"/>
+                    <size key="cellSize" width="211" height="18"/>
                     <size key="intercellSpacing" width="4" height="2"/>
                     <buttonCell key="prototype" type="radio" title="Radio" imagePosition="leading" alignment="left" inset="2" id="80">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>

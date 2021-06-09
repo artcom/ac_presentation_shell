@@ -119,7 +119,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		222781E711F88AD2007C1B6C /* RsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RsyncTask.h; sourceTree = "<group>"; };
@@ -179,6 +178,13 @@
 		3B623173266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SetupAssistant.xib; sourceTree = "<group>"; };
 		3B623174266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CategoryCell.xib; sourceTree = "<group>"; };
 		3B623175266FC25100C17CF2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		3B83565C2670362100187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PresentationEditWindow.strings; sourceTree = "<group>"; };
+		3B83565E2670383500187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencePages.strings; sourceTree = "<group>"; };
+		3B83566026703A6200187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SetupAssistant.strings; sourceTree = "<group>"; };
+		3B83566126703D3C00187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3B83566226703EC900187CE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3B83566326703EC900187CE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3B83566426703EE400187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3B8ACC291C87236C005D7F7A /* PresentationHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationHeaderView.h; sourceTree = "<group>"; };
 		3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationHeaderView.m; sourceTree = "<group>"; };
 		3B8ACC2C1C872B83005D7F7A /* PresentationHeaderViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationHeaderViewDataSource.h; sourceTree = "<group>"; };
@@ -210,7 +216,6 @@
 		3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTableViewController.m; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
 		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localized_text_keys.h; sourceTree = "<group>"; };
-		630D57851200CD60009D4CAE /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		630D728E11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSImageViewWithDroppedFilename.h; sourceTree = "<group>"; };
 		630D728F11FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSImageViewWithDroppedFilename.m; sourceTree = "<group>"; };
 		630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteDropper.h; sourceTree = "<group>"; };
@@ -218,12 +223,8 @@
 		630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDelegateProtocol.h; sourceTree = "<group>"; };
 		630F36AC120F0B2100F89EFB /* AssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetManager.h; sourceTree = "<group>"; };
 		630F36AD120F0B2100F89EFB /* AssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetManager.m; sourceTree = "<group>"; };
-		63143EDF12A7F37600B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PreferencePages.xib; sourceTree = "<group>"; };
-		63143EE112A7F42A00B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/PresentationEditWindow.xib; sourceTree = "<group>"; };
-		63143EF912A80D9500B82DC3 /* German */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = German; path = German.lproj/SetupAssistant.xib; sourceTree = "<group>"; };
 		6354256D12201650004FEC38 /* ACPreferencePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPreferencePage.h; sourceTree = "<group>"; };
 		6354256E12201650004FEC38 /* ACPreferencePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPreferencePage.m; sourceTree = "<group>"; };
-		6366021D11F1F08E00D6DD96 /* German */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = German; path = German.lproj/Localizable.strings; sourceTree = "<group>"; };
 		636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HighlightIconTransformer.h; sourceTree = "<group>"; };
 		636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HighlightIconTransformer.m; sourceTree = "<group>"; };
 		6366050811F2F4A400D6DD96 /* ACPreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPreferenceWindowController.h; sourceTree = "<group>"; };
@@ -713,7 +714,6 @@
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
-				German,
 				Base,
 				de,
 			);
@@ -854,7 +854,8 @@
 		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				089C165DFE840E0CC02AAC07 /* English */,
+				3B83566226703EC900187CE5 /* Base */,
+				3B83566426703EE400187CE5 /* de */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -887,8 +888,8 @@
 		63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				63143EF912A80D9500B82DC3 /* German */,
 				3B623173266FC1FA00C17CF2 /* Base */,
+				3B83566026703A6200187CE5 /* de */,
 			);
 			name = SetupAssistant.xib;
 			sourceTree = "<group>";
@@ -896,8 +897,8 @@
 		6366021B11F1F02800D6DD96 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				630D57851200CD60009D4CAE /* English */,
-				6366021D11F1F08E00D6DD96 /* German */,
+				3B83566126703D3C00187CE5 /* de */,
+				3B83566326703EC900187CE5 /* Base */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -905,8 +906,8 @@
 		6366050311F2EF0D00D6DD96 /* PreferencePages.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				63143EDF12A7F37600B82DC3 /* German */,
 				3B62316F266FC1FA00C17CF2 /* Base */,
+				3B83565E2670383500187CE5 /* de */,
 			);
 			name = PreferencePages.xib;
 			sourceTree = "<group>";
@@ -922,8 +923,8 @@
 		63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				63143EE112A7F42A00B82DC3 /* German */,
 				3B623170266FC1FA00C17CF2 /* Base */,
+				3B83565C2670362100187CE5 /* de */,
 			);
 			name = PresentationEditWindow.xib;
 			sourceTree = "<group>";
