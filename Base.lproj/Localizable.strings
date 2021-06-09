@@ -7,10 +7,10 @@
  */
  
  
-"Library" = "LIBRARY";
+"Library" = "Library";
 "All" = "All";
 "Highlights" = "Highlights";
-"Collections" = "COLLECTIONS";
+"Collections" = "Collections";
 "NofMPresentations" = "%d of %d presentations";
 "NPresentations" = "%d presentations";
 "NewCollection" = "new collection";
@@ -53,6 +53,9 @@
 "WaitForActivation" = "Thank you. You can synchronize your library after your account has been activated.";
 "DeletePresentationWarning" = "Do you really want to delete the entire presentation?";
 "DeletingPresentation" = "Moving presentation to trash...";
+"General" = "General";
+"Advanced" = "Advanced";
+
 
 "order" = "Order";
 "selected" = "Selected";

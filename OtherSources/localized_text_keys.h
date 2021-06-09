@@ -58,3 +58,5 @@
 #define ACSHELL_STR_WAIT_FOR_ACTIVATION   @"WaitForActivation"
 #define ACSHELL_STR_DELETE_PRESENTATION_WARNING @"DeletePresentationWarning"
 #define ACSHELL_STR_DELETING_PRESENTATION @"DeletingPresentation"
+#define ACSHELL_STR_GENERAL @"General"
+#define ACSHELL_STR_ADVANCED @"Advanced"

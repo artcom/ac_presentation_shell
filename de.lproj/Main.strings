@@ -1,0 +1,207 @@
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "0tE-g7-cD2"; */
+"0tE-g7-cD2.title" = "Text Cell";
+
+/* Class = "NSToolbarItem"; label = "ToggleSidebar"; ObjectID = "1Vb-bB-Da3"; */
+"1Vb-bB-Da3.label" = "Seitenleiste...";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Toggle Sidebar"; ObjectID = "1Vb-bB-Da3"; */
+"1Vb-bB-Da3.paletteLabel" = "Seitenleiste...";
+
+/* Class = "NSMenu"; title = "Services"; ObjectID = "1fi-lX-Wh8"; */
+"1fi-lX-Wh8.title" = "Dienste";
+
+/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "2iq-Sg-IrR"; */
+"2iq-Sg-IrR.title" = "Alles auswählen";
+
+/* Class = "NSMenuItem"; title = "New Presentation"; ObjectID = "54Y-FN-nXS"; */
+"54Y-FN-nXS.title" = "Neue Präsentation";
+
+/* Class = "NSMenuItem"; title = "Bring All to Front"; ObjectID = "5F4-bm-dk3"; */
+"5F4-bm-dk3.title" = "Alle nach vorne bringen";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "5W8-Zn-lcW"; */
+"5W8-Zn-lcW.title" = "Löschen";
+
+/* Class = "NSSearchFieldCell"; placeholderString = "Name"; ObjectID = "6gc-4Q-eyp"; */
+"6gc-4Q-eyp.placeholderString" = "Name";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "AAh-TS-xbF"; */
+"AAh-TS-xbF.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "Main Menu"; ObjectID = "AYu-sK-qS6"; */
+"AYu-sK-qS6.title" = "Main Menu";
+
+/* Class = "NSMenu"; title = "View"; ObjectID = "C1k-Jb-z5a"; */
+"C1k-Jb-z5a.title" = "Darstellung";
+
+/* Class = "NSImageView"; ibShadowedToolTip = "Shit hit the fan."; ObjectID = "Cag-Br-XvR"; */
+"Cag-Br-XvR.ibShadowedToolTip" = "Shit hit the fan.";
+
+/* Class = "NSMenuItem"; title = "Library"; ObjectID = "E3W-qK-gsO"; */
+"E3W-qK-gsO.title" = "Bibliothek";
+
+/* Class = "NSMenuItem"; title = "Edit Presentation..."; ObjectID = "FoB-7a-Ozb"; */
+"FoB-7a-Ozb.title" = "Präsentation bearbeiten...";
+
+/* Class = "NSMenuItem"; title = "Page Setup..."; ObjectID = "GpR-to-atT"; */
+"GpR-to-atT.title" = "Papierformat...";
+
+/* Class = "NSWindow"; title = "AC Presentation Shell"; ObjectID = "IQv-IB-iLA"; */
+"IQv-IB-iLA.title" = "AC Präsentations Shell";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "JeY-C5-ED0"; */
+"JeY-C5-ED0.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Hide ACShell"; ObjectID = "KSW-0m-oG1"; */
+"KSW-0m-oG1.title" = "ACShell ausblenden";
+
+/* Class = "NSMenuItem"; title = "Preferences…"; ObjectID = "Kuk-Kd-y35"; */
+"Kuk-Kd-y35.title" = "Einstellungen…";
+
+/* Class = "NSMenuItem"; title = "Quit ACShell"; ObjectID = "LW0-ZE-Kcj"; */
+"LW0-ZE-Kcj.title" = "ACShell beenden";
+
+/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "LiT-Uz-8Wh"; */
+"LiT-Uz-8Wh.title" = "Ausschneiden";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "MOm-tT-UlJ"; */
+"MOm-tT-UlJ.title" = "Text Cell";
+
+/* Class = "NSSearchToolbarItem"; label = "Search"; ObjectID = "MY3-CN-wMk"; */
+"MY3-CN-wMk.label" = "Suchen";
+
+/* Class = "NSSearchToolbarItem"; paletteLabel = "Search"; ObjectID = "MY3-CN-wMk"; */
+"MY3-CN-wMk.paletteLabel" = "Suchen";
+
+/* Class = "NSMenuItem"; title = "Upload"; ObjectID = "NsA-4q-X2T"; */
+"NsA-4q-X2T.title" = "Hochladen";
+
+/* Class = "NSMenuItem"; title = "Edit"; ObjectID = "O2s-p5-Jo7"; */
+"O2s-p5-Jo7.title" = "Bearbeiten";
+
+/* Class = "NSMenu"; title = "Help"; ObjectID = "O7c-kQ-dio"; */
+"O7c-kQ-dio.title" = "Hilfe";
+
+/* Class = "NSMenu"; title = "Library"; ObjectID = "Q5E-p6-eRi"; */
+"Q5E-p6-eRi.title" = "Library";
+
+/* Class = "NSMenuItem"; title = "Services"; ObjectID = "Qh4-IR-Qn0"; */
+"Qh4-IR-Qn0.title" = "Dienste";
+
+/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "RS9-i7-0tj"; */
+"RS9-i7-0tj.title" = "Drucken…";
+
+/* Class = "NSMenuItem"; title = "View"; ObjectID = "S3H-fM-aLJ"; */
+"S3H-fM-aLJ.title" = "Darstellung";
+
+/* Class = "NSMenuItem"; title = "File"; ObjectID = "Sfs-YY-Rv4"; */
+"Sfs-YY-Rv4.title" = "Ablage";
+
+/* Class = "NSToolbarItem"; label = "Start"; ObjectID = "UNw-C0-XEC"; */
+"UNw-C0-XEC.label" = "Start";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Start"; ObjectID = "UNw-C0-XEC"; */
+"UNw-C0-XEC.paletteLabel" = "Start";
+
+/* Class = "NSToolbarItem"; toolTip = "Play presentations"; ObjectID = "UNw-C0-XEC"; */
+"UNw-C0-XEC.toolTip" = "Präsentationen abspielen";
+
+/* Class = "NSTableColumn"; headerCell.title = "Categories"; ObjectID = "VCt-iB-U71"; */
+"VCt-iB-U71.headerCell.title" = "Kategorien";
+
+/* Class = "NSMenu"; title = "Window"; ObjectID = "YAI-l4-HoA"; */
+"YAI-l4-HoA.title" = "Fenster";
+
+/* Class = "NSMenu"; title = "File"; ObjectID = "YhX-bN-cY3"; */
+"YhX-bN-cY3.title" = "Ablage";
+
+/* Class = "NSTableColumn"; headerCell.title = "Year"; ObjectID = "ZGz-zN-8EQ"; */
+"ZGz-zN-8EQ.headerCell.title" = "Jahr";
+
+/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "ZpO-dZ-BPo"; */
+"ZpO-dZ-BPo.title" = "Einfügen";
+
+/* Class = "NSMenuItem"; title = "Close"; ObjectID = "a47-DO-EYl"; */
+"a47-DO-EYl.title" = "Schließen";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "bXo-G5-d1x"; */
+"bXo-G5-d1x.title" = "Text Cell";
+
+/* Class = "NSMenu"; title = "ACShell"; ObjectID = "cYJ-VP-bLH"; */
+"cYJ-VP-bLH.title" = "ACShell";
+
+/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "die-et-Ply"; */
+"die-et-Ply.title" = "Kopieren";
+
+/* Class = "NSMenuItem"; title = "Show All"; ObjectID = "hAR-0c-0LU"; */
+"hAR-0c-0LU.title" = "Alle einblenden";
+
+/* Class = "NSMenuItem"; title = "Zoom"; ObjectID = "hrF-63-z1y"; */
+"hrF-63-z1y.title" = "Zoomen";
+
+/* Class = "NSMenuItem"; title = "Help"; ObjectID = "j1g-y7-u1s"; */
+"j1g-y7-u1s.title" = "Hilfe";
+
+/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "j2W-H8-QHN"; */
+"j2W-H8-QHN.title" = "Rückgängig";
+
+/* Class = "NSToolbarItem"; label = "Sync"; ObjectID = "jI6-Bx-GLt"; */
+"jI6-Bx-GLt.label" = "Sync";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Synchronize"; ObjectID = "jI6-Bx-GLt"; */
+"jI6-Bx-GLt.paletteLabel" = "Synchronisieren";
+
+/* Class = "NSToolbarItem"; toolTip = "Synchronize with server"; ObjectID = "jI6-Bx-GLt"; */
+"jI6-Bx-GLt.toolTip" = "Mit Server Synchronisieren";
+
+/* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "jsZ-al-mhu"; */
+"jsZ-al-mhu.title" = "Andere ausblenden";
+
+/* Class = "NSMenuItem"; title = "Window"; ObjectID = "mbG-jk-vwc"; */
+"mbG-jk-vwc.title" = "Fenster";
+
+/* Class = "NSMenu"; title = "Edit"; ObjectID = "mlJ-DK-ImD"; */
+"mlJ-DK-ImD.title" = "Bearbeiten";
+
+/* Class = "NSToolbarItem"; label = "Upload"; ObjectID = "ohL-OZ-O6d"; */
+"ohL-OZ-O6d.label" = "Hochladen";
+
+/* Class = "NSToolbarItem"; paletteLabel = "Upload"; ObjectID = "ohL-OZ-O6d"; */
+"ohL-OZ-O6d.paletteLabel" = "Hochladen";
+
+/* Class = "NSToolbarItem"; toolTip = "Synchronize with server"; ObjectID = "ohL-OZ-O6d"; */
+"ohL-OZ-O6d.toolTip" = "Mit Server Synchronisieren";
+
+/* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "pmO-T5-xhK"; */
+"pmO-T5-xhK.headerCell.title" = "Name";
+
+/* Class = "NSMenuItem"; title = "Synchronize"; ObjectID = "qlS-iJ-CeT"; */
+"qlS-iJ-CeT.title" = "Synchronisieren";
+
+/* Class = "NSMenuItem"; title = "About ACShell"; ObjectID = "rtc-3Y-YDK"; */
+"rtc-3Y-YDK.title" = "Über ACShell";
+
+/* Class = "NSMenuItem"; title = "ACShell"; ObjectID = "sDR-Ij-vKa"; */
+"sDR-Ij-vKa.title" = "ACShell";
+
+/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "tee-p1-Qgd"; */
+"tee-p1-Qgd.title" = "Löschen";
+
+/* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "trW-6L-16H"; */
+"trW-6L-16H.title" = "Symbolleiste anzeigen";
+
+/* Class = "NSMenuItem"; title = "New Collection"; ObjectID = "u8j-N7-kSr"; */
+"u8j-N7-kSr.title" = "Neue Sammlung";
+
+/* Class = "NSMenuItem"; title = "Customize Toolbar…"; ObjectID = "vy9-fI-BBg"; */
+"vy9-fI-BBg.title" = "Symbolleiste anpassen…";
+
+/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "w9F-oU-Ggs"; */
+"w9F-oU-Ggs.title" = "Widerholen";
+
+/* Class = "NSMenuItem"; title = "ACShell Help"; ObjectID = "wIs-MB-OxP"; */
+"wIs-MB-OxP.title" = "ACShell Hilfe";
+
+/* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "x62-ji-PPT"; */
+"x62-ji-PPT.title" = "Minimieren";

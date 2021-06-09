@@ -7,10 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class ACShellController;
+#import "PreferenceController.h"
+#import "SetupAssistantController.h"
+#import "SetupAssistantDelegateProtocol.h"
+#import "ACShellWindowController.h"
 
-@interface ACShellAppDelegate : NSObject <NSApplicationDelegate>
+@interface ACShellAppDelegate : NSObject <NSApplicationDelegate, SetupAssistantDelegate>
+@property (strong) ACShellWindowController *mainWindowController;
+@property (strong) PreferenceController *preferenceController;
+@property(strong) SetupAssistantController *setupAssistantController;
+@property (assign) BOOL isStartup;
 
-@property (strong) IBOutlet ACShellController *shellController;
-
+- (IBAction)showPreferences:(id)sender;
 @end

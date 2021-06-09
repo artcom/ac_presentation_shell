@@ -21,11 +21,17 @@
 @property (strong) NSArray *categories;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
-@property (strong) NSString *libraryDirPath;
+@property (nonatomic, strong) NSString *libraryDirPath;
 @property (strong) NSString *categoriesDirectory;
 
+@property (weak, readonly) NSString* librarySource;
+@property (weak, readonly) NSString* libraryTarget;
+
++ (instancetype)sharedInstance;
 + (id)libraryFromSettingsFile;
 
+- (BOOL)libraryExistsAtPath;
+- (void)reload;
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;

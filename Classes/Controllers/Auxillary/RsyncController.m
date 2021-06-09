@@ -18,21 +18,15 @@
 @property (assign) BOOL terminatedByUser;
 @property (assign) BOOL isUploading;
 
-- (NSImage *)syncIcon;
-- (NSImage *)uploadIcon;
-- (NSImage *)directionIcon;
 - (void)performSync:(NSString *) source destination:(NSString *)destination;
 - (void)setFileProgress:(double) percent;
 
 - (NSAlert*)progressDialog;
 - (NSAlert*)confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
-                               style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles;
-- (NSAlert*)acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style icon: (NSImage*) icon;
+                               style: (NSAlertStyle) style buttonTitles: (NSArray *)titles;
+- (NSAlert*)acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText style: (NSAlertStyle) style;
 
 @end
-
-static NSImage * ourSyncIcon = nil;
-static NSImage * ourUploadIcon = nil;
 
 @implementation RsyncController
 @synthesize delegate;
@@ -47,7 +41,7 @@ static NSImage * ourUploadIcon = nil;
 - (id) init {
     self = [super init];
     if (self != nil) {
-        [NSBundle loadNibNamed: @"RsyncProgressView" owner: self];
+        [[NSBundle mainBundle] loadNibNamed:@"RsyncProgressView" owner:self topLevelObjects:nil];
     }
     return self;
 }
@@ -65,8 +59,7 @@ static NSImage * ourUploadIcon = nil;
     self.isUploading = NO;
     NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_SYNC_LIB_NOW
                                      informationalText: ACSHELL_STR_GOOD_CONNECTION
-                                                 style: NSInformationalAlertStyle
-                                                  icon: [self directionIcon] 
+                                                 style: NSAlertStyleInformational
 												buttonTitles: nil];
 
     [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
@@ -132,8 +125,7 @@ static NSImage * ourUploadIcon = nil;
         }
         NSAlert * ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_SYNC_FAILED
                                          informationalText: error
-                                                     style: NSWarningAlertStyle
-                                                      icon: [NSImage imageNamed: NSImageNameCaution]];
+                                                     style: NSAlertStyleWarning];
         [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
             [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
         }];
@@ -180,7 +172,7 @@ static NSImage * ourUploadIcon = nil;
     if (returnCode == NSAlertFirstButtonReturn) {
         NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_ABORT_SYNC 
                                          informationalText: ACSHELL_STR_ABORT_SYNC_WARNING 
-                                                     style: NSWarningAlertStyle icon: [NSImage imageNamed: NSImageNameCaution] 
+                                                     style: NSAlertStyleWarning
 											  buttonTitles: [NSArray arrayWithObjects: ACSHELL_STR_ABORT, ACSHELL_STR_CONTINUE_SYNC, nil]];
         [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
             [self userDidConfirmAbort:confirm returnCode:returnCode contextInfo:nil];
@@ -206,24 +198,6 @@ static NSImage * ourUploadIcon = nil;
 -(void) userDidAcknowledge:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
 }
 
--(NSImage*) syncIcon {
-    if (ourSyncIcon == nil) {
-        ourSyncIcon = [NSImage imageNamed: @"icn_sync"];
-    }
-    return ourSyncIcon;
-}
-
--(NSImage*) uploadIcon {
-    if (ourUploadIcon == nil) {
-        ourUploadIcon = [NSImage imageNamed: @"icn_upload"];
-    }
-    return ourUploadIcon;
-}
-
--(NSImage*) directionIcon {
-    return self.isUploading ? [self uploadIcon] : [self syncIcon];
-}
-
 - (void)showSheet:(NSAlert *)sheet completionHandler:(void (^)(NSModalResponse returnCode))handler {
     if (self.currentSheet != nil) {
         [[self.currentSheet window] orderOut:self];
@@ -235,7 +209,7 @@ static NSImage * ourUploadIcon = nil;
 }
 
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
-                               style: (NSAlertStyle) style icon: (NSImage*) icon buttonTitles: (NSArray *)titles
+                               style: (NSAlertStyle) style buttonTitles: (NSArray *)titles
 {
     NSAlert * dialog = [[NSAlert alloc] init];
 
@@ -249,23 +223,17 @@ static NSImage * ourUploadIcon = nil;
 
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
-    if (icon != nil) {
-        [dialog setIcon: icon];
-    }
     [dialog setAlertStyle: style];
     return dialog;
 }
 
 -(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
-                                   style: (NSAlertStyle) style icon: (NSImage*) icon
+                                   style: (NSAlertStyle) style
 {
     NSAlert * dialog = [[NSAlert alloc] init];
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
-    if (icon != nil) {
-        [dialog setIcon: icon];
-    }
     [dialog setAlertStyle: style];
     return dialog;    
 }
@@ -275,9 +243,7 @@ static NSImage * ourUploadIcon = nil;
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
     [dialog setMessageText: NSLocalizedString(ACSHELL_STR_SYNCING,nil)];
     [dialog setInformativeText: NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE,nil)];
-    [dialog setAlertStyle: NSWarningAlertStyle];
-    [dialog setIcon: [self directionIcon]];
-    
+    [dialog setAlertStyle: NSAlertStyleWarning];
     [dialog setAccessoryView: progressView];
     
     [fileProgressBar setIndeterminate: YES];

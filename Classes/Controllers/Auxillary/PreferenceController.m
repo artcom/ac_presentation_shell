@@ -11,6 +11,7 @@
 #import "ACPreferenceWindowController.h"
 #import "ACPreferencePage.h"
 #import "default_keys.h"
+#import "localized_text_keys.h"
 
 @implementation PreferenceController
 @synthesize generalPreferences;
@@ -20,7 +21,7 @@
 - (id) init {
     self = [super init];
     if (self != nil) {
-        [NSBundle loadNibNamed: @"PreferencePages" owner: self];
+        [[NSBundle mainBundle] loadNibNamed:@"PreferencePages" owner:self topLevelObjects:nil];
     }
     return self;
 }
@@ -28,14 +29,13 @@
 
 - (void) awakeFromNib {
     ACPreferencePage * generalPrefs = [[ACPreferencePage alloc] initWithView: generalPreferences
-                                                                       title: @"General"
-                                                                    iconName: NSImageNamePreferencesGeneral];
+                                                                       title: NSLocalizedString(ACSHELL_STR_GENERAL, nil)
+                                                                    iconName: @"gearshape"];
     ACPreferencePage * advancedPrefs = [[ACPreferencePage alloc] initWithView:advancedPreferences
-                                                                       title: @"Advanced"
-                                                                    iconName: NSImageNameAdvanced];
+                                                                        title: NSLocalizedString(ACSHELL_STR_ADVANCED, nil)
+                                                                    iconName: @"gearshape.2"];
     NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
     windowController = [[ACPreferenceWindowController alloc] initWithPages: preferencePages];
-    
 }
 
 - (IBAction) showWindow: (id) sender {

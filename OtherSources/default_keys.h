@@ -16,3 +16,4 @@
 #define ACSHELL_DEFAULT_KEY_RSYNC_READ_USER @"rsyncReadUser"
 #define ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER @"rsyncWriteUser"
 #define ACShellLibraryConfigDidChange @"ACShellLibraryConfigDidChange"
+#define ACShellLibraryDidUpdate @"ACShellLibraryDidUpdate"

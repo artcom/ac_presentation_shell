@@ -1,4 +1,4 @@
-/* 
+/*
    Localizable.strings
    ACShell
 
@@ -6,10 +6,10 @@
    Copyright 2010 ART+COM AG. All rights reserved.
  */
  
-"Library" = "BIBLIOTHEK";
+"Library" = "Bibliothek";
 "All" = "Alle";
 "Highlights" = "Glanzlichter";
-"Collections" = "SAMMLUNGEN";
+"Collections" = "Sammlungen";
 "NofMPresentations" = "%d von %d Präsentationen";
 "NPresentations" = "%d Präsentationen";
 "NewCollection" = "Neue Sammlung";
@@ -26,7 +26,7 @@
 "ContinueSync" = "Fortsetzen";
 "CheckedNofMFiles" = "%d von %d Dateien überprüft (%3.1f%%)";
 "CheckingNFiles" = "Überprüfe %d Dateien";
-"LastSyncFailed" = "Letzte Synchronisation fehlgeschlagen. Erneuter sync ist erfordelich.";
+"LastSyncFailed" = "Letzte Synchronisation fehlgeschlagen. Erneuter sync ist erforderlich.";
 "UpdatePresentation" = "Aktualisiere Präsentation";
 "DeleteCollection" = "Willst Du die ausgewählte Sammlung wirklich löschen?";
 "Delete" = "Löschen";
@@ -52,6 +52,8 @@
 "WaitForActivation" = "Vielen Dank. Du kannst die Bibliothek synchronisieren sobald Dein Konto bestätigt wurde.";
 "DeletePresentationWarning" = "Willst Du die gesamte Präsentation wirklich löschen?";
 "DeletingPresentation" = "Verschiebe Präsentation in den Papierkorb...";
+"General" = "Allgemein";
+"Advanced" = "Erweitert";
 
 "order" = "Reihenfolge";
 "selected" = "Ausgewählt";

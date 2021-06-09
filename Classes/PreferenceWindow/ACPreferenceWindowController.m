@@ -23,7 +23,9 @@
 - (id)initWithPages: (NSArray*) pages  {
     self = [super initWithWindow: [ACPreferenceWindowController preferenceWindow]];
     if (self != nil) {
-        [[[self window] toolbar] setDelegate: self];
+        self.window.toolbar.delegate = self;
+        self.window.toolbarStyle = NSWindowToolbarStylePreference;
+        
         preferencePages = pages;
 
         NSMutableArray * toolbarIds = [[NSMutableArray alloc] init];
@@ -56,15 +58,14 @@
         NSLog(@"failed to find preference page for id %@", identifier);
         return;
     }
-    ACPreferencePage * page = [preferencePages objectAtIndex: pageIndex];
-    NSRect targetViewFrame = [[page view] frame];
+    ACPreferencePage * page = [preferencePages objectAtIndex:pageIndex];
+    NSRect targetViewFrame = page.view.frame;
     
-    NSView * currentView = [[self window] contentView];
-    NSRect currentViewFrame = [currentView frame];
+    NSView * currentView = self.window.contentView;
+    NSRect currentViewFrame = currentView.frame;
     
     if (targetViewFrame.size.width == currentViewFrame.size.width &&
-        targetViewFrame.size.height == currentViewFrame.size.height)
-    {
+        targetViewFrame.size.height == currentViewFrame.size.height) {
         return;
     }
     
@@ -77,8 +78,9 @@
 
     NSView *contentView = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 0, 0)];
     self.window.contentView = contentView;
-    [[self window] setFrame: newWindowFrame display:YES animate:YES];
-    self.window.contentView = [page view];
+    [self.window setFrame: newWindowFrame display:YES animate:YES];
+    self.window.contentView = page.view;
+    self.window.title = page.title;
 }
 
 #pragma mark -
@@ -107,7 +109,8 @@
         ACPreferencePage * page = [preferencePages objectAtIndex: pageIndex];
         [toolbarItem setLabel: [page title]];
         [toolbarItem setPaletteLabel: [page title]];
-        [toolbarItem setImage:[NSImage imageNamed: [page iconName]]];
+        [toolbarItem setImage:[NSImage imageWithSystemSymbolName:page.iconName accessibilityDescription:nil]];
+    
     }
     return toolbarItem;
 }
@@ -124,10 +127,7 @@
     NSPanel * panel = [[NSPanel alloc] init];
     [panel setHidesOnDeactivate:NO];
     [panel setShowsToolbarButton: NO];
-    [panel setStyleMask: [panel styleMask] | NSMiniaturizableWindowMask];
-    NSRect frame = [panel frame];
-    frame.size.width = 600;
-    [panel setFrame: frame display: NO];
+    [panel setStyleMask: [panel styleMask] | NSWindowStyleMaskMiniaturizable];
     [panel center];
     // TODO: fix me
     [panel setFrameAutosaveName: @"PreferenceWindow"];

@@ -81,7 +81,7 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     CFRunLoopRef runLoop = CFRunLoopGetCurrent();
     OSStatus error = FSFileOperationScheduleWithRunLoop(op, runLoop, kCFRunLoopDefaultMode);
     if (error != noErr) {
-        NSLog(@"Kaputt: failed to schedule file op on run loop");
+        NSLog(@"Broken: failed to schedule file op on run loop");
         return;
     }
     

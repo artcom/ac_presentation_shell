@@ -1,0 +1,57 @@
+
+/* Class = "NSWindow"; title = "Edit Presentation"; ObjectID = "1"; */
+"1.title" = "Präsentation bearbeiten";
+
+/* Class = "NSButtonCell"; title = "Ok"; ObjectID = "11"; */
+"11.title" = "Speichern";
+
+/* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13"; */
+"13.title" = "Abbrechen";
+
+/* Class = "NSWindow"; title = "Progress Sheet"; ObjectID = "136"; */
+"136.title" = "Progress Sheet";
+
+/* Class = "NSTextFieldCell"; title = "90.0%"; ObjectID = "142"; */
+"142.title" = "90.0%";
+
+/* Class = "NSTextFieldCell"; title = "Title"; ObjectID = "143"; */
+"143.title" = "Titel";
+
+/* Class = "NSTextFieldCell"; title = "Message"; ObjectID = "151"; */
+"151.title" = "Message";
+
+/* Class = "NSButtonCell"; title = "Delete"; ObjectID = "154"; */
+"154.title" = "Löschen";
+
+/* Class = "NSButtonCell"; title = "Highlight"; ObjectID = "169"; */
+"162.title" = "Highlight desc";
+
+/* Class = "NSButtonCell"; title = "Show Presentation in Highlights collection"; ObjectID = "169"; */
+"169.title" = "Zeige Präsentation in Sammlung Glanzlichter";
+
+/* Class = "NSTextFieldCell"; title = "Keynote:"; ObjectID = "181"; */
+"181.title" = "Keynote:";
+
+/* Class = "NSTextFieldCell"; title = "Thumbnail:"; ObjectID = "186"; */
+"186.title" = "Vorschaubild:";
+
+/* Class = "NSTextFieldCell"; title = "Title:"; ObjectID = "188"; */
+"188.title" = "Titel:";
+
+/* Class = "NSTextFieldCell"; title = "Year:"; ObjectID = "201"; */
+"201.title" = "Jahr:";
+
+/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "211"; */
+"211.title" = "Label";
+
+/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "213"; */
+"213.title" = "Label";
+
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "P6r-SR-TBF"; */
+"P6r-SR-TBF.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Highlight:"; ObjectID = "Vf1-Nh-Uuo"; */
+"Vf1-Nh-Uuo.title" = "Highlight:";
+
+/* Class = "NSTextFieldCell"; title = "Categories:"; ObjectID = "pgi-s6-PKv"; */
+"pgi-s6-PKv.title" = "Kategorien:";

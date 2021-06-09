@@ -8,7 +8,6 @@
 
 #import "EditWindowController.h"
 #import "Presentation.h"
-#import "ACShellController.h"
 #import "PresentationLibrary.h"
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
@@ -21,7 +20,7 @@
 - (void) postEditCleanUp;
 - (void) setGuiValues;
 - (void) updateOkButton;
-- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo;
+- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode;
 
 @end
 
@@ -42,12 +41,12 @@
 @synthesize progressBar;
 @synthesize progressText;
 
-- (id) initWithShellController: (ACShellController*) theShellController
+- (id) initWithPresentationLibrary: (PresentationLibrary *) thePresentationLibrary
 {
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
-        _shellController = theShellController;
         _selectedCategories = [NSMutableArray new];
+        _presentationLibrary = thePresentationLibrary;
     }
     return self;
 }
@@ -71,17 +70,17 @@
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
-    [NSApp beginSheet: progressSheet modalForWindow: [self window]
-        modalDelegate: self
-       didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
-          contextInfo: nil];
+    [self.window beginSheet:progressSheet completionHandler:^(NSModalResponse returnCode) {
+        [self didEndSheet:progressSheet returnCode:returnCode];
+    }];
+    
     [progressBar setIndeterminate: YES];
     [progressBar startAnimation: nil];
     [progressText setStringValue: @""];
     [progressMessage setStringValue: @""];
     if (self.presentation == nil) {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
-        [self.shellController.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
+        [self.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
                                                              thumbnailPath: [self.droppedThumbnail filename]
                                                                keynotePath: [self.droppedKeynote filename]
                                                                isHighlight: [self.highlightCheckbox intValue]
@@ -90,7 +89,7 @@
                                                           progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
-        [self.shellController.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
+        [self.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
                                                        thumbnailPath: [self.droppedThumbnail filename]
                                                          keynotePath: [self.droppedKeynote filename]
                                                          isHighlight: [self.highlightCheckbox intValue]
@@ -124,38 +123,35 @@
 }
 
 - (IBAction) userWantsToDeletePresentation: (id) sender {
-    NSAlert * alert = [NSAlert alertWithMessageText: NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil)
-                                      defaultButton: NSLocalizedString(ACSHELL_STR_DELETE, nil)
-                                    alternateButton: NSLocalizedString(ACSHELL_STR_CANCEL, nil)
-                                        otherButton: nil
-                          informativeTextWithFormat: @""];
-    [alert beginSheetModalForWindow: [self window]
-                      modalDelegate: self
-                     didEndSelector: @selector(userDidDecideDelete:returnCode:contextInfo:)
-                        contextInfo: nil];
+    NSAlert * alert = [NSAlert new];
+    alert.messageText = NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil);
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_DELETE, nil)];
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
     
+    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+        [self userDidDecideDelete:alert returnCode:returnCode];
+    }];
 }
 
-- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
+- (void) userDidDecideDelete:(NSAlert *)sheet returnCode:(NSInteger)returnCode {
     [[sheet window] orderOut: self];
     [NSApp endSheet:[sheet window]];
     
     switch (returnCode) {
-        case NSAlertDefaultReturn:
-            [NSApp beginSheet: progressSheet modalForWindow: [self window]
-                modalDelegate: self
-               didEndSelector: @selector(didEndSheet:returnCode:contextInfo:)
-                  contextInfo: nil];
+        case NSAlertFirstButtonReturn:{
+            [self.window beginSheet:progressSheet completionHandler:^(NSModalResponse returnCode) {
+                [self didEndSheet:progressSheet returnCode:returnCode];
+            }];
             [progressBar setIndeterminate: YES];
             [progressBar startAnimation: nil];
             [progressText setStringValue: @""];
             [progressMessage setStringValue: @""];
             
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
-            [self.shellController.presentationLibrary deletePresentation:self.presentation
-                                                        progressDelegate: self];
+            [self.presentationLibrary deletePresentation:self.presentation progressDelegate: self];
+        }
             break;
-        case NSAlertAlternateReturn:
+        case NSAlertSecondButtonReturn:
             break;
         default:
             break;
@@ -177,7 +173,7 @@
     [chooser setCanChooseDirectories: NO];
     [chooser setAllowedFileTypes: [NSArray arrayWithObject: @"key"]];
     [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
             [droppedKeynote setFilename: [fileURL path]];
             [self userDidDropKeynote: sender];
@@ -192,7 +188,7 @@
     [chooser setCanChooseDirectories: NO];
     [chooser setAllowedFileTypes: [NSArray arrayWithObjects: @"png", @"jpg", @"jpeg", @"tif", @"tiff", nil]];
     [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
-        if (result == NSFileHandlingPanelOKButton) {
+        if (result == NSModalResponseOK) {
             NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
             [droppedThumbnail setFilename: [fileURL path]];
             [self userDidDropThumbnail: sender];
@@ -216,7 +212,7 @@
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return self.shellController.presentationLibrary.categories.count;
+    return self.presentationLibrary.categories.count;
 }
 
 #pragma mark -
@@ -224,15 +220,15 @@
 
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-    LibraryCategory *category = self.shellController.presentationLibrary.categories[row];
+    LibraryCategory *category = self.presentationLibrary.categories[row];
     CategoryCell *cell = [tableView makeViewWithIdentifier:@"CategoryCell" owner:self];
     cell.delegate = self;
     cell.checkbox.title = category.title;
     cell.index = row;
     if ([self.presentation.categories containsObject:category.ID]) {
-        [cell.checkbox setState:NSOnState];
+        [cell.checkbox setState:NSControlStateValueOn];
     } else {
-        [cell.checkbox setState:NSOffState];
+        [cell.checkbox setState:NSControlStateValueOff];
     }
     return cell;
 }
@@ -242,13 +238,13 @@
 
 - (void)categoryCellDidCheck:(CategoryCell *)cell withIndex:(NSInteger)index
 {
-    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    LibraryCategory *category = self.presentationLibrary.categories[index];
     [self.selectedCategories addObject:category];
 }
 
 - (void)categoryCellDidUncheck:(CategoryCell *)cell withIndex:(NSInteger)index
 {
-    LibraryCategory *category = self.shellController.presentationLibrary.categories[index];
+    LibraryCategory *category = self.presentationLibrary.categories[index];
     [self.selectedCategories removeObject:category];
 }
 
@@ -259,7 +255,7 @@
     [NSApp endSheet: progressSheet];
 }
 
-- (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode contextInfo: (void*) contextInfo {
+- (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode {
     [sheet orderOut:self];
     [self postEditCleanUp];
 }
@@ -282,7 +278,7 @@
     if (self.presentation) {
         
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.categories];
-        NSArray *categories = [self.shellController.presentationLibrary.categories filteredArrayUsingPredicate:predicate];
+        NSArray *categories = [self.presentationLibrary.categories filteredArrayUsingPredicate:predicate];
         [self.selectedCategories removeAllObjects];
         [self.selectedCategories addObjectsFromArray:categories];
         

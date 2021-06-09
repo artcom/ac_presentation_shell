@@ -11,6 +11,7 @@
 #import "LibraryCategory.h"
 #import "ACShellCollection.h"
 #import "Presentation.h"
+#import "default_keys.h"
 
 @interface PresentationLibraryTests : XCTestCase
 @property (nonatomic) NSString *libraryXML;
@@ -29,6 +30,9 @@
     _libraryXML = [[NSBundle bundleForClass:self.class] pathForResource:@"library" ofType:@"xml"];
     _libraryPath = [self.libraryXML stringByDeletingLastPathComponent];
     _storageLibraryPath = [NSString stringWithFormat:@"%@acshelltests/library", NSTemporaryDirectory()];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:_libraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [[NSFileManager defaultManager] createDirectoryAtPath:self.storageLibraryPath withIntermediateDirectories:YES attributes:nil error:nil];
     
     _library = [PresentationLibrary new];
@@ -128,6 +132,9 @@
     Presentation *presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
     presentation.title = @"THE NEW TITLE";
     presentation.categories = @[@"2", @"1"];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     self.library.libraryDirPath = self.storageLibraryPath;
     [self.library saveXmlLibrary];

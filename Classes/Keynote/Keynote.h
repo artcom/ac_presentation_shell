@@ -6,7 +6,7 @@
 #import <ScriptingBridge/ScriptingBridge.h>
 
 
-@class KeynoteApplication, KeynoteDocument, KeynoteWindow, KeynoteTheme, KeynoteRichText, KeynoteCharacter, KeynoteParagraph, KeynoteWord, KeynoteIWorkContainer, KeynoteSlide, KeynoteMasterSlide, KeynoteIWorkItem, KeynoteAudioClip, KeynoteShape, KeynoteChart, KeynoteImage, KeynoteGroup, KeynoteLine, KeynoteMovie, KeynoteTable, KeynoteTextItem, KeynoteRange, KeynoteCell, KeynoteRow, KeynoteColumn;
+@class KeynoteApplication, KeynoteDocument, KeynoteWindow, KeynoteTheme, KeynoteRichText, KeynoteCharacter, KeynoteParagraph, KeynoteWord, KeynoteIWorkContainer, KeynoteSlide, KeynoteSlideLayout, KeynoteIWorkItem, KeynoteAudioClip, KeynoteShape, KeynoteChart, KeynoteImage, KeynoteGroup, KeynoteLine, KeynoteMovie, KeynoteTable, KeynoteTextItem, KeynoteRange, KeynoteCell, KeynoteRow, KeynoteColumn;
 
 enum KeynoteSaveOptions {
 	KeynoteSaveOptionsYes = 'yes ' /* Save the file. */,
@@ -44,19 +44,52 @@ enum KeynoteImageExportFormats {
 typedef enum KeynoteImageExportFormats KeynoteImageExportFormats;
 
 enum KeynoteMovieExportFormats {
-	KeynoteMovieExportFormatsSmall = 'Kmf3' /* 360p */,
-	KeynoteMovieExportFormatsMedium = 'Kmf5' /* 540p */,
-	KeynoteMovieExportFormatsLarge = 'Kmf7' /* 720p */
+	KeynoteMovieExportFormatsFormat360p = 'Kmf3' /* 360p */,
+	KeynoteMovieExportFormatsFormat540p = 'Kmf5' /* 540p */,
+	KeynoteMovieExportFormatsFormat720p = 'Kmf7' /* 720p */,
+	KeynoteMovieExportFormatsFormat1080p = 'Kmf8' /* 1080p */,
+	KeynoteMovieExportFormatsFormat2160p = 'Kmf4' /* DCI 4K (4096x2160) */,
+	KeynoteMovieExportFormatsNativeSize = 'KmfN' /* Exported movie will have the same dimensions as the document, up to 4096x2160 */
 };
 typedef enum KeynoteMovieExportFormats KeynoteMovieExportFormats;
+
+enum KeynoteMovieCodecs {
+	KeynoteMovieCodecsH264 = 'Kmc1' /* H.264 */,
+	KeynoteMovieCodecsAppleProRes422 = 'Kmc2' /* Apple ProRes 422 */,
+	KeynoteMovieCodecsAppleProRes4444 = 'Kmc3' /* Apple ProRes 4444 */,
+	KeynoteMovieCodecsAppleProRes422LT = 'Kmc4' /* Apple ProRes 422LT */,
+	KeynoteMovieCodecsAppleProRes422HQ = 'Kmc5' /* Apple ProRes 422HQ */,
+	KeynoteMovieCodecsAppleProRes422Proxy = 'Kmc6' /* Apple ProRes 422Proxy */,
+	KeynoteMovieCodecsHEVC = 'Kmc7' /* HEVC */
+};
+typedef enum KeynoteMovieCodecs KeynoteMovieCodecs;
+
+enum KeynoteMovieFramerates {
+	KeynoteMovieFrameratesFPS12 = 'Kfr1' /* 12 FPS */,
+	KeynoteMovieFrameratesFPS2398 = 'Kfr2' /* 23.98 FPS */,
+	KeynoteMovieFrameratesFPS24 = 'Kfr3' /* 24 FPS */,
+	KeynoteMovieFrameratesFPS25 = 'Kfr4' /* 25 FPS */,
+	KeynoteMovieFrameratesFPS2997 = 'Kfr5' /* 29.97 FPS */,
+	KeynoteMovieFrameratesFPS30 = 'Kfr6' /* 30 FPS */,
+	KeynoteMovieFrameratesFPS50 = 'Kfr7' /* 50 FPS */,
+	KeynoteMovieFrameratesFPS5994 = 'Kfr8' /* 59.94 FPS */,
+	KeynoteMovieFrameratesFPS60 = 'Kfr9' /* 60 FPS */
+};
+typedef enum KeynoteMovieFramerates KeynoteMovieFramerates;
 
 enum KeynotePrintWhat {
 	KeynotePrintWhatIndividualSlides = 'Kpwi' /* individual slides */,
 	KeynotePrintWhatSlideWithNotes = 'Kpwn' /* slides with notes */,
-	KeynotePrintWhatOutline = 'Kpwo' /* outline */,
 	KeynotePrintWhatHandouts = 'Kpwh' /* handouts */
 };
 typedef enum KeynotePrintWhat KeynotePrintWhat;
+
+enum KeynotePDFImageQuality {
+	KeynotePDFImageQualityGood = 'KnP0' /* good quality */,
+	KeynotePDFImageQualityBetter = 'KnP1' /* better quality */,
+	KeynotePDFImageQualityBest = 'KnP2' /* best quality */
+};
+typedef enum KeynotePDFImageQuality KeynotePDFImageQuality;
 
 enum KeynoteTransitionEffects {
 	KeynoteTransitionEffectsNoTransitionEffect = 'tnil' /*  */,
@@ -68,7 +101,7 @@ enum KeynoteTransitionEffects {
 	KeynoteTransitionEffectsObjectFlip = 'tofp' /*  */,
 	KeynoteTransitionEffectsObjectPop = 'topp' /*  */,
 	KeynoteTransitionEffectsObjectPush = 'toph' /*  */,
-	KeynoteTransitionEffectsObjectRevolve = 'trvl' /*  */,
+	KeynoteTransitionEffectsObjectRevolve = 'torv' /*  */,
 	KeynoteTransitionEffectsObjectZoom = 'tozm' /*  */,
 	KeynoteTransitionEffectsPerspective = 'tprs' /*  */,
 	KeynoteTransitionEffectsClothesline = 'tclo' /*  */,
@@ -100,7 +133,8 @@ enum KeynoteTransitionEffects {
 	KeynoteTransitionEffectsSwap = 'tswp' /*  */,
 	KeynoteTransitionEffectsSwoosh = 'tsws' /*  */,
 	KeynoteTransitionEffectsTwirl = 'ttwl' /*  */,
-	KeynoteTransitionEffectsTwist = 'ttwi' /*  */
+	KeynoteTransitionEffectsTwist = 'ttwi' /*  */,
+	KeynoteTransitionEffectsFadeAndMove = 'tfad' /*  */
 };
 typedef enum KeynoteTransitionEffects KeynoteTransitionEffects;
 
@@ -191,6 +225,19 @@ enum KeynoteLegacyChartGrouping {
 };
 typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 
+@protocol KeynoteGenericMethods
+
+- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
+- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
+- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
+- (void) delete;  // Delete an object.
+- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
+- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
+- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
+- (void) delete;  // Delete an object.
+
+@end
+
 
 
 /*
@@ -200,8 +247,8 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 // The application's top-level scripting object.
 @interface KeynoteApplication : SBApplication
 
-- (SBElementArray *) documents;
-- (SBElementArray *) windows;
+- (SBElementArray<KeynoteDocument *> *) documents;
+- (SBElementArray<KeynoteWindow *> *) windows;
 
 @property (copy, readonly) NSString *name;  // The name of the application.
 @property (readonly) BOOL frontmost;  // Is this the active application?
@@ -211,29 +258,23 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 - (void) print:(id)x withProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
 - (void) quitSaving:(KeynoteSaveOptions)saving;  // Quit the application.
 - (BOOL) exists:(id)x;  // Verify that an object exists.
+- (void) setPassword:(NSString *)x to:(KeynoteDocument *)to hint:(NSString *)hint savingInKeychain:(BOOL)savingInKeychain;  // Set a password to an unencrypted document.
+- (void) removePassword:(NSString *)x from:(KeynoteDocument *)from;  // Remove the password from the document.
 - (void) showNext;  // Advance one build or slide.
 - (void) showPrevious;  // Go to the previous slide.
 
 @end
 
 // A document.
-@interface KeynoteDocument : SBObject
+@interface KeynoteDocument : SBObject <KeynoteGenericMethods>
 
 @property (copy, readonly) NSString *name;  // Its name.
 @property (readonly) BOOL modified;  // Has it been modified since the last save?
 @property (copy, readonly) NSURL *file;  // Its location on disk, if it has one.
 
-- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
-- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
-- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
-- (void) delete;  // Delete an object.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
 - (void) exportTo:(NSURL *)to as:(KeynoteExportFormat)as withProperties:(NSDictionary *)withProperties;  // Export a slideshow to another file
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
 - (void) startFrom:(KeynoteSlide *)from;  // Start playing the presentation.
-- (void) makeImageSlidesFiles:(NSArray *)files setTitles:(BOOL)setTitles master:(KeynoteMasterSlide *)master;  // Make a series of slides from a list of files.
+- (void) makeImageSlidesFiles:(NSArray<NSURL *> *)files setTitles:(BOOL)setTitles slideLayout:(KeynoteSlideLayout *)slideLayout;  // Make a series of slides from a list of files.
 - (void) stop;  // Stop the presentation.
 - (void) showSlideSwitcher;  // Show the slide switcher in play mode
 - (void) hideSlideSwitcher;  // Hide the slide switcher in play mode
@@ -245,7 +286,7 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 @end
 
 // A window.
-@interface KeynoteWindow : SBObject
+@interface KeynoteWindow : SBObject <KeynoteGenericMethods>
 
 @property (copy, readonly) NSString *name;  // The title of the window.
 - (NSInteger) id;  // The unique identifier of the window.
@@ -260,14 +301,6 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 @property BOOL zoomed;  // Is the window zoomed right now?
 @property (copy, readonly) KeynoteDocument *document;  // The document whose contents are displayed in the window.
 
-- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
-- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
-- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
-- (void) delete;  // Delete an object.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
 
 @end
 
@@ -280,42 +313,35 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 // The Keynote application.
 @interface KeynoteApplication (KeynoteSuite)
 
-- (SBElementArray *) themes;
+- (SBElementArray<KeynoteTheme *> *) themes;
 
 @end
 
 // The Keynote document.
 @interface KeynoteDocument (KeynoteSuite)
 
-- (SBElementArray *) slides;
-- (SBElementArray *) masterSlides;
+- (SBElementArray<KeynoteSlide *> *) slides;
+- (SBElementArray<KeynoteSlideLayout *> *) slideLayouts;
 
+- (NSString *) id;  // Document ID.
 @property BOOL slideNumbersShowing;  // Are the slide numbers displayed?
 @property (copy) KeynoteTheme *documentTheme;  // The theme assigned to the document.
 @property BOOL autoLoop;  // Make the slideshow play repeatedly.
 @property BOOL autoPlay;  // Automatically play the presentation when opening the file.
 @property BOOL autoRestart;  // Restart the slideshow if it's inactive for the specified time
 @property NSInteger maximumIdleDuration;  // Restart the slideshow if it's inactive for the specified time
-@property (copy, readonly) KeynoteSlide *currentSlide;  // The currently selected slide, or the slide that would display if the presentation was started.
+@property (copy) KeynoteSlide *currentSlide;  // The currently selected slide, or the slide that would display if the presentation was started.
 @property NSInteger height;  // The height of the document (in points). Standard slide height = 768. Wide slide height = 1080.
 @property NSInteger width;  // The width of the document (in points). Standard slide width = 1024. Wide slide width = 1920.
 
 @end
 
-// A collection of master slides, with shared design intents and elements.
-@interface KeynoteTheme : SBObject
+// A collection of slide layouts, with shared design intents and elements.
+@interface KeynoteTheme : SBObject <KeynoteGenericMethods>
 
 - (NSString *) id;  // The identifier used by the application.
 @property (copy, readonly) NSString *name;
 
-- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
-- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
-- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
-- (void) delete;  // Delete an object.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
 
 @end
 
@@ -326,24 +352,16 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
  */
 
 // This provides the base rich text class for all iWork applications.
-@interface KeynoteRichText : SBObject
+@interface KeynoteRichText : SBObject <KeynoteGenericMethods>
 
-- (SBElementArray *) characters;
-- (SBElementArray *) paragraphs;
-- (SBElementArray *) words;
+- (SBElementArray<KeynoteCharacter *> *) characters;
+- (SBElementArray<KeynoteParagraph *> *) paragraphs;
+- (SBElementArray<KeynoteWord *> *) words;
 
 @property (copy) NSColor *color;  // The color of the font. Expressed as an RGB value consisting of a list of three color values from 0 to 65535. ex: Blue = {0, 0, 65535}.
 @property (copy) NSString *font;  // The name of the font.  Can be the PostScript name, such as: “TimesNewRomanPS-ItalicMT”, or display name: “Times New Roman Italic”. TIP: Use the Font Book application get the information about a typeface.
 @property NSInteger size;  // The size of the font.
 
-- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
-- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
-- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
-- (void) delete;  // Delete an object.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
 
 @end
 
@@ -356,8 +374,8 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 // One of some text's paragraphs.
 @interface KeynoteParagraph : KeynoteRichText
 
-- (SBElementArray *) characters;
-- (SBElementArray *) words;
+- (SBElementArray<KeynoteCharacter *> *) characters;
+- (SBElementArray<KeynoteWord *> *) words;
 
 
 @end
@@ -365,7 +383,7 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 // One of some text's words.
 @interface KeynoteWord : KeynoteRichText
 
-- (SBElementArray *) characters;
+- (SBElementArray<KeynoteCharacter *> *) characters;
 
 
 @end
@@ -376,28 +394,27 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
  * iWork Suite
  */
 
+@interface KeynoteDocument (IWorkSuite)
+
+@property (copy) NSArray<KeynoteIWorkItem *> *selection;  // A list of the currently selected items.
+@property (readonly) BOOL passwordProtected;  // Whether the document is password protected or not.
+
+@end
+
 // A container for iWork items
-@interface KeynoteIWorkContainer : SBObject
+@interface KeynoteIWorkContainer : SBObject <KeynoteGenericMethods>
 
-- (SBElementArray *) audioClips;
-- (SBElementArray *) charts;
-- (SBElementArray *) images;
-- (SBElementArray *) iWorkItems;
-- (SBElementArray *) groups;
-- (SBElementArray *) lines;
-- (SBElementArray *) movies;
-- (SBElementArray *) shapes;
-- (SBElementArray *) tables;
-- (SBElementArray *) textItems;
+- (SBElementArray<KeynoteAudioClip *> *) audioClips;
+- (SBElementArray<KeynoteChart *> *) charts;
+- (SBElementArray<KeynoteImage *> *) images;
+- (SBElementArray<KeynoteIWorkItem *> *) iWorkItems;
+- (SBElementArray<KeynoteGroup *> *) groups;
+- (SBElementArray<KeynoteLine *> *) lines;
+- (SBElementArray<KeynoteMovie *> *) movies;
+- (SBElementArray<KeynoteShape *> *) shapes;
+- (SBElementArray<KeynoteTable *> *) tables;
+- (SBElementArray<KeynoteTextItem *> *) textItems;
 
-- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
-- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
-- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
-- (void) delete;  // Delete an object.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
 
 @end
 
@@ -410,7 +427,7 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 // A slide in a slideshow document
 @interface KeynoteSlide : KeynoteIWorkContainer
 
-@property (copy) KeynoteMasterSlide *baseSlide;  // The master slide this slide is based upon
+@property (copy) KeynoteSlideLayout *baseLayout;  // The slide layout this slide is based upon
 @property BOOL bodyShowing;  // Is the default body text displayed?
 @property BOOL skipped;  // Is the slide skipped?
 @property (readonly) NSInteger slideNumber;  // index of the slide in the document
@@ -420,14 +437,14 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 @property (copy) KeynoteRichText *presenterNotes;  // The presenter notes for the slide
 @property (copy) NSDictionary *transitionProperties;  // The transition settings to apply to the slide.
 
-- (void) addChartRowNames:(NSArray *)rowNames columnNames:(NSArray *)columnNames data:(NSArray *)data type:(KeynoteLegacyChartType)type groupBy:(KeynoteLegacyChartGrouping)groupBy;  // Add a chart to a slide
+- (void) addChartRowNames:(NSArray<NSString *> *)rowNames columnNames:(NSArray<NSString *> *)columnNames data:(NSArray<id> *)data type:(KeynoteLegacyChartType)type groupBy:(KeynoteLegacyChartGrouping)groupBy;  // Add a chart to a slide
 
 @end
 
-// A master slide in a theme or slideshow document
-@interface KeynoteMasterSlide : KeynoteSlide
+// A slide layout in a theme or slideshow document
+@interface KeynoteSlideLayout : KeynoteSlide
 
-@property (copy, readonly) NSString *name;  // The name of the master slide
+@property (copy, readonly) NSString *name;  // The name of the slide layout
 
 
 @end
@@ -439,7 +456,7 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
  */
 
 // An item which supports formatting
-@interface KeynoteIWorkItem : SBObject
+@interface KeynoteIWorkItem : SBObject <KeynoteGenericMethods>
 
 @property NSInteger height;  // The height of the iWork item.
 @property BOOL locked;  // Whether the object is locked.
@@ -447,14 +464,6 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 @property NSPoint position;  // The horizontal and vertical coordinates of the top left point of the iWork item.
 @property NSInteger width;  // The width of the iWork item.
 
-- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
-- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
-- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
-- (void) delete;  // Delete an object.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
 
 @end
 
@@ -542,10 +551,10 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 // A table
 @interface KeynoteTable : KeynoteIWorkItem
 
-- (SBElementArray *) cells;
-- (SBElementArray *) rows;
-- (SBElementArray *) columns;
-- (SBElementArray *) ranges;
+- (SBElementArray<KeynoteCell *> *) cells;
+- (SBElementArray<KeynoteRow *> *) rows;
+- (SBElementArray<KeynoteColumn *> *) columns;
+- (SBElementArray<KeynoteRange *> *) ranges;
 
 @property (copy) NSString *name;  // The item's name.
 @property (copy, readonly) KeynoteRange *cellRange;  // The range describing every cell in the table.
@@ -574,11 +583,11 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 @end
 
 // A range of cells in a table
-@interface KeynoteRange : SBObject
+@interface KeynoteRange : SBObject <KeynoteGenericMethods>
 
-- (SBElementArray *) cells;
-- (SBElementArray *) columns;
-- (SBElementArray *) rows;
+- (SBElementArray<KeynoteCell *> *) cells;
+- (SBElementArray<KeynoteColumn *> *) columns;
+- (SBElementArray<KeynoteRow *> *) rows;
 
 @property (copy) NSString *fontName;  // The font of the range's cells.
 @property double fontSize;  // The font size of the range's cells.
@@ -590,15 +599,7 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 @property (copy) NSColor *backgroundColor;  // The background color of the range's cells.
 @property KeynoteTAVT verticalAlignment;  // The vertical alignment of content in the range's cells.
 
-- (void) closeSaving:(KeynoteSaveOptions)saving savingIn:(NSURL *)savingIn;  // Close a document.
-- (void) saveIn:(NSURL *)in_ as:(KeynoteSaveableFileFormat)as;  // Save a document.
-- (void) printWithProperties:(NSDictionary *)withProperties printDialog:(BOOL)printDialog;  // Print a document.
-- (void) delete;  // Delete an object.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) moveTo:(SBObject *)to;  // Move an object to a new location.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
-- (void) clear;  // Clear the contents of a specified range of cells. Only content is removed; formatting and style are preserved.
+- (void) clear;  // Clear the contents of a specified range of cells, including formatting and style.
 - (void) merge;  // Merge a specified range of cells.
 - (void) unmerge;  // Unmerge all merged cells in a specified range.
 
