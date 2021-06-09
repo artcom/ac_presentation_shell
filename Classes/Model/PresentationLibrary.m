@@ -133,7 +133,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self flushThumbnailCache];
     self.categoryData = nil;
     self.presentationData = nil;
-    self.libraryDirPath = directory;
     
     NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
     self.categoryData = [NSMutableDictionary new];
