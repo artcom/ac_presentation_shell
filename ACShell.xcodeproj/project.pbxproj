@@ -178,7 +178,6 @@
 		3B623173266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SetupAssistant.xib; sourceTree = "<group>"; };
 		3B623174266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/CategoryCell.xib; sourceTree = "<group>"; };
 		3B623175266FC25100C17CF2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
-		3B83565C2670362100187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PresentationEditWindow.strings; sourceTree = "<group>"; };
 		3B83565E2670383500187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencePages.strings; sourceTree = "<group>"; };
 		3B83566026703A6200187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SetupAssistant.strings; sourceTree = "<group>"; };
 		3B83566126703D3C00187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -208,6 +207,7 @@
 		3BE52F871C88744200F1D2B7 /* PresentationIntroViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationIntroViewDelegate.h; sourceTree = "<group>"; };
 		3BE52F881C8875B300F1D2B7 /* IntroLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntroLayer.h; sourceTree = "<group>"; };
 		3BE52F891C8875B300F1D2B7 /* IntroLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntroLayer.m; sourceTree = "<group>"; };
+		3BEDFD8A2671491E002AADA6 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PresentationEditWindow.strings; sourceTree = "<group>"; };
 		3BF8C194266E25EA004BC26B /* ACShellWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ACShellWindowController.h; sourceTree = "<group>"; };
 		3BF8C195266E25EA004BC26B /* ACShellWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ACShellWindowController.m; sourceTree = "<group>"; };
 		3BF8C19A266E7E85004BC26B /* LibraryViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
@@ -924,7 +924,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				3B623170266FC1FA00C17CF2 /* Base */,
-				3B83565C2670362100187CE5 /* de */,
+				3BEDFD8A2671491E002AADA6 /* de */,
 			);
 			name = PresentationEditWindow.xib;
 			sourceTree = "<group>";

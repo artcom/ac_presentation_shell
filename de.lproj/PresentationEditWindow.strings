@@ -3,7 +3,7 @@
 "1.title" = "Präsentation bearbeiten";
 
 /* Class = "NSButtonCell"; title = "Ok"; ObjectID = "11"; */
-"11.title" = "Ok";
+"11.title" = "Speichern";
 
 /* Class = "NSButtonCell"; title = "Cancel"; ObjectID = "13"; */
 "13.title" = "Abbrechen";
@@ -24,10 +24,10 @@
 "154.title" = "Löschen";
 
 /* Class = "NSButtonCell"; title = "Highlight"; ObjectID = "169"; */
-"169.title" = "Highlight";
+"162.title" = "Highlight desc";
 
-/* Class = "NSButtonCell"; title = "Edit"; ObjectID = "170"; */
-"170.title" = "Bearbeiten";
+/* Class = "NSButtonCell"; title = "Show Presentation in Highlights collection"; ObjectID = "169"; */
+"169.title" = "Zeige Präsentation in Sammlung Glanzlichter";
 
 /* Class = "NSTextFieldCell"; title = "Keynote:"; ObjectID = "181"; */
 "181.title" = "Keynote:";
@@ -49,6 +49,9 @@
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "P6r-SR-TBF"; */
 "P6r-SR-TBF.title" = "Text Cell";
+
+/* Class = "NSTextFieldCell"; title = "Highlight:"; ObjectID = "Vf1-Nh-Uuo"; */
+"Vf1-Nh-Uuo.title" = "Highlight:";
 
 /* Class = "NSTextFieldCell"; title = "Categories:"; ObjectID = "pgi-s6-PKv"; */
 "pgi-s6-PKv.title" = "Kategorien:";
