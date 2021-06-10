@@ -111,6 +111,10 @@
 {
     NSSplitViewController *splitViewController = (NSSplitViewController *)self.contentViewController;
     [splitViewController toggleSidebar:nil];
+    
+    if ([splitViewController.splitViewItems[0] isCollapsed]) {
+        [self.window makeFirstResponder:self.libraryTableViewController.presentationTable];
+    }
 }
 
 - (IBAction)play:(id)sender
