@@ -221,11 +221,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (NSString*) libraryDirPath {
-    if (![[[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION] isEqualToString:@""]) {
+    NSString *destination = [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    if (destination && ![destination isEqualToString:@""]) {
         return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     }
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]
-            stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
+                   stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
 }
 
 - (void) saveXmlLibrary {

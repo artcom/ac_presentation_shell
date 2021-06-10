@@ -15,14 +15,19 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
+    NSMutableDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile: filepath].mutableCopy;
+    [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
+    
+    [self updateUserDefaults];
+    
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     self.mainWindowController = [storyboard instantiateControllerWithIdentifier:@"MainWindowController"];
     self.setupAssistantController = [[SetupAssistantController alloc] initWithDelegate: self];
     self.preferenceController = [PreferenceController new];
     
-    NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
-    [[NSUserDefaults standardUserDefaults] registerDefaults: [NSDictionary dictionaryWithContentsOfFile: filepath]];
     if ([[NSUserDefaults standardUserDefaults] boolForKey:ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
+        [self updateUserDefaults];
         [self.mainWindowController showWindow:nil];
     } else {
         [self.setupAssistantController showWindow:nil];
@@ -52,12 +57,25 @@
     [self.preferenceController showWindow:nil];
 }
 
+- (void)updateUserDefaults
+{
+    NSString * source = [[NSUserDefaults standardUserDefaults] objectForKey:ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+    if (source && ![source isEqualToString:@""]) {
+        NSString *path = [PresentationLibrary sharedInstance].libraryDirPath;
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [[NSUserDefaults standardUserDefaults] setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+}
+
 #pragma mark -
 #pragma mark SetupAssistantDelegate Protocol Methods
 
 - (void) setupDidFinish: (id) sender
 {
     [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
+    [self updateUserDefaults];
     [self.setupAssistantController close];
     [self.mainWindowController showWindow:nil];
     [self.mainWindowController.window makeKeyWindow];
