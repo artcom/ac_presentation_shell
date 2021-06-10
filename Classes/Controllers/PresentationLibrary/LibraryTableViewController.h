@@ -9,9 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "PresentationLibrary.h"
 
-@protocol LibraryTableViewControllerDelegate;
-
 NS_ASSUME_NONNULL_BEGIN
+
+@protocol LibraryTableViewControllerDelegate;
 
 @interface LibraryTableViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
 @property (weak) id<LibraryTableViewControllerDelegate> delegate;
@@ -22,6 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) IBOutlet NSArrayController *presentationsArrayController;
 @property (weak) IBOutlet NSTableView *presentationTable;
+@property (weak) IBOutlet NSTextField *statusText;
 
 - (void)updatePresentationFilter:(id)sender;
 @end

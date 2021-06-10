@@ -10,6 +10,7 @@
 #import "ACShellCollection.h"
 #import "Presentation.h"
 #import "default_keys.h"
+#import "localized_text_keys.h"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 #define AC_SHELL_SEARCH_MAX_RESULTS  1000
@@ -65,6 +66,8 @@ enum ACPresentationDoubleClicked {
         currentPresentationList = newArray;
         [self.delegate libraryTableViewController:self updatePresentationList:currentPresentationList];
     }
+    [self updateStatusText:nil];
+    [self.presentationTable deselectAll:nil];
 }
 
 - (void)updatePresentationFilter:(id)sender
@@ -137,7 +140,20 @@ enum ACPresentationDoubleClicked {
 
 
 - (void) presentationSelectionDidChange: (id) sender {
-    //[self updateStatusText: sender];
+    [self updateStatusText:sender];
+}
+
+- (void)updateStatusText:(id)sender
+{
+    unsigned selectedItems = [[self.presentationTable selectedRowIndexes] count];
+    if ( ! [self.presentationLibrary hasLibrary]) {
+        [self.statusText setStringValue: NSLocalizedString(ACSHELL_STR_NO_LIBRARY, nil)];
+    } else if (selectedItems > 0) {
+        [self.statusText setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_M_PRESENTATIONS, nil),
+                                     selectedItems, [[self.presentationsArrayController arrangedObjects] count]]];
+    } else {
+        [self.statusText setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_PRESENTATIONS, nil), self.currentPresentationList.count]];
+    }
 }
 
 - (void) userDidHidePresentationColumn: (id) sender {
