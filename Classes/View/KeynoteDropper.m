@@ -50,10 +50,16 @@
         NSArray *files = [pasteboard propertyListForType:NSFilenamesPboardType];
         
         self.filename = [files objectAtIndex: 0];
-        [self sendAction: self.action to: self.target];
+        [self.delegate userDidDropKeynote:self];
         return YES;
     }
     return NO;
+}
+
+- (void)mouseDown:(NSEvent *)event {
+    if (event.clickCount == 2) {
+        [self.delegate userDidDoubleClickKeynote:self];
+    }
 }
 
 - (BOOL) fileExists {

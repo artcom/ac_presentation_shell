@@ -8,16 +8,15 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
-#import "CategoryCell.h"
 #import "PresentationLibrary.h"
+#import "KeynoteDropper.h"
 
 @class Presentation;
 @class KeynoteDropper;
 @class NSImageViewWithDroppedFilename;
 
 @interface EditWindowController : NSWindowController
-<ProgressDelegateProtocol, CategoryCellDelegate,
-NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
+<ProgressDelegateProtocol, KeynoteDropperDelegate, NSTextFieldDelegate>
 
 @property (nonatomic, strong) PresentationLibrary *presentationLibrary;
 @property (nonatomic, strong) Presentation *presentation;
@@ -30,7 +29,7 @@ NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
 @property (weak, nonatomic) IBOutlet NSButton * editButton;
 
 @property (weak, nonatomic) IBOutlet NSTextField * titleField;
-@property (weak, nonatomic) IBOutlet NSTableView *categoryTable;
+@property (weak, nonatomic) IBOutlet NSStackView *categoryStack;
 
 @property (weak, nonatomic) IBOutlet NSTextField * yearField;
 @property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;
@@ -49,13 +48,10 @@ NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
 - (IBAction) userDidConfirmEdit: (id) sender;
 - (IBAction) userDidCancelEdit: (id) sender;
 - (IBAction) userDidDropThumbnail: (id) sender;
-- (IBAction) userDidDropKeynote: (id) sender;
-- (IBAction) editWithKeynote: (id) sender;
 - (IBAction) userDidChangeTitle: (id) sender;
 - (IBAction) userWantsToDeletePresentation: (id) sender;
-- (IBAction) chooseKeynoteFile: (id) sender;
-- (IBAction) chooseThumbnailFile: (id) sender;
 
+- (void) editWithKeynote;
 - (void) edit: (Presentation*) aPresentation;
 - (void) add;
 

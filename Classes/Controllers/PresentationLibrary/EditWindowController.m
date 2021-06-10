@@ -51,11 +51,6 @@
     return self;
 }
 
-- (void)windowDidLoad
-{
-    [self.categoryTable registerNib:[[NSNib alloc] initWithNibNamed:@"CategoryCell" bundle:nil] forIdentifier:@"CategoryCell"];
-}
-
 - (void) edit: (Presentation*) aPresentation {
     _presentation = aPresentation;
     [self setGuiValues];
@@ -110,14 +105,6 @@
     [self updateOkButton];
 }
 
-- (IBAction) userDidDropKeynote: (id) sender {
-    [keynoteFileLabel setStringValue: [[droppedKeynote filename] lastPathComponent]];
-    BOOL fileExists = droppedKeynote.fileExists;
-    [editButton setEnabled: fileExists];
-    [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
-    [self updateOkButton];
-}
-
 - (IBAction) userDidChangeTitle: (id) sender {
     [self updateOkButton];
 }
@@ -158,43 +145,29 @@
     }
 }
 
-- (IBAction) editWithKeynote: (id) sender {
+- (void) editWithKeynote
+{
     [[KeynoteHandler sharedHandler] open: droppedKeynote.filename];
 }
 
-// XXX for some reason the NSOpenPanel crashes (sometimes) when generating
-// preview images for keynote files. No idea why that is. However, the stack
-// always points to foreign threads and foreign code. So, my best guess is:
-// It's an apple bug [DS]
-- (IBAction) chooseKeynoteFile: (id) sender {
-    NSOpenPanel * chooser = [NSOpenPanel openPanel];
-    [chooser setAllowsMultipleSelection: NO];
-    [chooser setCanChooseFiles: YES];
-    [chooser setCanChooseDirectories: NO];
-    [chooser setAllowedFileTypes: [NSArray arrayWithObject: @"key"]];
-    [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
-        if (result == NSModalResponseOK) {
-            NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
-            [droppedKeynote setFilename: [fileURL path]];
-            [self userDidDropKeynote: sender];
-        }
-    }];
+#pragma mark -
+#pragma mark Progress Sheet Methods
+- (void) userDidDropKeynote: (KeynoteDropper *)keynoteDropper
+{
+    [keynoteFileLabel setStringValue: [[droppedKeynote filename] lastPathComponent]];
+    BOOL fileExists = droppedKeynote.fileExists;
+    [editButton setEnabled: fileExists];
+    [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
+    [self updateOkButton];
 }
 
-- (IBAction) chooseThumbnailFile: (id) sender {
-    NSOpenPanel * chooser = [NSOpenPanel openPanel];
-    [chooser setAllowsMultipleSelection: NO];
-    [chooser setCanChooseFiles: YES];
-    [chooser setCanChooseDirectories: NO];
-    [chooser setAllowedFileTypes: [NSArray arrayWithObjects: @"png", @"jpg", @"jpeg", @"tif", @"tiff", nil]];
-    [chooser beginSheetModalForWindow: [self window] completionHandler: ^(NSInteger result) {
-        if (result == NSModalResponseOK) {
-            NSURL * fileURL = [[chooser URLs] objectAtIndex: 0];
-            [droppedThumbnail setFilename: [fileURL path]];
-            [self userDidDropThumbnail: sender];
-        }
-    }];
+- (void) userDidDoubleClickKeynote: (KeynoteDropper *)keynoteDropper
+{
+    if (droppedKeynote.fileExists) {
+        [self editWithKeynote];
+    }
 }
+
 
 #pragma mark -
 #pragma mark Title Text Field Delegate Methods
@@ -205,47 +178,6 @@
         [fieldEditor insertNewlineIgnoringFieldEditor:nil];
     }
     return retval;
-}
-
-#pragma mark -
-#pragma mark NSTableViewDataSource
-
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
-{
-    return self.presentationLibrary.categories.count;
-}
-
-#pragma mark -
-#pragma mark NSTableViewDelegate
-
-- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
-{
-    LibraryCategory *category = self.presentationLibrary.categories[row];
-    CategoryCell *cell = [tableView makeViewWithIdentifier:@"CategoryCell" owner:self];
-    cell.delegate = self;
-    cell.checkbox.title = category.title;
-    cell.index = row;
-    if ([self.presentation.categories containsObject:category.ID]) {
-        [cell.checkbox setState:NSControlStateValueOn];
-    } else {
-        [cell.checkbox setState:NSControlStateValueOff];
-    }
-    return cell;
-}
-
-#pragma mark -
-#pragma mark - CategoryCellDelegate
-
-- (void)categoryCellDidCheck:(CategoryCell *)cell withIndex:(NSInteger)index
-{
-    LibraryCategory *category = self.presentationLibrary.categories[index];
-    [self.selectedCategories addObject:category];
-}
-
-- (void)categoryCellDidUncheck:(CategoryCell *)cell withIndex:(NSInteger)index
-{
-    LibraryCategory *category = self.presentationLibrary.categories[index];
-    [self.selectedCategories removeObject:category];
 }
 
 #pragma mark -
@@ -311,9 +243,36 @@
         [editButton setEnabled: NO];
         [yearField setStringValue: @""];
     }
-    [self.categoryTable reloadData];
+    [self updateCategories];
     [self.deleteButton setHidden: self.presentation == nil];
     [self updateOkButton];
+}
+
+- (void)updateCategories
+{
+    [self.categoryStack.subviews enumerateObjectsUsingBlock:^(__kindof NSButton* _Nonnull checkbox, NSUInteger index, BOOL * _Nonnull stop) {
+        LibraryCategory *category = self.presentationLibrary.categories[index];
+        checkbox.title = category.title;
+        checkbox.action = @selector(categorySelected:);
+        if ([self.presentation.categories containsObject:category.ID]) {
+            [checkbox setState:NSControlStateValueOn];
+        } else {
+            [checkbox setState:NSControlStateValueOff];
+        }
+    }];
+}
+
+- (void)categorySelected:(id)sender
+{
+    NSInteger index = [self.categoryStack.subviews indexOfObject:sender];
+    if ([sender state] == NSControlStateValueOff) {
+        LibraryCategory *category = self.presentationLibrary.categories[index];
+        [self.selectedCategories removeObject:category];
+    }
+    if ([sender state] == NSControlStateValueOn) {
+        LibraryCategory *category = self.presentationLibrary.categories[index];
+        [self.selectedCategories addObject:category];
+    }
 }
 
 - (void) updateOkButton {
@@ -331,8 +290,9 @@
 {
     NSTextView *textField = [obj.userInfo objectForKey: @"NSFieldEditor"];
     
-    if ([textField isDescendantOf:titleField])
+    if ([textField isDescendantOf:titleField]) {
         [self updateOkButton];
+    }
 }
 
 @end
