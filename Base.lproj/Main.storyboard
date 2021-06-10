@@ -338,7 +338,7 @@ CA
                         <splitViewItem canCollapse="YES" holdingPriority="260" behavior="sidebar" separatorStyle="line" id="Nx4-UO-3DE" userLabel="Left Item"/>
                         <splitViewItem holdingPriority="255" behavior="contentList" separatorStyle="line" id="5J4-nH-B1L" userLabel="RightItem"/>
                     </splitViewItems>
-                    <splitView key="splitView" dividerStyle="thin" vertical="YES" id="uw1-7E-bFs">
+                    <splitView key="splitView" autosaveName="splitview" dividerStyle="thin" vertical="YES" id="uw1-7E-bFs">
                         <rect key="frame" x="-365" y="0.0" width="1099" height="591"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <connections>

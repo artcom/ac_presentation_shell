@@ -29,6 +29,9 @@
 {
     [super windowDidLoad];
     
+    NSSplitViewController *splitViewController = (NSSplitViewController *)self.contentViewController;
+    splitViewController.splitView.autosaveName = @"splitview";
+    
     self.presentationLibrary = [PresentationLibrary sharedInstance];
     [self setupControllers];
     [self bindMenuItems];
@@ -114,6 +117,8 @@
     
     if ([splitViewController.splitViewItems[0] isCollapsed]) {
         [self.window makeFirstResponder:self.libraryTableViewController.presentationTable];
+    } else {
+        [self.window makeFirstResponder:self.libraryViewController.collectionView];
     }
 }
 
