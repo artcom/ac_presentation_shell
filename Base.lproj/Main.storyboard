@@ -318,15 +318,6 @@ CA
                     </connections>
                 </windowController>
                 <customObject id="Oky-zY-oP4" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <objectController id="Q49-cL-JFE" userLabel="ControllerAlias">
-                    <declaredKeys>
-                        <string>presentations</string>
-                        <string>isComplete</string>
-                    </declaredKeys>
-                    <connections>
-                        <outlet property="content" destination="B8D-0N-5wS" id="wAn-IE-fnb"/>
-                    </connections>
-                </objectController>
             </objects>
             <point key="canvasLocation" x="426.5" y="410.5"/>
         </scene>
@@ -663,6 +654,15 @@ CA
                     </connections>
                 </viewController>
                 <customObject id="TNT-xI-2Ll" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <objectController id="Q49-cL-JFE" userLabel="ControllerAlias">
+                    <declaredKeys>
+                        <string>presentations</string>
+                        <string>isComplete</string>
+                    </declaredKeys>
+                    <connections>
+                        <outlet property="content" destination="vet-PA-LaD" id="q2D-s8-BpA"/>
+                    </connections>
+                </objectController>
                 <arrayController objectClassName="Presentation" avoidsEmptySelection="NO" automaticallyRearrangesObjects="YES" id="pHf-Zi-6gS" userLabel="Presentations">
                     <declaredKeys>
                         <string>title</string>
