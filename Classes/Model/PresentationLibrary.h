@@ -32,6 +32,7 @@
 
 - (BOOL)libraryExistsAtPath;
 - (void)reload;
+- (void)validate;
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;
