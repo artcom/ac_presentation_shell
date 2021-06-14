@@ -95,15 +95,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (void)reload {
     [self loadXmlLibraryFromDirectory: self.libraryDirPath];
-    [self validate];
-}
-
-- (void)validate
-{
-    NSLog(@"validate");
-    [self.allPresentations enumerateObjectsUsingBlock:^(Presentation *  _Nonnull presentation, NSUInteger index, BOOL * _Nonnull stop) {
-        [presentation checkComplete];
-    }];
 }
 
 -(void) setup {

@@ -238,9 +238,8 @@
     return [self.presentationId isEqual: ((Presentation *)object).presentationId];
 }
 
-- (void)checkComplete
-{
-    _isComplete = self.presentationFileExists && self.thumbnailFileExists;
+- (BOOL)isComplete {
+    return self.presentationFileExists && self.thumbnailFileExists;
 }
 
 - (BOOL) presentationFileExists {

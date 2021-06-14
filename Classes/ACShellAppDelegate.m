@@ -40,7 +40,6 @@
         [self.mainWindowController start];
         self.isStartup = YES;
     }
-    [[PresentationLibrary sharedInstance] validate];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender

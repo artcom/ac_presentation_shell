@@ -48,7 +48,6 @@
 - (id) initWithId:(id)theId inContext: (PresentationLibrary*)theContext;
 
 - (NSXMLElement*) xmlNode;
-- (void)checkComplete;
 
 - (NSComparisonResult) compareByOrder: (Presentation*) other;
 - (BOOL) isEqual: (id) object;
