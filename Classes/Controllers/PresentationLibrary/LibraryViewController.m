@@ -95,7 +95,8 @@ enum CollectionActionTags {
     BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeleteCollection"
                                                              message: ACSHELL_STR_DELETE_COLLECTION
                                                             okButton: ACSHELL_STR_DELETE
-                                                        cancelButton: ACSHELL_STR_CANCEL];
+                                                        cancelButton: ACSHELL_STR_CANCEL
+                                                   destructiveAction:YES];
     if (deleteIt) {
         [self.collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
         
@@ -109,6 +110,7 @@ enum CollectionActionTags {
                                             message: (NSString*) message
                                            okButton: (NSString*) ok
                                        cancelButton: (NSString*) cancel
+                                  destructiveAction:(BOOL)hasDestructiveAction
 {
     BOOL reallyDoIt = NO;
     NSString * userDefaultsKey = [NSString stringWithFormat: @"supress%@Dialog", identifier];
@@ -116,13 +118,17 @@ enum CollectionActionTags {
     if (suppressAlert ) {
         reallyDoIt = YES;
     } else {
-        NSAlert *alert = [[NSAlert alloc] init];
+        NSAlert *alert = [NSAlert new];
         [alert setMessageText: NSLocalizedString(message, nil)];
-        [alert addButtonWithTitle: NSLocalizedString(ok, nil)];
         [alert addButtonWithTitle: NSLocalizedString(cancel, nil)];
+        [alert addButtonWithTitle: NSLocalizedString(ok, nil)];
+        if (hasDestructiveAction) {
+            alert.buttons[1].hasDestructiveAction = hasDestructiveAction;
+            alert.alertStyle = NSAlertStyleCritical;
+        }
         [alert setShowsSuppressionButton: YES];
         
-        if ([alert runModal] == NSAlertFirstButtonReturn) {
+        if ([alert runModal] == NSAlertSecondButtonReturn) {
             reallyDoIt = YES;
         }
         [[NSUserDefaults standardUserDefaults] setBool: alert.suppressionButton.state forKey: userDefaultsKey];

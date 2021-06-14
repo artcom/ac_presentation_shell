@@ -110,10 +110,12 @@
 }
 
 - (IBAction) userWantsToDeletePresentation: (id) sender {
-    NSAlert * alert = [NSAlert new];
+    NSAlert * alert = [[NSAlert alloc] init];
     alert.messageText = NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil);
-    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_DELETE, nil)];
     [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_DELETE, nil)];
+    alert.buttons[1].hasDestructiveAction = YES;
+    alert.alertStyle = NSAlertStyleCritical;
     
     [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
         [self userDidDecideDelete:alert returnCode:returnCode];
@@ -125,7 +127,9 @@
     [NSApp endSheet:[sheet window]];
     
     switch (returnCode) {
-        case NSAlertFirstButtonReturn:{
+        case NSAlertFirstButtonReturn:
+            break;
+        case NSAlertSecondButtonReturn:{
             [self.window beginSheet:progressSheet completionHandler:^(NSModalResponse returnCode) {
                 [self didEndSheet:progressSheet returnCode:returnCode];
             }];
@@ -137,8 +141,6 @@
             [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_DELETING_PRESENTATION,nil)];
             [self.presentationLibrary deletePresentation:self.presentation progressDelegate: self];
         }
-            break;
-        case NSAlertSecondButtonReturn:
             break;
         default:
             break;

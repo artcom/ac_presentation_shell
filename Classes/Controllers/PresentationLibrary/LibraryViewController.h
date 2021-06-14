@@ -36,7 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL) runSuppressableBooleanDialogWithIdentifier: (NSString*) identifier
                                             message: (NSString*) message
                                            okButton: (NSString*) ok
-                                       cancelButton: (NSString*) cancel;
+                                       cancelButton: (NSString*) cancel
+                                  destructiveAction:(BOOL)hasDestructiveAction;
 @end
 
 NS_ASSUME_NONNULL_END

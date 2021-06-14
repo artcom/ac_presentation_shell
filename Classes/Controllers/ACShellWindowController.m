@@ -181,7 +181,8 @@
     BOOL deleteIt = [self.libraryViewController runSuppressableBooleanDialogWithIdentifier: @"DeletePresentationFromCollection"
                                                                                    message: ACSHELL_STR_DELETE_PRESENTATION
                                                                                   okButton: ACSHELL_STR_DELETE
-                                                                              cancelButton: ACSHELL_STR_CANCEL];
+                                                                              cancelButton: ACSHELL_STR_CANCEL
+                                                                         destructiveAction:YES];
     if (deleteIt) {
         [self.libraryTableViewController.presentationsArrayController removeObjectsAtArrangedObjectIndexes:self.libraryTableViewController.presentationsArrayController.selectionIndexes];
         NSArray * items = [[[self.libraryViewController.collectionTreeController selectedObjects] objectAtIndex:0] presentations];
