@@ -101,8 +101,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void)validate
 {
     NSLog(@"validate");
-    [self.allPresentations enumerateObjectsUsingBlock:^(Presentation *  _Nonnull presentation, NSUInteger index, BOOL * _Nonnull stop) {
-        [presentation checkComplete];
+    [self.library.children enumerateObjectsUsingBlock:^(ACShellCollection * _Nonnull collection, NSUInteger idx, BOOL * _Nonnull stop) {
+        [collection.children enumerateObjectsUsingBlock:^(ACShellCollection * _Nonnull subCollection, NSUInteger index, BOOL * _Nonnull stop) {
+            [subCollection.presentations enumerateObjectsUsingBlock:^(Presentation * _Nonnull presentation, NSUInteger idx, BOOL * _Nonnull stop) {
+                [presentation checkComplete];
+            }];
+        }];
     }];
 }
 
