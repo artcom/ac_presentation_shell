@@ -18,13 +18,15 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
-	<key>CFBundleShortVersionString</key>
-	<string>$(MARKETING_VERSION)</string>
-	<key>CFBundleSignature</key>
+	
+    <key>CFBundleShortVersionString</key>
+    <string>${MARKETING_VERSION}</string>
+    <key>CFBundleVersion</key>
+    <string>${CURRENT_PROJECT_VERSION}.${APPLICATION_BUILD_NUMBER}</string>
+    
+    <key>CFBundleSignature</key>
 	<string>????</string>
-	<key>CFBundleVersion</key>
-	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>LSApplicationCategoryType</key>
+    <key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
