@@ -35,6 +35,7 @@
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;
+- (BOOL)editingEnabled;
 
 - (NSUInteger)collectionCount;
 

@@ -273,9 +273,8 @@
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)anItem
 {
     SEL theAction = [anItem action];
-    
     if (theAction == @selector(editPresentation:)) {
-        if ([[self.libraryTableViewController.presentationTable selectedRowIndexes] count] == 1) {
+        if (self.presentationLibrary.editingEnabled && [[self.libraryTableViewController.presentationTable selectedRowIndexes] count] == 1) {
             return YES;
         }
         return NO;
