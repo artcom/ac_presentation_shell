@@ -62,6 +62,7 @@
 "title" = "Name";
 "year" = "Year";
 "highlight" = "Highlight";
+"categories" = "Categories";
 
 "Continue" = "Continue";
 "Quit"     = "Quit";
