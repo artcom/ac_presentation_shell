@@ -73,7 +73,7 @@
         deleteOrUpdate = @"--delete";
     }
     
-    NSMutableArray *taskArgs = [NSMutableArray arrayWithObjects: @"-rlt", @"--progress",
+    NSMutableArray *taskArgs = [NSMutableArray arrayWithObjects: @"-rlt", @"--progress", @"--force",
                          deleteOrUpdate,
                          @"--chmod=u=rwX,go=rX",
                          @"-O",
