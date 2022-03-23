@@ -23,8 +23,8 @@
 /* Class = "NSTextFieldCell"; title = "Setup Secure Identity"; ObjectID = "46"; */
 "46.title" = "Sichere Identität erstellen";
 
-/* Class = "NSTextFieldCell"; title = "To provide secure communication with the server a ssh identity is required. You can either select an existing public key from the list or generate one."; ObjectID = "49"; */
-"49.title" = "Um eine sichere Kommunikation mit dem Server zu gewährleisten wird eine SSH Identät benötigt. Du kannst entweder einen existierenden Schlüssel aus der Liste verwenden oder einen neuen erstellen.";
+/* Class = "NSTextFieldCell"; title = "To provide secure communication with the server a ssh identity is required. Select an existing public key from the list."; ObjectID = "49"; */
+"49.title" = "Um eine sichere Kommunikation mit dem Server zu gewährleisten wird eine SSH Identät benötigt. Wähle einen existierenden Schlüssel aus der Liste aus.";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "58"; */
 "58.title" = "Text Cell";
