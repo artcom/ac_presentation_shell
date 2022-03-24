@@ -21,6 +21,8 @@
 //=== Prototypes ===============================================================
 
 NSString * sshDirString();
+NSString * sshPrivateKeyFilename();
+NSString * sshPublicKeyFilename();
 
 //=== SetupAssistantController =================================================
 
@@ -50,6 +52,8 @@ enum PageTags {
 @synthesize backButton;
 @synthesize publicKeyArrayController;
 @synthesize publicKeyTable;
+@synthesize generateSshKeysButton;
+@synthesize sshKeygenSpinner;
 @synthesize bonjourServerList;
 @synthesize rsyncSourceEntry;
 @synthesize bonjourLibrariesArrayController;
@@ -60,6 +64,7 @@ enum PageTags {
 @synthesize administratorAddressLabel;
 @synthesize publicKeyDraglet;
 @synthesize emailSendToggle;
+@synthesize sshKeygenTask;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) theDelegate {
     self = [super initWithWindowNibName: @"SetupAssistant"];
@@ -261,10 +266,43 @@ enum PageTags {
     [self didChangeValueForKey: @"publicKeys"];
     
     [nextButton setEnabled: [publicKeyArrayController selectionIndex] != NSNotFound];
+    BOOL idFileExists = [[NSFileManager defaultManager] fileExistsAtPath: sshPublicKeyFilename() isDirectory: nil];
+    [generateSshKeysButton setEnabled: ! idFileExists];
+    
 }
 
 - (void) publicKeySelectionDidChange: (NSNotification *) notification {
     [nextButton setEnabled: [publicKeyArrayController selectionIndex] != NSNotFound];
+}
+
+- (IBAction) generateSshKeys: (id) sender {
+    [sshKeygenSpinner setHidden: NO];
+    [sshKeygenSpinner startAnimation: nil];
+    NSString * sshDir = sshDirString();
+    BOOL dirExists = [[NSFileManager defaultManager] fileExistsAtPath: sshDir isDirectory: nil];
+    if ( ! dirExists ) {
+        NSError * error;
+        if ( ! [[NSFileManager defaultManager] createDirectoryAtPath: sshDir withIntermediateDirectories: YES attributes:nil error: &error]) {
+            // TODO: better error handling
+            NSLog(@"Failed to create .ssh directory");
+            return;
+        }
+    }
+    NSArray * args = [NSArray arrayWithObjects: @"-b", @"4096", @"-N", @"", @"-f", sshPrivateKeyFilename(), nil];
+    NSTask * sshTask = [[NSTask alloc] init];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishSshKeygen:)
+												 name:NSTaskDidTerminateNotification object:sshTask];
+
+    [sshTask setLaunchPath: @"/usr/bin/ssh-keygen"];
+    [sshTask setArguments: args];
+    self.sshKeygenTask = sshTask;
+    [self.sshKeygenTask launch];
+}
+
+- (void) didFinishSshKeygen: (NSNotification*) notification {
+    [self updatePublicKeyList];
+    [sshKeygenSpinner setHidden: YES];
+    [sshKeygenSpinner stopAnimation: nil];
 }
 
 
@@ -336,6 +374,14 @@ enum PageTags {
 #pragma mark Helpers
 NSString * sshDirString() {
     return [@"~/.ssh/" stringByExpandingTildeInPath];
+}
+
+NSString * sshPrivateKeyFilename() {
+    return [sshDirString() stringByAppendingPathComponent: @"id_rsa"];
+}
+
+NSString * sshPublicKeyFilename() {
+    return [sshPrivateKeyFilename() stringByAppendingPathExtension: @"pub"];
 }
 
 @end

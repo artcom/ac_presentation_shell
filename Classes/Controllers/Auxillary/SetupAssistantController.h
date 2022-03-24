@@ -21,6 +21,7 @@
     NSArrayController *bonjourLibrariesArrayController;
     
     id<SetupAssistantDelegate> delegate;
+    NSTask *sshKeygenTask;
 }
 
 @property (weak, nonatomic) IBOutlet NSTabView * pages;
@@ -30,6 +31,8 @@
 
 @property (strong, nonatomic) IBOutlet NSArrayController * publicKeyArrayController;
 @property (weak, nonatomic) IBOutlet NSTableView * publicKeyTable;
+@property (weak, nonatomic) IBOutlet NSButton * generateSshKeysButton;
+@property (weak, nonatomic) IBOutlet NSProgressIndicator * sshKeygenSpinner;
 @property (strong, nonatomic) NSMutableArray * publicKeys;
 
 @property (weak, nonatomic) IBOutlet NSCollectionView * bonjourServerList;
@@ -43,11 +46,14 @@
 @property (weak, nonatomic) IBOutlet NSButton * emailSendToggle;
 
 @property (weak, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
+@property (strong, nonatomic) NSTask *sshKeygenTask;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 
 - (IBAction) userDidClickNext: (id) sender;
 - (IBAction) userDidClickBack: (id) sender;
+
+- (IBAction) generateSshKeys: (id) sender;
 
 - (IBAction) userDidChangeServerDiscoveryMode: (id) sender;
 - (IBAction) userDidChangeRsyncSource: (id) sender;

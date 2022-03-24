@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -14,6 +13,7 @@
                 <outlet property="bonjourServerList" destination="116" id="189"/>
                 <outlet property="discoveryModeButtons" destination="86" id="191"/>
                 <outlet property="emailSendToggle" destination="238" id="246"/>
+                <outlet property="generateSshKeysButton" destination="72" id="78"/>
                 <outlet property="libraryNameLabel" destination="226" id="237"/>
                 <outlet property="nextButton" destination="27" id="41"/>
                 <outlet property="pages" destination="31" id="44"/>
@@ -21,6 +21,7 @@
                 <outlet property="publicKeyDraglet" destination="222" id="243"/>
                 <outlet property="publicKeyTable" destination="53" id="67"/>
                 <outlet property="rsyncSourceEntry" destination="99" id="105"/>
+                <outlet property="sshKeygenSpinner" destination="76" id="79"/>
                 <outlet property="window" destination="1" id="212"/>
             </connections>
         </customObject>
@@ -115,7 +116,7 @@ DQ
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="45">
-                                            <rect key="frame" x="-1" y="456" width="148" height="18"/>
+                                            <rect key="frame" x="-1" y="456" width="557" height="18"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="18" id="I3X-pI-RhN"/>
                                             </constraints>
@@ -126,9 +127,10 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" preferredMaxLayoutWidth="530" translatesAutoresizingMaskIntoConstraints="NO" id="48">
-                                            <rect key="frame" x="10" y="392" width="521" height="32"/>
-                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="To provide secure communication with the server a ssh identity is required. Select an existing public key from the list." id="49">
+                                            <rect key="frame" x="10" y="392" width="512" height="32"/>
+                                            <textFieldCell key="cell" sendsActionOnEndEditing="YES" id="49">
                                                 <font key="font" metaFont="system"/>
+                                                <string key="title">To provide secure communication with the server a ssh identity is required. You can either select an existing public key from the list or generate one.</string>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
@@ -185,20 +187,51 @@ DQ
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
+                                        <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="70">
+                                            <rect key="frame" x="10" y="367" width="346" height="17"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="17" id="jJw-E2-M0e"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Note: The generated key will have an empty passphrase." id="71">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <button verticalHuggingPriority="750" imageHugsTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="72">
+                                            <rect key="frame" x="202" y="123" width="152" height="32"/>
+                                            <buttonCell key="cell" type="push" title="Generate SSH Keys" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="73">
+                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="generateSshKeys:" target="-2" id="77"/>
+                                            </connections>
+                                        </button>
+                                        <progressIndicator hidden="YES" horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" bezeled="NO" indeterminate="YES" controlSize="small" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="76">
+                                            <rect key="frame" x="356" y="133" width="16" height="16"/>
+                                        </progressIndicator>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="45" firstAttribute="top" secondItem="34" secondAttribute="top" constant="14" id="1yj-tG-4XT"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="68" secondAttribute="trailing" constant="20" symbolic="YES" id="2xj-ew-EqK"/>
                                         <constraint firstItem="50" firstAttribute="centerX" secondItem="34" secondAttribute="centerX" id="6Q1-eO-68G"/>
+                                        <constraint firstItem="70" firstAttribute="top" secondItem="48" secondAttribute="bottom" constant="8" symbolic="YES" id="6Wd-fV-Fu1"/>
+                                        <constraint firstItem="72" firstAttribute="top" secondItem="50" secondAttribute="bottom" constant="21" id="85c-6I-Y7y"/>
+                                        <constraint firstItem="76" firstAttribute="top" secondItem="50" secondAttribute="bottom" constant="22" id="8hX-pp-ag3"/>
                                         <constraint firstItem="68" firstAttribute="leading" secondItem="53" secondAttribute="leading" id="ChD-Nv-pgW"/>
+                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="70" secondAttribute="trailing" constant="20" symbolic="YES" id="L9O-3f-Miz"/>
                                         <constraint firstItem="45" firstAttribute="leading" secondItem="34" secondAttribute="leading" constant="1" id="LNU-57-5Uj"/>
-                                        <constraint firstItem="68" firstAttribute="top" secondItem="48" secondAttribute="bottom" constant="59" id="VP1-2Z-XXY"/>
+                                        <constraint firstItem="45" firstAttribute="centerX" secondItem="72" secondAttribute="centerX" id="V7U-io-dhO"/>
+                                        <constraint firstItem="76" firstAttribute="leading" secondItem="72" secondAttribute="trailing" constant="9" id="dZw-0B-NzH"/>
                                         <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="48" secondAttribute="trailing" constant="20" symbolic="YES" id="fZk-oc-CON"/>
+                                        <constraint firstItem="48" firstAttribute="leading" secondItem="70" secondAttribute="leading" id="h5N-wM-4rw"/>
                                         <constraint firstItem="48" firstAttribute="leading" secondItem="34" secondAttribute="leading" constant="12" id="iOo-EC-0Aq"/>
+                                        <constraint firstItem="72" firstAttribute="centerX" secondItem="34" secondAttribute="centerX" id="ihE-wN-umm"/>
+                                        <constraint firstItem="68" firstAttribute="top" secondItem="70" secondAttribute="bottom" constant="34" id="iiv-Ox-KsO"/>
                                         <constraint firstItem="50" firstAttribute="top" secondItem="68" secondAttribute="bottom" constant="8" symbolic="YES" id="mJQ-qP-1Q3"/>
                                         <constraint firstItem="48" firstAttribute="top" secondItem="45" secondAttribute="bottom" constant="32" id="ni8-GB-eT8"/>
-                                        <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="45" secondAttribute="trailing" constant="20" symbolic="YES" id="uPo-Fp-ite"/>
-                                        <constraint firstAttribute="bottom" secondItem="50" secondAttribute="bottom" constant="171" id="whU-e9-SLg"/>
+                                        <constraint firstAttribute="bottom" secondItem="72" secondAttribute="bottom" constant="130" id="rFQ-Ij-anB"/>
                                         <constraint firstItem="50" firstAttribute="leading" secondItem="34" secondAttribute="leading" constant="157" id="z1k-hd-hgW"/>
                                     </constraints>
                                 </view>
@@ -274,9 +307,9 @@ DQ
                                             <rect key="frame" x="125" y="123" width="305" height="222"/>
                                             <clipView key="contentView" id="bV8-8O-32u">
                                                 <rect key="frame" x="1" y="1" width="303" height="220"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
-                                                    <collectionView maxNumberOfColumns="1" selectable="YES" id="116">
+                                                    <collectionView selectable="YES" maxNumberOfColumns="1" id="116">
                                                         <rect key="frame" x="0.0" y="0.0" width="303" height="220"/>
                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
