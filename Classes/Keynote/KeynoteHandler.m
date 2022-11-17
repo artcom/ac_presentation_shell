@@ -22,20 +22,20 @@ KeynoteHandler *sharedInstance;
 @implementation KeynoteHandler
 
 + (KeynoteHandler *)sharedHandler {
-	if (sharedInstance == nil) {
-		sharedInstance = [[KeynoteHandler alloc] init];
-	}
-	
-	return sharedInstance;
+    if (sharedInstance == nil) {
+        sharedInstance = [[KeynoteHandler alloc] init];
+    }
+    
+    return sharedInstance;
 }
 
 - (id)init {
-	self = [super init];
-	if (self != nil) {
+    self = [super init];
+    if (self != nil) {
         self.presenting = NO;
         self.currentPresentationTicket = 0;
-	}
-	return self;
+    }
+    return self;
 }
 
 - (void)launchWithDelegate:(id<KeynoteDelegate>) delegate {
@@ -49,16 +49,16 @@ KeynoteHandler *sharedInstance;
             if ([delegate respondsToSelector:@selector(keynoteAppDidLaunch:version:)]) {
                 [delegate keynoteAppDidLaunch:isRunning version:version];
             }
-        });          
+        });
         
     });
 }
 
 - (void)open:(NSString *)file {
-	NSURL *url = [NSURL fileURLWithPath: file];
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		[self.application open:url];
-	});
+    NSURL *url = [NSURL fileURLWithPath: file];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.application open:url];
+    });
 }
 
 #pragma mark - Manage Keynote presentation
@@ -79,7 +79,7 @@ KeynoteHandler *sharedInstance;
     int ticket = [self nextPresentationTicket];
     NSURL *url = [NSURL fileURLWithPath: file];
     
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         NSLog(@"Loading presentation: %@", url);
         KeynoteDocument *presentation = [self.application open:url];
@@ -94,7 +94,7 @@ KeynoteHandler *sharedInstance;
             firstSlide = [[presentation slides] firstObject];
             NSLog(@"  picked first slide.. (%lu)", [firstSlide slideNumber]);
         }
-
+        
         // Check again after picking first slide
         if (presentation && [self presentationShouldStillRun:ticket]) {
             self.presentation = presentation;
@@ -108,7 +108,7 @@ KeynoteHandler *sharedInstance;
         else {
             NSLog(@"  cancelled.");
         }
-	});
+    });
 }
 
 - (BOOL)presentationShouldStillRun:(int)ticket {
@@ -167,10 +167,10 @@ KeynoteHandler *sharedInstance;
 
 // DEPRECATED
 - (BOOL)usesSecondaryMonitorForPresentation {
-	NSUserDefaults * defaults = [[NSUserDefaults alloc] init];
-	[defaults addSuiteNamed:@"com.apple.iWork.Keynote"];
-	[defaults synchronize];
-	return [[defaults objectForKey:@"PresentationModeUseSecondary"] boolValue];
+    NSUserDefaults * defaults = [[NSUserDefaults alloc] init];
+    [defaults addSuiteNamed:@"com.apple.iWork.Keynote"];
+    [defaults synchronize];
+    return [[defaults objectForKey:@"PresentationModeUseSecondary"] boolValue];
 }
 
 
