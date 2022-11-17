@@ -149,18 +149,15 @@ KeynoteHandler *sharedInstance;
 
 - (BOOL)keynoteIsPlaying {
     /**
-     There is no official way to ask Keynote via Scripting Bridge whether it
-     is currently playing a presentation or not.
+     There is no official way to ask Keynote via Scripting Bridge whether it is currently playing a presentation or not.
      Today's least stupid solution is to ask the following question:
      - Does Keynote have a window without a close-button? (Because that would be a presentation window)
-     About why we use arrayByApplyingSelector see ScriptingBridge documentation on how to iterate
-     over SBArrays ideally.
+     About why we use arrayByApplyingSelector see ScriptingBridge documentation on how to iterate over SBArrays ideally.
+     
+     Addendum 11/2022: now this check only works when applied on the first entry in the SBArray.
      */
     NSArray *closeables = [[self.application windows] arrayByApplyingSelector:@selector(closeable)];
-    for (NSNumber *closeable in closeables) {
-        if (![closeable boolValue]) return YES;
-    }
-    return NO;
+    return ![closeables.firstObject boolValue];
 }
 
 #pragma mark - DEPRECATED
