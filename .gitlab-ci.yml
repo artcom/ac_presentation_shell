@@ -15,12 +15,11 @@ build-job:
     - macos
   script:
     - xcodebuild clean build -project ACShell.xcodeproj -scheme ACShell -configuration release -derivedDataPath ./DerivedData APPLICATION_BUILD_NUMBER=$CI_BUILD_ID
-    # - cd package_dmg && ./package.sh "ACShell-Release-$CI_COMMIT_TAG" "../DerivedData/Build/Products/Release/ACShell.app"
+    - cd package_dmg && ./package.sh "ACShell-Release-789" "../DerivedData/Build/Products/Release/ACShell.app"
   artifacts:
     expire_in: 2 weeks
     paths:
-      - $CI_PROJECT_DIR/build/*.app
-      # - $CI_PROJECT_DIR/build/*.dmg
+      - $CI_PROJECT_DIR/build/*.dmg
   # rules:
   #   - if: $CI_COMMIT_TAG != null
   #     when: always
