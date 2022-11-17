@@ -15,7 +15,7 @@ build-job:
     - macos
   script:
     - xcodebuild clean build -project ACShell.xcodeproj -scheme ACShell -configuration release -derivedDataPath ./DerivedData APPLICATION_VERSION_NUMBER=$CI_COMMIT_TAG APPLICATION_BUILD_NUMBER=$CI_BUILD_ID
-    - cd package_dmg && ./package.sh "ACShell-Release-$CI_COMMIT_TAG" "../DerivedData/Build/Products/Release/ACShell.app"
+    - cd package_dmg && ./package.sh ACShell-Release-$CI_COMMIT_TAG.$CI_BUILD_ID ../DerivedData/Build/Products/Release/ACShell.app
   artifacts:
     expire_in: 2 weeks
     paths:
