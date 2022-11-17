@@ -10,7 +10,7 @@ test-job:
     - xcodebuild clean test -project ACShell.xcodeproj -scheme ACShell
 
 build-job:
-  stage: macos_build
+  stage: build
   tags:
     - macos
   script:
