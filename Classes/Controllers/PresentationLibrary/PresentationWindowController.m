@@ -120,7 +120,7 @@
     [self.window makeKeyAndOrderFront:nil];
     
     // FIX Issue with window levels
-    /*
+    /**
      See https://developer.apple.com/library/mac/documentation/cocoa/Conceptual/WinPanel/Concepts/WindowLevel.html
      
      Originally, ACShell always used NSStatusWindowLevel for this presentation window in order to sandwich it
