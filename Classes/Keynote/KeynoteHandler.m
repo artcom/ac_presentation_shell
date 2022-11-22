@@ -159,7 +159,10 @@ KeynoteHandler *sharedInstance;
      Now this check only works when applied on the first entry in the SBArray.
      */
     NSArray *closeables = [[self.application windows] arrayByApplyingSelector:@selector(closeable)];
-    return ![closeables.firstObject boolValue];
+    for (NSNumber *closeable in closeables) {
+        if (![closeable boolValue]) return YES;
+    }
+    return NO;
 }
 
 #pragma mark - DEPRECATED
