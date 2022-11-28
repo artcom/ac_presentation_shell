@@ -157,23 +157,23 @@ KeynoteHandler *sharedInstance;
      
      Addendum 11/2022:
      Now this check only works when applied on the first entry in the SBArray.
+     
+     Addendum 11/2022:
+     It seems to be better to read the documents property of each window.
+     The document's id relates to the document it is displaying.
+     If there are more than one window for a given document, this means that this document is displayed in an edit window AND in a presentation window.
      */
-    NSArray *closeables = [[self.application windows] arrayByApplyingSelector:@selector(closeable)];
-    for (NSNumber *closeable in closeables) {
-        if (![closeable boolValue]) return YES;
+    NSMutableArray *documentIds = [NSMutableArray new];
+    NSArray *documents = [[self.application windows] arrayByApplyingSelector:@selector(document)];
+    for (SBObject *document in documents) {
+        KeynoteDocument *keynoteDocument = (KeynoteDocument *)document;
+        NSString *documentId =  [keynoteDocument id];
+        if ([documentIds containsObject:documentId]) {
+            return YES;
+        }
+        [documentIds addObject:documentId];
     }
     return NO;
 }
-
-#pragma mark - DEPRECATED
-
-// DEPRECATED
-- (BOOL)usesSecondaryMonitorForPresentation {
-    NSUserDefaults * defaults = [[NSUserDefaults alloc] init];
-    [defaults addSuiteNamed:@"com.apple.iWork.Keynote"];
-    [defaults synchronize];
-    return [[defaults objectForKey:@"PresentationModeUseSecondary"] boolValue];
-}
-
 
 @end
