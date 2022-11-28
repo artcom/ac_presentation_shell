@@ -165,7 +165,7 @@ KeynoteHandler *sharedInstance;
     NSMutableArray *documentIds = [NSMutableArray new];
     NSArray *documents = [[self.application windows] arrayByApplyingSelector:@selector(document)];
     for (KeynoteDocument *document in documents) {
-        NSString *documentId =  [document id];
+        NSString *documentId = [document id];
         if ([documentIds containsObject:documentId]) {
             return YES;
         }
