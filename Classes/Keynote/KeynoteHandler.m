@@ -155,10 +155,10 @@ KeynoteHandler *sharedInstance;
      - Does Keynote have a window without a close-button? (Because that would be a presentation window)
      About why we use arrayByApplyingSelector see ScriptingBridge documentation on how to iterate over SBArrays ideally.
      
-     Addendum 11/2022:
+     17/11/2022:
      Now this check only works when applied on the first entry in the SBArray. This depends on the window herarchy which in turn depends on use on primary/secondary screen.
      
-     Addendum 11/2022:
+     28/11/2022:
      It seems to be better to use the documents property of each window.
      If there is more than one window for a given document, this means that this document is displayed in an edit window AND in a presentation window.
      */
