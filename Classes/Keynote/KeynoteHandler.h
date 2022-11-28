@@ -22,7 +22,4 @@
 
 - (void)play:(NSString *)file withDelegate: (id<KeynoteDelegate>) delegate;
 - (void)stop;
-
-- (BOOL)usesSecondaryMonitorForPresentation;
-
 @end
