@@ -1,6 +1,7 @@
 stages:
   - test
   - build
+  - release
 
 test-job:
   stage: test
@@ -13,13 +14,44 @@ build-job:
   stage: build
   tags:
     - macos
+  before_script:
+    - echo AC_BUILD_ID=$CI_BUILD_ID >> build.env
+    - echo AC_VERSION_ID=$CI_COMMIT_TAG.$CI_BUILD_ID >> build.env
   script:
     - xcodebuild clean build -project ACShell.xcodeproj -scheme ACShell -configuration release -derivedDataPath ./DerivedData APPLICATION_VERSION_NUMBER=$CI_COMMIT_TAG APPLICATION_BUILD_NUMBER=$CI_BUILD_ID
     - cd package_dmg && ./package.sh ACShell-Release-$CI_COMMIT_TAG.$CI_BUILD_ID ../DerivedData/Build/Products/Release/ACShell.app
   artifacts:
-    expire_in: 2 weeks
     paths:
       - $CI_PROJECT_DIR/package_dmg/*.dmg
+    reports:
+      dotenv: build.env
+  rules:
+    - if: $CI_COMMIT_TAG != null
+      when: always
+    - if: $CI_COMMIT_TAG == null
+      when: manual
+
+release-job:
+  stage: release
+  tags:
+    - docker
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  script:
+    - echo 'running release_job'
+    - echo 'Releasing artefacts from build job:'
+    - echo $AC_BUILD_ID
+    - echo $AC_VERSION_ID
+  needs:
+    - job: build-job
+      artifacts: true
+  release:
+    name: "ACShell $AC_VERSION_ID"
+    description: "Created using the release-cli"
+    tag_name: "$CI_COMMIT_TAG"
+    assets:
+      links:
+        - name: "ACShell-Release-$AC_VERSION_ID.dmg"
+          url: "https://gitlab.artcom.de/ac-internal/acshell/-/jobs/${AC_BUILD_ID}/artifacts/file/package_dmg/ACShell-Release-$AC_VERSION_ID.dmg"
   rules:
     - if: $CI_COMMIT_TAG != null
       when: always
