@@ -153,19 +153,28 @@ enum CollectionActionTags {
 }
 
 #pragma mark -
-#pragma mark  NSOutlineViewDelegate Protocol Methods
+#pragma mark  NSOutlineViewDataSource Protocol Methods
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-    return ! [self isToplevelGroup: item];
-}
-
-- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
-    return [self isToplevelGroup: item];
-}
-
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
-{
-    return  ! [self isToplevelGroup: item] && ! [self isStaticCategory: item];
+- (BOOL) outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
+    NSPasteboard* pboard = [info draggingPasteboard];
+    NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
+    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowIndexes];
+    
+    
+    NSArray * arrangedItems = [self.presentationsArrayController arrangedObjects];
+    NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
+    NSMutableArray * newItems = [[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES];
+    
+    ACShellCollection *collection = (ACShellCollection *)[item representedObject];
+    
+    if ([self handleDuplicates: newItems inCollection: collection]) {
+        int order = [collection.presentations count] + 1;
+        for (Presentation* p in newItems) {
+            p.order = order++;
+        }
+        [collection.presentations addObjectsFromArray: newItems];
+    }
+    return YES;
 }
 
 - (NSDragOperation) outlineView:(NSOutlineView *)outlineView
@@ -186,25 +195,21 @@ enum CollectionActionTags {
     return NSDragOperationLink;
 }
 
-- (BOOL) outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
-    NSPasteboard* pboard = [info draggingPasteboard];
-    NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
-    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
-    
-    NSArray * arrangedItems = [self.presentationsArrayController arrangedObjects];
-    NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];
-    NSMutableArray * newItems = [[NSMutableArray alloc] initWithArray: draggedItems copyItems: YES];
-    
-    ACShellCollection *collection = (ACShellCollection *)[item representedObject];
-    
-    if ([self handleDuplicates: newItems inCollection: collection]) {
-        int order = [collection.presentations count] + 1;
-        for (Presentation* p in newItems) {
-            p.order = order++;
-        }
-        [collection.presentations addObjectsFromArray: newItems];
-    }
-    return YES;
+
+#pragma mark -
+#pragma mark  NSOutlineViewDelegate Protocol Methods
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
+    return ! [self isToplevelGroup: item];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
+    return [self isToplevelGroup: item];
+}
+
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
+{
+    return  ! [self isToplevelGroup: item] && ! [self isStaticCategory: item];
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
