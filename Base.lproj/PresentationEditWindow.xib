@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,7 +36,7 @@
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="398" height="635"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="10">
                         <rect key="frame" x="321" y="13" width="64" height="32"/>
@@ -130,14 +131,6 @@ Gw
                     <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="187">
                         <rect key="frame" x="57" y="289" width="35" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Title:" id="188">
-                            <font key="font" metaFont="system"/>
-                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                        </textFieldCell>
-                    </textField>
-                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pVe-E2-TOC">
-                        <rect key="frame" x="18" y="77" width="74" height="16"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="Highlight:" id="Vf1-Nh-Uuo">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -279,7 +272,6 @@ Gw
                     <constraint firstAttribute="trailing" secondItem="163" secondAttribute="trailing" constant="20" symbolic="YES" id="QEr-DN-myn"/>
                     <constraint firstItem="187" firstAttribute="top" secondItem="163" secondAttribute="top" id="QZC-Zg-uyb"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="top" secondItem="s1J-Ps-Elp" secondAttribute="top" id="QzN-ki-7zc"/>
-                    <constraint firstItem="162" firstAttribute="leading" secondItem="pVe-E2-TOC" secondAttribute="trailing" constant="8" symbolic="YES" id="RTR-bG-P8b"/>
                     <constraint firstItem="157" firstAttribute="leading" secondItem="163" secondAttribute="leading" id="Rh3-Le-3LS"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="leading" secondItem="s1J-Ps-Elp" secondAttribute="trailing" constant="8" symbolic="YES" id="TWl-ae-8MX"/>
                     <constraint firstItem="kMM-PX-hhw" firstAttribute="leading" secondItem="bjo-A7-8Od" secondAttribute="leading" id="U2t-2L-3ZG"/>
@@ -293,7 +285,6 @@ Gw
                     <constraint firstItem="187" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="bT9-ow-cxH"/>
                     <constraint firstItem="162" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="bd2-WB-W3H"/>
                     <constraint firstItem="162" firstAttribute="top" secondItem="kMM-PX-hhw" secondAttribute="bottom" constant="16" id="bps-Xc-VJg"/>
-                    <constraint firstItem="pVe-E2-TOC" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="cgf-sr-hSO"/>
                     <constraint firstItem="200" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="dCP-s3-Kmj"/>
                     <constraint firstItem="ZQs-aZ-FU9" firstAttribute="leading" secondItem="bjo-A7-8Od" secondAttribute="leading" id="fFu-Fb-Cm7"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="top" secondItem="6sB-G8-zQR" secondAttribute="bottom" constant="16" id="gE1-6K-7ab"/>
@@ -317,7 +308,6 @@ Gw
                     <constraint firstItem="10" firstAttribute="baseline" secondItem="12" secondAttribute="baseline" id="sg6-kS-ArP"/>
                     <constraint firstItem="ZQs-aZ-FU9" firstAttribute="top" secondItem="162" secondAttribute="bottom" constant="16" id="tmN-xx-u4q"/>
                     <constraint firstItem="210" firstAttribute="leading" secondItem="160" secondAttribute="leading" id="uHt-Xx-njF"/>
-                    <constraint firstItem="162" firstAttribute="centerY" secondItem="pVe-E2-TOC" secondAttribute="centerY" id="vOP-uA-12X"/>
                     <constraint firstItem="160" firstAttribute="leading" secondItem="163" secondAttribute="leading" id="yk1-Wq-EB8"/>
                 </constraints>
             </view>
