@@ -34,6 +34,8 @@
           <categories>
             <category>0</category>
           </categories>
+          <tags>
+          </tags>
       </presentation>
       <presentation directory="kinetic_sculpture" highlight="true" id="C4FBFA73-27E3-44BB-AA31-99656A750418">
           <title>KINETIC SCULPTURE</title>
@@ -43,6 +45,8 @@
           <categories>
             <category>1</category>
           </categories>
+          <tags>
+          </tags>
       </presentation>
       <presentation directory="observation_deck" highlight="false" id="B2EE53BC-85E3-4024-B232-21A5C04AD8CA">
           <title>OBSERVATION DECK</title>
@@ -54,6 +58,11 @@
             <category>1</category>
             <category>2</category>
           </categories>
+          <tags>
+            <tag>0</tag>
+            <tag>1</tag>
+            <tag>2</tag>
+          </tags>
       </presentation>
       <presentation directory="technical_communication_a38" highlight="false" id="C4DA8EF8-3469-48ED-9124-79F3271C5366">
           <title>Form A38</title>
@@ -63,6 +72,8 @@
           <categories>
             <category>1</category>
           </categories>
+          <tags>
+          </tags>
       </presentation>
       <presentation directory="presentation_promo" highlight="false" id="AAAB6EF8-5830-FD21-9124-79F3271C5366">
           <title>Promo Title</title>
@@ -72,6 +83,8 @@
           <categories>
             <category>1</category>
           </categories>
+          <tags>
+          </tags>
       </presentation>
   </presentations>
 </library>

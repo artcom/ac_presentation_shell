@@ -17,6 +17,7 @@
 @synthesize directory;
 @synthesize presentationFilename;
 @synthesize categories;
+@synthesize tags;
 
 @synthesize selected;
 @synthesize presentationId;
@@ -229,6 +230,35 @@
         }
     }
     return [titles componentsJoinedByString:@", "];
+}
+
+- (void)setTags:(NSArray *)theTags
+{
+    tags = theTags;
+    [self willChangeValueForKey:@"tags"];
+    NSArray *tagNodes = [[self xmlNode] nodesForXPath:@"tags" error:nil];
+    NSXMLElement *tagNode = tagNodes.lastObject;
+    if (tagNode == nil) {
+        tagNode = [NSXMLElement elementWithName: @"tag"];
+        [[self xmlNode] addChild:tagNode];
+    }
+    
+    NSMutableArray *children = [NSMutableArray new];
+    for (NSString *tag in tags) {
+        NSXMLElement *child = [NSXMLElement elementWithName: @"tag"];
+        [child setStringValue:tag];
+        [children addObject:child];
+    }
+    [tagNode setChildren:children];
+    [self didChangeValueForKey:@"tags"];
+}
+
+- (NSArray *)tags {
+    if (tags == nil) {
+        NSXMLNode *root = [[self.xmlNode nodesForXPath:@"tags" error:nil] lastObject];
+        tags = [root.children valueForKeyPath:@"stringValue"];
+    }
+    return tags;
 }
 
 - (BOOL) isEqual:(id)object {
