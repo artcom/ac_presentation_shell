@@ -55,3 +55,6 @@
 
 /* Class = "NSTextFieldCell"; title = "Categories:"; ObjectID = "pgi-s6-PKv"; */
 "pgi-s6-PKv.title" = "Kategorien:";
+
+/* Class = "NSTextFieldCell"; title = "Tags:"; ObjectID = "jSt-xS-LyD"; */
+"jSt-xS-LyD.title" = "Tags:";

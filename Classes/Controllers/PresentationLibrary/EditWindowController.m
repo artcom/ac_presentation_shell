@@ -246,6 +246,7 @@
         [yearField setStringValue: @""];
     }
     [self updateCategories];
+    [self updateTags];
     [self.deleteButton setHidden: self.presentation == nil];
     [self updateOkButton];
 }
@@ -275,6 +276,20 @@
         LibraryCategory *category = self.presentationLibrary.categories[index];
         [self.selectedCategories addObject:category];
     }
+}
+
+- (void)updateTags
+{
+    [self.presentationLibrary.tags enumerateObjectsUsingBlock:^(__kindof LibraryTag*  _Nonnull tag, NSUInteger index, BOOL * _Nonnull stop) {
+        // create button
+        // add title
+        //add to stackview
+    }];
+}
+
+- (void)tagSelected:(id)sender
+{
+    
 }
 
 - (void) updateOkButton {

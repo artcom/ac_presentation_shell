@@ -30,6 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet NSTextField * titleField;
 @property (weak, nonatomic) IBOutlet NSStackView *categoryStack;
+@property (weak, nonatomic) IBOutlet NSStackView *tagStack;
 
 @property (weak, nonatomic) IBOutlet NSTextField * yearField;
 @property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;
