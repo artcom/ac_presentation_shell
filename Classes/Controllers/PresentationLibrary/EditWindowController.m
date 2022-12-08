@@ -76,21 +76,21 @@
     if (self.presentation == nil) {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_ADDING_PRESENTATION,nil)];
         [self.presentationLibrary addPresentationWithTitle: [self.titleField stringValue]
-                                                             thumbnailPath: [self.droppedThumbnail filename]
-                                                               keynotePath: [self.droppedKeynote filename]
-                                                               isHighlight: [self.highlightCheckbox intValue]
-                                                                      year: [self.yearField integerValue]
-                                                                categories: self.selectedCategories
-                                                          progressDelegate: self];
+                                             thumbnailPath: [self.droppedThumbnail filename]
+                                               keynotePath: [self.droppedKeynote filename]
+                                               isHighlight: [self.highlightCheckbox intValue]
+                                                      year: [self.yearField integerValue]
+                                                categories: self.selectedCategories
+                                          progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
         [self.presentationLibrary updatePresentation:self.presentation title: [self.titleField stringValue]
-                                                       thumbnailPath: [self.droppedThumbnail filename]
-                                                         keynotePath: [self.droppedKeynote filename]
-                                                         isHighlight: [self.highlightCheckbox intValue]
-                                                                year: [self.yearField integerValue]
-                                                          categories: self.selectedCategories
-                                                    progressDelegate: self];
+                                       thumbnailPath: [self.droppedThumbnail filename]
+                                         keynotePath: [self.droppedKeynote filename]
+                                         isHighlight: [self.highlightCheckbox intValue]
+                                                year: [self.yearField integerValue]
+                                          categories: self.selectedCategories
+                                    progressDelegate: self];
     }
 }
 
