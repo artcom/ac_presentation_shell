@@ -524,7 +524,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (NSMutableArray*) collections {
-    return (NSMutableArray*)[[self.library.children objectAtIndex: 1] children];
+    return (NSMutableArray*)[[self.library.children objectAtIndex:1] children];
 }
 
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate {
