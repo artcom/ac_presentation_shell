@@ -30,6 +30,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (weak, readonly) NSMutableArray* allPresentations;
 @property (weak, readonly) NSMutableArray* highlights;
 @property (weak, readonly) NSMutableArray* collections;
+@property (strong) NSMutableArray* tagged;
 @property (strong) NSMutableDictionary *categoryData;
 @property (strong) NSMutableDictionary *tagData;
 @property (strong) NSMutableDictionary *presentationData;
@@ -86,6 +87,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey: ACSHELL_STR_ALL]];
         [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_HIGHLIGHTS]];
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_COLLECTIONS]];
+        [self.tagged addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_TAGGED]];
         
         self.syncSuccessful = [aDecoder decodeBoolForKey: ACSHELL_SYNC_SUCCESSFUL];
         
@@ -117,12 +119,16 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_COLLECTIONS, nil)];
     [self.library.children addObject: collections];
+    
+    ACShellCollection *tagged = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_TAGGED, nil)];
+    [self.library.children addObject: tagged];
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject: self.allPresentations forKey:ACSHELL_STR_ALL];
     [aCoder encodeObject: self.highlights forKey:ACSHELL_STR_HIGHLIGHTS];
     [aCoder encodeObject: self.collections forKey:ACSHELL_STR_COLLECTIONS];
+    [aCoder encodeObject: self.tagged forKey:ACSHELL_STR_TAGGED];
     [aCoder encodeBool: self.syncSuccessful forKey: ACSHELL_SYNC_SUCCESSFUL];
 }
 
@@ -484,7 +490,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         xmlChanged = YES;
     }
     if ( ![tags isEqual: presentation.tags]) {
-        presentation.tags = [tags valueForKeyPath:@"ID"];
+        presentation.tags = [tags valueForKeyPath:@"title"];
         xmlChanged = YES;
     }
     self.assetManager = assetMan;
@@ -525,6 +531,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
 
 - (NSMutableArray*) collections {
     return (NSMutableArray*)[[self.library.children objectAtIndex:1] children];
+}
+
+- (NSMutableArray*) tagged {
+    return (NSMutableArray*)[[self.library.children objectAtIndex:2] children];
 }
 
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate {
@@ -585,9 +595,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void)createTags
 {
     NSMutableArray *tags = [NSMutableArray new];
-    for (NSString *ID in self.tagData) {
+    for (NSString *title in self.tagData) {
         
-        LibraryTag *tag = [[LibraryTag alloc] initWithId:ID inContext:self];
+        LibraryTag *tag = [[LibraryTag alloc] initWithId:title inContext:self];
         [tags addObject:tag];
     }
     
@@ -603,15 +613,30 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 -(void) syncPresentations {
+    // Here we initialize the presentations
     [self dropStalledPresentations: self.allPresentations notMatchingPredicate: nil];
     [self addNewPresentations: self.allPresentations withPredicate: nil];
     
+    // Here we initialize the highlights
     NSPredicate *highlightPredicate = [NSPredicate predicateWithFormat:@"highlight == YES"];
     [self dropStalledPresentations: self.highlights notMatchingPredicate: highlightPredicate];
     [self addNewPresentations:  self.highlights withPredicate: highlightPredicate];
     
     for (ACShellCollection *collection in self.collections) {
         [self dropStalledPresentations:collection.presentations notMatchingPredicate: nil];
+    }
+    
+    // Here we should handle tags
+    [self.tagged removeAllObjects];
+    for (LibraryTag *tag in self.tags) {
+        ACShellCollection *collection = [ACShellCollection collectionWithName:tag.title];
+        [self.tagged addObject:collection];
+    }
+    
+    for (ACShellCollection *collection in self.tagged) {
+        NSPredicate *taggedPredicate = [NSPredicate predicateWithFormat:@"tags CONTAINS %@", collection.name];
+         [self dropStalledPresentations: collection.presentations notMatchingPredicate: taggedPredicate];
+         [self addNewPresentations: collection.presentations withPredicate: taggedPredicate];
     }
 }
 

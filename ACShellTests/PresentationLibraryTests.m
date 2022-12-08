@@ -88,22 +88,22 @@
     XCTAssertEqual(self.library.tags.count, 3, @"Library should contain 3 tags.");
     
     LibraryTag *tagOne = self.library.tags[0];
-    XCTAssertEqualObjects(tagOne.ID, @"2", @"Tag one should have index of 2");
+    XCTAssertEqualObjects(tagOne.ID, @"AI", @"Tag one should have index of 2");
     XCTAssertEqualObjects(tagOne.title, @"AI", @"Tag one should have a valid title");
     
     LibraryTag *tagTwo = self.library.tags[1];
-    XCTAssertEqualObjects(tagTwo.ID, @"0", @"Tag two should have index of 0");
+    XCTAssertEqualObjects(tagTwo.ID, @"AR", @"Tag two should have index of 0");
     XCTAssertEqualObjects(tagTwo.title, @"AR", @"Tag two should have a valid title");
     
     LibraryTag *tagThree = self.library.tags[2];
-    XCTAssertEqualObjects(tagThree.ID, @"1", @"Tag three should have index of 1");
+    XCTAssertEqualObjects(tagThree.ID, @"VR", @"Tag three should have index of 1");
     XCTAssertEqualObjects(tagThree.title, @"VR", @"Tag three should have a valid title");
 }
 
 - (void)testLibraryHasPresentations
 {
     XCTAssertNotNil(self.library.library, @"Library should not be nil.");
-    XCTAssertEqual(self.library.library.children.count, 2, @"Count should be 2.");
+    XCTAssertEqual(self.library.library.children.count, 3, @"Count should be 2.");
     
     ACShellCollection *root = self.library.library;
     XCTAssertEqual(root.name, @"root", @"Collection should be named 'root'.");
@@ -195,15 +195,15 @@
     
     XCTAssertEqual(self.library.tags.count, 3, @"Library should contain 3 tags.");
     LibraryTag *tagOne = self.library.tags[0];
-    XCTAssertEqualObjects(tagOne.ID, @"2", @"Tag one should have index of 2");
+    XCTAssertEqualObjects(tagOne.ID, @"AI", @"Tag one should have index of 2");
     XCTAssertEqualObjects(tagOne.title, @"AI", @"Tag one should have a valid title");
     
     LibraryTag *tagTwo = self.library.tags[1];
-    XCTAssertEqualObjects(tagTwo.ID, @"0", @"Tag two should have index of 0");
+    XCTAssertEqualObjects(tagTwo.ID, @"AR", @"Tag two should have index of 0");
     XCTAssertEqualObjects(tagTwo.title, @"AR", @"Tag two should have a valid title");
     
     LibraryTag *tagThree = self.library.tags[2];
-    XCTAssertEqualObjects(tagThree.ID, @"1", @"Tag three should have index of 1");
+    XCTAssertEqualObjects(tagThree.ID, @"VR", @"Tag three should have index of 1");
     XCTAssertEqualObjects(tagThree.title, @"VR", @"Tag three should have a valid title");
     
     root = self.library.library;

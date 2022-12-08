@@ -239,7 +239,7 @@
     NSArray *tagNodes = [[self xmlNode] nodesForXPath:@"tags" error:nil];
     NSXMLElement *tagNode = tagNodes.lastObject;
     if (tagNode == nil) {
-        tagNode = [NSXMLElement elementWithName: @"tag"];
+        tagNode = [NSXMLElement elementWithName: @"tags"];
         [[self xmlNode] addChild:tagNode];
     }
     

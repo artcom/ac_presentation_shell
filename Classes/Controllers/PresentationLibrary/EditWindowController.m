@@ -220,7 +220,7 @@
         [self.selectedCategories removeAllObjects];
         [self.selectedCategories addObjectsFromArray:categories];
         
-        predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.tags];
+        predicate = [NSPredicate predicateWithFormat:@"self.title IN %@", self.presentation.tags];
         NSArray *tags = [self.presentationLibrary.tags filteredArrayUsingPredicate:predicate];
         [self.selectedTags removeAllObjects];
         [self.selectedTags addObjectsFromArray:tags];

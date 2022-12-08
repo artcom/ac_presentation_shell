@@ -21,9 +21,9 @@
     </category>
   </categories>
   <tags>
-      <tag id="0" title="AR"/>
-      <tag id="1" title="VR"/>
-      <tag id="2" title="AI"/>
+      <tag id="AR" title="AR"/>
+      <tag id="VR" title="VR"/>
+      <tag id="AI" title="AI"/>
   </tags>
   <presentations>
       <presentation directory="museum_exibition" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">
@@ -59,9 +59,9 @@
             <category>2</category>
           </categories>
           <tags>
-            <tag>0</tag>
-            <tag>1</tag>
-            <tag>2</tag>
+            <tag>AI</tag>
+            <tag>AR</tag>
+            <tag>VR</tag>
           </tags>
       </presentation>
       <presentation directory="technical_communication_a38" highlight="false" id="C4DA8EF8-3469-48ED-9124-79F3271C5366">
