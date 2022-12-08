@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "PresentationLibrary.h"
 #import "LibraryCategory.h"
+#import "LibraryTag.h"
 #import "ACShellCollection.h"
 #import "Presentation.h"
 #import "default_keys.h"
@@ -80,6 +81,23 @@
     NSString *pictureTwo = [self.libraryPath stringByAppendingPathComponent:@"_categories/002/picture_2.jpeg"];
     NSArray *backgroundImagePaths = @[pictureOne, pictureTwo];
     XCTAssertEqualObjects(categoryTwo.backgroundImagePaths, backgroundImagePaths, @"Category two should return valid background image paths.");
+}
+
+- (void)testLibraryHasTags
+{
+    XCTAssertEqual(self.library.tags.count, 3, @"Library should contain 3 tags.");
+    
+    LibraryTag *tagOne = self.library.tags[0];
+    XCTAssertEqualObjects(tagOne.ID, @"2", @"Tag one should have index of 2");
+    XCTAssertEqualObjects(tagOne.title, @"AI", @"Tag one should have a valid title");
+    
+    LibraryTag *tagTwo = self.library.tags[1];
+    XCTAssertEqualObjects(tagTwo.ID, @"0", @"Tag two should have index of 0");
+    XCTAssertEqualObjects(tagTwo.title, @"AR", @"Tag two should have a valid title");
+    
+    LibraryTag *tagThree = self.library.tags[2];
+    XCTAssertEqualObjects(tagThree.ID, @"1", @"Tag three should have index of 1");
+    XCTAssertEqualObjects(tagThree.title, @"VR", @"Tag three should have a valid title");
 }
 
 - (void)testLibraryHasPresentations
@@ -171,6 +189,19 @@
     NSString *pictureTwo = [self.storageLibraryPath stringByAppendingPathComponent:@"_categories/002/picture_2.jpeg"];
     NSArray *backgroundImagePaths = @[pictureOne, pictureTwo];
     XCTAssertEqualObjects(categoryTwo.backgroundImagePaths, backgroundImagePaths, @"Category two should return valid background image paths.");
+    
+    XCTAssertEqual(self.library.tags.count, 3, @"Library should contain 3 tags.");
+    LibraryTag *tagOne = self.library.tags[0];
+    XCTAssertEqualObjects(tagOne.ID, @"2", @"Tag one should have index of 2");
+    XCTAssertEqualObjects(tagOne.title, @"AI", @"Tag one should have a valid title");
+    
+    LibraryTag *tagTwo = self.library.tags[1];
+    XCTAssertEqualObjects(tagTwo.ID, @"0", @"Tag two should have index of 0");
+    XCTAssertEqualObjects(tagTwo.title, @"AR", @"Tag two should have a valid title");
+    
+    LibraryTag *tagThree = self.library.tags[2];
+    XCTAssertEqualObjects(tagThree.ID, @"1", @"Tag three should have index of 1");
+    XCTAssertEqualObjects(tagThree.title, @"VR", @"Tag three should have a valid title");
     
     root = self.library.library;
     library = root.children.firstObject;

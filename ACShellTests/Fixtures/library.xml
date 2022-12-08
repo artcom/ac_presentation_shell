@@ -20,6 +20,11 @@
       </assets>
     </category>
   </categories>
+  <tags>
+      <tag id="0" title="AR"/>
+      <tag id="1" title="VR"/>
+      <tag id="2" title="AI"/>
+  </tags>
   <presentations>
       <presentation directory="museum_exibition" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">
           <title>Museum exibition</title>

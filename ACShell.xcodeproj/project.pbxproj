@@ -33,6 +33,8 @@
 		3B5675B22670090800241327 /* VerticalAlignedTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */; };
 		3B5AD50B1CA3F794001CFFA2 /* lmsansquot8-regular.otf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */; };
 		3B62316A266FBF5D00C17CF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B62316C266FBF5D00C17CF2 /* Main.storyboard */; };
+		3B77D53B2941FB1E006DF474 /* LibraryTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B77D53A2941FB1E006DF474 /* LibraryTag.m */; };
+		3B77D53C2941FB23006DF474 /* LibraryTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B77D53A2941FB1E006DF474 /* LibraryTag.m */; };
 		3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2A1C87236C005D7F7A /* PresentationHeaderView.m */; };
 		3B8ACC301C8750F0005D7F7A /* HeaderLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC2F1C8750F0005D7F7A /* HeaderLayer.m */; };
 		3B8ACC331C875706005D7F7A /* CATextLayer+Calculations.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8ACC321C875706005D7F7A /* CATextLayer+Calculations.m */; };
@@ -175,6 +177,8 @@
 		3B623172266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/RsyncProgressView.xib; sourceTree = "<group>"; };
 		3B623173266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SetupAssistant.xib; sourceTree = "<group>"; };
 		3B623175266FC25100C17CF2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
+		3B77D5392941FB1E006DF474 /* LibraryTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryTag.h; sourceTree = "<group>"; };
+		3B77D53A2941FB1E006DF474 /* LibraryTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTag.m; sourceTree = "<group>"; };
 		3B83565E2670383500187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencePages.strings; sourceTree = "<group>"; };
 		3B83566026703A6200187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SetupAssistant.strings; sourceTree = "<group>"; };
 		3B83566126703D3C00187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -429,6 +433,8 @@
 				225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */,
 				3B9FA6C81C85C07E003D7EE0 /* LibraryCategory.h */,
 				3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */,
+				3B77D5392941FB1E006DF474 /* LibraryTag.h */,
+				3B77D53A2941FB1E006DF474 /* LibraryTag.m */,
 				63904051120617EE0061D215 /* LibraryServer.h */,
 				63904052120617EE0061D215 /* LibraryServer.m */,
 				22D2F77211D8B5E10030AFBD /* Presentation.h */,
@@ -759,6 +765,7 @@
 			files = (
 				3B9FA6F51C85C579003D7EE0 /* ACSearchIndex.m in Sources */,
 				3B9FA6F71C85C57E003D7EE0 /* ACSearchIndexResult.m in Sources */,
+				3B77D53C2941FB23006DF474 /* LibraryTag.m in Sources */,
 				3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */,
 				3B9FA6F11C85C47B003D7EE0 /* Presentation.m in Sources */,
 				3B9FA6F61C85C57C003D7EE0 /* ACSearchIndexQuery.m in Sources */,
@@ -810,6 +817,7 @@
 				630D729011FCB48B00EEB7F2 /* NSImageViewWithDroppedFilename.m in Sources */,
 				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
 				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
+				3B77D53B2941FB1E006DF474 /* LibraryTag.m in Sources */,
 				3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */,
 				63904053120617EE0061D215 /* LibraryServer.m in Sources */,
 				6390407812061A860061D215 /* SshIdentity.m in Sources */,

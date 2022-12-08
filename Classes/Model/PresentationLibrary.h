@@ -19,6 +19,7 @@
 
 @property (strong) ACShellCollection *library;
 @property (strong) NSArray *categories;
+@property (strong) NSArray *tags;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
 @property (nonatomic, strong) NSString *libraryDirPath;
@@ -40,6 +41,7 @@
 - (NSUInteger)collectionCount;
 
 - (NSXMLElement *) xmlNodeForCategory: (NSString *)aId;
+- (NSXMLElement *) xmlNodeForTag: (NSString *)aId;
 - (NSXMLElement *)xmlNodeForPresentation:(id)aId;
 - (void)syncPresentations;
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation;

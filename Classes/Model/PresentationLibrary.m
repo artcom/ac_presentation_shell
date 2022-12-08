@@ -9,6 +9,7 @@
 #import "ACShellCollection.h"
 #import "PresentationLibrary.h"
 #import "LibraryCategory.h"
+#import "LibraryTag.h"
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
 #import "NSString-WithUUID.h"
@@ -30,6 +31,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (weak, readonly) NSMutableArray* highlights;
 @property (weak, readonly) NSMutableArray* collections;
 @property (strong) NSMutableDictionary *categoryData;
+@property (strong) NSMutableDictionary *tagData;
 @property (strong) NSMutableDictionary *presentationData;
 @property (strong) AssetManager *assetManager;
 @property (strong) PresentationLibrarySearch *librarySearch;
@@ -101,7 +103,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
     self.thumbnailCache = [[NSMutableDictionary alloc] init];
     
     self.categoryData = nil;
+    self.tagData = nil;
     self.presentationData = nil;
+    
     self.library = [ACShellCollection collectionWithName: @"root"];
     ACShellCollection *lib = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_LIBRARY, nil)];
     [self.library.children addObject: lib];
@@ -111,10 +115,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
     ACShellCollection *highlights = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_HIGHLIGHTS, nil)];
     [lib.children addObject: highlights];
     
-    ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString( ACSHELL_STR_COLLECTIONS, nil)];
+    ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_COLLECTIONS, nil)];
     [self.library.children addObject: collections];
 }
-
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject: self.allPresentations forKey:ACSHELL_STR_ALL];
@@ -132,10 +135,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     [self flushThumbnailCache];
     self.categoryData = nil;
+    self.tagData = nil;
     self.presentationData = nil;
     
     NSString *libraryPath = [directory stringByAppendingPathComponent:@"library.xml"];
     self.categoryData = [NSMutableDictionary new];
+    self.tagData = [NSMutableDictionary new];
     self.presentationData = [NSMutableDictionary new];
     
     if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
@@ -160,6 +165,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
         return NO;
     }
     
+    NSArray *xmlTags = [document nodesForXPath:@"./library/tags/tag" error:&error];
+    
+    if (error != nil) {
+        NSLog(@"Failed to load xml library '%@': %@", libraryPath, error);
+        return NO;
+    }
+    
     NSArray *xmlPresentations = [document nodesForXPath:@"./library/presentations/presentation" error:&error];
     
     if (error != nil) {
@@ -171,14 +183,20 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self.categoryData setObject:element forKey: [[element attributeForName:@"index"]objectValue]];
     }
     
+    for (NSXMLElement *element in xmlTags) {
+        [self.tagData setObject:element forKey: [[element attributeForName:@"id"]objectValue]];
+    }
+    
     for (NSXMLElement * element in xmlPresentations) {
         [self.presentationData setObject: element forKey: [[element attributeForName:@"id"] objectValue]];
     }
     
     [xmlCategories makeObjectsPerformSelector:@selector(detach)];
+    [xmlTags makeObjectsPerformSelector:@selector(detach)];
     [xmlPresentations makeObjectsPerformSelector:@selector(detach)];
     
     [self createCategories];
+    [self createTags];
     [self syncPresentations];
     [self cacheThumbnails];
     
@@ -232,8 +250,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void) saveXmlLibrary {
     NSXMLElement *root = [[NSXMLElement alloc] initWithName: @"library"];
     NSXMLElement *categories = [[NSXMLElement alloc] initWithName:@"categories"];
+    NSXMLElement *tags = [[NSXMLElement alloc] initWithName:@"tags"];
     NSXMLElement *presentations = [[NSXMLElement alloc] initWithName:@"presentations"];
     [root addChild:categories];
+    [root addChild:tags];
     [root addChild:presentations];
     
     NSXMLDocument *document = [[NSXMLDocument alloc] initWithRootElement:root];
@@ -243,6 +263,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     for (LibraryCategory *c in self.categories) {
         [categories addChild:self.categoryData[c.ID]];
+    }
+    
+    for (LibraryTag *t in self.tags) {
+        [tags addChild:self.tagData[t.ID]];
     }
     
     for (Presentation* p in self.allPresentations) {
@@ -255,6 +279,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     [self.categoryData.allValues makeObjectsPerformSelector:@selector(detach)];
+    [self.tagData.allValues makeObjectsPerformSelector:@selector(detach)];
     [self.presentationData.allValues makeObjectsPerformSelector:@selector(detach)];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ACShellLibraryDidUpdate object:nil];
@@ -274,6 +299,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (NSXMLElement *) xmlNodeForCategory: (NSString *)aId
 {
     return [self.categoryData objectForKey: aId];
+}
+
+- (NSXMLElement *) xmlNodeForTag: (NSString *)aId
+{
+    return [self.tagData objectForKey: aId];
 }
 
 - (NSXMLElement *) xmlNodeForPresentation: (id)aId {
@@ -539,6 +569,26 @@ static NSCharacterSet * ourNonDirNameCharSet;
             return NSOrderedDescending;
         }
         if ([category1.index isLessThan:category2.index]) {
+            return NSOrderedAscending;
+        }
+        return NSOrderedSame;
+    }];
+}
+
+- (void)createTags
+{
+    NSMutableArray *tags = [NSMutableArray new];
+    for (NSString *ID in self.tagData) {
+        
+        LibraryTag *tag = [[LibraryTag alloc] initWithId:ID inContext:self];
+        [tags addObject:tag];
+    }
+    
+    _tags = [tags sortedArrayUsingComparator:^NSComparisonResult(LibraryTag *tag1, LibraryTag *tag2) {
+        if ([tag1.title isGreaterThan:tag2.title]) {
+            return NSOrderedDescending;
+        }
+        if ([tag1.title isLessThan:tag2.title]) {
             return NSOrderedAscending;
         }
         return NSOrderedSame;
