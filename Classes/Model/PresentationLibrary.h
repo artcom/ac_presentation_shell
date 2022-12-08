@@ -57,6 +57,7 @@
                 isHighlight: (BOOL) highlightFlag
                        year: (NSInteger) year
                  categories: (NSArray *) categories
+                       tags: (NSArray *) tags
            progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void) addPresentationWithTitle: (NSString*) title
@@ -65,6 +66,7 @@
                       isHighlight: (BOOL) highlightFlag
                              year: (NSInteger) year
                        categories: (NSArray *) categories
+                             tags: (NSArray *) tags
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void) deletePresentation: (Presentation*) presentation

@@ -16,6 +16,7 @@
 @interface EditWindowController ()
 
 @property (nonatomic) NSMutableArray *selectedCategories;
+@property (nonatomic) NSMutableArray *selectedTags;
 
 - (void) postEditCleanUp;
 - (void) setGuiValues;
@@ -46,6 +47,7 @@
     self = [super initWithWindowNibName: @"PresentationEditWindow"];
     if (self != nil) {
         _selectedCategories = [NSMutableArray new];
+        _selectedTags = [NSMutableArray new];
         _presentationLibrary = thePresentationLibrary;
     }
     return self;
@@ -81,6 +83,7 @@
                                                isHighlight: [self.highlightCheckbox intValue]
                                                       year: [self.yearField integerValue]
                                                 categories: self.selectedCategories
+                                                      tags: self.selectedTags
                                           progressDelegate: self];
     } else {
         [progressTitle setStringValue: NSLocalizedString(ACSHELL_STR_UPDATING_PRESENTATION,nil)];
@@ -90,6 +93,7 @@
                                          isHighlight: [self.highlightCheckbox intValue]
                                                 year: [self.yearField integerValue]
                                           categories: self.selectedCategories
+                                                tags: self.selectedTags
                                     progressDelegate: self];
     }
 }
@@ -216,6 +220,11 @@
         [self.selectedCategories removeAllObjects];
         [self.selectedCategories addObjectsFromArray:categories];
         
+        predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.tags];
+        NSArray *tags = [self.presentationLibrary.tags filteredArrayUsingPredicate:predicate];
+        [self.selectedTags removeAllObjects];
+        [self.selectedTags addObjectsFromArray:tags];
+        
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_EDIT_WIN_TITLE, nil)];
         BOOL fileExists = self.presentation.presentationFileExists;
         [editButton setEnabled: fileExists];
@@ -234,6 +243,7 @@
     } else {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
         [self.selectedCategories removeAllObjects];
+        [self.selectedTags removeAllObjects];
         keynoteFileLabel.stringValue = NSLocalizedString(ACSHELL_STR_DROP_KEYNOTE, nil);
         [keynoteFileLabel setTextColor: [NSColor controlTextColor]];
         droppedKeynote.filename = nil;
@@ -280,16 +290,29 @@
 
 - (void)updateTags
 {
-    [self.presentationLibrary.tags enumerateObjectsUsingBlock:^(__kindof LibraryTag*  _Nonnull tag, NSUInteger index, BOOL * _Nonnull stop) {
-        // create button
-        // add title
-        //add to stackview
+    [self.tagStack.subviews enumerateObjectsUsingBlock:^(__kindof NSButton* _Nonnull checkbox, NSUInteger index, BOOL * _Nonnull stop) {
+        LibraryTag *tag = self.presentationLibrary.tags[index];
+        checkbox.title = tag.title;
+        checkbox.action = @selector(tagSelected:);
+        if ([self.presentation.tags containsObject:tag.ID]) {
+            [checkbox setState:NSControlStateValueOn];
+        } else {
+            [checkbox setState:NSControlStateValueOff];
+        }
     }];
 }
 
 - (void)tagSelected:(id)sender
 {
-    
+    NSInteger index = [self.tagStack.subviews indexOfObject:sender];
+    if ([sender state] == NSControlStateValueOff) {
+        LibraryTag *tag = self.presentationLibrary.tags[index];
+        [self.selectedTags removeObject:tag];
+    }
+    if ([sender state] == NSControlStateValueOn) {
+        LibraryTag *tag = self.presentationLibrary.tags[index];
+        [self.selectedTags addObject:tag];
+    }
 }
 
 - (void) updateOkButton {

@@ -244,7 +244,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     }
     return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]
-                   stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
+            stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
 }
 
 - (void) saveXmlLibrary {
@@ -364,6 +364,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
                       isHighlight: (BOOL) highlightFlag
                              year: (NSInteger) year
                        categories: (NSArray *) categories
+                             tags: (NSArray *) tags
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
     NSString * newId = [NSString stringWithUUID];
@@ -396,6 +397,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     p.presentationFilename = [keynote lastPathComponent];
     p.thumbnailFilename = [thumbnail lastPathComponent];
     p.categories = [categories valueForKeyPath:@"ID"];
+    p.tags = [tags valueForKeyPath:@"ID"];
     
     [self.allPresentations insertObject: p atIndex:0];
     [self updateIndices: self.allPresentations];
@@ -420,6 +422,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
                 isHighlight: (BOOL) highlightFlag
                        year: (NSInteger) year
                  categories: (NSArray *) categories
+                       tags: (NSArray *) tags
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
     BOOL xmlChanged = NO;
@@ -478,6 +481,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     if ( ![categories isEqual: presentation.categories]) {
         presentation.categories = [categories valueForKeyPath:@"ID"];
+        xmlChanged = YES;
+    }
+    if ( ![tags isEqual: presentation.tags]) {
+        presentation.tags = [tags valueForKeyPath:@"ID"];
         xmlChanged = YES;
     }
     self.assetManager = assetMan;
