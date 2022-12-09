@@ -50,6 +50,7 @@
 		3B9FA6F81C85C58E003D7EE0 /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
 		3B9FA6F91C85C5B8003D7EE0 /* LibraryCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */; };
 		3B9FA6FB1C85C62E003D7EE0 /* library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FA6FA1C85C62E003D7EE0 /* library.xml */; };
+		3BA100DE2942C1B700A4ADE6 /* LibraryTagCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA100DD2942C1B700A4ADE6 /* LibraryTagCellView.m */; };
 		3BE52F811C886E3400F1D2B7 /* PresentationIntroView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */; };
 		3BE52F8A1C8875B300F1D2B7 /* IntroLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE52F891C8875B300F1D2B7 /* IntroLayer.m */; };
 		3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C195266E25EA004BC26B /* ACShellWindowController.m */; };
@@ -199,6 +200,8 @@
 		3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentationLibraryTests.m; sourceTree = "<group>"; };
 		3B9FA6EC1C85C46A003D7EE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B9FA6FA1C85C62E003D7EE0 /* library.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = library.xml; path = Fixtures/library.xml; sourceTree = "<group>"; };
+		3BA100DC2942C1B700A4ADE6 /* LibraryTagCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryTagCellView.h; sourceTree = "<group>"; };
+		3BA100DD2942C1B700A4ADE6 /* LibraryTagCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTagCellView.m; sourceTree = "<group>"; };
 		3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "lmsansquot8-regular.otf"; path = "Resources/Fonts/lmsansquot8-regular.otf"; sourceTree = "<group>"; };
 		3BE52F7F1C886E3400F1D2B7 /* PresentationIntroView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationIntroView.h; sourceTree = "<group>"; };
 		3BE52F801C886E3400F1D2B7 /* PresentationIntroView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationIntroView.m; sourceTree = "<group>"; };
@@ -464,6 +467,8 @@
 				639043EF12075DFC0061D215 /* PublicKeyDraglet.m */,
 				3B5675B02670090800241327 /* VerticalAlignedTextFieldCell.h */,
 				3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */,
+				3BA100DC2942C1B700A4ADE6 /* LibraryTagCellView.h */,
+				3BA100DD2942C1B700A4ADE6 /* LibraryTagCellView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -832,6 +837,7 @@
 				CD349E58180740CE0028C540 /* ACSearchIndexResult.m in Sources */,
 				6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */,
 				CDDA4EC61808058C004723CE /* PresentationLibrarySearch.m in Sources */,
+				3BA100DE2942C1B700A4ADE6 /* LibraryTagCellView.m in Sources */,
 				3B8ACC301C8750F0005D7F7A /* HeaderLayer.m in Sources */,
 				6391D53812211B75009980C9 /* PreferenceController.m in Sources */,
 				3BF8C1A0266E940A004BC26B /* LibraryTableViewController.m in Sources */,

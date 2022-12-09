@@ -11,6 +11,7 @@
 #import "PresentationLibrary.h"
 #import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
+#import "LibraryTagCellView.h"
 #import "localized_text_keys.h"
 
 @interface EditWindowController ()
@@ -214,7 +215,6 @@
 
 - (void) setGuiValues {
     if (self.presentation) {
-        
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.categories];
         NSArray *categories = [self.presentationLibrary.categories filteredArrayUsingPredicate:predicate];
         [self.selectedCategories removeAllObjects];
@@ -239,7 +239,6 @@
         [thumbnailFileLabel setTextColor: droppedThumbnail.fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
         [highlightCheckbox setState: self.presentation.highlight];
         [yearField setStringValue: self.presentation.year ? [self.presentation.year stringValue] : @""];
-        
     } else {
         [[self window] setTitle: NSLocalizedString(ACSHELL_STR_ADD_WIN_TITLE, nil)];
         [self.selectedCategories removeAllObjects];
@@ -256,7 +255,7 @@
         [yearField setStringValue: @""];
     }
     [self updateCategories];
-    [self updateTags];
+    [self.tagList reloadData];
     [self.deleteButton setHidden: self.presentation == nil];
     [self updateOkButton];
 }
@@ -288,31 +287,19 @@
     }
 }
 
-- (void)updateTags
-{
-    [self.tagStack.subviews enumerateObjectsUsingBlock:^(__kindof NSButton* _Nonnull checkbox, NSUInteger index, BOOL * _Nonnull stop) {
-        LibraryTag *tag = self.presentationLibrary.tags[index];
-        checkbox.title = tag.title;
-        checkbox.action = @selector(tagSelected:);
-        if ([self.presentation.tags containsObject:tag.ID]) {
-            [checkbox setState:NSControlStateValueOn];
-        } else {
-            [checkbox setState:NSControlStateValueOff];
-        }
-    }];
-}
-
 - (void)tagSelected:(id)sender
 {
-    NSInteger index = [self.tagStack.subviews indexOfObject:sender];
-    if ([sender state] == NSControlStateValueOff) {
-        LibraryTag *tag = self.presentationLibrary.tags[index];
-        [self.selectedTags removeObject:tag];
-    }
-    if ([sender state] == NSControlStateValueOn) {
-        LibraryTag *tag = self.presentationLibrary.tags[index];
-        [self.selectedTags addObject:tag];
-    }
+    /*
+     NSInteger index = [self.tagStack.subviews indexOfObject:sender];
+     if ([sender state] == NSControlStateValueOff) {
+     LibraryTag *tag = self.presentationLibrary.tags[index];
+     [self.selectedTags removeObject:tag];
+     }
+     if ([sender state] == NSControlStateValueOn) {
+     LibraryTag *tag = self.presentationLibrary.tags[index];
+     [self.selectedTags addObject:tag];
+     }
+     */
 }
 
 - (void) updateOkButton {
@@ -333,6 +320,27 @@
     if ([textField isDescendantOf:titleField]) {
         [self updateOkButton];
     }
+}
+
+#pragma mark -
+#pragma mark NSTableViewDataSource Methods
+
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
+{
+    return self.presentationLibrary.tags.count;
+}
+
+#pragma mark -
+#pragma mark NSTableViewDelegate Methods
+
+- (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
+{
+    LibraryTag *tag = self.presentationLibrary.tags[row];
+    LibraryTagCellView *view = [tableView makeViewWithIdentifier:LibraryTagCellView.className owner:nil];
+    view.button.title = tag.title;
+    view.button.state = [self.presentation.tags containsObject:tag.title] ? NSControlStateValueOn : NSControlStateValueOff;
+    view.button.action = @selector(tagSelected:);
+    return view;
 }
 
 @end

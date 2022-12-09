@@ -16,7 +16,7 @@
 @class NSImageViewWithDroppedFilename;
 
 @interface EditWindowController : NSWindowController
-<ProgressDelegateProtocol, KeynoteDropperDelegate, NSTextFieldDelegate>
+<ProgressDelegateProtocol, KeynoteDropperDelegate, NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) PresentationLibrary *presentationLibrary;
 @property (nonatomic, strong) Presentation *presentation;
@@ -30,7 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet NSTextField * titleField;
 @property (weak, nonatomic) IBOutlet NSStackView *categoryStack;
-@property (weak, nonatomic) IBOutlet NSStackView *tagStack;
+@property (weak, nonatomic) IBOutlet NSTableView *tagList;
 
 @property (weak, nonatomic) IBOutlet NSTextField * yearField;
 @property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;
