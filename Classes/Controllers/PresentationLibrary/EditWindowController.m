@@ -289,17 +289,16 @@
 
 - (void)tagSelected:(id)sender
 {
-    /*
-     NSInteger index = [self.tagStack.subviews indexOfObject:sender];
-     if ([sender state] == NSControlStateValueOff) {
-     LibraryTag *tag = self.presentationLibrary.tags[index];
-     [self.selectedTags removeObject:tag];
-     }
-     if ([sender state] == NSControlStateValueOn) {
-     LibraryTag *tag = self.presentationLibrary.tags[index];
-     [self.selectedTags addObject:tag];
-     }
-     */
+    NSButton *button = (NSButton *)sender;
+    NSInteger index =  button.tag;
+    if (button.state == NSControlStateValueOff) {
+        LibraryTag *tag = self.presentationLibrary.tags[index];
+        [self.selectedTags removeObject:tag];
+    }
+    if (button.state == NSControlStateValueOn) {
+        LibraryTag *tag = self.presentationLibrary.tags[index];
+        [self.selectedTags addObject:tag];
+    }
 }
 
 - (void) updateOkButton {
@@ -337,6 +336,7 @@
 {
     LibraryTag *tag = self.presentationLibrary.tags[row];
     LibraryTagCellView *view = [tableView makeViewWithIdentifier:LibraryTagCellView.className owner:nil];
+    view.button.tag = row;
     view.button.title = tag.title;
     view.button.state = [self.presentation.tags containsObject:tag.title] ? NSControlStateValueOn : NSControlStateValueOff;
     view.button.action = @selector(tagSelected:);

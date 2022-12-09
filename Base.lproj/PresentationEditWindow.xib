@@ -280,11 +280,11 @@ Gw
                                             </textFieldCell>
                                             <prototypeCellViews>
                                                 <tableCellView identifier="LibraryTagCellView" id="Ni1-Ub-9Hd" customClass="LibraryTagCellView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="280" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="268" height="20"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Dfc-FB-bKL">
-                                                            <rect key="frame" x="-2" y="1" width="282" height="18"/>
+                                                            <rect key="frame" x="-2" y="1" width="270" height="18"/>
                                                             <buttonCell key="cell" type="check" title="Tag" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="aBE-u1-SRG">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                                 <font key="font" metaFont="system"/>
