@@ -261,6 +261,17 @@
     return tags;
 }
 
+- (NSString *)tagsTitles
+{
+    NSMutableArray *titles = [NSMutableArray new];
+    for (LibraryTag *tag in self.context.tags) {
+        if ([self.tags containsObject:tag.ID]) {
+            [titles addObject:tag.title];
+        }
+    }
+    return [titles componentsJoinedByString:@", "];
+}
+
 - (BOOL) isEqual:(id)object {
 	if (![object isKindOfClass:[self class]]) {
 		return NO;

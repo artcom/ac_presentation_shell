@@ -152,7 +152,7 @@
     Presentation *presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
     presentation.title = @"THE NEW TITLE";
     presentation.categories = @[@"2", @"1"];
-    presentation.tags = @[@"0", @"1"];
+    presentation.tags = @[@"AR", @"VR"];
     
     [[NSUserDefaults standardUserDefaults] setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -214,6 +214,7 @@
     XCTAssertEqual(presentation.categories.count, 2, @"Presentation should have 2 categories set.");
     XCTAssertEqualObjects(presentation.categoriesTitles, @"one, two", @"Presentation should return valid category titles.");
     XCTAssertEqual(presentation.tags.count, 2, @"Presentation should have 2 tags set.");
+    XCTAssertEqualObjects(presentation.tagsTitles, @"AR, VR", @"Presentation should return valid tag titles.");
 }
 
 @end

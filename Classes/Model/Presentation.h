@@ -32,6 +32,7 @@
 @property (weak, readonly) NSString *categoriesTitles;
 
 @property (strong) NSArray *tags;
+@property (weak, readonly) NSString *tagsTitles;
 
 @property (strong)   NSString * thumbnailFilename;
 @property (weak, readonly) NSString * relativeThumbnailPath;
