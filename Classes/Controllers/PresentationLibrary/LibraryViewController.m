@@ -183,8 +183,8 @@ enum CollectionActionTags {
     
     if (index != -1) return NSDragOperationNone;
     
-    ACShellCollection * selectedCollection = [[self.collectionTreeController selectedObjects] objectAtIndex: 0];
-    ACShellCollection * droppedOnCollection = (ACShellCollection *)[item representedObject];
+    ACShellCollection *selectedCollection = [[self.collectionTreeController selectedObjects] objectAtIndex: 0];
+    ACShellCollection *droppedOnCollection = (ACShellCollection *)[item representedObject];
     if (selectedCollection == droppedOnCollection) return NSDragOperationNone;
     
     if (![self isCollection:item]) return NSDragOperationNone;
