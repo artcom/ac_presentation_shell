@@ -180,17 +180,14 @@ enum CollectionActionTags {
 - (NSDragOperation) outlineView:(NSOutlineView *)outlineView
                    validateDrop:(id <NSDraggingInfo>)info
                    proposedItem:(id)item proposedChildIndex:(NSInteger)index {
-    if (index != -1 || // only allow drops on collections, not between them
-        [self isToplevelGroup: item] || [self isStaticCategory:item]) // keep static stuff static
-    {
-        return NSDragOperationNone;
-    }
+    
+    if (index != -1) return NSDragOperationNone;
     
     ACShellCollection * selectedCollection = [[self.collectionTreeController selectedObjects] objectAtIndex: 0];
     ACShellCollection * droppedOnCollection = (ACShellCollection *)[item representedObject];
-    if (selectedCollection == droppedOnCollection) {
-        return NSDragOperationNone;
-    }
+    if (selectedCollection == droppedOnCollection) return NSDragOperationNone;
+    
+    if (![self isCollection:item]) return NSDragOperationNone;
     
     return NSDragOperationLink;
 }
@@ -200,16 +197,15 @@ enum CollectionActionTags {
 #pragma mark  NSOutlineViewDelegate Protocol Methods
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView shouldSelectItem:(id)item {
-    return ! [self isToplevelGroup: item];
+    return (![self isToplevelGroup: item]);
 }
 
 - (BOOL)outlineView:(NSOutlineView *)outlineView isGroupItem:(id)item {
     return [self isToplevelGroup: item];
 }
 
-- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item
-{
-    return  ! [self isToplevelGroup: item] && ! [self isStaticCategory: item];
+- (BOOL)outlineView:(NSOutlineView *)outlineView shouldEditTableColumn:(NSTableColumn *)tableColumn item:(id)item {
+    return (![self isToplevelGroup: item] && ![self isStaticCategory: item]);
 }
 
 - (void)outlineViewSelectionDidChange:(NSNotification *)notification {
@@ -229,17 +225,15 @@ enum CollectionActionTags {
 }
 
 - (BOOL) isToplevelGroup: (id) item {
-    if ([[item indexPath] length] == 1) {
-        return YES;
-    }
-    return NO;
+    return ([[item indexPath] length] == 1);
 }
 
 - (BOOL) isStaticCategory: (id) item {
-    if ([[item indexPath] length] == 2 && [[item indexPath] indexAtPosition: 0] == 0) {
-        return YES;
-    }
-    return NO;
+    return ([[item indexPath] length] == 2 && [[item indexPath] indexAtPosition: 0] == 0);
+}
+
+- (BOOL) isCollection:(id)item {
+    return ([[item indexPath] length] == 2 && [[item indexPath] indexAtPosition: 0] == 1);
 }
 
 - (BOOL) handleDuplicates: (NSMutableArray*) newItems inCollection: (ACShellCollection*) collection {

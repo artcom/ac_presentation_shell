@@ -256,7 +256,7 @@ Gw
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eys-wH-fmG">
+                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eys-wH-fmG">
                         <rect key="frame" x="98" y="56" width="280" height="80"/>
                         <clipView key="contentView" drawsBackground="NO" id="rfR-tM-Yx9">
                             <rect key="frame" x="0.0" y="0.0" width="280" height="80"/>
@@ -320,7 +320,7 @@ Gw
                         </constraints>
                         <edgeInsets key="contentInsets" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="dtR-eS-fuJ">
-                            <rect key="frame" x="1" y="44" width="278" height="15"/>
+                            <rect key="frame" x="-100" y="-100" width="278" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="HjE-qf-rG1">
