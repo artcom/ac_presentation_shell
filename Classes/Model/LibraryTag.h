@@ -16,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSString *ID;
 @property (nonatomic) PresentationLibrary* context;
 
-- (NSString *)title;
-
 - (instancetype)initWithId:(NSString *)ID inContext:(PresentationLibrary *)context;
 @end
 

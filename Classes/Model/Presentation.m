@@ -266,7 +266,7 @@
     NSMutableArray *titles = [NSMutableArray new];
     for (LibraryTag *tag in self.context.tags) {
         if ([self.tags containsObject:tag.ID]) {
-            [titles addObject:tag.title];
+            [titles addObject:tag.ID];
         }
     }
     return [titles componentsJoinedByString:@", "];

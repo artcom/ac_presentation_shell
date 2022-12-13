@@ -52,6 +52,8 @@
 - (IBAction) userDidChangeTitle: (id) sender;
 - (IBAction) userWantsToDeletePresentation: (id) sender;
 
+- (IBAction)tagActionClicked:(id)sender;
+
 - (void) editWithKeynote;
 - (void) edit: (Presentation*) aPresentation;
 - (void) add;

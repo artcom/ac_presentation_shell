@@ -364,6 +364,18 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return [self.collections count];
 }
 
+- (void)addTag:(NSString *)ID
+{
+    NSXMLElement * node = [NSXMLElement elementWithName: @"tag"];
+    [node addAttribute: [NSXMLNode attributeWithName: @"id" stringValue: ID]];
+    [self.tagData setObject: node forKey: ID];
+    
+    LibraryTag *tag = [[LibraryTag alloc] initWithId:ID inContext:self];
+    NSMutableArray *tags = _tags.mutableCopy;
+    [tags addObject:tag];
+    _tags = [self sortTags:tags];
+}
+
 - (void) addPresentationWithTitle: (NSString*) title
                     thumbnailPath: (NSString*) thumbnail
                       keynotePath: (NSString*) keynote
@@ -490,7 +502,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         xmlChanged = YES;
     }
     if ( ![tags isEqual: presentation.tags]) {
-        presentation.tags = [tags valueForKeyPath:@"title"];
+        presentation.tags = [tags valueForKeyPath:@"ID"];
         xmlChanged = YES;
     }
     self.assetManager = assetMan;
@@ -596,16 +608,19 @@ static NSCharacterSet * ourNonDirNameCharSet;
 {
     NSMutableArray *tags = [NSMutableArray new];
     for (NSString *title in self.tagData) {
-        
         LibraryTag *tag = [[LibraryTag alloc] initWithId:title inContext:self];
         [tags addObject:tag];
     }
-    
-    _tags = [tags sortedArrayUsingComparator:^NSComparisonResult(LibraryTag *tag1, LibraryTag *tag2) {
-        if ([tag1.title isGreaterThan:tag2.title]) {
+    _tags = [self sortTags:tags];
+}
+
+- (NSArray *)sortTags:(NSArray *)tags
+{
+    return [tags sortedArrayUsingComparator:^NSComparisonResult(LibraryTag *tag1, LibraryTag *tag2) {
+        if ([tag1.ID isGreaterThan:tag2.ID]) {
             return NSOrderedDescending;
         }
-        if ([tag1.title isLessThan:tag2.title]) {
+        if ([tag1.ID isLessThan:tag2.ID]) {
             return NSOrderedAscending;
         }
         return NSOrderedSame;
@@ -629,14 +644,14 @@ static NSCharacterSet * ourNonDirNameCharSet;
     // Here we should handle tags
     [self.tagged removeAllObjects];
     for (LibraryTag *tag in self.tags) {
-        ACShellCollection *collection = [ACShellCollection collectionWithName:tag.title];
+        ACShellCollection *collection = [ACShellCollection collectionWithName:tag.ID];
         [self.tagged addObject:collection];
     }
     
     for (ACShellCollection *collection in self.tagged) {
         NSPredicate *taggedPredicate = [NSPredicate predicateWithFormat:@"tags CONTAINS %@", collection.name];
-         [self dropStalledPresentations: collection.presentations notMatchingPredicate: taggedPredicate];
-         [self addNewPresentations: collection.presentations withPredicate: taggedPredicate];
+        [self dropStalledPresentations: collection.presentations notMatchingPredicate: taggedPredicate];
+        [self addNewPresentations: collection.presentations withPredicate: taggedPredicate];
     }
 }
 

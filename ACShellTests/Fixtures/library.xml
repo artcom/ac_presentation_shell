@@ -21,9 +21,9 @@
     </category>
   </categories>
   <tags>
-      <tag id="AR" title="AR"/>
-      <tag id="VR" title="VR"/>
-      <tag id="AI" title="AI"/>
+      <tag id="AR"/>
+      <tag id="VR"/>
+      <tag id="AI"/>
   </tags>
   <presentations>
       <presentation directory="museum_exibition" highlight="false" id="11CD89AA-825E-471B-BB40-93C7509DBB54">

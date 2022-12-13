@@ -14,6 +14,12 @@
 #import "LibraryTagCellView.h"
 #import "localized_text_keys.h"
 
+// keep this in sync with the interface builder tags
+enum TagActionTags {
+    AddTagAction,
+    DeleteTagAction
+};
+
 @interface EditWindowController ()
 
 @property (nonatomic) NSMutableArray *selectedCategories;
@@ -155,6 +161,22 @@
 - (void) editWithKeynote
 {
     [[KeynoteHandler sharedHandler] open: droppedKeynote.filename];
+}
+
+- (IBAction)tagActionClicked:(id)sender
+{
+    int selectedSegment = [sender selectedSegment];
+    int selectedSegmentTag = [[sender cell] tagForSegment:selectedSegment];
+    switch (selectedSegmentTag) {
+        case AddTagAction:
+            [self addTag];
+            break;
+        case DeleteTagAction:
+            [self deleteTag];
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark -
@@ -301,6 +323,21 @@
     }
 }
 
+- (void)addTag
+{
+    // open dialog
+    [self.presentationLibrary addTag:@"newtag"];
+    [self.tagList reloadData];
+}
+
+- (void)deleteTag
+{
+    NSLog(@"DEL tag");
+    // if selected tag
+    // remove from data model
+    // reload table
+}
+
 - (void) updateOkButton {
     [okButton setEnabled: [[titleField stringValue] length] > 0 &&
      droppedKeynote.fileExists &&
@@ -337,8 +374,8 @@
     LibraryTag *tag = self.presentationLibrary.tags[row];
     LibraryTagCellView *view = [tableView makeViewWithIdentifier:LibraryTagCellView.className owner:nil];
     view.button.tag = row;
-    view.button.title = tag.title;
-    view.button.state = [self.presentation.tags containsObject:tag.title] ? NSControlStateValueOn : NSControlStateValueOff;
+    view.button.title = tag.ID;
+    view.button.state = [self.presentation.tags containsObject:tag.ID] ? NSControlStateValueOn : NSControlStateValueOff;
     view.button.action = @selector(tagSelected:);
     return view;
 }

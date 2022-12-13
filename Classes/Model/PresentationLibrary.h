@@ -72,4 +72,5 @@
 - (void) deletePresentation: (Presentation*) presentation
            progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
+- (void)addTag:(NSString *)ID;
 @end
