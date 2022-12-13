@@ -137,6 +137,25 @@
     XCTAssertEqual(presentation.tags.count, 0, @"Presentation should have no tag set.");
 }
 
+- (void)testAddTag
+{
+    [self.library addTag:@"TEST"];
+    
+    XCTAssertEqual(self.library.tags.count, 4, @"Library should contain 4 tags.");
+    
+    LibraryTag *tagOne = self.library.tags[0];
+    XCTAssertEqualObjects(tagOne.ID, @"AI", @"Tag one should have a vaild title.");
+    
+    LibraryTag *tagTwo = self.library.tags[1];
+    XCTAssertEqualObjects(tagTwo.ID, @"AR", @"Tag two should have a vaild title.");
+    
+    LibraryTag *tagThree = self.library.tags[2];
+    XCTAssertEqualObjects(tagThree.ID, @"TEST", @"Tag three should have a vaild title.");
+    
+    LibraryTag *tagFour = self.library.tags[3];
+    XCTAssertEqualObjects(tagFour.ID, @"VR", @"Tag four should have a vaild title.");
+}
+
 - (void)testRemoveTags
 {
     [self.library removeTag:0];
@@ -166,6 +185,8 @@
     presentation.title = @"THE NEW TITLE";
     presentation.categories = @[@"2", @"1"];
     presentation.tags = @[@"AR", @"VR"];
+    
+    [self.library addTag:@"TEST"];
     
     [[NSUserDefaults standardUserDefaults] setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -206,15 +227,19 @@
     NSArray *backgroundImagePaths = @[pictureOne, pictureTwo];
     XCTAssertEqualObjects(categoryTwo.backgroundImagePaths, backgroundImagePaths, @"Category two should return valid background image paths.");
     
-    XCTAssertEqual(self.library.tags.count, 3, @"Library should contain 3 tags.");
+    XCTAssertEqual(self.library.tags.count, 4, @"Library should contain 4 tags.");
+    
     LibraryTag *tagOne = self.library.tags[0];
-    XCTAssertEqualObjects(tagOne.ID, @"AI", @"Tag one should have index of 2");
+    XCTAssertEqualObjects(tagOne.ID, @"AI", @"Tag one should have a vaild title.");
     
     LibraryTag *tagTwo = self.library.tags[1];
-    XCTAssertEqualObjects(tagTwo.ID, @"AR", @"Tag two should have index of 0");
+    XCTAssertEqualObjects(tagTwo.ID, @"AR", @"Tag two should have a vaild title.");
     
     LibraryTag *tagThree = self.library.tags[2];
-    XCTAssertEqualObjects(tagThree.ID, @"VR", @"Tag three should have index of 1");
+    XCTAssertEqualObjects(tagThree.ID, @"TEST", @"Tag three should have a vaild title.");
+    
+    LibraryTag *tagFour = self.library.tags[3];
+    XCTAssertEqualObjects(tagFour.ID, @"VR", @"Tag four should have a vaild title.");
     
     root = self.library.library;
     library = root.children.firstObject;
@@ -227,6 +252,7 @@
     XCTAssertEqualObjects(presentation.tagsTitles, @"AR, VR", @"Presentation should return valid tag titles.");
     
     [self.library removeTag:2];
+    [self.library removeTag:2];
     
     [[NSUserDefaults standardUserDefaults] setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -237,6 +263,13 @@
     _library = [PresentationLibrary new];
     [self.library loadXmlLibraryFromDirectory:self.storageLibraryPath];
     
+    XCTAssertEqual(self.library.tags.count, 2, @"Library should contain 3 tags.");
+    
+    tagOne = self.library.tags[0];
+    XCTAssertEqualObjects(tagOne.ID, @"AI", @"Tag one should have a vaild title.");
+    
+    tagTwo = self.library.tags[1];
+    XCTAssertEqualObjects(tagTwo.ID, @"AR", @"Tag two should have a vaild title.");
     
     root = self.library.library;
     library = root.children.firstObject;
