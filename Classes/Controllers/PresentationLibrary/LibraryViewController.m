@@ -138,9 +138,9 @@ enum CollectionActionTags {
 
 - (IBAction)collectionActionClicked: (id) sender
 {
-    int clickedSegment = [sender selectedSegment];
-    int clickedSegmentTag = [[sender cell] tagForSegment: clickedSegment];
-    switch (clickedSegmentTag) {
+    int selectedSegment = [sender selectedSegment];
+    int selectedSegmentTag = [[sender cell] tagForSegment:selectedSegment];
+    switch (selectedSegmentTag) {
         case AddCollectionAction:
             [self addCollection];
             break;
