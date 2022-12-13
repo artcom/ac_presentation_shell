@@ -341,7 +341,6 @@ enum TagActionTags {
 
 - (void)deleteTag
 {
-    NSLog(@"DEL tag");
     NSInteger row = self.tagList.selectedRow;
     [self.presentationLibrary removeTag:row];
     [self.tagList reloadData];
