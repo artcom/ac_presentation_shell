@@ -31,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet NSTextField * titleField;
 @property (weak, nonatomic) IBOutlet NSStackView *categoryStack;
 @property (weak, nonatomic) IBOutlet NSTableView *tagList;
+@property (weak, nonatomic) IBOutlet NSTextField *tagInput;
+@property (weak, nonatomic) IBOutlet NSSegmentedControl *tagControls;
 
 @property (weak, nonatomic) IBOutlet NSTextField * yearField;
 @property (weak, nonatomic) IBOutlet NSButton * highlightCheckbox;

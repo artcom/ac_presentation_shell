@@ -20,6 +20,8 @@
                 <outlet property="progressSheet" destination="136" id="146"/>
                 <outlet property="progressText" destination="141" id="149"/>
                 <outlet property="progressTitle" destination="139" id="148"/>
+                <outlet property="tagControls" destination="uXN-N8-4E4" id="Ihx-SM-Wph"/>
+                <outlet property="tagInput" destination="fv0-GA-FuW" id="OvR-bb-Di9"/>
                 <outlet property="tagList" destination="6ys-Jq-0LV" id="9Rc-7c-36Z"/>
                 <outlet property="thumbnailFileLabel" destination="212" id="215"/>
                 <outlet property="titleField" destination="163" id="209"/>
@@ -262,7 +264,7 @@ Gw
                             <rect key="frame" x="0.0" y="0.0" width="280" height="96"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" selectionHighlightStyle="none" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" id="6ys-Jq-0LV">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" id="6ys-Jq-0LV">
                                     <rect key="frame" x="0.0" y="0.0" width="280" height="96"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -328,13 +330,26 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fv0-GA-FuW">
+                        <rect key="frame" x="98" y="62" width="199" height="16"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" drawsBackground="YES" usesSingleLineMode="YES" id="0Bt-5B-yJD">
+                            <font key="font" usesAppearanceFont="YES"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="emk-Zy-o2G"/>
+                        </connections>
+                    </textField>
                     <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uXN-N8-4E4" userLabel="Label Actions">
-                        <rect key="frame" x="97" y="58" width="75" height="23"/>
+                        <rect key="frame" x="304" y="58" width="75" height="23"/>
                         <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="rMZ-oo-DGU">
                             <font key="font" metaFont="smallSystem"/>
                             <segments>
                                 <segment image="NSAddTemplate" width="32"/>
-                                <segment image="NSRemoveTemplate" width="32" tag="1"/>
+                                <segment image="NSRemoveTemplate" width="32" tag="1">
+                                    <nil key="label"/>
+                                </segment>
                             </segments>
                         </segmentedCell>
                         <connections>
@@ -357,7 +372,6 @@ Gw
                     <constraint firstItem="10" firstAttribute="baseline" secondItem="153" secondAttribute="baseline" id="Ayb-dv-iff"/>
                     <constraint firstAttribute="trailing" secondItem="Zsa-9C-p0n" secondAttribute="trailing" constant="20" symbolic="YES" id="BPy-n1-ZpC"/>
                     <constraint firstAttribute="trailing" secondItem="210" secondAttribute="trailing" constant="20" symbolic="YES" id="Caq-1s-GGd"/>
-                    <constraint firstItem="uXN-N8-4E4" firstAttribute="leading" secondItem="Eys-wH-fmG" secondAttribute="leading" id="CgP-hm-doX"/>
                     <constraint firstItem="180" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="Fv5-XZ-KNb"/>
                     <constraint firstItem="bjo-A7-8Od" firstAttribute="top" secondItem="212" secondAttribute="bottom" constant="16" id="G9h-E9-9ak"/>
                     <constraint firstItem="uXN-N8-4E4" firstAttribute="top" secondItem="Eys-wH-fmG" secondAttribute="bottom" constant="8" symbolic="YES" id="Hhz-J4-4IW"/>
@@ -367,6 +381,7 @@ Gw
                     <constraint firstItem="153" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="LRN-07-aKq"/>
                     <constraint firstItem="157" firstAttribute="top" secondItem="185" secondAttribute="top" id="Mce-jk-uSJ"/>
                     <constraint firstAttribute="trailing" secondItem="212" secondAttribute="trailing" constant="20" symbolic="YES" id="NKC-W7-ZIg"/>
+                    <constraint firstItem="fv0-GA-FuW" firstAttribute="leading" secondItem="6ys-Jq-0LV" secondAttribute="leading" id="OrH-3J-vhd"/>
                     <constraint firstAttribute="trailing" secondItem="163" secondAttribute="trailing" constant="20" symbolic="YES" id="QEr-DN-myn"/>
                     <constraint firstItem="187" firstAttribute="top" secondItem="163" secondAttribute="top" id="QZC-Zg-uyb"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="top" secondItem="s1J-Ps-Elp" secondAttribute="top" id="QzN-ki-7zc"/>
@@ -378,6 +393,7 @@ Gw
                     <constraint firstItem="s1J-Ps-Elp" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="XuI-I4-omj"/>
                     <constraint firstItem="kMM-PX-hhw" firstAttribute="top" secondItem="Zsa-9C-p0n" secondAttribute="bottom" constant="16" id="Yro-XE-tqd"/>
                     <constraint firstItem="218" firstAttribute="leading" secondItem="200" secondAttribute="trailing" constant="8" symbolic="YES" id="Z8k-FX-zqH"/>
+                    <constraint firstItem="uXN-N8-4E4" firstAttribute="leading" secondItem="fv0-GA-FuW" secondAttribute="trailing" constant="8" symbolic="YES" id="ZlO-NG-lFB"/>
                     <constraint firstItem="10" firstAttribute="top" secondItem="uXN-N8-4E4" secondAttribute="bottom" constant="20" symbolic="YES" id="a9l-2I-1Ss"/>
                     <constraint firstItem="157" firstAttribute="leading" secondItem="185" secondAttribute="trailing" constant="8" symbolic="YES" id="aQw-2n-tvL"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" priority="750" constant="98" id="bGZ-6r-qON"/>
@@ -386,6 +402,7 @@ Gw
                     <constraint firstItem="162" firstAttribute="top" secondItem="kMM-PX-hhw" secondAttribute="bottom" constant="16" id="bps-Xc-VJg"/>
                     <constraint firstItem="200" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="dCP-s3-Kmj"/>
                     <constraint firstItem="ZQs-aZ-FU9" firstAttribute="leading" secondItem="bjo-A7-8Od" secondAttribute="leading" id="fFu-Fb-Cm7"/>
+                    <constraint firstItem="fv0-GA-FuW" firstAttribute="centerY" secondItem="uXN-N8-4E4" secondAttribute="centerY" id="g5K-FZ-M1K"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="top" secondItem="6sB-G8-zQR" secondAttribute="bottom" constant="16" id="gE1-6K-7ab"/>
                     <constraint firstItem="202" firstAttribute="leading" secondItem="bjo-A7-8Od" secondAttribute="leading" id="gaH-ea-Icf"/>
                     <constraint firstItem="ZQs-aZ-FU9" firstAttribute="trailing" secondItem="bjo-A7-8Od" secondAttribute="trailing" id="hx7-9S-l6k"/>
@@ -399,6 +416,7 @@ Gw
                     <constraint firstItem="180" firstAttribute="top" secondItem="bjo-A7-8Od" secondAttribute="bottom" constant="16" id="nh7-aj-hFb"/>
                     <constraint firstItem="12" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="153" secondAttribute="trailing" constant="12" symbolic="YES" id="nxn-Xf-hcS"/>
                     <constraint firstItem="218" firstAttribute="centerY" secondItem="200" secondAttribute="centerY" id="pCy-QC-yRk"/>
+                    <constraint firstItem="uXN-N8-4E4" firstAttribute="trailing" secondItem="6ys-Jq-0LV" secondAttribute="trailing" id="pKa-3C-2nZ"/>
                     <constraint firstItem="212" firstAttribute="leading" secondItem="157" secondAttribute="leading" id="poe-2z-2VU"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="leading" secondItem="163" secondAttribute="leading" id="qBH-rV-X0R"/>
                     <constraint firstItem="202" firstAttribute="top" secondItem="210" secondAttribute="bottom" constant="16" id="rWG-9K-7pa"/>
@@ -413,7 +431,7 @@ Gw
                     <constraint firstItem="160" firstAttribute="leading" secondItem="163" secondAttribute="leading" id="yk1-Wq-EB8"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="116" y="615"/>
+            <point key="canvasLocation" x="116" y="614.5"/>
         </window>
         <window title="Progress Sheet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="136" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES"/>

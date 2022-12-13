@@ -73,4 +73,5 @@
            progressDelegate: (id<ProgressDelegateProtocol>) delegate;
 
 - (void)addTag:(NSString *)ID;
+- (void)removeTag:(NSInteger)index;
 @end

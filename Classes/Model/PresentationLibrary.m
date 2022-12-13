@@ -30,7 +30,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (weak, readonly) NSMutableArray* allPresentations;
 @property (weak, readonly) NSMutableArray* highlights;
 @property (weak, readonly) NSMutableArray* collections;
-@property (strong) NSMutableArray* tagged;
+@property (strong, readonly) NSMutableArray* tagged;
 @property (strong) NSMutableDictionary *categoryData;
 @property (strong) NSMutableDictionary *tagData;
 @property (strong) NSMutableDictionary *presentationData;
@@ -376,6 +376,22 @@ static NSCharacterSet * ourNonDirNameCharSet;
     _tags = [self sortTags:tags];
 }
 
+- (void)removeTag:(NSInteger)index
+{
+    // remove tag from all presentations
+    LibraryTag *tag = _tags[index];
+    [self.allPresentations enumerateObjectsUsingBlock:^(Presentation *presentation, NSUInteger index, BOOL * _Nonnull stop) {
+        NSMutableArray *tags = presentation.tags.mutableCopy;
+        [tags removeObject:tag.ID];
+        presentation.tags = tags;
+    }];
+    
+    // remove tag from library
+    NSMutableArray *tags = _tags.mutableCopy;
+    [tags removeObjectAtIndex:index];
+    _tags = [self sortTags:tags];
+}
+
 - (void) addPresentationWithTitle: (NSString*) title
                     thumbnailPath: (NSString*) thumbnail
                       keynotePath: (NSString*) keynote
@@ -396,36 +412,36 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     [self.presentationData setObject: node forKey: newId];
     
-    Presentation * p = [[Presentation alloc] initWithId: newId inContext: self];
-    p.directory = [self subdirectoryFromTitle: title];
-    if ([[NSFileManager defaultManager] fileExistsAtPath: p.directory]) {
-        p.directory = [NSString stringWithFormat: @"%@-%@", p.directory, p.presentationId];
+    Presentation *presentation = [[Presentation alloc] initWithId: newId inContext: self];
+    presentation.directory = [self subdirectoryFromTitle: title];
+    if ([[NSFileManager defaultManager] fileExistsAtPath: presentation.directory]) {
+        presentation.directory = [NSString stringWithFormat: @"%@-%@", presentation.directory, presentation.presentationId];
     }
     NSError * error;
-    if ( ! [[NSFileManager defaultManager] createDirectoryAtPath: p.absoluteDirectory
+    if ( ! [[NSFileManager defaultManager] createDirectoryAtPath: presentation.absoluteDirectory
                                      withIntermediateDirectories: YES attributes: nil error: &error])
     {
         NSLog(@"Failed to create directory: %@", error);
         return;
     }
     
-    p.title = title;
-    p.highlight = highlightFlag;
-    p.year = [NSNumber numberWithInteger: year];
-    p.presentationFilename = [keynote lastPathComponent];
-    p.thumbnailFilename = [thumbnail lastPathComponent];
-    p.categories = [categories valueForKeyPath:@"ID"];
-    p.tags = [tags valueForKeyPath:@"ID"];
+    presentation.title = title;
+    presentation.highlight = highlightFlag;
+    presentation.year = [NSNumber numberWithInteger: year];
+    presentation.presentationFilename = [keynote lastPathComponent];
+    presentation.thumbnailFilename = [thumbnail lastPathComponent];
+    presentation.categories = [categories valueForKeyPath:@"ID"];
+    presentation.tags = [tags valueForKeyPath:@"ID"];
     
-    [self.allPresentations insertObject: p atIndex:0];
+    [self.allPresentations insertObject: presentation atIndex:0];
     [self updateIndices: self.allPresentations];
-    if (p.highlight) {
-        Presentation *pCopy = [p copy];
+    if (presentation.highlight) {
+        Presentation *pCopy = [presentation copy];
         [self.highlights insertObject: pCopy atIndex: 0];
         [self updateIndices: self.highlights];
     }
     
-    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: p progressDelegate: delegate];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
     [assetMan copyAsset: thumbnail];
     [assetMan copyAsset: keynote];
     

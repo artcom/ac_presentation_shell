@@ -43,6 +43,8 @@ enum TagActionTags {
 @synthesize thumbnailFileLabel;
 @synthesize okButton;
 @synthesize deleteButton;
+@synthesize tagList;
+@synthesize tagInput;
 @synthesize progressSheet;
 @synthesize progressTitle;
 @synthesize progressMessage;
@@ -65,12 +67,14 @@ enum TagActionTags {
     [self setGuiValues];
     [self showWindow: nil];
     [self updateOkButton];
+    [self updateTagControls];
 }
 
 - (void) add {
     [self setGuiValues];
     [self showWindow: nil];
     [self updateOkButton];
+    [self updateTagControls];
 }
 
 - (IBAction) userDidConfirmEdit: (id) sender {
@@ -114,10 +118,12 @@ enum TagActionTags {
     BOOL fileExists = droppedThumbnail.fileExists;
     [thumbnailFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
     [self updateOkButton];
+    [self updateTagControls];
 }
 
 - (IBAction) userDidChangeTitle: (id) sender {
     [self updateOkButton];
+    [self updateTagControls];
 }
 
 - (IBAction) userWantsToDeletePresentation: (id) sender {
@@ -188,6 +194,7 @@ enum TagActionTags {
     [editButton setEnabled: fileExists];
     [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
     [self updateOkButton];
+    [self updateTagControls];
 }
 
 - (void) userDidDoubleClickKeynote: (KeynoteDropper *)keynoteDropper
@@ -280,6 +287,7 @@ enum TagActionTags {
     [self.tagList reloadData];
     [self.deleteButton setHidden: self.presentation == nil];
     [self updateOkButton];
+    [self updateTagControls];
 }
 
 - (void)updateCategories
@@ -325,23 +333,31 @@ enum TagActionTags {
 
 - (void)addTag
 {
-    // open dialog
-    [self.presentationLibrary addTag:@"newtag"];
+    if (self.tagInput.stringValue.length == 0) return;
+    [self.presentationLibrary addTag:self.tagInput.stringValue];
     [self.tagList reloadData];
+    self.tagInput.stringValue = @"";
 }
 
 - (void)deleteTag
 {
     NSLog(@"DEL tag");
-    // if selected tag
-    // remove from data model
-    // reload table
+    NSInteger row = self.tagList.selectedRow;
+    [self.presentationLibrary removeTag:row];
+    [self.tagList reloadData];
 }
 
 - (void) updateOkButton {
-    [okButton setEnabled: [[titleField stringValue] length] > 0 &&
-     droppedKeynote.fileExists &&
-     droppedThumbnail.fileExists];
+    bool isEnabled = titleField.stringValue.length > 0 && droppedKeynote.fileExists && droppedThumbnail.fileExists;
+    [okButton setEnabled:isEnabled];
+}
+
+- (void)updateTagControls {
+    bool hasText = self.tagInput.stringValue.length > 0;
+    [self.tagControls setEnabled:hasText forSegment:0];
+    
+    bool isSelected = self.tagList.selectedRow > -1;
+    [self.tagControls setEnabled:isSelected forSegment:1];
 }
 
 - (void) postEditCleanUp {
@@ -355,6 +371,9 @@ enum TagActionTags {
     
     if ([textField isDescendantOf:titleField]) {
         [self updateOkButton];
+    }
+    if ([textField isDescendantOf:tagInput]) {
+        [self updateTagControls];
     }
 }
 
@@ -378,6 +397,16 @@ enum TagActionTags {
     view.button.state = [self.presentation.tags containsObject:tag.ID] ? NSControlStateValueOn : NSControlStateValueOff;
     view.button.action = @selector(tagSelected:);
     return view;
+}
+
+- (BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row
+{
+    return YES;
+}
+
+- (void)tableViewSelectionDidChange:(NSNotification *)notification
+{
+    [self updateTagControls];
 }
 
 @end

@@ -137,6 +137,22 @@
     XCTAssertEqual(presentation.tags.count, 0, @"Presentation should have no tag set.");
 }
 
+- (void)testRemoveTags
+{
+    [self.library removeTag:0];
+    
+    ACShellCollection *root = self.library.library;
+    ACShellCollection *library = root.children.firstObject;
+    NSPredicate *allCollection = [NSPredicate predicateWithFormat:@"name = 'All'"];
+    ACShellCollection *all = [library.children filteredArrayUsingPredicate:allCollection].firstObject;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"presentationId = %@", self.presentationId];
+    Presentation *presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
+    
+    XCTAssertEqual(presentation.tags.count, 2, @"Presentation should have 2 tags set.");
+    XCTAssertEqualObjects(presentation.tagsTitles, @"AR, VR", @"Presentation should return valid tag titles.");
+}
+
 - (void)testSerializeLibraryXML
 {
     ACShellCollection *root = self.library.library;
@@ -209,6 +225,29 @@
     XCTAssertEqualObjects(presentation.categoriesTitles, @"one, two", @"Presentation should return valid category titles.");
     XCTAssertEqual(presentation.tags.count, 2, @"Presentation should have 2 tags set.");
     XCTAssertEqualObjects(presentation.tagsTitles, @"AR, VR", @"Presentation should return valid tag titles.");
+    
+    [self.library removeTag:2];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    self.library.libraryDirPath = self.storageLibraryPath;
+    [self.library saveXmlLibrary];
+    
+    _library = [PresentationLibrary new];
+    [self.library loadXmlLibraryFromDirectory:self.storageLibraryPath];
+    
+    
+    root = self.library.library;
+    library = root.children.firstObject;
+    allCollection = [NSPredicate predicateWithFormat:@"name = 'All'"];
+    all = [library.children filteredArrayUsingPredicate:allCollection].firstObject;
+    
+    predicate = [NSPredicate predicateWithFormat:@"presentationId = %@", self.presentationId];
+    presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
+    
+    XCTAssertEqual(presentation.tags.count, 1, @"Presentation should have 1 tag set.");
+    XCTAssertEqualObjects(presentation.tagsTitles, @"AR", @"Presentation should return valid tag titles.");
 }
 
 @end
