@@ -32,7 +32,7 @@
 @synthesize dataSource;
 @synthesize delegate;
 @synthesize page;
-@synthesize layout;
+@synthesize gridLayout;
 
 - (void)awakeFromNib {
     [self setupView];
@@ -46,7 +46,7 @@
     [self setWantsLayer:YES];
     
     self.sublayers = NSMutableArray.new;
-    layout = GridLayout.new;
+    gridLayout = GridLayout.new;
     
     self.page = 0;
     
@@ -162,7 +162,7 @@
     CGRect itemBounds = CGRectMake(0.0f, 0.0f, itemSize.width, itemSize.height);
     for (int i = firstItem; i <= lastItem; i++) {
         CALayer *layer = [dataSource presentationView:self layerForItemAtIndex:i];
-        layer.position = [layout positionForItem:i % layout.itemsOnPage];
+        layer.position = [gridLayout positionForItem:i % gridLayout.itemsOnPage];
         layer.contentsScale = [self backingScaleFactor];
         layer.bounds = itemBounds;
         [self.layer addSublayer:layer];
@@ -182,15 +182,15 @@
 
 
 - (NSInteger)pages {
-    if (layout.itemsOnPage == 0) {
+    if (gridLayout.itemsOnPage == 0) {
         return 0;
     }
     
-    return ceil(([dataSource numberOfItemsInPresentationView:self] / (float)layout.itemsOnPage));
+    return ceil(([dataSource numberOfItemsInPresentationView:self] / (float)gridLayout.itemsOnPage));
 }
 
 - (void)addOverlay:(CALayer *)newOverlay forItem: (NSInteger)index {
-    newOverlay.position = [layout positionForItem: index % layout.itemsOnPage];
+    newOverlay.position = [gridLayout positionForItem: index % gridLayout.itemsOnPage];
     [self setHoverLayer:newOverlay];
 }
 
@@ -216,15 +216,15 @@
 - (NSInteger)lastItemOnPage {
     NSInteger items = [dataSource numberOfItemsInPresentationView:self];
     
-    return (((self.page + 1) * layout.itemsOnPage - 1) < items) ? ((self.page + 1) * layout.itemsOnPage) - 1 : items -1;
+    return (((self.page + 1) * gridLayout.itemsOnPage - 1) < items) ? ((self.page + 1) * gridLayout.itemsOnPage) - 1 : items -1;
 }
 
 - (NSInteger)firstItemOnPage; {
-    return self.page * layout.itemsOnPage;
+    return self.page * gridLayout.itemsOnPage;
 }
 
 - (NSInteger)indexOfItemOnPage: (NSInteger)index {
-    return index + self.page * layout.itemsOnPage;
+    return index + self.page * gridLayout.itemsOnPage;
 }
 
 
@@ -249,18 +249,18 @@
     
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    CGFloat verticalMargin = (screenFrame.size.height - layout.viewPort.size.height) * 0.5;
-    CGFloat headerYOrigin = (verticalMargin * 1.5) + layout.viewPort.size.height - self.headerView.frame.size.height / 2;
-    self.headerView.frame = CGRectMake(layout.viewPort.origin.x, headerYOrigin, layout.viewPort.size.width, 32.0);
+    CGFloat verticalMargin = (screenFrame.size.height - gridLayout.viewPort.size.height) * 0.5;
+    CGFloat headerYOrigin = (verticalMargin * 1.5) + gridLayout.viewPort.size.height - self.headerView.frame.size.height / 2;
+    self.headerView.frame = CGRectMake(gridLayout.viewPort.origin.x, headerYOrigin, gridLayout.viewPort.size.width, 32.0);
     [CATransaction commit];
     
     [self.headerView updateLayout];
     
-    CGFloat pagerButtonsXOrigin = layout.viewPort.origin.x + layout.viewPort.size.width - pageButtons.frame.size.width;
-    [pageButtons setFrameOrigin: NSMakePoint(pagerButtonsXOrigin, layout.viewPort.origin.y - 23 - pageButtons.frame.size.height)];
+    CGFloat pagerButtonsXOrigin = gridLayout.viewPort.origin.x + gridLayout.viewPort.size.width - pageButtons.frame.size.width;
+    [pageButtons setFrameOrigin: NSMakePoint(pagerButtonsXOrigin, gridLayout.viewPort.origin.y - 23 - pageButtons.frame.size.height)];
     
-    [paginationView setFrameOrigin:NSMakePoint(layout.viewPort.origin.x + layout.viewPort.size.width + 20, layout.viewPort.origin.y)];
-    [paginationView setFrameSize:NSMakeSize(paginationView.frame.size.width, layout.viewPort.size.height)];
+    [paginationView setFrameOrigin:NSMakePoint(gridLayout.viewPort.origin.x + gridLayout.viewPort.size.width + 20, gridLayout.viewPort.origin.y)];
+    [paginationView setFrameSize:NSMakeSize(paginationView.frame.size.width, gridLayout.viewPort.size.height)];
 }
 
 #pragma mark -
@@ -363,13 +363,13 @@
 
 - (void)updateLayout {
     
-    layout.viewFrame = NSRectToCGRect(self.frame);
-    layout.border = GRID_BORDER;
+    gridLayout.viewFrame = NSRectToCGRect(self.frame);
+    gridLayout.border = GRID_BORDER;
     
     if ([dataSource respondsToSelector:@selector(sizeForItemInPresentationView:)]) {
-        layout.itemSize = [dataSource sizeForItemInPresentationView:self];		
+        gridLayout.itemSize = [dataSource sizeForItemInPresentationView:self];		
     }
     
-    [layout calculate];
+    [gridLayout calculate];
 }
 @end

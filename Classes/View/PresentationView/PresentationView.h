@@ -26,7 +26,7 @@
 @property (assign, nonatomic) NSInteger page;
 @property (assign, readonly) NSInteger pages;
 @property (strong, nonatomic) CALayer *hoverLayer;
-@property (strong) GridLayout *layout;
+@property (strong) GridLayout *gridLayout;
 @property (nonatomic, strong) PresentationHeaderView *headerView;
 
 - (void)arrangeSublayer;
