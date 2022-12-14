@@ -33,11 +33,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addCollection;
 - (void)removeCollection;
 
-- (BOOL) runSuppressableBooleanDialogWithIdentifier: (NSString*) identifier
-                                            message: (NSString*) message
-                                           okButton: (NSString*) ok
-                                       cancelButton: (NSString*) cancel
-                                  destructiveAction:(BOOL)hasDestructiveAction;
 @end
 
 NS_ASSUME_NONNULL_END

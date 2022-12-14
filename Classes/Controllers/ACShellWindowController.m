@@ -13,6 +13,7 @@
 #import "localized_text_keys.h"
 #import "NSFileManager-DirectoryHelper.h"
 #import "ACShellCollection.h"
+#import "NSAlert+Dialogs.h"
 
 #define AC_SHELL_TOOLBAR_ITEM_UPLOAD @"ACShellToolbarItemUpload"
 #define AC_SHELL_TOOLBAR_ITEM_SEARCH @"ACShellToolbarItemSearch"
@@ -178,11 +179,11 @@
         return;
     }
     
-    BOOL deleteIt = [self.libraryViewController runSuppressableBooleanDialogWithIdentifier: @"DeletePresentationFromCollection"
-                                                                                   message: ACSHELL_STR_DELETE_PRESENTATION
-                                                                                  okButton: ACSHELL_STR_DELETE
-                                                                              cancelButton: ACSHELL_STR_CANCEL
-                                                                         destructiveAction:YES];
+    BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_PRESENTATION
+                                                                message: ACSHELL_STR_DELETE_PRESENTATION
+                                                               okButton: ACSHELL_STR_DELETE
+                                                           cancelButton: ACSHELL_STR_CANCEL
+                                                      destructiveAction:YES];
     if (deleteIt) {
         [self.libraryTableViewController.presentationsArrayController removeObjectsAtArrangedObjectIndexes:self.libraryTableViewController.presentationsArrayController.selectionIndexes];
         NSArray * items = [[[self.libraryViewController.collectionTreeController selectedObjects] objectAtIndex:0] presentations];

@@ -10,6 +10,7 @@
 #import "PresentationLibrary.h"
 #import "ACShellCollection.h"
 #import "localized_text_keys.h"
+#import "NSAlert+Dialogs.h"
 
 #define ACSHELL_PRESENTATION @"ACShell_Presentation"
 
@@ -92,7 +93,7 @@ enum CollectionActionTags {
         return;
     }
     
-    BOOL deleteIt = [self runSuppressableBooleanDialogWithIdentifier: @"DeleteCollection"
+    BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_COLLECTION
                                                              message: ACSHELL_STR_DELETE_COLLECTION
                                                             okButton: ACSHELL_STR_DELETE
                                                         cancelButton: ACSHELL_STR_CANCEL
@@ -104,36 +105,6 @@ enum CollectionActionTags {
             [self.collectionView deselectAll: self];
         }
     }
-}
-
-- (BOOL) runSuppressableBooleanDialogWithIdentifier: (NSString*) identifier
-                                            message: (NSString*) message
-                                           okButton: (NSString*) ok
-                                       cancelButton: (NSString*) cancel
-                                  destructiveAction:(BOOL)hasDestructiveAction
-{
-    BOOL reallyDoIt = NO;
-    NSString * userDefaultsKey = [NSString stringWithFormat: @"supress%@Dialog", identifier];
-    BOOL suppressAlert = [[NSUserDefaults standardUserDefaults] boolForKey: userDefaultsKey];
-    if (suppressAlert ) {
-        reallyDoIt = YES;
-    } else {
-        NSAlert *alert = [NSAlert new];
-        [alert setMessageText: NSLocalizedString(message, nil)];
-        [alert addButtonWithTitle: NSLocalizedString(cancel, nil)];
-        [alert addButtonWithTitle: NSLocalizedString(ok, nil)];
-        if (hasDestructiveAction) {
-            alert.buttons[1].hasDestructiveAction = hasDestructiveAction;
-            alert.alertStyle = NSAlertStyleCritical;
-        }
-        [alert setShowsSuppressionButton: YES];
-        
-        if ([alert runModal] == NSAlertSecondButtonReturn) {
-            reallyDoIt = YES;
-        }
-        [[NSUserDefaults standardUserDefaults] setBool: alert.suppressionButton.state forKey: userDefaultsKey];
-    }
-    return reallyDoIt;
 }
 
 - (IBAction)collectionActionClicked: (id) sender
