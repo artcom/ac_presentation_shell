@@ -11,11 +11,11 @@
 #import "localized_text_keys.h"
 
 static void fileOpStatusCallback (FSFileOperationRef fileOp,
-                            const FSRef *currentItem,
-                            FSFileOperationStage stage,
-                            OSStatus error,
-                            CFDictionaryRef statusDictionary,
-                            void *info );
+                                  const FSRef *currentItem,
+                                  FSFileOperationStage stage,
+                                  OSStatus error,
+                                  CFDictionaryRef statusDictionary,
+                                  void *info );
 
 static NSNumber * copy_op;
 static NSNumber * trash_op;
@@ -76,17 +76,17 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     Boolean isDir = TRUE;
     FSRef destDirRef;
     FSPathMakeRef((UInt8*)[[presentation absoluteDirectory] fileSystemRepresentation], &destDirRef, &isDir);
-
+    
     FSFileOperationRef op = FSFileOperationCreate(NULL);
     CFRunLoopRef runLoop = CFRunLoopGetCurrent();
     OSStatus error = FSFileOperationScheduleWithRunLoop(op, runLoop, kCFRunLoopDefaultMode);
     if (error != noErr) {
-        NSLog(@"Broken: failed to schedule file op on run loop");
+        NSLog(@"Error: failed to schedule file op on run loop");
         return;
     }
     
     FSFileOperationClientContext	clientContext;
-
+    
     clientContext.version = 0;
     clientContext.info = (__bridge void *) self;
     clientContext.retain = CFRetain;
@@ -97,11 +97,17 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
         error = FSCopyObjectAsync(op, &srcRef, &destDirRef, NULL, kFSFileOperationDefaultOptions,
                                   fileOpStatusCallback, 1.0, &clientContext);
         [delegate setMessage: NSLocalizedString(ACSHELL_STR_COPYING_ITEMS, nil)];
+        if (error != noErr) {
+            NSLog(@"Error: failed to copy assets: %d", (int)error);
+        }
     } else if ([opcode isEqualToNumber: trash_op]) {
         [delegate setMessage: NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
         error = FSMoveObjectToTrashAsync(op, &srcRef, kFSFileOperationDefaultOptions,
                                          fileOpStatusCallback, 1.0, &clientContext);
-    }	
+        if (error != noErr) {
+            NSLog(@"Error: failed to delete assets: %d", (int)error);
+        }
+    }
 }
 
 - (void) fileOp: (FSFileOperationRef) fileOp didUpdateStatus: (const FSRef*) currentItem 
@@ -134,11 +140,11 @@ statusDictionary: (CFDictionaryRef) statusDictionary
 @end
 
 static void fileOpStatusCallback (FSFileOperationRef fileOp,
-                            const FSRef *currentItem,
-                            FSFileOperationStage stage,
-                            OSStatus error,
-                            CFDictionaryRef statusDictionary,
-                            void *info )
+                                  const FSRef *currentItem,
+                                  FSFileOperationStage stage,
+                                  OSStatus error,
+                                  CFDictionaryRef statusDictionary,
+                                  void *info )
 {
     AssetManager * importer = (__bridge AssetManager*) info;
     [importer fileOp: fileOp didUpdateStatus: currentItem stage: stage error: error statusDictionary: statusDictionary];
