@@ -33,6 +33,8 @@
 "DeleteCollection" = "Willst Du die ausgewählte Sammlung wirklich löschen?";
 "Delete" = "Löschen";
 "DeletePresentation" = "Willst Du die ausgewählten Präsentationen wirklich aus dieser Sammlung löschen?";
+"DeleteTag" = "Willst Du den ausgewählten Tag wirklich aus der Bibliothek löschen? Dieser Tag wird dann aus allen Präsentationen entfernt.";
+
 "DropKeynote" = "Lass eine Keynote fallen";
 "Upload" = "Hochladen";
 "UploadTooltip" = "Lokale Bibliothek auf den Server laden";

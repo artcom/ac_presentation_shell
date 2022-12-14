@@ -33,6 +33,7 @@
 #define ACSHELL_STR_DELETE_COLLECTION     @"DeleteCollection"
 #define ACSHELL_STR_DELETE                @"Delete"
 #define ACSHELL_STR_DELETE_PRESENTATION   @"DeletePresentation"
+#define ACSHELL_STR_DELETE_TAG            @"DeleteTag"
 #define ACSHELL_STR_DROP_KEYNOTE          @"DropKeynote"
 #define ACSHELL_STR_UPLOAD                @"Upload"
 #define ACSHELL_STR_UPLOAD_TOOLTIP        @"UploadTooltip"

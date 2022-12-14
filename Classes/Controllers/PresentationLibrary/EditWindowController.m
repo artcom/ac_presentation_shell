@@ -13,6 +13,7 @@
 #import "KeynoteHandler.h"
 #import "LibraryTagCellView.h"
 #import "localized_text_keys.h"
+#import "NSAlert+Dialogs.h"
 
 // keep this in sync with the interface builder tags
 enum TagActionTags {
@@ -341,9 +342,16 @@ enum TagActionTags {
 
 - (void)deleteTag
 {
-    NSInteger row = self.tagList.selectedRow;
-    [self.presentationLibrary removeTag:row];
-    [self.tagList reloadData];
+    BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_TAG
+                                                             message: ACSHELL_STR_DELETE_TAG
+                                                            okButton: ACSHELL_STR_DELETE
+                                                        cancelButton: ACSHELL_STR_CANCEL
+                                                   destructiveAction:YES];
+    if (deleteIt) {
+        NSInteger row = self.tagList.selectedRow;
+        [self.presentationLibrary removeTag:row];
+        [self.tagList reloadData];
+    }
 }
 
 - (void) updateOkButton {
