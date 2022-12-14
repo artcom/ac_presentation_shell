@@ -25,6 +25,7 @@
 @property (assign) BOOL syncSuccessful;
 @property (nonatomic, strong) NSString *libraryDirPath;
 @property (strong) NSString *categoriesDirectory;
+@property (assign) BOOL indexing;
 
 @property (weak, readonly) NSString* librarySource;
 @property (weak, readonly) NSString* libraryTarget;

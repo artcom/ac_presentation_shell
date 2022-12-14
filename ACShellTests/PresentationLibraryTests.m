@@ -37,6 +37,7 @@
     [NSFileManager.defaultManager createDirectoryAtPath:self.storageLibraryPath withIntermediateDirectories:YES attributes:nil error:nil];
     
     _library = [PresentationLibrary new];
+    self.library.indexing = NO;
     [self.library loadXmlLibraryFromDirectory:self.libraryPath];
     
     _presentationId = @"B2EE53BC-85E3-4024-B232-21A5C04AD8CA";
@@ -196,6 +197,7 @@
     [self.library saveXmlLibrary];
     
     _library = [PresentationLibrary new];
+    self.library.indexing = NO;
     [self.library loadXmlLibraryFromDirectory:self.storageLibraryPath];
     
     XCTAssertEqualObjects(self.library.categoriesDirectory, @"_categories", @"Library should have a valid path for category assets.");
@@ -271,6 +273,7 @@
     [self.library saveXmlLibrary];
     
     _library = [PresentationLibrary new];
+    self.library.indexing = NO;
     [self.library loadXmlLibraryFromDirectory:self.storageLibraryPath];
     
     XCTAssertEqual(self.library.tags.count, 2, @"Library should contain 3 tags.");

@@ -76,6 +76,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     if (self != nil) {
         [self setup];
         self.syncSuccessful = YES;
+        self.indexing = YES;
     }
     return self;
 }
@@ -90,6 +91,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self.tagged addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_TAGGED]];
         
         self.syncSuccessful = [aDecoder decodeBoolForKey: ACSHELL_SYNC_SUCCESSFUL];
+        self.indexing = YES;
         
         [self.library assignContext: self];
     }
@@ -205,8 +207,10 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self syncPresentations];
     [self cacheThumbnails];
     
-    self.librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
-    [self.librarySearch updateIndex];
+    if (self.indexing) {
+        self.librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
+        [self.librarySearch updateIndex];
+    }
     
     return YES;
 }
@@ -289,16 +293,18 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:ACShellLibraryDidUpdate object:nil];
     
-    // TODO: Ideally, this would be a possible place to add:
-    // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
-    // this method is called when an ongoing copy operation of the AssetManager is still ongoing and the
-    // indexing process would use incomplete file data. To fix this one has to cleanup the mess
-    // in addPresentation and updatePresentation where AssetManager is initiated but its progress not
-    // tracked within this same class. (Progress might be tracked by whoever called the methods) Right now,
-    // this PresentationLibrary does not know when it's is in a valid state after file operations.
-    // Now, because updateIndex will not crash the app if it's running across incomplete files, I'll keep it in.
-    
-    [self.librarySearch updateIndex];
+    if (self.indexing) {
+        // TODO: Ideally, this would be a possible place to add:
+        // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
+        // this method is called when an ongoing copy operation of the AssetManager is still ongoing and the
+        // indexing process would use incomplete file data. To fix this one has to cleanup the mess
+        // in addPresentation and updatePresentation where AssetManager is initiated but its progress not
+        // tracked within this same class. (Progress might be tracked by whoever called the methods) Right now,
+        // this PresentationLibrary does not know when it's is in a valid state after file operations.
+        // Now, because updateIndex will not crash the app if it's running across incomplete files, I'll keep it in.
+        
+        [self.librarySearch updateIndex];
+    }
 }
 
 - (NSXMLElement *) xmlNodeForCategory: (NSString *)aId
