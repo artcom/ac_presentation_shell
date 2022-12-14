@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @class PresentationLibrary;
 @interface LibraryTag : NSObject <NSCoding, NSCopying>
 
@@ -18,5 +16,3 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithId:(NSString *)ID inContext:(PresentationLibrary *)context;
 @end
-
-NS_ASSUME_NONNULL_END
