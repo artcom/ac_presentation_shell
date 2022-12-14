@@ -38,7 +38,7 @@
 
 - (void)main {
     if (self.isCancelled) return;
-    self.results = [[NSMutableArray alloc] init];
+    self.results = NSMutableArray.new;
     
     SKSearchOptions options = kSKSearchOptionDefault;
     SKSearchRef     search = SKSearchCreate(_index, (__bridge CFStringRef)self.query, options);
@@ -59,7 +59,7 @@
         
         for (CFIndex i = 0; i < foundCount; i++) {
             SKDocumentRef doc = (SKDocumentRef)documentRefs[i];
-            ACSearchIndexResult *result = [[ACSearchIndexResult alloc] init];
+            ACSearchIndexResult *result = ACSearchIndexResult.new;
             result.score = scores[i];
             result.documentUrl = (__bridge_transfer NSURL *)SKDocumentCopyURL(doc);
             result.documentId = documentIds[i];

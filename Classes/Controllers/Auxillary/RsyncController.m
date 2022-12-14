@@ -211,7 +211,7 @@
 -(NSAlert*) confirmDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                style: (NSAlertStyle) style buttonTitles: (NSArray *)titles
 {
-    NSAlert * dialog = [[NSAlert alloc] init];
+    NSAlert * dialog = NSAlert.new;
 
 	if (titles == nil) {
 		titles = [NSArray arrayWithObjects: ACSHELL_STR_OK, ACSHELL_STR_CANCEL, nil];
@@ -230,7 +230,7 @@
 -(NSAlert*) acknowledgeDialogWithMessage: (NSString*) message informationalText: (NSString*) informationalText
                                    style: (NSAlertStyle) style
 {
-    NSAlert * dialog = [[NSAlert alloc] init];
+    NSAlert * dialog = NSAlert.new;
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_OK, nil)];
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
@@ -239,7 +239,7 @@
 }
 
 -(NSAlert*) progressDialog {
-    NSAlert * dialog = [[NSAlert alloc] init];
+    NSAlert * dialog = NSAlert.new;
     [dialog addButtonWithTitle: NSLocalizedString(ACSHELL_STR_ABORT, nil)];
     [dialog setMessageText: NSLocalizedString(ACSHELL_STR_SYNCING,nil)];
     [dialog setInformativeText: NSLocalizedString(ACSHELL_STR_TAKE_A_WHILE,nil)];

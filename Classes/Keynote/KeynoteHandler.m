@@ -23,7 +23,7 @@ KeynoteHandler *sharedInstance;
 
 + (KeynoteHandler *)sharedHandler {
     if (sharedInstance == nil) {
-        sharedInstance = [[KeynoteHandler alloc] init];
+        sharedInstance = KeynoteHandler.new;
     }
     
     return sharedInstance;

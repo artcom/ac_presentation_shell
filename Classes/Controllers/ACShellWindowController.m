@@ -61,13 +61,13 @@
     
     [self.libraryTableViewController bind: @"currentPresentationList" toObject:self.libraryViewController.collectionTreeController withKeyPath:@"selection.presentations" options:nil];
     
-    self.presentationWindowController = [[PresentationWindowController alloc] init];
+    self.presentationWindowController = PresentationWindowController.new;
     
     if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
         self.editWindowController = [[EditWindowController alloc] initWithPresentationLibrary:self.presentationLibrary];
     }
     
-    self.rsyncController = [[RsyncController alloc] init];
+    self.rsyncController = RsyncController.new;
     self.rsyncController.documentWindow = self.window;
     self.rsyncController.delegate = self;
     

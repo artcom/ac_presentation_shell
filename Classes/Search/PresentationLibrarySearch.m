@@ -29,7 +29,7 @@
 
 - (void)updateIndex {
     
-    self.searchIndex = [[ACSearchIndex alloc] init];
+    self.searchIndex = [ACSearchIndex new];
     NSLog(@"Indexing..");
     [self.searchIndex addDocumentsAt:self.libraryPath withExtension:@"key" completion:^(NSInteger numDocuments) {
         NSLog(@"Indexed %lu Keynote files", numDocuments);

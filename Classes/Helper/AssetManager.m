@@ -43,7 +43,7 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     if (self != nil) {
         presentation = thePresentation;
         delegate = theDelegate;
-        assets = [[NSMutableArray alloc] init];
+        assets = NSMutableArray.new;
         index = 0;
     }
     return self;

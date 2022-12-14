@@ -35,7 +35,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
         // a serial queue and there won't be any issues with accessing the same resource
         // from different threads. The queue itself will be running as a whole on a
         // separate thread though.
-        self.operationQueue = [[NSOperationQueue alloc] init];
+        self.operationQueue = NSOperationQueue.new;
         self.operationQueue.maxConcurrentOperationCount = 1;
         
         SKLoadDefaultExtractorPlugIns();
@@ -139,7 +139,7 @@ NSString * const INDEX_NAME = @"DefaultIndex";
                                  @"kSKProximitySearching" : @1};
     
     SKIndexRef index;
-    NSMutableData *data = [[NSMutableData alloc] init];
+    NSMutableData *data = NSMutableData.new;
     index = SKIndexCreateWithMutableData((__bridge CFMutableDataRef)data, (__bridge CFStringRef)INDEX_NAME, kSKIndexInverted, (__bridge CFDictionaryRef)properties);
     self.indexData = data;
     return index;

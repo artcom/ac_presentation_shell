@@ -105,7 +105,7 @@
     if (year == nil) {
         NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
         if ([yearNodes count] > 0) {
-            NSNumberFormatter * formatter = [[NSNumberFormatter alloc] init];
+            NSNumberFormatter * formatter = NSNumberFormatter.new;
             year = [formatter numberFromString: [[yearNodes objectAtIndex: 0] stringValue]];
         }
     }

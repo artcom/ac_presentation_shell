@@ -30,7 +30,7 @@
 		self.layer = [CALayer layer];
 		[self setWantsLayer:YES];
 		
-		dots = [[NSMutableArray alloc] init];
+		dots = NSMutableArray.new;
         
 		self.pages = 1;
 		self.activePage = 0;

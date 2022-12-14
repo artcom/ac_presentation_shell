@@ -128,7 +128,7 @@ enum TagActionTags {
 }
 
 - (IBAction) userWantsToDeletePresentation: (id) sender {
-    NSAlert * alert = [[NSAlert alloc] init];
+    NSAlert * alert = NSAlert.new;
     alert.messageText = NSLocalizedString(ACSHELL_STR_DELETE_PRESENTATION_WARNING, nil);
     [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
     [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_DELETE, nil)];

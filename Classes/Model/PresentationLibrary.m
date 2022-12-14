@@ -68,7 +68,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     if (lib != nil) {
         return lib;
     }
-    return [[PresentationLibrary alloc] init];
+    return PresentationLibrary.new;
 }
 
 -(id) init {
@@ -104,7 +104,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 -(void) setup {
-    self.thumbnailCache = [[NSMutableDictionary alloc] init];
+    self.thumbnailCache = NSMutableDictionary.new;
     
     self.categoryData = nil;
     self.tagData = nil;
@@ -586,7 +586,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)addNewPresentations: (NSMutableArray*) thePresentations withPredicate: (NSPredicate *) thePredicate {
-    NSMutableArray * presentIds = [[NSMutableArray alloc] init];
+    NSMutableArray * presentIds = NSMutableArray.new;
     for (Presentation* presentation in thePresentations) {
         [presentIds addObject: presentation.presentationId];
     }

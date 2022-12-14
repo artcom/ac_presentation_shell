@@ -64,11 +64,11 @@ enum PageTags {
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) theDelegate {
     self = [super initWithWindowNibName: @"SetupAssistant"];
     if (self) {
-        publicKeys = [[NSMutableArray alloc] init];
+        publicKeys = NSMutableArray.new;
         bonjourBrowserRunning = NO;
-        bonjourBrowser = [[NSNetServiceBrowser alloc] init];
+        bonjourBrowser = NSNetServiceBrowser.new;
         [bonjourBrowser setDelegate: self];
-        bonjourLibraries = [[NSMutableArray alloc] init];
+        bonjourLibraries = NSMutableArray.new;
         delegate = theDelegate;
     }
     return self;

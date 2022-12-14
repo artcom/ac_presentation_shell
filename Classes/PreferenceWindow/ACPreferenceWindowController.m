@@ -28,7 +28,7 @@
         
         preferencePages = pages;
 
-        NSMutableArray * toolbarIds = [[NSMutableArray alloc] init];
+        NSMutableArray * toolbarIds = NSMutableArray.new;
         for (ACPreferencePage * page in preferencePages) {
             [toolbarIds addObject: [page toolbarItemIdentifier]];
         }
@@ -124,7 +124,7 @@
 #pragma mark -
 #pragma mark Class Methods
 + (NSPanel*) preferenceWindow {
-    NSPanel * panel = [[NSPanel alloc] init];
+    NSPanel * panel = NSPanel.new;
     [panel setHidesOnDeactivate:NO];
     [panel setShowsToolbarButton: NO];
     [panel setStyleMask: [panel styleMask] | NSWindowStyleMaskMiniaturizable];

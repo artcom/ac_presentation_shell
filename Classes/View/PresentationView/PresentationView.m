@@ -45,8 +45,8 @@
     [self setLayer:rootLayer];
     [self setWantsLayer:YES];
     
-    self.sublayers = [[NSMutableArray alloc] init];
-    layout = [[GridLayout alloc] init];
+    self.sublayers = NSMutableArray.new;
+    layout = GridLayout.new;
     
     self.page = 0;
     

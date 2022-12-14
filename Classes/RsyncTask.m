@@ -62,7 +62,7 @@
 - (void)sync {
 	NSLog(@"syncing from %@ to %@", self.source, self.destination);
 	
-    self.task = [[NSTask alloc] init];
+    self.task = NSTask.new;
     [self.task setLaunchPath: RSYNC_EXECUTABLE];
     
     NSString *deleteOrUpdate = nil;
@@ -81,10 +81,10 @@
     
     [self.task setArguments: taskArgs];
     
-    self.pipe = [[NSPipe alloc] init];
+    self.pipe = NSPipe.new;
     [self.task setStandardOutput:self.pipe];
 	
-	self.errorPipe = [[NSPipe alloc] init];
+    self.errorPipe = NSPipe.new;
 	[self.task setStandardError:self.errorPipe];
     
     // required to make the askpass magic work

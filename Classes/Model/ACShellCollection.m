@@ -16,7 +16,7 @@
 @synthesize children;
 
 + (ACShellCollection *) collectionWithName: (NSString *)theName presentations: (NSMutableArray *)thePresentations children: (NSMutableArray *)theChildren {
-	ACShellCollection *collection = [[ACShellCollection alloc] init];
+    ACShellCollection *collection = ACShellCollection.new;
 	
 	collection.name = theName;
 	collection.presentations = thePresentations;
@@ -26,7 +26,7 @@
 }
 
 + (ACShellCollection *) collectionWithName: (NSString *)theName {
-	ACShellCollection *collection = [[ACShellCollection alloc] init];
+    ACShellCollection *collection = ACShellCollection.new;
 	
 	collection.name = theName;
 	collection.presentations = [NSMutableArray  array];
