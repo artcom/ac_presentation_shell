@@ -260,11 +260,11 @@ Gw
                     </textField>
                     <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="20" horizontalPageScroll="10" verticalLineScroll="20" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eys-wH-fmG">
                         <rect key="frame" x="94" y="88" width="284" height="96"/>
-                        <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="rfR-tM-Yx9">
+                        <clipView key="contentView" drawsBackground="NO" id="rfR-tM-Yx9">
                             <rect key="frame" x="0.0" y="0.0" width="284" height="96"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView verticalHuggingPriority="750" ambiguous="YES" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" id="6ys-Jq-0LV">
+                                <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" tableStyle="plain" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" rowSizeStyle="automatic" viewBased="YES" id="6ys-Jq-0LV">
                                     <rect key="frame" x="0.0" y="0.0" width="284" height="96"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
@@ -330,7 +330,7 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <textField verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fv0-GA-FuW">
+                    <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fv0-GA-FuW">
                         <rect key="frame" x="98" y="62" width="202" height="16"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" drawsBackground="YES" usesSingleLineMode="YES" id="0Bt-5B-yJD">
                             <font key="font" usesAppearanceFont="YES"/>
@@ -341,7 +341,7 @@ Gw
                             <outlet property="delegate" destination="-2" id="emk-Zy-o2G"/>
                         </connections>
                     </textField>
-                    <segmentedControl verticalHuggingPriority="750" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uXN-N8-4E4" userLabel="Label Actions">
+                    <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uXN-N8-4E4" userLabel="Label Actions">
                         <rect key="frame" x="307" y="58" width="72" height="23"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="70" id="Hcd-6I-6pb"/>
@@ -384,7 +384,6 @@ Gw
                     <constraint firstItem="153" firstAttribute="leading" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="LRN-07-aKq"/>
                     <constraint firstItem="157" firstAttribute="top" secondItem="185" secondAttribute="top" id="Mce-jk-uSJ"/>
                     <constraint firstAttribute="trailing" secondItem="212" secondAttribute="trailing" constant="20" symbolic="YES" id="NKC-W7-ZIg"/>
-                    <constraint firstItem="fv0-GA-FuW" firstAttribute="leading" secondItem="6ys-Jq-0LV" secondAttribute="leading" id="OrH-3J-vhd"/>
                     <constraint firstAttribute="trailing" secondItem="163" secondAttribute="trailing" constant="20" symbolic="YES" id="QEr-DN-myn"/>
                     <constraint firstItem="187" firstAttribute="top" secondItem="163" secondAttribute="top" id="QZC-Zg-uyb"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="top" secondItem="s1J-Ps-Elp" secondAttribute="top" id="QzN-ki-7zc"/>
@@ -404,6 +403,7 @@ Gw
                     <constraint firstItem="162" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="bd2-WB-W3H"/>
                     <constraint firstItem="162" firstAttribute="top" secondItem="kMM-PX-hhw" secondAttribute="bottom" constant="16" id="bps-Xc-VJg"/>
                     <constraint firstItem="200" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="2" secondAttribute="leading" constant="20" symbolic="YES" id="dCP-s3-Kmj"/>
+                    <constraint firstItem="fv0-GA-FuW" firstAttribute="leading" secondItem="163" secondAttribute="leading" id="eKT-4h-iJQ"/>
                     <constraint firstItem="ZQs-aZ-FU9" firstAttribute="leading" secondItem="bjo-A7-8Od" secondAttribute="leading" id="fFu-Fb-Cm7"/>
                     <constraint firstItem="fv0-GA-FuW" firstAttribute="centerY" secondItem="uXN-N8-4E4" secondAttribute="centerY" id="g5K-FZ-M1K"/>
                     <constraint firstItem="Zsa-9C-p0n" firstAttribute="top" secondItem="6sB-G8-zQR" secondAttribute="bottom" constant="16" id="gE1-6K-7ab"/>
