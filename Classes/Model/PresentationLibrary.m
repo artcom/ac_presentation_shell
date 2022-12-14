@@ -98,7 +98,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (void)reload {
-    [self loadXmlLibraryFromDirectory: self.libraryDirPath];
+    [self loadXmlLibraryFromDirectory:self.libraryDirPath];
 }
 
 -(void) setup {
@@ -137,8 +137,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [NSKeyedArchiver archiveRootObject: self toFile:[PresentationLibrary settingsFilepath]];
 }
 
-- (BOOL)loadXmlLibraryFromDirectory:(NSString*) directory {
-    
+- (BOOL)loadXmlLibraryFromDirectory:(NSString *)directory {
     [self flushThumbnailCache];
     self.categoryData = nil;
     self.tagData = nil;

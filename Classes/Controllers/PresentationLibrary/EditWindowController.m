@@ -355,15 +355,15 @@ enum TagActionTags {
 }
 
 - (void) updateOkButton {
-    bool isEnabled = titleField.stringValue.length > 0 && droppedKeynote.fileExists && droppedThumbnail.fileExists;
+    BOOL isEnabled = titleField.stringValue.length > 0 && droppedKeynote.fileExists && droppedThumbnail.fileExists;
     [okButton setEnabled:isEnabled];
 }
 
 - (void)updateTagControls {
-    bool hasText = self.tagInput.stringValue.length > 0;
+    BOOL hasText = self.tagInput.stringValue.length > 0;
     [self.tagControls setEnabled:hasText forSegment:0];
     
-    bool isSelected = self.tagList.selectedRow > -1;
+    BOOL isSelected = self.tagList.selectedRow > -1;
     [self.tagControls setEnabled:isSelected forSegment:1];
 }
 
