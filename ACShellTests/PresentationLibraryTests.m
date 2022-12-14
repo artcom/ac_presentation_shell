@@ -32,9 +32,9 @@
     _libraryPath = [self.libraryXML stringByDeletingLastPathComponent];
     _storageLibraryPath = [NSString stringWithFormat:@"%@acshelltests/library", NSTemporaryDirectory()];
     
-    [[NSUserDefaults standardUserDefaults] setObject:_libraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    [[NSFileManager defaultManager] createDirectoryAtPath:self.storageLibraryPath withIntermediateDirectories:YES attributes:nil error:nil];
+    [NSUserDefaults.standardUserDefaults setObject:_libraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [NSUserDefaults.standardUserDefaults synchronize];
+    [NSFileManager.defaultManager createDirectoryAtPath:self.storageLibraryPath withIntermediateDirectories:YES attributes:nil error:nil];
     
     _library = [PresentationLibrary new];
     [self.library loadXmlLibraryFromDirectory:self.libraryPath];
@@ -45,8 +45,7 @@
 - (void)tearDown
 {
     self.library = nil;
-    [[NSFileManager defaultManager] removeItemAtPath:self.storageLibraryPath error:nil];
-    
+    [NSFileManager.defaultManager removeItemAtPath:self.storageLibraryPath error:nil];
     [super tearDown];
 }
 
@@ -172,7 +171,7 @@
     XCTAssertEqualObjects(presentation.tagsTitles, @"AR, VR", @"Presentation should return valid tag titles.");
 }
 
-- (void)testSerializeLibraryXML
+- (void)testSerializeLibraryXMLAfterUpdate
 {
     ACShellCollection *root = self.library.library;
     ACShellCollection *library = root.children.firstObject;
@@ -180,16 +179,18 @@
     NSPredicate *allCollection = [NSPredicate predicateWithFormat:@"name = 'All'"];
     ACShellCollection *all = [library.children filteredArrayUsingPredicate:allCollection].firstObject;
     
+    // Update a presentation
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"presentationId = %@", self.presentationId];
     Presentation *presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
     presentation.title = @"THE NEW TITLE";
     presentation.categories = @[@"2", @"1"];
     presentation.tags = @[@"AR", @"VR"];
     
+    // Update taglist
     [self.library addTag:@"TEST"];
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [NSUserDefaults.standardUserDefaults synchronize];
     
     self.library.libraryDirPath = self.storageLibraryPath;
     [self.library saveXmlLibrary];
@@ -241,21 +242,30 @@
     LibraryTag *tagFour = self.library.tags[3];
     XCTAssertEqualObjects(tagFour.ID, @"VR", @"Tag four should have a vaild title.");
     
-    root = self.library.library;
-    library = root.children.firstObject;
-    all = [library.children filteredArrayUsingPredicate:allCollection].firstObject;
     presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
     XCTAssertEqualObjects(presentation.title, @"THE NEW TITLE", @"Presentation should have a valid title.");
     XCTAssertEqual(presentation.categories.count, 2, @"Presentation should have 2 categories set.");
     XCTAssertEqualObjects(presentation.categoriesTitles, @"one, two", @"Presentation should return valid category titles.");
     XCTAssertEqual(presentation.tags.count, 2, @"Presentation should have 2 tags set.");
     XCTAssertEqualObjects(presentation.tagsTitles, @"AR, VR", @"Presentation should return valid tag titles.");
+}
+
+- (void)testSerializeLibraryXMLAfterDeletion
+{
+    ACShellCollection *root = self.library.library;
+    ACShellCollection *library = root.children.firstObject;
     
-    [self.library removeTag:2];
+    NSPredicate *allCollection = [NSPredicate predicateWithFormat:@"name = 'All'"];
+    ACShellCollection *all = [library.children filteredArrayUsingPredicate:allCollection].firstObject;
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"presentationId = %@", self.presentationId];
+    Presentation *presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
+    
+    // Remove tags from library
     [self.library removeTag:2];
     
-    [[NSUserDefaults standardUserDefaults] setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [NSUserDefaults.standardUserDefaults synchronize];
     
     self.library.libraryDirPath = self.storageLibraryPath;
     [self.library saveXmlLibrary];
@@ -265,10 +275,10 @@
     
     XCTAssertEqual(self.library.tags.count, 2, @"Library should contain 3 tags.");
     
-    tagOne = self.library.tags[0];
+    LibraryTag *tagOne = self.library.tags[0];
     XCTAssertEqualObjects(tagOne.ID, @"AI", @"Tag one should have a vaild title.");
     
-    tagTwo = self.library.tags[1];
+    LibraryTag *tagTwo = self.library.tags[1];
     XCTAssertEqualObjects(tagTwo.ID, @"AR", @"Tag two should have a vaild title.");
     
     root = self.library.library;
@@ -279,8 +289,8 @@
     predicate = [NSPredicate predicateWithFormat:@"presentationId = %@", self.presentationId];
     presentation = [all.presentations filteredArrayUsingPredicate:predicate].firstObject;
     
-    XCTAssertEqual(presentation.tags.count, 1, @"Presentation should have 1 tag set.");
-    XCTAssertEqualObjects(presentation.tagsTitles, @"AR", @"Presentation should return valid tag titles.");
+    XCTAssertEqual(presentation.tags.count, 2, @"Presentation should have 1 tag set.");
+    XCTAssertEqualObjects(presentation.tagsTitles, @"AI, AR", @"Presentation should return valid tag titles.");
 }
 
 @end
