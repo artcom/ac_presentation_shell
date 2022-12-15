@@ -11,7 +11,7 @@
 #define ACSHELL_STR_ALL                   @"All"
 #define ACSHELL_STR_HIGHLIGHTS            @"Highlights"
 #define ACSHELL_STR_COLLECTIONS           @"Collections"
-#define ACSHELL_STR_TAGGED                @"Tagged"
+#define ACSHELL_STR_TAGS                  @"Tags"
 #define ACSHELL_STR_N_OF_M_PRESENTATIONS  @"NofMPresentations"
 #define ACSHELL_STR_N_PRESENTATIONS       @"NPresentations"
 #define ACSHELL_STR_NEW_COLLECTION        @"NewCollection"

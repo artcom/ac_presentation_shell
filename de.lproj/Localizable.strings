@@ -10,7 +10,6 @@
 "All" = "Alle";
 "Highlights" = "Glanzlichter";
 "Collections" = "Sammlungen";
-"Tagged" = "Tags";
 "Tags" = "Tags";
 "NofMPresentations" = "%d von %d Präsentationen";
 "NPresentations" = "%d Präsentationen";
@@ -34,7 +33,6 @@
 "Delete" = "Löschen";
 "DeletePresentation" = "Willst Du die ausgewählten Präsentationen wirklich aus dieser Sammlung löschen?";
 "DeleteTag" = "Willst Du den ausgewählten Tag wirklich aus der Bibliothek löschen? Dieser Tag wird dann aus allen Präsentationen entfernt.";
-
 "DropKeynote" = "Lass eine Keynote fallen";
 "Upload" = "Hochladen";
 "UploadTooltip" = "Lokale Bibliothek auf den Server laden";

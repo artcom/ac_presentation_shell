@@ -10,6 +10,7 @@
 "Library" = "Library";
 "All" = "All";
 "Highlights" = "Highlights";
+"Collections" = "Collections";
 "Tags" = "Tags";
 "NofMPresentations" = "%d of %d presentations";
 "NPresentations" = "%d presentations";
@@ -33,7 +34,6 @@
 "Delete" = "Delete";
 "DeletePresentation" = "Do you really want to remove the selected presentations from the current collection?";
 "DeleteTag" = "Do you really want to remove the selected tag from the library? This tag will be removed from all presentations.";
-"DeleteTag" = "";
 "DropKeynote" = "Drop a keynote";
 "Upload" = "Upload";
 "UploadTooltip" = "Upload local library to server";

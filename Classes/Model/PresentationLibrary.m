@@ -88,7 +88,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey: ACSHELL_STR_ALL]];
         [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_HIGHLIGHTS]];
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_COLLECTIONS]];
-        [self.tagged addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_TAGGED]];
+        [self.tagged addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_TAGS]];
         
         self.syncSuccessful = [aDecoder decodeBoolForKey: ACSHELL_SYNC_SUCCESSFUL];
         self.indexing = YES;
@@ -122,7 +122,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     ACShellCollection *collections = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_COLLECTIONS, nil)];
     [self.library.children addObject: collections];
     
-    ACShellCollection *tagged = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_TAGGED, nil)];
+    ACShellCollection *tagged = [ACShellCollection collectionWithName: NSLocalizedString(ACSHELL_STR_TAGS, nil)];
     [self.library.children addObject: tagged];
 }
 
@@ -130,7 +130,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [aCoder encodeObject: self.allPresentations forKey:ACSHELL_STR_ALL];
     [aCoder encodeObject: self.highlights forKey:ACSHELL_STR_HIGHLIGHTS];
     [aCoder encodeObject: self.collections forKey:ACSHELL_STR_COLLECTIONS];
-    [aCoder encodeObject: self.tagged forKey:ACSHELL_STR_TAGGED];
+    [aCoder encodeObject: self.tagged forKey:ACSHELL_STR_TAGS];
     [aCoder encodeBool: self.syncSuccessful forKey: ACSHELL_SYNC_SUCCESSFUL];
 }
 
