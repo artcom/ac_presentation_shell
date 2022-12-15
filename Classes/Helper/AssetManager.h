@@ -12,9 +12,9 @@
 @class Presentation;
 
 @interface AssetManager : NSObject {
-
+    
     Presentation * presentation;
-
+    
     NSMutableArray * assets;    
     int index;
     

@@ -189,10 +189,10 @@
     [self willChangeValueForKey: @"hostname"];
     [self didChangeValueForKey: @"hostname"];
     
-
+    
     [self willChangeValueForKey: @"name"];
     [self didChangeValueForKey: @"name"];    
-
+    
     [self willChangeValueForKey: @"administratorAddress"];
     [self didChangeValueForKey: @"administratorAddress"];    
     

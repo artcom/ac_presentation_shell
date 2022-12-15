@@ -21,7 +21,7 @@
     if (filename != nil) {
         iconImage = [[NSWorkspace sharedWorkspace] iconForFile: aFilename];
         [iconImage setSize:NSMakeSize(64,64)];
-        if ( ! [[NSFileManager defaultManager] fileExistsAtPath: aFilename isDirectory: nil]) {
+        if ( ! [NSFileManager.defaultManager fileExistsAtPath: aFilename isDirectory: nil]) {
             iconImage = [NSImage imageNamed: @"icn_missing_file"];
         }
     }
@@ -30,7 +30,7 @@
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
     NSPasteboard *pasteboard = [sender draggingPasteboard];
- 
+    
     if ( [[pasteboard types] containsObject:NSFilenamesPboardType] ) {
         NSArray *filenames = [pasteboard propertyListForType: NSFilenamesPboardType];
         NSString * draggedFile = nil;
@@ -66,7 +66,7 @@
     if (filename == nil || [filename length] == 0) {
         return NO;
     }
-    return [[NSFileManager defaultManager] fileExistsAtPath: filename isDirectory: nil];
+    return [NSFileManager.defaultManager fileExistsAtPath: filename isDirectory: nil];
 }
 
 @end

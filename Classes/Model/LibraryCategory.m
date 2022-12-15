@@ -40,7 +40,7 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithId:self.ID inContext:self.context];
+    return [[self.class allocWithZone:zone] initWithId:self.ID inContext:self.context];
 }
 
 - (NSXMLElement*) xmlNode

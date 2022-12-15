@@ -94,10 +94,10 @@ enum CollectionActionTags {
     }
     
     BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_COLLECTION
-                                                             message: ACSHELL_STR_DELETE_COLLECTION
-                                                            okButton: ACSHELL_STR_DELETE
-                                                        cancelButton: ACSHELL_STR_CANCEL
-                                                   destructiveAction:YES];
+                                                                message: ACSHELL_STR_DELETE_COLLECTION
+                                                               okButton: ACSHELL_STR_DELETE
+                                                           cancelButton: ACSHELL_STR_CANCEL
+                                                      destructiveAction:YES];
     if (deleteIt) {
         [self.collectionTreeController removeObjectAtArrangedObjectIndexPath:selectedPath];
         

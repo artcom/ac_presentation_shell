@@ -27,7 +27,7 @@
         self.window.toolbarStyle = NSWindowToolbarStylePreference;
         
         preferencePages = pages;
-
+        
         NSMutableArray * toolbarIds = NSMutableArray.new;
         for (ACPreferencePage * page in preferencePages) {
             [toolbarIds addObject: [page toolbarItemIdentifier]];
@@ -37,11 +37,10 @@
         
         int i = 0;
         for (ACPreferencePage * page in preferencePages) {
-            [[[self window] toolbar] insertItemWithItemIdentifier: [page toolbarItemIdentifier] 
-                                                          atIndex: i++];
+            [self.window.toolbar insertItemWithItemIdentifier:page.toolbarItemIdentifier atIndex: i++];
         }
         ACPreferencePage * firstPage = [preferencePages objectAtIndex: 0];
-        [[[self window] toolbar] setSelectedItemIdentifier: [firstPage toolbarItemIdentifier]];
+        [self.window.toolbar setSelectedItemIdentifier:firstPage.toolbarItemIdentifier];
         [self showPage: nil];
     }
     return self;
@@ -49,7 +48,7 @@
 
 
 - (void) showPage: (id) sender {
-    NSString * identifier = [[[self window] toolbar] selectedItemIdentifier];
+    NSString * identifier = [self.window.toolbar selectedItemIdentifier];
     
     NSUInteger pageIndex = [preferencePages indexOfObjectPassingTest: ^(id obj, NSUInteger idx, BOOL *stop) {
         return [[(ACPreferencePage*)obj toolbarItemIdentifier] isEqual: identifier];
@@ -69,13 +68,13 @@
         return;
     }
     
-    NSRect currentWindowFrame = [[self window] frame];
+    NSRect currentWindowFrame = self.window.frame;
     CGFloat toolbarHeight = currentWindowFrame.size.height - currentViewFrame.size.height;
     
     CGFloat delta = targetViewFrame.size.height - currentViewFrame.size.height;
     NSRect newWindowFrame = NSMakeRect(currentWindowFrame.origin.x, currentWindowFrame.origin.y - delta,
                                        targetViewFrame.size.width, toolbarHeight + targetViewFrame.size.height);
-
+    
     NSView *contentView = [[NSView alloc] initWithFrame: NSMakeRect(0, 0, 0, 0)];
     self.window.contentView = contentView;
     [self.window setFrame: newWindowFrame display:YES animate:YES];
@@ -110,7 +109,7 @@
         [toolbarItem setLabel: [page title]];
         [toolbarItem setPaletteLabel: [page title]];
         [toolbarItem setImage:[NSImage imageWithSystemSymbolName:page.iconName accessibilityDescription:nil]];
-    
+        
     }
     return toolbarItem;
 }

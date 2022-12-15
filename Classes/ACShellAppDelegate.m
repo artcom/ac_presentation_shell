@@ -15,9 +15,9 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSString * filepath = [[NSBundle mainBundle] pathForResource: @"defaults" ofType: @"plist"];
+    NSString * filepath = [NSBundle.mainBundle pathForResource: @"defaults" ofType: @"plist"];
     NSMutableDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile: filepath].mutableCopy;
-    [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
+    [NSUserDefaults.standardUserDefaults registerDefaults: defaults];
     
     [self updateUserDefaults];
     
@@ -26,7 +26,7 @@
     self.setupAssistantController = [[SetupAssistantController alloc] initWithDelegate: self];
     self.preferenceController = [PreferenceController new];
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
+    if ([NSUserDefaults.standardUserDefaults boolForKey:ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
         [self updateUserDefaults];
         [self.mainWindowController showWindow:nil];
     } else {
@@ -59,12 +59,12 @@
 
 - (void)updateUserDefaults
 {
-    NSString * source = [[NSUserDefaults standardUserDefaults] objectForKey:ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+    NSString * source = [NSUserDefaults.standardUserDefaults objectForKey:ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
     if (source && ![source isEqualToString:@""]) {
         NSString *path = [PresentationLibrary sharedInstance].libraryDirPath;
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [[NSUserDefaults standardUserDefaults] setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        [NSUserDefaults.standardUserDefaults synchronize];
+        [NSUserDefaults.standardUserDefaults setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+        [NSUserDefaults.standardUserDefaults synchronize];
     }
     
 }
@@ -74,7 +74,7 @@
 
 - (void) setupDidFinish: (id) sender
 {
-    [[NSUserDefaults standardUserDefaults] setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
+    [NSUserDefaults.standardUserDefaults setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
     [self updateUserDefaults];
     [self.setupAssistantController close];
     [self.mainWindowController showWindow:nil];

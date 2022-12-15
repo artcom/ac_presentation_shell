@@ -30,11 +30,6 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 - (id)init {
     self = [super init];
     if (self) {
-        
-        // Keep concurrent operation count to 1, that way all operations are enqueued in
-        // a serial queue and there won't be any issues with accessing the same resource
-        // from different threads. The queue itself will be running as a whole on a
-        // separate thread though.
         self.operationQueue = NSOperationQueue.new;
         self.operationQueue.maxConcurrentOperationCount = 1;
         
@@ -93,13 +88,13 @@ NSString * const INDEX_NAME = @"DefaultIndex";
 
 - (NSInteger)syncAddDocumentsAt:(NSString *)path withExtension:(NSString *)extension {
     
-    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSFileManager *fileManager = NSFileManager.defaultManager;
     NSDirectoryEnumerator *fileEnumerator = [fileManager enumeratorAtPath:path];
     NSString *filePath;
     NSInteger numFilesAdded = 0;
     while ((filePath = [fileEnumerator nextObject])) {
-        BOOL ignore = [[filePath lastPathComponent] hasPrefix:@"."];
-        if (!ignore && [[filePath pathExtension] isEqualToString:extension]) {
+        BOOL ignore = [filePath.lastPathComponent hasPrefix:@"."];
+        if (!ignore && [filePath.pathExtension isEqualToString:extension]) {
             NSString *documentPath = [path stringByAppendingPathComponent:filePath];
             if ([self syncAddDocumentAt:documentPath updateIndex:NO]) {
                 ++numFilesAdded;
@@ -130,13 +125,13 @@ NSString * const INDEX_NAME = @"DefaultIndex";
     
     NSSet *stopWords = [NSSet setWithObjects: @"and", @"the", @"was", nil];
     NSDictionary *properties = @{
-                                 @"kSKStartTermChars" : @"",
-                                 @"kSKTermChars" : @"-_@./'",
-                                 @"kSKEndTermChars" : @"",
-                                 @"kSKMinTermLength" : @3,
-                                 @"kSKStopWords" : stopWords,
-                                 @"kSKMaximumTerms" : @0,
-                                 @"kSKProximitySearching" : @1};
+        @"kSKStartTermChars" : @"",
+        @"kSKTermChars" : @"-_@./'",
+        @"kSKEndTermChars" : @"",
+        @"kSKMinTermLength" : @3,
+        @"kSKStopWords" : stopWords,
+        @"kSKMaximumTerms" : @0,
+        @"kSKProximitySearching" : @1};
     
     SKIndexRef index;
     NSMutableData *data = NSMutableData.new;

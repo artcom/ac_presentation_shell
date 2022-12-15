@@ -36,7 +36,7 @@
     }
     NSImage *iconImage = nil;
     if (filename != nil) {
-        if ([[NSFileManager defaultManager] fileExistsAtPath: aFilename]) {
+        if ([NSFileManager.defaultManager fileExistsAtPath: aFilename]) {
             iconImage = [[NSImage alloc] initByReferencingFile: aFilename];
         } else {
             iconImage = [NSImage imageNamed: @"icn_missing_file"];
@@ -46,6 +46,6 @@
 }
 
 - (BOOL) fileExists {
-    return [[NSFileManager defaultManager] fileExistsAtPath: self.filename];
+    return [NSFileManager.defaultManager fileExistsAtPath: self.filename];
 }
 @end

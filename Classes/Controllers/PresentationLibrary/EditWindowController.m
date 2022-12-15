@@ -115,7 +115,7 @@ enum TagActionTags {
 }
 
 - (IBAction) userDidDropThumbnail: (id) sender {
-    [thumbnailFileLabel setStringValue: [[droppedThumbnail filename] lastPathComponent]];
+    [thumbnailFileLabel setStringValue:droppedThumbnail.filename.lastPathComponent];
     BOOL fileExists = droppedThumbnail.fileExists;
     [thumbnailFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
     [self updateOkButton];
@@ -190,7 +190,7 @@ enum TagActionTags {
 #pragma mark Progress Sheet Methods
 - (void) userDidDropKeynote: (KeynoteDropper *)keynoteDropper
 {
-    [keynoteFileLabel setStringValue: [[droppedKeynote filename] lastPathComponent]];
+    [keynoteFileLabel setStringValue:droppedKeynote.filename.lastPathComponent];
     BOOL fileExists = droppedKeynote.fileExists;
     [editButton setEnabled: fileExists];
     [keynoteFileLabel setTextColor: fileExists ? [NSColor controlTextColor] : [NSColor disabledControlTextColor]];
@@ -344,10 +344,10 @@ enum TagActionTags {
 - (void)deleteTag
 {
     BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_TAG
-                                                             message: ACSHELL_STR_DELETE_TAG
-                                                            okButton: ACSHELL_STR_DELETE
-                                                        cancelButton: ACSHELL_STR_CANCEL
-                                                   destructiveAction:YES];
+                                                                message: ACSHELL_STR_DELETE_TAG
+                                                               okButton: ACSHELL_STR_DELETE
+                                                           cancelButton: ACSHELL_STR_CANCEL
+                                                      destructiveAction:YES];
     if (deleteIt) {
         NSInteger row = self.tagList.selectedRow;
         [self.presentationLibrary removeTag:row];

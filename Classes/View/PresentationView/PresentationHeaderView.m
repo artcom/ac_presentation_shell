@@ -24,18 +24,18 @@
 - (void)setupLayers
 {
     self.wantsLayer = YES;
-    self.layer = [CALayer layer];
-    self.layer.backgroundColor = [NSColor whiteColor].CGColor;
+    self.layer = CALayer.layer;
+    self.layer.backgroundColor = NSColor.whiteColor.CGColor;
     self.layer.contentsScale = self.window.backingScaleFactor;
     
     NSImage *logoImage = [NSImage imageNamed:@"ac_logo_black"];
-    self.logo = [CALayer layer];
+    self.logo = CALayer.layer;
     self.logo.frame = CGRectMake(0, 0, logoImage.size.width, logoImage.size.height);
     self.logo.contents = logoImage;
     self.logo.contentsScale = self.window.backingScaleFactor;
     [self.layer addSublayer:self.logo];
     
-    _categoryLayers = [NSMutableArray new];
+    _categoryLayers = NSMutableArray.new;
 }
 
 - (void)updateLayout
@@ -49,7 +49,7 @@
 - (void)layoutResetLayer
 {
     [self.resetLayer removeFromSuperlayer];
-    self.resetLayer = [HeaderLayer layer];
+    self.resetLayer = HeaderLayer.layer;
     self.resetLayer.contentsScale = self.window.backingScaleFactor;
     self.resetLayer.title = @"All";
     [self.layer addSublayer:self.resetLayer];
@@ -62,7 +62,7 @@
     
     _categoryTitles = [self.dataSource titlesForCategoriesInHeaderView:self];
     for (NSString *title in self.categoryTitles) {
-        HeaderLayer *layer = [HeaderLayer layer];
+        HeaderLayer *layer = HeaderLayer.layer;
         layer.title = title;
         layer.selected = NO;
         layer.contentsScale = self.window.backingScaleFactor;

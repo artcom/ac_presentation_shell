@@ -19,9 +19,8 @@
     return self;
 }
 
-
 - (NSString*) filename {
-    return [self.path lastPathComponent];
+    return self.path.lastPathComponent;
 }
 
 @end

@@ -21,7 +21,7 @@
 - (id) init {
     self = [super init];
     if (self != nil) {
-        [[NSBundle mainBundle] loadNibNamed:@"PreferencePages" owner:self topLevelObjects:nil];
+        [NSBundle.mainBundle loadNibNamed:@"PreferencePages" owner:self topLevelObjects:nil];
     }
     return self;
 }
@@ -33,13 +33,13 @@
                                                                     iconName: @"gearshape"];
     ACPreferencePage * advancedPrefs = [[ACPreferencePage alloc] initWithView:advancedPreferences
                                                                         title: NSLocalizedString(ACSHELL_STR_ADVANCED, nil)
-                                                                    iconName: @"gearshape.2"];
+                                                                     iconName: @"gearshape.2"];
     NSArray * preferencePages = [NSArray arrayWithObjects: generalPrefs, advancedPrefs, nil];
     windowController = [[ACPreferenceWindowController alloc] initWithPages: preferencePages];
 }
 
 - (IBAction) showWindow: (id) sender {
-    [showEditWindowOption setEnabled: [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]];
+    [showEditWindowOption setEnabled: [NSUserDefaults.standardUserDefaults boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]];
     [windowController showWindow: sender];
 }
 
@@ -50,15 +50,15 @@
     dialog.allowsMultipleSelection = NO;
     dialog.canChooseFiles = NO;
     dialog.canChooseDirectories = YES;
-
+    
     if ([dialog runModal] ==  NSModalResponseOK) {
         NSString *path = dialog.URL.path;
         if (path != nil) {
-            [[NSUserDefaults standardUserDefaults] synchronize];
-            [[NSUserDefaults standardUserDefaults] setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+            [NSUserDefaults.standardUserDefaults synchronize];
+            [NSUserDefaults.standardUserDefaults setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+            [NSUserDefaults.standardUserDefaults synchronize];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:ACShellLibraryConfigDidChange object:nil];
+            [NSNotificationCenter.defaultCenter postNotificationName:ACShellLibraryConfigDidChange object:nil];
         }
     }
 }

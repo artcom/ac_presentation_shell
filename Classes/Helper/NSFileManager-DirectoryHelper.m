@@ -12,20 +12,20 @@
 @implementation NSFileManager (DirectoryHelper)
 
 - (NSString *)applicationSupportDirectoryInUserDomain {
-	NSString *applicationSupportFolder = [self findSystemFolderType:kApplicationSupportFolderType forDomain:kUserDomain];
-	NSString *myApplicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"AC Shell"];
-	
-	if (![[NSFileManager defaultManager] fileExistsAtPath:myApplicationSupportFolder]) {
-		NSError *error = nil;
-		[[NSFileManager defaultManager] createDirectoryAtPath:myApplicationSupportFolder withIntermediateDirectories:NO attributes:nil error:&error];
-		
-		if (error != nil) {
-			NSLog(@"error: %@", error);
-		}
-		
-	}
-	
-	return myApplicationSupportFolder;
+    NSString *applicationSupportFolder = [self findSystemFolderType:kApplicationSupportFolderType forDomain:kUserDomain];
+    NSString *myApplicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"AC Shell"];
+    
+    if (![NSFileManager.defaultManager fileExistsAtPath:myApplicationSupportFolder]) {
+        NSError *error = nil;
+        [NSFileManager.defaultManager createDirectoryAtPath:myApplicationSupportFolder withIntermediateDirectories:NO attributes:nil error:&error];
+        
+        if (error != nil) {
+            NSLog(@"error: %@", error);
+        }
+        
+    }
+    
+    return myApplicationSupportFolder;
 }
 
 - (NSString *)findSystemFolderType:(int)folderType forDomain:(int)domain {
@@ -33,14 +33,14 @@
     OSErr err = noErr;
     CFURLRef url;
     NSString *result = nil;
-	
+    
     err = FSFindFolder(domain, folderType, false, &folder);
     if (err == noErr) {
         url = CFURLCreateFromFSRef(kCFAllocatorDefault, &folder);
         result = [(__bridge NSURL *)url path];
-		CFRelease(url);
+        CFRelease(url);
     }
-	
+    
     return result;
 }
 

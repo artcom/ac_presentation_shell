@@ -60,8 +60,8 @@
     NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_SYNC_LIB_NOW
                                      informationalText: ACSHELL_STR_GOOD_CONNECTION
                                                  style: NSAlertStyleInformational
-												buttonTitles: nil];
-
+                                          buttonTitles: nil];
+    
     [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
         [self userDidConfirmInitialSync:confirm returnCode:returnCode source:source destination:destination];
     }];
@@ -74,19 +74,19 @@
 
 -(void) performSync: (NSString*) source destination: (NSString*) destination {
     
-    NSAlert *progressDialog = [self progressDialog];
+    NSAlert *progressDialog = self.progressDialog;
     [self showSheet:progressDialog completionHandler:^(NSModalResponse returnCode) {
         [self userDidAbortSync:progressDialog returnCode:returnCode contextInfo:nil];
     }];
     
     self.terminatedByUser = NO;
-	self.rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
-	self.rsyncTask.delegate = self;
+    self.rsyncTask = [[RsyncTask alloc] initWithSource:source destination:destination];
+    self.rsyncTask.delegate = self;
     
     fileProgressLabel.stringValue = [NSString stringWithFormat: @"%3.1f%%", 0.0];
     totalProgressLabel.stringValue = @"";
-
-	[self.rsyncTask sync];
+    
+    [self.rsyncTask sync];
 };
 
 -(void) setFileProgress: (double) percent {
@@ -103,17 +103,17 @@
     // ProgressSheet while syncing -> Done (here) -> Show AckSheet -> User clicks okay -> ProgressSheet
     // is shown again (and not initiated by code in this class!)
     // Disabling for now
-//    NSAlert *ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
-//                                     informationalText: nil
-//                                                 style: NSInformationalAlertStyle
-//                                                  icon: [self directionIcon]];
-//    
-//    [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
-//        [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
-//    }];
+    //    NSAlert *ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
+    //                                     informationalText: nil
+    //                                                 style: NSInformationalAlertStyle
+    //                                                  icon: self.directionIcon];
+    //    
+    //    [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
+    //        [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
+    //    }];
     
     [self showSheet:nil completionHandler:nil];
-	[delegate rsync:self didFinishSyncSuccessfully:YES];
+    [delegate rsync:self didFinishSyncSuccessfully:YES];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didFailWithError: (NSString *)error {
@@ -130,7 +130,7 @@
             [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
         }];
     }
-	[delegate rsync:self didFinishSyncSuccessfully: NO];
+    [delegate rsync:self didFinishSyncSuccessfully: NO];
 }
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateProgress: (double)fileProgress
@@ -149,7 +149,7 @@
 }
 
 - (void)rsyncTask: (RsyncTask *)task didUpdateMessage: (NSString *)message {    
-	if ([self.currentSheet accessoryView] == progressView) {
+    if ([self.currentSheet accessoryView] == progressView) {
         [self.currentSheet setInformativeText: message];
     }
     
@@ -173,7 +173,7 @@
         NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_ABORT_SYNC 
                                          informationalText: ACSHELL_STR_ABORT_SYNC_WARNING 
                                                      style: NSAlertStyleWarning
-											  buttonTitles: [NSArray arrayWithObjects: ACSHELL_STR_ABORT, ACSHELL_STR_CONTINUE_SYNC, nil]];
+                                              buttonTitles: [NSArray arrayWithObjects: ACSHELL_STR_ABORT, ACSHELL_STR_CONTINUE_SYNC, nil]];
         [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
             [self userDidConfirmAbort:confirm returnCode:returnCode contextInfo:nil];
         }];
@@ -185,7 +185,7 @@
         [self.rsyncTask terminate];
         self.terminatedByUser = YES;
     } else if (returnCode == NSAlertSecondButtonReturn) {
-        NSAlert * progress = [self progressDialog];
+        NSAlert * progress = self.progressDialog;
         if (self.lastRsyncMessage) [progress setInformativeText:self.lastRsyncMessage];
         [self showSheet:progress completionHandler:^(NSModalResponse returnCode) {
             [self userDidAbortSync:progress returnCode:returnCode contextInfo:nil];
@@ -212,15 +212,15 @@
                                style: (NSAlertStyle) style buttonTitles: (NSArray *)titles
 {
     NSAlert * dialog = NSAlert.new;
-
-	if (titles == nil) {
-		titles = [NSArray arrayWithObjects: ACSHELL_STR_OK, ACSHELL_STR_CANCEL, nil];
-	}
-
-	for (NSString *title in titles) {
-		[dialog addButtonWithTitle: NSLocalizedString(title, nil)];
-	}
-
+    
+    if (titles == nil) {
+        titles = [NSArray arrayWithObjects: ACSHELL_STR_OK, ACSHELL_STR_CANCEL, nil];
+    }
+    
+    for (NSString *title in titles) {
+        [dialog addButtonWithTitle: NSLocalizedString(title, nil)];
+    }
+    
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
     [dialog setAlertStyle: style];
@@ -248,7 +248,7 @@
     
     [fileProgressBar setIndeterminate: YES];
     [fileProgressBar startAnimation: self];
-
+    
     [totalProgressBar setIndeterminate: YES];
     [totalProgressBar startAnimation: self];
     return dialog;

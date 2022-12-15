@@ -15,10 +15,10 @@
 @class PaginationView;
 
 @interface PresentationView : NSView <PresentationHeaderViewDataSource, PresentationHeaderViewDelegate, CALayerDelegate> {
-
-	NSInteger hoveredItem;
-	PaginationView *paginationView;
-	NSButton *pageButtons;
+    
+    NSInteger hoveredItem;
+    PaginationView *paginationView;
+    NSButton *pageButtons;
 }
 
 @property (weak, nonatomic) IBOutlet id <PresentationViewDataSource> dataSource;

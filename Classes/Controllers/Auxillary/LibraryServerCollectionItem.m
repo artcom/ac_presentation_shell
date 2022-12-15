@@ -13,7 +13,7 @@
 
 - (void)setSelected: (BOOL) flag {
     [super setSelected: flag];
-    [(LibraryServerView*)[self view] setSelected:flag];
-    [(LibraryServerView*)[self view] setNeedsDisplay:YES];
+    [(LibraryServerView*)self.view setSelected:flag];
+    [(LibraryServerView*)self.view setNeedsDisplay:YES];
 }
 @end

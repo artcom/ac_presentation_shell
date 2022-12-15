@@ -38,7 +38,7 @@
 
 - (nonnull id)copyWithZone:(nullable NSZone *)zone
 {
-    return [[[self class] allocWithZone:zone] initWithId:self.ID inContext:self.context];
+    return [[self.class allocWithZone:zone] initWithId:self.ID inContext:self.context];
 }
 
 - (NSXMLElement*) xmlNode
@@ -48,7 +48,7 @@
 
 - (NSString *)title
 {
-    return [[self xmlNode] attributeForName:@"title"].stringValue;
+    return [self.xmlNode attributeForName:@"title"].stringValue;
 }
 
 

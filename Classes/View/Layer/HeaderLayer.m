@@ -40,10 +40,10 @@
 
 - (void)setupLayers
 {
-    self.backgroundColor = [NSColor whiteColor].CGColor;
-    self.titleLayer = [CATextLayer layer];
-    self.bottomEdgeLayer = [CALayer layer];
-    self.bottomEdgeLayer.backgroundColor = [NSColor whiteColor].CGColor;
+    self.backgroundColor = NSColor.whiteColor.CGColor;
+    self.titleLayer = CATextLayer.layer;
+    self.bottomEdgeLayer = CALayer.layer;
+    self.bottomEdgeLayer.backgroundColor = NSColor.whiteColor.CGColor;
     [self addSublayer:self.titleLayer];
     [self addSublayer:self.bottomEdgeLayer];
 }

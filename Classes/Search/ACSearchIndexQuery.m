@@ -48,7 +48,7 @@
     SKDocumentRef   documentRefs[maxNumResults];
     float           scores[maxNumResults];
     BOOL            searchInProgress = YES;
-
+    
     while (!self.isCancelled && searchInProgress) {
         searchInProgress = SKSearchFindMatches(search, maxNumResults, documentIds, scores, 0.5, &foundCount);
         SKIndexCopyDocumentRefsForDocumentIDs (_index,

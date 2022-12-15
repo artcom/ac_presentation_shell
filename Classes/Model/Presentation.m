@@ -27,47 +27,47 @@
 @synthesize thumbnailFilename;
 
 - (id)initWithId:(id)theId inContext: (PresentationLibrary*) theContext {
-	self = [super init];
-	if (self != nil) {
-		self.selected = YES;
-		self.context = theContext;
-		self.presentationId = theId;
+    self = [super init];
+    if (self != nil) {
+        self.selected = YES;
+        self.context = theContext;
+        self.presentationId = theId;
         self.order = -1;
-	}
-	return self;
+    }
+    return self;
 }
 
 -(id) initWithCoder:(NSCoder *)aDecoder {
-	self = [super init];
-	if (self != nil) {
-		self.selected = [aDecoder decodeBoolForKey:@"selected"];
-		self.presentationId = [aDecoder decodeObjectForKey:@"presentationId"];
+    self = [super init];
+    if (self != nil) {
+        self.selected = [aDecoder decodeBoolForKey:@"selected"];
+        self.presentationId = [aDecoder decodeObjectForKey:@"presentationId"];
         if ([aDecoder containsValueForKey: @"index"]) {
             self.order = [aDecoder decodeIntegerForKey:@"index"];
         } else {
             self.order = [aDecoder decodeIntegerForKey:@"order"];
         }
-		self.context = nil;
-	}	
-	return self;
+        self.context = nil;
+    }	
+    return self;
 }
 
 - (id) copyWithZone:(NSZone *)zone {
-	return [[[self class] allocWithZone:zone] initWithId:self.presentationId inContext:self.context];
+    return [[[self class] allocWithZone:zone] initWithId:self.presentationId inContext:self.context];
 }
 
 - (void) encodeWithCoder:(NSCoder *)aCoder {
-	[aCoder encodeBool:self.selected forKey:@"selected"];
-	[aCoder encodeObject:self.presentationId forKey:@"presentationId"];
-	[aCoder encodeInteger:self.order forKey:@"order"];
+    [aCoder encodeBool:self.selected forKey:@"selected"];
+    [aCoder encodeObject:self.presentationId forKey:@"presentationId"];
+    [aCoder encodeInteger:self.order forKey:@"order"];
 }
 
 - (NSString *)description {
-	return [NSString stringWithFormat:@"%ld-%@", (long)self.order, self.title];
+    return [NSString stringWithFormat:@"%ld-%@", (long)self.order, self.title];
 }
 
 - (NSImage *)thumbnail {
-	return [context thumbnailForPresentation:self];
+    return [context thumbnailForPresentation:self];
 }
 
 - (NSString*) title {
@@ -154,15 +154,15 @@
 }
 
 - (void) setThumbnailFilename: (NSString*) newPath {
-	[self willChangeValueForKey:@"thumbnail"];
+    [self willChangeValueForKey:@"thumbnail"];
     thumbnailFilename = newPath;
     NSArray *nodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
     [[nodes objectAtIndex: 0] setStringValue: newPath];
-	[self didChangeValueForKey:@"thumbnail"];
+    [self didChangeValueForKey:@"thumbnail"];
 }
 
 - (NSString *)relativeThumbnailPath {
-	return [self.directory stringByAppendingPathComponent: self.thumbnailFilename];	
+    return [self.directory stringByAppendingPathComponent: self.thumbnailFilename];	
 }
 
 - (NSString*) absoluteThumbnailPath {
@@ -273,9 +273,9 @@
 }
 
 - (BOOL) isEqual:(id)object {
-	if (![object isKindOfClass:[self class]]) {
-		return NO;
-	}
+    if (![object isKindOfClass:[self class]]) {
+        return NO;
+    }
     return [self.presentationId isEqual: ((Presentation *)object).presentationId];
 }
 
@@ -284,16 +284,16 @@
 }
 
 - (BOOL) presentationFileExists {
-    return [[NSFileManager defaultManager] fileExistsAtPath: self.absolutePresentationPath];
+    return [NSFileManager.defaultManager fileExistsAtPath: self.absolutePresentationPath];
 }
 
 - (BOOL) thumbnailFileExists {
-    return [[NSFileManager defaultManager] fileExistsAtPath: self.absoluteThumbnailPath];
+    return [NSFileManager.defaultManager fileExistsAtPath: self.absoluteThumbnailPath];
 }
 
 
 - (NSXMLElement*) xmlNode {
-	return [context xmlNodeForPresentation: presentationId];
+    return [context xmlNodeForPresentation: presentationId];
 }
 
 - (NSComparisonResult) compareByOrder: (Presentation*) other {

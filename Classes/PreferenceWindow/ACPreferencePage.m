@@ -33,7 +33,7 @@
 }
 
 - (NSString*) toolbarItemIdentifier {
-    return [self title];
+    return self.title;
 }
 
 - (NSString*) iconName {

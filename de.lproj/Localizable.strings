@@ -1,11 +1,11 @@
 /*
-   Localizable.strings
-   ACShell
-
-   Created by David Siegel on 7/28/10.
-   Copyright 2010 ART+COM AG. All rights reserved.
- */
+ Localizable.strings
+ ACShell
  
+ Created by David Siegel on 7/28/10.
+ Copyright 2010 ART+COM AG. All rights reserved.
+ */
+
 "Library" = "Bibliothek";
 "All" = "Alle";
 "Highlights" = "Glanzlichter";

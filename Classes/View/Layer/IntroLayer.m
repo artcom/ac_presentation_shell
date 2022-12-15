@@ -52,7 +52,7 @@
     self.borderColor = self.highlightedBackgroundColor.CGColor;
     self.borderWidth = 3.0;
     
-    self.titleLayer = [CATextLayer layer];
+    self.titleLayer = CATextLayer.layer;
     [self addSublayer:self.titleLayer];
 }
 

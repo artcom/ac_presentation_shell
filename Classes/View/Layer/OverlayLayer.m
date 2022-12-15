@@ -25,7 +25,7 @@ const float kLabelPaddingBottom = 8.0f;
     self = [super init];
     if (self != nil) {
         
-        self.titleLayer = [CATextLayer layer];
+        self.titleLayer = CATextLayer.layer;
         _titleLayer.wrapped = YES;
         _titleLayer.delegate = self;
         [self addSublayer:_titleLayer];

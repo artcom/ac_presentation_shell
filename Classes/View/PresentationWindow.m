@@ -12,12 +12,12 @@
 
 - (void)awakeFromNib {
     [self setStyleMask:NSWindowStyleMaskBorderless];
-	[self setAcceptsMouseMovedEvents:YES];
-	[self makeFirstResponder:self];
+    [self setAcceptsMouseMovedEvents:YES];
+    [self makeFirstResponder:self];
 }
 
 - (BOOL)canBecomeKeyWindow {
-	return YES;
+    return YES;
 }
 
 - (void)cancelOperation:(id)sender {

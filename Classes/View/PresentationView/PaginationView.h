@@ -11,12 +11,12 @@
 
 
 @interface PaginationView : NSView {
-	NSInteger pages;
-	NSInteger activePage;
-	NSMutableArray *dots;
-	
-	NSImage *activeDot;
-	NSImage *inactiveDot;
+    NSInteger pages;
+    NSInteger activePage;
+    NSMutableArray *dots;
+    
+    NSImage *activeDot;
+    NSImage *inactiveDot;
 }
 
 @property (assign, nonatomic) NSInteger pages;

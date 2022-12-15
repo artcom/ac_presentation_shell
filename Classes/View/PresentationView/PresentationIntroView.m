@@ -41,10 +41,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(viewDidResize:)
-                                                     name:NSViewFrameDidChangeNotification
-                                                   object:self];
+        [NSNotificationCenter.defaultCenter addObserver:self
+                                               selector:@selector(viewDidResize:)
+                                                   name:NSViewFrameDidChangeNotification
+                                                 object:self];
         [self setupLayers];
     }
     return self;
@@ -52,24 +52,24 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSViewFrameDidChangeNotification
-                                                  object:self];
+    [NSNotificationCenter.defaultCenter removeObserver:self
+                                                  name:NSViewFrameDidChangeNotification
+                                                object:self];
 }
 
 - (void)setupLayers
 {
-    self.layer = [CALayer layer];
+    self.layer = CALayer.layer;
     self.wantsLayer = YES;
-    self.layer.backgroundColor = [NSColor blackColor].CGColor;
+    self.layer.backgroundColor = NSColor.blackColor.CGColor;
     self.layer.contentsScale = self.window.backingScaleFactor;
     
-    self.backgroundLayer = [CALayer layer];
-    self.backgroundLayer.backgroundColor = [NSColor blackColor].CGColor;
+    self.backgroundLayer = CALayer.layer;
+    self.backgroundLayer.backgroundColor = NSColor.blackColor.CGColor;
     self.backgroundLayer.contentsScale = self.window.backingScaleFactor;
     [self.layer addSublayer:self.backgroundLayer];
     
-    self.logo = [CALayer layer];
+    self.logo = CALayer.layer;
     self.logo.contentsScale = self.window.backingScaleFactor;
     [self.layer addSublayer:self.logo];
     
@@ -89,7 +89,7 @@
     
     _categoryTitles = [self.dataSource titlesForCategoriesInPresentationIntroView:self];
     for (NSString *title in self.categoryTitles) {
-        IntroLayer *layer = [IntroLayer layer];
+        IntroLayer *layer = IntroLayer.layer;
         layer.contentsScale = self.window.backingScaleFactor;
         layer.title = title;
         layer.highlighted = NO;

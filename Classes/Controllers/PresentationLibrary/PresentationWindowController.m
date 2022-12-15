@@ -52,16 +52,16 @@
 
 
 - (void)startObservingChangingScreens {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationDidChangeScreenParameters:)
-                                                 name:NSApplicationDidChangeScreenParametersNotification
-                                               object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self
+                                           selector:@selector(applicationDidChangeScreenParameters:)
+                                               name:NSApplicationDidChangeScreenParametersNotification
+                                             object:nil];
 }
 
 - (void)stopObservingChangingScreens {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSApplicationDidChangeScreenParametersNotification
-                                                  object:nil];
+    [NSNotificationCenter.defaultCenter removeObserver:self
+                                                  name:NSApplicationDidChangeScreenParametersNotification
+                                                object:nil];
 }
 
 - (void)applicationDidChangeScreenParameters:(NSNotification *)notification {
@@ -225,7 +225,7 @@
     Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
     NSImage *image = presentation.thumbnail;
     
-    CALayer *layer = [CALayer layer];
+    CALayer *layer = CALayer.layer;
     layer.frame = CGRectMake(0, 0, image.size.width, image.size.height);
     layer.contents = image;
     
@@ -235,7 +235,7 @@
 - (CALayer *)presentationView:(PresentationView *)aPresentationView hoverLayerForItemAtIndex:(NSInteger)index {
     Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
     
-    OverlayLayer *layer = [OverlayLayer layer];
+    OverlayLayer *layer = OverlayLayer.layer;
     if (presentation.year) {
         layer.text = [NSString stringWithFormat: @"%@, %@", presentation.title, presentation.year];
     } else {
@@ -255,7 +255,7 @@
 }
 
 - (void)showActivityForItemAtIndex:(NSInteger)index {
-    [self.presentationView addOverlay:[ProgressOverlayLayer layer] forItem:index];
+    [self.presentationView addOverlay:ProgressOverlayLayer.layer forItem:index];
 }
 
 - (void)highlightItemAtIndex:(NSInteger)index {

@@ -13,7 +13,6 @@
 @protocol KeynoteDropperDelegate;
 @interface KeynoteDropper : NSImageView {
     NSString * filename;
-    
     BOOL fileExists;
 }
 

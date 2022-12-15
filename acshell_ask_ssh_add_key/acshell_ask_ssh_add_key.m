@@ -49,7 +49,7 @@ BOOL runAddKeyDialog(NSString * sshOutput) {
 
 BOOL answerSSHQuestion() {
     NSArray * arguments = [[NSProcessInfo processInfo] arguments];
-
+    
     if ([arguments count] < 2) {
         NSLog(@"argument error: expected 2 but got %ld args", [arguments count]);
         return FALSE;

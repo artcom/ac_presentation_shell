@@ -39,7 +39,7 @@
 }
 
 - (void)setupView {
-    CALayer *rootLayer=[CALayer layer];
+    CALayer *rootLayer = CALayer.layer;
     rootLayer.frame = NSRectToCGRect(self.frame);
     rootLayer.backgroundColor = CGColorGetConstantColor(kCGColorWhite);
     [self setLayer:rootLayer];
@@ -52,8 +52,8 @@
     
     [self setUpAccessorieViews];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewDidResize:)
-                                                 name:NSViewFrameDidChangeNotification object:self];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(viewDidResize:)
+                                               name:NSViewFrameDidChangeNotification object:self];
 }
 
 - (BOOL)acceptsFirstResponder {
@@ -61,7 +61,7 @@
 }
 
 - (CGFloat)backingScaleFactor {
-    return [[self window] backingScaleFactor];
+    return [self.window backingScaleFactor];
 }
 
 - (void)viewDidChangeBackingProperties {
@@ -80,7 +80,7 @@
 
 - (void) mouseUp:(NSEvent *)theEvent {
     
-    NSPoint location = [self convertPoint:[theEvent locationInWindow] fromView:nil];
+    NSPoint location = [self convertPoint:theEvent.locationInWindow fromView:nil];
     
     CALayer *clickedLayer = nil;
     for (CALayer *layer in self.sublayers) {

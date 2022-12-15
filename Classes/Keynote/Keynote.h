@@ -9,219 +9,219 @@
 @class KeynoteApplication, KeynoteDocument, KeynoteWindow, KeynoteTheme, KeynoteRichText, KeynoteCharacter, KeynoteParagraph, KeynoteWord, KeynoteIWorkContainer, KeynoteSlide, KeynoteSlideLayout, KeynoteIWorkItem, KeynoteAudioClip, KeynoteShape, KeynoteChart, KeynoteImage, KeynoteGroup, KeynoteLine, KeynoteMovie, KeynoteTable, KeynoteTextItem, KeynoteRange, KeynoteCell, KeynoteRow, KeynoteColumn;
 
 enum KeynoteSaveOptions {
-	KeynoteSaveOptionsYes = 'yes ' /* Save the file. */,
-	KeynoteSaveOptionsNo = 'no  ' /* Do not save the file. */,
-	KeynoteSaveOptionsAsk = 'ask ' /* Ask the user whether or not to save the file. */
+    KeynoteSaveOptionsYes = 'yes ' /* Save the file. */,
+    KeynoteSaveOptionsNo = 'no  ' /* Do not save the file. */,
+    KeynoteSaveOptionsAsk = 'ask ' /* Ask the user whether or not to save the file. */
 };
 typedef enum KeynoteSaveOptions KeynoteSaveOptions;
 
 enum KeynotePrintingErrorHandling {
-	KeynotePrintingErrorHandlingStandard = 'lwst' /* Standard PostScript error handling */,
-	KeynotePrintingErrorHandlingDetailed = 'lwdt' /* print a detailed report of PostScript errors */
+    KeynotePrintingErrorHandlingStandard = 'lwst' /* Standard PostScript error handling */,
+    KeynotePrintingErrorHandlingDetailed = 'lwdt' /* print a detailed report of PostScript errors */
 };
 typedef enum KeynotePrintingErrorHandling KeynotePrintingErrorHandling;
 
 enum KeynoteSaveableFileFormat {
-	KeynoteSaveableFileFormatKeynote = 'Knff' /* The Keynote native file format */
+    KeynoteSaveableFileFormatKeynote = 'Knff' /* The Keynote native file format */
 };
 typedef enum KeynoteSaveableFileFormat KeynoteSaveableFileFormat;
 
 enum KeynoteExportFormat {
-	KeynoteExportFormatHTML = 'Khtm' /* HTML */,
-	KeynoteExportFormatQuickTimeMovie = 'Kmov' /* QuickTime movie */,
-	KeynoteExportFormatPDF = 'Kpdf' /* PDF */,
-	KeynoteExportFormatSlideImages = 'Kimg' /* image */,
-	KeynoteExportFormatMicrosoftPowerPoint = 'Kppt' /* Microsoft PowerPoint */,
-	KeynoteExportFormatKeynote09 = 'Kkey' /* Keynote 09 */
+    KeynoteExportFormatHTML = 'Khtm' /* HTML */,
+    KeynoteExportFormatQuickTimeMovie = 'Kmov' /* QuickTime movie */,
+    KeynoteExportFormatPDF = 'Kpdf' /* PDF */,
+    KeynoteExportFormatSlideImages = 'Kimg' /* image */,
+    KeynoteExportFormatMicrosoftPowerPoint = 'Kppt' /* Microsoft PowerPoint */,
+    KeynoteExportFormatKeynote09 = 'Kkey' /* Keynote 09 */
 };
 typedef enum KeynoteExportFormat KeynoteExportFormat;
 
 enum KeynoteImageExportFormats {
-	KeynoteImageExportFormatsJPEG = 'Kifj' /* JPEG */,
-	KeynoteImageExportFormatsPNG = 'Kifp' /* PNG */,
-	KeynoteImageExportFormatsTIFF = 'Kift' /* TIFF */
+    KeynoteImageExportFormatsJPEG = 'Kifj' /* JPEG */,
+    KeynoteImageExportFormatsPNG = 'Kifp' /* PNG */,
+    KeynoteImageExportFormatsTIFF = 'Kift' /* TIFF */
 };
 typedef enum KeynoteImageExportFormats KeynoteImageExportFormats;
 
 enum KeynoteMovieExportFormats {
-	KeynoteMovieExportFormatsFormat360p = 'Kmf3' /* 360p */,
-	KeynoteMovieExportFormatsFormat540p = 'Kmf5' /* 540p */,
-	KeynoteMovieExportFormatsFormat720p = 'Kmf7' /* 720p */,
-	KeynoteMovieExportFormatsFormat1080p = 'Kmf8' /* 1080p */,
-	KeynoteMovieExportFormatsFormat2160p = 'Kmf4' /* DCI 4K (4096x2160) */,
-	KeynoteMovieExportFormatsNativeSize = 'KmfN' /* Exported movie will have the same dimensions as the document, up to 4096x2160 */
+    KeynoteMovieExportFormatsFormat360p = 'Kmf3' /* 360p */,
+    KeynoteMovieExportFormatsFormat540p = 'Kmf5' /* 540p */,
+    KeynoteMovieExportFormatsFormat720p = 'Kmf7' /* 720p */,
+    KeynoteMovieExportFormatsFormat1080p = 'Kmf8' /* 1080p */,
+    KeynoteMovieExportFormatsFormat2160p = 'Kmf4' /* DCI 4K (4096x2160) */,
+    KeynoteMovieExportFormatsNativeSize = 'KmfN' /* Exported movie will have the same dimensions as the document, up to 4096x2160 */
 };
 typedef enum KeynoteMovieExportFormats KeynoteMovieExportFormats;
 
 enum KeynoteMovieCodecs {
-	KeynoteMovieCodecsH264 = 'Kmc1' /* H.264 */,
-	KeynoteMovieCodecsAppleProRes422 = 'Kmc2' /* Apple ProRes 422 */,
-	KeynoteMovieCodecsAppleProRes4444 = 'Kmc3' /* Apple ProRes 4444 */,
-	KeynoteMovieCodecsAppleProRes422LT = 'Kmc4' /* Apple ProRes 422LT */,
-	KeynoteMovieCodecsAppleProRes422HQ = 'Kmc5' /* Apple ProRes 422HQ */,
-	KeynoteMovieCodecsAppleProRes422Proxy = 'Kmc6' /* Apple ProRes 422Proxy */,
-	KeynoteMovieCodecsHEVC = 'Kmc7' /* HEVC */
+    KeynoteMovieCodecsH264 = 'Kmc1' /* H.264 */,
+    KeynoteMovieCodecsAppleProRes422 = 'Kmc2' /* Apple ProRes 422 */,
+    KeynoteMovieCodecsAppleProRes4444 = 'Kmc3' /* Apple ProRes 4444 */,
+    KeynoteMovieCodecsAppleProRes422LT = 'Kmc4' /* Apple ProRes 422LT */,
+    KeynoteMovieCodecsAppleProRes422HQ = 'Kmc5' /* Apple ProRes 422HQ */,
+    KeynoteMovieCodecsAppleProRes422Proxy = 'Kmc6' /* Apple ProRes 422Proxy */,
+    KeynoteMovieCodecsHEVC = 'Kmc7' /* HEVC */
 };
 typedef enum KeynoteMovieCodecs KeynoteMovieCodecs;
 
 enum KeynoteMovieFramerates {
-	KeynoteMovieFrameratesFPS12 = 'Kfr1' /* 12 FPS */,
-	KeynoteMovieFrameratesFPS2398 = 'Kfr2' /* 23.98 FPS */,
-	KeynoteMovieFrameratesFPS24 = 'Kfr3' /* 24 FPS */,
-	KeynoteMovieFrameratesFPS25 = 'Kfr4' /* 25 FPS */,
-	KeynoteMovieFrameratesFPS2997 = 'Kfr5' /* 29.97 FPS */,
-	KeynoteMovieFrameratesFPS30 = 'Kfr6' /* 30 FPS */,
-	KeynoteMovieFrameratesFPS50 = 'Kfr7' /* 50 FPS */,
-	KeynoteMovieFrameratesFPS5994 = 'Kfr8' /* 59.94 FPS */,
-	KeynoteMovieFrameratesFPS60 = 'Kfr9' /* 60 FPS */
+    KeynoteMovieFrameratesFPS12 = 'Kfr1' /* 12 FPS */,
+    KeynoteMovieFrameratesFPS2398 = 'Kfr2' /* 23.98 FPS */,
+    KeynoteMovieFrameratesFPS24 = 'Kfr3' /* 24 FPS */,
+    KeynoteMovieFrameratesFPS25 = 'Kfr4' /* 25 FPS */,
+    KeynoteMovieFrameratesFPS2997 = 'Kfr5' /* 29.97 FPS */,
+    KeynoteMovieFrameratesFPS30 = 'Kfr6' /* 30 FPS */,
+    KeynoteMovieFrameratesFPS50 = 'Kfr7' /* 50 FPS */,
+    KeynoteMovieFrameratesFPS5994 = 'Kfr8' /* 59.94 FPS */,
+    KeynoteMovieFrameratesFPS60 = 'Kfr9' /* 60 FPS */
 };
 typedef enum KeynoteMovieFramerates KeynoteMovieFramerates;
 
 enum KeynotePrintWhat {
-	KeynotePrintWhatIndividualSlides = 'Kpwi' /* individual slides */,
-	KeynotePrintWhatSlideWithNotes = 'Kpwn' /* slides with notes */,
-	KeynotePrintWhatHandouts = 'Kpwh' /* handouts */
+    KeynotePrintWhatIndividualSlides = 'Kpwi' /* individual slides */,
+    KeynotePrintWhatSlideWithNotes = 'Kpwn' /* slides with notes */,
+    KeynotePrintWhatHandouts = 'Kpwh' /* handouts */
 };
 typedef enum KeynotePrintWhat KeynotePrintWhat;
 
 enum KeynotePDFImageQuality {
-	KeynotePDFImageQualityGood = 'KnP0' /* good quality */,
-	KeynotePDFImageQualityBetter = 'KnP1' /* better quality */,
-	KeynotePDFImageQualityBest = 'KnP2' /* best quality */
+    KeynotePDFImageQualityGood = 'KnP0' /* good quality */,
+    KeynotePDFImageQualityBetter = 'KnP1' /* better quality */,
+    KeynotePDFImageQualityBest = 'KnP2' /* best quality */
 };
 typedef enum KeynotePDFImageQuality KeynotePDFImageQuality;
 
 enum KeynoteTransitionEffects {
-	KeynoteTransitionEffectsNoTransitionEffect = 'tnil' /*  */,
-	KeynoteTransitionEffectsMagicMove = 'tmjv' /*  */,
-	KeynoteTransitionEffectsShimmer = 'tshm' /*  */,
-	KeynoteTransitionEffectsSparkle = 'tspk' /*  */,
-	KeynoteTransitionEffectsSwing = 'tswg' /*  */,
-	KeynoteTransitionEffectsObjectCube = 'tocb' /*  */,
-	KeynoteTransitionEffectsObjectFlip = 'tofp' /*  */,
-	KeynoteTransitionEffectsObjectPop = 'topp' /*  */,
-	KeynoteTransitionEffectsObjectPush = 'toph' /*  */,
-	KeynoteTransitionEffectsObjectRevolve = 'torv' /*  */,
-	KeynoteTransitionEffectsObjectZoom = 'tozm' /*  */,
-	KeynoteTransitionEffectsPerspective = 'tprs' /*  */,
-	KeynoteTransitionEffectsClothesline = 'tclo' /*  */,
-	KeynoteTransitionEffectsConfetti = 'tcft' /*  */,
-	KeynoteTransitionEffectsDissolve = 'tdis' /*  */,
-	KeynoteTransitionEffectsDrop = 'tdrp' /*  */,
-	KeynoteTransitionEffectsDroplet = 'tdpl' /*  */,
-	KeynoteTransitionEffectsFadeThroughColor = 'tftc' /*  */,
-	KeynoteTransitionEffectsGrid = 'tgrd' /*  */,
-	KeynoteTransitionEffectsIris = 'tirs' /*  */,
-	KeynoteTransitionEffectsMoveIn = 'tmvi' /*  */,
-	KeynoteTransitionEffectsPush = 'tpsh' /*  */,
-	KeynoteTransitionEffectsReveal = 'trvl' /*  */,
-	KeynoteTransitionEffectsSwitch = 'tswi' /*  */,
-	KeynoteTransitionEffectsWipe = 'twpe' /*  */,
-	KeynoteTransitionEffectsBlinds = 'tbld' /*  */,
-	KeynoteTransitionEffectsColorPlanes = 'tcpl' /*  */,
-	KeynoteTransitionEffectsCube = 'tcub' /*  */,
-	KeynoteTransitionEffectsDoorway = 'tdwy' /*  */,
-	KeynoteTransitionEffectsFall = 'tfal' /*  */,
-	KeynoteTransitionEffectsFlip = 'tfip' /*  */,
-	KeynoteTransitionEffectsFlop = 'tfop' /*  */,
-	KeynoteTransitionEffectsMosaic = 'tmsc' /*  */,
-	KeynoteTransitionEffectsPageFlip = 'tpfl' /*  */,
-	KeynoteTransitionEffectsPivot = 'tpvt' /*  */,
-	KeynoteTransitionEffectsReflection = 'trfl' /*  */,
-	KeynoteTransitionEffectsRevolvingDoor = 'trev' /*  */,
-	KeynoteTransitionEffectsScale = 'tscl' /*  */,
-	KeynoteTransitionEffectsSwap = 'tswp' /*  */,
-	KeynoteTransitionEffectsSwoosh = 'tsws' /*  */,
-	KeynoteTransitionEffectsTwirl = 'ttwl' /*  */,
-	KeynoteTransitionEffectsTwist = 'ttwi' /*  */,
-	KeynoteTransitionEffectsFadeAndMove = 'tfad' /*  */
+    KeynoteTransitionEffectsNoTransitionEffect = 'tnil' /*  */,
+    KeynoteTransitionEffectsMagicMove = 'tmjv' /*  */,
+    KeynoteTransitionEffectsShimmer = 'tshm' /*  */,
+    KeynoteTransitionEffectsSparkle = 'tspk' /*  */,
+    KeynoteTransitionEffectsSwing = 'tswg' /*  */,
+    KeynoteTransitionEffectsObjectCube = 'tocb' /*  */,
+    KeynoteTransitionEffectsObjectFlip = 'tofp' /*  */,
+    KeynoteTransitionEffectsObjectPop = 'topp' /*  */,
+    KeynoteTransitionEffectsObjectPush = 'toph' /*  */,
+    KeynoteTransitionEffectsObjectRevolve = 'torv' /*  */,
+    KeynoteTransitionEffectsObjectZoom = 'tozm' /*  */,
+    KeynoteTransitionEffectsPerspective = 'tprs' /*  */,
+    KeynoteTransitionEffectsClothesline = 'tclo' /*  */,
+    KeynoteTransitionEffectsConfetti = 'tcft' /*  */,
+    KeynoteTransitionEffectsDissolve = 'tdis' /*  */,
+    KeynoteTransitionEffectsDrop = 'tdrp' /*  */,
+    KeynoteTransitionEffectsDroplet = 'tdpl' /*  */,
+    KeynoteTransitionEffectsFadeThroughColor = 'tftc' /*  */,
+    KeynoteTransitionEffectsGrid = 'tgrd' /*  */,
+    KeynoteTransitionEffectsIris = 'tirs' /*  */,
+    KeynoteTransitionEffectsMoveIn = 'tmvi' /*  */,
+    KeynoteTransitionEffectsPush = 'tpsh' /*  */,
+    KeynoteTransitionEffectsReveal = 'trvl' /*  */,
+    KeynoteTransitionEffectsSwitch = 'tswi' /*  */,
+    KeynoteTransitionEffectsWipe = 'twpe' /*  */,
+    KeynoteTransitionEffectsBlinds = 'tbld' /*  */,
+    KeynoteTransitionEffectsColorPlanes = 'tcpl' /*  */,
+    KeynoteTransitionEffectsCube = 'tcub' /*  */,
+    KeynoteTransitionEffectsDoorway = 'tdwy' /*  */,
+    KeynoteTransitionEffectsFall = 'tfal' /*  */,
+    KeynoteTransitionEffectsFlip = 'tfip' /*  */,
+    KeynoteTransitionEffectsFlop = 'tfop' /*  */,
+    KeynoteTransitionEffectsMosaic = 'tmsc' /*  */,
+    KeynoteTransitionEffectsPageFlip = 'tpfl' /*  */,
+    KeynoteTransitionEffectsPivot = 'tpvt' /*  */,
+    KeynoteTransitionEffectsReflection = 'trfl' /*  */,
+    KeynoteTransitionEffectsRevolvingDoor = 'trev' /*  */,
+    KeynoteTransitionEffectsScale = 'tscl' /*  */,
+    KeynoteTransitionEffectsSwap = 'tswp' /*  */,
+    KeynoteTransitionEffectsSwoosh = 'tsws' /*  */,
+    KeynoteTransitionEffectsTwirl = 'ttwl' /*  */,
+    KeynoteTransitionEffectsTwist = 'ttwi' /*  */,
+    KeynoteTransitionEffectsFadeAndMove = 'tfad' /*  */
 };
 typedef enum KeynoteTransitionEffects KeynoteTransitionEffects;
 
 enum KeynoteTAVT {
-	KeynoteTAVTBottom = 'avbt' /* Right-align content. */,
-	KeynoteTAVTCenter = 'actr' /* Center-align content. */,
-	KeynoteTAVTTop = 'avtp' /* Top-align content. */
+    KeynoteTAVTBottom = 'avbt' /* Right-align content. */,
+    KeynoteTAVTCenter = 'actr' /* Center-align content. */,
+    KeynoteTAVTTop = 'avtp' /* Top-align content. */
 };
 typedef enum KeynoteTAVT KeynoteTAVT;
 
 enum KeynoteTAHT {
-	KeynoteTAHTAutoAlign = 'aaut' /* Auto-align based on content type. */,
-	KeynoteTAHTCenter = 'actr' /* Center-align content. */,
-	KeynoteTAHTJustify = 'ajst' /* Fully justify (left and right) content. */,
-	KeynoteTAHTLeft = 'alft' /* Left-align content. */,
-	KeynoteTAHTRight = 'arit' /* Right-align content. */
+    KeynoteTAHTAutoAlign = 'aaut' /* Auto-align based on content type. */,
+    KeynoteTAHTCenter = 'actr' /* Center-align content. */,
+    KeynoteTAHTJustify = 'ajst' /* Fully justify (left and right) content. */,
+    KeynoteTAHTLeft = 'alft' /* Left-align content. */,
+    KeynoteTAHTRight = 'arit' /* Right-align content. */
 };
 typedef enum KeynoteTAHT KeynoteTAHT;
 
 enum KeynoteNMSD {
-	KeynoteNMSDAscending = 'ascn' /* Sort in increasing value order */,
-	KeynoteNMSDDescending = 'dscn' /* Sort in decreasing value order */
+    KeynoteNMSDAscending = 'ascn' /* Sort in increasing value order */,
+    KeynoteNMSDDescending = 'dscn' /* Sort in decreasing value order */
 };
 typedef enum KeynoteNMSD KeynoteNMSD;
 
 enum KeynoteNMCT {
-	KeynoteNMCTAutomatic = 'faut' /* Automatic format */,
-	KeynoteNMCTCheckbox = 'fcch' /* Checkbox control format (Numbers only) */,
-	KeynoteNMCTCurrency = 'fcur' /* Currency number format */,
-	KeynoteNMCTDateAndTime = 'fdtm' /* Date and time format */,
-	KeynoteNMCTFraction = 'ffra' /* Fraction number format */,
-	KeynoteNMCTNumber = 'nmbr' /* Decimal number format */,
-	KeynoteNMCTPercent = 'fper' /* Percentage number format */,
-	KeynoteNMCTPopUpMenu = 'fcpp' /* Pop-up menu control format (Numbers only) */,
-	KeynoteNMCTScientific = 'fsci' /* Scientific notation format */,
-	KeynoteNMCTSlider = 'fcsl' /* Slider control format (Numbers only) */,
-	KeynoteNMCTStepper = 'fcst' /* Stepper control format (Numbers only) */,
-	KeynoteNMCTText = 'ctxt' /* Text format */,
-	KeynoteNMCTDuration = 'fdur' /* Duration format */,
-	KeynoteNMCTRating = 'frat' /* Rating format. (Numbers only) */,
-	KeynoteNMCTNumeralSystem = 'fcns' /* Numeral System */
+    KeynoteNMCTAutomatic = 'faut' /* Automatic format */,
+    KeynoteNMCTCheckbox = 'fcch' /* Checkbox control format (Numbers only) */,
+    KeynoteNMCTCurrency = 'fcur' /* Currency number format */,
+    KeynoteNMCTDateAndTime = 'fdtm' /* Date and time format */,
+    KeynoteNMCTFraction = 'ffra' /* Fraction number format */,
+    KeynoteNMCTNumber = 'nmbr' /* Decimal number format */,
+    KeynoteNMCTPercent = 'fper' /* Percentage number format */,
+    KeynoteNMCTPopUpMenu = 'fcpp' /* Pop-up menu control format (Numbers only) */,
+    KeynoteNMCTScientific = 'fsci' /* Scientific notation format */,
+    KeynoteNMCTSlider = 'fcsl' /* Slider control format (Numbers only) */,
+    KeynoteNMCTStepper = 'fcst' /* Stepper control format (Numbers only) */,
+    KeynoteNMCTText = 'ctxt' /* Text format */,
+    KeynoteNMCTDuration = 'fdur' /* Duration format */,
+    KeynoteNMCTRating = 'frat' /* Rating format. (Numbers only) */,
+    KeynoteNMCTNumeralSystem = 'fcns' /* Numeral System */
 };
 typedef enum KeynoteNMCT KeynoteNMCT;
 
 enum KeynoteItemFillOptions {
-	KeynoteItemFillOptionsNoFill = 'fino' /*  */,
-	KeynoteItemFillOptionsColorFill = 'fico' /*  */,
-	KeynoteItemFillOptionsGradientFill = 'figr' /*  */,
-	KeynoteItemFillOptionsAdvancedGradientFill = 'fiag' /*  */,
-	KeynoteItemFillOptionsImageFill = 'fiim' /*  */,
-	KeynoteItemFillOptionsAdvancedImageFill = 'fiai' /*  */
+    KeynoteItemFillOptionsNoFill = 'fino' /*  */,
+    KeynoteItemFillOptionsColorFill = 'fico' /*  */,
+    KeynoteItemFillOptionsGradientFill = 'figr' /*  */,
+    KeynoteItemFillOptionsAdvancedGradientFill = 'fiag' /*  */,
+    KeynoteItemFillOptionsImageFill = 'fiim' /*  */,
+    KeynoteItemFillOptionsAdvancedImageFill = 'fiai' /*  */
 };
 typedef enum KeynoteItemFillOptions KeynoteItemFillOptions;
 
 enum KeynotePlaybackRepetitionMethod {
-	KeynotePlaybackRepetitionMethodNone = 'mvrn' /*  */,
-	KeynotePlaybackRepetitionMethodLoop = 'mvlp' /*  */,
-	KeynotePlaybackRepetitionMethodLoopBackAndForth = 'mvbf' /*  */
+    KeynotePlaybackRepetitionMethodNone = 'mvrn' /*  */,
+    KeynotePlaybackRepetitionMethodLoop = 'mvlp' /*  */,
+    KeynotePlaybackRepetitionMethodLoopBackAndForth = 'mvbf' /*  */
 };
 typedef enum KeynotePlaybackRepetitionMethod KeynotePlaybackRepetitionMethod;
 
 // Visual style of chart
 enum KeynoteLegacyChartType {
-	KeynoteLegacyChartTypePie_2d = 'pie2' /* two-dimensional pie chart */,
-	KeynoteLegacyChartTypeVertical_bar_2d = 'vbr2' /* two-dimensional vertical bar chart */,
-	KeynoteLegacyChartTypeStacked_vertical_bar_2d = 'svb2' /* two-dimensional stacked vertical bar chart */,
-	KeynoteLegacyChartTypeHorizontal_bar_2d = 'hbr2' /* two-dimensional horizontal bar chart */,
-	KeynoteLegacyChartTypeStacked_horizontal_bar_2d = 'shb2' /* two-dimensional stacked horizontal bar chart */,
-	KeynoteLegacyChartTypePie_3d = 'pie3' /* three-dimensional pie chart. */,
-	KeynoteLegacyChartTypeVertical_bar_3d = 'vbr3' /* three-dimensional vertical bar chart */,
-	KeynoteLegacyChartTypeStacked_vertical_bar_3d = 'svb3' /* three-dimensional stacked bar chart */,
-	KeynoteLegacyChartTypeHorizontal_bar_3d = 'hbr3' /* three-dimensional horizontal bar chart */,
-	KeynoteLegacyChartTypeStacked_horizontal_bar_3d = 'shb3' /* three-dimensional stacked horizontal bar chart */,
-	KeynoteLegacyChartTypeArea_2d = 'are2' /* two-dimensional area chart. */,
-	KeynoteLegacyChartTypeStacked_area_2d = 'sar2' /* two-dimensional stacked area chart */,
-	KeynoteLegacyChartTypeLine_2d = 'lin2' /*  two-dimensional line chart. */,
-	KeynoteLegacyChartTypeLine_3d = 'lin3' /* three-dimensional line chart */,
-	KeynoteLegacyChartTypeArea_3d = 'are3' /* three-dimensional area chart */,
-	KeynoteLegacyChartTypeStacked_area_3d = 'sar3' /* three-dimensional stacked area chart */,
-	KeynoteLegacyChartTypeScatterplot_2d = 'scp2' /* two-dimensional scatterplot chart */
+    KeynoteLegacyChartTypePie_2d = 'pie2' /* two-dimensional pie chart */,
+    KeynoteLegacyChartTypeVertical_bar_2d = 'vbr2' /* two-dimensional vertical bar chart */,
+    KeynoteLegacyChartTypeStacked_vertical_bar_2d = 'svb2' /* two-dimensional stacked vertical bar chart */,
+    KeynoteLegacyChartTypeHorizontal_bar_2d = 'hbr2' /* two-dimensional horizontal bar chart */,
+    KeynoteLegacyChartTypeStacked_horizontal_bar_2d = 'shb2' /* two-dimensional stacked horizontal bar chart */,
+    KeynoteLegacyChartTypePie_3d = 'pie3' /* three-dimensional pie chart. */,
+    KeynoteLegacyChartTypeVertical_bar_3d = 'vbr3' /* three-dimensional vertical bar chart */,
+    KeynoteLegacyChartTypeStacked_vertical_bar_3d = 'svb3' /* three-dimensional stacked bar chart */,
+    KeynoteLegacyChartTypeHorizontal_bar_3d = 'hbr3' /* three-dimensional horizontal bar chart */,
+    KeynoteLegacyChartTypeStacked_horizontal_bar_3d = 'shb3' /* three-dimensional stacked horizontal bar chart */,
+    KeynoteLegacyChartTypeArea_2d = 'are2' /* two-dimensional area chart. */,
+    KeynoteLegacyChartTypeStacked_area_2d = 'sar2' /* two-dimensional stacked area chart */,
+    KeynoteLegacyChartTypeLine_2d = 'lin2' /*  two-dimensional line chart. */,
+    KeynoteLegacyChartTypeLine_3d = 'lin3' /* three-dimensional line chart */,
+    KeynoteLegacyChartTypeArea_3d = 'are3' /* three-dimensional area chart */,
+    KeynoteLegacyChartTypeStacked_area_3d = 'sar3' /* three-dimensional stacked area chart */,
+    KeynoteLegacyChartTypeScatterplot_2d = 'scp2' /* two-dimensional scatterplot chart */
 };
 typedef enum KeynoteLegacyChartType KeynoteLegacyChartType;
 
 // Grouping for chart data
 enum KeynoteLegacyChartGrouping {
-	KeynoteLegacyChartGroupingChartRow = 'KCgr' /* group by row */,
-	KeynoteLegacyChartGroupingChartColumn = 'KCgc' /* group by column */
+    KeynoteLegacyChartGroupingChartRow = 'KCgr' /* group by row */,
+    KeynoteLegacyChartGroupingChartColumn = 'KCgc' /* group by column */
 };
 typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 

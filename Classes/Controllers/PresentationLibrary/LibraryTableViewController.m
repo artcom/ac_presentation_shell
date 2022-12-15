@@ -38,14 +38,14 @@ enum ACPresentationDoubleClicked {
     self.userSortDescriptor = sortDescriptor;
     [self.presentationTable setSortDescriptors:@[self.userSortDescriptor]];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(presentationSelectionDidChange:)
-                                                 name:NSTableViewSelectionDidChangeNotification object:self.presentationTable];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(presentationSelectionDidChange:)
+                                               name:NSTableViewSelectionDidChangeNotification object:self.presentationTable];
     
     [self presentationTableColumnOrderDidChange: nil];
-    [[NSNotificationCenter defaultCenter] addObserver: self
-                                             selector: @selector(presentationTableColumnOrderDidChange:)
-                                                 name: NSTableViewColumnDidMoveNotification
-                                               object:self.presentationTable];
+    [NSNotificationCenter.defaultCenter addObserver: self
+                                           selector: @selector(presentationTableColumnOrderDidChange:)
+                                               name: NSTableViewColumnDidMoveNotification
+                                             object:self.presentationTable];
 }
 
 - (NSArray *)selectedPresentations
@@ -56,7 +56,7 @@ enum ACPresentationDoubleClicked {
 
 - (NSMutableArray*) currentPresentationList {
     if (![self.presentationLibrary hasLibrary]) {
-        return [NSMutableArray array];
+        return NSMutableArray.array;
     }
     return currentPresentationList;
 }
@@ -150,7 +150,7 @@ enum ACPresentationDoubleClicked {
         [self.statusText setStringValue: NSLocalizedString(ACSHELL_STR_NO_LIBRARY, nil)];
     } else if (selectedItems > 0) {
         [self.statusText setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_M_PRESENTATIONS, nil),
-                                     selectedItems, [[self.presentationsArrayController arrangedObjects] count]]];
+                                          selectedItems, [[self.presentationsArrayController arrangedObjects] count]]];
     } else {
         [self.statusText setStringValue: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_PRESENTATIONS, nil), self.currentPresentationList.count]];
     }
@@ -166,7 +166,7 @@ enum ACPresentationDoubleClicked {
     if (sender == self.presentationTable) {
         if ([[self.presentationsArrayController selectedObjects] count] > 0) {
             Presentation *presentation = [[self.presentationsArrayController selectedObjects] objectAtIndex:0];
-            int doubleClickSetting = [[[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_PRESENTATION_DOUBLE_CLICKED] intValue];
+            int doubleClickSetting = [[NSUserDefaults.standardUserDefaults objectForKey: ACSHELL_DEFAULT_KEY_PRESENTATION_DOUBLE_CLICKED] intValue];
             switch (doubleClickSetting) {
                 case ACShellOpenPresentation:
                     [self.delegate libraryTableViewController:self openPresentation:presentation];

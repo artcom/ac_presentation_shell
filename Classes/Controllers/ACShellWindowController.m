@@ -37,8 +37,8 @@
     [self setupControllers];
     [self bindMenuItems];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(load) name:ACShellLibraryDidUpdate object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(load) name:ACShellLibraryConfigDidChange object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(load) name:ACShellLibraryDidUpdate object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(load) name:ACShellLibraryConfigDidChange object:nil];
 }
 
 - (void)bindMenuItems
@@ -63,7 +63,7 @@
     
     self.presentationWindowController = PresentationWindowController.new;
     
-    if ([[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
+    if ([NSUserDefaults.standardUserDefaults boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
         self.editWindowController = [[EditWindowController alloc] initWithPresentationLibrary:self.presentationLibrary];
     }
     
@@ -103,7 +103,7 @@
 
 - (BOOL) editingEnabled
 {
-    return [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
+    return [NSUserDefaults.standardUserDefaults boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
 }
 
 - (IBAction)updatePresentationFilter:(id)sender

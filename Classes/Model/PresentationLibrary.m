@@ -150,7 +150,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     self.tagData = [NSMutableDictionary new];
     self.presentationData = [NSMutableDictionary new];
     
-    if ( ! [[NSFileManager defaultManager] fileExistsAtPath: libraryPath]) {
+    if ( ! [NSFileManager.defaultManager fileExistsAtPath: libraryPath]) {
         NSLog(@"file '%@' does not exist", libraryPath);
         return NO;
     }
@@ -216,44 +216,44 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (BOOL)editingEnabled {
-    return [[NSUserDefaults standardUserDefaults] boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
+    return [NSUserDefaults.standardUserDefaults boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
 }
 
 - (BOOL)libraryExistsAtPath
 {
-    return [[NSFileManager defaultManager] fileExistsAtPath: self.libraryDirPath];
+    return [NSFileManager.defaultManager fileExistsAtPath: self.libraryDirPath];
 }
 
 - (NSString*) librarySource {
     if ([self editingEnabled]) {
         return self.libraryTarget;
     }
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER] != nil) {
+    [NSUserDefaults.standardUserDefaults synchronize];
+    if ([NSUserDefaults.standardUserDefaults objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER] != nil) {
         return [NSString stringWithFormat: @"%@@%@",
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER],
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
+                [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER],
+                [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
     }
-    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+    return [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
 
 - (NSString*) libraryTarget {
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    if ([[NSUserDefaults standardUserDefaults] objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER] != nil) {
+    [NSUserDefaults.standardUserDefaults synchronize];
+    if ([NSUserDefaults.standardUserDefaults objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER] != nil) {
         return [NSString stringWithFormat: @"%@@%@",
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER],
-                [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
+                [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER],
+                [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE]];
     }
-    return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+    return [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
 
 - (NSString*) libraryDirPath {
-    NSString *destination = [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    NSString *destination = [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     if (destination && ![destination isEqualToString:@""]) {
-        return [[NSUserDefaults standardUserDefaults]  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+        return [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     }
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain]
-            stringByAppendingPathComponent: [self.librarySource lastPathComponent]];
+    return [[NSFileManager.defaultManager applicationSupportDirectoryInUserDomain]
+            stringByAppendingPathComponent:self.librarySource.lastPathComponent];
 }
 
 - (void) saveXmlLibrary {
@@ -291,7 +291,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self.tagData.allValues makeObjectsPerformSelector:@selector(detach)];
     [self.presentationData.allValues makeObjectsPerformSelector:@selector(detach)];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:ACShellLibraryDidUpdate object:nil];
+    [NSNotificationCenter.defaultCenter postNotificationName:ACShellLibraryDidUpdate object:nil];
     
     if (self.indexing) {
         // TODO: Ideally, this would be a possible place to add:
@@ -419,12 +419,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     Presentation *presentation = [[Presentation alloc] initWithId: newId inContext: self];
     presentation.directory = [self subdirectoryFromTitle: title];
-    if ([[NSFileManager defaultManager] fileExistsAtPath: presentation.directory]) {
+    if ([NSFileManager.defaultManager fileExistsAtPath: presentation.directory]) {
         presentation.directory = [NSString stringWithFormat: @"%@-%@", presentation.directory, presentation.presentationId];
     }
     NSError * error;
-    if ( ! [[NSFileManager defaultManager] createDirectoryAtPath: presentation.absoluteDirectory
-                                     withIntermediateDirectories: YES attributes: nil error: &error])
+    if ( ! [NSFileManager.defaultManager createDirectoryAtPath: presentation.absoluteDirectory
+                                   withIntermediateDirectories: YES attributes: nil error: &error])
     {
         NSLog(@"Failed to create directory: %@", error);
         return;
@@ -433,8 +433,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
     presentation.title = title;
     presentation.highlight = highlightFlag;
     presentation.year = [NSNumber numberWithInteger: year];
-    presentation.presentationFilename = [keynote lastPathComponent];
-    presentation.thumbnailFilename = [thumbnail lastPathComponent];
+    presentation.presentationFilename = keynote.lastPathComponent;
+    presentation.thumbnailFilename = thumbnail.lastPathComponent;
     presentation.categories = [categories valueForKeyPath:@"ID"];
     presentation.tags = [tags valueForKeyPath:@"ID"];
     
@@ -478,11 +478,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
             //[assetMan trashAsset: presentation.absoluteThumbnailPath];
-            [[NSFileManager defaultManager] removeItemAtPath:presentation.absoluteThumbnailPath error:nil];
+            [NSFileManager.defaultManager removeItemAtPath:presentation.absoluteThumbnailPath error:nil];
         }
         [assetMan copyAsset: thumbnail];
         
-        presentation.thumbnailFilename = [thumbnail lastPathComponent];
+        presentation.thumbnailFilename = thumbnail.lastPathComponent;
         
         [self flushThumbnailCacheForPresentation: presentation];
         
@@ -491,12 +491,12 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [keynote isEqual: presentation.absolutePresentationPath]) {
         if (presentation.presentationFileExists) {
-            [[NSFileManager defaultManager] removeItemAtPath:presentation.absolutePresentationPath error:nil];
+            [NSFileManager.defaultManager removeItemAtPath:presentation.absolutePresentationPath error:nil];
             //[assetMan trashAsset: presentation.absolutePresentationPath];
         }
         [assetMan copyAsset: keynote];
         
-        presentation.presentationFilename = [keynote lastPathComponent];
+        presentation.presentationFilename = keynote.lastPathComponent;
         
         xmlChanged = YES;
     }
@@ -506,15 +506,15 @@ static NSCharacterSet * ourNonDirNameCharSet;
         xmlChanged = YES;
         NSString * newDir = [self subdirectoryFromTitle: title];
         if ( ! [presentation.directory isEqual: newDir]) {
-            if ([[NSFileManager defaultManager] fileExistsAtPath: newDir]) {
+            if ([NSFileManager.defaultManager fileExistsAtPath: newDir]) {
                 newDir = [NSString stringWithFormat: @"%@-%@", newDir, presentation.presentationId];
             }
             NSString * newDirPath  = [self.libraryDirPath stringByAppendingPathComponent: newDir];
             // TODO error handling
             NSError * error;
-            [[NSFileManager defaultManager] moveItemAtPath: presentation.absoluteDirectory
-                                                    toPath: newDirPath
-                                                     error: &error];
+            [NSFileManager.defaultManager moveItemAtPath: presentation.absoluteDirectory
+                                                  toPath: newDirPath
+                                                   error: &error];
             presentation.directory = newDir;
         }
     }
@@ -688,11 +688,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 - (NSString*) buildLibDir: (NSString*) libraryDir {
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent: libraryDir];
+    return [[NSFileManager.defaultManager applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent: libraryDir];
 }
 
 + (NSString*) settingsFilepath {
-    return [[[NSFileManager defaultManager] applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
+    return [[NSFileManager.defaultManager applicationSupportDirectoryInUserDomain] stringByAppendingPathComponent:@"settings"];
 }
 
 - (NSString*) subdirectoryFromTitle: (NSString*) aTitle {
@@ -703,8 +703,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [workingSet invert];
         ourNonDirNameCharSet = [workingSet copy];
     }
-    NSString * str = [[[aTitle lowercaseString] componentsSeparatedByCharactersInSet: ourNonDirNameCharSet] componentsJoinedByString: @""];
-    NSArray * words = [str componentsSeparatedByCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString * str = [[aTitle.lowercaseString componentsSeparatedByCharactersInSet:ourNonDirNameCharSet] componentsJoinedByString: @""];
+    NSArray * words = [str componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
     return [words componentsJoinedByString: @"_"];
 }
 

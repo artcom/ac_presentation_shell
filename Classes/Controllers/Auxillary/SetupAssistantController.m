@@ -79,8 +79,8 @@ enum PageTags {
     [pages selectFirstTabViewItem: nil];
     numPages = [pages numberOfTabViewItems];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publicKeySelectionDidChange:)
-                                                 name:NSTableViewSelectionDidChangeNotification object: publicKeyTable];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(publicKeySelectionDidChange:)
+                                               name:NSTableViewSelectionDidChangeNotification object: publicKeyTable];
     
     [bonjourServerList addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context:nil];
 }
@@ -117,7 +117,7 @@ enum PageTags {
         selectedServer = [bonjourServerList selectionIndexes];
     }
     [nextButton setEnabled: (selectedCellIndex == 1 && [[rsyncSourceEntry stringValue] length] > 0) || 
-                            (selectedCellIndex == 0 && [selectedServer count] > 0)];
+     (selectedCellIndex == 0 && [selectedServer count] > 0)];
 }
 
 - (IBAction) userDidChangeRsyncSource: (id) sender {
@@ -213,10 +213,10 @@ enum PageTags {
         libraryName = server.name;
         adminAddress = server.administratorAddress;
     }
-
+    
     [libraryNameLabel setStringValue: libraryName];
     [administratorAddressLabel setStringValue: adminAddress];
-
+    
     SshIdentityFile * identity = [[publicKeyArrayController selectedObjects] objectAtIndex: 0];
     publicKeyDraglet.filename = identity.path;
     
@@ -226,7 +226,7 @@ enum PageTags {
     NSString * adminAddress = NSLocalizedString(ACSHELL_STR_UNKNOWN, nil);
     NSString * subject = [NSString stringWithFormat: @"ACShell library access"];
     NSString * body = [NSString stringWithFormat: @"Hi,\nI need to access the presentation library.\n Here is my public key:\n"];
-
+    
     if ([[discoveryModeButtons selectedCell] tag] == 0) {
         NSIndexSet * selection = [bonjourServerList selectionIndexes];
         if ([selection count] == 0) {
@@ -239,7 +239,7 @@ enum PageTags {
         subject = [server.keyRequestEmailSubject stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];
         body = [server.keyRequestEmailBody stringByReplacingOccurrencesOfString: @"%n" withString: libraryName];
     }
-        
+    
     NSString * mailToURL = [NSString stringWithFormat: @"mailto:%@?subject=%@&body=%@",
                             adminAddress,
                             [subject stringByAddingPercentEncodingWithAllowedCharacters:NSCharacterSet.URLQueryAllowedCharacterSet],
@@ -251,7 +251,7 @@ enum PageTags {
 - (void) updatePublicKeyList {
     [publicKeys removeAllObjects];
     NSString * sshDir = sshDirString();
-    NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: sshDir error: nil];
+    NSArray * dirContents = [NSFileManager.defaultManager contentsOfDirectoryAtPath: sshDir error: nil];
     NSArray * publicKeyFiles = [dirContents filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self ENDSWITH '.pub'"]];
     [self willChangeValueForKey: @"publicKeys"];
     for (NSString * file in publicKeyFiles) {
@@ -321,15 +321,15 @@ enum PageTags {
         
         rsyncSource = server.rsyncSource;
         
-        [[NSUserDefaults standardUserDefaults] setValue: server.readUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
-        [[NSUserDefaults standardUserDefaults] setValue: server.writeUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];        
+        [NSUserDefaults.standardUserDefaults setValue: server.readUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
+        [NSUserDefaults.standardUserDefaults setValue: server.writeUser forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];
     } else {
         rsyncSource = [rsyncSourceEntry stringValue];
-        [[NSUserDefaults standardUserDefaults] setValue: ACSHELL_RSYNC_READ_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
-        [[NSUserDefaults standardUserDefaults] setValue: ACSHELL_RSYNC_WRITE_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];
+        [NSUserDefaults.standardUserDefaults setValue: ACSHELL_RSYNC_READ_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
+        [NSUserDefaults.standardUserDefaults setValue: ACSHELL_RSYNC_WRITE_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];
     }
     
-    [[NSUserDefaults standardUserDefaults] setValue: rsyncSource forKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
+    [NSUserDefaults.standardUserDefaults setValue: rsyncSource forKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
 
 #pragma mark -

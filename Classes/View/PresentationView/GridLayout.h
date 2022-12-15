@@ -10,13 +10,13 @@
 
 
 @interface GridLayout : NSObject {
-	CGRect viewFrame;
-	CGSize itemSize;
-	
-	CGFloat border;
-
-	@private
-	CGRect viewPort;
+    CGRect viewFrame;
+    CGSize itemSize;
+    
+    CGFloat border;
+    
+@private
+    CGRect viewPort;
 }
 
 @property (assign) CGRect viewFrame;

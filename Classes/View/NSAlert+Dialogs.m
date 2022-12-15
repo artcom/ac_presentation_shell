@@ -18,7 +18,7 @@
 {
     BOOL reallyDoIt = NO;
     NSString * userDefaultsKey = [NSString stringWithFormat: @"supress%@Dialog", identifier];
-    BOOL suppressAlert = [[NSUserDefaults standardUserDefaults] boolForKey: userDefaultsKey];
+    BOOL suppressAlert = [NSUserDefaults.standardUserDefaults boolForKey: userDefaultsKey];
     if (suppressAlert ) {
         reallyDoIt = YES;
     } else {
@@ -35,7 +35,7 @@
         if ([alert runModal] == NSAlertSecondButtonReturn) {
             reallyDoIt = YES;
         }
-        [[NSUserDefaults standardUserDefaults] setBool: alert.suppressionButton.state forKey: userDefaultsKey];
+        [NSUserDefaults.standardUserDefaults setBool: alert.suppressionButton.state forKey: userDefaultsKey];
     }
     return reallyDoIt;
 }
