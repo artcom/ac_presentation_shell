@@ -338,6 +338,7 @@ enum TagActionTags {
     [self.presentationLibrary addTag:self.tagInput.stringValue];
     [self.tagList reloadData];
     self.tagInput.stringValue = @"";
+    [self updateTagControls];
 }
 
 - (void)deleteTag
@@ -351,6 +352,7 @@ enum TagActionTags {
         NSInteger row = self.tagList.selectedRow;
         [self.presentationLibrary removeTag:row];
         [self.tagList reloadData];
+        [self updateTagControls];
     }
 }
 
