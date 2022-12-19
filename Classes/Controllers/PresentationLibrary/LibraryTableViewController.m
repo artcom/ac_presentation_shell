@@ -54,6 +54,11 @@ enum ACPresentationDoubleClicked {
     return [[self.presentationsArrayController arrangedObjects] filteredArrayUsingPredicate:selected];
 }
 
+- (BOOL)hasPresentationSelected
+{
+    return self.presentationTable.selectedRowIndexes.count > 0;
+}
+
 - (NSMutableArray*) currentPresentationList {
     if (![self.presentationLibrary hasLibrary]) {
         return NSMutableArray.array;

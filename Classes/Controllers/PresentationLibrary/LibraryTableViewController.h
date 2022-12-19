@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSTextField *statusText;
 
 - (void)updatePresentationFilter:(id)sender;
+- (BOOL)hasPresentationSelected;
 @end
 
 @protocol LibraryTableViewControllerDelegate <NSObject>

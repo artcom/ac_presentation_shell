@@ -86,20 +86,15 @@
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <menu key="submenu" title="Library" id="Q5E-p6-eRi">
                                                 <items>
-                                                    <menuItem title="Synchronize" id="qlS-iJ-CeT">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Synchronize" keyEquivalent="s" id="qlS-iJ-CeT">
                                                         <connections>
                                                             <action selector="sync:" target="Ady-hI-5gd" id="Qho-jn-ZIi"/>
                                                         </connections>
                                                     </menuItem>
-                                                    <menuItem title="Upload" id="NsA-4q-X2T">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                                    <menuItem title="Upload" keyEquivalent="u" id="NsA-4q-X2T">
                                                         <connections>
                                                             <action selector="upload:" target="Ady-hI-5gd" id="OrP-vW-ugz"/>
                                                         </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Delete" enabled="NO" id="tee-p1-Qgd">
-                                                        <modifierMask key="keyEquivalentModifierMask"/>
                                                     </menuItem>
                                                 </items>
                                             </menu>
@@ -109,62 +104,18 @@
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="ZeQ-kt-HQF"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="ogE-zg-YXs">
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Page Setup..." keyEquivalent="P" id="GpR-to-atT">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="runPageLayout:" target="Ady-hI-5gd" id="CtK-v5-OVB"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Print…" keyEquivalent="p" id="RS9-i7-0tj">
-                                            <connections>
-                                                <action selector="print:" target="Ady-hI-5gd" id="5KJ-fl-GwF"/>
-                                            </connections>
-                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>
                             <menuItem title="Edit" id="O2s-p5-Jo7">
                                 <menu key="submenu" title="Edit" id="mlJ-DK-ImD">
                                     <items>
-                                        <menuItem title="Undo" keyEquivalent="z" id="j2W-H8-QHN">
-                                            <connections>
-                                                <action selector="undo:" target="Ady-hI-5gd" id="HYW-l3-NNH"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Redo" keyEquivalent="Z" id="w9F-oU-Ggs">
-                                            <modifierMask key="keyEquivalentModifierMask" shift="YES" command="YES"/>
-                                            <connections>
-                                                <action selector="redo:" target="Ady-hI-5gd" id="fDY-Fk-eBb"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="mp3-L9-aLG"/>
-                                        <menuItem title="Edit Presentation..." id="FoB-7a-Ozb">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                        <menuItem title="Edit Presentation..." keyEquivalent="e" id="FoB-7a-Ozb">
                                             <connections>
                                                 <action selector="editPresentation:" target="Ady-hI-5gd" id="cB1-KM-y0W"/>
                                             </connections>
                                         </menuItem>
-                                        <menuItem isSeparatorItem="YES" id="ed6-KW-pPw">
-                                            <modifierMask key="keyEquivalentModifierMask" command="YES"/>
-                                        </menuItem>
-                                        <menuItem title="Cut" keyEquivalent="x" id="LiT-Uz-8Wh">
-                                            <connections>
-                                                <action selector="cut:" target="Ady-hI-5gd" id="1gT-Rs-fzl"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Copy" keyEquivalent="c" id="die-et-Ply">
-                                            <connections>
-                                                <action selector="copy:" target="Ady-hI-5gd" id="eSu-80-z75"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Paste" keyEquivalent="v" id="ZpO-dZ-BPo">
-                                            <connections>
-                                                <action selector="paste:" target="Ady-hI-5gd" id="nlP-OV-lWV"/>
-                                            </connections>
-                                        </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="ed6-KW-pPw"/>
                                         <menuItem title="Delete" id="5W8-Zn-lcW">
                                             <string key="keyEquivalent" base64-UTF8="YES">
 CA
@@ -172,11 +123,6 @@ CA
                                             <modifierMask key="keyEquivalentModifierMask"/>
                                             <connections>
                                                 <action selector="remove:" target="Ady-hI-5gd" id="wQN-jy-xoe"/>
-                                            </connections>
-                                        </menuItem>
-                                        <menuItem title="Select All" keyEquivalent="a" id="2iq-Sg-IrR">
-                                            <connections>
-                                                <action selector="selectAll:" target="Ady-hI-5gd" id="W3P-80-08R"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -194,6 +140,17 @@ CA
                                         <menuItem title="Customize Toolbar…" id="vy9-fI-BBg">
                                             <connections>
                                                 <action selector="runToolbarCustomizationPalette:" target="Ady-hI-5gd" id="NsB-Wa-S5R"/>
+                                            </connections>
+                                        </menuItem>
+                                    </items>
+                                </menu>
+                            </menuItem>
+                            <menuItem title="Play" id="K6m-VN-0ai">
+                                <menu key="submenu" title="Play" id="SSg-Hk-kdt">
+                                    <items>
+                                        <menuItem title="Play Presentations" keyEquivalent="p" id="4lV-PV-AvM" userLabel="Play Presentations">
+                                            <connections>
+                                                <action selector="play:" target="Ady-hI-5gd" id="AD3-99-wES"/>
                                             </connections>
                                         </menuItem>
                                     </items>
@@ -264,17 +221,17 @@ CA
                                         <action selector="toggleSidebar:" target="B8D-0N-5wS" id="rSh-EH-sQB"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="4BD535EB-DDEE-40D7-865C-E27404E27313" explicitItemIdentifier="ACShellToolbarItemStart" label="Start" paletteLabel="Start" toolTip="Play presentations" tag="-1" image="play.rectangle" catalog="system" sizingBehavior="auto" id="UNw-C0-XEC">
+                                <toolbarItem implicitItemIdentifier="4BD535EB-DDEE-40D7-865C-E27404E27313" explicitItemIdentifier="ACShellToolbarItemStart" label="Play" paletteLabel="Play" toolTip="Play Presentations" tag="-1" image="play.rectangle" catalog="system" sizingBehavior="auto" id="UNw-C0-XEC" userLabel="Play">
                                     <connections>
                                         <action selector="play:" target="B8D-0N-5wS" id="jmG-sW-Dk3"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E4827680-9674-400C-AF80-518EC7F65923" explicitItemIdentifier="ACShellToolbarItemSync" label="Sync" paletteLabel="Synchronize" toolTip="Synchronize with server" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" sizingBehavior="auto" id="jI6-Bx-GLt">
+                                <toolbarItem implicitItemIdentifier="E4827680-9674-400C-AF80-518EC7F65923" explicitItemIdentifier="ACShellToolbarItemSync" label="Sync" paletteLabel="Synchronize" toolTip="Synchronize With Server" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" sizingBehavior="auto" id="jI6-Bx-GLt">
                                     <connections>
                                         <action selector="sync:" target="B8D-0N-5wS" id="Hq0-4y-hch"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="34F5E731-7A0C-4684-A679-33C6473FED77" explicitItemIdentifier="ACShellToolbarItemUpload" label="Upload" paletteLabel="Upload" toolTip="Synchronize with server" tag="-1" image="arrow.up" catalog="system" sizingBehavior="auto" id="ohL-OZ-O6d" userLabel="Upload">
+                                <toolbarItem implicitItemIdentifier="34F5E731-7A0C-4684-A679-33C6473FED77" explicitItemIdentifier="ACShellToolbarItemUpload" label="Upload" paletteLabel="Upload" toolTip="Upload To Server" tag="-1" image="arrow.up" catalog="system" sizingBehavior="auto" id="ohL-OZ-O6d" userLabel="Upload">
                                     <connections>
                                         <action selector="upload:" target="B8D-0N-5wS" id="VKa-8o-i0U"/>
                                         <binding destination="B8D-0N-5wS" name="enabled" keyPath="editingEnabled" id="3F6-Ys-XhC"/>

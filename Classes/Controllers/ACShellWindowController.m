@@ -275,12 +275,12 @@
 {
     SEL theAction = [anItem action];
     if (theAction == @selector(editPresentation:)) {
-        if (self.presentationLibrary.editingEnabled && [[self.libraryTableViewController.presentationTable selectedRowIndexes] count] == 1) {
+        if (self.presentationLibrary.editingEnabled && [self.libraryTableViewController hasPresentationSelected]) {
             return YES;
         }
         return NO;
     } else if (theAction == @selector(remove:)) {
-        if (self.window.firstResponder == self.libraryTableViewController.presentationTable) {
+        if (self.window.firstResponder == self.libraryTableViewController.presentationTable && [self.libraryTableViewController hasPresentationSelected]) {
             return self.libraryViewController.isPresentationRemovable;
         } else if (self.window.firstResponder == self.libraryViewController.collectionView) {
             return self.libraryViewController.isCollectionSelected;

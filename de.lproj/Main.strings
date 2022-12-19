@@ -11,8 +11,8 @@
 /* Class = "NSMenu"; title = "Services"; ObjectID = "1fi-lX-Wh8"; */
 "1fi-lX-Wh8.title" = "Dienste";
 
-/* Class = "NSMenuItem"; title = "Select All"; ObjectID = "2iq-Sg-IrR"; */
-"2iq-Sg-IrR.title" = "Alles auswählen";
+/* Class = "NSMenuItem"; title = "Play Presentations"; ObjectID = "4lV-PV-AvM"; */
+"4lV-PV-AvM.title" = "Präsentationen vorführen";
 
 /* Class = "NSMenuItem"; title = "New Presentation"; ObjectID = "54Y-FN-nXS"; */
 "54Y-FN-nXS.title" = "Neue Präsentation";
@@ -25,6 +25,9 @@
 
 /* Class = "NSSearchFieldCell"; placeholderString = "Name"; ObjectID = "6gc-4Q-eyp"; */
 "6gc-4Q-eyp.placeholderString" = "Name";
+
+/* Class = "NSTableColumn"; headerCell.title = "Tags"; ObjectID = "6oN-eI-Ve7"; */
+"6oN-eI-Ve7.headerCell.title" = "Tags";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "AAh-TS-xbF"; */
 "AAh-TS-xbF.title" = "Text Cell";
@@ -44,14 +47,14 @@
 /* Class = "NSMenuItem"; title = "Edit Presentation..."; ObjectID = "FoB-7a-Ozb"; */
 "FoB-7a-Ozb.title" = "Präsentation bearbeiten...";
 
-/* Class = "NSMenuItem"; title = "Page Setup..."; ObjectID = "GpR-to-atT"; */
-"GpR-to-atT.title" = "Papierformat...";
-
 /* Class = "NSWindow"; title = "AC Presentation Shell"; ObjectID = "IQv-IB-iLA"; */
 "IQv-IB-iLA.title" = "AC Präsentations Shell";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "JeY-C5-ED0"; */
 "JeY-C5-ED0.title" = "Text Cell";
+
+/* Class = "NSMenuItem"; title = "Play"; ObjectID = "K6m-VN-0ai"; */
+"K6m-VN-0ai.title" = "Vorführen";
 
 /* Class = "NSMenuItem"; title = "Hide ACShell"; ObjectID = "KSW-0m-oG1"; */
 "KSW-0m-oG1.title" = "ACShell ausblenden";
@@ -61,9 +64,6 @@
 
 /* Class = "NSMenuItem"; title = "Quit ACShell"; ObjectID = "LW0-ZE-Kcj"; */
 "LW0-ZE-Kcj.title" = "ACShell beenden";
-
-/* Class = "NSMenuItem"; title = "Cut"; ObjectID = "LiT-Uz-8Wh"; */
-"LiT-Uz-8Wh.title" = "Ausschneiden";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "MOm-tT-UlJ"; */
 "MOm-tT-UlJ.title" = "Text Cell";
@@ -89,23 +89,23 @@
 /* Class = "NSMenuItem"; title = "Services"; ObjectID = "Qh4-IR-Qn0"; */
 "Qh4-IR-Qn0.title" = "Dienste";
 
-/* Class = "NSMenuItem"; title = "Print…"; ObjectID = "RS9-i7-0tj"; */
-"RS9-i7-0tj.title" = "Drucken…";
-
 /* Class = "NSMenuItem"; title = "View"; ObjectID = "S3H-fM-aLJ"; */
 "S3H-fM-aLJ.title" = "Darstellung";
+
+/* Class = "NSMenu"; title = "Play"; ObjectID = "SSg-Hk-kdt"; */
+"SSg-Hk-kdt.title" = "Vorführen";
 
 /* Class = "NSMenuItem"; title = "File"; ObjectID = "Sfs-YY-Rv4"; */
 "Sfs-YY-Rv4.title" = "Ablage";
 
-/* Class = "NSToolbarItem"; label = "Start"; ObjectID = "UNw-C0-XEC"; */
-"UNw-C0-XEC.label" = "Start";
+/* Class = "NSToolbarItem"; label = "Play"; ObjectID = "UNw-C0-XEC"; */
+"UNw-C0-XEC.label" = "Vorführen";
 
-/* Class = "NSToolbarItem"; paletteLabel = "Start"; ObjectID = "UNw-C0-XEC"; */
-"UNw-C0-XEC.paletteLabel" = "Start";
+/* Class = "NSToolbarItem"; paletteLabel = "Play"; ObjectID = "UNw-C0-XEC"; */
+"UNw-C0-XEC.paletteLabel" = "Vorführen";
 
-/* Class = "NSToolbarItem"; toolTip = "Play presentations"; ObjectID = "UNw-C0-XEC"; */
-"UNw-C0-XEC.toolTip" = "Präsentationen abspielen";
+/* Class = "NSToolbarItem"; toolTip = "Play Presentations"; ObjectID = "UNw-C0-XEC"; */
+"UNw-C0-XEC.toolTip" = "Präsentationen vorführen";
 
 /* Class = "NSTableColumn"; headerCell.title = "Categories"; ObjectID = "VCt-iB-U71"; */
 "VCt-iB-U71.headerCell.title" = "Kategorien";
@@ -119,20 +119,17 @@
 /* Class = "NSTableColumn"; headerCell.title = "Year"; ObjectID = "ZGz-zN-8EQ"; */
 "ZGz-zN-8EQ.headerCell.title" = "Jahr";
 
-/* Class = "NSMenuItem"; title = "Paste"; ObjectID = "ZpO-dZ-BPo"; */
-"ZpO-dZ-BPo.title" = "Einfügen";
-
 /* Class = "NSMenuItem"; title = "Close"; ObjectID = "a47-DO-EYl"; */
 "a47-DO-EYl.title" = "Schließen";
 
 /* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "bXo-G5-d1x"; */
 "bXo-G5-d1x.title" = "Text Cell";
 
+/* Class = "NSTextFieldCell"; title = "Text Cell"; ObjectID = "cWy-AF-AIy"; */
+"cWy-AF-AIy.title" = "Text Cell";
+
 /* Class = "NSMenu"; title = "ACShell"; ObjectID = "cYJ-VP-bLH"; */
 "cYJ-VP-bLH.title" = "ACShell";
-
-/* Class = "NSMenuItem"; title = "Copy"; ObjectID = "die-et-Ply"; */
-"die-et-Ply.title" = "Kopieren";
 
 /* Class = "NSMenuItem"; title = "Show All"; ObjectID = "hAR-0c-0LU"; */
 "hAR-0c-0LU.title" = "Alle einblenden";
@@ -142,9 +139,6 @@
 
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "j1g-y7-u1s"; */
 "j1g-y7-u1s.title" = "Hilfe";
-
-/* Class = "NSMenuItem"; title = "Undo"; ObjectID = "j2W-H8-QHN"; */
-"j2W-H8-QHN.title" = "Rückgängig";
 
 /* Class = "NSToolbarItem"; label = "Sync"; ObjectID = "jI6-Bx-GLt"; */
 "jI6-Bx-GLt.label" = "Sync";
@@ -170,8 +164,8 @@
 /* Class = "NSToolbarItem"; paletteLabel = "Upload"; ObjectID = "ohL-OZ-O6d"; */
 "ohL-OZ-O6d.paletteLabel" = "Hochladen";
 
-/* Class = "NSToolbarItem"; toolTip = "Synchronize with server"; ObjectID = "ohL-OZ-O6d"; */
-"ohL-OZ-O6d.toolTip" = "Mit Server Synchronisieren";
+/* Class = "NSToolbarItem"; toolTip = "Upload to Server"; ObjectID = "ohL-OZ-O6d"; */
+"ohL-OZ-O6d.toolTip" = "Auf Server hochladen";
 
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "pmO-T5-xhK"; */
 "pmO-T5-xhK.headerCell.title" = "Name";
@@ -185,9 +179,6 @@
 /* Class = "NSMenuItem"; title = "ACShell"; ObjectID = "sDR-Ij-vKa"; */
 "sDR-Ij-vKa.title" = "ACShell";
 
-/* Class = "NSMenuItem"; title = "Delete"; ObjectID = "tee-p1-Qgd"; */
-"tee-p1-Qgd.title" = "Löschen";
-
 /* Class = "NSMenuItem"; title = "Show Toolbar"; ObjectID = "trW-6L-16H"; */
 "trW-6L-16H.title" = "Symbolleiste anzeigen";
 
@@ -197,11 +188,11 @@
 /* Class = "NSMenuItem"; title = "Customize Toolbar…"; ObjectID = "vy9-fI-BBg"; */
 "vy9-fI-BBg.title" = "Symbolleiste anpassen…";
 
-/* Class = "NSMenuItem"; title = "Redo"; ObjectID = "w9F-oU-Ggs"; */
-"w9F-oU-Ggs.title" = "Widerholen";
-
 /* Class = "NSMenuItem"; title = "ACShell Help"; ObjectID = "wIs-MB-OxP"; */
 "wIs-MB-OxP.title" = "ACShell Hilfe";
 
 /* Class = "NSMenuItem"; title = "Minimize"; ObjectID = "x62-ji-PPT"; */
 "x62-ji-PPT.title" = "Minimieren";
+
+/* Class = "NSTextFieldCell"; title = "Label"; ObjectID = "zmP-lo-Fsp"; */
+"zmP-lo-Fsp.title" = "Label";
