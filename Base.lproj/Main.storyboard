@@ -110,6 +110,21 @@
                             <menuItem title="Edit" id="O2s-p5-Jo7">
                                 <menu key="submenu" title="Edit" id="mlJ-DK-ImD">
                                     <items>
+                                        <menuItem title="Cut" keyEquivalent="x" id="ucl-s3-92t">
+                                            <connections>
+                                                <action selector="cut:" target="Ady-hI-5gd" id="XXG-Kx-6pG"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Copy" keyEquivalent="c" id="AMo-lQ-N06">
+                                            <connections>
+                                                <action selector="copy:" target="Ady-hI-5gd" id="HNj-SW-DaG"/>
+                                            </connections>
+                                        </menuItem>
+                                        <menuItem title="Paste" keyEquivalent="v" id="vtt-Nb-e5B">
+                                            <connections>
+                                                <action selector="paste:" target="Ady-hI-5gd" id="j1q-93-h7Q"/>
+                                            </connections>
+                                        </menuItem>
                                         <menuItem title="Edit Presentation..." keyEquivalent="e" id="FoB-7a-Ozb">
                                             <connections>
                                                 <action selector="editPresentation:" target="Ady-hI-5gd" id="cB1-KM-y0W"/>
