@@ -90,7 +90,7 @@
 "229.title" = "sysad@example.com";
 
 /* Class = "NSButtonCell"; title = "I did send that email"; ObjectID = "239"; */
-"239.title" = "Ich habe die mail verschickt";
+"239.title" = "Ich habe die Email verschickt";
 
 /* Class = "NSButtonCell"; title = "Open Mail Template"; ObjectID = "245"; */
 "245.title" = "Email Vorlage öffnen";

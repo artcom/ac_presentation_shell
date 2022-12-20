@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19529" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -137,7 +137,7 @@ DQ
                                             <rect key="frame" x="157" y="171" width="241" height="140"/>
                                             <clipView key="contentView" id="EZF-6t-0jC">
                                                 <rect key="frame" x="1" y="1" width="239" height="138"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="53">
                                                         <rect key="frame" x="0.0" y="0.0" width="239" height="138"/>
@@ -261,7 +261,7 @@ DQ
                                                 <constraint firstAttribute="width" constant="305" id="KW5-DC-o72"/>
                                                 <constraint firstAttribute="height" constant="22" id="qN2-2s-fGU"/>
                                             </constraints>
-                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="100">
+                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" enabled="NO" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="100">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -274,7 +274,7 @@ DQ
                                             <rect key="frame" x="125" y="123" width="305" height="222"/>
                                             <clipView key="contentView" id="bV8-8O-32u">
                                                 <rect key="frame" x="1" y="1" width="303" height="220"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <collectionView maxNumberOfColumns="1" selectable="YES" id="116">
                                                         <rect key="frame" x="0.0" y="0.0" width="303" height="220"/>
@@ -344,7 +344,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="216">
-                                            <rect key="frame" x="123" y="345" width="50" height="17"/>
+                                            <rect key="frame" x="123" y="345" width="51" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="17" id="FdM-Ss-2sy"/>
                                             </constraints>
@@ -355,7 +355,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="218">
-                                            <rect key="frame" x="123" y="320" width="92" height="17"/>
+                                            <rect key="frame" x="123" y="320" width="93" height="17"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="17" id="67g-wS-DGh"/>
                                             </constraints>
@@ -393,7 +393,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="226">
-                                            <rect key="frame" x="218" y="345" width="132" height="17"/>
+                                            <rect key="frame" x="219" y="345" width="132" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="ACME Corporation" id="227">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -401,7 +401,7 @@ DQ
                                             </textFieldCell>
                                         </textField>
                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="228">
-                                            <rect key="frame" x="218" y="320" width="132" height="17"/>
+                                            <rect key="frame" x="219" y="320" width="132" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" title="sysad@example.com" id="229">
                                                 <font key="font" metaFont="system"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
