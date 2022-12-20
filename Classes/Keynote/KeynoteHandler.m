@@ -142,6 +142,7 @@ KeynoteHandler *sharedInstance;
 
 - (void)presentationDidStop {
     NSLog(@"  stopped.");
+    [self.presentation closeSaving:KeynoteSaveOptionsNo savingIn:nil];
     self.presenting = NO;
     self.presentation = nil;
     [self.delegate keynoteDidStopPresentation:self];
