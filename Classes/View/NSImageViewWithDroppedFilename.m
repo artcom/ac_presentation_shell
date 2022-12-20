@@ -17,14 +17,10 @@
     if ( ! [super performDragOperation:sender] ) {
         return NO;
     }
-    NSPasteboard * pasteboard = [sender draggingPasteboard];
-    if ( [[pasteboard types] containsObject: NSFilenamesPboardType] ) {
-        NSArray *filenames = [pasteboard propertyListForType:NSFilenamesPboardType];
-        if ([filenames count] >= 1) {
-            self.filename = [filenames objectAtIndex:0];
-        } else {
-            self.filename = nil;
-        }
+    NSPasteboard *pasteboard = [sender draggingPasteboard];
+    if ( [pasteboard.types containsObject:NSPasteboardTypeFileURL] ) {
+        NSURL *url = [NSURL URLFromPasteboard:pasteboard];
+        self.filename = url.path;
         return YES;
     }
     return NO;

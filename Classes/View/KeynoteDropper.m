@@ -30,14 +30,9 @@
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
     NSPasteboard *pasteboard = [sender draggingPasteboard];
-    
-    if ( [[pasteboard types] containsObject:NSFilenamesPboardType] ) {
-        NSArray *filenames = [pasteboard propertyListForType: NSFilenamesPboardType];
-        NSString * draggedFile = nil;
-        if ([filenames count] >= 1) {
-            draggedFile = [filenames objectAtIndex:0];
-        }
-        if ([[draggedFile pathExtension] isEqual: @"key"]) {
+    if ( [pasteboard.types containsObject:NSPasteboardTypeFileURL] ) {
+        NSURL *url = [NSURL URLFromPasteboard:pasteboard];
+        if ([url.path.pathExtension isEqual: @"key"]) {
             return NSDragOperationCopy;
         } 
     }
@@ -45,11 +40,10 @@
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pasteboard = [sender draggingPasteboard];
-    if ( [[pasteboard types] containsObject: NSFilenamesPboardType] ) {
-        NSArray *files = [pasteboard propertyListForType:NSFilenamesPboardType];
-        
-        self.filename = [files objectAtIndex: 0];
+    NSPasteboard *pasteboard = sender.draggingPasteboard;
+    if ( [[pasteboard types] containsObject: NSPasteboardTypeFileURL] ) {
+        NSURL *url = [NSURL URLFromPasteboard:pasteboard];
+        self.filename = url.path;
         [self.delegate userDidDropKeynote:self];
         return YES;
     }
