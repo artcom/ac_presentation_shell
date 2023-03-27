@@ -250,7 +250,7 @@ enum TagActionTags {
         [self.selectedCategories removeAllObjects];
         [self.selectedCategories addObjectsFromArray:categories];
         
-        predicate = [NSPredicate predicateWithFormat:@"self.title IN %@", self.presentation.tags];
+        predicate = [NSPredicate predicateWithFormat:@"self.ID IN %@", self.presentation.tags];
         NSArray *tags = [self.presentationLibrary.tags filteredArrayUsingPredicate:predicate];
         [self.selectedTags removeAllObjects];
         [self.selectedTags addObjectsFromArray:tags];
@@ -350,6 +350,7 @@ enum TagActionTags {
                                                       destructiveAction:YES];
     if (deleteIt) {
         NSInteger row = self.tagList.selectedRow;
+        [self.selectedTags removeObject:self.presentationLibrary.tags[row]];
         [self.presentationLibrary removeTag:row];
         [self.tagList reloadData];
         [self updateTagControls];
