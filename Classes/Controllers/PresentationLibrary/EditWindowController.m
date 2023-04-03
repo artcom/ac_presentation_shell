@@ -222,6 +222,7 @@ enum TagActionTags {
 
 - (void) operationDidFinish {
     [NSApp endSheet: progressSheet];
+    [self.presentationLibrary markPresentationCompleted];
 }
 
 - (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode {

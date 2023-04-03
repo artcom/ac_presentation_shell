@@ -477,7 +477,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
-            //[assetMan trashAsset: presentation.absoluteThumbnailPath];
             [NSFileManager.defaultManager removeItemAtPath:presentation.absoluteThumbnailPath error:nil];
         }
         [assetMan copyAsset: thumbnail];
@@ -646,6 +645,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
         }
         return NSOrderedSame;
     }];
+}
+
+- (void)markPresentationCompleted
+{
+    [self.allPresentations makeObjectsPerformSelector:@selector(markComplete)];
 }
 
 -(void) syncPresentations {
