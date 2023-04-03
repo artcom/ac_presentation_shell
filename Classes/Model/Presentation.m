@@ -124,9 +124,7 @@
 }
 
 - (NSString*) directory {
-    if (directory == nil) {
-        directory = [[[self xmlNode] attributeForName:@"directory"] stringValue];
-    }
+    directory = [[[self xmlNode] attributeForName:@"directory"] stringValue];
     return directory;
 }
 
@@ -140,7 +138,6 @@
 }
 
 - (NSString *) thumbnailFilename {
-    
     NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
     thumbnailFilename = [[thumbnailNodes objectAtIndex: 0] stringValue];
     return thumbnailFilename;
