@@ -193,7 +193,6 @@
     [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     [NSUserDefaults.standardUserDefaults synchronize];
     
-    self.library.libraryDirPath = self.storageLibraryPath;
     [self.library saveXmlLibrary];
     
     _library = [PresentationLibrary new];
@@ -269,7 +268,6 @@
     [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     [NSUserDefaults.standardUserDefaults synchronize];
     
-    self.library.libraryDirPath = self.storageLibraryPath;
     [self.library saveXmlLibrary];
     
     _library = [PresentationLibrary new];
