@@ -48,7 +48,7 @@
             self.order = [aDecoder decodeIntegerForKey:@"order"];
         }
         self.context = nil;
-    }	
+    }
     return self;
 }
 
@@ -71,10 +71,8 @@
 }
 
 - (NSString*) title {
-    if (title == nil) {
-        NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
-        title = [[titleNodes objectAtIndex: 0] stringValue];
-    }
+    NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
+    title = [[titleNodes objectAtIndex: 0] stringValue];
     return title;
 }
 
@@ -82,14 +80,12 @@
     title = newTitle;
     NSArray *titleNodes = [[self xmlNode] nodesForXPath:@"title" error:nil];
     [self willChangeValueForKey:@"singleLineTitle"];
-    [[titleNodes objectAtIndex: 0] setStringValue: newTitle];	
+    [[titleNodes objectAtIndex: 0] setStringValue: newTitle];
     [self didChangeValueForKey:@"singleLineTitle"];
 }
 
 - (NSString*) singleLineTitle {
-    if (singleLineTitle == nil) {
-        singleLineTitle = [[self title] stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
-    }
+    singleLineTitle = [[self title] stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     return singleLineTitle;
 }
 
@@ -102,12 +98,10 @@
 }
 
 - (NSNumber*) year {
-    if (year == nil) {
-        NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
-        if ([yearNodes count] > 0) {
-            NSNumberFormatter * formatter = NSNumberFormatter.new;
-            year = [formatter numberFromString: [[yearNodes objectAtIndex: 0] stringValue]];
-        }
+    NSArray *yearNodes = [[self xmlNode] nodesForXPath:@"year" error:nil];
+    if ([yearNodes count] > 0) {
+        NSNumberFormatter * formatter = NSNumberFormatter.new;
+        year = [formatter numberFromString: [[yearNodes objectAtIndex: 0] stringValue]];
     }
     return year;
 }
@@ -122,7 +116,7 @@
     } else {
         yearNode = [yearNodes objectAtIndex: 0];
     }
-    [yearNode setStringValue: [NSString stringWithFormat: @"%@", aYear]];	
+    [yearNode setStringValue: [NSString stringWithFormat: @"%@", aYear]];
 }
 
 - (NSString*) yearString {
@@ -142,14 +136,13 @@
 }
 
 - (NSString*) absoluteDirectory {
-    return [[context libraryDirPath] stringByAppendingPathComponent: self.directory];
+    return [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: self.directory];
 }
 
 - (NSString *) thumbnailFilename {
-    if (thumbnailFilename == nil) {
-        NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
-        thumbnailFilename = [[thumbnailNodes objectAtIndex: 0] stringValue];
-    }
+    
+    NSArray *thumbnailNodes = [[self xmlNode] nodesForXPath:@"thumbnail" error:nil];
+    thumbnailFilename = [[thumbnailNodes objectAtIndex: 0] stringValue];
     return thumbnailFilename;
 }
 
@@ -162,19 +155,16 @@
 }
 
 - (NSString *)relativeThumbnailPath {
-    return [self.directory stringByAppendingPathComponent: self.thumbnailFilename];	
+    return [self.directory stringByAppendingPathComponent: self.thumbnailFilename];
 }
 
 - (NSString*) absoluteThumbnailPath {
-    return [[context libraryDirPath] stringByAppendingPathComponent: self.relativeThumbnailPath];
+    return [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: self.relativeThumbnailPath];
 }
 
-
 - (NSString *) presentationFilename {
-    if (presentationFilename == nil) {
-        NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
-        presentationFilename =  [[nodes objectAtIndex: 0] stringValue];
-    }
+    NSArray *nodes = [[self xmlNode] nodesForXPath:@"file" error:nil];
+    presentationFilename =  [[nodes objectAtIndex: 0] stringValue];
     return presentationFilename;
 }
 
@@ -189,7 +179,7 @@
 }
 
 - (NSString *)absolutePresentationPath {
-    return [[context libraryDirPath] stringByAppendingPathComponent: self.relativePresentationPath];
+    return [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: self.relativePresentationPath];
 }
 
 - (void)setCategories:(NSArray *)theCategories

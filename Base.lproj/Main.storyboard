@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="Search Toolbar Item" minToolsVersion="12.0" minSystemVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -229,7 +229,7 @@ CA
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="196" y="240" width="1083" height="599"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
-                        <toolbar key="toolbar" implicitIdentifier="04FC39B6-45B0-415C-8135-51A7A169F7F2" explicitIdentifier="MainWindowToolbar" displayMode="iconOnly" sizeMode="small" id="JBA-ti-1Y7">
+                        <toolbar key="toolbar" implicitIdentifier="04FC39B6-45B0-415C-8135-51A7A169F7F2" explicitIdentifier="MainWindowToolbar" displayMode="iconOnly" sizeMode="regular" id="JBA-ti-1Y7">
                             <allowedToolbarItems>
                                 <toolbarItem implicitItemIdentifier="33ED36CA-8ECE-4747-BEBC-AA37E665A7C4" label="ToggleSidebar" paletteLabel="Toggle Sidebar" tag="-1" image="sidebar.left" catalog="system" sizingBehavior="auto" id="1Vb-bB-Da3" userLabel="ToggleSidebar">
                                     <connections>
@@ -683,8 +683,8 @@ CA
         </scene>
     </scenes>
     <resources>
-        <image name="NSAddTemplate" width="14" height="13"/>
-        <image name="NSRemoveTemplate" width="14" height="4"/>
+        <image name="NSAddTemplate" width="18" height="17"/>
+        <image name="NSRemoveTemplate" width="18" height="5"/>
         <image name="arrow.triangle.2.circlepath" catalog="system" width="18" height="15"/>
         <image name="arrow.up" catalog="system" width="13" height="14"/>
         <image name="exclamationmark.triangle.fill" catalog="system" width="17" height="15"/>

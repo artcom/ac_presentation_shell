@@ -60,7 +60,7 @@
 
 - (NSString *)directoryPath
 {
-    return [[self.context.libraryDirPath stringByAppendingPathComponent:self.context.categoriesDirectory]
+    return [[PresentationLibrary.libraryDirPath stringByAppendingPathComponent:self.context.categoriesDirectory]
             stringByAppendingPathComponent:self.directory];
 }
 

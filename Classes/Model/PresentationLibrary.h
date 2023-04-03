@@ -23,22 +23,23 @@
 @property (strong) NSArray *tags;
 @property (readonly) BOOL hasLibrary;
 @property (assign) BOOL syncSuccessful;
-@property (nonatomic, strong) NSString *libraryDirPath;
 @property (strong) NSString *categoriesDirectory;
 @property (assign) BOOL indexing;
 
-@property (weak, readonly) NSString* librarySource;
-@property (weak, readonly) NSString* libraryTarget;
 
 + (instancetype)sharedInstance;
 + (id)libraryFromSettingsFile;
 
++ (NSString *)libraryDirPath;
++ (NSString *)librarySource;
++ (NSString *)libraryTarget;
++ (BOOL)editingEnabled;
+
 - (BOOL)libraryExistsAtPath;
-- (void)reload;
+- (void)loadPresentations;
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;
 - (void) saveXmlLibrary;
-- (BOOL)editingEnabled;
 
 - (NSUInteger)collectionCount;
 

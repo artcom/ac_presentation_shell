@@ -61,7 +61,7 @@
 {
     NSString * source = [NSUserDefaults.standardUserDefaults objectForKey:ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
     if (source && ![source isEqualToString:@""]) {
-        NSString *path = [PresentationLibrary sharedInstance].libraryDirPath;
+        NSString *path = PresentationLibrary.libraryDirPath;
         [NSUserDefaults.standardUserDefaults synchronize];
         [NSUserDefaults.standardUserDefaults setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
         [NSUserDefaults.standardUserDefaults synchronize];

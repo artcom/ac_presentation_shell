@@ -39,7 +39,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 @property (strong) NSMutableDictionary *thumbnailCache;
 
 + (NSString*) settingsFilepath;
-- (void) setup;
+- (void) initCollections;
 - (void) syncPresentations;
 - (void) addNewPresentations: (NSMutableArray*) presentations withPredicate: (NSPredicate*) thePredicate;
 - (void) dropStalledPresentations: (NSMutableArray*) thePresentations notMatchingPredicate: (NSPredicate *)thePredicate;
@@ -57,7 +57,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     static PresentationLibrary *_sharedInstance = nil;
     dispatch_once(&once, ^{
         _sharedInstance = [self libraryFromSettingsFile];
-        [_sharedInstance reload];
+        [_sharedInstance loadPresentations];
     });
     
     return _sharedInstance;
@@ -74,7 +74,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 -(id) init {
     self = [super init];
     if (self != nil) {
-        [self setup];
+        [self initCollections];
         self.syncSuccessful = YES;
         self.indexing = YES;
     }
@@ -84,7 +84,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 -(id) initWithCoder:(NSCoder *)aDecoder {
     self = [super init];
     if (self != nil) {
-        [self setup];
+        [self initCollections];
         [self.allPresentations addObjectsFromArray: [aDecoder decodeObjectForKey: ACSHELL_STR_ALL]];
         [self.highlights addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_HIGHLIGHTS]];
         [self.collections addObjectsFromArray: [aDecoder decodeObjectForKey:ACSHELL_STR_COLLECTIONS]];
@@ -99,11 +99,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return self;
 }
 
-- (void)reload {
-    [self loadXmlLibraryFromDirectory:self.libraryDirPath];
+- (void)loadPresentations {
+    [self loadXmlLibraryFromDirectory:PresentationLibrary.libraryDirPath];
 }
 
--(void) setup {
+-(void) initCollections {
     self.thumbnailCache = NSMutableDictionary.new;
     
     self.categoryData = nil;
@@ -208,23 +208,23 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self cacheThumbnails];
     
     if (self.indexing) {
-        self.librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:self.libraryDirPath];
+        self.librarySearch = [[PresentationLibrarySearch alloc] initWithLibraryPath:PresentationLibrary.libraryDirPath];
         [self.librarySearch updateIndex];
     }
     
     return YES;
 }
 
-- (BOOL)editingEnabled {
++ (BOOL)editingEnabled {
     return [NSUserDefaults.standardUserDefaults boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
 }
 
 - (BOOL)libraryExistsAtPath
 {
-    return [NSFileManager.defaultManager fileExistsAtPath: self.libraryDirPath];
+    return [NSFileManager.defaultManager fileExistsAtPath: PresentationLibrary.libraryDirPath];
 }
 
-- (NSString*) librarySource {
++ (NSString*) librarySource {
     if ([self editingEnabled]) {
         return self.libraryTarget;
     }
@@ -237,7 +237,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
 
-- (NSString*) libraryTarget {
++ (NSString*) libraryTarget {
     [NSUserDefaults.standardUserDefaults synchronize];
     if ([NSUserDefaults.standardUserDefaults objectForKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER] != nil) {
         return [NSString stringWithFormat: @"%@@%@",
@@ -247,7 +247,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     return [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
 
-- (NSString*) libraryDirPath {
++ (NSString*) libraryDirPath {
     NSString *destination = [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
     if (destination && ![destination isEqualToString:@""]) {
         return [NSUserDefaults.standardUserDefaults  stringForKey: ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
@@ -283,7 +283,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }
     
     NSData *xmlData = [document XMLDataWithOptions:NSXMLNodePrettyPrint];
-    if (![xmlData writeToFile: [self.libraryDirPath stringByAppendingPathComponent:@"library.xml"] atomically:YES]) {
+    if (![xmlData writeToFile: [PresentationLibrary.libraryDirPath stringByAppendingPathComponent:@"library.xml"] atomically:YES]) {
         NSLog(@"Failed to save xml file.");
     }
     
@@ -341,7 +341,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
     NSImage *thumbnail = [self.thumbnailCache objectForKey:presentation.presentationId];
     
     if (thumbnail == nil) {
-        NSString *filepath = [[self libraryDirPath] stringByAppendingPathComponent: presentation.relativeThumbnailPath];
+        NSString *filepath = [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: presentation.relativeThumbnailPath];
         thumbnail =  [[NSImage alloc] initWithContentsOfURL:[NSURL fileURLWithPath:filepath]];
         if (thumbnail != nil) {
             [self.thumbnailCache setObject:thumbnail forKey:presentation.presentationId];
@@ -509,7 +509,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
             if ([NSFileManager.defaultManager fileExistsAtPath: newDir]) {
                 newDir = [NSString stringWithFormat: @"%@-%@", newDir, presentation.presentationId];
             }
-            NSString * newDirPath  = [self.libraryDirPath stringByAppendingPathComponent: newDir];
+            NSString * newDirPath  = [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: newDir];
             // TODO error handling
             NSError * error;
             [NSFileManager.defaultManager moveItemAtPath: presentation.absoluteDirectory
@@ -662,13 +662,14 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self dropStalledPresentations:collection.presentations notMatchingPredicate: nil];
     }
     
-    // Here we should handle tags
+    // Add a parent collection for each tag
     [self.tagged removeAllObjects];
     for (LibraryTag *tag in self.tags) {
         ACShellCollection *collection = [ACShellCollection collectionWithName:tag.ID];
         [self.tagged addObject:collection];
     }
     
+    // Add presentations to tag collection
     for (ACShellCollection *collection in self.tagged) {
         NSPredicate *taggedPredicate = [NSPredicate predicateWithFormat:@"tags CONTAINS %@", collection.name];
         [self dropStalledPresentations: collection.presentations notMatchingPredicate: taggedPredicate];

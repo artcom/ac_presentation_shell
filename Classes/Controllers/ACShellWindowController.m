@@ -37,8 +37,8 @@
     [self setupControllers];
     [self bindMenuItems];
     
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(load) name:ACShellLibraryDidUpdate object:nil];
-    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(load) name:ACShellLibraryConfigDidChange object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(loadLibrary) name:ACShellLibraryDidUpdate object:nil];
+    [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(loadLibrary) name:ACShellLibraryConfigDidChange object:nil];
 }
 
 - (void)bindMenuItems
@@ -51,7 +51,6 @@
 
 - (void)setupControllers
 {
-    
     self.libraryTableViewController = self.contentViewController.childViewControllers[1];
     self.libraryTableViewController.presentationLibrary = self.presentationLibrary;
     self.libraryTableViewController.delegate = self;
@@ -72,7 +71,7 @@
     self.rsyncController.delegate = self;
     
     [[KeynoteHandler sharedHandler] launchWithDelegate:self];
-    [self load];
+    [self loadLibrary];
 }
 
 - (NSMutableArray*) library
@@ -85,11 +84,11 @@
     self.presentationLibrary.library.children = array;
 }
 
-- (void) load {
+- (void) loadLibrary {
     [self.libraryViewController.collectionView deselectAll:self];
     
     [self.libraryViewController willChangeValueForKey:@"library"];
-    [[PresentationLibrary sharedInstance] reload];
+    [[PresentationLibrary sharedInstance] loadPresentations];
     [self.libraryViewController didChangeValueForKey:@"library"];
     [self.libraryViewController beautifyOutlineView];
 }
@@ -97,7 +96,7 @@
 - (void)start
 {
     if (![self.presentationLibrary libraryExistsAtPath]) {
-        [self.rsyncController initialSyncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
+        [self.rsyncController initialSyncWithSource: PresentationLibrary.librarySource destination: PresentationLibrary.libraryDirPath];
     }
 }
 
@@ -133,15 +132,15 @@
 - (IBAction)sync:(id)sender
 {
     if ([self.presentationLibrary hasLibrary]) {
-        [self.rsyncController syncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
+        [self.rsyncController syncWithSource: PresentationLibrary.librarySource destination: PresentationLibrary.libraryDirPath];
     } else {
-        [self.rsyncController initialSyncWithSource: self.presentationLibrary.librarySource destination: self.presentationLibrary.libraryDirPath];
+        [self.rsyncController initialSyncWithSource: PresentationLibrary.librarySource destination: PresentationLibrary.libraryDirPath];
     }
 }
 
 - (IBAction)upload:(id)sender
 {
-    [self.rsyncController uploadWithSource: self.presentationLibrary.libraryDirPath destination: self.presentationLibrary.libraryTarget];
+    [self.rsyncController uploadWithSource: PresentationLibrary.libraryDirPath destination: PresentationLibrary.libraryTarget];
 }
 
 - (IBAction)addCollection:(id)sender
@@ -234,7 +233,7 @@
     self.presentationLibrary.syncSuccessful = successFlag;
     [self.libraryViewController updateSyncFailedWarning];
     if (successFlag) {
-        [self load];
+        [self loadLibrary];
     }
 }
 
@@ -275,7 +274,7 @@
 {
     SEL theAction = [anItem action];
     if (theAction == @selector(editPresentation:)) {
-        if (self.presentationLibrary.editingEnabled && [self.libraryTableViewController hasPresentationSelected]) {
+        if (PresentationLibrary.editingEnabled && [self.libraryTableViewController hasPresentationSelected]) {
             return YES;
         }
         return NO;
