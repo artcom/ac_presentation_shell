@@ -649,6 +649,9 @@ static NSCharacterSet * ourNonDirNameCharSet;
 }
 
 -(void) syncPresentations {
+    
+    [self.allPresentations makeObjectsPerformSelector:@selector(markComplete)];
+    
     // Here we initialize the presentations
     [self dropStalledPresentations: self.allPresentations notMatchingPredicate: nil];
     [self addNewPresentations: self.allPresentations withPredicate: nil];

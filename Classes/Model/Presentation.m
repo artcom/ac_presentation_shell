@@ -33,6 +33,8 @@
         self.context = theContext;
         self.presentationId = theId;
         self.order = -1;
+        
+        [self markComplete];
     }
     return self;
 }
@@ -41,13 +43,15 @@
     self = [super init];
     if (self != nil) {
         self.selected = [aDecoder decodeBoolForKey:@"selected"];
+        self.context = nil;
         self.presentationId = [aDecoder decodeObjectForKey:@"presentationId"];
         if ([aDecoder containsValueForKey: @"index"]) {
             self.order = [aDecoder decodeIntegerForKey:@"index"];
         } else {
             self.order = [aDecoder decodeIntegerForKey:@"order"];
         }
-        self.context = nil;
+        
+        [self markComplete];
     }
     return self;
 }
@@ -152,10 +156,12 @@
 }
 
 - (NSString *)relativeThumbnailPath {
+    if (self.thumbnailFilename == nil) return nil;
     return [self.directory stringByAppendingPathComponent: self.thumbnailFilename];
 }
 
 - (NSString*) absoluteThumbnailPath {
+    if (self.relativeThumbnailPath == nil) return nil;
     return [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: self.relativeThumbnailPath];
 }
 
@@ -172,10 +178,12 @@
 }
 
 - (NSString*) relativePresentationPath {
+    if (self.presentationFilename == nil) return nil;
     return [self.directory stringByAppendingPathComponent: self.presentationFilename];
 }
 
 - (NSString *)absolutePresentationPath {
+    if (self.relativePresentationPath == nil) return nil;
     return [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: self.relativePresentationPath];
 }
 
@@ -266,18 +274,26 @@
     return [self.presentationId isEqual: ((Presentation *)object).presentationId];
 }
 
-- (BOOL)isComplete {
-    return self.presentationFileExists && self.thumbnailFileExists;
+- (BOOL)isComplete
+{
+    return self.isMarkedComplete;
+}
+
+- (void)markComplete
+{
+    self.isMarkedComplete = self.presentationFileExists && self.thumbnailFileExists;
 }
 
 - (BOOL) presentationFileExists {
-    return [NSFileManager.defaultManager fileExistsAtPath: self.absolutePresentationPath];
+    if (self.absolutePresentationPath == nil) return  NO;
+    BOOL res = [NSFileManager.defaultManager fileExistsAtPath: self.absolutePresentationPath];
+    return res;
 }
 
 - (BOOL) thumbnailFileExists {
+    if (self.absoluteThumbnailPath == nil) return  NO;
     return [NSFileManager.defaultManager fileExistsAtPath: self.absoluteThumbnailPath];
 }
-
 
 - (NSXMLElement*) xmlNode {
     return [context xmlNodeForPresentation: presentationId];

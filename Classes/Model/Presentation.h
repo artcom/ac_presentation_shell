@@ -46,6 +46,8 @@
 @property (readonly) BOOL thumbnailFileExists;
 
 @property (weak, readonly) NSImage *thumbnail;
+
+@property (assign, nonatomic) BOOL isMarkedComplete;
 @property (readonly) BOOL isComplete;
 
 - (id) initWithId:(id)theId inContext: (PresentationLibrary*)theContext;
@@ -54,4 +56,5 @@
 
 - (NSComparisonResult) compareByOrder: (Presentation*) other;
 - (BOOL) isEqual: (id) object;
+- (void)markComplete;
 @end
