@@ -172,8 +172,8 @@ enum TagActionTags {
 
 - (IBAction)tagActionClicked:(id)sender
 {
-    int selectedSegment = [sender selectedSegment];
-    int selectedSegmentTag = [[sender cell] tagForSegment:selectedSegment];
+    NSInteger selectedSegment = [sender selectedSegment];
+    NSInteger selectedSegmentTag = [[sender cell] tagForSegment:selectedSegment];
     switch (selectedSegmentTag) {
         case AddTagAction:
             [self addTag];

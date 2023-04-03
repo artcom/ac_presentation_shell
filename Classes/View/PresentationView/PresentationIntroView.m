@@ -204,7 +204,7 @@
     NSMutableArray *backgroundImages = [NSMutableArray new];
     for (NSInteger i=0; i < self.categoryTitles.count; i++) {
         NSArray *images = [self.dataSource presentationIntroView:self imagesForCategoryAtIndex:i];
-        NSInteger index = arc4random_uniform(images.count);
+        NSUInteger index = arc4random_uniform((int)images.count);
         [backgroundImages addObject:images[index]];
     }
     _backgroundImages = backgroundImages;

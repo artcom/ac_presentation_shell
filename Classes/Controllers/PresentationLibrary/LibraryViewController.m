@@ -109,8 +109,8 @@ enum CollectionActionTags {
 
 - (IBAction)collectionActionClicked: (id) sender
 {
-    int selectedSegment = [sender selectedSegment];
-    int selectedSegmentTag = [[sender cell] tagForSegment:selectedSegment];
+    NSInteger selectedSegment = [sender selectedSegment];
+    NSInteger selectedSegmentTag = [[sender cell] tagForSegment:selectedSegment];
     switch (selectedSegmentTag) {
         case AddCollectionAction:
             [self addCollection];
@@ -139,7 +139,7 @@ enum CollectionActionTags {
     ACShellCollection *collection = (ACShellCollection *)[item representedObject];
     
     if ([self handleDuplicates: newItems inCollection: collection]) {
-        int order = [collection.presentations count] + 1;
+        NSUInteger order = [collection.presentations count] + 1;
         for (Presentation* p in newItems) {
             p.order = order++;
         }

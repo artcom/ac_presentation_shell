@@ -150,7 +150,7 @@ enum ACPresentationDoubleClicked {
 
 - (void)updateStatusText:(id)sender
 {
-    unsigned selectedItems = [[self.presentationTable selectedRowIndexes] count];
+    NSUInteger selectedItems = [[self.presentationTable selectedRowIndexes] count];
     if ( ! [self.presentationLibrary hasLibrary]) {
         [self.statusText setStringValue: NSLocalizedString(ACSHELL_STR_NO_LIBRARY, nil)];
     } else if (selectedItems > 0) {
@@ -228,7 +228,7 @@ enum ACPresentationDoubleClicked {
     NSSortDescriptor * sort = [[self.presentationsArrayController sortDescriptors] objectAtIndex: 0];
     NSArray * items = [self.presentationsArrayController arrangedObjects];
     BOOL isAscending = [sort ascending];
-    int index = isAscending ? 1 : [items count];
+    NSUInteger index = isAscending ? 1 : [items count];
     for (Presentation* p in items) {
         p.order = index;
         index += (isAscending ? 1 : -1);

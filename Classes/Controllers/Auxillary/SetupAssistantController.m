@@ -109,7 +109,7 @@ enum PageTags {
 }
 
 - (IBAction) userDidChangeServerDiscoveryMode: (id) sender {
-    int selectedCellIndex = [[sender selectedCell] tag];
+    NSInteger selectedCellIndex = [[sender selectedCell] tag];
     [rsyncSourceEntry setEnabled: selectedCellIndex == 1];
     NSIndexSet * selectedServer = [bonjourServerList selectionIndexes];
     if (selectedCellIndex == 0 && [selectedServer count] == 0 && [bonjourLibraries count] > 0) {

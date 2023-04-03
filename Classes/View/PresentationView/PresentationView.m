@@ -160,7 +160,7 @@
     
     CGSize itemSize = [dataSource sizeForItemInPresentationView:self];
     CGRect itemBounds = CGRectMake(0.0f, 0.0f, itemSize.width, itemSize.height);
-    for (int i = firstItem; i <= lastItem; i++) {
+    for (NSInteger i = firstItem; i <= lastItem; i++) {
         CALayer *layer = [dataSource presentationView:self layerForItemAtIndex:i];
         layer.position = [gridLayout positionForItem:i % gridLayout.itemsOnPage];
         layer.contentsScale = [self backingScaleFactor];
