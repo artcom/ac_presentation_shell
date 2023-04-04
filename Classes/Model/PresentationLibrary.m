@@ -647,14 +647,19 @@ static NSCharacterSet * ourNonDirNameCharSet;
     }];
 }
 
-- (void)markPresentationCompleted
+- (void)checkPresentationsComplete
 {
-    [self.allPresentations makeObjectsPerformSelector:@selector(markComplete)];
+    [self.allPresentations makeObjectsPerformSelector:@selector(checkComplete)];
+    [self.highlights makeObjectsPerformSelector:@selector(checkComplete)];
+    for (ACShellCollection *collection in self.collections) {
+        [collection.presentations makeObjectsPerformSelector:@selector(checkComplete)];
+    }
+    for (ACShellCollection *collection in self.tagged) {
+        [collection.presentations makeObjectsPerformSelector:@selector(checkComplete)];
+    }
 }
 
 -(void) syncPresentations {
-    
-    [self.allPresentations makeObjectsPerformSelector:@selector(markComplete)];
     
     // Here we initialize the presentations
     [self dropStalledPresentations: self.allPresentations notMatchingPredicate: nil];
@@ -682,6 +687,8 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self dropStalledPresentations: collection.presentations notMatchingPredicate: taggedPredicate];
         [self addNewPresentations: collection.presentations withPredicate: taggedPredicate];
     }
+    
+    [self checkPresentationsComplete];
 }
 
 - (void)updateIndices: (NSMutableArray*) thePresentations {

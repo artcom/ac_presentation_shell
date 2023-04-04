@@ -47,7 +47,7 @@
 - (NSXMLElement *) xmlNodeForTag: (NSString *)aId;
 - (NSXMLElement *)xmlNodeForPresentation:(id)aId;
 - (void)syncPresentations;
-- (void)markPresentationCompleted;
+- (void)checkPresentationsComplete;
 - (NSImage *)thumbnailForPresentation: (Presentation *)presentation;
 - (void)cacheThumbnails;
 - (void)flushThumbnailCache;

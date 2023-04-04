@@ -222,7 +222,7 @@ enum TagActionTags {
 
 - (void) operationDidFinish {
     [NSApp endSheet: progressSheet];
-    [self.presentationLibrary markPresentationCompleted];
+    
 }
 
 - (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode {
@@ -374,6 +374,7 @@ enum TagActionTags {
 - (void) postEditCleanUp {
     [self close];
     self.presentation = nil;
+    [self.presentationLibrary checkPresentationsComplete];
 }
 
 - (void)controlTextDidChange:(NSNotification *)obj

@@ -56,5 +56,5 @@
 
 - (NSComparisonResult) compareByOrder: (Presentation*) other;
 - (BOOL) isEqual: (id) object;
-- (void)markComplete;
+- (void)checkComplete;
 @end

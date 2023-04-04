@@ -34,7 +34,7 @@
         self.presentationId = theId;
         self.order = -1;
         
-        [self markComplete];
+        [self checkComplete];
     }
     return self;
 }
@@ -51,7 +51,7 @@
             self.order = [aDecoder decodeIntegerForKey:@"order"];
         }
         
-        [self markComplete];
+        [self checkComplete];
     }
     return self;
 }
@@ -279,7 +279,7 @@
     return self.isMarkedComplete;
 }
 
-- (void)markComplete
+- (void)checkComplete
 {
     self.isMarkedComplete = self.presentationFileExists && self.thumbnailFileExists;
 }
