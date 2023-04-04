@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6379E76B120C8B24006A6FEF"
-               BuildableName = "acshell_askpasswd"
+               BuildableName = "acshell_addhostkey"
                BlueprintName = "acshell_ask_ssh_add_key"
                ReferencedContainer = "container:ACShell.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6379E76B120C8B24006A6FEF"
-            BuildableName = "acshell_askpasswd"
+            BuildableName = "acshell_addhostkey"
             BlueprintName = "acshell_ask_ssh_add_key"
             ReferencedContainer = "container:ACShell.xcodeproj">
          </BuildableReference>
@@ -54,7 +54,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6379E76B120C8B24006A6FEF"
-            BuildableName = "acshell_askpasswd"
+            BuildableName = "acshell_addhostkey"
             BlueprintName = "acshell_ask_ssh_add_key"
             ReferencedContainer = "container:ACShell.xcodeproj">
          </BuildableReference>
@@ -71,7 +71,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6379E76B120C8B24006A6FEF"
-            BuildableName = "acshell_askpasswd"
+            BuildableName = "acshell_addhostkey"
             BlueprintName = "acshell_ask_ssh_add_key"
             ReferencedContainer = "container:ACShell.xcodeproj">
          </BuildableReference>

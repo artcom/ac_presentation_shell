@@ -113,8 +113,6 @@ static NSNumber * trash_op;
           stage:(FSFileOperationStage)stage error:(OSStatus)error
          status:(CFDictionaryRef)status
 {
-#pragma mark TODO: error handling!
-    
     if (error) {
         NSError *e = [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:nil];
         [self.progressDelegate operationDidFinishWithError:e];
