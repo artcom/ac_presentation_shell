@@ -98,20 +98,6 @@
 #pragma mark RsyncTask Delegate Methods
 
 - (void)rsyncTaskDidFinish:(RsyncTask *)task; {
-    
-    // TODO If this dialog is shown after syncing, a bug with modal sheets occurs:
-    // ProgressSheet while syncing -> Done (here) -> Show AckSheet -> User clicks okay -> ProgressSheet
-    // is shown again (and not initiated by code in this class!)
-    // Disabling for now
-    //    NSAlert *ack = [self acknowledgeDialogWithMessage: ACSHELL_STR_LIB_SYNCED
-    //                                     informationalText: nil
-    //                                                 style: NSInformationalAlertStyle
-    //                                                  icon: self.directionIcon];
-    //    
-    //    [self showSheet:ack completionHandler:^(NSModalResponse returnCode) {
-    //        [self userDidAcknowledge:ack returnCode:returnCode contextInfo:nil];
-    //    }];
-    
     [self showSheet:nil completionHandler:nil];
     [delegate rsync:self didFinishSyncSuccessfully:YES];
 }
@@ -170,8 +156,8 @@
 
 -(void) userDidAbortSync:(NSAlert *)sheet returnCode:(NSInteger)returnCode contextInfo:(void *)contextInfo {
     if (returnCode == NSAlertFirstButtonReturn) {
-        NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_ABORT_SYNC 
-                                         informationalText: ACSHELL_STR_ABORT_SYNC_WARNING 
+        NSAlert * confirm = [self confirmDialogWithMessage: ACSHELL_STR_ABORT_SYNC
+                                         informationalText: ACSHELL_STR_ABORT_SYNC_WARNING
                                                      style: NSAlertStyleWarning
                                               buttonTitles: [NSArray arrayWithObjects: ACSHELL_STR_ABORT, ACSHELL_STR_CONTINUE_SYNC, nil]];
         [self showSheet:confirm completionHandler:^(NSModalResponse returnCode) {
@@ -235,7 +221,7 @@
     [dialog setMessageText: NSLocalizedString(message, nil)];
     [dialog setInformativeText: NSLocalizedString(informationalText, nil)];
     [dialog setAlertStyle: style];
-    return dialog;    
+    return dialog;
 }
 
 -(NSAlert*) progressDialog {
