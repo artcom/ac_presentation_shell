@@ -181,6 +181,7 @@
 		3B623175266FC25100C17CF2 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		3B77D5392941FB1E006DF474 /* LibraryTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryTag.h; sourceTree = "<group>"; };
 		3B77D53A2941FB1E006DF474 /* LibraryTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTag.m; sourceTree = "<group>"; };
+		3B8000B029DC68A5009457A8 /* LibraryDelegateProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibraryDelegateProtocol.h; sourceTree = "<group>"; };
 		3B83565E2670383500187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/PreferencePages.strings; sourceTree = "<group>"; };
 		3B83566026703A6200187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/SetupAssistant.strings; sourceTree = "<group>"; };
 		3B83566126703D3C00187CE5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -588,6 +589,7 @@
 				6391D53712211B75009980C9 /* PreferenceController.m */,
 				63904154120633FC0061D215 /* LibraryServerCollectionItem.h */,
 				63904155120633FC0061D215 /* LibraryServerCollectionItem.m */,
+				3B8000B029DC68A5009457A8 /* LibraryDelegateProtocol.h */,
 				630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */,
 				22F2B8DE11F73EC100EE4717 /* RsyncController.h */,
 				22F2B8DF11F73EC100EE4717 /* RsyncController.m */,

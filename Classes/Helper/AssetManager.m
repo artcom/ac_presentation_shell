@@ -21,12 +21,10 @@ static NSNumber * copy_op;
 static NSNumber * trash_op;
 
 @interface AssetManager ()
-
 - (void) performNextOperation;
 - (void) fileOp: (FSFileOperationRef) fileOp didUpdateStatus: (const FSRef*) currentItem 
           stage: (FSFileOperationStage) stage error: (OSStatus) error 
 statusDictionary: (CFDictionaryRef) statusDictionary;
-
 @end
 
 @implementation AssetManager
@@ -37,25 +35,27 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
 }
 
 - (id) initWithPresentation: (Presentation*) thePresentation 
-           progressDelegate: (id<ProgressDelegateProtocol>) theDelegate
+           progressDelegate: (id<ProgressDelegateProtocol>) theProgressDelegate
+                   delegate:(id<LibraryDelegateProtocol>)theDelegate
 {
     self = [super init];
     if (self != nil) {
-        presentation = thePresentation;
-        delegate = theDelegate;
-        assets = NSMutableArray.new;
-        index = 0;
+        self.presentation = thePresentation;
+        self.progressDelegate = theProgressDelegate;
+        self.libraryDelegate = theDelegate;
+        self.assets = NSMutableArray.new;
+        self.index = 0;
     }
     return self;
 }
 
 
 - (void) copyAsset: (NSString*) assetPath {
-    [assets addObject: [NSArray arrayWithObjects: copy_op, assetPath, nil]];
+    [self.assets addObject: [NSArray arrayWithObjects: copy_op, assetPath, nil]];
 }
 
 - (void) trashAsset: (NSString*) assetPath {
-    [assets addObject: [NSArray arrayWithObjects: trash_op, assetPath, nil]];
+    [self.assets addObject: [NSArray arrayWithObjects: trash_op, assetPath, nil]];
 }
 
 - (void) run {
@@ -63,11 +63,12 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
 }
 
 - (void) performNextOperation {
-    if (index == [assets count]) {
-        [delegate operationDidFinish];
+    if (self.index == [self.assets count]) {
+        [self.progressDelegate operationDidFinish];
+        [self.libraryDelegate operationDidFinish];
         return;
     }
-    NSArray * operation = [assets objectAtIndex: index++];
+    NSArray * operation = [self.assets objectAtIndex:self.index++];
     NSNumber * opcode = [operation objectAtIndex: 0];
     NSString * src = [operation objectAtIndex: 1];
     
@@ -75,7 +76,7 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     FSPathMakeRef((UInt8*)[src fileSystemRepresentation], &srcRef, NULL);
     Boolean isDir = TRUE;
     FSRef destDirRef;
-    FSPathMakeRef((UInt8*)[[presentation absoluteDirectory] fileSystemRepresentation], &destDirRef, &isDir);
+    FSPathMakeRef((UInt8*)self.presentation.absoluteDirectory.fileSystemRepresentation, &destDirRef, &isDir);
     
     FSFileOperationRef op = FSFileOperationCreate(NULL);
     CFRunLoopRef runLoop = CFRunLoopGetCurrent();
@@ -96,12 +97,12 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     if ([opcode isEqualToNumber: copy_op]) {
         error = FSCopyObjectAsync(op, &srcRef, &destDirRef, NULL, kFSFileOperationDefaultOptions,
                                   fileOpStatusCallback, 1.0, &clientContext);
-        [delegate setMessage: NSLocalizedString(ACSHELL_STR_COPYING_ITEMS, nil)];
+        [self.progressDelegate setMessage: NSLocalizedString(ACSHELL_STR_COPYING_ITEMS, nil)];
         if (error != noErr) {
             NSLog(@"Error: failed to copy assets: %d", (int)error);
         }
     } else if ([opcode isEqualToNumber: trash_op]) {
-        [delegate setMessage: NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
+        [self.progressDelegate setMessage: NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
         error = FSMoveObjectToTrashAsync(op, &srcRef, kFSFileOperationDefaultOptions,
                                          fileOpStatusCallback, 1.0, &clientContext);
         if (error != noErr) {
@@ -124,10 +125,10 @@ statusDictionary: (CFDictionaryRef) statusDictionary
         totalBytes = (NSNumber*) CFDictionaryGetValue(statusDictionary, kFSOperationTotalBytesKey);
         if (itemsCompleted && bytesCompleted && totalItems && totalBytes) {
             double percent = ([bytesCompleted doubleValue] / [totalBytes doubleValue]) * 100;
-            [delegate setProgress: percent
-                             text: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_WITH_PERCENT, nil), 
-                                    [itemsCompleted intValue] + 1, [totalItems intValue], 
-                                    percent]];
+            [self.progressDelegate setProgress: percent
+                                          text: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_WITH_PERCENT, nil), 
+                                                 [itemsCompleted intValue] + 1, [totalItems intValue], 
+                                                 percent]];
         }
     }
     

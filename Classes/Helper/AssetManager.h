@@ -8,24 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
+#import "LibraryDelegateProtocol.h"
 
 @class Presentation;
 
-@interface AssetManager : NSObject {
-    
-    Presentation * presentation;
-    
-    NSMutableArray * assets;    
-    int index;
-    
-    id<ProgressDelegateProtocol> delegate;
-}
+@interface AssetManager : NSObject
+@property (nonatomic, strong) Presentation *presentation;
+@property (nonatomic, strong) NSMutableArray *assets;
+@property (nonatomic, assign) int index;
+
+@property (nonatomic, weak) id<ProgressDelegateProtocol> progressDelegate;
+@property (nonatomic, weak) id<LibraryDelegateProtocol> libraryDelegate;
 
 - (id) initWithPresentation: (Presentation*) presentation 
-           progressDelegate: (id<ProgressDelegateProtocol>) delegate;
+           progressDelegate: (id<ProgressDelegateProtocol>) delegate
+                   delegate:(id<LibraryDelegateProtocol>)theDelegate;
 
 - (void) copyAsset: (NSString*) assetPath;
 - (void) trashAsset: (NSString*) assetPath;
 - (void) run;
-
 @end

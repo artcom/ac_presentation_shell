@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
+#import "LibraryDelegateProtocol.h"
 #import "LibraryCategory.h"
 #import "LibraryTag.h"
 
@@ -16,7 +17,7 @@
 @class FileCopyController;
 @class AssetManager;
 
-@interface PresentationLibrary : NSObject <NSCoding>
+@interface PresentationLibrary : NSObject <NSCoding, LibraryDelegateProtocol>
 
 @property (strong) ACShellCollection *library;
 @property (strong) NSArray *categories;

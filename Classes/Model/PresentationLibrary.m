@@ -292,17 +292,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [self.presentationData.allValues makeObjectsPerformSelector:@selector(detach)];
     
     [NSNotificationCenter.defaultCenter postNotificationName:ACShellLibraryDidUpdate object:nil];
-    
+}
+
+- (void)operationDidFinish
+{
     if (self.indexing) {
-        // TODO: Ideally, this would be a possible place to add:
-        // [self.librarySearch updateIndex], to update the search index in an easy way but unfortunately
-        // this method is called when an ongoing copy operation of the AssetManager is still ongoing and the
-        // indexing process would use incomplete file data. To fix this one has to cleanup the mess
-        // in addPresentation and updatePresentation where AssetManager is initiated but its progress not
-        // tracked within this same class. (Progress might be tracked by whoever called the methods) Right now,
-        // this PresentationLibrary does not know when it's is in a valid state after file operations.
-        // Now, because updateIndex will not crash the app if it's running across incomplete files, I'll keep it in.
-        
         [self.librarySearch updateIndex];
     }
 }
@@ -446,7 +440,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self updateIndices: self.highlights];
     }
     
-    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate delegate:self];
     [assetMan copyAsset: thumbnail];
     [assetMan copyAsset: keynote];
     
@@ -473,7 +467,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         presentation.year = [NSNumber numberWithInteger: year];
         xmlChanged = YES;
     }
-    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate delegate:self];
     
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
@@ -536,7 +530,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void) deletePresentation: (Presentation*) presentation
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
-    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate delegate:self];
     [assetMan trashAsset: presentation.absoluteDirectory];
     self.assetManager = assetMan;
     
