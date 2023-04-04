@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol LibraryDelegateProtocol <NSObject>
 - (void)operationDidFinish;
+- (void)operationDidFinishWithError:(NSError *)error;
 @end
 
 NS_ASSUME_NONNULL_END

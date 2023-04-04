@@ -22,7 +22,7 @@
 
 - (id) initWithPresentation: (Presentation*) presentation 
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
-                   delegate:(id<LibraryDelegateProtocol>)theDelegate;
+                   libraryDelegate:(id<LibraryDelegateProtocol>)theDelegate;
 
 - (void) copyAsset: (NSString*) assetPath;
 - (void) trashAsset: (NSString*) assetPath;

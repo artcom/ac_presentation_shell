@@ -185,7 +185,7 @@ enum TagActionTags {
 
 #pragma mark -
 #pragma mark Progress Sheet Methods
-- (void) userDidDropKeynote: (KeynoteDropper *)keynoteDropper
+- (void) userDidDropKeynote: (KeynoteDraglet *)keynoteDraglet
 {
     [keynoteFileLabel setStringValue:droppedKeynote.filename.lastPathComponent];
     BOOL fileExists = droppedKeynote.fileExists;
@@ -195,7 +195,7 @@ enum TagActionTags {
     [self updateTagControls];
 }
 
-- (void) userDidDoubleClickKeynote: (KeynoteDropper *)keynoteDropper
+- (void) userDidDoubleClickKeynote: (KeynoteDraglet *)keynoteDraglet
 {
     if (droppedKeynote.fileExists) {
         [self editWithKeynote];
@@ -216,11 +216,6 @@ enum TagActionTags {
 
 #pragma mark -
 #pragma mark Progress Sheet Methods
-
-- (void) operationDidFinish {
-    [NSApp endSheet: progressSheet];
-    
-}
 
 - (void) didEndSheet: (NSWindow*) sheet returnCode: (NSInteger) returnCode {
     [sheet orderOut:self];
@@ -384,6 +379,27 @@ enum TagActionTags {
     if ([textField isDescendantOf:tagInput]) {
         [self updateTagControls];
     }
+}
+
+#pragma mark -
+#pragma mark ProgressDelegateProtocol Methods
+
+- (void) operationDidFinish {
+    [NSApp endSheet: progressSheet];
+}
+
+- (void)operationDidFinishWithError:(NSError *)error
+{
+    NSLog(@"Asset Manager failed %@", error);
+    
+    [NSApp endSheet: progressSheet];
+
+    NSAlert * alert = NSAlert.new;
+    alert.messageText = NSLocalizedString(ACSHELL_STR_FILE_OPERATION_FAILED, nil);
+    alert.informativeText = error.description;
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_OK, nil)];
+    alert.alertStyle = NSAlertStyleCritical;
+    [alert beginSheetModalForWindow:self.window completionHandler:nil];
 }
 
 #pragma mark -

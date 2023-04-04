@@ -57,8 +57,8 @@
 		3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C195266E25EA004BC26B /* ACShellWindowController.m */; };
 		3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19B266E7E85004BC26B /* LibraryViewController.m */; };
 		3BF8C1A0266E940A004BC26B /* LibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */; };
-		630D729011FCB48B00EEB7F2 /* FileDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* FileDraglet.m */; };
-		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
+		630D729011FCB48B00EEB7F2 /* ImageDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* ImageDraglet.m */; };
+		630D730911FCCE2D00EEB7F2 /* KeynoteDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDraglet.m */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
 		63143EF812A80D8B00B82DC3 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */; };
 		6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354256E12201650004FEC38 /* ACPreferencePage.m */; };
@@ -74,7 +74,7 @@
 		63904153120632FE0061D215 /* LibraryServerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904152120632FE0061D215 /* LibraryServerView.m */; };
 		63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904155120633FC0061D215 /* LibraryServerCollectionItem.m */; };
 		639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6366050911F2F4A400D6DD96 /* ACPreferenceWindowController.m */; };
-		639043F012075DFC0061D215 /* ImageDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 639043EF12075DFC0061D215 /* ImageDraglet.m */; };
+		639043F012075DFC0061D215 /* IconDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 639043EF12075DFC0061D215 /* IconDraglet.m */; };
 		6391D53812211B75009980C9 /* PreferenceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6391D53712211B75009980C9 /* PreferenceController.m */; };
 		63A6A9F311FA10AC0057B7F5 /* RsyncProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A6A9F111FA10AC0057B7F5 /* RsyncProgressView.xib */; };
 		63B8E52311FBA2CD0036DBC1 /* PresentationEditWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8E52111FBA2CD0036DBC1 /* PresentationEditWindow.xib */; };
@@ -222,10 +222,10 @@
 		3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTableViewController.m; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
 		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localized_text_keys.h; sourceTree = "<group>"; };
-		630D728E11FCB48B00EEB7F2 /* FileDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileDraglet.h; sourceTree = "<group>"; };
-		630D728F11FCB48B00EEB7F2 /* FileDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileDraglet.m; sourceTree = "<group>"; };
-		630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteDropper.h; sourceTree = "<group>"; };
-		630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeynoteDropper.m; sourceTree = "<group>"; };
+		630D728E11FCB48B00EEB7F2 /* ImageDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDraglet.h; sourceTree = "<group>"; };
+		630D728F11FCB48B00EEB7F2 /* ImageDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDraglet.m; sourceTree = "<group>"; };
+		630D730711FCCE2D00EEB7F2 /* KeynoteDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteDraglet.h; sourceTree = "<group>"; };
+		630D730811FCCE2D00EEB7F2 /* KeynoteDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeynoteDraglet.m; sourceTree = "<group>"; };
 		630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDelegateProtocol.h; sourceTree = "<group>"; };
 		630F36AC120F0B2100F89EFB /* AssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetManager.h; sourceTree = "<group>"; };
 		630F36AD120F0B2100F89EFB /* AssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetManager.m; sourceTree = "<group>"; };
@@ -249,8 +249,8 @@
 		63904154120633FC0061D215 /* LibraryServerCollectionItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryServerCollectionItem.h; sourceTree = "<group>"; };
 		63904155120633FC0061D215 /* LibraryServerCollectionItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryServerCollectionItem.m; sourceTree = "<group>"; };
 		639042661206560B0061D215 /* SetupAssistantDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupAssistantDelegateProtocol.h; sourceTree = "<group>"; };
-		639043EE12075DFC0061D215 /* ImageDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDraglet.h; sourceTree = "<group>"; };
-		639043EF12075DFC0061D215 /* ImageDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDraglet.m; sourceTree = "<group>"; };
+		639043EE12075DFC0061D215 /* IconDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconDraglet.h; sourceTree = "<group>"; };
+		639043EF12075DFC0061D215 /* IconDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconDraglet.m; sourceTree = "<group>"; };
 		6391D53612211B75009980C9 /* PreferenceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferenceController.h; sourceTree = "<group>"; };
 		6391D53712211B75009980C9 /* PreferenceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferenceController.m; sourceTree = "<group>"; };
 		63B8E52711FBACD50036DBC1 /* EditWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditWindowController.h; sourceTree = "<group>"; };
@@ -459,16 +459,16 @@
 			children = (
 				22CE72CA11EDAD580043F3C8 /* Layer */,
 				22B2004211D9F75500C6D9ED /* PresentationView */,
-				630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */,
-				630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */,
+				630D730711FCCE2D00EEB7F2 /* KeynoteDraglet.h */,
+				630D730811FCCE2D00EEB7F2 /* KeynoteDraglet.m */,
 				63904151120632FE0061D215 /* LibraryServerView.h */,
 				63904152120632FE0061D215 /* LibraryServerView.m */,
-				630D728E11FCB48B00EEB7F2 /* FileDraglet.h */,
-				630D728F11FCB48B00EEB7F2 /* FileDraglet.m */,
+				630D728E11FCB48B00EEB7F2 /* ImageDraglet.h */,
+				630D728F11FCB48B00EEB7F2 /* ImageDraglet.m */,
 				22EF9EE511D8F94200E91DF0 /* PresentationWindow.h */,
 				22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */,
-				639043EE12075DFC0061D215 /* ImageDraglet.h */,
-				639043EF12075DFC0061D215 /* ImageDraglet.m */,
+				639043EE12075DFC0061D215 /* IconDraglet.h */,
+				639043EF12075DFC0061D215 /* IconDraglet.m */,
 				3B5675B02670090800241327 /* VerticalAlignedTextFieldCell.h */,
 				3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */,
 				3BA100DC2942C1B700A4ADE6 /* LibraryTagCellView.h */,
@@ -827,8 +827,8 @@
 				22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */,
 				222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */,
 				63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */,
-				630D729011FCB48B00EEB7F2 /* FileDraglet.m in Sources */,
-				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
+				630D729011FCB48B00EEB7F2 /* ImageDraglet.m in Sources */,
+				630D730911FCCE2D00EEB7F2 /* KeynoteDraglet.m in Sources */,
 				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
 				3B77D53B2941FB1E006DF474 /* LibraryTag.m in Sources */,
 				3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */,
@@ -839,7 +839,7 @@
 				63904156120633FC0061D215 /* LibraryServerCollectionItem.m in Sources */,
 				3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */,
 				639043321206F23E0061D215 /* ACPreferenceWindowController.m in Sources */,
-				639043F012075DFC0061D215 /* ImageDraglet.m in Sources */,
+				639043F012075DFC0061D215 /* IconDraglet.m in Sources */,
 				CD349E57180740CE0028C540 /* ACSearchIndexQuery.m in Sources */,
 				630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */,
 				CD349E58180740CE0028C540 /* ACSearchIndexResult.m in Sources */,

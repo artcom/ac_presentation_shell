@@ -9,7 +9,7 @@
 #import "SetupAssistantController.h"
 #import "LibraryServer.h"
 #import "SshIdentity.h"
-#import "ImageDraglet.h"
+#import "IconDraglet.h"
 #import "localized_text_keys.h"
 #import "default_keys.h"
 

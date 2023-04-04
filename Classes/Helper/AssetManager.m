@@ -22,9 +22,9 @@ static NSNumber * trash_op;
 
 @interface AssetManager ()
 - (void) performNextOperation;
-- (void) fileOp: (FSFileOperationRef) fileOp didUpdateStatus: (const FSRef*) currentItem 
-          stage: (FSFileOperationStage) stage error: (OSStatus) error 
-statusDictionary: (CFDictionaryRef) statusDictionary;
+- (void) fileOp:(FSFileOperationRef) fileOp didUpdateStatus:(const FSRef*)currentItem
+          stage:(FSFileOperationStage)stage error:(OSStatus)error
+         status:(CFDictionaryRef)statusDictionary;
 @end
 
 @implementation AssetManager
@@ -34,15 +34,15 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     trash_op = [NSNumber numberWithInt: 2];
 }
 
-- (id) initWithPresentation: (Presentation*) thePresentation 
-           progressDelegate: (id<ProgressDelegateProtocol>) theProgressDelegate
-                   delegate:(id<LibraryDelegateProtocol>)theDelegate
+- (id) initWithPresentation:(Presentation*)thePresentation
+           progressDelegate:(id<ProgressDelegateProtocol>)theProgressDelegate
+            libraryDelegate:(id<LibraryDelegateProtocol>)theLibraryDelegate
 {
     self = [super init];
     if (self != nil) {
         self.presentation = thePresentation;
         self.progressDelegate = theProgressDelegate;
-        self.libraryDelegate = theDelegate;
+        self.libraryDelegate = theLibraryDelegate;
         self.assets = NSMutableArray.new;
         self.index = 0;
     }
@@ -95,40 +95,43 @@ statusDictionary: (CFDictionaryRef) statusDictionary;
     clientContext.copyDescription = NULL;
     
     if ([opcode isEqualToNumber: copy_op]) {
-        error = FSCopyObjectAsync(op, &srcRef, &destDirRef, NULL, kFSFileOperationDefaultOptions,
-                                  fileOpStatusCallback, 1.0, &clientContext);
-        [self.progressDelegate setMessage: NSLocalizedString(ACSHELL_STR_COPYING_ITEMS, nil)];
+        error = FSCopyObjectAsync(op, &srcRef, &destDirRef, NULL, kFSFileOperationDefaultOptions, fileOpStatusCallback, 1.0, &clientContext);
+        [self.progressDelegate setMessage:NSLocalizedString(ACSHELL_STR_COPYING_ITEMS, nil)];
         if (error != noErr) {
             NSLog(@"Error: failed to copy assets: %d", (int)error);
         }
     } else if ([opcode isEqualToNumber: trash_op]) {
-        [self.progressDelegate setMessage: NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
-        error = FSMoveObjectToTrashAsync(op, &srcRef, kFSFileOperationDefaultOptions,
-                                         fileOpStatusCallback, 1.0, &clientContext);
+        [self.progressDelegate setMessage:NSLocalizedString(ACSHELL_STR_TRASHING_ITEMS, nil)];
+        error = FSMoveObjectToTrashAsync(op, &srcRef, kFSFileOperationDefaultOptions, fileOpStatusCallback, 1.0, &clientContext);
         if (error != noErr) {
             NSLog(@"Error: failed to delete assets: %d", (int)error);
         }
     }
 }
 
-- (void) fileOp: (FSFileOperationRef) fileOp didUpdateStatus: (const FSRef*) currentItem 
-          stage: (FSFileOperationStage) stage error: (OSStatus) error 
-statusDictionary: (CFDictionaryRef) statusDictionary
+- (void) fileOp:(FSFileOperationRef)fileOp didUpdateStatus:(const FSRef*)currentItem
+          stage:(FSFileOperationStage)stage error:(OSStatus)error
+         status:(CFDictionaryRef)status
 {
 #pragma mark TODO: error handling!
-    if (statusDictionary) {
-        NSNumber *itemsCompleted, *bytesCompleted, *totalItems, *totalBytes;
-        
-        itemsCompleted = (NSNumber*) CFDictionaryGetValue(statusDictionary, kFSOperationObjectsCompleteKey);
-        bytesCompleted = (NSNumber*) CFDictionaryGetValue(statusDictionary, kFSOperationBytesCompleteKey);
-        totalItems = (NSNumber*) CFDictionaryGetValue(statusDictionary, kFSOperationTotalObjectsKey);
-        totalBytes = (NSNumber*) CFDictionaryGetValue(statusDictionary, kFSOperationTotalBytesKey);
+    
+    if (error) {
+        NSError *e = [NSError errorWithDomain:NSOSStatusErrorDomain code:error userInfo:nil];
+        [self.progressDelegate operationDidFinishWithError:e];
+        [self.libraryDelegate operationDidFinishWithError:e];
+        return;
+    }
+    
+    if (status) {
+        NSNumber *itemsCompleted = (NSNumber*) CFDictionaryGetValue(status, kFSOperationObjectsCompleteKey);
+        NSNumber *bytesCompleted = (NSNumber*) CFDictionaryGetValue(status, kFSOperationBytesCompleteKey);
+        NSNumber *totalItems = (NSNumber*) CFDictionaryGetValue(status, kFSOperationTotalObjectsKey);
+        NSNumber *totalBytes = (NSNumber*) CFDictionaryGetValue(status, kFSOperationTotalBytesKey);
         if (itemsCompleted && bytesCompleted && totalItems && totalBytes) {
             double percent = ([bytesCompleted doubleValue] / [totalBytes doubleValue]) * 100;
-            [self.progressDelegate setProgress: percent
-                                          text: [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_WITH_PERCENT, nil), 
-                                                 [itemsCompleted intValue] + 1, [totalItems intValue], 
-                                                 percent]];
+            NSString *text = [NSString stringWithFormat: NSLocalizedString(ACSHELL_STR_N_OF_WITH_PERCENT, nil),
+                              itemsCompleted.intValue + 1, totalItems.intValue, percent];
+            [self.progressDelegate setProgress:percent text:text];
         }
     }
     
@@ -136,18 +139,15 @@ statusDictionary: (CFDictionaryRef) statusDictionary
         [self performNextOperation];
     }
 }
-
-
 @end
 
-static void fileOpStatusCallback (FSFileOperationRef fileOp,
-                                  const FSRef *currentItem,
-                                  FSFileOperationStage stage,
-                                  OSStatus error,
-                                  CFDictionaryRef statusDictionary,
-                                  void *info )
+static void fileOpStatusCallback(FSFileOperationRef fileOp,
+                                 const FSRef *currentItem,
+                                 FSFileOperationStage stage,
+                                 OSStatus error,
+                                 CFDictionaryRef status,
+                                 void *info )
 {
     AssetManager * importer = (__bridge AssetManager*) info;
-    [importer fileOp: fileOp didUpdateStatus: currentItem stage: stage error: error statusDictionary: statusDictionary];
-    
+    [importer fileOp:fileOp didUpdateStatus:currentItem stage:stage error:error status:status];
 }

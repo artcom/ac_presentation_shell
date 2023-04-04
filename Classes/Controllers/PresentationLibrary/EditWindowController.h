@@ -10,19 +10,19 @@
 #import "ProgressDelegateProtocol.h"
 #import "PresentationLibrary.h"
 #import "Presentation.h"
-#import "KeynoteDropper.h"
-#import "FileDraglet.h"
+#import "KeynoteDraglet.h"
+#import "ImageDraglet.h"
 
 @interface EditWindowController : NSWindowController
-<ProgressDelegateProtocol, KeynoteDropperDelegate, NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
+<ProgressDelegateProtocol, KeynoteDragletDelegate, NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
 
 @property (nonatomic, strong) PresentationLibrary *presentationLibrary;
 @property (nonatomic, strong) Presentation *presentation;
 
-@property (weak, nonatomic) IBOutlet FileDraglet * droppedThumbnail;
+@property (weak, nonatomic) IBOutlet ImageDraglet * droppedThumbnail;
 @property (weak, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
-@property (weak, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;
+@property (weak, nonatomic) IBOutlet KeynoteDraglet * droppedKeynote;
 @property (weak, nonatomic) IBOutlet NSTextField * keynoteFileLabel;
 @property (weak, nonatomic) IBOutlet NSButton * editButton;
 

@@ -55,6 +55,7 @@
 "WaitForActivation" = "Thank you. You can synchronize your library after your account has been activated.";
 "DeletePresentationWarning" = "Do you really want to delete the entire presentation?";
 "DeletingPresentation" = "Moving presentation to trash...";
+"FileOperationFailed" = "File Operation failed.";
 
 "General" = "General";
 "Advanced" = "Advanced";

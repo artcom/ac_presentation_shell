@@ -8,11 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol ProgressDelegateProtocol
-
-- (void) setMessage: (NSString*) message;
-- (void) setProgress: (double) percent text: (NSString*) text;
-- (void) operationDidFinish;
-
+- (void)setMessage: (NSString*) message;
+- (void)setProgress: (double) percent text: (NSString*) text;
+- (void)operationDidFinish;
+- (void)operationDidFinishWithError:(NSError *)error;
 @end
+
+NS_ASSUME_NONNULL_END
+

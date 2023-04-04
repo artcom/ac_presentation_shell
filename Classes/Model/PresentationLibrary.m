@@ -294,13 +294,6 @@ static NSCharacterSet * ourNonDirNameCharSet;
     [NSNotificationCenter.defaultCenter postNotificationName:ACShellLibraryDidUpdate object:nil];
 }
 
-- (void)operationDidFinish
-{
-    if (self.indexing) {
-        [self.librarySearch updateIndex];
-    }
-}
-
 - (NSXMLElement *) xmlNodeForCategory: (NSString *)aId
 {
     return [self.categoryData objectForKey: aId];
@@ -440,7 +433,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         [self updateIndices: self.highlights];
     }
     
-    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate delegate:self];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate libraryDelegate:self];
     [assetMan copyAsset: thumbnail];
     [assetMan copyAsset: keynote];
     
@@ -467,7 +460,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
         presentation.year = [NSNumber numberWithInteger: year];
         xmlChanged = YES;
     }
-    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate delegate:self];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate libraryDelegate:self];
     
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
@@ -530,7 +523,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
 - (void) deletePresentation: (Presentation*) presentation
            progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
-    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate delegate:self];
+    AssetManager * assetMan = [[AssetManager alloc] initWithPresentation: presentation progressDelegate: delegate libraryDelegate:self];
     [assetMan trashAsset: presentation.absoluteDirectory];
     self.assetManager = assetMan;
     
@@ -716,5 +709,17 @@ static NSCharacterSet * ourNonDirNameCharSet;
     NSArray * words = [str componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
     return [words componentsJoinedByString: @"_"];
 }
+
+
+#pragma mark LibraryDelegateProtocol Methods
+
+- (void)operationDidFinish
+{
+    if (self.indexing) {
+        [self.librarySearch updateIndex];
+    }
+}
+
+- (void)operationDidFinishWithError:(NSError *)error {}
 
 @end
