@@ -1,5 +1,5 @@
 //
-//  PublicKeyDraglet.h
+//  ImageDraglet.h
 //  ACShell
 //
 //  Created by David Siegel on 8/2/10.
@@ -8,9 +8,6 @@
 
 #import <Cocoa/Cocoa.h>
 
-
-@interface PublicKeyDraglet : NSImageView
-
-@property (nonatomic, strong) NSString * filename;
-
+@interface ImageDraglet : NSImageView
+@property (nonatomic, strong) NSString *filename;
 @end

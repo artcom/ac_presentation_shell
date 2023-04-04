@@ -9,11 +9,9 @@
 #import <Cocoa/Cocoa.h>
 #import "ProgressDelegateProtocol.h"
 #import "PresentationLibrary.h"
+#import "Presentation.h"
 #import "KeynoteDropper.h"
-
-@class Presentation;
-@class KeynoteDropper;
-@class NSImageViewWithDroppedFilename;
+#import "FileDraglet.h"
 
 @interface EditWindowController : NSWindowController
 <ProgressDelegateProtocol, KeynoteDropperDelegate, NSTextFieldDelegate, NSTableViewDataSource, NSTableViewDelegate>
@@ -21,7 +19,7 @@
 @property (nonatomic, strong) PresentationLibrary *presentationLibrary;
 @property (nonatomic, strong) Presentation *presentation;
 
-@property (weak, nonatomic) IBOutlet NSImageViewWithDroppedFilename * droppedThumbnail;
+@property (weak, nonatomic) IBOutlet FileDraglet * droppedThumbnail;
 @property (weak, nonatomic) IBOutlet NSTextField * thumbnailFileLabel;
 
 @property (weak, nonatomic) IBOutlet KeynoteDropper * droppedKeynote;

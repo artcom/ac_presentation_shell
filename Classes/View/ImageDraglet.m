@@ -1,18 +1,15 @@
 //
-//  PublicKeyDraglet.m
+//  ImageDraglet.m
 //  ACShell
 //
 //  Created by David Siegel on 8/2/10.
 //  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
-#import "PublicKeyDraglet.h"
+#import "ImageDraglet.h"
 
-#pragma mark TODO: DRY up. Shares code with KeynoteDropper
-
-@implementation PublicKeyDraglet
+@implementation ImageDraglet
 @synthesize filename;
-
 
 - (void) setFilename: (NSString*) aFilename {
     if (filename != aFilename) {

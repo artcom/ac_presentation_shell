@@ -7,19 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "NSImageViewWithDroppedFilename.h"
-#import "KeynoteDropper.h"
+#import "FileDraglet.h"
 
 @protocol KeynoteDropperDelegate;
-@interface KeynoteDropper : NSImageView {
-    NSString * filename;
-    BOOL fileExists;
-}
-
+@interface KeynoteDropper : FileDraglet
 @property (nonatomic, weak) IBOutlet id<KeynoteDropperDelegate> delegate;
-@property (nonatomic, strong) NSString * filename;
-@property (readonly) BOOL fileExists;
-
 @end
 
 @protocol KeynoteDropperDelegate

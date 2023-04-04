@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21225" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21225"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -30,7 +29,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="145" y="294" width="749" height="548"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1175"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1728" height="1079"/>
             <view key="contentView" id="2">
                 <rect key="frame" x="0.0" y="0.0" width="749" height="548"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -38,7 +37,7 @@
                     <box autoresizesSubviews="NO" borderType="line" translatesAutoresizingMaskIntoConstraints="NO" id="26">
                         <rect key="frame" x="171" y="56" width="561" height="463"/>
                         <view key="contentView" id="NLe-tl-qfG">
-                            <rect key="frame" x="3" y="3" width="555" height="442"/>
+                            <rect key="frame" x="4" y="5" width="553" height="440"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </view>
                         <font key="titleFont" metaFont="system" size="14"/>
@@ -274,7 +273,7 @@ DQ
                                             <rect key="frame" x="125" y="123" width="305" height="222"/>
                                             <clipView key="contentView" id="bV8-8O-32u">
                                                 <rect key="frame" x="1" y="1" width="303" height="220"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                <autoresizingMask key="autoresizingMask"/>
                                                 <subviews>
                                                     <collectionView maxNumberOfColumns="1" selectable="YES" id="116">
                                                         <rect key="frame" x="0.0" y="0.0" width="303" height="220"/>
@@ -376,7 +375,7 @@ DQ
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                         </textField>
-                                        <imageView translatesAutoresizingMaskIntoConstraints="NO" id="222" customClass="PublicKeyDraglet">
+                                        <imageView translatesAutoresizingMaskIntoConstraints="NO" id="222" customClass="ImageDraglet">
                                             <rect key="frame" x="221" y="175" width="113" height="113"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="107" id="LE8-Kv-7oA"/>

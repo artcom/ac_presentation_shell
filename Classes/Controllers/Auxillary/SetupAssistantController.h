@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "SetupAssistantDelegateProtocol.h"
 
-@class PublicKeyDraglet;
+@class ImageDraglet;
 
 @interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
     
@@ -42,7 +42,7 @@
 @property (weak, nonatomic) IBOutlet NSTextField * libraryNameLabel;
 @property (weak, nonatomic) IBOutlet NSButton * emailSendToggle;
 
-@property (weak, nonatomic) IBOutlet PublicKeyDraglet * publicKeyDraglet;
+@property (weak, nonatomic) IBOutlet ImageDraglet * publicKeyDraglet;
 
 - (id) initWithDelegate: (id<SetupAssistantDelegate>) delegate;
 

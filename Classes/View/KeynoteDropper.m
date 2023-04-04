@@ -8,25 +8,7 @@
 
 #import "KeynoteDropper.h"
 
-
 @implementation KeynoteDropper
-@synthesize filename;
-
-
--(void) setFilename: (NSString*) aFilename {
-    if (filename != aFilename) {
-        filename = aFilename;
-    }
-    NSImage *iconImage = nil;
-    if (filename != nil) {
-        iconImage = [[NSWorkspace sharedWorkspace] iconForFile: aFilename];
-        [iconImage setSize:NSMakeSize(64,64)];
-        if ( ! [NSFileManager.defaultManager fileExistsAtPath: aFilename isDirectory: nil]) {
-            iconImage = [NSImage imageNamed: @"icn_missing_file"];
-        }
-    }
-    [self setImage: iconImage];
-}
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
     NSPasteboard *pasteboard = [sender draggingPasteboard];
@@ -34,33 +16,21 @@
         NSURL *url = [NSURL URLFromPasteboard:pasteboard];
         if ([url.path.pathExtension isEqual: @"key"]) {
             return NSDragOperationCopy;
-        } 
+        }
     }
     return NSDragOperationNone;
 }
 
 - (BOOL)performDragOperation:(id <NSDraggingInfo>)sender {
-    NSPasteboard *pasteboard = sender.draggingPasteboard;
-    if ( [[pasteboard types] containsObject: NSPasteboardTypeFileURL] ) {
-        NSURL *url = [NSURL URLFromPasteboard:pasteboard];
-        self.filename = url.path;
-        [self.delegate userDidDropKeynote:self];
-        return YES;
-    }
-    return NO;
+    BOOL dropped = [super performDragOperation:sender];
+    if (dropped) [self.delegate userDidDropKeynote:self];
+    return dropped;
 }
 
 - (void)mouseDown:(NSEvent *)event {
     if (event.clickCount == 2) {
         [self.delegate userDidDoubleClickKeynote:self];
     }
-}
-
-- (BOOL) fileExists {
-    if (filename == nil || [filename length] == 0) {
-        return NO;
-    }
-    return [NSFileManager.defaultManager fileExistsAtPath: filename isDirectory: nil];
 }
 
 @end

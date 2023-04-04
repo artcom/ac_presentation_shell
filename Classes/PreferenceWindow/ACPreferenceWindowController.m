@@ -128,7 +128,6 @@
     [panel setShowsToolbarButton: NO];
     [panel setStyleMask: [panel styleMask] | NSWindowStyleMaskMiniaturizable];
     [panel center];
-    // TODO: fix me
     [panel setFrameAutosaveName: @"PreferenceWindow"];
     [panel setFrameUsingName: @"PreferenceWindow" force: YES];
     

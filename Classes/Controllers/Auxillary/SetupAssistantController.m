@@ -9,7 +9,7 @@
 #import "SetupAssistantController.h"
 #import "LibraryServer.h"
 #import "SshIdentity.h"
-#import "PublicKeyDraglet.h"
+#import "ImageDraglet.h"
 #import "localized_text_keys.h"
 #import "default_keys.h"
 
@@ -86,7 +86,6 @@ enum PageTags {
 }
 
 - (IBAction) userDidClickNext: (id) sender {
-    // TODO: find a better way to check for the last page
     if ([nextButton.title isEqual: NSLocalizedString(ACSHELL_STR_FINISH, nil)]) {
         [self writeUserDefaults];
         NSAlert * alert = [NSAlert new];
@@ -100,7 +99,6 @@ enum PageTags {
 }
 
 - (IBAction) userDidClickBack: (id) sender {
-    // TODO: find a better way to check for the first page
     if ([backButton.title isEqual: NSLocalizedString(ACSHELL_STR_QUIT, nil)]) {
         [NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
     } else {

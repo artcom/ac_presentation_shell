@@ -7,9 +7,6 @@
 //
 
 #import "EditWindowController.h"
-#import "Presentation.h"
-#import "PresentationLibrary.h"
-#import "KeynoteDropper.h"
 #import "KeynoteHandler.h"
 #import "LibraryTagCellView.h"
 #import "localized_text_keys.h"

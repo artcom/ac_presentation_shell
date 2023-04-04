@@ -23,8 +23,7 @@ typedef void (^ACSearchResultBlock)(NSArray *results);
  be executed after addDocumentsAt: has finished.
  Because of this house-keeping this class is opaque and can't hand out a reference to the internally
  used SKIndexRef.
- NOTE: Methods have to be called on the main thread.
- TODO: Add completion queue to allow other threads/queues to use this class
+ NOTE: Methods have to be called on the main thread and completion handlers will be executed on main thread as well.
  */
 @interface ACSearchIndex : NSObject
 
