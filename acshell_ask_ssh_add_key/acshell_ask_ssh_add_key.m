@@ -6,7 +6,6 @@
 //  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
-
 BOOL runAddKeyDialog(NSString * sshOutput) {
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
     NSURL *iconUrl = [env objectForKey:@"ACSHELL_ICON_URL"];
@@ -46,26 +45,27 @@ BOOL runAddKeyDialog(NSString * sshOutput) {
     return FALSE;
 }
 
-
 BOOL answerSSHQuestion() {
-    NSArray * arguments = [[NSProcessInfo processInfo] arguments];
-    
+    NSArray * arguments = NSProcessInfo.processInfo.arguments;
     if ([arguments count] < 2) {
-        NSLog(@"argument error: expected 2 but got %ld args", [arguments count]);
+        NSLog(@"argument error: expected 2 but got %ld args", arguments.count);
         return FALSE;
     }
-    NSRange yesNoSnippet = [[arguments objectAtIndex: 1] rangeOfString: [NSString stringWithFormat: @"(yes/no)"]];
     
-    if (yesNoSnippet.location != NSNotFound) {
-        BOOL addKey = runAddKeyDialog([arguments objectAtIndex: 1]);
-        if (addKey) {
-            printf("%s", "yes");
-        } else {
-            printf("%s", "no");
-        }
-        return addKey;
+    NSString *yesNoSnippet = @"(yes/no";
+    NSRange range = [arguments[1] rangeOfString:yesNoSnippet];
+    if (range.location == NSNotFound) {
+        NSLog(@"parser error: could not find expected input '%@'", yesNoSnippet);
+        return FALSE;
     }
-    return FALSE;
+    
+    BOOL addKey = runAddKeyDialog(arguments[1]);
+    if (addKey) {
+        printf("%s", "yes");
+    } else {
+        printf("%s", "no");
+    }
+    return addKey;
 }
 
 int main(int argc, char * argv[]) {

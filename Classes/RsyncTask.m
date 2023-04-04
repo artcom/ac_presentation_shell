@@ -89,10 +89,10 @@
     
     // required to make the askpass magic work
     [self.task setStandardInput: [NSFileHandle fileHandleWithNullDevice]];
-    NSString * askpasswdPath = [[NSBundle mainBundle] pathForResource: @"acshell_askpasswd" ofType: @""];
+    NSString * addhostkeyPath = [[NSBundle mainBundle] pathForResource: @"acshell_addhostkey" ofType: @""];
     
     NSMutableDictionary * env = [[[NSProcessInfo processInfo] environment] mutableCopy];
-    [env setObject: askpasswdPath forKey: @"SSH_ASKPASS"];
+    [env setObject: addhostkeyPath forKey: @"SSH_ASKPASS"];
     [env setObject: @"NONE" forKey: @"DISPLAY"];
     NSURL *iconUrl = [[NSBundle mainBundle] URLForResource:@"dialog_app_icon" withExtension:@"png"];
     [env setObject:iconUrl forKey:@"ACSHELL_ICON_URL"];

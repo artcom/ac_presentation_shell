@@ -68,7 +68,7 @@
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
 		6379E770120C8B3F006A6FEF /* acshell_ask_ssh_add_key.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */; };
-		6379E79D120C8CAA006A6FEF /* acshell_askpasswd in Resources */ = {isa = PBXBuildFile; fileRef = 6379E76C120C8B24006A6FEF /* acshell_askpasswd */; };
+		6379E79D120C8CAA006A6FEF /* acshell_addhostkey in Resources */ = {isa = PBXBuildFile; fileRef = 6379E76C120C8B24006A6FEF /* acshell_addhostkey */; };
 		63904053120617EE0061D215 /* LibraryServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904052120617EE0061D215 /* LibraryServer.m */; };
 		6390407812061A860061D215 /* SshIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390407712061A860061D215 /* SshIdentity.m */; };
 		63904153120632FE0061D215 /* LibraryServerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904152120632FE0061D215 /* LibraryServerView.m */; };
@@ -239,7 +239,7 @@
 		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-WithUUID.h"; sourceTree = "<group>"; };
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-WithUUID.m"; sourceTree = "<group>"; };
 		6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = acshell_ask_ssh_add_key.m; sourceTree = "<group>"; };
-		6379E76C120C8B24006A6FEF /* acshell_askpasswd */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = acshell_askpasswd; sourceTree = BUILT_PRODUCTS_DIR; };
+		6379E76C120C8B24006A6FEF /* acshell_addhostkey */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = acshell_addhostkey; sourceTree = BUILT_PRODUCTS_DIR; };
 		63904051120617EE0061D215 /* LibraryServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryServer.h; sourceTree = "<group>"; };
 		63904052120617EE0061D215 /* LibraryServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryServer.m; sourceTree = "<group>"; };
 		6390407612061A860061D215 /* SshIdentity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SshIdentity.h; sourceTree = "<group>"; };
@@ -349,7 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* ACShell.app */,
-				6379E76C120C8B24006A6FEF /* acshell_askpasswd */,
+				6379E76C120C8B24006A6FEF /* acshell_addhostkey */,
 				3B9FA6E81C85C46A003D7EE0 /* ACShellTests.xctest */,
 			);
 			name = Products;
@@ -678,7 +678,7 @@
 			);
 			name = acshell_ask_ssh_add_key;
 			productName = acshell_askpasswd;
-			productReference = 6379E76C120C8B24006A6FEF /* acshell_askpasswd */;
+			productReference = 6379E76C120C8B24006A6FEF /* acshell_addhostkey */;
 			productType = "com.apple.product-type.tool";
 		};
 		8D1107260486CEB800E47090 /* ACShell */ = {
@@ -751,7 +751,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6379E79D120C8CAA006A6FEF /* acshell_askpasswd in Resources */,
+				6379E79D120C8CAA006A6FEF /* acshell_addhostkey in Resources */,
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				22EF9E7911D8EE4600E91DF0 /* PresentationWindow.xib in Resources */,
 				CD5D24821926525B001AE16E /* Media.xcassets in Resources */,
@@ -1036,7 +1036,7 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_NAME = acshell_askpasswd;
+				PRODUCT_NAME = acshell_addhostkey;
 			};
 			name = Debug;
 		};
@@ -1059,7 +1059,7 @@
 					"-framework",
 					AppKit,
 				);
-				PRODUCT_NAME = acshell_askpasswd;
+				PRODUCT_NAME = acshell_addhostkey;
 				ZERO_LINK = NO;
 			};
 			name = Release;
