@@ -12,13 +12,13 @@
 @synthesize filename;
 
 - (BOOL)performDragOperation:(id )sender {
-    if (![super performDragOperation:sender] ) {
+    if ( ! [super performDragOperation:sender] ) {
         return NO;
     }
     NSPasteboard *pasteboard = [sender draggingPasteboard];
     if ( [pasteboard.types containsObject:NSPasteboardTypeFileURL] ) {
         NSURL *url = [NSURL URLFromPasteboard:pasteboard];
-        filename = url.path;
+        self.filename = url.path;
         return YES;
     }
     return NO;
