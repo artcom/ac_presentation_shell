@@ -70,10 +70,7 @@ enum CollectionActionTags {
 
 - (BOOL) isCollectionSelected {
     NSIndexPath *selectedPath = [self.collectionTreeController selectionIndexPath];
-    if ([selectedPath length] < 2 || [selectedPath indexAtPosition:0] == 0) {
-        return NO;
-    }
-    return YES;
+    return [selectedPath indexAtPosition:0] == 1;
 }
 
 - (void)addCollection {
