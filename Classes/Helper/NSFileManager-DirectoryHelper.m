@@ -12,36 +12,25 @@
 @implementation NSFileManager (DirectoryHelper)
 
 - (NSString *)applicationSupportDirectoryInUserDomain {
-    NSString *applicationSupportFolder = [self findSystemFolderType:kApplicationSupportFolderType forDomain:kUserDomain];
-    NSString *myApplicationSupportFolder = [applicationSupportFolder stringByAppendingPathComponent:@"AC Shell"];
     
-    if (![NSFileManager.defaultManager fileExistsAtPath:myApplicationSupportFolder]) {
+    NSURL *applicationSupportDirectory = [NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
+                                                                              inDomain:NSUserDomainMask
+                                                                     appropriateForURL:nil
+                                                                                create:YES
+                                                                                 error:NULL];
+    
+    NSURL *acShellSupportDirectory = [applicationSupportDirectory URLByAppendingPathComponent:@"AC Shell"];
+    NSString *path = acShellSupportDirectory.path;
+    
+    if (![NSFileManager.defaultManager fileExistsAtPath:path]) {
         NSError *error = nil;
-        [NSFileManager.defaultManager createDirectoryAtPath:myApplicationSupportFolder withIntermediateDirectories:NO attributes:nil error:&error];
+        [NSFileManager.defaultManager createDirectoryAtPath:path withIntermediateDirectories:NO attributes:nil error:&error];
         
         if (error != nil) {
             NSLog(@"error: %@", error);
         }
-        
     }
-    
-    return myApplicationSupportFolder;
-}
-
-- (NSString *)findSystemFolderType:(int)folderType forDomain:(int)domain {
-    FSRef folder;
-    OSErr err = noErr;
-    CFURLRef url;
-    NSString *result = nil;
-    
-    err = FSFindFolder(domain, folderType, false, &folder);
-    if (err == noErr) {
-        url = CFURLCreateFromFSRef(kCFAllocatorDefault, &folder);
-        result = [(__bridge NSURL *)url path];
-        CFRelease(url);
-    }
-    
-    return result;
+    return path;
 }
 
 @end

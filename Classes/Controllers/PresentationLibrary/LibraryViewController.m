@@ -126,8 +126,7 @@ enum CollectionActionTags {
 - (BOOL) outlineView:(NSOutlineView *)outlineView acceptDrop:(id <NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index {
     NSPasteboard* pboard = [info draggingPasteboard];
     NSData* rowData = [pboard dataForType:ACSHELL_PRESENTATION];
-    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchivedObjectOfClass:NSIndexSet.class fromData:rowData error:nil];
-    
+    NSIndexSet* rowIndexes = [NSKeyedUnarchiver unarchivedObjectOfClass:NSIndexSet.class fromData:rowData error:NULL];
     
     NSArray * arrangedItems = [self.presentationsArrayController arrangedObjects];
     NSArray * draggedItems = [arrangedItems objectsAtIndexes: rowIndexes];

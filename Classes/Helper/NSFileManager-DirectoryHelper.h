@@ -10,8 +10,5 @@
 
 
 @interface NSFileManager (DirectoryHelper)
-
-- (NSString *)findSystemFolderType:(int)folderType forDomain:(int)domain;
 - (NSString *)applicationSupportDirectoryInUserDomain;
-
 @end

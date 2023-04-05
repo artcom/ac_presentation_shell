@@ -193,7 +193,7 @@ enum ACPresentationDoubleClicked {
 #pragma mark NSTableViewDelegate Protocol Methods
 
 - (BOOL) tableView:(NSTableView *)tableView writeRowsWithIndexes:(NSIndexSet *)rowIndexes toPasteboard:(NSPasteboard *)pboard {
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes requiringSecureCoding:NO error:NULL];
     [pboard declareTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION] owner:self];
     [pboard setData:data forType:ACSHELL_PRESENTATION];
     return YES;
@@ -216,14 +216,15 @@ enum ACPresentationDoubleClicked {
 - (BOOL) tableView: (NSTableView*) tableView acceptDrop: (id<NSDraggingInfo>) info
                row: (NSInteger) row dropOperation: (NSTableViewDropOperation) dropOperation
 {
-    NSData * rowsData = [[info draggingPasteboard] dataForType: ACSHELL_PRESENTATION];
-    NSIndexSet * indexSet = [NSKeyedUnarchiver unarchiveObjectWithData: rowsData];
-    [self moveObjectsInArrangedObjectsFromIndexes: indexSet toIndex: row];
+    NSData *rowsData = [[info draggingPasteboard] dataForType: ACSHELL_PRESENTATION];
+    NSIndexSet *rowIndexes = [NSKeyedUnarchiver unarchivedObjectOfClass:NSIndexSet.class fromData:rowsData error:NULL];
     
-    NSInteger rowsAbove = [self rowsAboveRow:row inIndexSet:indexSet];
-    NSRange range = NSMakeRange(row - rowsAbove, [indexSet count]);
-    indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
-    [self.presentationsArrayController setSelectionIndexes:indexSet];
+    [self moveObjectsInArrangedObjectsFromIndexes:rowIndexes toIndex:row];
+    
+    NSInteger rowsAbove = [self rowsAboveRow:row inIndexSet:rowIndexes];
+    NSRange range = NSMakeRange(row - rowsAbove, [rowIndexes count]);
+    rowIndexes = [NSIndexSet indexSetWithIndexesInRange:range];
+    [self.presentationsArrayController setSelectionIndexes:rowIndexes];
     
     NSSortDescriptor * sort = [[self.presentationsArrayController sortDescriptors] objectAtIndex: 0];
     NSArray * items = [self.presentationsArrayController arrangedObjects];
