@@ -1,5 +1,5 @@
 //
-//  acshell_ask_ssh_add_key.m
+//  acshell_add_ssh_host_key.m
 //  ACShell
 //
 //  Created by David Siegel on 8/6/10.

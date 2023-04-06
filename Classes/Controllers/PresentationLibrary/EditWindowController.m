@@ -185,7 +185,7 @@ enum TagActionTags {
 
 #pragma mark -
 #pragma mark Progress Sheet Methods
-- (void) userDidDropKeynote: (KeynoteDraglet *)keynoteDraglet
+- (void) userDidDropKeynote: (KeynoteDropper *)keynoteDraglet
 {
     [keynoteFileLabel setStringValue:droppedKeynote.filename.lastPathComponent];
     BOOL fileExists = droppedKeynote.fileExists;
@@ -195,7 +195,7 @@ enum TagActionTags {
     [self updateTagControls];
 }
 
-- (void) userDidDoubleClickKeynote: (KeynoteDraglet *)keynoteDraglet
+- (void) userDidDoubleClickKeynote: (KeynoteDropper *)keynoteDraglet
 {
     if (droppedKeynote.fileExists) {
         [self editWithKeynote];

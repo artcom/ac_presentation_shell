@@ -1,5 +1,5 @@
 //
-//  ImageDraglet.h
+//  ImageDropper.h
 //  ACShell
 //
 //  Created by David Siegel on 7/25/10.
@@ -7,9 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "IconDraglet.h"
 
-@interface ImageDraglet : NSImageView
+@interface ImageDropper : NSImageView
 @property (nonatomic, strong) NSString *filename;
 @property (readonly) BOOL fileExists;
 @end

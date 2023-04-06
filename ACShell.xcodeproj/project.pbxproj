@@ -57,8 +57,8 @@
 		3BF8C196266E25EA004BC26B /* ACShellWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C195266E25EA004BC26B /* ACShellWindowController.m */; };
 		3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19B266E7E85004BC26B /* LibraryViewController.m */; };
 		3BF8C1A0266E940A004BC26B /* LibraryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */; };
-		630D729011FCB48B00EEB7F2 /* ImageDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* ImageDraglet.m */; };
-		630D730911FCCE2D00EEB7F2 /* KeynoteDraglet.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDraglet.m */; };
+		630D729011FCB48B00EEB7F2 /* ImageDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D728F11FCB48B00EEB7F2 /* ImageDropper.m */; };
+		630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */ = {isa = PBXBuildFile; fileRef = 630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */; };
 		630F36AE120F0B2100F89EFB /* AssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 630F36AD120F0B2100F89EFB /* AssetManager.m */; };
 		63143EF812A80D8B00B82DC3 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63143EF712A80D8B00B82DC3 /* SetupAssistant.xib */; };
 		6354256F12201650004FEC38 /* ACPreferencePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6354256E12201650004FEC38 /* ACPreferencePage.m */; };
@@ -67,7 +67,7 @@
 		6366050411F2EF0D00D6DD96 /* PreferencePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6366050311F2EF0D00D6DD96 /* PreferencePages.xib */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
 		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
-		6379E770120C8B3F006A6FEF /* acshell_ask_ssh_add_key.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */; };
+		6379E770120C8B3F006A6FEF /* acshell_add_ssh_host_key.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */; };
 		6379E79D120C8CAA006A6FEF /* acshell_addhostkey in Resources */ = {isa = PBXBuildFile; fileRef = 6379E76C120C8B24006A6FEF /* acshell_addhostkey */; };
 		63904053120617EE0061D215 /* LibraryServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904052120617EE0061D215 /* LibraryServer.m */; };
 		6390407812061A860061D215 /* SshIdentity.m in Sources */ = {isa = PBXBuildFile; fileRef = 6390407712061A860061D215 /* SshIdentity.m */; };
@@ -222,10 +222,10 @@
 		3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibraryTableViewController.m; sourceTree = "<group>"; };
 		630D57591200C017009D4CAE /* default_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = default_keys.h; sourceTree = "<group>"; };
 		630D57791200C484009D4CAE /* localized_text_keys.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = localized_text_keys.h; sourceTree = "<group>"; };
-		630D728E11FCB48B00EEB7F2 /* ImageDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDraglet.h; sourceTree = "<group>"; };
-		630D728F11FCB48B00EEB7F2 /* ImageDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDraglet.m; sourceTree = "<group>"; };
-		630D730711FCCE2D00EEB7F2 /* KeynoteDraglet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteDraglet.h; sourceTree = "<group>"; };
-		630D730811FCCE2D00EEB7F2 /* KeynoteDraglet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeynoteDraglet.m; sourceTree = "<group>"; };
+		630D728E11FCB48B00EEB7F2 /* ImageDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageDropper.h; sourceTree = "<group>"; };
+		630D728F11FCB48B00EEB7F2 /* ImageDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageDropper.m; sourceTree = "<group>"; };
+		630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteDropper.h; sourceTree = "<group>"; };
+		630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeynoteDropper.m; sourceTree = "<group>"; };
 		630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressDelegateProtocol.h; sourceTree = "<group>"; };
 		630F36AC120F0B2100F89EFB /* AssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetManager.h; sourceTree = "<group>"; };
 		630F36AD120F0B2100F89EFB /* AssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetManager.m; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
 		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-WithUUID.h"; sourceTree = "<group>"; };
 		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-WithUUID.m"; sourceTree = "<group>"; };
-		6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = acshell_ask_ssh_add_key.m; sourceTree = "<group>"; };
+		6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = acshell_add_ssh_host_key.m; sourceTree = "<group>"; };
 		6379E76C120C8B24006A6FEF /* acshell_addhostkey */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = acshell_addhostkey; sourceTree = BUILT_PRODUCTS_DIR; };
 		63904051120617EE0061D215 /* LibraryServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryServer.h; sourceTree = "<group>"; };
 		63904052120617EE0061D215 /* LibraryServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryServer.m; sourceTree = "<group>"; };
@@ -358,11 +358,11 @@
 		22A3B61711E71AA6003DE847 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */,
 				22A3B64E11E71F48003DE847 /* acswisslight.ttf */,
 				22A3B64F11E71F48003DE847 /* acswisslightit.ttf */,
 				22A3B65011E71F48003DE847 /* acswissmed.ttf */,
 				22A3B65111E71F48003DE847 /* acswissmedit.ttf */,
+				3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */,
 			);
 			name = Fonts;
 			sourceTree = "<group>";
@@ -395,14 +395,14 @@
 			children = (
 				630F36AC120F0B2100F89EFB /* AssetManager.h */,
 				630F36AD120F0B2100F89EFB /* AssetManager.m */,
+				3B8ACC311C875706005D7F7A /* CATextLayer+Calculations.h */,
+				3B8ACC321C875706005D7F7A /* CATextLayer+Calculations.m */,
 				636604B111F2DC4C00D6DD96 /* HighlightIconTransformer.h */,
 				636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */,
 				22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */,
 				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
 				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
 				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
-				3B8ACC311C875706005D7F7A /* CATextLayer+Calculations.h */,
-				3B8ACC321C875706005D7F7A /* CATextLayer+Calculations.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -421,14 +421,14 @@
 		22CE72CA11EDAD580043F3C8 /* Layer */ = {
 			isa = PBXGroup;
 			children = (
-				22CE72CB11EDAD8B0043F3C8 /* OverlayLayer.h */,
-				22CE72CC11EDAD8B0043F3C8 /* OverlayLayer.m */,
-				22CE72EF11EDAFE80043F3C8 /* ProgressOverlayLayer.h */,
-				22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */,
 				3B8ACC2E1C8750F0005D7F7A /* HeaderLayer.h */,
 				3B8ACC2F1C8750F0005D7F7A /* HeaderLayer.m */,
 				3BE52F881C8875B300F1D2B7 /* IntroLayer.h */,
 				3BE52F891C8875B300F1D2B7 /* IntroLayer.m */,
+				22CE72CB11EDAD8B0043F3C8 /* OverlayLayer.h */,
+				22CE72CC11EDAD8B0043F3C8 /* OverlayLayer.m */,
+				22CE72EF11EDAFE80043F3C8 /* ProgressOverlayLayer.h */,
+				22CE72F011EDAFE80043F3C8 /* ProgressOverlayLayer.m */,
 			);
 			path = Layer;
 			sourceTree = "<group>";
@@ -440,10 +440,10 @@
 				225C7E7E11DBA4B200EF3009 /* ACShellCollection.m */,
 				3B9FA6C81C85C07E003D7EE0 /* LibraryCategory.h */,
 				3B9FA6C91C85C07E003D7EE0 /* LibraryCategory.m */,
-				3B77D5392941FB1E006DF474 /* LibraryTag.h */,
-				3B77D53A2941FB1E006DF474 /* LibraryTag.m */,
 				63904051120617EE0061D215 /* LibraryServer.h */,
 				63904052120617EE0061D215 /* LibraryServer.m */,
+				3B77D5392941FB1E006DF474 /* LibraryTag.h */,
+				3B77D53A2941FB1E006DF474 /* LibraryTag.m */,
 				22D2F77211D8B5E10030AFBD /* Presentation.h */,
 				22D2F77311D8B5E10030AFBD /* Presentation.m */,
 				22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */,
@@ -459,22 +459,22 @@
 			children = (
 				22CE72CA11EDAD580043F3C8 /* Layer */,
 				22B2004211D9F75500C6D9ED /* PresentationView */,
-				630D730711FCCE2D00EEB7F2 /* KeynoteDraglet.h */,
-				630D730811FCCE2D00EEB7F2 /* KeynoteDraglet.m */,
-				63904151120632FE0061D215 /* LibraryServerView.h */,
-				63904152120632FE0061D215 /* LibraryServerView.m */,
-				630D728E11FCB48B00EEB7F2 /* ImageDraglet.h */,
-				630D728F11FCB48B00EEB7F2 /* ImageDraglet.m */,
-				22EF9EE511D8F94200E91DF0 /* PresentationWindow.h */,
-				22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */,
 				639043EE12075DFC0061D215 /* IconDraglet.h */,
 				639043EF12075DFC0061D215 /* IconDraglet.m */,
-				3B5675B02670090800241327 /* VerticalAlignedTextFieldCell.h */,
-				3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */,
+				630D728E11FCB48B00EEB7F2 /* ImageDropper.h */,
+				630D728F11FCB48B00EEB7F2 /* ImageDropper.m */,
+				630D730711FCCE2D00EEB7F2 /* KeynoteDropper.h */,
+				630D730811FCCE2D00EEB7F2 /* KeynoteDropper.m */,
+				63904151120632FE0061D215 /* LibraryServerView.h */,
+				63904152120632FE0061D215 /* LibraryServerView.m */,
 				3BA100DC2942C1B700A4ADE6 /* LibraryTagCellView.h */,
 				3BA100DD2942C1B700A4ADE6 /* LibraryTagCellView.m */,
 				3BBA9C692949F245003CC545 /* NSAlert+Dialogs.h */,
 				3BBA9C6A2949F245003CC545 /* NSAlert+Dialogs.m */,
+				22EF9EE511D8F94200E91DF0 /* PresentationWindow.h */,
+				22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */,
+				3B5675B02670090800241327 /* VerticalAlignedTextFieldCell.h */,
+				3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -492,7 +492,7 @@
 		29B97314FDCFA39411CA2CEA /* ACShell */ = {
 			isa = PBXGroup;
 			children = (
-				6379E762120C891A006A6FEF /* acshell_ask_ssh_add_key */,
+				6379E762120C891A006A6FEF /* acshell_add_ssh_host_key */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97315FDCFA39411CA2CEA /* OtherSources */,
@@ -572,12 +572,12 @@
 			children = (
 				63B8E52711FBACD50036DBC1 /* EditWindowController.h */,
 				63B8E52811FBACD50036DBC1 /* EditWindowController.m */,
-				22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */,
-				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
-				3BF8C19A266E7E85004BC26B /* LibraryViewController.h */,
-				3BF8C19B266E7E85004BC26B /* LibraryViewController.m */,
 				3BF8C19D266E940A004BC26B /* LibraryTableViewController.h */,
 				3BF8C19E266E940A004BC26B /* LibraryTableViewController.m */,
+				3BF8C19A266E7E85004BC26B /* LibraryViewController.h */,
+				3BF8C19B266E7E85004BC26B /* LibraryViewController.m */,
+				22EF9E7D11D8EF9C00E91DF0 /* PresentationWindowController.h */,
+				22EF9E7E11D8EF9C00E91DF0 /* PresentationWindowController.m */,
 			);
 			path = PresentationLibrary;
 			sourceTree = "<group>";
@@ -585,11 +585,11 @@
 		3BF8C1A3266E9913004BC26B /* Auxillary */ = {
 			isa = PBXGroup;
 			children = (
-				6391D53612211B75009980C9 /* PreferenceController.h */,
-				6391D53712211B75009980C9 /* PreferenceController.m */,
+				3B8000B029DC68A5009457A8 /* LibraryDelegateProtocol.h */,
 				63904154120633FC0061D215 /* LibraryServerCollectionItem.h */,
 				63904155120633FC0061D215 /* LibraryServerCollectionItem.m */,
-				3B8000B029DC68A5009457A8 /* LibraryDelegateProtocol.h */,
+				6391D53612211B75009980C9 /* PreferenceController.h */,
+				6391D53712211B75009980C9 /* PreferenceController.m */,
 				630F368B120EFA5600F89EFB /* ProgressDelegateProtocol.h */,
 				22F2B8DE11F73EC100EE4717 /* RsyncController.h */,
 				22F2B8DF11F73EC100EE4717 /* RsyncController.m */,
@@ -603,20 +603,20 @@
 		6354256912201591004FEC38 /* PreferenceWindow */ = {
 			isa = PBXGroup;
 			children = (
-				6366050811F2F4A400D6DD96 /* ACPreferenceWindowController.h */,
-				6366050911F2F4A400D6DD96 /* ACPreferenceWindowController.m */,
 				6354256D12201650004FEC38 /* ACPreferencePage.h */,
 				6354256E12201650004FEC38 /* ACPreferencePage.m */,
+				6366050811F2F4A400D6DD96 /* ACPreferenceWindowController.h */,
+				6366050911F2F4A400D6DD96 /* ACPreferenceWindowController.m */,
 			);
 			path = PreferenceWindow;
 			sourceTree = "<group>";
 		};
-		6379E762120C891A006A6FEF /* acshell_ask_ssh_add_key */ = {
+		6379E762120C891A006A6FEF /* acshell_add_ssh_host_key */ = {
 			isa = PBXGroup;
 			children = (
-				6379E763120C89B5006A6FEF /* acshell_ask_ssh_add_key.m */,
+				6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */,
 			);
-			path = acshell_ask_ssh_add_key;
+			path = acshell_add_ssh_host_key;
 			sourceTree = "<group>";
 		};
 		63AE0E4B1204241800FD8172 /* Controllers */ = {
@@ -633,14 +633,14 @@
 		CD349E4F180740CE0028C540 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				CDDA4EC41808058C004723CE /* PresentationLibrarySearch.h */,
-				CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */,
 				CD349E50180740CE0028C540 /* ACSearchIndex.h */,
 				CD349E51180740CE0028C540 /* ACSearchIndex.m */,
 				CD349E52180740CE0028C540 /* ACSearchIndexQuery.h */,
 				CD349E53180740CE0028C540 /* ACSearchIndexQuery.m */,
 				CD349E54180740CE0028C540 /* ACSearchIndexResult.h */,
 				CD349E55180740CE0028C540 /* ACSearchIndexResult.m */,
+				CDDA4EC41808058C004723CE /* PresentationLibrarySearch.h */,
+				CDDA4EC51808058C004723CE /* PresentationLibrarySearch.m */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -665,9 +665,9 @@
 			productReference = 3B9FA6E81C85C46A003D7EE0 /* ACShellTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */ = {
+		6379E76B120C8B24006A6FEF /* acshell_add_ssh_host_key */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6379E79A120C8B46006A6FEF /* Build configuration list for PBXNativeTarget "acshell_ask_ssh_add_key" */;
+			buildConfigurationList = 6379E79A120C8B46006A6FEF /* Build configuration list for PBXNativeTarget "acshell_add_ssh_host_key" */;
 			buildPhases = (
 				6379E769120C8B24006A6FEF /* Sources */,
 				6379E76A120C8B24006A6FEF /* Frameworks */,
@@ -676,7 +676,7 @@
 			);
 			dependencies = (
 			);
-			name = acshell_ask_ssh_add_key;
+			name = acshell_add_ssh_host_key;
 			productName = acshell_askpasswd;
 			productReference = 6379E76C120C8B24006A6FEF /* acshell_addhostkey */;
 			productType = "com.apple.product-type.tool";
@@ -732,7 +732,7 @@
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* ACShell */,
-				6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */,
+				6379E76B120C8B24006A6FEF /* acshell_add_ssh_host_key */,
 				3B9FA6E71C85C46A003D7EE0 /* ACShellTests */,
 			);
 		};
@@ -793,7 +793,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6379E770120C8B3F006A6FEF /* acshell_ask_ssh_add_key.m in Sources */,
+				6379E770120C8B3F006A6FEF /* acshell_add_ssh_host_key.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,8 +827,8 @@
 				22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */,
 				222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */,
 				63B8E52911FBACD50036DBC1 /* EditWindowController.m in Sources */,
-				630D729011FCB48B00EEB7F2 /* ImageDraglet.m in Sources */,
-				630D730911FCCE2D00EEB7F2 /* KeynoteDraglet.m in Sources */,
+				630D729011FCB48B00EEB7F2 /* ImageDropper.m in Sources */,
+				630D730911FCCE2D00EEB7F2 /* KeynoteDropper.m in Sources */,
 				63EB809D12050048008D7814 /* SetupAssistantController.m in Sources */,
 				3B77D53B2941FB1E006DF474 /* LibraryTag.m in Sources */,
 				3BF8C19C266E7E85004BC26B /* LibraryViewController.m in Sources */,
@@ -857,7 +857,7 @@
 /* Begin PBXTargetDependency section */
 		6379E79C120C8BA7006A6FEF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6379E76B120C8B24006A6FEF /* acshell_ask_ssh_add_key */;
+			target = 6379E76B120C8B24006A6FEF /* acshell_add_ssh_host_key */;
 			targetProxy = 6379E79B120C8BA7006A6FEF /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1163,7 +1163,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6379E79A120C8B46006A6FEF /* Build configuration list for PBXNativeTarget "acshell_ask_ssh_add_key" */ = {
+		6379E79A120C8B46006A6FEF /* Build configuration list for PBXNativeTarget "acshell_add_ssh_host_key" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6379E76E120C8B24006A6FEF /* Debug */,

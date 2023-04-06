@@ -1,14 +1,14 @@
 //
-//  KeynoteDraglet.m
+//  KeynoteDropper.m
 //  ACShell
 //
 //  Created by David Siegel on 7/25/10.
 //  Copyright 2010 ART+COM AG. All rights reserved.
 //
 
-#import "KeynoteDraglet.h"
+#import "KeynoteDropper.h"
 
-@implementation KeynoteDraglet
+@implementation KeynoteDropper
 
 - (NSDragOperation)draggingEntered:(id <NSDraggingInfo>)sender {
     NSPasteboard *pasteboard = [sender draggingPasteboard];
