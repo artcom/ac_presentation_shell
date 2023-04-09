@@ -290,11 +290,7 @@ enum TagActionTags {
         LibraryCategory *category = self.presentationLibrary.categories[index];
         checkbox.title = category.title;
         checkbox.action = @selector(categorySelected:);
-        if ([self.presentation.categories containsObject:category.ID]) {
-            [checkbox setState:NSControlStateValueOn];
-        } else {
-            [checkbox setState:NSControlStateValueOff];
-        }
+        checkbox.state = [self.presentation.categories containsObject:category.ID] ? NSControlStateValueOn : NSControlStateValueOff;
     }];
 }
 
@@ -393,7 +389,7 @@ enum TagActionTags {
     NSLog(@"Asset Manager failed %@", error);
     
     [NSApp endSheet: progressSheet];
-
+    
     NSAlert * alert = NSAlert.new;
     alert.messageText = NSLocalizedString(ACSHELL_STR_FILE_OPERATION_FAILED, nil);
     alert.informativeText = error.description;
@@ -419,8 +415,17 @@ enum TagActionTags {
     LibraryTagCellView *view = [tableView makeViewWithIdentifier:LibraryTagCellView.className owner:nil];
     view.button.tag = row;
     view.button.title = tag.ID;
-    view.button.state = [self.presentation.tags containsObject:tag.ID] ? NSControlStateValueOn : NSControlStateValueOff;
     view.button.action = @selector(tagSelected:);
+    
+    view.button.state = NSControlStateValueOff;
+    if ([self.presentation.tags containsObject:tag.ID]) {
+        view.button.state = NSControlStateValueOn;
+    }
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.ID == %@", tag.ID];
+    NSArray *selected = [self.selectedTags filteredArrayUsingPredicate:predicate];
+    if (selected.count > 0) {
+        view.button.state = NSControlStateValueOn;
+    }
     return view;
 }
 
