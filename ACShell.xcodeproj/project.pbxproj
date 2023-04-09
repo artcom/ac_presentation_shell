@@ -30,6 +30,7 @@
 		22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 22EF9EE611D8F94200E91DF0 /* PresentationWindow.m */; };
 		22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B8DF11F73EC100EE4717 /* RsyncController.m */; };
 		256AC3DA0F4B6AC300CF3369 /* ACShellAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */; };
+		3B4B973729E36B5500B1B792 /* NSString+AppendSlash.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4B973629E36B5500B1B792 /* NSString+AppendSlash.m */; };
 		3B5675B22670090800241327 /* VerticalAlignedTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */; };
 		3B5AD50B1CA3F794001CFFA2 /* lmsansquot8-regular.otf in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3BDF54FF1C91D45E00B2EC6F /* lmsansquot8-regular.otf */; };
 		3B62316A266FBF5D00C17CF2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B62316C266FBF5D00C17CF2 /* Main.storyboard */; };
@@ -66,7 +67,6 @@
 		636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */; };
 		6366050411F2EF0D00D6DD96 /* PreferencePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6366050311F2EF0D00D6DD96 /* PreferencePages.xib */; };
 		6366076B11F33F4200D6DD96 /* defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6366076A11F33F4200D6DD96 /* defaults.plist */; };
-		636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */ = {isa = PBXBuildFile; fileRef = 636609D311F3A03300D6DD96 /* NSString-WithUUID.m */; };
 		6379E770120C8B3F006A6FEF /* acshell_add_ssh_host_key.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */; };
 		6379E79D120C8CAA006A6FEF /* acshell_addhostkey in Resources */ = {isa = PBXBuildFile; fileRef = 6379E76C120C8B24006A6FEF /* acshell_addhostkey */; };
 		63904053120617EE0061D215 /* LibraryServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63904052120617EE0061D215 /* LibraryServer.m */; };
@@ -170,6 +170,9 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		3B4B973429E36A8400B1B792 /* RsyncTaskDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RsyncTaskDelegate.h; sourceTree = "<group>"; };
+		3B4B973529E36B5500B1B792 /* NSString+AppendSlash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+AppendSlash.h"; sourceTree = "<group>"; };
+		3B4B973629E36B5500B1B792 /* NSString+AppendSlash.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+AppendSlash.m"; sourceTree = "<group>"; };
 		3B5675B02670090800241327 /* VerticalAlignedTextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VerticalAlignedTextFieldCell.h; sourceTree = "<group>"; };
 		3B5675B12670090800241327 /* VerticalAlignedTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VerticalAlignedTextFieldCell.m; sourceTree = "<group>"; };
 		3B62316E266FC1FA00C17CF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -236,8 +239,6 @@
 		6366050811F2F4A400D6DD96 /* ACPreferenceWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACPreferenceWindowController.h; sourceTree = "<group>"; };
 		6366050911F2F4A400D6DD96 /* ACPreferenceWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACPreferenceWindowController.m; sourceTree = "<group>"; };
 		6366076A11F33F4200D6DD96 /* defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = defaults.plist; path = Resources/defaults.plist; sourceTree = "<group>"; };
-		636609D211F3A03300D6DD96 /* NSString-WithUUID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-WithUUID.h"; sourceTree = "<group>"; };
-		636609D311F3A03300D6DD96 /* NSString-WithUUID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-WithUUID.m"; sourceTree = "<group>"; };
 		6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = acshell_add_ssh_host_key.m; sourceTree = "<group>"; };
 		6379E76C120C8B24006A6FEF /* acshell_addhostkey */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = acshell_addhostkey; sourceTree = BUILT_PRODUCTS_DIR; };
 		63904051120617EE0061D215 /* LibraryServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryServer.h; sourceTree = "<group>"; };
@@ -318,8 +319,6 @@
 				22D5993211DDD1270025E48F /* View */,
 				256AC3D80F4B6AC300CF3369 /* ACShellAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* ACShellAppDelegate.m */,
-				222781E711F88AD2007C1B6C /* RsyncTask.h */,
-				222781E811F88AD2007C1B6C /* RsyncTask.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -401,8 +400,8 @@
 				636604B211F2DC4C00D6DD96 /* HighlightIconTransformer.m */,
 				22B200B711DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.h */,
 				22B200B811DA1F5C00C6D9ED /* NSFileManager-DirectoryHelper.m */,
-				636609D211F3A03300D6DD96 /* NSString-WithUUID.h */,
-				636609D311F3A03300D6DD96 /* NSString-WithUUID.m */,
+				3B4B973529E36B5500B1B792 /* NSString+AppendSlash.h */,
+				3B4B973629E36B5500B1B792 /* NSString+AppendSlash.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -448,6 +447,9 @@
 				22D2F77311D8B5E10030AFBD /* Presentation.m */,
 				22D2F7C611D8CEF80030AFBD /* PresentationLibrary.h */,
 				22D2F7C711D8CEF80030AFBD /* PresentationLibrary.m */,
+				222781E711F88AD2007C1B6C /* RsyncTask.h */,
+				222781E811F88AD2007C1B6C /* RsyncTask.m */,
+				3B4B973429E36A8400B1B792 /* RsyncTaskDelegate.h */,
 				6390407612061A860061D215 /* SshIdentity.h */,
 				6390407712061A860061D215 /* SshIdentity.m */,
 			);
@@ -810,6 +812,7 @@
 				22D2F77411D8B5E10030AFBD /* Presentation.m in Sources */,
 				22D2F7C811D8CEF80030AFBD /* PresentationLibrary.m in Sources */,
 				22EF9E7F11D8EF9C00E91DF0 /* PresentationWindowController.m in Sources */,
+				3B4B973729E36B5500B1B792 /* NSString+AppendSlash.m in Sources */,
 				22EF9EE711D8F94200E91DF0 /* PresentationWindow.m in Sources */,
 				22B2000D11D9EECE00C6D9ED /* PresentationView.m in Sources */,
 				3B8ACC2B1C87236C005D7F7A /* PresentationHeaderView.m in Sources */,
@@ -822,7 +825,6 @@
 				22CE72F111EDAFE80043F3C8 /* ProgressOverlayLayer.m in Sources */,
 				3BBA9C6B2949F245003CC545 /* NSAlert+Dialogs.m in Sources */,
 				636604B311F2DC4C00D6DD96 /* HighlightIconTransformer.m in Sources */,
-				636609D411F3A03300D6DD96 /* NSString-WithUUID.m in Sources */,
 				3B9FA6CA1C85C07E003D7EE0 /* LibraryCategory.m in Sources */,
 				22F2B8E011F73EC100EE4717 /* RsyncController.m in Sources */,
 				222781E911F88AD2007C1B6C /* RsyncTask.m in Sources */,

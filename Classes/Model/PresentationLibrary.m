@@ -12,7 +12,6 @@
 #import "LibraryTag.h"
 #import "Presentation.h"
 #import "NSFileManager-DirectoryHelper.h"
-#import "NSString-WithUUID.h"
 #import "localized_text_keys.h"
 #import "default_keys.h"
 #import "AssetManager.h"
@@ -393,7 +392,7 @@ static NSCharacterSet * ourNonDirNameCharSet;
                              tags: (NSArray *) tags
                  progressDelegate: (id<ProgressDelegateProtocol>) delegate
 {
-    NSString * newId = [NSString stringWithUUID];
+    NSString * newId = NSUUID.UUID.UUIDString;
     NSXMLElement * node = [NSXMLElement elementWithName: @"presentation"];
     [node addAttribute: [NSXMLNode attributeWithName: @"directory" stringValue: @""]];
     [node addAttribute: [NSXMLNode attributeWithName: @"highlight" stringValue: @""]];

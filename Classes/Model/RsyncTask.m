@@ -7,27 +7,13 @@
 //
 
 #import "RsyncTask.h"
+#import "RsyncTaskDelegate.h"
+#import "NSString+AppendSlash.h"
 #import "default_keys.h"
 
 #define RSYNC_EXECUTABLE @"/usr/bin/rsync"
 
-@interface NSString (appendSlash) 
-- (NSString*) stringByAppendingSlash;
-@end
-@implementation NSString (appendSlash)
-
-- (NSString*) stringByAppendingSlash {
-    if ([self characterAtIndex: [self length] - 1] == '/') {
-        return self;
-    }    
-    return [[NSArray arrayWithObjects: self, @"", nil] componentsJoinedByString: @"/"];
-}
-
-@end
-
-
 @interface RsyncTask ()
-
 @property (strong) NSTask *task;
 @property (strong) NSPipe *pipe;
 @property (strong) NSPipe *errorPipe;
@@ -38,7 +24,6 @@
 
 - (void) cleanup;
 - (void) processRsyncOutput: (NSData*) output;
-
 @end
 
 
@@ -48,16 +33,13 @@
 
 - (id)initWithSource: (NSString *)theSource destination: (NSString *)theDestination; {
     self = [super init];
-    if (self != nil) {	
+    if (self != nil) {
         self.source = [theSource stringByAppendingSlash];
         self.destination = [theDestination stringByAppendingSlash];
         self.preserveLocalChanges = [NSUserDefaults.standardUserDefaults boolForKey: ACSHELL_DEFAULT_KEY_RSYNC_PRESERVE_LOCAL];
     }
-    
     return self;
 }
-
-
 
 - (void)sync {
     NSLog(@"syncing from %@ to %@", self.source, self.destination);
@@ -65,21 +47,14 @@
     self.task = NSTask.new;
     [self.task setLaunchPath: RSYNC_EXECUTABLE];
     
-    NSString *deleteOrUpdate = nil;
-    if (self.preserveLocalChanges) {
-        deleteOrUpdate = @"--update";
-    }
-    else {
-        deleteOrUpdate = @"--delete";
-    }
+    NSString *deleteOrUpdate = self.preserveLocalChanges ? @"--update" : @"--delete";
+    NSArray *taskArgs = @[@"-rlt", @"--progress", @"--force",
+                          deleteOrUpdate,
+                          @"--chmod=u=rwX,go=rX",
+                          @"-O",
+                          self.source, self.destination];
     
-    NSMutableArray *taskArgs = [NSMutableArray arrayWithObjects: @"-rlt", @"--progress", @"--force",
-                                deleteOrUpdate,
-                                @"--chmod=u=rwX,go=rX",
-                                @"-O",
-                                self.source, self.destination, nil];
-    
-    [self.task setArguments: taskArgs];
+    self.task.arguments = taskArgs;
     
     self.pipe = NSPipe.new;
     [self.task setStandardOutput:self.pipe];
@@ -130,8 +105,8 @@
             if ( ! [scanner scanDouble: &progress]) {
                 if (maybeFileCount >= 0) {
                     if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateProgress:itemNumber:of:)]) {
-                        [delegate rsyncTask: self didUpdateProgress: 0.0 itemNumber: -1 of: maybeFileCount];	
-                    }                    
+                        [delegate rsyncTask: self didUpdateProgress: 0.0 itemNumber: -1 of: maybeFileCount];
+                    }
                 }
                 continue;
             }
@@ -151,7 +126,7 @@
             }
             
             if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateProgress:itemNumber:of:)]) {
-                [delegate rsyncTask: self didUpdateProgress: progress itemNumber: totalItems - pendingItems of: totalItems];	
+                [delegate rsyncTask: self didUpdateProgress: progress itemNumber: totalItems - pendingItems of: totalItems];
             }
         } else {
             if ([delegate respondsToSelector:@selector(rsyncTask:didUpdateMessage:)]) {
