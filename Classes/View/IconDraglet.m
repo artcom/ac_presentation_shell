@@ -33,7 +33,7 @@
     NSPasteboard *pasteboard = [sender draggingPasteboard];
     if ( [pasteboard.types containsObject:NSPasteboardTypeFileURL] ) {
         NSURL *url = [NSURL URLFromPasteboard:pasteboard];
-        filename = url.path;
+        self.filename = url.path;
         return YES;
     }
     return NO;
@@ -46,7 +46,7 @@
     f.origin = [self convertPoint:theEvent.locationInWindow fromView:nil];
     f.origin.x -= 16;
     f.origin.y -= 16;
-    [self dragFile: filename fromRect: f slideBack: YES event: theEvent];
+    [self dragFile:self.filename fromRect: f slideBack: YES event: theEvent];
 }
 
 @end
