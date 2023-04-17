@@ -25,15 +25,21 @@ if [ -z "$2" ]; then
   exit 1
 fi
 
+if [ -z "$3" ]; then
+  printHelp "Missing changelog path"
+  exit 1
+fi
+
 # Remove old TMP_PACKAGE_DIR, leave out 'f' to be safe
 rm -Rf $TMP_PACKAGE_DIR
 mkdir $TMP_PACKAGE_DIR
 
 # Copy product to temp package destination
 ditto "$2" $TMP_PACKAGE_DIR/ACShell.app
+ditto "$3" $TMP_PACKAGE_DIR/CHANGELOG.txt
 
 # Create DMG
-./dmg_utils/create-dmg --window-size 550 350 --background installer_background.png --icon-size 96 --volname $1 --app-drop-link 430 168 --icon "ACShell" 130 168 $1.dmg $TMP_PACKAGE_DIR/
+./dmg_utils/create-dmg --window-size 550 600 --background installer_background.png --icon-size 96 --volname $1 --app-drop-link 430 168 --icon "ACShell" 96 168 $1.dmg $TMP_PACKAGE_DIR/
 
 echo "Cleaning up"
 rm -Rf $TMP_PACKAGE_DIR
