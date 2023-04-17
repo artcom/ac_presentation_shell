@@ -39,7 +39,7 @@ ditto "$2" $TMP_PACKAGE_DIR/ACShell.app
 ditto "$3" $TMP_PACKAGE_DIR/CHANGELOG.txt
 
 # Create DMG
-./dmg_utils/create-dmg --window-size 550 600 --background installer_background.png --icon-size 96 --volname $1 --app-drop-link 430 168 --icon "ACShell" 96 168 $1.dmg $TMP_PACKAGE_DIR/
+./dmg_utils/create-dmg --window-size 550 550 --background installer_background.png --icon-size 96 --volname $1 --app-drop-link 420 250 --icon "ACShell" 96 250 $1.dmg $TMP_PACKAGE_DIR/
 
 echo "Cleaning up"
 rm -Rf $TMP_PACKAGE_DIR
