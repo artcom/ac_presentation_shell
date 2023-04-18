@@ -29,6 +29,7 @@
     self = [super initWithWindowNibName:@"PresentationWindow"];
     if (self != nil) {
         self.keynote = [KeynoteHandler sharedHandler];
+        self.keynote.playbackDelegate = self;
         self.window.delegate = self;
     }
     return self;
@@ -250,7 +251,7 @@
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
     self.selectedPresentationIndex = index;
     Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
-    [self.keynote play:presentation.absolutePresentationPath withDelegate: self];
+    [self.keynote play:presentation.absolutePresentationPath];
     [self showActivityForItemAtIndex:index];
 }
 
@@ -282,7 +283,6 @@
 
 #pragma mark - Keynote Handler Delegate
 
-
 - (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {
     [self highlightItemAtIndex:self.selectedPresentationIndex];
 }
@@ -290,10 +290,6 @@
 - (void)keynoteDidStopPresentation:(KeynoteHandler *)aKeynote {
     [[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
     [[self window] makeKeyAndOrderFront:nil];
-}
-
-- (void)keynoteAppDidLaunch:(BOOL)success version:(NSString *)version {
-    // Do nothing
 }
 
 @end

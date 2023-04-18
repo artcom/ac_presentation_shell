@@ -235,7 +235,7 @@
 		3B1BB29529EDD80D00343D1F /* RsyncTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RsyncTask.h; sourceTree = "<group>"; };
 		3B1BB29729EDD80D00343D1F /* Keynote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Keynote.h; sourceTree = "<group>"; };
 		3B1BB29829EDD80D00343D1F /* KeynoteHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteHandler.h; sourceTree = "<group>"; };
-		3B1BB29929EDD80D00343D1F /* KeynoteDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynoteDelegate.h; sourceTree = "<group>"; };
+		3B1BB29929EDD80D00343D1F /* KeynotePlaybackDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeynotePlaybackDelegate.h; sourceTree = "<group>"; };
 		3B1BB29A29EDD80D00343D1F /* KeynoteHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeynoteHandler.m; sourceTree = "<group>"; };
 		3B49FD9929EDD5D100082582 /* ACShellAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACShellAppDelegate.h; sourceTree = "<group>"; };
 		3B49FDA829EDD5D100082582 /* ACShellAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACShellAppDelegate.m; sourceTree = "<group>"; };
@@ -269,6 +269,7 @@
 		3B9FA6EC1C85C46A003D7EE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B9FA6FA1C85C62E003D7EE0 /* library.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = library.xml; path = Fixtures/library.xml; sourceTree = "<group>"; };
 		3BF60F1D29EE8D550084FFCC /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
+		3BF7D4D029EEDEDE00DCE0D8 /* KeynoteLaunchDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeynoteLaunchDelegate.h; sourceTree = "<group>"; };
 		6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = acshell_add_ssh_host_key.m; sourceTree = "<group>"; };
 		6379E76C120C8B24006A6FEF /* acshell_addhostkey */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = acshell_addhostkey; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -556,9 +557,10 @@
 			isa = PBXGroup;
 			children = (
 				3B1BB29729EDD80D00343D1F /* Keynote.h */,
-				3B1BB29929EDD80D00343D1F /* KeynoteDelegate.h */,
+				3B1BB29929EDD80D00343D1F /* KeynotePlaybackDelegate.h */,
 				3B1BB29829EDD80D00343D1F /* KeynoteHandler.h */,
 				3B1BB29A29EDD80D00343D1F /* KeynoteHandler.m */,
+				3BF7D4D029EEDEDE00DCE0D8 /* KeynoteLaunchDelegate.h */,
 			);
 			path = Keynote;
 			sourceTree = "<group>";

@@ -17,7 +17,6 @@ KeynoteHandler *sharedInstance;
 @property (atomic, assign) int currentPresentationTicket;
 @property (atomic, strong) NSTimer *timerObservePresentation;
 @property (atomic, strong) KeynoteDocument *presentation;
-@property (atomic, weak) id<KeynoteDelegate> delegate;
 @end
 
 @implementation KeynoteHandler
@@ -39,7 +38,7 @@ KeynoteHandler *sharedInstance;
     return self;
 }
 
-- (void)launchWithDelegate:(id<KeynoteDelegate>) delegate {
+- (void)launch {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         self.application = [SBApplication applicationWithBundleIdentifier:ACShellKeynoteDefaultDomain];
         
@@ -47,8 +46,8 @@ KeynoteHandler *sharedInstance;
         NSString *version = self.application.version;
         BOOL isRunning = self.application.isRunning;
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([delegate respondsToSelector:@selector(keynoteAppDidLaunch:version:)]) {
-                [delegate keynoteAppDidLaunch:isRunning version:version];
+            if ([self.launchDelegate respondsToSelector:@selector(keynoteAppDidLaunch:version:)]) {
+                [self.launchDelegate keynoteAppDidLaunch:isRunning version:version];
             }
         });
         
@@ -71,12 +70,11 @@ KeynoteHandler *sharedInstance;
     [self presentationDidStop];
 }
 
-- (void)play:(NSString *)file withDelegate:(id<KeynoteDelegate>)delegate {
+- (void)play:(NSString *)file {
     
     if (self.presenting) return;
     self.presenting = YES;
     self.presentation = nil;
-    self.delegate = delegate;
     int ticket = [self nextPresentationTicket];
     NSURL *url = [NSURL fileURLWithPath: file];
     
@@ -101,10 +99,17 @@ KeynoteHandler *sharedInstance;
             self.presentation = presentation;
             [presentation startFrom:firstSlide];
             NSLog(@"  started to play..");
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self startObservingPresentation];
-                [delegate keynoteDidStartPresentation:self];
-            });
+            
+            if ([self keynoteIsPlayingFullscreen]) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self startObservingPresentation];
+                    [self.playbackDelegate keynoteDidStartPresentation:self];
+                });
+            } else {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.launchDelegate keynoteDidRunInWindow:self];
+                });
+            }
         }
         else {
             NSLog(@"  cancelled.");
@@ -146,7 +151,29 @@ KeynoteHandler *sharedInstance;
     [self.presentation closeSaving:KeynoteSaveOptionsNo savingIn:nil];
     self.presenting = NO;
     self.presentation = nil;
-    [self.delegate keynoteDidStopPresentation:self];
+    [self.playbackDelegate keynoteDidStopPresentation:self];
+}
+
+- (BOOL)keynoteIsPlayingFullscreen
+{
+    NSMutableArray *windows = NSMutableArray.new;
+    [self.application.windows enumerateObjectsUsingBlock:^(KeynoteWindow *_Nonnull window, NSUInteger index, BOOL *_Nonnull stop) {
+        NSRange range = [window.name rangeOfString:@".key"];
+        if (range.length > 0) {
+            [windows addObject:window];
+        }
+    }];
+    
+    __block BOOL noncloseable = NO;
+    __block BOOL nonresizable = NO;
+    __block BOOL nonzoomable = NO;
+    [windows enumerateObjectsUsingBlock:^(KeynoteWindow   * _Nonnull window, NSUInteger index, BOOL * _Nonnull stop) {
+        if(!window.closeable) noncloseable = YES;
+        if(!window.resizable) nonresizable = YES;
+        if(!window.zoomable) nonzoomable = YES;
+    }];
+    
+    return (noncloseable && nonresizable && nonzoomable);
 }
 
 - (BOOL)keynoteIsPlaying {
@@ -165,7 +192,7 @@ KeynoteHandler *sharedInstance;
      If there is more than one window for a given document, this means that this document is displayed in an edit window AND in a presentation window.
      */
     NSMutableArray *documentIds = [NSMutableArray new];
-    NSArray *documents = [[self.application windows] arrayByApplyingSelector:@selector(document)];
+    NSArray *documents = [self.application.windows arrayByApplyingSelector:@selector(document)];
     for (KeynoteDocument *document in documents) {
         NSString *documentId = [document id];
         if ([documentIds containsObject:documentId]) {

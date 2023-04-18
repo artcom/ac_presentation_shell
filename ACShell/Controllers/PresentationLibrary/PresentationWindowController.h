@@ -13,7 +13,7 @@
 #import "PresentationIntroViewDelegate.h"
 #import "PresentationViewDataSource.h"
 #import "PresentationViewDelegate.h"
-#import "KeynoteDelegate.h"
+#import "KeynotePlaybackDelegate.h"
 
 @class KeynoteHandler;
 @class PresentationIntroView;
@@ -23,7 +23,7 @@
 @interface PresentationWindowController : NSWindowController
 <PresentationViewDataSource, PresentationViewDelegate,
 PresentationIntroViewDataSource, PresentationIntroViewDelegate,
-KeynoteDelegate, NSWindowDelegate>
+KeynotePlaybackDelegate, NSWindowDelegate>
 
 @property (nonatomic, strong) KeynoteHandler *keynote;
 @property (nonatomic, strong) NSArray *categories;

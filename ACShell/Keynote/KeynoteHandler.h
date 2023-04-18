@@ -8,18 +8,23 @@
 
 #import <Cocoa/Cocoa.h>
 #import "Keynote.h"
-#import "KeynoteDelegate.h"
+#import "KeynoteLaunchDelegate.h"
+#import "KeynotePlaybackDelegate.h"
 
 @interface KeynoteHandler : NSObject
 
 @property (atomic, strong, readonly) KeynoteApplication *application;
 @property (atomic, assign, readonly) BOOL presenting;
 
+
+@property (nonatomic, weak) id<KeynoteLaunchDelegate> launchDelegate;
+@property (nonatomic, weak) id<KeynotePlaybackDelegate> playbackDelegate;
+
 + (KeynoteHandler *)sharedHandler;
 
-- (void)launchWithDelegate: (id<KeynoteDelegate>) delegate;
+- (void)launch;
 - (void)open:(NSString *)file;
 
-- (void)play:(NSString *)file withDelegate: (id<KeynoteDelegate>) delegate;
+- (void)play:(NSString *)file;
 - (void)stop;
 @end

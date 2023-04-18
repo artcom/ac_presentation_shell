@@ -63,3 +63,5 @@
 #define ACSHELL_STR_DELETING_PRESENTATION @"DeletingPresentation"
 #define ACSHELL_STR_GENERAL               @"General"
 #define ACSHELL_STR_ADVANCED              @"Advanced"
+#define ACSHELL_STR_PRESENTATION_IN_WINDOW @"KeynoteRunningInWindow"
+#define ACSHELL_STR_PRESENTATION_IN_WINDOW_INFO @"KeynoteRunningInWindowInfo"

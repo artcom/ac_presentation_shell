@@ -7,12 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
 @class KeynoteHandler;
-
-@protocol KeynoteDelegate <NSObject>
-
+@protocol KeynotePlaybackDelegate <NSObject>
 - (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote;
 - (void)keynoteDidStopPresentation:(KeynoteHandler *)keynote;
-- (void)keynoteAppDidLaunch:(BOOL)success version:(NSString *)version;
-
 @end
+
+NS_ASSUME_NONNULL_END

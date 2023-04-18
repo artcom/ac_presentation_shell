@@ -70,7 +70,8 @@
     self.rsyncController.documentWindow = self.window;
     self.rsyncController.delegate = self;
     
-    [[KeynoteHandler sharedHandler] launchWithDelegate:self];
+    KeynoteHandler.sharedHandler.launchDelegate = self;
+    [KeynoteHandler.sharedHandler launch];
     [self loadLibrary];
 }
 
@@ -206,7 +207,7 @@
 
 
 #pragma mark -
-#pragma mark KeynoteDelegate Protocol Methods
+#pragma mark KeynoteLaunchDelegate Protocol Methods
 
 - (void) keynoteAppDidLaunch: (BOOL) success version:(NSString *)version {
     if (success) {
@@ -218,12 +219,16 @@
     }
 }
 
-- (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {
-    // Do nothing
-}
-
-- (void)keynoteDidStopPresentation:(KeynoteHandler *)keynote {
-    // Do nothing
+- (void)keynoteDidRunInWindow:(KeynoteHandler *)keynote {
+    NSAlert * alert = NSAlert.new;
+    alert.messageText = NSLocalizedString(ACSHELL_STR_PRESENTATION_IN_WINDOW, nil);
+    alert.informativeText = NSLocalizedString(ACSHELL_STR_PRESENTATION_IN_WINDOW_INFO, nil);
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
+    alert.alertStyle = NSAlertStyleCritical;
+    
+    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
+        [KeynoteHandler.sharedHandler stop];
+    }];
 }
 
 #pragma mark -
@@ -251,7 +256,7 @@
 - (void)libraryTableViewController:(LibraryTableViewController *)controller playPresentation:(nonnull Presentation *)presentation
 {
     if (presentation.presentationFileExists) {
-        [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate: self];
+        [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath];
     }
 }
 

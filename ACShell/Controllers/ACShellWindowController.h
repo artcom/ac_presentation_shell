@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "RsyncController.h"
-#import "KeynoteDelegate.h"
+#import "KeynotePlaybackDelegate.h"
 #import "EditWindowController.h"
 #import "PresentationWindowController.h"
 #import "PresentationLibrary.h"
@@ -18,7 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ACShellWindowController : NSWindowController <NSToolbarItemValidation,
-KeynoteDelegate, RsyncControllerDelegate, LibraryTableViewControllerDelegate>
+KeynotePlaybackDelegate, RsyncControllerDelegate, LibraryTableViewControllerDelegate>
 
 @property (strong) LibraryViewController *libraryViewController;
 @property (strong) LibraryTableViewController *libraryTableViewController;
