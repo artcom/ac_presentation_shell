@@ -71,11 +71,6 @@
 		3B49FE4F29EDD5D100082582 /* icn_missing_file.icns in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE0F29EDD5D100082582 /* icn_missing_file.icns */; };
 		3B49FE5029EDD5D100082582 /* Logo_AC_STUDIOS.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1029EDD5D100082582 /* Logo_AC_STUDIOS.svg */; };
 		3B49FE5129EDD5D100082582 /* spinner.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1129EDD5D100082582 /* spinner.png */; };
-		3B49FE5229EDD5D100082582 /* acswissmedit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1329EDD5D100082582 /* acswissmedit.ttf */; };
-		3B49FE5329EDD5D100082582 /* acswissmed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1429EDD5D100082582 /* acswissmed.ttf */; };
-		3B49FE5429EDD5D100082582 /* lmsansquot8-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1529EDD5D100082582 /* lmsansquot8-regular.otf */; };
-		3B49FE5529EDD5D100082582 /* acswisslight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1629EDD5D100082582 /* acswisslight.ttf */; };
-		3B49FE5629EDD5D100082582 /* acswisslightit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1729EDD5D100082582 /* acswisslightit.ttf */; };
 		3B49FE9429EDD63A00082582 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE8429EDD63A00082582 /* Main.storyboard */; };
 		3B49FE9529EDD63A00082582 /* SetupAssistant.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE8629EDD63A00082582 /* SetupAssistant.xib */; };
 		3B49FE9629EDD63A00082582 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE8829EDD63A00082582 /* Localizable.strings */; };
@@ -92,6 +87,11 @@
 		3B7DAAD229EDD8EC0025FA6D /* ACSearchIndexResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BB22D29EDD80D00343D1F /* ACSearchIndexResult.m */; };
 		3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */; };
 		3B9FA6FB1C85C62E003D7EE0 /* library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FA6FA1C85C62E003D7EE0 /* library.xml */; };
+		3BF60F1F29EE8EE70084FFCC /* acswissmedit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1329EDD5D100082582 /* acswissmedit.ttf */; };
+		3BF60F2029EE8EE70084FFCC /* acswissmed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1429EDD5D100082582 /* acswissmed.ttf */; };
+		3BF60F2129EE8EE70084FFCC /* lmsansquot8-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1529EDD5D100082582 /* lmsansquot8-regular.otf */; };
+		3BF60F2229EE8EE70084FFCC /* acswisslight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1629EDD5D100082582 /* acswisslight.ttf */; };
+		3BF60F2329EE8EE70084FFCC /* acswisslightit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1729EDD5D100082582 /* acswisslightit.ttf */; };
 		6379E770120C8B3F006A6FEF /* acshell_add_ssh_host_key.m in Sources */ = {isa = PBXBuildFile; fileRef = 6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */; };
 		6379E79D120C8CAA006A6FEF /* acshell_addhostkey in Resources */ = {isa = PBXBuildFile; fileRef = 6379E76C120C8B24006A6FEF /* acshell_addhostkey */; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -268,6 +268,7 @@
 		3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PresentationLibraryTests.m; sourceTree = "<group>"; };
 		3B9FA6EC1C85C46A003D7EE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3B9FA6FA1C85C62E003D7EE0 /* library.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = library.xml; path = Fixtures/library.xml; sourceTree = "<group>"; };
+		3BF60F1D29EE8D550084FFCC /* ACShell-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "ACShell-Info.plist"; sourceTree = "<group>"; };
 		6379E763120C89B5006A6FEF /* acshell_add_ssh_host_key.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = acshell_add_ssh_host_key.m; sourceTree = "<group>"; };
 		6379E76C120C8B24006A6FEF /* acshell_addhostkey */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = acshell_addhostkey; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D1107320486CEB800E47090 /* ACShell.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ACShell.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -343,6 +344,7 @@
 			children = (
 				6379E762120C891A006A6FEF /* acshell_add_ssh_host_key */,
 				3B49FD9229EDD5D100082582 /* ACShell */,
+				3BF60F1D29EE8D550084FFCC /* ACShell-Info.plist */,
 				3B9FA6E91C85C46A003D7EE0 /* ACShellTests */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -465,20 +467,20 @@
 		3B1BB25829EDD80D00343D1F /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3B1BB26129EDD80D00343D1F /* Layer */,
+				3B1BB26C29EDD80D00343D1F /* PresentationView */,
 				3B1BB26A29EDD80D00343D1F /* IconDraglet.h */,
 				3B1BB25929EDD80D00343D1F /* IconDraglet.m */,
 				3B1BB26B29EDD80D00343D1F /* ImageDropper.h */,
 				3B1BB25A29EDD80D00343D1F /* ImageDropper.m */,
 				3B1BB28029EDD80D00343D1F /* KeynoteDropper.h */,
 				3B1BB26029EDD80D00343D1F /* KeynoteDropper.m */,
-				3B1BB26129EDD80D00343D1F /* Layer */,
 				3B1BB25E29EDD80D00343D1F /* LibraryServerView.h */,
 				3B1BB28229EDD80D00343D1F /* LibraryServerView.m */,
 				3B1BB28129EDD80D00343D1F /* LibraryTagCellView.h */,
 				3B1BB25F29EDD80D00343D1F /* LibraryTagCellView.m */,
 				3B1BB27D29EDD80D00343D1F /* NSAlert+Dialogs.h */,
 				3B1BB25D29EDD80D00343D1F /* NSAlert+Dialogs.m */,
-				3B1BB26C29EDD80D00343D1F /* PresentationView */,
 				3B1BB25C29EDD80D00343D1F /* PresentationWindow.h */,
 				3B1BB27E29EDD80D00343D1F /* PresentationWindow.m */,
 				3B1BB25B29EDD80D00343D1F /* VerticalAlignedTextFieldCell.h */,
@@ -757,30 +759,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3B49FE5329EDD5D100082582 /* acswissmed.ttf in Resources */,
 				3B49FE9B29EDD63A00082582 /* RsyncProgressView.xib in Resources */,
 				3B49FE5129EDD5D100082582 /* spinner.png in Resources */,
 				3B49FE4C29EDD5D100082582 /* Media.xcassets in Resources */,
+				3BF60F2329EE8EE70084FFCC /* acswisslightit.ttf in Resources */,
 				3B49FE5029EDD5D100082582 /* Logo_AC_STUDIOS.svg in Resources */,
-				3B49FE5629EDD5D100082582 /* acswisslightit.ttf in Resources */,
 				3B49FE9829EDD63A00082582 /* InfoPlist.strings in Resources */,
-				3B49FE5429EDD5D100082582 /* lmsansquot8-regular.otf in Resources */,
+				3BF60F1F29EE8EE70084FFCC /* acswissmedit.ttf in Resources */,
 				3B49FE9A29EDD63A00082582 /* PresentationEditWindow.xib in Resources */,
 				3B49FE4D29EDD5D100082582 /* defaults.plist in Resources */,
 				3B49FEA829EDD64300082582 /* SetupAssistant.strings in Resources */,
 				3B49FE9429EDD63A00082582 /* Main.storyboard in Resources */,
-				3B49FE5229EDD5D100082582 /* acswissmedit.ttf in Resources */,
 				3B49FE4E29EDD5D100082582 /* dialog_app_icon.png in Resources */,
 				3B49FE9929EDD63A00082582 /* PreferencePages.xib in Resources */,
 				3B49FE9629EDD63A00082582 /* Localizable.strings in Resources */,
 				3B49FE9729EDD63A00082582 /* PresentationWindow.xib in Resources */,
 				3B49FEA729EDD64300082582 /* PresentationEditWindow.strings in Resources */,
 				3B49FE4F29EDD5D100082582 /* icn_missing_file.icns in Resources */,
+				3BF60F2229EE8EE70084FFCC /* acswisslight.ttf in Resources */,
 				6379E79D120C8CAA006A6FEF /* acshell_addhostkey in Resources */,
 				3B49FEA629EDD64300082582 /* Main.strings in Resources */,
+				3BF60F2029EE8EE70084FFCC /* acswissmed.ttf in Resources */,
+				3BF60F2129EE8EE70084FFCC /* lmsansquot8-regular.otf in Resources */,
 				3B49FE9529EDD63A00082582 /* SetupAssistant.xib in Resources */,
 				3B49FEA929EDD64300082582 /* PreferencePages.strings in Resources */,
-				3B49FE5529EDD5D100082582 /* acswisslight.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

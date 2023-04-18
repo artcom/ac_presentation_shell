@@ -7,6 +7,7 @@
 //
 
 #import "KeynoteHandler.h"
+#import "default_keys.h"
 
 KeynoteHandler *sharedInstance;
 
@@ -40,7 +41,7 @@ KeynoteHandler *sharedInstance;
 
 - (void)launchWithDelegate:(id<KeynoteDelegate>) delegate {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        self.application = [SBApplication applicationWithBundleIdentifier:@"com.apple.iWork.Keynote"];
+        self.application = [SBApplication applicationWithBundleIdentifier:ACShellKeynoteDefaultDomain];
         
         // To trigger startup of application we need to retrieve some values.
         NSString *version = self.application.version;

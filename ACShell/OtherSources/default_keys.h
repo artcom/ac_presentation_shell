@@ -17,3 +17,4 @@
 #define ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER @"rsyncWriteUser"
 #define ACShellLibraryConfigDidChange @"ACShellLibraryConfigDidChange"
 #define ACShellLibraryDidUpdate @"ACShellLibraryDidUpdate"
+#define ACShellKeynoteDefaultDomain @"com.apple.iWork.Keynote"
