@@ -16,6 +16,7 @@
 - Library constantly checks filesystem for files (IT-272)
 - Presentation is not properly updated in table after editing (IT-271)
 - Presentations not loading (IT-276)
+- App should warn when presentation is running in window (IT-279)
 
 ## Known Bugs
 
