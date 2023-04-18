@@ -2,11 +2,12 @@
 
 ## New Features
 
-- Tags can be added to each presentation
+- Tags can be added to each presentation (IT-240)
 - Added key commands to
     - start presentations (Cmd+P)
     - sync presentations (Cmd+S)
     - upload presentations  (Cmd+U)
+- App should warn when presentation is running in window (IT-279)
 
 ## Bugfixes
 
@@ -16,7 +17,6 @@
 - Library constantly checks filesystem for files (IT-272)
 - Presentation is not properly updated in table after editing (IT-271)
 - Presentations not loading (IT-276)
-- App should warn when presentation is running in window (IT-279)
 
 ## Known Bugs
 
