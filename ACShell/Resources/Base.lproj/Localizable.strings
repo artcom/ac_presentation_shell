@@ -57,7 +57,7 @@
 "DeletingPresentation" = "Moving presentation to trash...";
 "FileOperationFailed" = "File Operation failed.";
 "KeynoteRunningInWindow" = "Presentation is currently playing in a window.";
-"KeynoteRunningInWindowInfo" = "Please switch to fullscreen.";
+"KeynoteRunningInWindowInfo" = "Please switch Keynote.app to fullscreen.";
 
 "General" = "General";
 "Advanced" = "Advanced";
