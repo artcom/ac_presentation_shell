@@ -108,6 +108,7 @@ KeynoteHandler *sharedInstance;
                 });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [self stop];
                     [self.launchDelegate keynoteDidRunInWindow:self];
                 });
             }

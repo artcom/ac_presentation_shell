@@ -55,8 +55,8 @@
 "DeletePresentationWarning" = "Willst Du die gesamte Präsentation wirklich löschen?";
 "DeletingPresentation" = "Verschiebe Präsentation in den Papierkorb...";
 "FileOperationFailed" = "Vorgang abgebrochen.";
-"KeynoteRunningInWindow" = "Präsentation läuft im Fenster.";
-"KeynoteRunningInWindowInfo" = "Bitte in Keynote.app auf Vollbild umstellen und Präsentation erneut starten.";
+"KeynoteRunningInWindow" = "Keynote läuft nicht im Vollbildmodus";
+"KeynoteRunningInWindowInfo" = "Bitte in Keynote.app auf 'Vorführen' → 'Im Vollbildmodus' umstellen und Präsentation erneut starten.";
 
 "General" = "Allgemein";
 "Advanced" = "Erweitert";

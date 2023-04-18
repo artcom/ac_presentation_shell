@@ -223,12 +223,9 @@
     NSAlert * alert = NSAlert.new;
     alert.messageText = NSLocalizedString(ACSHELL_STR_PRESENTATION_IN_WINDOW, nil);
     alert.informativeText = NSLocalizedString(ACSHELL_STR_PRESENTATION_IN_WINDOW_INFO, nil);
-    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_OK, nil)];
     alert.alertStyle = NSAlertStyleCritical;
-    
-    [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
-        [KeynoteHandler.sharedHandler stop];
-    }];
+    [alert beginSheetModalForWindow:self.window completionHandler:nil];
 }
 
 #pragma mark -

@@ -56,8 +56,9 @@
 "DeletePresentationWarning" = "Do you really want to delete the entire presentation?";
 "DeletingPresentation" = "Moving presentation to trash...";
 "FileOperationFailed" = "File Operation failed.";
-"KeynoteRunningInWindow" = "Presentation is currently playing in a window.";
-"KeynoteRunningInWindowInfo" = "Please switch Keynote.app to fullscreen and restart.";
+
+"KeynoteRunningInWindow" = "Keynote is not running in fullscreen mode";
+"KeynoteRunningInWindowInfo" = "Please change Keynote.app to 'Play' → 'In Fullscreen Mode' and restart presentation.";
 
 "General" = "General";
 "Advanced" = "Advanced";
