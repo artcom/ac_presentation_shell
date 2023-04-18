@@ -56,7 +56,7 @@
 "DeletingPresentation" = "Verschiebe Präsentation in den Papierkorb...";
 "FileOperationFailed" = "Vorgang abgebrochen.";
 "KeynoteRunningInWindow" = "Präsentation läuft im Fenster.";
-"KeynoteRunningInWindowInfo" = "Bitte in Keynote.app auf Vollbild umstellen.";
+"KeynoteRunningInWindowInfo" = "Bitte in Keynote.app auf Vollbild umstellen und Präsentation erneut starten.";
 
 "General" = "Allgemein";
 "Advanced" = "Erweitert";
