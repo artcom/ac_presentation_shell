@@ -87,6 +87,7 @@
 		3B7DAAD229EDD8EC0025FA6D /* ACSearchIndexResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1BB22D29EDD80D00343D1F /* ACSearchIndexResult.m */; };
 		3B9FA6EB1C85C46A003D7EE0 /* PresentationLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9FA6EA1C85C46A003D7EE0 /* PresentationLibraryTests.m */; };
 		3B9FA6FB1C85C62E003D7EE0 /* library.xml in Resources */ = {isa = PBXBuildFile; fileRef = 3B9FA6FA1C85C62E003D7EE0 /* library.xml */; };
+		3BF60F1E29EE8D550084FFCC /* ACShell-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3BF60F1D29EE8D550084FFCC /* ACShell-Info.plist */; };
 		3BF60F1F29EE8EE70084FFCC /* acswissmedit.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1329EDD5D100082582 /* acswissmedit.ttf */; };
 		3BF60F2029EE8EE70084FFCC /* acswissmed.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1429EDD5D100082582 /* acswissmed.ttf */; };
 		3BF60F2129EE8EE70084FFCC /* lmsansquot8-regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3B49FE1529EDD5D100082582 /* lmsansquot8-regular.otf */; };
@@ -775,6 +776,7 @@
 				3B49FE4E29EDD5D100082582 /* dialog_app_icon.png in Resources */,
 				3B49FE9929EDD63A00082582 /* PreferencePages.xib in Resources */,
 				3B49FE9629EDD63A00082582 /* Localizable.strings in Resources */,
+				3BF60F1E29EE8D550084FFCC /* ACShell-Info.plist in Resources */,
 				3B49FE9729EDD63A00082582 /* PresentationWindow.xib in Resources */,
 				3B49FEA729EDD64300082582 /* PresentationEditWindow.strings in Resources */,
 				3B49FE4F29EDD5D100082582 /* icn_missing_file.icns in Resources */,
