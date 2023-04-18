@@ -70,9 +70,10 @@ KeynoteHandler *sharedInstance;
     [self presentationDidStop];
 }
 
-- (void)play:(NSString *)file {
+- (void)play:(NSString *)file withDelegate:(id<KeynotePlaybackDelegate>)delegate {
     
     if (self.presenting) return;
+    self.delegate = delegate;
     self.presenting = YES;
     self.presentation = nil;
     int ticket = [self nextPresentationTicket];
@@ -103,7 +104,7 @@ KeynoteHandler *sharedInstance;
             if ([self keynoteIsPlayingFullscreen]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self startObservingPresentation];
-                    [self.playbackDelegate keynoteDidStartPresentation:self];
+                    [delegate keynoteDidStartPresentation:self];
                 });
             } else {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -151,7 +152,7 @@ KeynoteHandler *sharedInstance;
     [self.presentation closeSaving:KeynoteSaveOptionsNo savingIn:nil];
     self.presenting = NO;
     self.presentation = nil;
-    [self.playbackDelegate keynoteDidStopPresentation:self];
+    [self.delegate keynoteDidStopPresentation:self];
 }
 
 - (BOOL)keynoteIsPlayingFullscreen

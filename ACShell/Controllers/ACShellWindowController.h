@@ -18,7 +18,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ACShellWindowController : NSWindowController <NSToolbarItemValidation,
-KeynoteLaunchDelegate, RsyncControllerDelegate, LibraryTableViewControllerDelegate>
+KeynoteLaunchDelegate,KeynotePlaybackDelegate, RsyncControllerDelegate, LibraryTableViewControllerDelegate>
 
 @property (strong) LibraryViewController *libraryViewController;
 @property (strong) LibraryTableViewController *libraryTableViewController;

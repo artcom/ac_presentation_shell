@@ -232,6 +232,12 @@
 }
 
 #pragma mark -
+#pragma mark KeynotePlaybackDelegate Protocol Methods
+
+- (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {}
+- (void)keynoteDidStopPresentation:(KeynoteHandler *)keynote {}
+
+#pragma mark -
 #pragma mark RsyncControllerDelegate Protocol Methods
 
 - (void)rsync:(RsyncController *) controller didFinishSyncSuccessfully:(BOOL)successFlag {
@@ -256,7 +262,7 @@
 - (void)libraryTableViewController:(LibraryTableViewController *)controller playPresentation:(nonnull Presentation *)presentation
 {
     if (presentation.presentationFileExists) {
-        [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath];
+        [[KeynoteHandler sharedHandler] play: presentation.absolutePresentationPath withDelegate:self];
     }
 }
 

@@ -29,7 +29,6 @@
     self = [super initWithWindowNibName:@"PresentationWindow"];
     if (self != nil) {
         self.keynote = [KeynoteHandler sharedHandler];
-        self.keynote.playbackDelegate = self;
         self.window.delegate = self;
     }
     return self;
@@ -251,7 +250,7 @@
 - (void)presentationView:(PresentationView *)aView didClickItemAtIndex:(NSInteger)index {
     self.selectedPresentationIndex = index;
     Presentation *presentation = [self.presentationsForSelectedCategory objectAtIndex:index];
-    [self.keynote play:presentation.absolutePresentationPath];
+    [self.keynote play:presentation.absolutePresentationPath withDelegate:self];
     [self showActivityForItemAtIndex:index];
 }
 

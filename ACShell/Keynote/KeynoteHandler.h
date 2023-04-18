@@ -15,16 +15,14 @@
 
 @property (atomic, strong, readonly) KeynoteApplication *application;
 @property (atomic, assign, readonly) BOOL presenting;
-
-
+@property (nonatomic, weak) id<KeynotePlaybackDelegate> delegate;
 @property (nonatomic, weak) id<KeynoteLaunchDelegate> launchDelegate;
-@property (nonatomic, weak) id<KeynotePlaybackDelegate> playbackDelegate;
 
 + (KeynoteHandler *)sharedHandler;
 
 - (void)launch;
 - (void)open:(NSString *)file;
 
-- (void)play:(NSString *)file;
+- (void)play:(NSString *)file withDelegate:(id<KeynotePlaybackDelegate>)delegate;
 - (void)stop;
 @end
