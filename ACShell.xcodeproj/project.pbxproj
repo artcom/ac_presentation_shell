@@ -435,17 +435,17 @@
 		3B1BB24329EDD80D00343D1F /* Auxillary */ = {
 			isa = PBXGroup;
 			children = (
-				3B1BB24429EDD80D00343D1F /* SetupAssistantController.m */,
-				3B1BB24529EDD80D00343D1F /* ProgressDelegateProtocol.h */,
 				3B1BB24629EDD80D00343D1F /* LibraryDelegateProtocol.h */,
-				3B1BB24729EDD80D00343D1F /* RsyncController.m */,
-				3B1BB24829EDD80D00343D1F /* LibraryServerCollectionItem.m */,
-				3B1BB24929EDD80D00343D1F /* PreferenceController.m */,
-				3B1BB24A29EDD80D00343D1F /* SetupAssistantController.h */,
 				3B1BB24B29EDD80D00343D1F /* LibraryServerCollectionItem.h */,
-				3B1BB24C29EDD80D00343D1F /* SetupAssistantDelegateProtocol.h */,
-				3B1BB24D29EDD80D00343D1F /* RsyncController.h */,
+				3B1BB24829EDD80D00343D1F /* LibraryServerCollectionItem.m */,
 				3B1BB24E29EDD80D00343D1F /* PreferenceController.h */,
+				3B1BB24929EDD80D00343D1F /* PreferenceController.m */,
+				3B1BB24529EDD80D00343D1F /* ProgressDelegateProtocol.h */,
+				3B1BB24D29EDD80D00343D1F /* RsyncController.h */,
+				3B1BB24729EDD80D00343D1F /* RsyncController.m */,
+				3B1BB24A29EDD80D00343D1F /* SetupAssistantController.h */,
+				3B1BB24429EDD80D00343D1F /* SetupAssistantController.m */,
+				3B1BB24C29EDD80D00343D1F /* SetupAssistantDelegateProtocol.h */,
 			);
 			path = Auxillary;
 			sourceTree = "<group>";
@@ -453,14 +453,14 @@
 		3B1BB24F29EDD80D00343D1F /* PresentationLibrary */ = {
 			isa = PBXGroup;
 			children = (
-				3B1BB25029EDD80D00343D1F /* EditWindowController.m */,
-				3B1BB25129EDD80D00343D1F /* LibraryViewController.h */,
-				3B1BB25229EDD80D00343D1F /* PresentationWindowController.m */,
-				3B1BB25329EDD80D00343D1F /* LibraryTableViewController.m */,
-				3B1BB25429EDD80D00343D1F /* LibraryViewController.m */,
 				3B1BB25529EDD80D00343D1F /* EditWindowController.h */,
-				3B1BB25629EDD80D00343D1F /* PresentationWindowController.h */,
+				3B1BB25029EDD80D00343D1F /* EditWindowController.m */,
 				3B1BB25729EDD80D00343D1F /* LibraryTableViewController.h */,
+				3B1BB25329EDD80D00343D1F /* LibraryTableViewController.m */,
+				3B1BB25129EDD80D00343D1F /* LibraryViewController.h */,
+				3B1BB25429EDD80D00343D1F /* LibraryViewController.m */,
+				3B1BB25629EDD80D00343D1F /* PresentationWindowController.h */,
+				3B1BB25229EDD80D00343D1F /* PresentationWindowController.m */,
 			);
 			path = PresentationLibrary;
 			sourceTree = "<group>";
@@ -573,9 +573,9 @@
 				3B1BB29629EDD80D00343D1F /* Keynote */,
 				3B1BB28329EDD80D00343D1F /* Model */,
 				3B1BB23B29EDD80D00343D1F /* PreferenceWindow */,
-				3B49FE0A29EDD5D100082582 /* Resources */,
 				3B1BB22729EDD80D00343D1F /* Search */,
 				3B1BB25829EDD80D00343D1F /* View */,
+				3B49FE0A29EDD5D100082582 /* Resources */,
 				3B1BB22229EDD80D00343D1F /* OtherSources */,
 				3B49FD9929EDD5D100082582 /* ACShellAppDelegate.h */,
 				3B49FDA829EDD5D100082582 /* ACShellAppDelegate.m */,
