@@ -34,4 +34,5 @@ KeynotePlaybackDelegate, NSWindowDelegate>
 @property (weak) IBOutlet PresentationView *presentationView;
 
 - (NSRect)presentationScreenFrame;
+- (void)abortIfNecessary;
 @end

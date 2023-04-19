@@ -165,8 +165,20 @@
         [self.keynote stop];
     }
     else {
-        [self close];
-        [NSApp setPresentationOptions:NSApplicationPresentationDefault];
+        [self stop];
+    }
+}
+
+- (void)stop
+{
+    [self close];
+    [NSApp setPresentationOptions:NSApplicationPresentationDefault];
+}
+
+- (void)abortIfNecessary
+{
+    if (![self usingSecondaryScreen]) {
+        [self stop];
     }
 }
 

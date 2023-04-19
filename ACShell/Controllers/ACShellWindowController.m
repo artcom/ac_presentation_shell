@@ -220,6 +220,9 @@
 }
 
 - (void)keynoteDidRunInWindow:(KeynoteHandler *)keynote {
+    
+    [self.presentationWindowController abortIfNecessary];
+    
     NSAlert * alert = NSAlert.new;
     alert.messageText = NSLocalizedString(ACSHELL_STR_PRESENTATION_IN_WINDOW, nil);
     alert.informativeText = NSLocalizedString(ACSHELL_STR_PRESENTATION_IN_WINDOW_INFO, nil);
