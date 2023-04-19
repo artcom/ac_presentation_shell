@@ -33,7 +33,9 @@
 "DeleteCollection" = "Do you really want to delete the selected collection?";
 "Delete" = "Delete";
 "DeletePresentation" = "Do you really want to remove the selected presentations from the current collection?";
-"DeleteTag" = "Do you really want to remove the selected tag from the library? This tag will be removed from all presentations.";
+"DeleteTag" = "Do you really want to remove the selected tag from the library?";
+"DeleteTagInfo" = "This tag will be removed from all presentations.";
+
 "DropKeynote" = "Drop a keynote";
 "Upload" = "Upload";
 "UploadTooltip" = "Upload local library to server";
@@ -56,6 +58,8 @@
 "DeletePresentationWarning" = "Do you really want to delete the entire presentation?";
 "DeletingPresentation" = "Moving presentation to trash...";
 "FileOperationFailed" = "File Operation failed.";
+
+"Empty" = "";
 
 "KeynoteRunningInWindow" = "Keynote is not running in fullscreen mode";
 "KeynoteRunningInWindowInfo" = "Please change Keynote.app to 'Play' → 'In Fullscreen Mode' and restart presentation.";

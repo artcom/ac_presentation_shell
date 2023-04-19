@@ -181,6 +181,7 @@
     
     BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_PRESENTATION
                                                                 message: ACSHELL_STR_DELETE_PRESENTATION
+                                                                   info: ACSHELL_STR_EMPTY
                                                                okButton: ACSHELL_STR_DELETE
                                                            cancelButton: ACSHELL_STR_CANCEL
                                                       destructiveAction:YES];

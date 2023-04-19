@@ -12,6 +12,7 @@
 
 + (BOOL) runSuppressableBooleanDialogWithIdentifier: (NSString*) identifier
                                             message: (NSString*) message
+                                               info: (NSString *) info
                                            okButton: (NSString*) ok
                                        cancelButton: (NSString*) cancel
                                   destructiveAction:(BOOL)hasDestructiveAction
@@ -22,8 +23,9 @@
     if (suppressAlert ) {
         reallyDoIt = YES;
     } else {
-        NSAlert *alert = [NSAlert new];
-        [alert setMessageText: NSLocalizedString(message, nil)];
+        NSAlert *alert = NSAlert.new;
+        alert.messageText = NSLocalizedString(message, nil);
+        alert.informativeText = NSLocalizedString(info, nil);
         [alert addButtonWithTitle: NSLocalizedString(cancel, nil)];
         [alert addButtonWithTitle: NSLocalizedString(ok, nil)];
         if (hasDestructiveAction) {

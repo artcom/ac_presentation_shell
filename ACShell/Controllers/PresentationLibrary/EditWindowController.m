@@ -334,6 +334,7 @@ enum TagActionTags {
 {
     BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_TAG
                                                                 message: ACSHELL_STR_DELETE_TAG
+                                                                   info: ACSHELL_STR_DELETE_TAG_INFO
                                                                okButton: ACSHELL_STR_DELETE
                                                            cancelButton: ACSHELL_STR_CANCEL
                                                       destructiveAction:YES];

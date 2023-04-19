@@ -92,6 +92,7 @@ enum CollectionActionTags {
     
     BOOL deleteIt = [NSAlert runSuppressableBooleanDialogWithIdentifier: ACSHELL_STR_DELETE_COLLECTION
                                                                 message: ACSHELL_STR_DELETE_COLLECTION
+                                                                   info: ACSHELL_STR_EMPTY
                                                                okButton: ACSHELL_STR_DELETE
                                                            cancelButton: ACSHELL_STR_CANCEL
                                                       destructiveAction:YES];
