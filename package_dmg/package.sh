@@ -36,7 +36,7 @@ mkdir $TMP_PACKAGE_DIR
 
 # Copy product to temp package destination
 ditto "$2" $TMP_PACKAGE_DIR/ACShell.app
-ditto "$3" $TMP_PACKAGE_DIR/CHANGELOG.txt
+ditto "$3" $TMP_PACKAGE_DIR/whatsnew.txt
 
 # Create DMG
 ./dmg_utils/create-dmg --window-size 550 550 --background installer_background.png --icon-size 96 --volname $1 --app-drop-link 420 250 --icon "ACShell" 96 250 $1.dmg $TMP_PACKAGE_DIR/
