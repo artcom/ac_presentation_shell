@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21701" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21701"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -137,7 +136,7 @@ DQ
                                             <rect key="frame" x="157" y="171" width="241" height="140"/>
                                             <clipView key="contentView" id="EZF-6t-0jC">
                                                 <rect key="frame" x="1" y="1" width="239" height="138"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" id="53">
                                                         <rect key="frame" x="0.0" y="0.0" width="239" height="138"/>
@@ -274,7 +273,7 @@ DQ
                                             <rect key="frame" x="125" y="123" width="305" height="222"/>
                                             <clipView key="contentView" id="bV8-8O-32u">
                                                 <rect key="frame" x="1" y="1" width="303" height="220"/>
-                                                <autoresizingMask key="autoresizingMask"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <collectionView maxNumberOfColumns="1" selectable="YES" id="116">
                                                         <rect key="frame" x="0.0" y="0.0" width="303" height="220"/>

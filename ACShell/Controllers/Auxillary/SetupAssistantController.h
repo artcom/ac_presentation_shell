@@ -11,7 +11,7 @@
 
 @class IconDraglet;
 
-@interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSNetServiceBrowserDelegate> {
+@interface SetupAssistantController : NSWindowController <NSTabViewDelegate, NSTextFieldDelegate, NSNetServiceBrowserDelegate> {
     
     NSInteger numPages;
     NSMutableArray *publicKeys;

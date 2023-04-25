@@ -67,7 +67,7 @@ enum PageTags {
         publicKeys = NSMutableArray.new;
         bonjourBrowserRunning = NO;
         bonjourBrowser = NSNetServiceBrowser.new;
-        [bonjourBrowser setDelegate: self];
+        bonjourBrowser.delegate = self;
         bonjourLibraries = NSMutableArray.new;
         delegate = theDelegate;
     }
@@ -77,12 +77,14 @@ enum PageTags {
 
 - (void) awakeFromNib {
     [pages selectFirstTabViewItem: nil];
-    numPages = [pages numberOfTabViewItems];
+    numPages = pages.numberOfTabViewItems;
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(publicKeySelectionDidChange:)
                                                name:NSTableViewSelectionDidChangeNotification object: publicKeyTable];
     
     [bonjourServerList addObserver: self forKeyPath: @"selectionIndexes" options: NSKeyValueObservingOptionNew context:nil];
+    
+    rsyncSourceEntry.delegate = self;
 }
 
 - (IBAction) userDidClickNext: (id) sender {
@@ -265,6 +267,14 @@ enum PageTags {
     [nextButton setEnabled: [publicKeyArrayController selectionIndex] != NSNotFound];
 }
 
+#pragma mark -
+#pragma mark NSControlTextEditingDelegate Protocol Methods
+
+- (void)controlTextDidChange:(NSNotification *)obj
+{
+    [self userDidChangeRsyncSource:nil];
+}
+
 
 #pragma mark -
 #pragma mark NSNetServiceBrowserDelegate Protocol Methods
@@ -326,6 +336,8 @@ enum PageTags {
         [NSUserDefaults.standardUserDefaults setValue: ACSHELL_RSYNC_READ_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_READ_USER];
         [NSUserDefaults.standardUserDefaults setValue: ACSHELL_RSYNC_WRITE_USER_DEFAULT forKey: ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER];
     }
+    
+    [NSUserDefaults.standardUserDefaults setBool:NO forKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED];
     
     [NSUserDefaults.standardUserDefaults setValue: rsyncSource forKey: ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
 }
