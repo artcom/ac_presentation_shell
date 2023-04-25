@@ -17,6 +17,7 @@
 - Library constantly checks filesystem for files (IT-272)
 - Presentation is not properly updated in table after editing (IT-271)
 - Presentations not loading (IT-276)
+- The "next" button in setup dialog is not activated properly (IT-280)
 
 ## Known Bugs
 
