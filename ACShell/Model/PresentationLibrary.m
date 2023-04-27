@@ -463,7 +463,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [thumbnail isEqual: presentation.absoluteThumbnailPath]) {
         if (presentation.thumbnailFileExists) {
-            [NSFileManager.defaultManager removeItemAtPath:presentation.absoluteThumbnailPath error:nil];
+            NSError *error;
+            [NSFileManager.defaultManager removeItemAtPath:presentation.absoluteThumbnailPath error:&error];
+            if (error != nil) {
+                NSLog(@"error: %@", error);
+            }
         }
         [assetMan copyAsset: thumbnail];
         
@@ -476,8 +480,11 @@ static NSCharacterSet * ourNonDirNameCharSet;
     
     if ( ! [keynote isEqual: presentation.absolutePresentationPath]) {
         if (presentation.presentationFileExists) {
-            [NSFileManager.defaultManager removeItemAtPath:presentation.absolutePresentationPath error:nil];
-            //[assetMan trashAsset: presentation.absolutePresentationPath];
+            NSError *error;
+            [NSFileManager.defaultManager removeItemAtPath:presentation.absolutePresentationPath error:&error];
+            if (error != nil) {
+                NSLog(@"error: %@", error);
+            }
         }
         [assetMan copyAsset: keynote];
         
@@ -495,11 +502,13 @@ static NSCharacterSet * ourNonDirNameCharSet;
                 newDir = [NSString stringWithFormat: @"%@-%@", newDir, presentation.presentationId];
             }
             NSString * newDirPath  = [PresentationLibrary.libraryDirPath stringByAppendingPathComponent: newDir];
-            // TODO error handling
             NSError * error;
             [NSFileManager.defaultManager moveItemAtPath: presentation.absoluteDirectory
                                                   toPath: newDirPath
                                                    error: &error];
+            if (error != nil) {
+                NSLog(@"error: %@", error);
+            }
             presentation.directory = newDir;
         }
     }
