@@ -15,16 +15,16 @@ build-job:
   tags:
     - macos
   variables:
-    AC_BUILD_ID: $CI_BUILD_ID
-    AC_VERSION_ID: $CI_COMMIT_TAG.$CI_BUILD_ID
+    AC_JOB_ID: $CI_JOB_ID
+    AC_VERSION_ID: $CI_COMMIT_TAG.$CI_JOB_ID
     AC_PROJECT_URL: $CI_PROJECT_URL
   before_script:
-    - echo AC_BUILD_ID=$AC_BUILD_ID >> build.env
+    - echo AC_JOB_ID=$AC_JOB_ID >> build.env
     - echo AC_VERSION_ID=$AC_VERSION_ID >> build.env
     - echo AC_PROJECT_URL=$AC_PROJECT_URL >> build.env
   script:
     - xcodebuild clean build -project ACShell.xcodeproj -scheme ACShell -configuration release -derivedDataPath ./DerivedData APPLICATION_VERSION_NUMBER=$CI_COMMIT_TAG APPLICATION_BUILD_NUMBER=$CI_BUILD_ID
-    - cd package_dmg && ./package.sh ACShell-Release-$CI_COMMIT_TAG.$CI_BUILD_ID ../DerivedData/Build/Products/Release/ACShell.app ../CHANGELOG.md
+    - cd package_dmg && ./package.sh ACShell-Release-$CI_COMMIT_TAG.$CI_JOB_ID ../DerivedData/Build/Products/Release/ACShell.app ../CHANGELOG.md
   artifacts:
     paths:
       - $CI_PROJECT_DIR/package_dmg/*.dmg
@@ -45,7 +45,7 @@ release-job:
   script:
     - echo 'running release_job'
     - echo 'Releasing artefacts from build job:'
-    - echo $AC_BUILD_ID
+    - echo $AC_JOB_ID
     - echo $AC_VERSION_ID
   needs:
     - job: build-job
@@ -57,9 +57,9 @@ release-job:
     assets:
       links:
         - name: "ACShell-Release-$AC_VERSION_ID.dmg"
-          url: "$AC_PROJECT_URL/-/jobs/${AC_BUILD_ID}/artifacts/file/package_dmg/ACShell-Release-$AC_VERSION_ID.dmg"
+          url: "$AC_PROJECT_URL/-/jobs/${AC_JOB_ID}/artifacts/file/package_dmg/ACShell-Release-$AC_VERSION_ID.dmg"
         - name: "CHANGELOG.md"
-          url: "$AC_PROJECT_URL/-/jobs/${AC_BUILD_ID}/artifacts/file/CHANGELOG.md"
+          url: "$AC_PROJECT_URL/-/jobs/${AC_JOB_ID}/artifacts/file/CHANGELOG.md"
   rules:
     - if: $CI_COMMIT_TAG != null
       when: always
