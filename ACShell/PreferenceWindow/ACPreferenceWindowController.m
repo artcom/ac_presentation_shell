@@ -50,7 +50,7 @@
 - (void) showPage: (id) sender {
     NSString * identifier = [self.window.toolbar selectedItemIdentifier];
     
-    NSUInteger pageIndex = [preferencePages indexOfObjectPassingTest: ^(id obj, NSUInteger idx, BOOL *stop) {
+    NSUInteger pageIndex = [preferencePages indexOfObjectPassingTest: ^(id obj, __unused NSUInteger idx, __unused BOOL *stop) {
         return [[(ACPreferencePage*)obj toolbarItemIdentifier] isEqual: identifier];
     }];
     if (pageIndex == NSNotFound) {
@@ -99,7 +99,7 @@
 - (NSToolbarItem *)toolbar:(NSToolbar *)toolbar itemForItemIdentifier:(NSString *)itemIdentifier willBeInsertedIntoToolbar:(BOOL)flag {
     NSToolbarItem *toolbarItem = nil;
     
-    NSUInteger pageIndex = [preferencePages indexOfObjectPassingTest: ^(id obj, NSUInteger idx, BOOL *stop) {
+    NSUInteger pageIndex = [preferencePages indexOfObjectPassingTest: ^(id obj, __unused NSUInteger idx, __unused BOOL *stop) {
         return [[(ACPreferencePage*)obj toolbarItemIdentifier] isEqual: itemIdentifier];
     }];
     

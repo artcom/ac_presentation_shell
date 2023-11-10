@@ -233,8 +233,6 @@ typedef enum KeynoteLegacyChartGrouping KeynoteLegacyChartGrouping;
 - (void) delete;  // Delete an object.
 - (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
 - (void) moveTo:(SBObject *)to;  // Move an object to a new location.
-- (void) duplicateTo:(SBObject *)to withProperties:(NSDictionary *)withProperties;  // Copy an object.
-- (void) delete;  // Delete an object.
 
 @end
 
