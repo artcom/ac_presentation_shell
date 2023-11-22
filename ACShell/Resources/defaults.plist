@@ -2,17 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>presentationDoubleClick</key>
-	<integer>0</integer>
 	<key>editingEnabled</key>
 	<false/>
-	<key>setupDone</key>
-	<false/>
-	<key>rsyncSource</key>
+	<key>presentationDoubleClick</key>
+	<integer>0</integer>
+	<key>storageLocation</key>
 	<string></string>
-	<key>rsyncPreserveLocal</key>
-	<false/>
-    <key>rsyncDestination</key>
-    <string></string>
 </dict>
 </plist>

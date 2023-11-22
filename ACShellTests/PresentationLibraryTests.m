@@ -32,7 +32,7 @@
     _libraryPath = [self.libraryXML stringByDeletingLastPathComponent];
     _storageLibraryPath = [NSString stringWithFormat:@"%@acshelltests/library", NSTemporaryDirectory()];
     
-    [NSUserDefaults.standardUserDefaults setObject:_libraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [NSUserDefaults.standardUserDefaults setObject:_libraryPath forKey:ACSHELL_DEFAULT_KEY_STORAGE_LOCATION];
     [NSUserDefaults.standardUserDefaults synchronize];
     [NSFileManager.defaultManager createDirectoryAtPath:self.storageLibraryPath withIntermediateDirectories:YES attributes:nil error:nil];
     
@@ -190,7 +190,7 @@
     // Update taglist
     [self.library addTag:@"TEST"];
     
-    [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_STORAGE_LOCATION];
     [NSUserDefaults.standardUserDefaults synchronize];
     
     [self.library saveXmlLibrary];
@@ -265,7 +265,7 @@
     // Remove tags from library
     [self.library removeTag:2];
     
-    [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
+    [NSUserDefaults.standardUserDefaults setObject:self.storageLibraryPath forKey:ACSHELL_DEFAULT_KEY_STORAGE_LOCATION];
     [NSUserDefaults.standardUserDefaults synchronize];
     
     [self.library saveXmlLibrary];

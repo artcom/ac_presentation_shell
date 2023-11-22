@@ -2,7 +2,7 @@
 
 ## New Features
 
-- none
+- App runs with SharePoint drives now. All RSync related code has been removed (IT-299)
 
 ## Bugfixes
 

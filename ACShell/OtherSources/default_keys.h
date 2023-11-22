@@ -9,12 +9,10 @@
 
 #define ACSHELL_DEFAULT_KEY_EDITING_ENABLED @"editingEnabled"
 #define ACSHELL_DEFAULT_KEY_PRESENTATION_DOUBLE_CLICKED @"presentationDoubleClick"
-#define ACSHELL_DEFAULT_KEY_RSYNC_SOURCE @"rsyncSource"
-#define ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION @"rsyncDestination"
-#define ACSHELL_DEFAULT_KEY_RSYNC_PRESERVE_LOCAL @"rsyncPreserveLocal"
-#define ACSHELL_DEFAULT_KEY_SETUP_DONE @"setupDone"
-#define ACSHELL_DEFAULT_KEY_RSYNC_READ_USER @"rsyncReadUser"
-#define ACSHELL_DEFAULT_KEY_RSYNC_WRITE_USER @"rsyncWriteUser"
+#define ACSHELL_DEFAULT_KEY_STORAGE_LOCATION @"storageLocation"
+
+#define ACShellStoragePath @"Library/CloudStorage/OneDrive-ART+COMGmbH/Dokumente - Business Development-AC Shell/ACShellLibrary"
+#define ACShellLibraryFile @"library.xml"
 #define ACShellLibraryConfigDidChange @"ACShellLibraryConfigDidChange"
 #define ACShellLibraryDidUpdate @"ACShellLibraryDidUpdate"
 #define ACShellKeynoteDefaultDomain @"com.apple.iWork.Keynote"

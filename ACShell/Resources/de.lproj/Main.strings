@@ -74,9 +74,6 @@
 /* Class = "NSSearchToolbarItem"; paletteLabel = "Search"; ObjectID = "MY3-CN-wMk"; */
 "MY3-CN-wMk.paletteLabel" = "Suchen";
 
-/* Class = "NSMenuItem"; title = "Upload"; ObjectID = "NsA-4q-X2T"; */
-"NsA-4q-X2T.title" = "Hochladen";
-
 /* Class = "NSMenuItem"; title = "Edit"; ObjectID = "O2s-p5-Jo7"; */
 "O2s-p5-Jo7.title" = "Bearbeiten";
 
@@ -140,15 +137,6 @@
 /* Class = "NSMenuItem"; title = "Help"; ObjectID = "j1g-y7-u1s"; */
 "j1g-y7-u1s.title" = "Hilfe";
 
-/* Class = "NSToolbarItem"; label = "Sync"; ObjectID = "jI6-Bx-GLt"; */
-"jI6-Bx-GLt.label" = "Sync";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Synchronize"; ObjectID = "jI6-Bx-GLt"; */
-"jI6-Bx-GLt.paletteLabel" = "Synchronisieren";
-
-/* Class = "NSToolbarItem"; toolTip = "Synchronize with server"; ObjectID = "jI6-Bx-GLt"; */
-"jI6-Bx-GLt.toolTip" = "Mit Server Synchronisieren";
-
 /* Class = "NSMenuItem"; title = "Hide Others"; ObjectID = "jsZ-al-mhu"; */
 "jsZ-al-mhu.title" = "Andere ausblenden";
 
@@ -158,20 +146,8 @@
 /* Class = "NSMenu"; title = "Edit"; ObjectID = "mlJ-DK-ImD"; */
 "mlJ-DK-ImD.title" = "Bearbeiten";
 
-/* Class = "NSToolbarItem"; label = "Upload"; ObjectID = "ohL-OZ-O6d"; */
-"ohL-OZ-O6d.label" = "Hochladen";
-
-/* Class = "NSToolbarItem"; paletteLabel = "Upload"; ObjectID = "ohL-OZ-O6d"; */
-"ohL-OZ-O6d.paletteLabel" = "Hochladen";
-
-/* Class = "NSToolbarItem"; toolTip = "Upload to Server"; ObjectID = "ohL-OZ-O6d"; */
-"ohL-OZ-O6d.toolTip" = "Auf Server hochladen";
-
 /* Class = "NSTableColumn"; headerCell.title = "Name"; ObjectID = "pmO-T5-xhK"; */
 "pmO-T5-xhK.headerCell.title" = "Name";
-
-/* Class = "NSMenuItem"; title = "Synchronize"; ObjectID = "qlS-iJ-CeT"; */
-"qlS-iJ-CeT.title" = "Synchronisieren";
 
 /* Class = "NSMenuItem"; title = "About ACShell"; ObjectID = "rtc-3Y-YDK"; */
 "rtc-3Y-YDK.title" = "Über ACShell";

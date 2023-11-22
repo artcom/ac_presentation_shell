@@ -11,7 +11,6 @@ function printHelp
   echo
   echo $1
   echo "Correct usage: acshell.sh [DMG-NAME] [PRODUCT-PATH]"
-  echo "Example: acshell.sh ACShell-1.7.1 ~/Desktop/build/ACShell.app"
   echo
 }
 

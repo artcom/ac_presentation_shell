@@ -21,13 +21,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet NSTreeController *collectionTreeController;
 @property (weak, nonatomic) IBOutlet NSOutlineView *collectionView;
 @property (weak, nonatomic) IBOutlet NSSegmentedControl * collectionActions;
-@property (weak) IBOutlet NSImageView *warningIcon;
 
 - (IBAction)collectionActionClicked: (id) sender;
 
 - (BOOL) isCollectionSelected;
 - (BOOL) isPresentationRemovable;
-- (void) updateSyncFailedWarning;
 - (void)beautifyOutlineView;
 - (void)setPresentationList:(NSMutableArray *)presentationList;
 - (void)addCollection;

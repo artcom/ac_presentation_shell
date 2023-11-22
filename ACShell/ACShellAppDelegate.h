@@ -8,15 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 #import "PreferenceController.h"
-#import "SetupAssistantController.h"
-#import "SetupAssistantDelegateProtocol.h"
 #import "ACShellWindowController.h"
+#import "MHWDirectoryWatcher.h"
 
-@interface ACShellAppDelegate : NSObject <NSApplicationDelegate, SetupAssistantDelegate>
+@interface ACShellAppDelegate : NSObject <NSApplicationDelegate>
 @property (strong) ACShellWindowController *mainWindowController;
 @property (strong) PreferenceController *preferenceController;
-@property(strong) SetupAssistantController *setupAssistantController;
 @property (assign) BOOL isStartup;
+@property (strong) MHWDirectoryWatcher *libraryWatcher;
 
 - (IBAction)showPreferences:(id)sender;
 @end
