@@ -7,49 +7,34 @@
 //
 
 #import "ACShellAppDelegate.h"
-#import "NSFileManager-DirectoryHelper.h"
 #import "default_keys.h"
+#import "localized_text_keys.h"
+#import "NSFileManager-DirectoryHelper.h"
+#import "NSOpenPanel+Preferences.h"
 
 
 @implementation ACShellAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSString * filepath = [NSBundle.mainBundle pathForResource: @"defaults" ofType: @"plist"];
-    NSMutableDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile: filepath].mutableCopy;
-    [NSUserDefaults.standardUserDefaults registerDefaults: defaults];
-    
+    [self registerUserDefaults];
     [self updateUserDefaults];
-    
+
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     self.mainWindowController = [storyboard instantiateControllerWithIdentifier:@"MainWindowController"];
-    self.setupAssistantController = [[SetupAssistantController alloc] initWithDelegate: self];
     self.preferenceController = [PreferenceController new];
-    
-    if ([NSUserDefaults.standardUserDefaults boolForKey:ACSHELL_DEFAULT_KEY_SETUP_DONE]) {
-        [self updateUserDefaults];
-        [self.mainWindowController showWindow:nil];
-    } else {
-        [self.setupAssistantController showWindow:nil];
-    }
+    [self.mainWindowController showWindow:nil];
+    [self ensureStorageLocation];
 }
 
-- (void)applicationDidBecomeActive:(NSNotification *)notification
-{
-    if (!self.isStartup) {
-        [self.mainWindowController start];
-        self.isStartup = YES;
-    }
-}
-
-- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
+- (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender
 {
     return YES;
 }
 
-- (void) applicationWillTerminate:(NSNotification *)notification
+- (void)applicationWillTerminate:(NSNotification *)notification
 {
-    [[PresentationLibrary sharedInstance] saveSettings];
+    [PresentationLibrary.sharedInstance saveSettings];
 }
 
 - (IBAction)showPreferences:(id)sender
@@ -57,29 +42,50 @@
     [self.preferenceController showWindow:nil];
 }
 
-- (void)updateUserDefaults
+- (void)registerUserDefaults
 {
-    NSString * source = [NSUserDefaults.standardUserDefaults objectForKey:ACSHELL_DEFAULT_KEY_RSYNC_SOURCE];
-    if (source && ![source isEqualToString:@""]) {
-        NSString *path = PresentationLibrary.libraryDirPath;
-        [NSUserDefaults.standardUserDefaults synchronize];
-        [NSUserDefaults.standardUserDefaults setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-        [NSUserDefaults.standardUserDefaults synchronize];
-    }
-    
+    NSString *filepath = [NSBundle.mainBundle pathForResource:@"defaults" ofType:@"plist"];
+    NSMutableDictionary *defaults = [NSDictionary dictionaryWithContentsOfFile:filepath].mutableCopy;
+
+    [NSUserDefaults.standardUserDefaults registerDefaults:defaults];
 }
 
-#pragma mark -
-#pragma mark SetupAssistantDelegate Protocol Methods
-
-- (void) setupDidFinish: (id) sender
+- (void)updateUserDefaults
 {
-    [NSUserDefaults.standardUserDefaults setBool: YES forKey: ACSHELL_DEFAULT_KEY_SETUP_DONE];
-    [self updateUserDefaults];
-    [self.setupAssistantController close];
-    [self.mainWindowController showWindow:nil];
-    [self.mainWindowController.window makeKeyWindow];
-    [self.mainWindowController start];
+    NSString *destination = [NSUserDefaults.standardUserDefaults objectForKey:ACSHELL_DEFAULT_KEY_STORAGE_LOCATION];
+
+    if (!destination || [destination isEqualToString:@""]) {
+        NSString *path = PresentationLibrary.libraryDirPath;
+        [NSUserDefaults.standardUserDefaults synchronize];
+        [NSUserDefaults.standardUserDefaults setObject:path forKey:ACSHELL_DEFAULT_KEY_STORAGE_LOCATION];
+        [NSUserDefaults.standardUserDefaults synchronize];
+    }
+}
+
+- (void)ensureStorageLocation
+{
+    if (PresentationLibrary.libraryExistsAtPath == NO) {
+        [self selectStorageLocation];
+    }
+}
+
+- (void)selectStorageLocation
+{
+    NSAlert *alert = NSAlert.new;
+
+    alert.messageText = NSLocalizedString(ACSHELL_STR_SELECT_STORAGE_LOCATION, nil);
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_SELECT, nil)];
+    [alert addButtonWithTitle:NSLocalizedString(ACSHELL_STR_CANCEL, nil)];
+    alert.alertStyle = NSAlertStyleCritical;
+
+    [alert beginSheetModalForWindow:self.mainWindowController.window
+                  completionHandler:^(NSModalResponse returnCode) {
+        if (returnCode == NSAlertFirstButtonReturn) {
+            NSOpenPanel *dialog = NSOpenPanel.new;
+
+            [dialog selectStorageDirectory];
+        }
+    }];
 }
 
 @end

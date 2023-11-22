@@ -15,7 +15,6 @@
 #import "ACShellCollection.h"
 #import "NSAlert+Dialogs.h"
 
-#define AC_SHELL_TOOLBAR_ITEM_UPLOAD @"ACShellToolbarItemUpload"
 #define AC_SHELL_TOOLBAR_ITEM_SEARCH @"ACShellToolbarItemSearch"
 #define AC_SHELL_SEARCH_MAX_RESULTS  1000
 
@@ -35,18 +34,9 @@
     
     self.presentationLibrary = [PresentationLibrary sharedInstance];
     [self setupControllers];
-    [self bindMenuItems];
     
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(loadLibrary) name:ACShellLibraryDidUpdate object:nil];
     [NSNotificationCenter.defaultCenter addObserver:self selector:@selector(loadLibrary) name:ACShellLibraryConfigDidChange object:nil];
-}
-
-- (void)bindMenuItems
-{
-    NSMenuItem *file = [NSApplication.sharedApplication.menu itemAtIndex:1];
-    NSMenuItem *library = [file.submenu itemAtIndex:3];
-    NSMenuItem *upload = [library.submenu itemAtIndex:1];
-    [upload bind:@"enabled" toObject:self withKeyPath:@"editingEnabled" options:nil];
 }
 
 - (void)setupControllers
@@ -65,10 +55,6 @@
     if ([NSUserDefaults.standardUserDefaults boolForKey: ACSHELL_DEFAULT_KEY_EDITING_ENABLED]) {
         self.editWindowController = [[EditWindowController alloc] initWithPresentationLibrary:self.presentationLibrary];
     }
-    
-    self.rsyncController = RsyncController.new;
-    self.rsyncController.documentWindow = self.window;
-    self.rsyncController.delegate = self;
     
     KeynoteHandler.sharedHandler.launchDelegate = self;
     [KeynoteHandler.sharedHandler launch];
@@ -92,13 +78,6 @@
     [[PresentationLibrary sharedInstance] loadPresentations];
     [self.libraryViewController didChangeValueForKey:@"library"];
     [self.libraryViewController beautifyOutlineView];
-}
-
-- (void)start
-{
-    if (![self.presentationLibrary libraryExistsAtPath]) {
-        [self.rsyncController initialSyncWithSource: PresentationLibrary.librarySource destination: PresentationLibrary.libraryDirPath];
-    }
 }
 
 - (BOOL) editingEnabled
@@ -128,20 +107,6 @@
     self.presentationWindowController.categories = self.presentationLibrary.categories;
     self.presentationWindowController.presentations = self.libraryTableViewController.selectedPresentations;
     [self.presentationWindowController showWindow:nil];
-}
-
-- (IBAction)sync:(id)sender
-{
-    if ([self.presentationLibrary hasLibrary]) {
-        [self.rsyncController syncWithSource: PresentationLibrary.librarySource destination: PresentationLibrary.libraryDirPath];
-    } else {
-        [self.rsyncController initialSyncWithSource: PresentationLibrary.librarySource destination: PresentationLibrary.libraryDirPath];
-    }
-}
-
-- (IBAction)upload:(id)sender
-{
-    [self.rsyncController uploadWithSource: PresentationLibrary.libraryDirPath destination: PresentationLibrary.libraryTarget];
 }
 
 - (IBAction)addCollection:(id)sender
@@ -200,9 +165,6 @@
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)item
 {
-    if ([item.itemIdentifier isEqualToString:AC_SHELL_TOOLBAR_ITEM_UPLOAD]) {
-        return self.editingEnabled;
-    }
     return YES;
 }
 
@@ -237,17 +199,6 @@
 
 - (void)keynoteDidStartPresentation:(KeynoteHandler *)keynote {}
 - (void)keynoteDidStopPresentation:(KeynoteHandler *)keynote {}
-
-#pragma mark -
-#pragma mark RsyncControllerDelegate Protocol Methods
-
-- (void)rsync:(RsyncController *) controller didFinishSyncSuccessfully:(BOOL)successFlag {
-    self.presentationLibrary.syncSuccessful = successFlag;
-    [self.libraryViewController updateSyncFailedWarning];
-    if (successFlag) {
-        [self loadLibrary];
-    }
-}
 
 #pragma mark -
 #pragma mark LibraryTableDelegate Protocol Methods

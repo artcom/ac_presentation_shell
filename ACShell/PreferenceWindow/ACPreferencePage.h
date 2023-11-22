@@ -10,12 +10,12 @@
 
 
 @interface ACPreferencePage : NSViewController {
-    NSString * iconName;
+    NSString *iconName;
 }
 
-- (id) initFromNib: (NSString*) nibFilename title: (NSString*) title iconName: (NSString*) icon;
-- (id) initWithView: (NSView*) aView title: (NSString*) title iconName: (NSString*) icon;
+- (id)initFromNib:(NSString *)nibFilename title:(NSString *)title iconName:(NSString *)icon;
+- (id)initWithView:(NSView *)aView title:(NSString *)title iconName:(NSString *)icon;
 
-- (NSString*) toolbarItemIdentifier;
-- (NSString*) iconName;
+- (NSString *)toolbarItemIdentifier;
+- (NSString *)iconName;
 @end

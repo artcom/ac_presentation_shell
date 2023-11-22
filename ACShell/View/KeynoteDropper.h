@@ -7,12 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "IconDraglet.h"
 
 @protocol KeynoteDropperDelegate;
-@interface KeynoteDropper : IconDraglet
+@interface KeynoteDropper : NSImageView
 @property (nonatomic, weak) IBOutlet id<KeynoteDropperDelegate> delegate;
+@property (nonatomic, strong) NSString *filename;
 @property (readonly) BOOL fileExists;
+
 @end
 
 @protocol KeynoteDropperDelegate

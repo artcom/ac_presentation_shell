@@ -11,34 +11,37 @@
 
 @implementation ACPreferencePage
 
-- (id) initFromNib: (NSString*) nibFilename title: (NSString*) title 
-          iconName: (NSString*) icon 
+- (id)initFromNib:(NSString *)nibFilename title:(NSString *)title
+         iconName:(NSString *)icon
 {
-    self = [super initWithNibName: nibFilename bundle: nil];
+    self = [super initWithNibName:nibFilename bundle:nil];
+
     if (self != nil) {
-        [self setTitle: title];
+        [self setTitle:title];
         iconName = icon;
     }
+
     return self;
 }
 
-- (id) initWithView: (NSView*) aView title: (NSString*) title iconName: (NSString*) icon {
+- (id)initWithView:(NSView *)aView title:(NSString *)title iconName:(NSString *)icon {
     self = [super init];
+
     if (self != nil) {
-        [self setView: aView];
-        [self setTitle: title];
+        [self setView:aView];
+        [self setTitle:title];
         iconName = icon;
     }
+
     return self;
 }
 
-- (NSString*) toolbarItemIdentifier {
+- (NSString *)toolbarItemIdentifier {
     return self.title;
 }
 
-- (NSString*) iconName {
+- (NSString *)iconName {
     return iconName;
 }
-
 
 @end

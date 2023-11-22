@@ -23,5 +23,5 @@
 /* Class = "NSButtonCell"; title = "Change..."; ObjectID = "U1l-ni-ml7"; */
 "U1l-ni-ml7.title" = "Ändern...";
 
-/* Class = "NSTextFieldCell"; title = "Destination:"; ObjectID = "cOh-L1-Mw1"; */
-"cOh-L1-Mw1.title" = "Ziel:";
+/* Class = "NSTextFieldCell"; title = "Location:"; ObjectID = "cOh-L1-Mw1"; */
+"cOh-L1-Mw1.title" = "Ablageort:";

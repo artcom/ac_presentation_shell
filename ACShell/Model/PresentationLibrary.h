@@ -23,7 +23,6 @@
 @property (strong) NSArray *categories;
 @property (strong) NSArray *tags;
 @property (readonly) BOOL hasLibrary;
-@property (assign) BOOL syncSuccessful;
 @property (strong) NSString *categoriesDirectory;
 @property (assign) BOOL indexing;
 
@@ -32,11 +31,10 @@
 + (id)libraryFromSettingsFile;
 
 + (NSString *)libraryDirPath;
-+ (NSString *)librarySource;
-+ (NSString *)libraryTarget;
++ (NSString *) libraryFilePath;
 + (BOOL)editingEnabled;
++ (BOOL)libraryExistsAtPath;
 
-- (BOOL)libraryExistsAtPath;
 - (void)loadPresentations;
 - (void)saveSettings;
 - (BOOL)loadXmlLibraryFromDirectory: (NSString*) directory;

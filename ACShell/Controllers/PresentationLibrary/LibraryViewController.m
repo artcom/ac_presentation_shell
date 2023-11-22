@@ -34,7 +34,6 @@ enum CollectionActionTags {
     [self.collectionView registerForDraggedTypes:[NSArray arrayWithObject:ACSHELL_PRESENTATION]];
     
     [self beautifyOutlineView];
-    [self updateSyncFailedWarning];
 }
 
 - (NSMutableArray*) library {
@@ -58,14 +57,6 @@ enum CollectionActionTags {
         return NO;
     }
     return YES;
-}
-
-- (void) updateSyncFailedWarning {
-    BOOL lastSyncOk = self.presentationLibrary.syncSuccessful;
-    [self.warningIcon setHidden: lastSyncOk];
-    if ( ! lastSyncOk ) {
-        [self.warningIcon setToolTip: NSLocalizedString(ACSHELL_STR_LAST_SYNC_FAILED, nil)];
-    }
 }
 
 - (BOOL) isCollectionSelected {

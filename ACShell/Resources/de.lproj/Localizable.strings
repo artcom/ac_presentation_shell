@@ -1,9 +1,9 @@
 /*
- Localizable.strings
- ACShell
- 
- Created by David Siegel on 7/28/10.
- Copyright 2010 ART+COM AG. All rights reserved.
+   Localizable.strings
+   ACShell
+
+   Created by David Siegel on 7/28/10.
+   Copyright 2010 ART+COM AG. All rights reserved.
  */
 
 "Library" = "Bibliothek";
@@ -15,19 +15,9 @@
 "NPresentations" = "%d Präsentationen";
 "NewCollection" = "Neue Sammlung";
 "NoLibrary" = "Keine Bibliothek geladen";
-"SyncFailed" = "Synchronisation fehlgeschlagen";
-"SyncLibNow" = "Bibliothek jetzt synchronisieren?";
-"GoodConnection" = "Eine gute Netzwerkverbinung und Geduld sind gefragt.";
-"LibSynced" = "Bibliothek synchronisiert";
-"AbortSync" = "Synchronisation abbrechen?";
-"AbortSyncWarning" = "Abbruch kann zu einer inkonsitenten Bibliothek führen.";
-"Syncing" = "Synchronisiere Bibliothek";
-"TakeAWhile" = "Das kann eine Weile dauern.";
 "Abort" = "Abbrechen";
-"ContinueSync" = "Fortsetzen";
 "CheckedNofMFiles" = "%d von %d Dateien überprüft (%3.1f%%)";
 "CheckingNFiles" = "Überprüfe %d Dateien";
-"LastSyncFailed" = "Letzte Synchronisation fehlgeschlagen. Erneuter sync ist erforderlich.";
 "UpdatePresentation" = "Aktualisiere Präsentation";
 "DeleteCollection" = "Willst Du die ausgewählte Sammlung wirklich löschen?";
 "Delete" = "Löschen";
@@ -35,8 +25,6 @@
 "DeleteTag" = "Willst Du den ausgewählten Tag wirklich aus der Bibliothek löschen?";
 "DeleteTagInfo" = "Dieser Tag wird dann aus allen Präsentationen entfernt.";
 "DropKeynote" = "Lass eine Keynote fallen";
-"Upload" = "Hochladen";
-"UploadTooltip" = "Lokale Bibliothek auf den Server laden";
 "Cancel" = "Abbrechen";
 "OK" = "OK";
 "EditWindowTitle" = "Editieren";
@@ -52,7 +40,10 @@
 "WarnDuplicates" = "Es werden Duplikate zur Sammlung hinzugefügt. Möchtest Du die Duplikate hinzufügen oder überspringen?";
 "Add" = "Hinzufügen";
 "Skip" = "Überspringen";
-"WaitForActivation" = "Vielen Dank. Du kannst die Bibliothek synchronisieren sobald Dein Konto bestätigt wurde.";
+
+"SelectStorageLocation" = "Bitte wähle den Ablageort der ACShell Bibliothek aus.";
+"Select" = "Suchen...";
+
 "DeletePresentationWarning" = "Willst Du die gesamte Präsentation wirklich löschen?";
 "DeletingPresentation" = "Verschiebe Präsentation in den Papierkorb...";
 "FileOperationFailed" = "Vorgang abgebrochen.";
@@ -72,7 +63,7 @@
 "categories" = "Kategorien";
 
 "Continue" = "Fortfahren";
-"Quit"     = "Beenden";
-"Next"     = "Weiter";
-"Back"     = "Zurück";
-"Finish"   = "Abschliessen";
+"Quit" = "Beenden";
+"Next" = "Weiter";
+"Back" = "Zurück";
+"Finish" = "Abschliessen";

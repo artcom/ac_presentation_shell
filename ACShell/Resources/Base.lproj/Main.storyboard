@@ -81,23 +81,6 @@
                                         <menuItem isSeparatorItem="YES" id="jWc-Yw-tK7">
                                             <modifierMask key="keyEquivalentModifierMask" command="YES"/>
                                         </menuItem>
-                                        <menuItem title="Library" id="E3W-qK-gsO">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <menu key="submenu" title="Library" id="Q5E-p6-eRi">
-                                                <items>
-                                                    <menuItem title="Synchronize" keyEquivalent="s" id="qlS-iJ-CeT">
-                                                        <connections>
-                                                            <action selector="sync:" target="Ady-hI-5gd" id="Qho-jn-ZIi"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                    <menuItem title="Upload" keyEquivalent="u" id="NsA-4q-X2T">
-                                                        <connections>
-                                                            <action selector="upload:" target="Ady-hI-5gd" id="OrP-vW-ugz"/>
-                                                        </connections>
-                                                    </menuItem>
-                                                </items>
-                                            </menu>
-                                        </menuItem>
                                         <menuItem title="Close" keyEquivalent="w" id="a47-DO-EYl">
                                             <connections>
                                                 <action selector="performClose:" target="Ady-hI-5gd" id="ZeQ-kt-HQF"/>
@@ -240,17 +223,6 @@ CA
                                         <action selector="play:" target="B8D-0N-5wS" id="jmG-sW-Dk3"/>
                                     </connections>
                                 </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="E4827680-9674-400C-AF80-518EC7F65923" explicitItemIdentifier="ACShellToolbarItemSync" label="Sync" paletteLabel="Synchronize" toolTip="Synchronize With Server" tag="-1" image="arrow.triangle.2.circlepath" catalog="system" sizingBehavior="auto" id="jI6-Bx-GLt">
-                                    <connections>
-                                        <action selector="sync:" target="B8D-0N-5wS" id="Hq0-4y-hch"/>
-                                    </connections>
-                                </toolbarItem>
-                                <toolbarItem implicitItemIdentifier="34F5E731-7A0C-4684-A679-33C6473FED77" explicitItemIdentifier="ACShellToolbarItemUpload" label="Upload" paletteLabel="Upload" toolTip="Upload To Server" tag="-1" image="arrow.up" catalog="system" sizingBehavior="auto" id="ohL-OZ-O6d" userLabel="Upload">
-                                    <connections>
-                                        <action selector="upload:" target="B8D-0N-5wS" id="VKa-8o-i0U"/>
-                                        <binding destination="B8D-0N-5wS" name="enabled" keyPath="editingEnabled" id="3F6-Ys-XhC"/>
-                                    </connections>
-                                </toolbarItem>
                                 <searchToolbarItem implicitItemIdentifier="459B09BB-64FC-4919-BB8E-474F090EA869" explicitItemIdentifier="ACShellToolbarItemSearch" label="Search" paletteLabel="Search" visibilityPriority="1001" id="MY3-CN-wMk">
                                     <nil key="toolTip"/>
                                     <searchField key="view" verticalHuggingPriority="750" id="Omx-Nz-yDS">
@@ -273,10 +245,9 @@ CA
                                 <toolbarItem reference="1Vb-bB-Da3"/>
                                 <toolbarItem reference="cC8-Kq-U4B"/>
                                 <toolbarItem reference="UNw-C0-XEC"/>
+                                <toolbarItem reference="cC8-Kq-U4B"/>
                                 <toolbarItem reference="Nm0-bi-17c"/>
-                                <toolbarItem reference="jI6-Bx-GLt"/>
                                 <toolbarItem reference="Nm0-bi-17c"/>
-                                <toolbarItem reference="ohL-OZ-O6d"/>
                                 <toolbarItem reference="Nm0-bi-17c"/>
                                 <searchToolbarItem reference="MY3-CN-wMk"/>
                             </defaultToolbarItems>
@@ -325,14 +296,6 @@ CA
                         <rect key="frame" x="0.0" y="0.0" width="241" height="610"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView toolTip="Shit hit the fan." translatesAutoresizingMaskIntoConstraints="NO" id="Cag-Br-XvR">
-                                <rect key="frame" x="191" y="1.5" width="30.5" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="CVh-mR-WqG"/>
-                                    <constraint firstAttribute="width" constant="30" id="CmY-7s-ZPb"/>
-                                </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="exclamationmark.triangle.fill" catalog="system" id="6kq-lc-NHM"/>
-                            </imageView>
                             <scrollView focusRingType="none" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rqX-ZM-wSk">
                                 <rect key="frame" x="0.0" y="27" width="241" height="583"/>
                                 <clipView key="contentView" focusRingType="none" drawsBackground="NO" id="tVX-1f-ZZ5">
@@ -400,14 +363,11 @@ CA
                             </segmentedControl>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="BbM-PW-t6W" firstAttribute="centerY" secondItem="Cag-Br-XvR" secondAttribute="centerY" id="2vA-4O-huM"/>
                             <constraint firstItem="rqX-ZM-wSk" firstAttribute="top" secondItem="SdU-Ev-2ZG" secondAttribute="top" id="BSL-IT-9fX"/>
-                            <constraint firstAttribute="bottom" secondItem="Cag-Br-XvR" secondAttribute="bottom" constant="4" id="Bif-qN-J5m"/>
                             <constraint firstAttribute="bottom" secondItem="rqX-ZM-wSk" secondAttribute="bottom" constant="27" id="D4A-I5-52D"/>
                             <constraint firstItem="BbM-PW-t6W" firstAttribute="leading" secondItem="SdU-Ev-2ZG" secondAttribute="leading" constant="20" symbolic="YES" id="MWK-IT-1Nl"/>
                             <constraint firstAttribute="bottom" secondItem="BbM-PW-t6W" secondAttribute="bottom" constant="8" id="SiQ-vK-G2X"/>
                             <constraint firstItem="rqX-ZM-wSk" firstAttribute="leading" secondItem="SdU-Ev-2ZG" secondAttribute="leading" id="aNt-Nd-ZMm"/>
-                            <constraint firstAttribute="trailing" secondItem="Cag-Br-XvR" secondAttribute="trailing" constant="20" symbolic="YES" id="r1b-gJ-X8L"/>
                             <constraint firstAttribute="trailing" secondItem="rqX-ZM-wSk" secondAttribute="trailing" id="w29-kY-jEy"/>
                         </constraints>
                     </view>
@@ -415,7 +375,6 @@ CA
                         <outlet property="collectionActions" destination="BbM-PW-t6W" id="6v8-xK-XTY"/>
                         <outlet property="collectionTreeController" destination="1fy-rw-i8c" id="vjk-ml-MyS"/>
                         <outlet property="collectionView" destination="Qtk-xH-5KA" id="2Yn-lK-DzB"/>
-                        <outlet property="warningIcon" destination="Cag-Br-XvR" id="3Zh-3e-QoY"/>
                     </connections>
                 </viewController>
                 <customObject id="hKH-dU-8FV" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -684,9 +643,6 @@ CA
     <resources>
         <image name="NSAddTemplate" width="18" height="17"/>
         <image name="NSRemoveTemplate" width="18" height="5"/>
-        <image name="arrow.triangle.2.circlepath" catalog="system" width="18" height="15"/>
-        <image name="arrow.up" catalog="system" width="13" height="14"/>
-        <image name="exclamationmark.triangle.fill" catalog="system" width="17" height="15"/>
         <image name="play.rectangle" catalog="system" width="18" height="14"/>
         <image name="sidebar.left" catalog="system" width="18" height="14"/>
         <image name="star.fill" catalog="system" width="17" height="16"/>

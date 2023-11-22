@@ -10,6 +10,7 @@
 
 #import "ACPreferenceWindowController.h"
 #import "ACPreferencePage.h"
+#import "NSOpenPanel+Preferences.h"
 #import "default_keys.h"
 #import "localized_text_keys.h"
 
@@ -44,23 +45,8 @@
 }
 
 - (IBAction)changeDestination:(id)sender {
-    NSOpenPanel *dialog = [NSOpenPanel new];
-    dialog.showsResizeIndicator = YES;
-    dialog.showsHiddenFiles = YES;
-    dialog.allowsMultipleSelection = NO;
-    dialog.canChooseFiles = NO;
-    dialog.canChooseDirectories = YES;
-    
-    if ([dialog runModal] ==  NSModalResponseOK) {
-        NSString *path = dialog.URL.path;
-        if (path != nil) {
-            [NSUserDefaults.standardUserDefaults synchronize];
-            [NSUserDefaults.standardUserDefaults setObject:path forKey:ACSHELL_DEFAULT_KEY_RSYNC_DESTINATION];
-            [NSUserDefaults.standardUserDefaults synchronize];
-            
-            [NSNotificationCenter.defaultCenter postNotificationName:ACShellLibraryConfigDidChange object:nil];
-        }
-    }
+    NSOpenPanel *dialog = NSOpenPanel.new;
+    [dialog selectStorageDirectory];
 }
 
 @end

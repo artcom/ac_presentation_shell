@@ -1,9 +1,9 @@
-/* 
- Localizable.strings
- ACShell
- 
- Created by David Siegel on 7/28/10.
- Copyright 2010 ART+COM AG. All rights reserved.
+/*
+   Localizable.strings
+   ACShell
+
+   Created by David Siegel on 7/28/10.
+   Copyright 2010 ART+COM AG. All rights reserved.
  */
 
 
@@ -16,19 +16,9 @@
 "NPresentations" = "%d presentations";
 "NewCollection" = "new collection";
 "NoLibrary" = "No library loaded";
-"SyncFailed" = "Synchronization failed";
-"SyncLibNow" = "Synchronize library now?";
-"GoodConnection" = "A good network connection and some patience is required.";
-"LibSynced" = "Library synchronized";
-"AbortSync" = "Abort synchronization?";
-"AbortSyncWarning" = "Aborting sync may lead to an inconsistent library.";
-"Syncing" = "Synchronizing Library";
-"TakeAWhile" = "This may take a while.";
 "Abort" = "Abort";
-"ContinueSync" = "Continue syncing";
 "CheckedNofMFiles" = "Checked %d of %d files (%3.1f%%)";
 "CheckingNFiles" = "Checking %d files";
-"LastSyncFailed" = "Last sync failed. Resync required.";
 "UpdatePresentation" = "Updating presentation";
 "DeleteCollection" = "Do you really want to delete the selected collection?";
 "Delete" = "Delete";
@@ -37,8 +27,6 @@
 "DeleteTagInfo" = "This tag will be removed from all presentations.";
 
 "DropKeynote" = "Drop a keynote";
-"Upload" = "Upload";
-"UploadTooltip" = "Upload local library to server";
 "Cancel" = "Cancel";
 "OK" = "OK";
 "EditWindowTitle" = "Edit Presentation";
@@ -54,7 +42,10 @@
 "WarnDuplicates" = "There are duplicates being added to the collection. Would you like to add the duplicates or skip them?";
 "Add" = "Add";
 "Skip" = "Skip";
-"WaitForActivation" = "Thank you. You can synchronize your library after your account has been activated.";
+
+"SelectStorageLocation" = "Select the location of the ACShell library.";
+"Select" = "Select...";
+
 "DeletePresentationWarning" = "Do you really want to delete the entire presentation?";
 "DeletingPresentation" = "Moving presentation to trash...";
 "FileOperationFailed" = "File Operation failed.";
@@ -75,7 +66,7 @@
 "categories" = "Categories";
 
 "Continue" = "Continue";
-"Quit"     = "Quit";
-"Next"     = "Next";
-"Back"     = "Back";
-"Finish"   = "Finish";
+"Quit" = "Quit";
+"Next" = "Next";
+"Back" = "Back";
+"Finish" = "Finish";

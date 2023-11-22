@@ -9,11 +9,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface ACPreferenceWindowController : NSWindowController <NSToolbarDelegate, NSAnimationDelegate> {
-    NSArray * preferencePages;
-    
-    NSArray * toolbarIdentifiers;
+    NSArray *preferencePages;
+    NSArray *toolbarIdentifiers;
 }
 
-- (id)initWithPages: (NSArray*) pages;
+- (id)initWithPages:(NSArray *)pages;
 
 @end
